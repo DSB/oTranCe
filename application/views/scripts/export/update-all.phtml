@@ -1,0 +1,42 @@
+<div id="content">
+<h2>Export</h2>
+<h4>Exporting all languages</h4>
+<p>
+<table class="bdr">
+<?php
+    $exportError = false;
+    $cycle = $this->cycle(array('row-even', 'row-odd'));
+    foreach ($this->languages as $lang) {
+    ?>
+    <tr class="<?php echo $cycle->next();?>">
+        <td>Exporting language <b><?php echo $lang['name'];?></b> from database to file 'languages/<?php echo $lang['key'];?>/lang.php'</td>
+        <td>
+    <?php
+        if ($lang['filesize'] !== false) {
+            echo $this->getIcon('Ok', '', 16). ' Filesize: '.$this->byteOutput($lang['filesize']);
+        } else {
+            $exportError = true;
+            echo $this->getIcon('Attention', '', 16) . ' ERROR! The file couldn\'t be saved!';
+        }
+    ?>
+        </td>
+        </tr>
+    <?php
+    }
+    ?>
+</table>
+</p>
+<h4>Committing changes to Subversion Repository</h4>
+<p>
+    <pre><?php
+            if ($this->svnExportResult > '') {
+                echo $this->svnExportResult;
+            } else {
+                echo 'Nothing to do.';
+            }
+        ?>
+    </pre>
+</p>
+<br />
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>
+</div>

@@ -1,0 +1,128 @@
+<div id="content">
+<h2>Log</h2>
+<form action="<?php echo $this->baseUrl();?>/log/index" method="post" id="myForm" onsubmit="setPageInactive();">
+    <p style="margin:0;padding:0;">
+    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+
+        Filter by language:
+        <select name="filterLanguage" id="filterLanguage" onchange="resetOffset();$('#myForm').submit();">
+            <?php echo $this->selectFilterLanguage;?>
+        </select>
+        <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        &nbsp;Filter by user:
+        <select name="filterUser" id="filterUser" onchange="resetOffset();$('#myForm').submit();">
+            <?php echo $this->selectFilterUser;?>
+        </select>
+        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+
+        &nbsp;Filter by action:
+        <select name="filterAction" id="filterAction" onchange="resetOffset();$('#myForm').submit();">
+            <?php echo $this->selectFilterAction;?>
+        </select>
+        <button type="submit" class="Formbutton" onclick="$('#filterAction').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+
+        <br /><br />
+        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+        Hits: <?php echo $this->numberFormat($this->rows);?>
+    </p>
+</form>
+
+<table class="bdr">
+    <tr class="thead">
+<?php if ($this->canDelete) { ?>
+        <th>&nbsp;</th>
+<?php } ?>
+        <th>#</th>
+        <th>Date / Time</th>
+        <th>User</th>
+        <th>Action</th>
+        <th>Language</th>
+        <th>Key</th>
+        <th>New Value</th>
+        <th>Old Value</th>
+    </tr>
+<?php
+$i = $i = $this->offset+1;
+    if (sizeof($this->logEntries) == 0) {
+        ?>
+        <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
+            <td colspan="8" class="small error">Sorry, no Hits</td>
+        </tr>
+
+        <?php
+    }
+foreach ($this->logEntries as $entry)
+{
+?>
+    <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
+        <?php
+            if ($this->canDelete) {
+                $delete = '<a href="#" title="Delete log entry" onclick="deleteLogEntry(\''
+                            . $entry['id'] . '\');">';
+                echo '<td>' . $delete;
+                echo '<img src="' . $this->getIconSrc('delete', '') . '" style="padding-top:2px;" alt="" '
+                    .'title="Delete this log entry" height="10" width="10"/> ';
+                echo '</a></td>';
+            }
+        ?>
+        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
+        <td class="small nowrap"><?php echo $entry['dt'];?></td>
+        <td class="small"><?php echo $this->printTranslators($entry['user_id']);?></td>
+        <td class="small nowrap"><?php echo $entry['action'];?></td>
+        <td class="small">
+            <?php
+                if (isset($this->languages[$entry['lang_id']])) {
+                    echo $this->languages[$entry['lang_id']];
+                } else {
+                    echo '-';
+                }
+            ?>
+        </td>
+        <td class="small">
+            <?php
+                if ($entry['key_id'] == 0) {
+                    echo '-';
+            } else {
+                echo $entry['key'];
+            }
+            ;?>
+        </td>
+        <td class="small"><?php echo str_replace('<br>', '<br />', $entry['newValue']);?></td>
+        <td class="small"><?php echo str_replace('<br>', '<br />', $entry['oldValue']);?></td>
+    </tr>
+<?php
+    $i++;
+}
+?>
+</table>
+</div>
+<script type="text/javascript">
+function deleteLogEntry(id)
+{
+    if (confirm('Are you really sure you want to delete this log entry?')) {
+        $('#myForm').attr('action', '<?php echo $this->baseUrl();?>/log/delete/id/' + id);
+        setPageInactive();
+        $('#myForm').submit();
+    }
+}
+</script>

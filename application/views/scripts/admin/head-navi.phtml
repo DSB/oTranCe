@@ -1,0 +1,47 @@
+<?php
+$usersUrl           = $this->url(array('controller'=>'admin','action'=>'users'));
+$languagesUrl       = $this->url(array('controller'=>'admin','action'=>'languages'));
+$filesUrl           = $this->url(array('controller'=>'admin','action'=>'files'));
+$importUrl          = $this->url(array('controller'=>'admin','action'=>'import'));
+
+// get action name to set the active item in TabBar
+$actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+
+// format action name and escape possible dot in action name
+$actionName = str_replace('.', '\\\.', $actionName);
+$this->jQuery()->javascriptCaptureStart(); ?>
+    // set selected tab
+    $(document).ready(function() {
+        $('#<?php echo $actionName; ?>').addClass("ui-state-active");
+        $('#<?php echo $actionName; ?>').addClass("ui-tabs-selected");
+    });
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
+
+<div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li id="users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $usersUrl;?>">
+                <?php echo$this->getIcon('Users', '', 16);?>
+                Users
+            </a>
+        </li>
+        <li id="languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $languagesUrl;?>">
+                <?php echo$this->getIcon('Document', '', 16);?>
+                Languages
+            </a>
+        </li>
+        <li id="files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $filesUrl;?>">
+                <?php echo$this->getIcon('OpenFile', '', 16);?>
+                Files
+            </a>
+        </li>
+        <li id="import" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $importUrl;?>">
+                <?php echo$this->getIcon('Server', '', 16);?>
+                Import
+            </a>
+        </li>
+    </ul>
+</div>

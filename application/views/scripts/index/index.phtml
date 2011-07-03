@@ -1,0 +1,70 @@
+<?php
+$i = 1;
+?>
+<div id="content">
+<h2>Home</h2>
+<h4>Status of language packs:</h4>
+<table class="bdr">
+    <tr class="thead">
+        <th>#</th>
+        <th colspan="3">Language</th>
+        <th>Progress</th>
+        <th><?php echo $this->getIcon('Ok', 'Done', 16);?></th>
+        <th><?php echo $this->getIcon('Edit', 'To do', 16);?></th>
+        <th>Done</th>
+        <th>Status</th>
+        <th>User with edit rights</th>
+    </tr>
+<?php
+foreach ($this->status as $langId => $val)
+{
+    $greenBar = (int) $val['done'] * 2;
+    $redBar = (int) 200-$greenBar;
+?>
+    <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
+        <td class="small right"><?php echo $i;?>.</td>
+        <td class="small">
+            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langId]['locale'];?>.gif"
+                 alt="<?php echo $this->languages[$langId]['locale'];?>"
+                 title="<?php echo $this->languages[$langId]['locale'];?>" width="25" height="15"/>
+        </td>
+        <td class="small"><?php echo $this->languages[$langId]['locale'];?></td>
+        <td class="small"><?php echo $this->languages[$langId]['name'];?></td>
+        <td class="small right">
+            <div style="width:200px;height:14px;border:1px solid #ccc;margin-top:2px;">
+                <div class="greenBar" style="width:<?php echo $greenBar;?>px;">&nbsp;</div>
+                <div class="redBar" style="width:<?php echo $redBar;?>px;">&nbsp;</div>
+             </div>
+             <div style="position:relative;top:-15px;left:-6px;"><?php echo $val['done'];?>%</div>
+         </td>
+        <td class="small right"><?php echo $val['translated'];?></td>
+        <td class="small right">
+            <?php
+                if ($val['notTranslated'] == 0) {
+                    echo '-';
+                } else {
+                    echo $val['notTranslated'];
+        }
+            ?>
+        </td>
+        <td class="small right"><?php echo $val['done'];?>%</td>
+        <td class="small">
+        <?php
+            if ($val['done'] < 90) {
+                echo '<span class="error">Needs work</span>';
+            } elseif ($val['done']<98) {
+                echo '<span class="ok">Ok</span>';
+            } else {
+                echo '<span class="ok">Perfect</span>';
+            }
+        ?>
+
+        </td>
+        <td class="small"><?php echo $this->printTranslators($val['translators']);?></td>
+    </tr>
+<?php
+    $i++;
+}
+?>
+</table>
+</div>

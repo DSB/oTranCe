@@ -1,0 +1,69 @@
+<?php
+$i = 1;
+$export = $this->export;
+?>
+<div id="content">
+<h2>Export</h2>
+<h4>File status of language packs in SVN:</h4>
+
+    <table class="bdr">
+    <tr class="thead">
+        <th>#</th>
+        <th colspan="3">Language</th>
+        <th>Timestamp SVN</th>
+        <th colspan="3">Latest change</th>
+    </tr>
+<?php
+$languagesToUpdate = 0;
+foreach ($this->status as $key => $s)
+{
+    $tsSvn = $export->convertUnixDate($export->getFileTimestamp($key) +60);
+    $tsDb = $this->historyModel->getLatestChange($key);
+?>
+    <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
+        <td class="small right"><?php echo $i;?>.</td>
+        <td class="small">
+            <img src="<?php echo $this->baseUrl() . '/images/flags/'.$this->languages[$key]['locale'];?>.gif"
+                 alt="<?php echo $key;?>" title="<?php echo $this->languages[$key]['locale'];?>" width="25" height="15"/>
+        </td>
+        <td class="small"><?php echo $this->languages[$key]['locale'];?></td>
+        <td class="small"><?php echo $s['languageName'];?></td>
+        <td class="small right"><?php echo $tsSvn;?></td>
+        <td class="small right"><?php echo $tsDb;?></td>
+        <td>
+            <?php
+                if ($tsSvn > $tsDb) {
+                    echo $this->getIcon('Ok', 'Language pack is up to date', 16);
+                } else {
+                    $languagesToUpdate++;
+                    echo $this->getIcon('Attention', 'Language pack needs update', 16);
+                }
+            ?>
+        </td>
+        <td>
+            <?php
+                if ($tsSvn < $tsDb) {
+                ?>
+                <a href="<?php echo $this->baseUrl()."/export/update/language/".$key;?>" class="Formbutton">
+                    <?php echo $this->getIcon('save', 'Update SVN');?> Save and export to SVN</a>
+                <?php
+                }
+            ?>
+        </td>
+    </tr>
+<?php
+    $i++;
+}
+?>
+</table>
+<?php
+if ($languagesToUpdate > 1) {
+?>
+    <br />
+    <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
+        <?php echo $this->getIcon('save', 'Update SVN');?> Save and export all languages</a>
+    </a>
+<?php
+}
+?>
+</div>

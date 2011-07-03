@@ -1,0 +1,188 @@
+<?php
+$i = $this->offset+1;
+$languageModel = new Application_Model_Languages();
+?>
+<div id="content">
+<h2>Edit entries</h2>
+
+<form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
+    <p style="margin:0;padding:0;">
+        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+        Filter / Search:
+        <input
+                <?php if ($this->getUntranslated > 0) {
+                    echo ' disabled="disabled"';
+                }?>
+            type="text" class="text" id="filter" name="filter" value="<?php echo $this->escape($this->filter);?>" onchange="resetOffset()"/>
+        <button
+            <?php if ($this->getUntranslated > 0) {
+                echo ' disabled="disabled"';
+            }?>
+            type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+            <?php echo $this->getIcon('search', '', 16);?> Search
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filter').val('');resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        <?php
+        if ($this->addVar) { ?>
+             <button type="submit" class="Formbutton" name="addVar" value="addVar">
+                 <?php echo $this->getIcon('plus', '');?> Add new variable
+             </button>
+            <?php
+        }
+            ?>
+        <span style="float:right;padding:0;margin:0;">
+            Find untranslated for:
+            <select id="getUntranslated" name="getUntranslated">
+                <option value="0">---</option>
+                <?php echo $this->selLanguage;?>
+            </select>
+
+            <button type="submit" class="Formbutton" onclick="resetOffset();">
+                <?php echo $this->getIcon('Edit', '', 16);?> Find
+            </button>
+        </span>
+        <br /><br />
+        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+        Entries per page:
+        <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+            <?php echo $this->selRecordsPerPage;?>
+        </select>
+        Hits: <?php echo $this->numberFormat($this->rows);?>
+
+    </p>
+</form>
+
+<table class="bdr">
+    <tr class="thead">
+        <?php
+            if ($this->addVar) {
+                echo '<th>&nbsp;</th>';
+            }
+            ?>
+        <th>#</th>
+        <th>Key</th>
+        <?php
+            foreach ($this->showLanguages as $lang) {
+        ?>
+                <th colspan="2" class="nowrap">
+                    <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$lang]['locale'];?>.gif"
+                            width="16" height="10" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"/>
+                    <?php echo $this->languages[$lang]['name'];?>
+                </th>
+        <?php
+            }
+        ?>
+    </tr>
+<?php
+foreach ($this->hits as $hit)
+{
+    $keyId = $hit['id'];
+    $entry = $languageModel->getEntryById($keyId, $this->showLanguages);
+    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable">';
+    ?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <?php
+            if ($this->addVar) {
+                $delete = '<a href="#" title="Delete language variable" onclick="deleteVar(\''
+                            . $keyId . '\',\''
+                            . $hit['key'] . '\');">';
+
+                echo '<td>' . $delete;
+                echo '<img src="' . $this->getIconSrc('delete', '') . '" style="padding-top:2px;" alt="" '
+                    .'title="Delete variable" height="10" width="10"/> ';
+                echo '</a></td>';
+            }
+        ?>
+        <td class="small right">
+            <?php echo $this->numberFormat($i);?>.
+        </td>
+        <td class="ssmall">
+            <?php echo $edit . $hit['key'];?></a>
+        </td>
+        <?php
+        foreach ($this->showLanguages as $lang) {
+            $text = isset($entry[$lang]) ? $entry[$lang] : '';
+            $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
+            if (!isset($text) || $text == '') {
+                $text = '<i>untranslated</i>';
+            }
+            if (in_array($lang, $this->languagesEdit)) {
+                echo '<td class="small">'. $edit . $this->getIcon('Edit', '').'</a></td>'
+                    .'<td>'. $edit. $text . '</a></td>';
+            } else {
+                echo '<td class="small" colspan="2">'. $text .'</td>';
+            }
+        }
+        ?>
+    </tr>
+<?php
+    $i++;
+}
+if ($this->rows == 0) {
+    $rowCount = 5+count($this->languagesEdit)+count($this->showLanguages);
+    if ($this->addVar) {
+        $rowCount++;
+    }
+?>
+    <tr class="row-even">
+        <td colspan="<?php echo $rowCount;?>" class="small">
+            <br />
+            <?php if ($this->getUntranslated > 0) { ?>
+                <span class="ok">
+                Congratulations!<br /><br />
+                All variables of the language <?php echo $this->languages[$this->getUntranslated]['name'];?>
+                are translated. Perfect!<br />
+                Please come back in a few days and check if new variables have been added meanwhile.
+                <br /><br />Thank you very much for your work and efforts.<br />
+                All users will be thankful for this. <br />Hopefully. ;)
+                </span>
+            <?php } else { ?>
+            Nothing found.<br />
+            Select another filter / search value.
+            <?php } ?>
+            <br /><br />
+        </td>
+    </tr>
+<?php
+}
+    ?>
+</table>
+</div>
+<script type="text/javascript">
+$('#filter').keypress(function (e) {
+    var code = null;
+    code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) {
+        resetOffset();
+        $('#getUntranslated option[value=\'0\']').attr('selected', true);
+        $('#myForm').submit();
+    } else {
+        return true;
+    }
+});
+
+function deleteVar(id, name)
+{
+    if (confirm('Are you really sure you want to delete the variable \''+name+'\'?\nAll language entries will be lost!')) {
+        setPageInactive();
+        self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
+    }
+}
+</script>

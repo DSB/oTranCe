@@ -1,0 +1,194 @@
+<?php
+$entry = $this->entry;
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$this->translatable = Msd_Google::getTranslatableLanguages();
+?>
+<div id="content">
+    <h2>Edit entry</h2>
+    <h4>Key: <?php echo $this->key['key'];?>
+<?php
+if (isset($this->entrySaved)) {
+            if ($this->entrySaved === true) {
+                echo '<span id="saveMessage" class="ok"> '
+                    .$this->getIcon('Ok','',16)
+                    .'Entry saved successfully.</span>';
+            } else {
+                echo '<span id="saveMessage" class="error"> '.$this->getIcon('Attention','',16)
+                     .' Error saving entry: ' . $this->entrySaved
+                     . '</span>';
+            }
+        }
+        ?>
+    </h4>
+    <div style="float:left;margin-right:20px;">
+        <form action="<?php echo $this->baseUrl();?>/entries/edit" method="post">
+            <table class="bdr">
+                <tr class="thead"><th colspan="2">Edit:</th></tr>
+<?php
+    foreach ($this->languagesEdit as $lang) {
+                $rowclass = $cycleHelper->next();
+                ?>
+                <tr class="<?php echo $rowclass;?>">
+                    <td>
+                        <img src="<?php echo $this->baseUrl() . '/images/flags/'. $this->languages[$lang]['locale']; ?>.gif"
+                             width="16" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"
+                             title="Flag <?php echo $this->languages[$lang]['locale'];?>"/>
+                    </td>
+                    <td>
+                        <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
+                    </td>
+                </tr>
+                <tr class="<?php echo $rowclass;?>">
+                    <td>&nbsp;</td>
+                    <td>
+                        <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
+                                  class="textarea-edit" rows="2" cols="55"><?php
+                                    if (isset($entry[$lang])) {
+                                        echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
+                                    };?></textarea>
+                        <br /><br />
+                    </td>
+                </tr>
+                <?php
+                    }
+                ?>
+                <tr class="<?php echo $cycleHelper->next();?>">
+                    <td>&nbsp;</td>
+                    <td>
+                        <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
+                        <input type="submit" class="Formbutton" name="save" value="Save" />
+                        <input type="submit" class="Formbutton" name="saveReturn" value="Save &amp; Return" />
+                        <!--
+                        <input type="submit" class="Formbutton" name="saveUntranslated" value="Save &amp; Get Untranslated" />
+                        -->
+                        <input type="submit" class="Formbutton" name="cancel" value="Cancel" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <br /><br />
+    </div>
+<?php
+$cycleHelper->rewind();
+if (!empty($this->referenceLanguages)) {
+?>
+    <div style="float:left">
+        <table class="bdr">
+            <tr class="thead"><th colspan="5">Reference languages:</th></tr>
+            <?php
+            $rowclass = $cycleHelper->next();
+            foreach ($this->referenceLanguages as $lang) {
+                $rowclass = $cycleHelper->next();
+                ?>
+                <tr class="<?php echo $rowclass;?>">
+                    <td>
+                        <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$lang]['locale']; ?>.gif"
+                             width="16" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"
+                             title="Flag <?php echo $this->languages[$lang]['locale'];?>"/><br />
+                    </td>
+                    <td colspan="4">
+                        <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
+                        <?php
+                            if (!isset($entry[$lang])) {
+                                echo '<i>Untranslated</i></td></tr>';
+                                continue;
+                            }
+                        ?>
+                        <br />
+                    </td>
+                </tr>
+                <tr class="<?php echo $rowclass;?>">
+                    <td>&nbsp;</td>
+                    <td colspan="4">
+                        <textarea id="textarea-<?php echo $this->languages[$lang]['id'];?>" class="textarea-edit" rows="2" cols="55"><?php echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));?></textarea>
+                    </td>
+                </tr>
+                <tr class="<?php echo $rowclass;?>">
+                    <td>&nbsp;</td>
+                    <td class="small">Copy to:</td>
+                    <td>
+                        <?php foreach ($this->languagesEdit as $langEdit) { ?>
+                        <a href="#" class="copy">
+                            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langEdit]['locale']; ?>.gif"
+                                 width="16" alt="<?php echo $this->languages[$langEdit]['name'];?>"
+                                 title="<?php echo $this->languages[$langEdit]['name'];?>"
+                                 id="copy-<?php echo $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id'];?>" />
+                        </a>
+                        <?php } ?>
+                    </td>
+                    <td class="small">Translate into:</td>
+                    <td>
+                        <?php foreach ($this->languagesEdit as $langEdit) {
+                        if (in_array($this->languages[$langEdit]['locale'], $this->translatable) && in_array($this->languages[$lang]['locale'], $this->translatable)) {
+                            if ($lang == $langEdit) {
+                                continue;
+                            }
+                            ?>
+                            <a href="#" class="translate">
+                                <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langEdit]['locale'];?>.gif"
+                                     width="16" alt="<?php echo $this->languages[$langEdit]['name'];?>"
+                                     title="<?php echo $this->languages[$langEdit]['name'];?>"
+                                     id="translate-<?php echo $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id'];?>"
+                                     style="margin-top:4px;"/>
+                            </a>
+                            <?php
+                        }
+                    }
+                        ?>
+                    </td>
+                </tr>
+                <tr class="<?php echo $cycleHelper->next();?>"><td colspan="5">&nbsp;</td></tr>
+                <?php
+            }
+            ?>
+        </table>
+    </div>
+<?php
+}
+?>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("textarea").autoGrow();
+    $('.copy').click(function (e) {
+        copyLang(e);
+    });
+    $('.translate').click(function (e) {
+        translate(e);
+    });
+<?php if (isset($this->entrySaved)) { ?>
+    $('#saveMessage').delay(3000).fadeOut(1400);
+<?php } ?>
+    });
+
+function copyLang(event) {
+    var lang = event.target.id;
+    lang = lang.substr(5);
+    lang = lang.split('-');
+    $('#edit-'+lang[1]).val($('#textarea-'+lang[0]).val());
+    $('#edit-'+lang[1]).focus();
+}
+
+function translate(event) {
+    var lang = event.target.id;
+    lang = lang.substr(10);
+    lang = lang.split('-');
+    var sourceLang = lang[0];
+    var targetLang = lang[1];
+    setPageInactive();
+    $.ajax({
+        url: '<?php echo $this->baseUrl();?>/ajax/index/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
+        dataType : 'HTML',
+        success: function(response) {
+            $('#edit-'+lang[1]).val(response.trim());
+            $('#edit-'+lang[1]).focus();
+            setPageActive();
+        },
+        error: function() {
+            $('#edit-'+lang[1]).val('Error: ' + response);
+            $('#edit-'+lang[1]).focus();
+            setPageActive();
+        }
+    });
+}
+</script>

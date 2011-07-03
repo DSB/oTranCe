@@ -1,0 +1,93 @@
+<h2>Admin - Users</h2>
+<?php echo $this->partial('admin/head-navi.phtml'); ?>
+
+<form action="<?php echo $this->baseUrl();?>/admin/users/" method="post" id="myForm">
+    <p style="margin:0;padding:0;">
+        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+        Filter / Search:
+        <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
+        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+            <?php echo $this->getIcon('search', '', 16);?> Search
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+            <?php echo $this->getIcon('plus', '');?> Add user
+        </button>
+        <br /><br />
+
+        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+        Entries per page:
+        <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+            <?php echo $this->selRecordsPerPage;?>
+        </select>
+        Hits: <?php echo $this->numberFormat($this->hits);?>
+
+    </p>
+</form>
+
+<table class="bdr">
+    <tr class="thead">
+        <th>&nbsp;</th>
+        <th>#</th>
+        <th>Username</th>
+        <th colspan="3">Can edit</th>
+    </tr>
+<?php
+
+$i = 01;
+foreach ($this->users as $userId => $userName)
+{
+    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+    $edit = '<a href="'.$this->baseUrl().'/admin/users/edit/'.$userId .'" title="Edit user">';
+    ?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td class="small">
+            <?php echo $edit . $this->getIcon('Edit', '');?></a>
+        </td>
+        <td class="small right">
+            <?php echo $this->numberFormat($i);?>.
+        </td>
+        <td class="ssmall"><?php echo $edit . $userName;?></a></td>
+        <td class="ssmall">
+            <table>
+        <?php
+            $languageEditRights = $this->userModel->getUserRights('edit', $userId);
+            foreach ($languageEditRights as $langId) {
+                if (isset($this->languages[$langId])) {
+                ?>
+                    <tr>
+                    <td class="small">
+                        <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langId]['locale'];?>.gif"
+                             alt="<?php echo $this->languages[$langId]['locale'];?>"
+                             title="<?php echo $this->languages[$langId]['locale'];?>" width="20" />
+                    </td>
+                    <td><?php echo $this->languages[$langId]['locale'];?></td>
+                    <td><?php echo $this->languages[$langId]['name'];?></td>
+                    </tr>
+            <?php
+                }
+            } ?>
+            </table>
+        </td>
+    </tr>
+    <?php
+    $i++;
+}
+?>
+</table>

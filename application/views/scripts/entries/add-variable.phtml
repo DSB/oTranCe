@@ -1,0 +1,37 @@
+<div id="content">
+    <h2>Add entry</h2>
+    <h4>Add a new language variable</h4>
+    <form action="<?php echo $this->baseUrl();?>/entries/add-variable" method="post">
+    <p>
+        Enter the name of the new language variable:
+        <input type="text" style="width:400px;" id="var" class="text" name="var" value="<?php echo $this->escape($this->newVar);?>" />
+        <br /><br />
+        <button type="submit" class="Formbutton" value="Save" name="save">
+            <?php echo $this->getIcon('save', '');?> Save
+        </button>
+        <button type="submit" class="Formbutton" value="Cancel" name="cancel" />
+            <?php echo $this->getIcon('delete', '');?> Cancel
+        </button>
+    </p>
+    </form>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#var').focus();
+})
+</script>
+<?php
+if (isset($this->error)) {
+    $this->popUpMessage()->addMessage(
+        'error',
+        'Error',
+        $this->error,
+        array(
+            'modal' => true,
+            'height' => 160,
+            'width' => 300,
+            'dialogClass' => 'error',
+        )
+    );
+}
+?>

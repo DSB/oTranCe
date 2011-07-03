@@ -1,0 +1,39 @@
+<h2>Statistics</h2>
+<h4>Activities:</h4>
+<table class="bdr">
+    <tr class="thead">
+        <th>#</th>
+        <th>User</th>
+        <th colspan="3">Language</th>
+        <th>Edit actions</th>
+    </tr>
+
+<?php
+$i = 0;
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$lastUser = '';
+foreach ($this->userStatistics as $user) {
+    if ($lastUser != $user['user_id']) {
+        $userChanged = true;
+        $i++;
+    } else {
+        $userChanged = false;
+    }
+?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td class="small right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
+        <td class="small">&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
+        <td class="small">
+            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$user['lang_id']]['locale'];?>.gif"
+                width="16" height="10" alt="Flag <?php echo $this->languages[$user['lang_id']]['locale'];?>"
+                title="Flag <?php echo $this->languages[$user['lang_id']]['locale'];?>"/>
+        </td>
+        <td class="small"><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
+        <td class="small"><?php echo $this->languages[$user['lang_id']]['name'];?></td>
+        <td class="small right"><?php echo $this->numberFormat($user['editActions']);?></td>
+    </tr>
+<?php
+    $lastUser = $user['user_id'];
+}
+?>
+</table>

@@ -1,0 +1,27 @@
+<div id="content">
+<h2>Export</h2>
+<h4>Exporting language '<?php echo $this->language;?>':</h4>
+<p>
+    Exporting data from database to file 'languages/<?php echo $this->language;?>/lang.php'.
+    <br /><br />
+    <?php
+        if ($this->filesize !== false) {
+            echo $this->getIcon('Ok', '', 16). ' Ok - Filesize: '.$this->byteOutput($this->filesize);
+        } else {
+            echo $this->getIcon('Attention', '', 16) . ' - ERROR! The file couldn\'t be saved!';
+        }
+    ?>
+</p>
+<?php
+if ($this->filesize) {
+?>
+   <h4>Committing changes to Subversion Repository:</h4>
+    <p>
+        <pre><?php echo $this->svnExportResult;?></pre>
+    </p>
+<?php
+}
+?>
+<br />
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>
+</div>

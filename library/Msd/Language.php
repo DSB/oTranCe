@@ -178,8 +178,6 @@ class Msd_Language
      */
     public function getAvailableLanguages()
     {
-        $lang = array();
-        include $this->_baseLanguageDir . 'lang_list.php';
-        return $lang;
+        return array('en' => 'English');
     }
 }

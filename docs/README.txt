@@ -1,7 +1,7 @@
 README
 ======
 
-Installaing instructions:
+Installing instructions:
  
 - Create a MySQL database e.g. "translations" using PhpMyAdmin, MySQLDumper or the shell
 - Import the db_schema.sql file (located in this folder) into the database using any of the above mentioned programs)

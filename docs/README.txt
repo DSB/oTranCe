@@ -2,7 +2,7 @@ README
 ======
 
 Installing instructions:
- 
+
 - open the file application/configs/defaultConfig.dist.ini, change params to your needs and save it as defaultConfig.ini to the same folder
 - Create a MySQL database e.g. "translations" using PhpMyAdmin, MySQLDumper or the shell
 - Import the db_schema.sql file (located in this folder) into the database using any of the above mentioned programs)
@@ -21,17 +21,17 @@ The following is a sample VHOST you might want to consider for your project.
 
    # This should be omitted in the production environment
    SetEnv APPLICATION_ENV production
-    
+
    <Directory "E:/PHP/oTranCe/public">
        Options Indexes MultiViews FollowSymLinks
        AllowOverride All
        Order allow,deny
        Allow from all
    </Directory>
-    
+
 </VirtualHost>
 
-- open the file public/.htaccess and add the rewrite base of your alias as first line
+- open the file public/.htaccess.dir, change the rewrite base line to your alias and save it as .htaccess to the same folder
 e.g.:
 
 RewriteBase /oTranCe

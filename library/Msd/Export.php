@@ -7,7 +7,41 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class Msd_Export {
+class Msd_Export
+{
+    /**
+     * Name of subversion user
+     * @var string
+     */
+    private $_svnUser;
+
+    /**
+     * Password of subversion user
+     * @var string
+     */
+    private $_svnPassword;
+
+    /**
+     * Commit message when changing one language
+     * @var string
+     */
+    private $_commitMessageOneLanguage;
+
+    /**
+     * Commit message when changing all languages
+     * @var string
+     */
+    private $_commitMessageAllLanguages;
+
+    public function __construct()
+    {
+        $config = Msd_Configuration::getInstance();
+        $this->_svnUser = $config->get('config.subversion.user');
+        $this->_svnPassword = $config->get('config.subversion.password');
+        $this->_commitMessageOneLanguage = $config->get('config.subversion.commitMessageOneLanguage');
+        $this->_commitMessageAllLanguages = $config->get('config.subversion.commitMessageAllLanguages');
+
+    }
 
     /**
      * Get last change timestamp of a file
@@ -91,8 +125,9 @@ $lang=array();
      */
     public function updateSvn($language)
     {
-        $cmd = 'svn ci --username TranslationCenter --password wirt15115 -m"Update for language pack '
-               .$language.'" '.EXPORT_PATH.'/language/'.$language.'/lang.php';
+        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
+                .' -m"' . sprintf($this->_commitMessageOneLanguage, $language) . '" '
+               .' '.EXPORT_PATH.'/language/'.$language.'/lang.php';
         $res = shell_exec($cmd);
         if (trim($res == '')) {
             $res = 'Nothing to update.';
@@ -107,7 +142,8 @@ $lang=array();
      */
     public function updateSvnAll()
     {
-        $cmd = 'svn ci --username TranslationCenter --password wirt15115 -m"Update for language packs" '
+        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
+                .' -m"' . $this->_commitMessageAllLanguages . '" '
                . EXPORT_PATH.'/language';
         $res = shell_exec($cmd);
         if (trim($res == '')) {

@@ -1,12 +1,11 @@
 README
 ======
- 
-This directory should be used to place project specfic documentation including
-but not limited to project notes, generated API/phpdoc documentation, or 
-manual files generated or hand written.  Ideally, this directory would remain
-in your development environment only and should not be deployed with your
-application to it's final production location.
 
+Installaing instructions:
+ 
+- Create a MySQL database e.g. "translations" using PhpMyAdmin, MySQLDumper or the shell
+- Import the db_schema.sql file (located in this folder) into the database using any of the above mentioned programs)
+- Create a vhost
 
 Setting Up Your VHOST
 =====================
@@ -29,12 +28,5 @@ The following is a sample VHOST you might want to consider for your project.
     
 </VirtualHost>
 
-Set up MySql tables:
-
--- todo 
-
-Set configuration:
-
-- Open the file application/configs/defaultConfig.dist.ini
-- Edit the params and set them to your needs
-- Save the file as "defaultConfig.ini" in the same folder (application/configs/)
+- start the application in your browser by calling the url of your vhost
+- log in using the username "Tester" and the password "test"

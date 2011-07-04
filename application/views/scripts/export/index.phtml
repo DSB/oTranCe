@@ -27,7 +27,7 @@ foreach ($this->status as $key => $s)
                  alt="<?php echo $key;?>" title="<?php echo $this->languages[$key]['locale'];?>" width="25" height="15"/>
         </td>
         <td class="small"><?php echo $this->languages[$key]['locale'];?></td>
-        <td class="small"><?php echo $s['languageName'];?></td>
+        <td class="small"><?php echo $this->languages[$key]['name'];?></td>
         <td class="small right"><?php echo $tsSvn;?></td>
         <td class="small right"><?php echo $tsDb;?></td>
         <td>

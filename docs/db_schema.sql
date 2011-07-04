@@ -160,9 +160,10 @@ CREATE TABLE `userrights` (
 /*!40000 ALTER TABLE `userrights` DISABLE KEYS */;
 INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('1','1','addVar','1');
 INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('2','1','edit','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('5','1','edit','3');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('4','2','edit','0');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('6','1','admin','1');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('3','2','edit','0');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('4','1','edit','3');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('5','1','admin','1');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('2','2','edit','1');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -206,10 +207,12 @@ CREATE TABLE `usersettings` (
 --
 
 /*!40000 ALTER TABLE `usersettings` DISABLE KEYS */;
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('95','1','recordsPerPage','30');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('98','1','referenceLanguage','3');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('97','1','referenceLanguage','2');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('96','1','referenceLanguage','1');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('1','1','recordsPerPage','30');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('2','1','referenceLanguage','3');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('3','1','referenceLanguage','2');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('4','1','referenceLanguage','1');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('5','2','referenceLanguage','1');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('6','2','recordsPerPage','20');
 /*!40000 ALTER TABLE `usersettings` ENABLE KEYS */;
 
 SET FOREIGN_KEY_CHECKS=1;

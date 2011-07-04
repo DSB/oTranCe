@@ -28,5 +28,10 @@ The following is a sample VHOST you might want to consider for your project.
     
 </VirtualHost>
 
+- open the file public/.htaccess and add the rewrite base of your alias as first line
+e.g.:
+
+RewriteBase /oTranCe
+
 - start the application in your browser by calling the url of your vhost
 - log in using the username "Tester" and the password "test"

@@ -3,8 +3,11 @@ README
 
 Installing instructions:
  
+- open the file application/configs/defaultConfig.dist.ini, change params to your needs and save it as defaultConfig.ini to the same folder
 - Create a MySQL database e.g. "translations" using PhpMyAdmin, MySQLDumper or the shell
 - Import the db_schema.sql file (located in this folder) into the database using any of the above mentioned programs)
+(Note: if you changed the table names in defaultConfig.ini you must edit the file and change the table names here too!)
+
 - Create a vhost
 
 Setting Up Your VHOST

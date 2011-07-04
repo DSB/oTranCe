@@ -208,7 +208,7 @@ class EntriesController extends Zend_Controller_Action
     {
         $userModel = new Application_Model_User();
         $res = $userModel->loadSetting('referenceLanguage');
-        return isset($res[0]) ? $res : array();
+        return isset($res[0]) ? $res : false;
     }
 
     /**

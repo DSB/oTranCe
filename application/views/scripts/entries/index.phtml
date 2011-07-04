@@ -67,7 +67,12 @@ $languageModel = new Application_Model_Languages();
 
     </p>
 </form>
-
+<?php
+if (empty($this->showLangauges)) {
+    echo "<div class=\"error\">You are not allowed to edit any language. Please contact the administrator.</div></div>";
+    return;
+}
+?>
 <table class="bdr">
     <tr class="thead">
         <?php

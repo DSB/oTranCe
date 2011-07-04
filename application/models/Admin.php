@@ -8,9 +8,16 @@
  */
 
 class Application_Model_Admin {
+    /**
+     * Database object
+     * @var \MsdDbFactory
+     */
     private $_dbo;
-    private $_database = 'db81760001';
-    private $_table = 'lang_users';
+
+    /**
+     * Configuration object
+     * @var \Msd_Configuration
+     */
     private $_config;
 
     public function __construct()
@@ -22,6 +29,10 @@ class Application_Model_Admin {
 
     /**
      * Get list of users and their language rights
+     *
+     * @param int    $offset         Offset for records to fecth
+     * @param int    $recordsPerPage Number of records per page
+     * @param string $filter String to find in records
      *
      * @return array
      */

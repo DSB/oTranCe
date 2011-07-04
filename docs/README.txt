@@ -25,7 +25,7 @@ The following is a sample VHOST you might want to consider for your project.
    DocumentRoot "E:/PHP/oTranCe/public"
    ServerName otrance.local
 
-   # This should be omitted in the production environment
+   # Set application enviroenment can be development, staging, testing or production
    SetEnv APPLICATION_ENV production
 
    <Directory "E:/PHP/oTranCe/public">

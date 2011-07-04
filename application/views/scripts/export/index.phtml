@@ -56,14 +56,8 @@ foreach ($this->status as $key => $s)
 }
 ?>
 </table>
-<?php
-if ($languagesToUpdate > 1) {
-?>
-    <br />
-    <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
-        <?php echo $this->getIcon('save', 'Update SVN');?> Save and export all languages</a>
-    </a>
-<?php
-}
-?>
+<br />
+<a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
+    <?php echo $this->getIcon('save', 'Update SVN');?> Save and export all languages</a>
+</a>
 </div>

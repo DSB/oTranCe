@@ -11,7 +11,7 @@ class Application_Model_Languages
 
     /**
      * Database object
-     * @var \MsdDbFactory
+     * @var Msd_Db_Common
      */
     private $_dbo;
 
@@ -370,7 +370,7 @@ class Application_Model_Languages
      * @param int   $keyId
      * @param array $newValues
      *
-     * @return void
+     * @return bool|string
      */
     public function saveEntries($keyId, $newValues)
     {
@@ -399,4 +399,23 @@ class Application_Model_Languages
         return true;
     }
 
+    /**
+     * Adds a new language to the data base.
+     *
+     * @param string $locale Locale of the new language (e.g. en, de)
+     * @param string $name   Name of the new language (e.g. English, Detusch)
+     * 
+     * @return bool|string
+     */
+    public function addLanguage($locale, $name)
+    {
+        $sql = "INSERT INTO `{$this->_tableLanguages}` (`locale`, `name`) VALUES ('" . $this->_dbo->escape($locale)
+            . "', '" . $this->_dbo->escape($name) . "')";
+        try {
+            $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        } catch (Msd_Exception $e) {
+            return $e->getMessage();
+        }
+        return true;
+    }
 }

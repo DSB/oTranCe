@@ -15,7 +15,9 @@
  * @package         MySQLDumper
  * @subpackage      Form_Decorator
  */
-class Msd_Form_Decorator_Default extends Msd_Form_Decorator_Abstract
+class Msd_Form_Decorator_Default
+    extends Msd_Form_Decorator_Abstract
+    implements Zend_Form_Decorator_Marker_File_Interface
 {
     /**
      * Render the element.

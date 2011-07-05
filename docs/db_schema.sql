@@ -97,15 +97,12 @@ INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('9','L_OTTO_XXXY','2011-07-01 16:49
 
 DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
-  `id` smallint(5) unsigned NOT NULL,
-  `locale` varchar(5) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  KEY `id` (`id`),
-  KEY `id_2` (`id`),
-  KEY `id_3` (`id`),
-  KEY `id_4` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+ `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+ `locale` varchar(5) NOT NULL,
+ `name` varchar(50) NOT NULL,
+ PRIMARY KEY (`id`),
+ UNIQUE KEY `locale` (`locale`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 --
 -- Data for Table `languages`
 --

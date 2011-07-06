@@ -402,19 +402,25 @@ class Application_Model_Languages
     /**
      * Adds a new language to the data base.
      *
-     * @param string $locale Locale of the new language (e.g. en, de)
-     * @param string $name   Name of the new language (e.g. English, Detusch)
+     * @param string $locale        Locale of the new language (e.g. en, de)
+     * @param string $name          Name of the new language (e.g. English, Detusch)
+     * @param string $flagExtension Extension of the flag file
      * 
      * @return bool|string
      */
-    public function addLanguage($locale, $name)
+    public function addLanguage($locale, $name, $flagExtension)
     {
-        $sql = "INSERT INTO `{$this->_tableLanguages}` (`locale`, `name`) VALUES ('" . $this->_dbo->escape($locale)
-            . "', '" . $this->_dbo->escape($name) . "')";
+        $sql = "INSERT INTO `{$this->_tableLanguages}` (`locale`, `name`, `flag_exentsion`) VALUES ('"
+            . $this->_dbo->escape($locale) . "', '" . $this->_dbo->escape($name) . "', '"
+            . $this->_dbo->escape($flagExtension) . "')";
         try {
             $this->_dbo->query($sql, Msd_Db::SIMPLE);
         } catch (Msd_Exception $e) {
-            return $e->getMessage();
+            if ($e->getCode() == 1062) {
+                return "The specified locale '$locale' already exists.";
+            } else {
+                return $e->getMessage();
+            }
         }
         return true;
     }

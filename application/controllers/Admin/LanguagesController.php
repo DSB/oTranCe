@@ -33,9 +33,11 @@ class Admin_LanguagesController extends AdminController
 
             if ($this->_validateUserLanguageInputs($langLocale, $langName, $upload)) {
                 $langModel = new Application_Model_Languages();
-                $this->view->creationResult = $langModel->addLanguage($langLocale, $langName);
-                $upload->receive();
-                $this->view->flagFile = $upload->receive();
+                $creationResult = $langModel->addLanguage($langLocale, $langName, $sourceExt);
+                if ($creationResult === true) {
+                    $this->view->flagFile = $upload->receive();
+                }
+                $this->view->creationResult = $creationResult;
             }
 
         }

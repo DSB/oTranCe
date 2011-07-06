@@ -1,19 +1,19 @@
--- Status:7:47:MP_1:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
+-- Status:7:21:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
--- TABLE|history|26|3140|2011-07-04 20:05:21|MyISAM
--- TABLE|keys|5|2300|2011-07-01 17:26:28|MyISAM
--- TABLE|languages|3|5180|2011-07-01 10:13:59|MyISAM
--- TABLE|translations|2|2136|2011-07-02 16:43:37|MyISAM
--- TABLE|userrights|5|2156|2011-07-03 15:00:58|MyISAM
--- TABLE|users|2|2184|2011-07-04 20:04:45|MyISAM
--- TABLE|usersettings|4|2212|2011-07-04 00:00:58|MyISAM
+-- TABLE|history|2|2120|2011-07-06 12:34:18|MyISAM
+-- TABLE|keys|1|2188|2011-07-06 11:35:49|MyISAM
+-- TABLE|languages|3|3156|2011-07-06 12:30:18|MyISAM
+-- TABLE|translations|2|2104|2011-07-06 11:35:49|MyISAM
+-- TABLE|userrights|5|2172|2011-07-06 11:35:49|MyISAM
+-- TABLE|users|2|2144|2011-07-06 11:35:49|MyISAM
+-- TABLE|usersettings|6|2232|2011-07-06 11:35:49|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-07-04 20:05
+-- Dump created: 2011-07-06 12:35
 
 --
 -- Create Table `history`
@@ -30,39 +30,15 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
 --
 
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('1','1','2011-07-01 16:44:41','2','changed','3','otto','otto2');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('2','1','2011-07-01 16:45:40','0','created','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('3','1','2011-07-01 16:46:58','0','created','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('4','1','2011-07-01 16:47:42','0','created','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('10','1','2011-07-01 18:14:31','2','changed','1','karl','Action x');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('6','1','2011-07-01 16:59:12','10','created','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('7','1','2011-07-01 17:00:51','10','deleted','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('9','1','2011-07-01 17:06:13','0','deleted \'L_OTTO_XX\'','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('11','1','2011-07-01 18:14:31','2','changed','3','otto2','Action x');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('12','1','2011-07-02 16:39:37','1','changed','1','Aktion','Aktion22');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('13','1','2011-07-02 16:39:37','1','changed','3','Action','Action22');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('14','1','2011-07-02 16:43:35','1','changed','1','Aktion','Aktion33');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('15','1','2011-07-02 16:43:35','1','changed','3','Action','Action33');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('16','0','2011-07-03 13:26:58','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('17','1','2011-07-03 13:27:05','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('18','1','2011-07-03 13:29:47','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('19','1','2011-07-03 13:29:53','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('20','1','2011-07-03 13:30:26','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('21','1','2011-07-04 15:14:21','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('22','1','2011-07-04 20:04:03','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('23','0','2011-07-04 20:04:06','0','<i>Tester</i> failed to log in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('24','0','2011-07-04 20:04:11','0','<i>Tester</i> failed to log in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('25','0','2011-07-04 20:04:49','0','<i>Tester</i> failed to log in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('26','2','2011-07-04 20:04:55','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('27','2','2011-07-04 20:05:13','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('28','2','2011-07-04 20:05:20','0','logged in','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('1','1','2011-07-06 12:34:11','0','logged out','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('2','1','2011-07-06 12:34:17','0','logged in','0','-','-');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
 
@@ -83,11 +59,7 @@ CREATE TABLE `keys` (
 --
 
 /*!40000 ALTER TABLE `keys` DISABLE KEYS */;
-INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('1','L_ACTION','2011-06-30 13:54:17');
-INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('2','L_ACTIONX','2011-06-30 13:57:02');
-INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('3','L_ACTIONXX','2011-06-30 18:31:01');
-INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('8','L_OTTO_XXX','2011-07-01 16:47:42');
-INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('9','L_OTTO_XXXY','2011-07-01 16:49:16');
+INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('1','L_TEST_ENTRY','2011-06-30 13:54:17');
 /*!40000 ALTER TABLE `keys` ENABLE KEYS */;
 
 
@@ -97,20 +69,22 @@ INSERT INTO `keys` (`id`,`key`,`dt`) VALUES ('9','L_OTTO_XXXY','2011-07-01 16:49
 
 DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
- `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
- `locale` varchar(5) NOT NULL,
- `name` varchar(50) NOT NULL,
- PRIMARY KEY (`id`),
- UNIQUE KEY `locale` (`locale`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `locale` varchar(5) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `flag_exentsion` enum('gif','jpeg','jpg','png') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `locale` (`locale`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
 --
 -- Data for Table `languages`
 --
 
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` (`id`,`locale`,`name`) VALUES ('1','de','Deutsch');
-INSERT INTO `languages` (`id`,`locale`,`name`) VALUES ('2','ar','Arabic');
-INSERT INTO `languages` (`id`,`locale`,`name`) VALUES ('3','en','English');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('1','de','Deutsch','gif');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('2','en','English','gif');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('3','ar','Arabic','gif');
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 
 
@@ -132,8 +106,8 @@ CREATE TABLE `translations` (
 --
 
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Aktion33','2011-07-02 16:43:35');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','Action33','2011-07-02 16:43:35');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Test DE','2011-07-02 16:43:35');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','TEST AR','2011-07-02 16:43:35');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
 
@@ -157,10 +131,9 @@ CREATE TABLE `userrights` (
 /*!40000 ALTER TABLE `userrights` DISABLE KEYS */;
 INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('1','1','addVar','1');
 INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('2','1','edit','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('3','2','edit','0');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('4','1','edit','3');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('5','1','admin','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('2','2','edit','1');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('3','1','edit','3');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('4','1','admin','1');
+INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('5','2','edit','1');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -181,7 +154,7 @@ CREATE TABLE `users` (
 --
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`,`username`,`password`) VALUES ('1','DSB','47e7681b8a64e5f1e2e7a2ce7278dfad');
+INSERT INTO `users` (`id`,`username`,`password`) VALUES ('1','Admin','21232f297a57a5a743894a0e4a801fc3');
 INSERT INTO `users` (`id`,`username`,`password`) VALUES ('2','Tester','098f6bcd4621d373cade4e832627b4f6');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 

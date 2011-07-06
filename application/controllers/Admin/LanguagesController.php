@@ -11,11 +11,11 @@ require_once('AdminController.php');
 class Admin_LanguagesController extends AdminController
 {
     /**
-     * Languages action for maintaining languages
+     * Index action for maintaining languages
      *
      * @return void
      */
-    public function languagesAction()
+    public function indexAction()
     {
         $this->view->inputErrors = array();
         if ($this->_request->isPost()) {

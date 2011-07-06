@@ -1,8 +1,8 @@
 <?php
-$usersUrl           = $this->url(array('controller'=>'admin','action'=>'users'));
-$languagesUrl       = $this->url(array('controller'=>'admin','action'=>'languages'));
-$filesUrl           = $this->url(array('controller'=>'admin','action'=>'files'));
-$importUrl          = $this->url(array('controller'=>'admin','action'=>'import'));
+$usersUrl           = $this->url(array('controller'=>'admin_users','action'=>'index'));
+$languagesUrl       = $this->url(array('controller'=>'admin_languages','action'=>'index'));
+$filesUrl           = $this->url(array('controller'=>'admin_files','action'=>'index'));
+$importUrl          = $this->url(array('controller'=>'admin_import','action'=>'index'));
 
 // get action name to set the active item in TabBar
 $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName();

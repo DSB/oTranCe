@@ -30,6 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initApplication()
     {
+    //print_r(get_include_path());die();
         Zend_Session::setOptions(array('strict' => true));
         Zend_Session::start();
     }

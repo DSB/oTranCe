@@ -46,7 +46,7 @@ class Admin_LanguagesController extends AdminController
     /**
      * Validate inputs when adding a new language
      *
-     * @param strin                               $langLocale Locale of language
+     * @param string                              $langLocale Locale of language
      * @param string                              $langName   Name of language
      * @param Zend_File_Transfer_Adapter_Abstract $flag       Uploaded picture of flag
      *

@@ -277,9 +277,7 @@ class Application_Model_User {
         $sql = 'SELECT * FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
                 .' WHERE `user_id`=\''.$userId.'\' AND NOT `right`=\'edit\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        $ret = array(
-
-        );
+        $ret = array();
         foreach ($res as $r) {
             $ret[$r['right']] = $r['value'];
         }
@@ -313,6 +311,45 @@ class Application_Model_User {
             }
         }
         return false;
+    }
+
+    /**
+     * Save a user right to database
+     *
+     * @param int    $userId Id of user
+     * @param string $right  Name of right
+     * @param string $value  Value to save
+     *
+     * @return bool
+     */
+    public function saveRight($userId, $right, $value = "1")
+    {
+        $this->deleteRight($userId, $right);
+        $sql = 'INSERT INTO `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
+                .' (`user_id`, `right`, `value`) VALUES('
+                . intval($userId) . ', '
+                . '\'' . $this->_dbo->escape($right) . '\', '
+               . '\'' . $this->_dbo->escape($value) . '\')';
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return $res;
+    }
+
+    /**
+     * Delete a user right from database
+     *
+     * @param int    $userId Id of user
+     * @param string $right  Name of right
+     *
+     * @return bool
+     */
+    public function deleteRight($userId, $right)
+    {
+        // check if user has an entry for this right
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
+                .' WHERE `user_id`=' . intval($userId)
+                .' AND `right`=\'' . $this->_dbo->escape($right) . '\'';
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return $res;
     }
 
     /**

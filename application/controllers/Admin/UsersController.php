@@ -35,8 +35,10 @@ class Admin_UsersController extends AdminController
                     $newUserData = $this->_saveAccountSettings();
                     if ($newUserData !== false) {
                         $userId = $newUserData['id'];
-                        $this->_saveUserRights($params);
-                        $this->view->saveMessage = true;
+                        $res = $this->_saveUserRights($params);
+                        if ($res == true) {
+                            $this->view->saveMessage = true;
+                        }
                     };
                 }
             }
@@ -98,20 +100,22 @@ class Admin_UsersController extends AdminController
     /**
      * Save general user rights
      *
-     * @params array $params Post-parameters
+     * @param array $params Post-parameters
      *
      * @return bool
      */
     public function _saveUserRights($params)
     {
+        $res = true;
         $rights = array('addVar', 'admin', 'export');
         foreach ($rights as $right) {
             if (isset($params[$right]) && $params[$right] == 1) {
-                $this->_userModel->saveRight($right, 1);
+                $res &= $this->_userModel->saveRight($params['id'], $right, 1);
+            } else {
+                $res &= $this->_userModel->deleteRight($params['id'], $right);
             }
         }
-        $params = $this->_request->getParams();
-        return $this->_userModel->saveAccount($params);
+        return $res;
     }
 
 }

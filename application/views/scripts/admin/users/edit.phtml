@@ -72,57 +72,57 @@ if ($user['id'] == 0) { ?>
     <tr class="row-even">
         <td>User has admin rights:</td>
         <td>
-            <input type="radio" name="user_admin" id="user_admin_yes" value="1"
+            <input type="radio" name="admin" id="admin_yes" value="1"
                 <?php if ($userRights['admin'] == 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_admin_yes"> Yes</label>
+            <label for="admin_yes"> Yes</label>
             &nbsp;&nbsp;
-            <input type="radio" name="user_admin" id="user_admin_no" value="0"
+            <input type="radio" name="admin" id="admin_no" value="0"
                 <?php if ($userRights['admin'] == 0) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_admin_no"> No</label>
+            <label for="admin_no"> No</label>
         </td>
     </tr>
 
     <tr class="row-odd">
         <td>User can create new language keys:</td>
         <td>
-            <input type="radio" name="user_addVar" id="user_addVar_yes" value="1"
+            <input type="radio" name="addVar" id="addVar_yes" value="1"
                 <?php if ($userRights['addVar'] == 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_addVar_yes"> Yes</label>
+            <label for="addVar_yes"> Yes</label>
             &nbsp;&nbsp;
-            <input type="radio" name="user_addVar" id="user_addVar_no" value="0"
+            <input type="radio" name="addVar" id="addVar_no" value="0"
                 <?php if ($userRights['addVar'] == 0) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_addVar_no"> No</label>
+            <label for="addVar_no"> No</label>
         </td>
     </tr>
 
     <tr class="row-even">
         <td>User can export changes to repository:</td>
         <td>
-            <input type="radio" name="user_export" id="user_export_yes" value="1"
+            <input type="radio" name="export" id="export_yes" value="1"
                 <?php if ($userRights['export'] == 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_export_yes"> Yes</label>
+            <label for="export_yes"> Yes</label>
             &nbsp;&nbsp;
-            <input type="radio" name="user_export" id="user_export_no" value="0"
+            <input type="radio" name="export" id="export_no" value="0"
                 <?php if ($userRights['export'] == 0) { ?>
                     checked="checked"
                 <?php } ?>
             />
-            <label for="user_export_no"> No</label>
+            <label for="export_no"> No</label>
         </td>
     </tr>
 

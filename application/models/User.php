@@ -112,6 +112,22 @@ class Application_Model_User {
     }
 
     /**
+     * Get a user by his id
+     *
+     * @param int $userId Id of user
+     *
+     * @return array
+     */
+    public function getUserById($userId)
+    {
+        $userId = (int) $userId;
+        $sql = 'SELECT * FROM `'.$this->_database.'`.`'.$this->_tableUsers . '`'
+                .' WHERE `id`= ' . $userId;
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]) ? $res[0] : array();
+    }
+
+    /**
      * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
      *
      * @return integer
@@ -119,23 +135,6 @@ class Application_Model_User {
     public function getRowCount()
     {
         return (int) $this->_dbo->getRowCount();
-    }
-
-    /**
-     * Save selected reference languages
-     *
-     * @param array $selectedLanguages
-     * @param int   $recordsPerPage
-     * @return boolean
-     */
-    public function saveUserSettings($selectedLanguages, $recordsPerPage)
-    {
-        $sql = 'UPDATE `'.$this->_database.'`.`'.$this->_table . '` SET '
-                .'`langRef` = \''. implode(',',$selectedLanguages).'\', '
-                .'`recordsPerPage`=' . $recordsPerPage
-                .' WHERE `user`=\''.$this->_username.'\'';
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return $res;
     }
 
     /**

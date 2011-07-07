@@ -1,5 +1,6 @@
 <?php
 $user = $this->user;
+$userRights = $this->userRights;
 ?>
 <h2>Admin - Edit User</h2>
 <?php
@@ -12,10 +13,13 @@ if ($user['id'] == 0) { ?>
 <?php } ?>
 
 <form action="<?echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
-<table class="bdr">
+<table class="bdr more-padding">
+    <tr class="thead">
+       <th colspan="2">Account settings</th>
+    </tr>
     <tr class="row-odd">
-        <td class="small">User account is active:</td>
-        <td class="small">
+        <td>User account is active:</td>
+        <td>
             <input type="radio" name="user_active" id="user_active_yes" value="1"
                 <?php if ($user['active'] == 1) { ?>
                     checked="checked"
@@ -33,33 +37,95 @@ if ($user['id'] == 0) { ?>
     </tr>
 
     <tr class="row-even">
-        <td class="small">Username:</td>
-        <td class="small">
+        <td>Username:</td>
+        <td>
             <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($user['username']);?>"/>
         </td>
     </tr>
 
     <tr class="row-odd">
-        <td class="small">Password (*):</td>
-        <td class="small">
+        <td>Password (*):</td>
+        <td>
             <input type="password" class="text" name="pass1" id="pass1" value="" />
         </td>
     </tr>
 
     <tr class="row-even">
-        <td class="small">Confirm password (*):</td>
-        <td class="small">
+        <td>Confirm password (*):</td>
+        <td>
             <input type="password" class="text" name="pass2" id="pass2" value="" />
         </td>
     </tr>
 
     <tr class="row-odd">
         <td class="ssmall" colspan="2">
-            <div style="margin-left:8px;">
+            <div style="margin-left:24px;">
             (*) Enter a password if you want to change it.<br />
             If you leave this field empty the current password will remain.</div>
         </td>
     </tr>
+
+    <tr class="thead">
+       <th colspan="2">General user rights</th>
+    </tr>
+
+    <tr class="row-even">
+        <td>User has admin rights:</td>
+        <td>
+            <input type="radio" name="user_admin" id="user_admin_yes" value="1"
+                <?php if ($userRights['admin'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_admin_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="user_admin" id="user_admin_no" value="0"
+                <?php if ($userRights['admin'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_admin_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td>User can create new language keys:</td>
+        <td>
+            <input type="radio" name="user_addVar" id="user_addVar_yes" value="1"
+                <?php if ($userRights['addVar'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_addVar_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="user_addVar" id="user_addVar_no" value="0"
+                <?php if ($userRights['addVar'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_addVar_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td>User can export changes to repository:</td>
+        <td>
+            <input type="radio" name="user_export" id="user_export_yes" value="1"
+                <?php if ($userRights['export'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_export_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="user_export" id="user_export_no" value="0"
+                <?php if ($userRights['export'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_export_no"> No</label>
+        </td>
+    </tr>
+
     <tr class="row-odd">
         <td>&nbsp;</td>
         <td class="ssmall">

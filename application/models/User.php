@@ -263,21 +263,35 @@ class Application_Model_User {
     }
 
     /**
-     * Get user global rights (all except edit rights of languages)
+     * Get global rights of given user (all except edit rights of languages)
+     *
+     * @param int $userId Id of user
      *
      * @return array
      */
-    public function getUserGlobalRights()
+    public function getUserGlobalRights($userId = null)
     {
+        if ($userId === null) {
+            $userId = $this->_userId;
+        }
         $sql = 'SELECT * FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
-                .' WHERE `user_id`=\''.$this->_userId.'\' AND NOT `right`=\'edit\'';
+                .' WHERE `user_id`=\''.$userId.'\' AND NOT `right`=\'edit\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        $ret = array();
+        $ret = array(
+
+        );
         foreach ($res as $r) {
             $ret[$r['right']] = $r['value'];
         }
+        //set defaults
+        $defaults = array(
+            'addVar' => 0,
+            'admin'  => 0,
+            'export' => 0,
+        );
+        $ret = array_merge($defaults, $ret);
         $this->_userrights = $ret;
-        return $ret;
+        return $this->_userrights;
     }
 
     /**

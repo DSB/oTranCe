@@ -474,6 +474,11 @@ table.bdr,.bdr {
 	border: 1px solid #ddd !important;
 }
 
+table.more-padding tr td {
+    padding:  4px 8px;
+    font-size: 12px;
+}
+
 #fullcontent table.bdr {
 	margin: 0px auto;
 }
@@ -481,7 +486,7 @@ table.bdr,.bdr {
 table td {
 	text-align: left;
 	vertical-align: top;
-	padding: 0 6px;
+	padding: 0px 6px;
 }
 
 table th {

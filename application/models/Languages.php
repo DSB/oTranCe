@@ -72,11 +72,6 @@ class Application_Model_Languages
                 $ret[$val['id']] = $val;
             }
         }
-        if ($languageNamesOnly === true) {
-            asort($ret);
-        } else {
-            ksort($ret);
-        }
         return $ret;
     }
 
@@ -405,7 +400,7 @@ class Application_Model_Languages
      * @param string $locale        Locale of the new language (e.g. en, de)
      * @param string $name          Name of the new language (e.g. English, Detusch)
      * @param string $flagExtension Extension of the flag file
-     * 
+     *
      * @return bool|string
      */
     public function addLanguage($locale, $name, $flagExtension)

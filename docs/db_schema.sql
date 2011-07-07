@@ -1,6 +1,7 @@
--- Status:7:23:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
+-- Status:8:25:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
+-- TABLE|filetemplates|2|2808|2011-07-07 21:06:06|MyISAM
 -- TABLE|history|0|1024|2011-07-07 20:12:25|MyISAM
 -- TABLE|keys|1|2080|2011-07-06 12:47:31|MyISAM
 -- TABLE|languages|3|3152|2011-07-07 12:55:17|MyISAM
@@ -13,7 +14,33 @@
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-07-07 20:13
+-- Dump created: 2011-07-07 21:07
+
+--
+-- Create Table `filetemplates`
+--
+
+DROP TABLE IF EXISTS `filetemplates`;
+CREATE TABLE `filetemplates` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `header` text NOT NULL,
+  `footer` text NOT NULL,
+  `content` varchar(75) NOT NULL,
+  `langFilename` varchar(75) NOT NULL,
+  `flagFilename` varchar(75) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Data for Table `filetemplates`
+--
+
+/*!40000 ALTER TABLE `filetemplates` DISABLE KEYS */;
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`langFilename`,`flagFilename`) VALUES ('1','PHP lanugae array','<?php\r\n/**\r\n * This file is part of\nMySQLDumper released under the GNU/GPL 2 license\r\n  *\nhttp://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n *\n@subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author\n       $Author: dsb $\r\n  */\r\n$lang=array(',');\r\nreturn $lang;','\n   \"{KEY}\" => \"{VALUE}\"','languages/{LOCALE}.php','images/flags/{LOCALE}');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`langFilename`,`flagFilename`) VALUES ('2','PHP lanugae array','<?php\r\n/**\r\n * This file is part of\nMySQLDumper released under the GNU/GPL 2 license\r\n  *\nhttp://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n *\n@subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author\n       $Author: dsb $\r\n  */\r\n','return $lang;','    $lang[\"{KEY}\"]\n= \"{VALUE}\";','languages/{LOCALE}/lang.php','languages/{LOCALE}/flag');
+/*!40000 ALTER TABLE `filetemplates` ENABLE KEYS */;
+
 
 --
 -- Create Table `history`
@@ -190,3 +217,4 @@ INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('125','6',
 
 SET FOREIGN_KEY_CHECKS=1;
 -- EOB
+

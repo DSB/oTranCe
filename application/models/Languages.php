@@ -244,11 +244,7 @@ class Application_Model_Languages
      */
     public function getRowCount()
     {
-        $res = $this->_dbo->query('SELECT FOUND_ROWS() AS `results`', Msd_Db::ARRAY_ASSOC);
-        if (!isset($res[0]['results'])) {
-            return 0;
-        }
-        return (int)$res[0]['results'];
+        return $this->_dbo->getRowCount();
     }
 
     /**

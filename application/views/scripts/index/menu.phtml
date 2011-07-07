@@ -35,13 +35,14 @@ $user = new Application_Model_User();
             };?>
         ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
         </li>
-
-        <li
-            <?php if ($this->controller == 'export') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
-        </li>
+        <?php if ($user->hasRight('export')) { ?>
+            <li
+                <?php if ($this->controller == 'export') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
+            </li>
+        <?php } ?>
         <li
             <?php if ($this->controller == 'log') {
                 echo ' class="active"';

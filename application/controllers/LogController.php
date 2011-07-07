@@ -49,8 +49,7 @@ class LogController extends Zend_Controller_Action
         $this->view->selectFilterLanguage = Msd_Html::getHtmlOptions($languages, $filterLanguage, true);
 
         $filterUser = $request->getParam('filterUser', '');
-        $users      = $this->_userModel->getUsers();
-        natcasesort($users);
+        $users      = $this->_userModel->getUserNames();
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
         $filterAction = $request->getParam('filterAction', '');

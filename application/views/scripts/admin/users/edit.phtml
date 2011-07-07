@@ -1,2 +1,104 @@
+<?php
+$user = $this->user;
+?>
 <h2>Admin - Edit User</h2>
-<?php echo $this->partial('admin/head-navi.phtml'); ?>
+<?php
+echo $this->partial('admin/head-navi.phtml');
+if ($user['id'] == 0) { ?>
+    <h4>Create new user account:</h4>
+<?php
+} else { ?>
+    <h4>Account of user with id <?php echo $user['id'];?>:</h4>
+<?php } ?>
+
+<form action="<?echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
+<table class="bdr">
+    <tr class="row-odd">
+        <td class="small">User account is active:</td>
+        <td class="small">
+            <input type="radio" name="user_active" id="user_active_yes" value="1"
+                <?php if ($user['active'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_active_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="user_active" id="user_active_no" value="0"
+                <?php if ($user['active'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_active_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-even">
+        <td class="small">Username:</td>
+        <td class="small">
+            <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($user['username']);?>"/>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td class="small">Password (*):</td>
+        <td class="small">
+            <input type="password" class="text" name="pass1" id="pass1" value="" />
+        </td>
+    </tr>
+
+    <tr class="row-even">
+        <td class="small">Confirm password (*):</td>
+        <td class="small">
+            <input type="password" class="text" name="pass2" id="pass2" value="" />
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td class="ssmall" colspan="2">
+            <div style="margin-left:8px;">
+            (*) Enter a password if you want to change it.<br />
+            If you leave this field empty the current password will remain.</div>
+        </td>
+    </tr>
+    <tr class="row-odd">
+        <td>&nbsp;</td>
+        <td class="ssmall">
+            <button type="submit" class="Formbutton" name="saveAccount">
+                <?php echo $this->getIcon('save', '');?> Save
+            </button>
+        </td>
+    </tr>
+
+</table>
+</form>
+
+
+<?php
+if (!empty($this->errors)) {
+    $this->popUpMessage()->addMessage(
+        'settingsNotSaved',
+        'Error',
+        'Error validating your inputs:<br /><br /><span class="error">' . implode('<br />', $this->errors)
+            .'</span><br /><br />Please correct your input.',
+        array(
+            'modal' => true,
+            'height' => 200,
+            'width' => 360,
+            'dialogClass' => 'info',
+        )
+    );
+};
+
+if (isset($this->saveMessage) && $this->saveMessage === true) {
+    $this->popUpMessage()->addMessage(
+        'settingsSaved',
+        'Ok',
+        'Your changes have been saved successfully.',
+        array(
+            'modal' => true,
+            'height' => 130,
+            'width' => 340,
+            'dialogClass' => 'info',
+        )
+    );
+};

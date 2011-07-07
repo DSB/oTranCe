@@ -35,6 +35,11 @@ class AdminController extends Zend_Controller_Action
     {
         $this->_config = Msd_Configuration::getInstance();
         $this->_userModel = new Application_Model_User();
+        // security - if user doesn't have admin rights -> send him to index page
+        if (!$this->_userModel->hasRight('admin')) {
+            $this->_redirect('/');
+        }
+
         $this->_languagesModel = new Application_Model_Languages();
         $this->_request = $this->getRequest();
         if (!$this->getRequest()->isPost()) {

@@ -77,7 +77,7 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
         // look for user in own db-table
         $sql = 'SELECT `username` as `name`, `id`, `password` FROM `'.$this->_database . '`.`'.$this->_users.'` '
                .'WHERE `username`='
-               .'\''.$db->escape($this->_username) . '\'';
+               .'\''.$db->escape($this->_username) . '\' AND `active`=1';
 
         $res = $db->query($sql, Msd_Db::ARRAY_ASSOC);
         if (!isset($res[0]['name'])) {

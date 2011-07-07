@@ -46,7 +46,7 @@ class Msd_View_Helper_PrintTranslators extends Zend_View_Helper_Abstract
 
         foreach ($user_ids as $userId) {
             if (isset(self::$_translators[$userId])) {
-                $ret .= self::$_translators[$userId] .', ';
+                $ret .= self::$_translators[$userId]['username'] .', ';
             }
         }
         $ret = substr($ret,0, -2);

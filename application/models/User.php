@@ -105,14 +105,30 @@ class Application_Model_User {
 
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $val) {
-            $ret[$val['id']] = $val['username'];
+            $ret[$val['id']] = $val;
         }
-        natcasesort($ret);
         return $ret;
     }
 
     /**
-     * Get a user by his id
+     * Get list of user names (key is the user id)
+     *
+     * @return array
+     */
+    public function getUserNames()
+    {
+        $ret = array();
+        $sql = 'SELECT `id`, `username` FROM `'.$this->_database.'`.`'.$this->_tableUsers . '`'
+                . ' ORDER BY `username` ASC';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        foreach ($res as $val) {
+            $ret[$val['id']] = $val['username'];
+        }
+        return $ret;
+    }
+
+    /**
+     * Get a user by id
      *
      * @param int $userId Id of user
      *
@@ -123,6 +139,21 @@ class Application_Model_User {
         $userId = (int) $userId;
         $sql = 'SELECT * FROM `'.$this->_database.'`.`'.$this->_tableUsers . '`'
                 .' WHERE `id`= ' . $userId;
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]) ? $res[0] : array();
+    }
+
+    /**
+     * Get a user by name
+     *
+     * @param string $userName Name of user
+     *
+     * @return array
+     */
+    public function getUserByName($userName)
+    {
+        $sql = 'SELECT * FROM `'.$this->_database.'`.`'.$this->_tableUsers . '`'
+                .' WHERE `username`= \'' . $this->_dbo->escape($userName) . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         return isset($res[0]) ? $res[0] : array();
     }
@@ -266,6 +297,40 @@ class Application_Model_User {
             if ($this->_userrights[$right] == $value) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    /**
+     * Create or update a user account
+     * Return updated account data.
+     *
+     * @param array $params Parameters of account
+     *
+     * @return false|array False if there was an error, otherwise return updated user data
+     */
+    public function saveAccount($params)
+    {
+        if ($params['id'] != 0) {
+            $sql = 'UPDATE `'.$this->_database.'`.`' . $this->_tableUsers . '`'
+                . ' SET `username` = \'' . $this->_dbo->escape($params['user_name']) . '\', '
+                . ' `active`=' . intval($params['user_active']);
+            if ($params['pass1'] > '') {
+                $sql .= ', `password`=MD5(\''. $this->_dbo->escape($params['pass1']) . '\')';
+            }
+            $sql .= ' WHERE `id`=' . intval($params['id']);
+        } else {
+            $sql = 'INSERT INTO `'.$this->_database.'`.`' . $this->_tableUsers . '`'
+                    . ' (`username`, `password`, `active`) VALUES ('
+                    . '\'' . $this->_dbo->escape($params['user_name']) . '\', '
+                    . 'MD5(\''. $this->_dbo->escape($params['pass1']) . '\'), '
+                    . '`active`=' . intval($params['user_active']) . ')';
+        }
+
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        if ($res !== false) {
+            $user = $this->getUserByName($params['user_name']);
+            return isset($user['id']) ? $user['id'] : false;
         }
         return false;
     }

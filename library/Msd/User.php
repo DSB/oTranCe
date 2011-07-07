@@ -161,7 +161,7 @@ class Msd_User
             $this->_isLoggedIn = true;
             if ($autoLogin) {
                 Zend_Session::regenerateId();
-                $crypt = Msd_Crypt::getInstance('MySQLDumperTranslationCenter');
+                $crypt = Msd_Crypt::getInstance('oTranCe');
                 $identity = $crypt->encrypt(
                     $username . ':' . $password
                 );
@@ -178,23 +178,30 @@ class Msd_User
         return self::UNKNOWN_IDENTITY;
     }
 
+    /**
+     * Check auto log in cookie
+     *
+     * Logs in user if auto log in cookie is valid.
+     *
+     * @return void
+     */
     private function _loginByCookie()
     {
         $request = Zend_Controller_Front::getInstance()->getRequest();
         $cookie = $request->get('oTranCe_autologin');
         if ($cookie === null || $cookie == '') {
             // no cookie found
-            return false;
+            return;
         }
         list($authInfo, $checksum) = explode(':', $cookie);
         if (md5($authInfo) != $checksum) {
             // autologin not valid - return
-            return false;
+            return;
         }
 
         $crypt = Msd_Crypt::getInstance('oTranCe');
         list($username, $pass) = explode(':', $crypt->decrypt($authInfo));
-        // Try to login the user and refresh the cookie. Because you want
+        // Try to log in the user and refresh the cookie. Because you want
         // to stay logged in until you logout.
         $this->login($username, $pass, true);
     }
@@ -211,19 +218,12 @@ class Msd_User
     }
 
     /**
-     * Set default configuration for user
+     * Forec loading of default configuration file
      *
      *  @return void
      */
     public function setDefaultConfiguration()
     {
-        if ($this->_isLoggedIn) {
-            $files = Msd_File::getConfigNames();
-            if (isset($files[0])) {
-                $config = Msd_Configuration::getInstance($files[0], true);
-                return;
-            }
-        }
-        $config = Msd_Configuration::getInstance('defaultConfig', true);
+        Msd_Configuration::getInstance('defaultConfig', true);
     }
 }

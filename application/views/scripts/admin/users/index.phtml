@@ -1,5 +1,8 @@
 <h2>Admin - Users</h2>
-<?php echo $this->partial('admin/head-navi.phtml'); ?>
+<?php
+echo $this->partial('admin/head-navi.phtml');
+$addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
+?>
 
 <form action="<?php echo $this->baseUrl();?>/admin_users/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
@@ -12,7 +15,7 @@
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
-        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $addUserUrl;?>'">
             <?php echo $this->getIcon('plus', '');?> Add user
         </button>
         <br /><br />
@@ -46,15 +49,23 @@
         <th>&nbsp;</th>
         <th>#</th>
         <th>Username</th>
-        <th colspan="3">Can edit</th>
+        <th>Can edit</th>
+        <th>Active</th>
     </tr>
 <?php
 
-$i = 01;
-foreach ($this->users as $userId => $userName)
+$i = 1;
+if ($this->hits == 0) { ?>
+    <tr class="row-odd">
+        <td colspan="6" class="error">Sorry, no hits.</td>
+    </tr>
+
+<?php
+}
+foreach ($this->users as $userId => $user)
 {
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/'.$userId .'" title="Edit user">';
+    $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="Edit user">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="small">
@@ -63,11 +74,16 @@ foreach ($this->users as $userId => $userName)
         <td class="small right">
             <?php echo $this->numberFormat($i);?>.
         </td>
-        <td class="ssmall"><?php echo $edit . $userName;?></a></td>
+        <td class="ssmall"><?php echo $edit . $user['username'];?></a></td>
         <td class="ssmall">
+            <?php
+                $languageEditRights = $this->userModel->getUserRights('edit', $userId);
+                if (empty($languageEditRights)) {
+                    echo '<i>Nothing</i>';
+                }
+            ?>
             <table>
         <?php
-            $languageEditRights = $this->userModel->getUserRights('edit', $userId);
             foreach ($languageEditRights as $langId) {
                 if (isset($this->languages[$langId])) {
                 ?>
@@ -84,6 +100,15 @@ foreach ($this->users as $userId => $userName)
                 }
             } ?>
             </table>
+        </td>
+        <td>
+            <?php
+                if ($user['active'] == 1) {
+                    echo $this->getIcon('Ok', 'Yes', 16);
+                } else {
+                    echo $this->getIcon('Attention', 'No', 16);
+                };
+            ?>
         </td>
     </tr>
     <?php

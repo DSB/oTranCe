@@ -141,7 +141,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      * is returned.
      *
      * @param string  $query   The query to execute
-     * @param const   $kind    Type of result set
+     * @param int     $kind    Type of result set
      * @param boolean $getRows Wether to fetch all rows and return them
      *
      * @return resource|array

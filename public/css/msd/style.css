@@ -898,3 +898,7 @@ pre { font-size:12px; color:#000; }
     background:#DA2410;
     float:left;
 }
+
+label {
+    cursor: pointer;
+}

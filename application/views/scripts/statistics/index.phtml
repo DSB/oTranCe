@@ -12,6 +12,9 @@
 $i = 0;
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $lastUser = '';
+if (empty($this->userStatistics)) {
+    echo '<tr class="row-odd"><td colspan="7"><div class="error">Sorry, no activities yet.</div></td></tr>';
+}
 foreach ($this->userStatistics as $user) {
     if ($lastUser != $user['user_id']) {
         $userChanged = true;

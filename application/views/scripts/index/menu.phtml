@@ -6,12 +6,14 @@ $user = new Application_Model_User();
 ?>
 <div id="sidebar">
 
-<a href="<?php echo $this->baseUrl(); ?>/index/index"
-    title="Home">
+<a href="<?php echo $this->config->get('config.project.url');?>"
+    title="Project Home">
         <img src="<?php echo $this->baseUrl(); ?>/css/<?php echo $theme?>/pics/menu-headlogo.gif" alt="MySQLDumper - Homepage" /></a>
 
 <div id="version">
-    <span class="version-line">Translation Center</span>
+    <a href="<?php echo $this->config->get('config.project.url');?>" title="Project Home">
+        <span class="version-line"><?php echo $this->config->get('config.project.name');?></span>
+    </a>
     <img src="<?php echo $this->baseUrl(); ?>/css/<?php echo $theme?>/pics/navi_bg_expert.jpg" alt="" />
 </div>
 

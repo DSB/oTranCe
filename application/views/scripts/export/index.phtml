@@ -23,8 +23,7 @@ foreach ($this->status as $key => $s)
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
         <td class="small right"><?php echo $i;?>.</td>
         <td class="small">
-            <img src="<?php echo $this->baseUrl() . '/images/flags/'.$this->languages[$key]['locale'];?>.gif"
-                 alt="<?php echo $key;?>" title="<?php echo $this->languages[$key]['locale'];?>" width="25" height="15"/>
+            <?php echo $this->printFlag($this->languages[$key]['locale']);?>
         </td>
         <td class="small"><?php echo $this->languages[$key]['locale'];?></td>
         <td class="small"><?php echo $this->languages[$key]['name'];?></td>

@@ -27,11 +27,13 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
     /**
      * Print image of given locale
      *
-     * @param string $locale
+     * @param string $locale Language locale
+     * @param int    $width  Width of image
+     * @param string $id     Set HTML id
      *
      * @return string
      */
-    public function printFlag($locale)
+    public function printFlag($locale, $width = 0, $id = false)
     {
         if (self::$_languages === null) {
             $languagesModel = new Application_Model_Languages();
@@ -47,8 +49,14 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
             $ret .= self::$_languages[$locale]['locale'] . '.'
                     . self::$_languages[$locale]['flag_extension'] . '"'
                     . ' alt="' . self::$_languages[$locale]['name'] .'"'
-                    . ' title="' . self::$_languages[$locale]['name'] .'"'
-                    . '/>';
+                    . ' title="' . self::$_languages[$locale]['name'] .'"';
+            if ($width !== 0) {
+                $ret .= ' width="' . $width .'"';
+            }
+            if ($id !== false) {
+                $ret .= ' id="' . $id .'"';
+            }
+            $ret .= '/>';
         }
         return $ret;
     }

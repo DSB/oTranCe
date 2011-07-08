@@ -25,9 +25,7 @@ foreach ($this->status as $langId => $val)
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="small right"><?php echo $i;?>.</td>
         <td class="small">
-            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langId]['locale'];?>.gif"
-                 alt="<?php echo $this->languages[$langId]['locale'];?>"
-                 title="<?php echo $this->languages[$langId]['locale'];?>" width="25" height="15"/>
+            <?php echo $this->printFlag($this->languages[$langId]['locale']);?>
         </td>
         <td class="small"><?php echo $this->languages[$langId]['locale'];?></td>
         <td class="small"><?php echo $this->languages[$langId]['name'];?></td>

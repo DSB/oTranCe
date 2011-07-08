@@ -29,10 +29,7 @@ if (isset($this->entrySaved)) {
                 $rowclass = $cycleHelper->next();
                 ?>
                 <tr class="<?php echo $rowclass;?>">
-                    <td>
-                        <img src="<?php echo $this->baseUrl() . '/images/flags/'. $this->languages[$lang]['locale']; ?>.gif"
-                             width="16" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"
-                             title="Flag <?php echo $this->languages[$lang]['locale'];?>"/>
+                    <td><?php echo $this->printFlag($this->languages[$lang]['locale']);?></td>
                     </td>
                     <td>
                         <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
@@ -82,9 +79,7 @@ if (!empty($this->referenceLanguages)) {
                 ?>
                 <tr class="<?php echo $rowclass;?>">
                     <td>
-                        <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$lang]['locale']; ?>.gif"
-                             width="16" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"
-                             title="Flag <?php echo $this->languages[$lang]['locale'];?>"/><br />
+                        <?php echo $this->printFlag($this->languages[$lang]['locale'], 20);?>
                     </td>
                     <td colspan="4">
                         <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
@@ -109,10 +104,7 @@ if (!empty($this->referenceLanguages)) {
                     <td>
                         <?php foreach ($this->languagesEdit as $langEdit) { ?>
                         <a href="#" class="copy">
-                            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langEdit]['locale']; ?>.gif"
-                                 width="16" alt="<?php echo $this->languages[$langEdit]['name'];?>"
-                                 title="<?php echo $this->languages[$langEdit]['name'];?>"
-                                 id="copy-<?php echo $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id'];?>" />
+                            <?php echo $this->printFlag($this->languages[$langEdit]['locale'], 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
                         </a>
                         <?php } ?>
                     </td>
@@ -125,11 +117,7 @@ if (!empty($this->referenceLanguages)) {
                             }
                             ?>
                             <a href="#" class="translate">
-                                <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langEdit]['locale'];?>.gif"
-                                     width="16" alt="<?php echo $this->languages[$langEdit]['name'];?>"
-                                     title="<?php echo $this->languages[$langEdit]['name'];?>"
-                                     id="translate-<?php echo $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id'];?>"
-                                     style="margin-top:4px;"/>
+                                <?php echo $this->printFlag($this->languages[$langEdit]['locale'], 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
                             </a>
                             <?php
                         }

@@ -86,9 +86,10 @@ if (empty($this->showLanguages)) {
             foreach ($this->showLanguages as $lang) {
         ?>
                 <th colspan="2" class="nowrap">
-                    <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$lang]['locale'];?>.gif"
-                            width="16" height="10" alt="Flag <?php echo $this->languages[$lang]['locale'];?>"/>
-                    <?php echo $this->languages[$lang]['name'];?>
+                    <?php
+                        echo $this->printFlag($this->languages[$lang]['locale'], 16).'&nbsp;';
+                        echo $this->languages[$lang]['name'];
+                    ?>
                 </th>
         <?php
             }

@@ -19,8 +19,7 @@ $i = 1;
         <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
             <td class="small right"><?php echo $i;?>.</td>
             <td class="small">
-                <img src="<?php echo $this->baseUrl() . '/images/flags/' . $langLocale;?>.gif"
-                     alt="<?php echo $langLocale;?>" title="<?php echo $langLocale;?>" width="25" height="15"/>
+                <?php echo $this->printFlag($langLocale);?>
             </td>
             <td class="small"><?php echo $langLocale;?></td>
             <td class="small"><?php echo $langName;?></td>
@@ -66,8 +65,7 @@ $i = 1;
             <td class="small right"><?php echo $i;?>.</td>
             <td class="small">
                 <label for="<?php echo $id;?>">
-                <img src="<?php echo $this->baseUrl() . '/images/flags/' . $langLocale;?>.gif"
-                     alt="<?php echo $langLocale;?>" title="<?php echo $langLocale;?>" width="25" height="15"/>
+                    <?php echo $this->printFlag($langLocale);?>
                 </label>
             </td>
             <td class="small">

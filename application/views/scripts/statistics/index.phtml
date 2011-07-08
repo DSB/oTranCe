@@ -27,9 +27,7 @@ foreach ($this->userStatistics as $user) {
         <td class="small right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
         <td class="small">&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
         <td class="small">
-            <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$user['lang_id']]['locale'];?>.gif"
-                width="16" height="10" alt="Flag <?php echo $this->languages[$user['lang_id']]['locale'];?>"
-                title="Flag <?php echo $this->languages[$user['lang_id']]['locale'];?>"/>
+            <?php echo $this->printFlag($this->languages[$user['lang_id']]['locale'], 16);?>
         </td>
         <td class="small"><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
         <td class="small"><?php echo $this->languages[$user['lang_id']]['name'];?></td>

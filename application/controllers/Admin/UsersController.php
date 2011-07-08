@@ -36,8 +36,11 @@ class Admin_UsersController extends AdminController
                     if ($newUserData !== false) {
                         $userId = $newUserData['id'];
                         $res = $this->_saveUserRights($params);
+                        $res &= $this->_saveLanguageEditRights($params);
                         if ($res == true) {
                             $this->view->saveMessage = true;
+                        } else {
+                            $this->view->saveErrorMessage = true;
                         }
                     };
                 }
@@ -55,6 +58,7 @@ class Admin_UsersController extends AdminController
         }
         $this->view->user = $user;
         $this->view->userRights = $this->_userModel->getUserGlobalRights($userId);
+        $this->view->editLanguages = $this->_userModel->getUserRights('edit', $userId);
     }
 
     /**
@@ -112,10 +116,39 @@ class Admin_UsersController extends AdminController
             if (isset($params[$right]) && $params[$right] == 1) {
                 $res &= $this->_userModel->saveRight($params['id'], $right, 1);
             } else {
-                $res &= $this->_userModel->deleteRight($params['id'], $right);
+                $res &= $this->_userModel->deleteRight($params['id'], $right, 1);
             }
         }
         return $res;
     }
 
+    /**
+     * Save language edit rights of user
+     *
+     * @param array $params Post-parameters
+     *
+     * @return bool
+     */
+    public function _saveLanguageEditRights($params)
+    {
+        $res = true;
+        $languages = array();
+        $keys = array_keys($params);
+        // extract lang edit rights
+        foreach ($keys as $key) {
+            if (substr($key, 0, 5) == 'lang-') {
+                $languages[] = substr($key, 5);
+            }
+        }
+        // first remove all other languages
+        $this->_userModel->deleteLanguageRights($params['id'], $languages);
+        // set language rights
+        foreach ($languages as $language) {
+            if ($this->_userModel->getRight($params['id'], 'edit', $language) == false) {
+                $res &= $this->_userModel->saveRight($params['id'], 'edit', $language);
+            } else {
+            }
+        }
+        return $res;
+    }
 }

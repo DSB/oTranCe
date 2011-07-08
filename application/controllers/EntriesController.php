@@ -67,8 +67,8 @@ class EntriesController extends Zend_Controller_Action
     public function setLanguages()
     {
         $this->view->languages = $this->_languagesModel->getLanguages();
-        $this->view->languagesEdit = $this->getEditLanguages();
         $this->_languagesEdit = $this->getEditLanguages();
+        $this->view->languagesEdit = $this->_languagesEdit;
         $this->_showLanguages = $this->view->languagesEdit;
         $this->_referenceLanguages = $this->getRefLanguages();
         if (is_array($this->_referenceLanguages)) {
@@ -237,7 +237,7 @@ class EntriesController extends Zend_Controller_Action
     public function getEditLanguages()
     {
         $userModel = new Application_Model_User();
-        return $userModel->getUserRights('edit');
+        return $userModel->getUserEditRights();
     }
 
     /**

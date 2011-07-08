@@ -77,7 +77,7 @@ foreach ($this->users as $userId => $user)
         <td class="ssmall"><?php echo $edit . $user['username'];?></a></td>
         <td class="ssmall">
             <?php
-                $languageEditRights = $this->userModel->getUserRights('edit', $userId);
+                $languageEditRights = $this->userModel->getUserEditRights($userId);
                 if (empty($languageEditRights)) {
                     echo '<i>Nothing</i>';
                 }

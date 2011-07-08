@@ -53,9 +53,9 @@ class Application_Model_User {
         $this->_database = $this->_config->get('config.dbuser.db');
         $this->_tableUsersettings = $this->_config->get('config.table.usersettings');
         $this->_tableUserrights = $this->_config->get('config.table.userrights');
-        $this->_tableUsers = $this->_config->get('config.table.users');;
+        $this->_tableUsers = $this->_config->get('config.table.users');
         $this->_dbo = Msd_Db::getAdapter();
-        $auth =Zend_Auth::getInstance()->getIdentity();
+        $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_username = $auth['name'];
         $this->_userId = $auth['id'];
     }
@@ -246,6 +246,7 @@ class Application_Model_User {
      */
     public function getUserRights($right = '', $userId = 0)
     {
+        $userId = (int) $userId;
         if ($userId == 0) {
             $userId = $this->_userId;
         }
@@ -254,6 +255,34 @@ class Application_Model_User {
         if ($right > '') {
             $sql .= ' AND `right` = \'' . $right .'\'';
         }
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $ret = array();
+        foreach ($res as $val) {
+            $ret[] = $val['value'];
+        }
+        return $ret;
+    }
+
+    /**
+     * Get user language edit rights.
+     * Needed to get a sortet list by locale.
+     *
+     * @param int    $userId Id of user, if not set use the current user
+     *
+     * @return array
+     */
+    public function getUserEditRights($userId = 0)
+    {
+        $userId = (int) $userId;
+        if ($userId == 0) {
+            $userId = $this->_userId;
+        }
+        $sql = 'SELECT `r`.* FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '` `r`'
+                . ' LEFT JOIN `'.$this->_database.'`.`' . $this->_config->get('config.table.languages') . '` `l`'
+                . ' ON `r`.`value` = `l`.`id` '
+                . ' WHERE `user_id`=\''.$userId.'\''
+                . ' AND `right` = \'edit\''
+                . ' ORDER BY `l`.`locale` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $val) {
@@ -314,6 +343,27 @@ class Application_Model_User {
     }
 
     /**
+     * Check the value of a right for the given user
+     *
+     * @param int    $userId Id of user
+     * @param string $right  The right to get
+     * @param string $value  The value to check
+     *
+     * @return false|string
+     */
+    public function getRight($userId, $right, $value)
+    {
+        $userId = (int) $userId;
+        $value  = (int) $value;
+        $sql = 'SELECT `value` FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
+                . ' WHERE `user_id`=' . $userId
+                . ' AND `right`=\'' . $this->_dbo->escape($right) . '\''
+                . ' AND `value`=' . $value;
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]) ? $res[0] : false;
+    }
+
+    /**
      * Save a user right to database
      *
      * @param int    $userId Id of user
@@ -324,13 +374,13 @@ class Application_Model_User {
      */
     public function saveRight($userId, $right, $value = "1")
     {
-        $this->deleteRight($userId, $right);
+        $this->deleteRight($userId, $right, $value);
         $sql = 'INSERT INTO `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
-                .' (`user_id`, `right`, `value`) VALUES('
+                .' (`user_id`, `right`, `value`) VALUES ('
                 . intval($userId) . ', '
                 . '\'' . $this->_dbo->escape($right) . '\', '
-               . '\'' . $this->_dbo->escape($value) . '\')';
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+               . $value . ')';
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
         return $res;
     }
 
@@ -339,15 +389,38 @@ class Application_Model_User {
      *
      * @param int    $userId Id of user
      * @param string $right  Name of right
+     * @param int    $value  The value to delete
      *
      * @return bool
      */
-    public function deleteRight($userId, $right)
+    public function deleteRight($userId, $right, $value)
     {
         // check if user has an entry for this right
         $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
                 .' WHERE `user_id`=' . intval($userId)
-                .' AND `right`=\'' . $this->_dbo->escape($right) . '\'';
+                .' AND `right`=\'' . $this->_dbo->escape($right) . '\''
+                .' AND `value`=' . intval($value);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return $res;
+    }
+
+    /**
+     * Delete user language rights that are not given
+     *
+     * @param int   $userId Id of user
+     * @param array $languageIds Language ids the user can edit
+     *
+     * @return bool
+     */
+    public function deleteLanguageRights($userId, $languageIds = array())
+    {
+        // check if user has an entry for this right
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
+                . ' WHERE `user_id`=' . intval($userId)
+                . ' AND `right`=\'edit\'';
+        if (!empty($languageIds)) {
+            $sql .= ' AND NOT `value` IN (' . implode(',', $languageIds) . ')';
+        }
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return $res;
     }

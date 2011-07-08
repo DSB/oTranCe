@@ -56,7 +56,7 @@ class SettingsController extends Zend_Controller_Action
         }
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
-        $this->view->editLanguages = $this->getUserLanguageEditRights();
+        $this->view->editLanguages = $this->_userModel->getUserEditRights();
     }
 
     /**
@@ -84,14 +84,4 @@ class SettingsController extends Zend_Controller_Action
         return $res;
     }
 
-    /**
-     * Get list of language id's for which this user has edit rights
-     *
-     * @return boolean
-     */
-    public function getUserLanguageEditRights()
-    {
-        $rights = $this->_userModel->getUserRights('edit', '', true);
-        return $rights;
-    }
 }

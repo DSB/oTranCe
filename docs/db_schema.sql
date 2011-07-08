@@ -1,20 +1,20 @@
--- Status:8:25:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
+-- Status:8:32:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
 -- TABLE|filetemplates|2|2808|2011-07-07 21:06:06|MyISAM
--- TABLE|history|0|1024|2011-07-07 20:12:25|MyISAM
+-- TABLE|history|9|2388|2011-07-08 13:07:32|MyISAM
 -- TABLE|keys|1|2080|2011-07-06 12:47:31|MyISAM
--- TABLE|languages|3|3152|2011-07-07 12:55:17|MyISAM
--- TABLE|translations|2|2104|2011-07-06 12:47:31|MyISAM
--- TABLE|userrights|5|2152|2011-07-06 12:47:31|MyISAM
--- TABLE|users|4|2264|2011-07-07 14:10:56|MyISAM
--- TABLE|usersettings|8|2324|2011-07-07 14:04:56|MyISAM
+-- TABLE|languages|3|3140|2011-07-08 00:13:27|MyISAM
+-- TABLE|translations|2|2124|2011-07-07 23:22:54|MyISAM
+-- TABLE|userrights|8|2408|2011-07-08 13:03:15|MyISAM
+-- TABLE|users|2|2264|2011-07-08 12:30:27|MyISAM
+-- TABLE|usersettings|5|2324|2011-07-08 01:03:13|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-07-07 21:07
+-- Dump created: 2011-07-08 13:07
 
 --
 -- Create Table `filetemplates`
@@ -57,13 +57,22 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
 --
 
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('1','1','2011-07-07 23:22:51','1','changed','1','Test DE','Test DE Neu');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('2','1','2011-07-08 13:05:53','0','logged out','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('3','2','2011-07-08 13:05:57','0','logged in','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('4','2','2011-07-08 13:06:23','0','logged out','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('5','1','2011-07-08 13:06:27','0','logged in','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('6','1','2011-07-08 13:07:18','0','logged out','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('7','2','2011-07-08 13:07:22','0','logged in','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('8','2','2011-07-08 13:07:27','0','logged out','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('9','1','2011-07-08 13:07:31','0','logged in','0','-','-');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
 
@@ -97,7 +106,7 @@ CREATE TABLE `languages` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
   `locale` varchar(5) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `flag_exentsion` enum('gif','jpeg','jpg','png') NOT NULL,
+  `flag_extension` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `locale` (`locale`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
@@ -107,9 +116,9 @@ CREATE TABLE `languages` (
 --
 
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('1','de','Deutsch','gif');
-INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('2','en','English','gif');
-INSERT INTO `languages` (`id`,`locale`,`name`,`flag_exentsion`) VALUES ('3','ar','Arabic','gif');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_extension`) VALUES ('1','de','Deutsch','gif');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_extension`) VALUES ('2','en','English','gif');
+INSERT INTO `languages` (`id`,`locale`,`name`,`flag_extension`) VALUES ('3','ar','Arabic','gif');
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 
 
@@ -131,8 +140,8 @@ CREATE TABLE `translations` (
 --
 
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Test DE','2011-07-02 16:43:35');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','TEST AR','2011-07-02 16:43:35');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Test DE Neu','2011-07-07 23:22:51');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','TEST AR','2011-07-07 23:22:51');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
 
@@ -142,23 +151,25 @@ INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','TES
 
 DROP TABLE IF EXISTS `userrights`;
 CREATE TABLE `userrights` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `right` varchar(10) NOT NULL,
   `value` smallint(5) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `userrights`
 --
 
 /*!40000 ALTER TABLE `userrights` DISABLE KEYS */;
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('1','1','addVar','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('2','1','edit','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('3','1','edit','3');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('4','1','admin','1');
-INSERT INTO `userrights` (`id`,`user_id`,`right`,`value`) VALUES ('5','2','edit','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','3');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','admin','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addVar','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','export','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','edit','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','edit','2');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','2');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -181,9 +192,7 @@ CREATE TABLE `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('1','Admin','21232f297a57a5a743894a0e4a801fc3','1');
-INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('2','Tester','ad0234829205b9033196ba818f7a872b','1');
-INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('6','dsb4','6155a95c9e7ef4e13f939b5a7ef78af7','1');
-INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('7','Otto','8ce4b16b22b58894aa86c421e8759df3','0');
+INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('2','Tester','098f6bcd4621d373cade4e832627b4f6','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
@@ -198,21 +207,18 @@ CREATE TABLE `usersettings` (
   `setting` varchar(20) NOT NULL,
   `value` varchar(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `usersettings`
 --
 
 /*!40000 ALTER TABLE `usersettings` DISABLE KEYS */;
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('120','1','recordsPerPage','10');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('123','1','referenceLanguage','3');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('122','1','referenceLanguage','2');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('136','1','recordsPerPage','10');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('138','1','referenceLanguage','1');
 INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('5','2','referenceLanguage','1');
 INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('6','2','recordsPerPage','20');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('121','1','referenceLanguage','1');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('124','6','recordsPerPage','10');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('125','6','referenceLanguage','1');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('137','1','referenceLanguage','3');
 /*!40000 ALTER TABLE `usersettings` ENABLE KEYS */;
 
 SET FOREIGN_KEY_CHECKS=1;

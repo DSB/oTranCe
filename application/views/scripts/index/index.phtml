@@ -16,12 +16,13 @@ $i = 1;
         <th>User with edit rights</th>
     </tr>
 <?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 foreach ($this->status as $langId => $val)
 {
     $greenBar = (int) $val['done'] * 2;
     $redBar = (int) 200-$greenBar;
 ?>
-    <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
+    <tr class="<?php echo $cycleHelper->next();?>">
         <td class="small right"><?php echo $i;?>.</td>
         <td class="small">
             <img src="<?php echo $this->baseUrl() . '/images/flags/' . $this->languages[$langId]['locale'];?>.gif"

@@ -125,7 +125,6 @@ if ($user['id'] == 0) { ?>
             <label for="export_no"> No</label>
         </td>
     </tr>
-
     <tr class="row-odd">
         <td>&nbsp;</td>
         <td class="ssmall">
@@ -135,6 +134,59 @@ if ($user['id'] == 0) { ?>
         </td>
     </tr>
 
+    <tr class="thead">
+       <th colspan="2">Languages edit rights</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table class="bdr" style="width:100%">
+                <tr class="thead">
+                    <th class="right">#</th>
+                    <th colspan="3">Language</th>
+                    <th>Can edit</th>
+                </tr>
+            <?php
+                $i = 1;
+                $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+                foreach ($this->languages as $language) {
+                    $label = '<label for="lang-' . $language['id'] .'">';
+                ?>
+                <tr class="<?php echo $cycleHelper->next();?>">
+                    <td class="small right" style="width:20px;">
+                        <?php echo $label . $this->numberFormat($i);?>.</label>
+                    </td>
+                    <td class="small" style="width:28px;">
+                        <?php echo $label . $this->printFlag($language['locale']);?></label>
+                    </td>
+                    <td class="small" style="width:30px;">
+                        <?php echo $label . $language['locale'];?></label>
+                    </td>
+                    <td class="small"><?php echo $label . $language['name'];?></label></td>
+                    <td class="small right">
+                        <input type="checkbox"
+                            name="lang-<?php echo $language['id'];?>"
+                            id="lang-<?php echo $language['id'];?>"
+                            <?php if (in_array($language['id'], $this->editLanguages)) { ?>
+                                checked="checked"
+                            <?php };?>
+                        />
+                    </td>
+
+                </tr>
+                <?php
+                    $i++;
+                } ?>
+            </table>
+        </td>
+    </tr>
+    <tr class="row-odd">
+        <td>&nbsp;</td>
+        <td class="ssmall">
+            <button type="submit" class="Formbutton" name="saveAccount">
+                <?php echo $this->getIcon('save', '');?> Save
+            </button>
+        </td>
+    </tr>
 </table>
 </form>
 
@@ -163,6 +215,21 @@ if (isset($this->saveMessage) && $this->saveMessage === true) {
         array(
             'modal' => true,
             'height' => 130,
+            'width' => 340,
+            'dialogClass' => 'info',
+        )
+    );
+};
+
+if (isset($this->saveErrorMessage)) {
+    $this->popUpMessage()->addMessage(
+        'settingsSaved',
+        'Error',
+        'An error occured while saving your changes.<br />Please try again.'
+        . '<br />If the error persists, please contact the administrator of this page.',
+        array(
+            'modal' => true,
+            'height' => 170,
             'width' => 340,
             'dialogClass' => 'info',
         )

@@ -315,6 +315,7 @@ class Application_Model_User {
             'addVar' => 0,
             'admin'  => 0,
             'export' => 0,
+            'createFile' => 0
         );
         $ret = array_merge($defaults, $ret);
         $this->_userrights = $ret;

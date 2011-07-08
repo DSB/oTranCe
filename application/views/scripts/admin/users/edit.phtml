@@ -108,6 +108,25 @@ if ($user['id'] == 0) { ?>
     </tr>
 
     <tr class="row-even">
+        <td>User can create new export files:</td>
+        <td>
+            <input type="radio" name="createFile" id="createFile_yes" value="1"
+                <?php if ($userRights['createFile'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="createFile_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="createFile" id="createFile_no" value="0"
+                <?php if ($userRights['createFile'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="createFile_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
         <td>User can export changes to repository:</td>
         <td>
             <input type="radio" name="export" id="export_yes" value="1"
@@ -125,7 +144,7 @@ if ($user['id'] == 0) { ?>
             <label for="export_no"> No</label>
         </td>
     </tr>
-    <tr class="row-odd">
+    <tr class="row-even">
         <td>&nbsp;</td>
         <td class="ssmall">
             <button type="submit" class="Formbutton" name="saveAccount">

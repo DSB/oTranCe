@@ -111,7 +111,7 @@ class Admin_UsersController extends AdminController
     public function _saveUserRights($params)
     {
         $res = true;
-        $rights = array('addVar', 'admin', 'export');
+        $rights = array('addVar', 'admin', 'export', 'createFile');
         foreach ($rights as $right) {
             if (isset($params[$right]) && $params[$right] == 1) {
                 $res &= $this->_userModel->saveRight($params['id'], $right, 1);

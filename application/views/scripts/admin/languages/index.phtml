@@ -1,40 +1,75 @@
 <h2>Admin - Languages</h2>
 <?php echo $this->partial('admin/head-navi.phtml'); ?>
-<form action="<?php echo $this->baseUrl(); ?>/admin_languages/" method="post" enctype="multipart/form-data">
-    <table class="bdr">
-        <tr class="row-even">
-            <td class="ssmall"><label for="langLocale">Language locale (e.g. en, de):</label></td>
-            <td class="ssmall"><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
-    if (array_key_exists('langLocale', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span><?php
-            }
-?></td>
-        </tr>
-        <tr class="row-odd">
-            <td class="ssmall"><label for="langName">Language name (e.g. English, Deutsch):</label></td>
-            <td class="ssmall"><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
-    if (array_key_exists('langName', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span><?php
-            }
-?></td>
-        </tr>
-        <tr class="row-even">
-            <td class="ssmall"><label for="langFlag">Language flag:</label></td>
-            <td class="ssmall"><input type="file" class="text" name="langFlag" id="langFlag" /><?php
-    if (array_key_exists('langFlag', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span><?php
-            }
-?></td>
-        </tr>
-        <tr class="row-odd">
-            <td class="ssmall">&nbsp;</td>
-            <td class="ssmall"><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Create</button></td>
-        </tr>
-    </table>
+<form action="<?php echo $this->baseUrl();?>/admin_languages/" method="post" id="myForm">
+    <p style="margin:0;padding:0;">
+        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+        Filter / Search:
+        <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
+        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+            <?php echo $this->getIcon('search', '', 16);?> Search
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
+            <?php echo $this->getIcon('plus', '');?> Add language
+        </button>
+        <br /><br />
+
+        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+            <?php else: ?>
+            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+            <?php endif; ?>
+        </a>
+        Entries per page:
+        <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+            <?php echo $this->selRecordsPerPage;?>
+        </select>
+        Hits: <?php echo $this->numberFormat($this->hits);?>
+
+    </p>
 </form>
-<?php if ($this->creationResult === true) {
-?><span class="success">Language successfully created.</span><?php
-} else {
-    ?><span class="error"><?php echo $this->creationResult; ?></span><?php
+
+<table class="bdr more-padding">
+    <tr class="thead">
+        <th>&nbsp;</th>
+        <th>#</th>
+        <th>Locale</th>
+        <th>Name</th>
+        <th>Has flag</th>
+    </tr>
+<?php
+if ($this->hits == 0) { ?>
+    <tr class="row-odd">
+        <td colspan="6" class="error">Sorry, no hits.</td>
+    </tr>
+
+<?php
+}
+$i = 1;
+foreach ($this->languages as $language) {
+    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+    <tr class="<?php echo $cycleHelper->next(); ?>">
+        <td class="ssmall">
+            <a href="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $language['id']; ?>/" title="Edit language"><?php echo $this->getIcon('Edit', ''); ?></a>
+        </td>
+        <td class="ssmall"><?php echo $i++; ?></td>
+        <td class="ssmall"><?php echo $language['locale']; ?></td>
+        <td class="ssmall"><?php echo $language['name']; ?></td>
+        <td class="ssmall"><?php echo $language['hasFlag'] ? $this->printFlag($language['locale']) : $this->getIcon('Attention', 'No', 16); ?></td>
+    </tr>
+<?php
 }
 ?>
+</table>

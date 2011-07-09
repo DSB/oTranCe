@@ -12,7 +12,7 @@ if ($user['id'] == 0) { ?>
     <h4>Account of user with id <?php echo $user['id'];?>:</h4>
 <?php } ?>
 
-<form action="<?echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
+<form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
 <table class="bdr more-padding">
     <tr class="thead">
        <th colspan="2">Account settings</th>

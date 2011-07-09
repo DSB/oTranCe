@@ -11,7 +11,7 @@ class Application_Model_Languages
 
     /**
      * Database object
-     * @var Msd_Db_Common
+     * @var Msd_Db_Mysqli
      */
     private $_dbo;
 
@@ -391,19 +391,23 @@ class Application_Model_Languages
     }
 
     /**
-     * Adds a new language to the data base.
+     * Saves language data to the database.
      *
+     * @param int    $id            Internal id of the language
      * @param string $locale        Locale of the new language (e.g. en, de)
      * @param string $name          Name of the new language (e.g. English, Detusch)
      * @param string $flagExtension Extension of the flag file
      *
      * @return bool|string
      */
-    public function addLanguage($locale, $name, $flagExtension)
+    public function saveLanguage($id, $locale, $name, $flagExtension)
     {
-        $sql = "INSERT INTO `{$this->_tableLanguages}` (`locale`, `name`, `flag_exentsion`) VALUES ('"
-            . $this->_dbo->escape($locale) . "', '" . $this->_dbo->escape($name) . "', '"
-            . $this->_dbo->escape($flagExtension) . "')";
+        $locale = $this->_dbo->escape($locale);
+        $name = $this->_dbo->escape($name);
+        $flagExtension = $this->_dbo->escape($flagExtension);
+        $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `locale`, `name`, `flag_exentsion`) VALUES
+            ($id, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale', `name` = '$name',
+            `flagExtension` = '$flagExtension'";
         try {
             $this->_dbo->query($sql, Msd_Db::SIMPLE);
         } catch (Msd_Exception $e) {
@@ -414,5 +418,38 @@ class Application_Model_Languages
             }
         }
         return true;
+    }
+
+    /**
+     * Loads language data from database
+     *
+     * @param int $id Internal id of the language
+     *
+     * @return array
+     */
+    public function getLanguageById($id)
+    {
+        $sql = "SELECT `id`, `locale`, `name`, `flag_extension` FROM `languages` WHERE `id` = $id";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return isset($res[0]) ? $res[0] : array();
+    }
+
+    public function getAllLanguages($filter = null, $offset = null, $recsPerPage = null)
+    {
+        $where = '';
+        $limit = '';
+        if ($filter > '') {
+            $filter = $this->_dbo->escape($filter);
+            $where = "WHERE `locale` LIKE '%$filter%' OR `name` LIKE '%$filter%'";
+        }
+        if ($recsPerPage > 0) {
+            $recsPerPage = $this->_dbo->escape($recsPerPage);
+            $offset = $this->_dbo->escape($offset);
+            $limit = "LIMIT $offset, $recsPerPage";
+        }
+        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `locale`, `name`, (`flag_extension` != '') hasFlag FROM `languages`
+            $where ORDER BY `locale` ASC $limit";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return $res;
     }
 }

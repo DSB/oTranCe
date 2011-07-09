@@ -1,0 +1,49 @@
+<h2>Admin - Languages</h2>
+<?php echo $this->partial('admin/head-navi.phtml'); ?>
+<?php if ($this->langId == 0) { ?>
+    <h4>Create new language:</h4>
+<?php
+} else { ?>
+    <h4>Edit language with id <?php echo $this->langId;?>:</h4>
+<?php } ?>
+<form action="<?php echo $this->baseUrl(); ?>/admin_languages/" method="post" enctype="multipart/form-data">
+    <table class="bdr more-padding">
+        <tr class="thead">
+           <th colspan="2">Language settings</th>
+        </tr>
+        <tr class="row-even">
+            <td class="ssmall"><label for="langLocale">Language locale (e.g. en, de):</label></td>
+            <td class="ssmall"><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
+    if (array_key_exists('langLocale', $this->inputErrors)) {
+?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span><?php
+            }
+?></td>
+        </tr>
+        <tr class="row-odd">
+            <td class="ssmall"><label for="langName">Language name (e.g. English, Deutsch):</label></td>
+            <td class="ssmall"><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
+    if (array_key_exists('langName', $this->inputErrors)) {
+?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span><?php
+            }
+?></td>
+        </tr>
+        <tr class="row-even">
+            <td class="ssmall"><label for="langFlag">Language flag:</label></td>
+            <td class="ssmall"><input type="file" class="text" name="langFlag" id="langFlag" /><?php
+    if (array_key_exists('langFlag', $this->inputErrors)) {
+?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span><?php
+            }
+?></td>
+        </tr>
+        <tr class="row-odd">
+            <td class="ssmall"><input type="hidden" name="id" value="<?php echo $this->langId; ?>"/><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
+            <td class="ssmall"><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save</button></td>
+        </tr>
+    </table>
+</form>
+<?php if ($this->creationResult === true) {
+?><span class="success">Language successfully created.</span><?php
+} else {
+    ?><span class="error"><?php echo $this->creationResult; ?></span><?php
+}
+?>

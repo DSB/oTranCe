@@ -33,7 +33,7 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function printFlag($locale, $width = 0, $id = false)
+    public function printFlag($locale, $width = null, $id = null)
     {
         if (self::$_languages === null) {
             $languagesModel = new Application_Model_Languages();
@@ -43,18 +43,18 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
                 self::$_languages[$language['locale']] = $language;
             }
         }
-        $ret ='';
-        if (isset(self::$_languages[$locale])) {
+        $ret = '';
+        if (isset(self::$_languages[$locale]) && !empty(self::$_languages[$locale]['flag_extension'])) {
             $ret = '<img src="' . $this->view->baseUrl() . '/images/flags/';
             $ret .= self::$_languages[$locale]['locale'] . '.'
                     . self::$_languages[$locale]['flag_extension'] . '"'
-                    . ' alt="' . self::$_languages[$locale]['name'] .'"'
-                    . ' title="' . self::$_languages[$locale]['name'] .'"';
-            if ($width !== 0) {
-                $ret .= ' width="' . $width .'"';
+                    . ' alt="' . self::$_languages[$locale]['name'] . '"'
+                    . ' title="' . self::$_languages[$locale]['name'] . '"';
+            if ($width !== null) {
+                $ret .= ' width="' . $width . '"';
             }
-            if ($id !== false) {
-                $ret .= ' id="' . $id .'"';
+            if ($id !== null) {
+                $ret .= ' id="' . $id . '"';
             }
             $ret .= '/>';
         }

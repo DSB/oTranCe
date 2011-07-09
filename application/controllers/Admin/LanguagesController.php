@@ -10,14 +10,31 @@ require_once('AdminController.php');
 
 class Admin_LanguagesController extends AdminController
 {
+    public function indexAction()
+    {
+        $recordsPerPage = (int) $this->_config->get('dynamic.recordsPerPage');
+        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
+        $this->view->languages = $this->_languagesModel->getAllLanguages(
+            $this->_config->get('dynamic.filterUser'),
+            $this->_config->get('dynamic.offset'),
+            $this->_config->get('dynamic.recordsPerPage')
+        );
+        $this->view->hits = $this->_languagesModel->getRowCount();
+    }
     /**
      * Index action for maintaining languages
      *
      * @return void
      */
-    public function indexAction()
+    public function editAction()
     {
         $this->view->inputErrors = array();
+        $id = $this->_request->getParam('id', 0);
+        $intValidate = new Zend_Validate_Int();
+        if (!$intValidate->isValid($id)) {
+            $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
+        }
+        $langModel = new Application_Model_Languages();
         if ($this->_request->isPost()) {
             $langLocale = $this->_request->getParam('langLocale');
 
@@ -31,31 +48,39 @@ class Admin_LanguagesController extends AdminController
             }
             $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
 
-            if ($this->_validateUserLanguageInputs($langLocale, $langName, $upload)) {
-                $langModel = new Application_Model_Languages();
-                $creationResult = $langModel->addLanguage($langLocale, $langName, $sourceExt);
+            if ($this->_validateUserLanguageInputs($id, $langLocale, $langName, $upload)) {
+                $creationResult = $langModel->saveLanguage($id, $langLocale, $langName, $sourceExt);
                 if ($creationResult === true) {
                     $this->view->flagFile = $upload->receive();
                 }
                 $this->view->creationResult = $creationResult;
             }
-
+        }
+        $langData = $langModel->getLanguageById($id);
+        $this->view->langId = $id;
+        if (count($langData) > 0) {
+            $this->view->langLocale = $langData['locale'];
+            $this->view->langName = $langData['name'];
+            $this->view->flagExtension = $langData['flag_extension'];
         }
     }
 
     /**
      * Validate inputs when adding a new language
      *
+     * @param int                                 $id         internal id of the language
      * @param string                              $langLocale Locale of language
      * @param string                              $langName   Name of language
      * @param Zend_File_Transfer_Adapter_Abstract $flag       Uploaded picture of flag
      *
      * @return bool
      */
-    protected function _validateUserLanguageInputs($langLocale, $langName, Zend_File_Transfer_Adapter_Abstract $flag)
+    protected function _validateUserLanguageInputs($id, $langLocale, $langName, Zend_File_Transfer_Adapter_Abstract $flag)
     {
-        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
         $inputsValid = true;
+        $intValidate = new Zend_Validate_Int();
+        $inputsValid &= $intValidate->isValid($id);
+        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
         $inputErrors = array();
         $langLocaleValid = $strLenValidate->isValid($langLocale);
         if (!$langLocaleValid) {

@@ -85,7 +85,7 @@ class Application_Model_User {
      * Get list of users
      *
      * @param string $filter         Filter for user name
-     * @param int    $offset         Offset ind db
+     * @param int    $offset         Offset in db
      * @param int    $recordsPerPage Nr of records to fetch
      *
      * @return array

@@ -93,8 +93,16 @@ class Admin_LanguagesController extends AdminController
         if (!$intValidate->isValid($id)) {
             $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
         }
-        $this->_languagesModel->deleteFlag($id);
-        $this->_forward('edit', 'admin_languages', null, array('id' => $id, 'flag' => 'deleted'));
+        $lang = $this->_languagesModel->getLanguageById($id);
+        $deleteResult = 'deleted';
+        $imageFile = realpath(APPLICATION_PATH . '/../public/images/flags')
+            . "/{$lang['locale']}.{$lang['flag_extension']}";
+        if (!@unlink($imageFile)) {
+            $deleteResult = 'notDeleted';
+        } else {
+            $this->_languagesModel->deleteFlag($id);
+        }
+        $this->_forward('edit', 'admin_languages', null, array('id' => $id, 'flag' => $deleteResult));
     }
 
     /**

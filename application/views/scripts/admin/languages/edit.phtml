@@ -92,6 +92,7 @@ if (!empty($this->inputErrors)) {
         )
     );
 }
+
 if ($this->flag == 'deleted') {
     $this->popUpMessage()->addMessage(
         'settingsSaved',
@@ -105,6 +106,21 @@ if ($this->flag == 'deleted') {
         )
     );
 }
+
+if ($this->flag == 'notDeleted') {
+    $this->popUpMessage()->addMessage(
+        'settingsSaved',
+        'Ok',
+        'Can\'t delete the image file of the flag.',
+        array(
+             'modal' => true,
+             'height' => 130,
+             'width' => 400,
+             'dialogClass' => 'info',
+        )
+    );
+}
+
 if (isset($this->creationResult)) {
     if ($this->creationResult === true) {
         $this->popUpMessage()->addMessage(

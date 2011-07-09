@@ -2,7 +2,6 @@
 $i = $this->offset+1;
 $languageModel = new Application_Model_Languages();
 ?>
-<div id="content">
 <h2>Edit entries</h2>
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
@@ -170,7 +169,6 @@ if ($this->rows == 0) {
 }
     ?>
 </table>
-</div>
 <script type="text/javascript">
 $('#filter').keypress(function (e) {
     var code = null;

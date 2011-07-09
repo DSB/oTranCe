@@ -677,8 +677,10 @@ select {
 }
 
 textarea {
-	background: #B3C2C0;
-	color: #4E5665;
+	background: #EEE;
+	border: 1px solid #CCC;
+	color: #000;
+	padding: 6px;
 }
 
 /* disabled textarea when editign rows in SQLBrowser */

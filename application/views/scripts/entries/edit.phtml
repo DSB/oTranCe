@@ -3,9 +3,8 @@ $entry = $this->entry;
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $this->translatable = Msd_Google::getTranslatableLanguages();
 ?>
-<div id="content">
-    <h2>Edit entry</h2>
-    <h4>Key: <?php echo $this->key['key'];?>
+<h2>Edit entry</h2>
+<h4>Key: <?php echo $this->key['key'];?>
 <?php
 if (isset($this->entrySaved)) {
             if ($this->entrySaved === true) {
@@ -134,7 +133,6 @@ if (!empty($this->referenceLanguages)) {
 <?php
 }
 ?>
-</div>
 <script type="text/javascript">
 $(document).ready(function(){
     $("textarea").autoGrow();

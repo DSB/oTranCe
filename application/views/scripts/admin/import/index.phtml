@@ -1,3 +1,19 @@
 <h2>Admin - Import</h2>
-<?php echo $this->partial('admin/head-navi.phtml'); ?>
-To do ...
+<?php echo $this->partial('admin/head-navi.phtml');?>
+<h4>Import settings:</h4>
+<p>
+Import extracted data into file:
+<br />
+Language:
+<br />Analyzer:
+</p>
+<form action="" method="post">
+<p>
+    <textarea name="impportData" id="importData" cols="120" rows="10"></textarea>
+
+    <br /><br />
+    <button type="submit" class="Formbutton" name="analyze" id="analyze">
+    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    </button>
+</p>
+</form>

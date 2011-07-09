@@ -1,0 +1,43 @@
+<h2>Import language data</h2>
+<h4>Import settings:</h4>
+<form action="" method="post" id="myForm">
+<table class="bdr">
+    <tr class="row-even">
+        <td>Data is for language:</td>
+        <td>
+            <select name="selectedLanguage" id="selectedLanguage" onchange="$('#myForm').submit()">
+                <?php echo $this->selLanguage;?>
+            </select>
+        </td>
+    </tr>
+    <tr class="row-odd">
+        <td>Extracted data is for file:</td>
+        <td>
+            <?php if ($this->selectedLanguage == '') { ?>
+                <i>Select a target language first</i>
+            <?php } else { ?>
+                <select></select>
+            <?php } ?>
+        </td>
+    </tr>
+    <tr class="row-odd">
+        <td>Use analyzer:</td>
+        <td><select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select></td>
+    </tr>
+</table>
+
+<br />
+<p>
+Upload a file or paste text into box.
+</p>
+<br />
+<h4>Data to import:</h4>
+<p>
+    <textarea name="impportData" id="importData" cols="120" rows="10"></textarea>
+
+    <br /><br />
+    <button type="submit" class="Formbutton" name="analyze" id="analyze">
+    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    </button>
+</p>
+</form>

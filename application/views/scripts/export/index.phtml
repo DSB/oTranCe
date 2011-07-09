@@ -2,7 +2,6 @@
 $i = 1;
 $export = $this->export;
 ?>
-<div id="content">
 <h2>Export</h2>
 <h4>File status of language packs in SVN:</h4>
 
@@ -59,4 +58,3 @@ foreach ($this->status as $key => $s)
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
     <?php echo $this->getIcon('save', 'Update SVN');?> Save and export all languages</a>
 </a>
-</div>

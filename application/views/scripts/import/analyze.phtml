@@ -1,0 +1,24 @@
+<h2>Analyzing data:</h2>
+<p>Found <?php echo $this->numberFormat(sizeof($this->importData));?> language keys.</p>
+
+<table class="bdr">
+<tr class="thead">
+    <th class="right">#</th>
+    <th>Key</th>
+    <th>Value</th>
+</tr>
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$i=1;
+foreach ($this->extractedData as $key => $val) { ?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
+        <td class="small"><?php echo $this->out($key);?></td>
+        <td class="small"><?php echo $this->out($val);?></td>
+    </tr>
+<?php
+    $i++;
+}
+?>
+</table>
+

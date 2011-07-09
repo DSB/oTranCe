@@ -425,7 +425,8 @@ class Application_Model_Languages
      */
     public function getLanguageById($id)
     {
-        $sql = "SELECT `id`, `active`, `locale`, `name`, `flag_extension` FROM `languages` WHERE `id` = $id";
+        $sql = "SELECT `id`, `active`, `locale`, `name`, `flag_extension` FROM `{$this->_tableLanguages}`
+            WHERE `id` = $id";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($res[0]) ? $res[0] : array();
     }
@@ -439,7 +440,7 @@ class Application_Model_Languages
      *
      * @return array
      */
-    public function getAllLanguages($filter = null, $offset = null, $recsPerPage = null)
+    public function getAllLanguages($filter = '', $offset = 0, $recsPerPage = 0)
     {
         $where = '';
         $limit = '';
@@ -453,7 +454,7 @@ class Application_Model_Languages
             $limit = "LIMIT $offset, $recsPerPage";
         }
         $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, (`flag_extension` != '') hasFlag
-            FROM `languages` $where ORDER BY `locale` ASC $limit";
+            FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC $limit";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }
@@ -468,7 +469,7 @@ class Application_Model_Languages
     public function localeExists($locale)
     {
         $locale = $this->_dbo->escape($locale);
-        $sql = "SELECT (COUNT(*) > 0) localeExists FROM `languages` WHERE `locale` = '$locale'";
+        $sql = "SELECT (COUNT(*) > 0) localeExists FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale'";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (isset($res[0])) {
             return (bool) $res[0]['localeExists'];
@@ -486,7 +487,7 @@ class Application_Model_Languages
     public function deleteFlag($id)
     {
         $id = $this->_dbo->escape($id);
-        $sql = "UPDATE `languages` SET `flag_extension` = '' WHERE `id` = $id";
+        $sql = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $id";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 }

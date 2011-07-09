@@ -41,7 +41,7 @@ class ImportController extends Zend_Controller_Action
             $languages = $this->_languagesModel->getLanguages();
             $selectedFileTemplate = (int) $request->getParam('selectedFileTemplate', 0);
             $fileTemplates = array();
-            $files = $this->_fileTemplatesModel->getFileTemplates();
+            $files = $this->_fileTemplatesModel->getFileTemplates('name');
             foreach ($files as $file) {
                 $filename = str_replace('{LOCALE}', $languages[$selectedLanguage]['locale'], $file['filename']);
                 $fileTemplates[$file['id']] = $filename;

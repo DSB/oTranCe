@@ -42,11 +42,29 @@ class Application_Model_FileTemplates
     /**
      * Get file templates
      *
+     * @param string $order       Name of the column to order the file list
+     * @param string $filter      String to filter the templates (effects lang locale and lang name)
+     * @param int    $offset      Offset of entry where the result starts
+     * @param int    $recsPerPage Number of records per page
+     *
      * @return array
      */
-    public function getFileTemplates()
+    public function getFileTemplates($order, $filter = '', $offset = 0, $recsPerPage = 0)
     {
-        $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableFiletemplates .'`';
+        $where = '';
+        $limit = '';
+        $order = $this->_dbo->escape($order);
+        if ($filter > '') {
+            $filter = $this->_dbo->escape($filter);
+            $where = "WHERE `name` LIKE '%$filter%' OR `filename` LIKE '%$filter%'";
+        }
+        if ($recsPerPage > 0) {
+            $recsPerPage = $this->_dbo->escape($recsPerPage);
+            $offset = $this->_dbo->escape($offset);
+            $limit = "LIMIT $offset, $recsPerPage";
+        }
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM `{$this->_database}`.`{$this->_tableFiletemplates}` $where
+            ORDER BY `$order` $limit";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }

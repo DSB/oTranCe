@@ -1,6 +1,10 @@
 <?php
 $user = $this->user;
 $userRights = $this->userRights;
+$inputNamesMap = array(
+    'user_name' => 'Username',
+    'pass1' => 'Password',
+);
 ?>
 <h2>Admin - Edit User</h2>
 <?php
@@ -39,14 +43,16 @@ if ($user['id'] == 0) { ?>
     <tr class="row-even">
         <td>Username:</td>
         <td>
-            <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($user['username']);?>"/>
+            <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($user['username']);?>"/><br/>
+            <?php if (isset($this->errors['user_name'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['user_name']); ?></span><?php } ?>
         </td>
     </tr>
 
     <tr class="row-odd">
         <td>Password (*):</td>
         <td>
-            <input type="password" class="text" name="pass1" id="pass1" value="" />
+            <input type="password" class="text" name="pass1" id="pass1" value="" /><br/>
+            <?php if (isset($this->errors['pass1'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['pass1']); ?></span><?php } ?>
         </td>
     </tr>
 
@@ -211,10 +217,19 @@ if ($user['id'] == 0) { ?>
 
 <?php
 if (!empty($this->errors)) {
+    $inputErrors = '<table>';
+    foreach ($this->errors as $inputName => $inputError) {
+        if (array_key_exists($inputName, $inputNamesMap)) {
+            $inputName = $inputNamesMap[$inputName];
+        }
+        $inputErrors .= '<tr><td class="error">' . $inputName . '</td><td class="error">'
+            . implode('<br/>', $inputError) . '</td></tr>';
+    }
+    $inputErrors .= '</table>';
     $this->popUpMessage()->addMessage(
         'settingsNotSaved',
         'Error',
-        'Error validating your inputs:<br /><br /><span class="error">' . implode('<br />', $this->errors)
+        'Error validating your inputs:<br /><br /><span class="error">' . $inputErrors
             .'</span><br /><br />Please correct your input.',
         array(
             'modal' => true,

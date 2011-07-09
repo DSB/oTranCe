@@ -72,16 +72,20 @@ class Admin_UsersController extends AdminController
         $params = $this->_request->getParams();
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (!$strLenValidate->isValid($params['user_name'])) {
-            $errors = array_merge($errors, $strLenValidate->getMessages());
+            $errors['user_name'] = $strLenValidate->getMessages();
         }
         if ($params['pass1'] > '' || $params['pass2'] > '') {
-            if ($params['pass1'] != $params['pass2']) {
-                $errors[] = 'The passwords are not the same.';
+            $identicalValidate = new Zend_Validate_Identical($params['pass1']);
+            if (!$identicalValidate->isValid($params['pass2'])) {
+                $errors['pass1'] = $identicalValidate->getMessages();
             }
         }
 
-        if ($params['id'] == 0 && $params['pass1'] == '') {
-            $errors[] = 'You must provide a password when creating a new user account.';
+        if ($params['id'] == 0) {
+            $notEmptyValidate = new Zend_Validate_NotEmpty();
+            if (!$notEmptyValidate->isValid($params['pass1'])) {
+                $errors['pass1'] = $notEmptyValidate->getMessages();
+            }
         }
         $this->view->errors = $errors;
         if (empty($errors)) {

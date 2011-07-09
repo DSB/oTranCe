@@ -45,14 +45,20 @@ $inputFieldMap = array(
 ?></td>
         </tr>
         <tr class="row-even">
-            <td><label for="langFlag">Language flag:</label></td>
+            <td>
+                <label for="langFlag">Language flag:</label><br /><br />
+                <?php echo $this->printFlag($this->langLocale);?>
+
+            </td>
             <td>
                 <input type="file" class="text" name="langFlag" id="langFlag" /><br/>
-                <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->langId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button><?php
-    if (array_key_exists('langFlag', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span><?php
-            }
-?></td>
+                <?php if ($this->flagExtension > '') { ?>
+                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->langId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button>
+                    <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
+                        <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
+                    <?php }
+                    }?>
+            </td>
         </tr>
         <tr class="row-odd">
             <td><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
@@ -90,7 +96,7 @@ if ($this->flag == 'deleted') {
     $this->popUpMessage()->addMessage(
         'settingsSaved',
         'Ok',
-        'The flag have been deleted successfully.',
+        'The image of the flag has been deleted successfully.',
         array(
              'modal' => true,
              'height' => 130,

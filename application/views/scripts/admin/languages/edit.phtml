@@ -1,3 +1,10 @@
+<?php
+$inputFieldMap = array(
+    'langName' => 'Language name',
+    'langLocale' => 'Language locale',
+    'langFlag' => 'Language flag',
+);
+?>
 <h2>Admin - Languages</h2>
 <?php echo $this->partial('admin/head-navi.phtml'); ?>
 <?php if ($this->langId == 0) { ?>
@@ -6,44 +13,119 @@
 } else { ?>
     <h4>Edit language with id <?php echo $this->langId;?>:</h4>
 <?php } ?>
-<form action="<?php echo $this->baseUrl(); ?>/admin_languages/" method="post" enctype="multipart/form-data">
+<form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->langId; ?>/" method="post" enctype="multipart/form-data">
     <table class="bdr more-padding">
         <tr class="thead">
            <th colspan="2">Language settings</th>
         </tr>
+        <tr class="row-odd">
+            <td>Language is active:</td>
+            <td>
+                <input type="radio" name="langActive" id="langActiveYes" value="1"<?php echo (!isset($this->langActive) || $this->langActive) ? ' checked="checked"' : ''; ?>/>
+                <label for="langActiveYes"> Yes</label>
+                &nbsp;&nbsp;
+                <input type="radio" name="langActive" id="langActiveNo" value="0"<?php echo (isset($this->langActive) && !$this->langActive) ? ' checked="checked"' : ''; ?>/>
+                <label for="langActiveNo"> No</label>
+            </td>
+        </tr>
         <tr class="row-even">
-            <td class="ssmall"><label for="langLocale">Language locale (e.g. en, de):</label></td>
-            <td class="ssmall"><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
+            <td><label for="langLocale">Language locale (e.g. en, de):</label></td>
+            <td><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
     if (array_key_exists('langLocale', $this->inputErrors)) {
 ?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span><?php
             }
 ?></td>
         </tr>
         <tr class="row-odd">
-            <td class="ssmall"><label for="langName">Language name (e.g. English, Deutsch):</label></td>
-            <td class="ssmall"><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
+            <td><label for="langName">Language name (e.g. English, Deutsch):</label></td>
+            <td><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
     if (array_key_exists('langName', $this->inputErrors)) {
 ?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span><?php
             }
 ?></td>
         </tr>
         <tr class="row-even">
-            <td class="ssmall"><label for="langFlag">Language flag:</label></td>
-            <td class="ssmall"><input type="file" class="text" name="langFlag" id="langFlag" /><?php
+            <td><label for="langFlag">Language flag:</label></td>
+            <td>
+                <input type="file" class="text" name="langFlag" id="langFlag" /><br/>
+                <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->langId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button><?php
     if (array_key_exists('langFlag', $this->inputErrors)) {
 ?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span><?php
             }
 ?></td>
         </tr>
         <tr class="row-odd">
-            <td class="ssmall"><input type="hidden" name="id" value="<?php echo $this->langId; ?>"/><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
-            <td class="ssmall"><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save</button></td>
+            <td><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
+            <td>
+                <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save</button>
+            </td>
         </tr>
     </table>
 </form>
-<?php if ($this->creationResult === true) {
-?><span class="success">Language successfully created.</span><?php
-} else {
-    ?><span class="error"><?php echo $this->creationResult; ?></span><?php
+<?php
+if (!empty($this->inputErrors)) {
+    $fieldErrors = '<table>';
+    foreach ($this->inputErrors as $inputName => $inputError) {
+        if (array_key_exists($inputName, $inputFieldMap)) {
+            $inputName = $inputFieldMap[$inputName];
+        }
+        $fieldErrors .= "<tr><td class=\"error\">$inputName:</td><td class=\"error\">";
+        $fieldErrors .= implode('<br/>', $inputError);
+        $fieldErrors .= "</td></tr>";
+    }
+    $fieldErrors .= '</table>';
+    $this->popUpMessage()->addMessage(
+        'settingsNotSaved',
+        'Error',
+        'Error validating your inputs:<br /><br />' . $fieldErrors
+            . '<br /><br />Please correct your input.',
+        array(
+            'modal' => true,
+            'width' => 400,
+            'dialogClass' => 'info',
+        )
+    );
 }
+if ($this->flag == 'deleted') {
+    $this->popUpMessage()->addMessage(
+        'settingsSaved',
+        'Ok',
+        'The flag have been deleted successfully.',
+        array(
+             'modal' => true,
+             'height' => 130,
+             'width' => 400,
+             'dialogClass' => 'info',
+        )
+    );
+}
+if (isset($this->creationResult)) {
+    if ($this->creationResult === true) {
+        $this->popUpMessage()->addMessage(
+            'settingsSaved',
+            'Ok',
+            'Your changes have been saved successfully.',
+            array(
+                 'modal' => true,
+                 'height' => 130,
+                 'width' => 400,
+                 'dialogClass' => 'info',
+            )
+        );
+    } else {
+        $this->popUpMessage()->addMessage(
+            'settingsSaved',
+            'Error',
+            'The following error occured while saving your changes.<br /><br/><span class="error">'
+                . $this->creationResult . '</span><br /><br/>Please try again.<br/><br/>'
+                . 'If the error persists, please contact the administrator of this page.',
+            array(
+                'modal' => true,
+                'width' => 400,
+                'dialogClass' => 'info',
+            )
+        );
+    }
+}
+
 ?>

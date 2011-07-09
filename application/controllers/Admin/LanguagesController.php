@@ -10,6 +10,11 @@ require_once('AdminController.php');
 
 class Admin_LanguagesController extends AdminController
 {
+    /**
+     * Retrieve data for index view.
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $recordsPerPage = (int) $this->_config->get('dynamic.recordsPerPage');
@@ -35,51 +40,88 @@ class Admin_LanguagesController extends AdminController
             $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
         }
         $langModel = new Application_Model_Languages();
+        $this->view->langId = $id;
+        $this->view->flag = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
             $langLocale = $this->_request->getParam('langLocale');
-
+            $langActive = $this->_request->getParam('langActive', 0);
             $langName = $this->_request->getParam('langName');
-            $upload = new Zend_File_Transfer_Adapter_Http();
-            $sourceFile = $upload->getFileName();
-            $targetFile = tempnam('/tmp/', 'otc');
-            if (is_string(($sourceFile))) {
-                $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
-                $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
+            $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
+            $sourceExt = $this->_request->getParam('flagExt');
+            $upload = null;
+            if ($flagUploaded) {
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $sourceFile = $upload->getFileName();
+                if (is_string($sourceFile)) {
+                    $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
+                    $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
+                }
+                $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
             }
-            $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
 
-            if ($this->_validateUserLanguageInputs($id, $langLocale, $langName, $upload)) {
-                $creationResult = $langModel->saveLanguage($id, $langLocale, $langName, $sourceExt);
-                if ($creationResult === true) {
+            if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
+                $creationResult = $langModel->saveLanguage($id, $langActive, $langLocale, $langName, $sourceExt);
+                if ($flagUploaded && $creationResult === true) {
                     $this->view->flagFile = $upload->receive();
                 }
                 $this->view->creationResult = $creationResult;
             }
+            $this->view->langActive = $langActive;
+            $this->view->langLocale = $langLocale;
+            $this->view->langName = $langName;
+            $this->view->flagExtension = $sourceExt;
+        } else {
+            $langData = $langModel->getLanguageById($id);
+            if (count($langData) > 0) {
+                $this->view->langActive = $langData['active'];
+                $this->view->langLocale = $langData['locale'];
+                $this->view->langName = $langData['name'];
+                $this->view->flagExtension = $langData['flag_extension'];
+            }
         }
-        $langData = $langModel->getLanguageById($id);
-        $this->view->langId = $id;
-        if (count($langData) > 0) {
-            $this->view->langLocale = $langData['locale'];
-            $this->view->langName = $langData['name'];
-            $this->view->flagExtension = $langData['flag_extension'];
+    }
+
+    /**
+     * Delete the flag for a language
+     *
+     * @return void
+     */
+    public function deleteFlagAction()
+    {
+        $id = $this->_request->getParam('id', 0);
+        $intValidate = new Zend_Validate_Int();
+        if (!$intValidate->isValid($id)) {
+            $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
         }
+        $this->_languagesModel->deleteFlag($id);
+        $this->_forward('edit', 'admin_languages', null, array('id' => $id, 'flag' => 'deleted'));
     }
 
     /**
      * Validate inputs when adding a new language
      *
-     * @param int                                 $id         internal id of the language
+     * @param int                                 $id         Internal id of the language
+     * @param int                                 $active     Active state of the language
      * @param string                              $langLocale Locale of language
      * @param string                              $langName   Name of language
      * @param Zend_File_Transfer_Adapter_Abstract $flag       Uploaded picture of flag
      *
      * @return bool
      */
-    protected function _validateUserLanguageInputs($id, $langLocale, $langName, Zend_File_Transfer_Adapter_Abstract $flag)
+    protected function _validateUserLanguageInputs(
+        $id,
+        $active,
+        $langLocale,
+        $langName,
+        Zend_File_Transfer_Adapter_Abstract $flag = null
+    )
     {
         $inputsValid = true;
         $intValidate = new Zend_Validate_Int();
         $inputsValid &= $intValidate->isValid($id);
+        $betweenValidate = new Zend_Validate_Between(array('min' => 0, 'max' => 1));
+        $inputsValid &= $intValidate->isValid($active);
+        $inputsValid &= $betweenValidate->isValid($active);
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
         $inputErrors = array();
         $langLocaleValid = $strLenValidate->isValid($langLocale);
@@ -96,14 +138,16 @@ class Admin_LanguagesController extends AdminController
         }
         $inputsValid &= $langNameValid;
 
-        $flag->addValidator('Extension', false, array('gif', 'jpeg', 'jpg', 'png'));
-        $flag->addValidator('Size', false, array('max' >= '10kB'));
+        if ($flag !== null) {
+            $flag->addValidator('Extension', false, array('gif', 'jpeg', 'jpg', 'png'));
+            $flag->addValidator('Size', false, array('max' >= '10kB'));
 
-        $langFlagValid = $flag->isValid();
-        if (!$langFlagValid) {
-            $inputErrors['langFlag'] = $flag->getMessages();
+            $langFlagValid = $flag->isValid();
+            if (!$langFlagValid) {
+                $inputErrors['langFlag'] = $flag->getMessages();
+            }
+            $inputsValid &= $langFlagValid;
         }
-        $inputsValid &= $langFlagValid;
 
         $this->view->inputErrors = $inputErrors;
 

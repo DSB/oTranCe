@@ -47,6 +47,7 @@
         <th>Locale</th>
         <th>Name</th>
         <th>Has flag</th>
+        <th>Active</th>
     </tr>
 <?php
 if ($this->hits == 0) { ?>
@@ -67,7 +68,8 @@ foreach ($this->languages as $language) {
         <td class="ssmall"><?php echo $i++; ?></td>
         <td class="ssmall"><?php echo $language['locale']; ?></td>
         <td class="ssmall"><?php echo $language['name']; ?></td>
-        <td class="ssmall"><?php echo $language['hasFlag'] ? $this->printFlag($language['locale']) : $this->getIcon('Attention', 'No', 16); ?></td>
+        <td class="ssmall"><?php echo $language['hasFlag'] ? $this->printFlag($language['locale']) : $this->getIcon('Attention', 'No flag uploaded', 16); ?></td>
+        <td class="ssmall"><?php echo $language['active'] ? $this->getIcon('Ok', 'Yes', 16) : $this->getIcon('Attention', 'No', 16); ?></td>
     </tr>
 <?php
 }

@@ -394,29 +394,25 @@ class Application_Model_Languages
      * Saves language data to the database.
      *
      * @param int    $id            Internal id of the language
+     * @param int    $active        Active state of the language
      * @param string $locale        Locale of the new language (e.g. en, de)
      * @param string $name          Name of the new language (e.g. English, Detusch)
      * @param string $flagExtension Extension of the flag file
      *
      * @return bool|string
      */
-    public function saveLanguage($id, $locale, $name, $flagExtension)
+    public function saveLanguage($id, $active, $locale, $name, $flagExtension)
     {
+        if ($id == 0 && $this->localeExists($locale)) {
+            return "The specified locale '$locale' already exists.";
+        }
         $locale = $this->_dbo->escape($locale);
         $name = $this->_dbo->escape($name);
         $flagExtension = $this->_dbo->escape($flagExtension);
-        $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `locale`, `name`, `flag_exentsion`) VALUES
-            ($id, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale', `name` = '$name',
-            `flagExtension` = '$flagExtension'";
-        try {
-            $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        } catch (Msd_Exception $e) {
-            if ($e->getCode() == 1062) {
-                return "The specified locale '$locale' already exists.";
-            } else {
-                return $e->getMessage();
-            }
-        }
+        $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`) VALUES
+            ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
+            `name` = '$name', `flag_extension` = '$flagExtension', `active` = $active";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return true;
     }
 
@@ -429,11 +425,20 @@ class Application_Model_Languages
      */
     public function getLanguageById($id)
     {
-        $sql = "SELECT `id`, `locale`, `name`, `flag_extension` FROM `languages` WHERE `id` = $id";
+        $sql = "SELECT `id`, `active`, `locale`, `name`, `flag_extension` FROM `languages` WHERE `id` = $id";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($res[0]) ? $res[0] : array();
     }
 
+    /**
+     * Retrieves all languages and their meta data.
+     *
+     * @param string $filter      String to filter the languages (effects lang locale and lang name)
+     * @param int    $offset      Offset of entry where the result starts
+     * @param int    $recsPerPage Number of records per page
+     *
+     * @return array
+     */
     public function getAllLanguages($filter = null, $offset = null, $recsPerPage = null)
     {
         $where = '';
@@ -447,9 +452,41 @@ class Application_Model_Languages
             $offset = $this->_dbo->escape($offset);
             $limit = "LIMIT $offset, $recsPerPage";
         }
-        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `locale`, `name`, (`flag_extension` != '') hasFlag FROM `languages`
-            $where ORDER BY `locale` ASC $limit";
+        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, (`flag_extension` != '') hasFlag
+            FROM `languages` $where ORDER BY `locale` ASC $limit";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
+    }
+
+    /**
+     * Checks for existing locale.
+     *
+     * @param string $locale Locale to check
+     *
+     * @return bool
+     */
+    public function localeExists($locale)
+    {
+        $locale = $this->_dbo->escape($locale);
+        $sql = "SELECT (COUNT(*) > 0) localeExists FROM `languages` WHERE `locale` = '$locale'";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if (isset($res[0])) {
+            return (bool) $res[0]['localeExists'];
+        }
+        return false;
+    }
+
+    /**
+     * Deletes the flag or the given language.
+     *
+     * @param int $id Id of the language
+     *
+     * @return void
+     */
+    public function deleteFlag($id)
+    {
+        $id = $this->_dbo->escape($id);
+        $sql = "UPDATE `languages` SET `flag_extension` = '' WHERE `id` = $id";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 }

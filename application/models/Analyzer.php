@@ -15,7 +15,8 @@ class Application_Model_Analyzer
         foreach ($dir as $fileinfo) {
         $pos = strrpos($fileinfo->getFilename(), '.php');
             if ($pos !== false) {
-                $analyzers[] = substr($fileinfo->getFilename(), 0, $pos) . "\n";
+                $name = substr($fileinfo->getFilename(), 0, $pos);
+                $analyzers["$name"] =  $name;
             }
         }
 

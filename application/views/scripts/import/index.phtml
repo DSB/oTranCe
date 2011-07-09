@@ -14,9 +14,11 @@
         <td>Extracted data is for file:</td>
         <td>
             <?php if ($this->selectedLanguage == '') { ?>
-                <i>Select a target language first</i>
+                <i>Select target language first</i>
             <?php } else { ?>
-                <select></select>
+                <select name="selectedFileTemplate" id="selectedFileTemplate">
+                    <?php echo $this->selFileTemplate;?>
+                </select>
             <?php } ?>
         </td>
     </tr>

@@ -3,8 +3,8 @@ $config = Msd_Configuration::getInstance();
 $lang = Msd_Language::getInstance();
 $theme = $config->get('config.interface.theme');
 $language = $config->get('config.interface.language');
-$this->headMeta()->appendHttpEquiv('content-language', $language);
-$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+$this->headMeta()->appendHttpEquiv('content-language', $language)
+    ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
     ->appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
     ->appendHttpEquiv('pragma', 'no-cache')
     ->appendHttpEquiv('Cache-Control', 'no-cache')

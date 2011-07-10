@@ -33,7 +33,6 @@ class Application_Model_Importer_Oxid implements Msd_Import_Interface
     public function extract($data)
     {
         $data = explode("\n", $data);
-
         // 'KEY_1234' => "Text",
         $muster = "/^\\s*['\"](.*)['\"]\\s*=>\\s*['\"](.*)['\"],/s";
         //$muster2 = '/^(.*)\."(.*)"/'; -> Konkatenierte Zeilen
@@ -44,9 +43,8 @@ class Application_Model_Importer_Oxid implements Msd_Import_Interface
         for ($i = 0; $i < $cnt; $i++) {
             if ($state == 0) {
                 // suche nächste Zeile mit einer Zuweisung "=>"
-                WHILE (strpos($data[$i], '=>') === false && $i < $cnt) {
+                WHILE (strpos($data[$i], '=>') === false && $i < $cnt-1) {
                     $i++;
-                    ;
                 }
                 $line = $this->_removeComment($data[$i]);
             } else {

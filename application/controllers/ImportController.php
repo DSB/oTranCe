@@ -30,16 +30,15 @@ class ImportController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $request = $this->getRequest();
-        $params = $request->getParams();
-        $selectedLanguage = (int) $request->getParam('selectedLanguage', 0);
+        $params = $this->_request->getParams();
+        $selectedLanguage = (int) $this->_request->getParam('selectedLanguage', 0);
         $languages = $this->_languagesModel->getLanguages(true);
         $this->view->selLanguage = Msd_Html::getHtmlOptions($languages, $selectedLanguage);
         $this->view->selectedLanguage = $selectedLanguage;
-
+        $this->view->importData = $this->_request->getParam('importData', '');
         if ($selectedLanguage != 0) {
             $languages = $this->_languagesModel->getLanguages();
-            $selectedFileTemplate = (int) $request->getParam('selectedFileTemplate', 0);
+            $selectedFileTemplate = (int) $this->_request->getParam('selectedFileTemplate', 0);
             $fileTemplates = array();
             $files = $this->_fileTemplatesModel->getFileTemplates('name');
             foreach ($files as $file) {
@@ -49,19 +48,32 @@ class ImportController extends Zend_Controller_Action
             $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate);
         }
 
-        $selectedAnalyzer = $request->getParam('selectedAnalyzer', '');
         $analyzers = $this->_analyzerModel->getAvailableImportAnalyzers();
+        $analyzersNames = array_keys($analyzers);
+        $selectedAnalyzer = $this->_request->getParam('selectedAnalyzer', $analyzersNames[0]);
         $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, count($analyzers) != 1);
+        $this->view->selectedAnalyzer = $selectedAnalyzer;
 
+        if ($this->_request->isPost()) {
+            if (isset($_FILES['fileUploaded']) && $_FILES['fileUploaded']['size'] > 0) {
+                $data = file_get_contents($_FILES['fileUploaded']['tmp_name']);
+                $this->view->importData = trim($data);
+            }
+        }
         if (isset($params['analyze'])) {
             $this->_forward('analyze');
             return;
         }
     }
 
+    /**
+     * Analyze and extract detected constants from data
+     *
+     * @return void
+     */
     public function analyzeAction()
     {
-        $data = file_get_contents('../data/lang.php');
+        $data = $this->view->importData;
         $importer = new Application_Model_Importer_Oxid();
         $this->view->extractedData = $importer->extract($data);
     }

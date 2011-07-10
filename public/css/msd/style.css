@@ -909,3 +909,7 @@ pre { font-size:12px; color:#000; }
 label {
     cursor: pointer;
 }
+
+#importData {
+    font: 11px/ 1.2 "Courier New", Courier, monospace;
+}

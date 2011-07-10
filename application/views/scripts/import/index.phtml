@@ -1,17 +1,17 @@
 <h2>Import language data</h2>
 <h4>Import settings:</h4>
-<form action="" method="post" id="myForm">
-<table class="bdr">
+<form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="POST" id="myForm">
+<table class="bdr more-padding">
     <tr class="row-even">
-        <td>Data is for language:</td>
-        <td>
+        <td class="small">Data is for language:</td>
+        <td class="small">
             <select name="selectedLanguage" id="selectedLanguage" onchange="$('#myForm').submit()">
                 <?php echo $this->selLanguage;?>
             </select>
         </td>
     </tr>
     <tr class="row-odd">
-        <td>Extracted data is for file:</td>
+        <td class="small">Extracted data is for file:</td>
         <td>
             <?php if ($this->selectedLanguage == '') { ?>
                 <i>Select target language first</i>
@@ -23,23 +23,60 @@
         </td>
     </tr>
     <tr class="row-odd">
-        <td>Use analyzer:</td>
-        <td><select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select></td>
+        <td class="small">Use analyzer:</td>
+        <td>
+            <select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select>
+            <span style="float:right">
+                <a href="#" title="show info" id="showImporterInfo">
+                    <?php echo $this->getIcon('Info', '', 16);?>
+                </a>
+            </span>
+        </td>
     </tr>
+
+    <tr class="row-even">
+        <td class="small">
+            Upload a file:
+        </td>
+        <td class="small">
+            <input type="file" class="text" name="fileUploaded" id="fileUploaded" />
+            <button type="submit" class="Formbutton">
+            <?php echo $this->getIcon('OpenFile', '', 16);?> Upload file
+            </button>
+        </td>
+
+    </tr>
+
 </table>
-
 <br />
-<p>
-Upload a file or paste text into box.
-</p>
-<br />
-<h4>Data to import:</h4>
-<p>
-    <textarea name="impportData" id="importData" cols="120" rows="10"></textarea>
+<div class="invisible" id="importerInfo">
+<?php
+    if ($this->selectedAnalyzer > '') {
+        echo "<br />";
+        echo $this->partial('import/importer/' . strtolower($this->selectedAnalyzer) . '.phtml');
+        echo "<br />";
+    }
+?>
+</div>
 
+<h4>Data to analyze:</h4>
+<p>
+    <button class="Formbutton" type="submit" name="analyze">
+    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    </button><br /><br />
+
+    <textarea name="importData" id="importData" cols="120" rows="1"><?php echo $this->importData;?></textarea>
     <br /><br />
-    <button type="submit" class="Formbutton" name="analyze" id="analyze">
+
+    <button class="Formbutton" type="submit" name="analyze">
     <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
     </button>
 </p>
 </form>
+<?php $this->jQuery()->onLoadCaptureStart();?>
+$('#showImporterInfo').click(function () {
+    $('#importerInfo').toggle('blind', {}, 1000);
+});
+$("textarea").autoGrow();
+
+<?php $this->jQuery()->onLoadCaptureEnd();?>

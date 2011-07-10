@@ -32,6 +32,8 @@ class Application_Model_Importer_Oxid implements Msd_Import_Interface
      */
     public function extract($data)
     {
+        // delete multi line comments
+        $data = preg_replace('!/\*.*?\*/!s', '', $data);
         $data = explode("\n", $data);
         // 'KEY_1234' => "Text",
         $muster = "/^\\s*['\"](.*)['\"]\\s*=>\\s*['\"](.*)['\"],/s";
@@ -53,7 +55,6 @@ class Application_Model_Importer_Oxid implements Msd_Import_Interface
 
             if (preg_match($muster, $line, $hit)) {
                 $state = 0;
-                //echo "<pre>" . htmlentities(print_r($hit, true)) . "</pre>";
                 $this->_extractedData[$hit[1]] = $hit[2];
             } else {
                 // Muster hat nicht gematcht -> String konkatenieren bis "=>" vorhanden

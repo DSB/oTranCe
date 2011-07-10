@@ -12,7 +12,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i=1;
 foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
+        <td class="small right"><?php echo $this->numberFormat($i);?></td>
         <td class="small"><?php echo $this->out($key);?></td>
         <td class="small"><?php echo $this->out($val);?></td>
     </tr>

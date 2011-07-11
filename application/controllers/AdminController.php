@@ -65,7 +65,7 @@ class AdminController extends Zend_Controller_Action
      *
      * @return void
      */
-    private function _getPostParams()
+    protected function _getPostParams()
     {
         $filter = trim($this->_request->getParam('filterUser', ''));
         $offset = (int) $this->_request->getParam('offset', 0);

@@ -24,9 +24,9 @@ class Msd_View_Helper_Out extends Zend_View_Helper_Abstract
      * Conditionally convert NULL values to "NULL" as string.
      * Conditionally surround value with a HTML tag.
      *
-     * @param string  $value     The value that may be converted
-     * @param boolean $ouputNull Whether to convert NULL values to string NULL
-     * @param string  $decorator Decorate output with this HTML-Tag
+     * @param string  $value      The value that may be converted
+     * @param boolean $outputNull Whether to convert NULL values to string NULL
+     * @param string  $decorator  Decorate output with this HTML-Tag
      *
      * @return string HTML-Text ready to print to screen
      */
@@ -37,7 +37,7 @@ class Msd_View_Helper_Out extends Zend_View_Helper_Abstract
             $ret = 'NULL';
         }
         if ($decorator > '') {
-            $ret = sprintf('<%s>'.$ret.'</%s>', $decorator, $decorator);
+            $ret = sprintf('<%s>'.$ret.'</%1$s>', $decorator);
         }
         return $ret;
     }

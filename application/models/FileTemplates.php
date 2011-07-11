@@ -68,4 +68,14 @@ class Application_Model_FileTemplates
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }
+
+    /**
+     * Get nr of rows of last query (needs to invoked using SQL_CALC_FOUND_ROWS)
+     *
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        return $this->_dbo->getRowCount();
+    }
 }

@@ -11,9 +11,10 @@
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
-        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
-            <?php echo $this->getIcon('plus', '');?> Add language
+        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_files/edit/id/0'">
+            <?php echo $this->getIcon('plus', '');?> Add file template
         </button>
+        Order list by: <select name="templateOrderBy" onchange="$(this).parents('form')[0].submit();"><?php echo Msd_Html::getHtmlOptions($this->templateOrderFields, $this->selOrderField, false); ?></select>
         <br /><br />
 
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
@@ -36,6 +37,79 @@
             <?php echo $this->selRecordsPerPage;?>
         </select>
         Hits: <?php echo $this->numberFormat($this->hits);?>
-
     </p>
 </form>
+
+    <table class="bdr more-padding">
+        <tr class="thead">
+            <th></th>
+            <th>#</th>
+            <th>Name</th>
+            <th>Header</th>
+            <th>Language variable</th>
+            <th>Footer</th>
+            <th>File path</th>
+        </tr>
+<?php
+if ($this->hits == 0) { ?>
+    <tr class="row-odd">
+        <td colspan="6" class="error">Sorry, no hits.</td>
+    </tr>
+
+<?php
+}
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$counter = 0;
+foreach ($this->fileTemplates as $fileTemplate) {
+    $cutOptions = array(
+        'escapeResult' => true,
+    );
+    $headerShort = $this->cutString($fileTemplate['header'], 40, $cutOptions);
+    $footerShort = $this->cutString($fileTemplate['footer'], 40, $cutOptions);
+    
+    $counter++;
+    $editUrl = $this->baseUrl() . '/admin_files/edit/id/' . $fileTemplate['id'] . '/';
+?>
+        <tr class="<?php echo $cycleHelper->next(); ?>">
+            <td class="ssmall">
+                <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->getIcon('Edit', ''); ?></a>
+            </td>
+            <td class="ssmall"><?php echo $counter; ?></td>
+            <td class="ssmall">
+                <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->out($fileTemplate['name']); ?></a>
+            </td>
+            <td class="ssmall">
+                <pre><?php echo $headerShort; ?></pre>
+                <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete header</a>
+                <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>">Complete file header:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
+            </td>
+            <td class="ssmall">
+                <pre><?php echo $this->out($fileTemplate['content']); ?></pre>
+            </td>
+            <td class="ssmall">
+                <pre><?php echo $footerShort; ?></pre>
+                <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete footer</a>
+                <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>">Complete file footer:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
+            </td>
+            <td class="ssmall"><?php echo $this->out($fileTemplate['filename']); ?></td>
+        </tr>
+<?php
+}
+?>
+    </table>
+<script type="text/javascript">
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+$('.expandButton').click(function(){
+    var tmplInfo = $(this).attr('id').split('-');
+    var tmplId = tmplInfo[2];
+    var tmplType = tmplInfo[1];
+    $('#complete-' + tmplType + '-' + tmplId).dialog({
+        "dialogClass":"info",
+        "buttons":{ "OK": function() { $(this).dialog('close'); } },
+        "title":'Complete ' + tmplType,
+        "minWidth":560,
+        "modal":true
+    });
+});
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
+</script>

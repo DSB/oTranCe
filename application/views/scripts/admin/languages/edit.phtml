@@ -7,12 +7,12 @@ $inputFieldMap = array(
 ?>
 <h2>Admin - Languages</h2>
 <?php echo $this->partial('admin/head-navi.phtml'); ?>
-<?php if ($this->langId == 0) { ?>
-    <h4>Create new language:</h4>
-<?php
-} else { ?>
-    <h4>Edit language with id <?php echo $this->langId;?>:</h4>
-<?php } ?>
+<?php if ($this->langId == 0) {
+    $subTitle = "Create new language";
+} else {
+    $subTitle = "Edit language \"{$this->langName} ({$this->langLocale})\"";
+} ?>
+<h4><?php echo $subTitle; ?></h4>
 <form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->langId; ?>/" method="post" enctype="multipart/form-data">
     <table class="bdr more-padding">
         <tr class="thead">
@@ -138,7 +138,7 @@ if (isset($this->creationResult)) {
         $this->popUpMessage()->addMessage(
             'settingsSaved',
             'Error',
-            'The following error occured while saving your changes.<br /><br/><span class="error">'
+            'The following error occurred while saving your changes.<br /><br/><span class="error">'
                 . $this->creationResult . '</span><br /><br/>Please try again.<br/><br/>'
                 . 'If the error persists, please contact the administrator of this page.',
             array(

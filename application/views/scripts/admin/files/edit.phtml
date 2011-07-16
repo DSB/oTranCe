@@ -1,7 +1,70 @@
 <h2>Admin - Files</h2>
 <?php echo $this->partial('admin/head-navi.phtml'); ?>
-What?! Why are you here?<br />
-All these interruptions are enough to make one insane. *mad laughter*<br />
-Here, take this and leave me to my work.<br/>
-Trouble me no more!<br /><br /><br />
-<a class="Formbutton" href="<?php echo $this->baseUrl(); ?>/admin_files/"><?php echo $this->getIcon('Back', '', 16); ?> Go back</a>
+<?php if ($this->fileTemplate['id'] == 0) {
+    $subTitle = "Create new file template";
+} else {
+    $subTitle = "Edit file template \"{$this->fileTemplate['name']}\"";
+} ?>
+<h4><?php echo $this->out($subTitle); ?></h4>
+<form action="<?php echo $this->baseUrl(); ?>/admin_files/edit/id/<?php echo $this->fileTemplate['id']; ?>/" method="post" enctype="multipart/form-data">
+    <table class="bdr more-padding">
+        <tr class="thead">
+            <th colspan="2">File template settings</th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="tplName">Name</label></td>
+            <td><input type="text" name="tplName" id="tplName" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['name']); ?>"/></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="tplHeader">Header</label></td>
+            <td><textarea name="tplHeader" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="tplContent">Content</label></td>
+            <td><textarea name="tplContent" id="tplContent" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['content']); ?></textarea></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="tplFooter">Footer</label></td>
+            <td><textarea name="tplFooter" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="tplFile">Filename</label></td>
+            <td><input type="text" name="tplFile" id="tplFile" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/></td>
+        </tr>
+        <tr class="row-even">
+            <td></td>
+            <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+        </tr>
+    </table>
+</form>
+<?php
+$this->jQuery()->addOnLoad('$("textarea").autoGrow();');
+if (isset($this->creationResult)) {
+    if ($this->creationResult === true) {
+        $this->popUpMessage()->addMessage(
+            'settingsSaved',
+            'Ok',
+            'Your changes have been saved successfully.',
+            array(
+                 'modal' => true,
+                 'height' => 130,
+                 'width' => 400,
+                 'dialogClass' => 'info',
+            )
+        );
+    } else {
+        $this->popUpMessage()->addMessage(
+            'settingsSaved',
+            'Error',
+            'The following error occurred while saving your changes.<br /><br/><span class="error">'
+                . $this->creationResult . '</span><br /><br/>Please try again.<br/><br/>'
+                . 'If the error persists, please contact the administrator of this page.',
+            array(
+                'modal' => true,
+                'width' => 400,
+                'dialogClass' => 'info',
+            )
+        );
+    }
+}
+?>

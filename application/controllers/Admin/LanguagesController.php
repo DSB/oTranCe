@@ -27,7 +27,7 @@ class Admin_LanguagesController extends AdminController
         $this->view->hits = $this->_languagesModel->getRowCount();
     }
     /**
-     * Index action for maintaining languages
+     * Edit action for maintaining languages
      *
      * @return void
      */
@@ -62,6 +62,7 @@ class Admin_LanguagesController extends AdminController
             if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
                 $creationResult = $langModel->saveLanguage($id, $langActive, $langLocale, $langName, $sourceExt);
                 if ($flagUploaded && $creationResult === true) {
+                    $this->_deleteFlags($langLocale);
                     $this->view->flagFile = $upload->receive();
                 }
                 $this->view->creationResult = $creationResult;
@@ -162,5 +163,19 @@ class Admin_LanguagesController extends AdminController
         return $inputsValid;
     }
 
-
+    /**
+     * Deletes all flag images for the given locale.
+     *
+     * @param string $locale Language locale.
+     *
+     * @return bool
+     */
+    private function _deleteFlags($locale)
+    {
+        $result = true;
+        foreach (glob(realpath(APPLICATION_PATH . '/../public/images/flags') . "/$locale.*") as $flagFile) {
+            $result &= @unlink($flagFile);
+        }
+        return $result;
+    }
 }

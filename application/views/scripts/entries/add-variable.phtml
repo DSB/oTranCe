@@ -13,12 +13,8 @@
         </button>
     </p>
     </form>
-<script type="text/javascript">
-$(document).ready(function() {
-    $('#var').focus();
-})
-</script>
 <?php
+$this->jQuery()->addOnLoad("$('#var').focus();");
 if (isset($this->error)) {
     $this->popUpMessage()->addMessage(
         'error',

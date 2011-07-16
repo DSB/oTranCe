@@ -9,13 +9,11 @@ $actionName = Zend_Controller_Front::getInstance()->getRequest()->getActionName(
 
 // format action name and escape possible dot in action name
 $actionName = str_replace('.', '\\\.', $actionName);
-$this->jQuery()->javascriptCaptureStart(); ?>
+$this->jQuery()->onLoadCaptureStart(); ?>
     // set selected tab
-    $(document).ready(function() {
-        $('#<?php echo $actionName; ?>').addClass("ui-state-active");
-        $('#<?php echo $actionName; ?>').addClass("ui-tabs-selected");
-    });
-<?php $this->jQuery()->javascriptCaptureEnd(); ?>
+    $('#<?php echo $actionName; ?>').addClass("ui-state-active");
+    $('#<?php echo $actionName; ?>').addClass("ui-tabs-selected");
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
 
 <div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">

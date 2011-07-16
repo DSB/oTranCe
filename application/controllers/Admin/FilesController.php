@@ -2,6 +2,11 @@
 require_once 'AdminController.php';
 class Admin_FilesController extends AdminController
 {
+    /**
+     * Retrieve data for index view.
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $templateOrderFields = array(
@@ -26,6 +31,11 @@ class Admin_FilesController extends AdminController
         $this->view->templateOrderFields = $templateOrderFields;
     }
 
+    /**
+     * Get post params and set to config which is saved top session
+     *
+     * @return void
+     */
     protected function _getPostParams()
     {
         $templateOrderField = $this->_config->get('dynamic.templateOrderField');
@@ -34,7 +44,26 @@ class Admin_FilesController extends AdminController
         parent::_getPostParams();
     }
 
+    /**
+     * Edit action for maintaining languages
+     *
+     * @return void
+     */
     public function editAction()
     {
+        $templateId = $this->_request->getParam('id', 0);
+        $templatesModel = new Application_Model_FileTemplates();
+        if ($this->_request->isPost()) {
+            $params = $this->_request->getParams();
+            $this->view->creationResult = $templatesModel->saveFileTemplate(
+                $templateId,
+                $params['tplName'],
+                $params['tplHeader'],
+                $params['tplContent'],
+                $params['tplFooter'],
+                $params['tplFile']
+            );
+        }
+        $this->view->fileTemplate = $templatesModel->getFileTemplate($templateId);
     }
 }

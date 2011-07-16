@@ -10,10 +10,10 @@ $inputNamesMap = array(
 <?php
 echo $this->partial('admin/head-navi.phtml');
 if ($user['id'] == 0) { ?>
-    <h4>Create new user account:</h4>
+    <h4>Create new user account</h4>
 <?php
 } else { ?>
-    <h4>Account of user with id <?php echo $user['id'];?>:</h4>
+    <h4>Account of user with id <?php echo $user['id'];?></h4>
 <?php } ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">

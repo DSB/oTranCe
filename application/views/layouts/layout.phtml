@@ -47,11 +47,12 @@ $messages = (string) $this->popUpMessage();
     <div id="container">
         <?php
             echo $messages;
-            echo $menu; ?>
-            <div id="content">
+            echo $menu;
+        ?>
+            <?php if (!$this->isLogin) { ?><div id="content"><?php } ?>
                 <?php echo $this->layout()->content; ?>
-            </div>
+            <?php if (!$this->isLogin) { ?></div><?php } ?>
     </div>
-    <div id="page-loader"><?php echo $this->getIcon('ajax-loader');?></div>
+    <div id="page-loader"><?php echo $this->getIcon('ajax-loader'); ?></div>
 </body>
 </html>

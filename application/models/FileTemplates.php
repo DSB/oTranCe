@@ -78,4 +78,71 @@ class Application_Model_FileTemplates
     {
         return $this->_dbo->getRowCount();
     }
+
+    /**
+     * Retrieves data for the given file template.
+     * If the template ID doesn't exists or ID is set to 0 (create new template), an empty (faked) record will be
+     * returned.
+     *
+     * @param int $templateId ID of the template to retrieve.
+     *
+     * @return array
+     */
+    public function getFileTemplate($templateId)
+    {
+        // Fake db row for new file template or if the result set is empty.
+        $emptyTemplate = array(
+            'id' => 0,
+            'name' => '',
+            'header' => '',
+            'footer' => '',
+            'content' => '',
+            'filename' => '',
+        );
+        // If a new file template is created, return empty db row immediately.
+        if ($templateId == 0) {
+            return $emptyTemplate;
+        }
+        // Escape ID. It comes from an user input or url parameter, so we can't trust them.
+        $templateId = $this->_dbo->escape($templateId);
+
+        // Build and execute the SQL statement to get file template db record.
+        $sql = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = $templateId LIMIT 1";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
+        // Check for empty result.
+        if (isset($res[0])) {
+            return $res[0];
+        }
+        return $emptyTemplate;
+    }
+
+    /**
+     * Saves a file template to database.
+     *
+     * @param int    $id       Id of the template.
+     * @param string $name     Name of the template.
+     * @param string $header   Template for file header.
+     * @param string $content  Template for language "array" content.
+     * @param string $footer   Template for file footer.
+     * @param string $filename Template for filename creation.
+     *
+     * @return bool
+     */
+    public function saveFileTemplate($id, $name, $header, $content, $footer, $filename)
+    {
+        $id = $this->_dbo->escape($id);
+        $name = $this->_dbo->escape($name);
+        $header = $this->_dbo->escape($header);
+        $content = $this->_dbo->escape($content);
+        $footer = $this->_dbo->escape($footer);
+        $filename  = $this->_dbo->escape($filename);
+
+        $sql = "INSERT INTO `{$this->_database}`.`{$this->_tableFiletemplates}`
+            (`id`, `name`, `header`, `content`, `footer`, `filename`) VALUES
+            ($id, '$name', '$header', '$content', '$footer', '$filename') ON DUPLICATE KEY UPDATE `name` = '$name',
+            `header` = '$header', `content` = '$content', `footer` = '$footer', `filename` = '$filename'";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return true;
+    }
 }

@@ -94,6 +94,8 @@ class IndexController extends Zend_Controller_Action
      */
     public function loginAction()
     {
+        // Set view parameter for layout to say "Hey it's the login page".
+        $this->view->isLogin = true;
         $form = new Application_Form_Login();
         $loginResult = false;
         if ($this->_request->isPost()) {

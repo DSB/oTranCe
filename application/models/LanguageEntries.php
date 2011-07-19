@@ -48,6 +48,7 @@ class Application_Model_LanguageEntries
         $this->_tableLanguages = $this->_config->get('config.table.languages');
         $this->_tableTranslations = $this->_config->get('config.table.translations');
         $this->_tableKeys = $this->_config->get('config.table.keys');
+        $this->_tableFileTemplates = $this->_config->get('config.table.filetemplates');
         $this->_dbo = Msd_Db::getAdapter();
         $this->_dbo->selectDb($this->_database);
     }
@@ -386,6 +387,45 @@ class Application_Model_LanguageEntries
         }
         $historyModel = new Application_Model_History();
         $historyModel->logChanges($keyId, $oldValues, $newValues);
+        return true;
+    }
+
+    /**
+     * Retrieves the file template, which is assigned to language variable.
+     *
+     * @param string $keyId ID of the language variable.
+     *
+     * @return array ID of the assigned template if exists, "empty" array otherwise.
+     */
+    public function getAssignedFileTemplate($keyId)
+    {
+        $keyId = $this->_dbo->escape($keyId);
+        $sql = "SELECT ft.`id`, ft.`name`, ft.`filename`
+            FROM `{$this->_database}`.`{$this->_tableKeys}` k
+            LEFT JOIN `{$this->_database}`.`{$this->_tableFileTemplates}` ft ON ft.`id` = k.`templateId`
+            WHERE k.`id` = '$keyId'";
+        $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return isset($result[0]) ? $result[0] : array('id' => 0);
+    }
+
+    /**
+     * Assigns a language variable to a file template,
+     *
+     * @param string $keyId      ID of the language variable.
+     * @param string $templateId ID of the template to assign.
+     * 
+     * @return bool|string Returns TRUE on success, otherwise returns the error message.
+     */
+    public function assignFileTemplate($keyId, $templateId)
+    {
+        $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}`
+            SET `templateId` = '$templateId'
+            WHERE `id` = '$keyId'";
+        try {
+            $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        } catch (Msd_Exception $e) {
+            return $e->getMessage();
+        }
         return true;
     }
 }

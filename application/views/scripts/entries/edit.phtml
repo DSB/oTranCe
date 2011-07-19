@@ -7,7 +7,7 @@ $this->translatable = Msd_Google::getTranslatableLanguages();
 <h4>Key: <?php echo $this->key['key'];?>
 <?php
 if (isset($this->entrySaved)) {
-            if ($this->entrySaved === true) {
+            if ($this->entrySaved == true) {
                 echo '<span id="saveMessage" class="ok"> '
                     .$this->getIcon('Ok','',16)
                     .'Entry saved successfully.</span>';
@@ -35,17 +35,23 @@ if (isset($this->entrySaved)) {
                 </tr>
                 <tr class="row-odd">
                     <td></td>
-                    <td>
+                    <td><?php if ($this->user->hasRight('addVar')) { ?>
                         <select name="fileTemplate" style="width:402px;">
-                            <option value="0">Not assigned</option>
+                            <option value="0"<?php if ($this->assignedFileTemplate['id'] == 0) { ?> selected="selected"<?php } ?>>Unassigned</option>
     <?php
         foreach ($this->fileTemplates as $fileTemplate) {
     ?>
-                            <option value="<?php echo $fileTemplate['id']; ?>"><?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)</option>
+                            <option value="<?php echo $fileTemplate['id']; ?>"<?php if ($fileTemplate['id'] == $this->assignedFileTemplate['id']) { ?> selected="selected"<?php } ?>><?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)</option>
     <?php
         }
     ?>
-                        </select>
+                        </select><?php } else { ?>
+                        <?php if (!empty($this->assignedFileTemplate['name']) && !empty($this->assignedFileTemplate['filename'])) {
+                            echo $this->assignedFileTemplate['name'] . ' (' . $this->assignedFileTemplate['filename'] . ')';
+                        } else {
+                            echo "Unassigned";
+                        } ?>
+                        <?php } ?>
                     </td>
                 </tr>
 <?php

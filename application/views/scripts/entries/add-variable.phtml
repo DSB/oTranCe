@@ -1,17 +1,31 @@
     <h2>Add entry</h2>
-    <h4>Add a new language variable</h4>
     <form action="<?php echo $this->baseUrl();?>/entries/add-variable" method="post">
-    <p>
-        Enter the name of the new language variable:
-        <input type="text" style="width:400px;" id="var" class="text" name="var" value="<?php echo $this->escape($this->newVar);?>" />
-        <br /><br />
-        <button type="submit" class="Formbutton" value="Save" name="save">
-            <?php echo $this->getIcon('save', '');?> Save
-        </button>
-        <button type="submit" class="Formbutton" value="Cancel" name="cancel" />
-            <?php echo $this->getIcon('delete', '');?> Cancel
-        </button>
-    </p>
+    <table class="bdr">
+        <tr class="thead">
+            <th colspan="2">Add a new language variable</th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="var">Enter the name of the new language variable:</label></td>
+            <td><input type="text" style="width:400px;" id="var" class="text" name="var" value="<?php echo $this->escape($this->newVar);?>" /></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="fileTemplate">Select the file template to assign to:</label></td>
+            <td>
+                <select name="fileTemplate" id="fileTemplate" style="width:406px;" class="text">
+                    <option value="0">Don't assign to a file template.</option>
+<?php foreach ($this->fileTemplates as $fileTemplate) { ?>
+                    <option value="<?php echo $fileTemplate['id']; ?>"><?php echo $fileTemplate['name'];?> (<?php echo $fileTemplate['filename']; ?>)</option>
+<?php } ?>
+                </select>
+            </td>
+        </tr>
+        <tr class="row-odd">
+            <td></td>
+            <td><button type="submit" class="Formbutton" value="Save" name="save"><?php echo $this->getIcon('save', '');?> Save</button>
+                <button type="submit" class="Formbutton" value="Cancel" name="cancel"><?php echo $this->getIcon('delete', '');?> Cancel</button>
+            </td>
+        </tr>
+    </table>
     </form>
 <?php
 $this->jQuery()->addOnLoad("$('#var').focus();");

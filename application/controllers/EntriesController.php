@@ -1,11 +1,31 @@
 <?php
 class EntriesController extends Zend_Controller_Action
 {
+    /**
+     * @var Application_Model_LanguageEntries
+     */
     private $_languagesModel;
+    /**
+     * @var Application_Model_User
+     */
     private $_userModel;
+    /**
+     * @var Msd_Configuration
+     */
     private $_config;
-    private $_showLanguages;
-    protected $_request;
+
+    /**
+     * @var array
+     */
+    private $_languagesEdit = array();
+    /**
+     * @var array
+     */
+    private $_showLanguages = array();
+    /**
+     * @var array
+     */
+    private $_referenceLanguages = array();
 
     /**
      * Init
@@ -28,7 +48,7 @@ class EntriesController extends Zend_Controller_Action
     {
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
             $this->_getPostParams();
-            if ($this->_request->getParam('addVar') != null) {
+            if ($this->_request->getParam('addVar') !== null) {
                 $this->_forward('add-variable');
             }
         } else {
@@ -68,7 +88,7 @@ class EntriesController extends Zend_Controller_Action
         $this->view->languages = $this->_languagesModel->getLanguages();
         $this->_languagesEdit = $this->getEditLanguages();
         $this->view->languagesEdit = $this->_languagesEdit;
-        $this->_showLanguages = $this->view->languagesEdit;
+        $this->_showLanguages = $this->_languagesEdit;
         $this->_referenceLanguages = $this->getRefLanguages();
         if (is_array($this->_referenceLanguages)) {
             $this->_showLanguages = array_merge($this->_showLanguages, $this->_referenceLanguages);
@@ -126,6 +146,7 @@ class EntriesController extends Zend_Controller_Action
         $this->view->user = $this->_userModel;
         $templatesModel = new Application_Model_FileTemplates();
         $this->view->fileTemplates = $templatesModel->getFileTemplates('name');
+        $this->view->assignedFileTemplate = $this->_languagesModel->getAssignedFileTemplate($id);
         $config = Msd_Configuration::getInstance();
         $this->view->googleKey = $config->get('config.google.apikey');
     }
@@ -209,7 +230,7 @@ class EntriesController extends Zend_Controller_Action
     public function getRefLanguages()
     {
         $userModel = new Application_Model_User();
-        $res = $userModel->loadSetting('referenceLanguage');
+        $res = $userModel->loadSetting('referenceLanguage', '', true);
         return isset($res[0]) ? $res : false;
     }
 
@@ -227,14 +248,18 @@ class EntriesController extends Zend_Controller_Action
                 $values[substr($name, 5)] = trim($val);
             }
         }
-        $res = $this->_languagesModel->saveEntries((int)$params['id'], $values);
+        $res = true;
+        if (isset($params['fileTemplate'])) {
+            $res &= $this->_languagesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
+        }
+        $res &= $this->_languagesModel->saveEntries((int)$params['id'], $values);
         return $res;
     }
 
     /**
      * Get list of edit languages
      *
-     * @return bool
+     * @return array
      */
     public function getEditLanguages()
     {
@@ -267,7 +292,7 @@ class EntriesController extends Zend_Controller_Action
         }
         $newVar = 'L_';
 
-        if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') != null) {
+        if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') !== null) {
             if ($this->_request->getParam('cancel') != null) {
                 $this->_myForward('index');
                 return;
@@ -296,6 +321,10 @@ class EntriesController extends Zend_Controller_Action
                     $historyModel->logNewVarCreated($entry['id']);
                     $this->view->entry = $entry;
                     $this->_request->setParam('id', $entry['id']);
+                    $this->_languagesModel->assignFileTemplate(
+                        $entry['id'],
+                        $this->_request->getParam('fileTemplate', 0)
+                    );
                     $this->_myForward('edit');
                     return;
                 } catch (Exception $e) {
@@ -307,6 +336,8 @@ class EntriesController extends Zend_Controller_Action
             $this->view->error = implode('<br />', $error);
         }
         $this->view->newVar = $newVar;
+        $fileTemplatesModel = new Application_Model_FileTemplates();
+        $this->view->fileTemplates = $fileTemplatesModel->getFileTemplates('name');
     }
 
     /**

@@ -74,9 +74,9 @@ class Msd_Export
      */
     public function exportLanguageFile($language)
     {
-        $languageModel = new Application_Model_Languages();
-        $data = $languageModel->getLanguage($language);
-        $english = $languageModel->getLanguage('en'); // used as fallback for unmaintained vars
+        $languageModel = new Application_Model_LanguageEntries();
+        $data = $languageModel->getLanguageKeys($language);
+        $english = $languageModel->getLanguageKeys('en'); // used as fallback for unmaintained vars
         $fileData = $this->_getFileHeader();
         foreach ($data as $key => $val) {
             if ($val == '') {

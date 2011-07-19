@@ -32,7 +32,7 @@ class SettingsController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $languagesModel = new Application_Model_Languages();
+        $languagesModel = new Application_Model_LanguageEntries();
         $this->view->languages = $languagesModel->getLanguages(false);
         $request = $this->getRequest();
         if ($request->isPost()) {

@@ -14,10 +14,9 @@ class EntriesController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_languagesModel = new Application_Model_Languages();
+        $this->_languagesModel = new Application_Model_LanguageEntries();
         $this->_userModel = new Application_Model_User();
         $this->_config = Msd_Configuration::getInstance();
-        $this->_request = $this->getRequest();
     }
 
     /**
@@ -124,6 +123,9 @@ class EntriesController extends Zend_Controller_Action
         $this->setLanguages();
         $this->view->key = $this->_languagesModel->getKeyById($id);
         $this->view->entry = $this->_languagesModel->getEntryById($id, $this->_showLanguages);
+        $this->view->user = $this->_userModel;
+        $templatesModel = new Application_Model_FileTemplates();
+        $this->view->fileTemplates = $templatesModel->getFileTemplates('name');
         $config = Msd_Configuration::getInstance();
         $this->view->googleKey = $config->get('config.google.apikey');
     }

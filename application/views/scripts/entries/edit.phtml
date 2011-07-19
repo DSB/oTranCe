@@ -21,8 +21,33 @@ if (isset($this->entrySaved)) {
     </h4>
     <div style="float:left;margin-right:20px;">
         <form action="<?php echo $this->baseUrl();?>/entries/edit" method="post">
+<?php
+    $assignTitle = 'Assigned file template';
+    if ($this->user->hasRight('addVar')) {
+        $assignTitle = 'Assign file template';
+    }
+?>
             <table class="bdr">
                 <tr class="thead"><th colspan="2">Edit:</th></tr>
+                <tr class="row-odd">
+                    <td></td>
+                    <td><?php echo $assignTitle; ?></td>
+                </tr>
+                <tr class="row-odd">
+                    <td></td>
+                    <td>
+                        <select name="fileTemplate" style="width:402px;">
+                            <option value="0">Not assigned</option>
+    <?php
+        foreach ($this->fileTemplates as $fileTemplate) {
+    ?>
+                            <option value="<?php echo $fileTemplate['id']; ?>"><?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)</option>
+    <?php
+        }
+    ?>
+                        </select>
+                    </td>
+                </tr>
 <?php
     foreach ($this->languagesEdit as $lang) {
                 $rowclass = $cycleHelper->next();
@@ -69,7 +94,7 @@ $cycleHelper->rewind();
 if (!empty($this->referenceLanguages)) {
 ?>
     <div style="float:left">
-        <table class="bdr">
+        <table class="bdr" style="margin-bottom: 20px;">
             <tr class="thead"><th colspan="5">Reference languages:</th></tr>
             <?php
             $rowclass = $cycleHelper->next();

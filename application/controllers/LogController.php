@@ -16,7 +16,7 @@ class LogController extends Zend_Controller_Action
 
     /**
      * Languages model
-     * @var Application_Model_Languages
+     * @var Application_Model_LanguagesEntries
      */
     private $_languageModel;
 
@@ -27,7 +27,7 @@ class LogController extends Zend_Controller_Action
      {
         $this->_userModel     = new Application_Model_User();
         $this->_historyModel  = new Application_Model_History();
-        $this->_languageModel = new Application_Model_Languages();
+        $this->_languageModel = new Application_Model_LanguageEntries();
      }
 
     /**

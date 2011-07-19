@@ -22,7 +22,7 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
      *
      * @var array
      */
-    private static $_languages;
+    private static $_languages = null;
 
     /**
      * Print image of given locale
@@ -36,7 +36,7 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
     public function printFlag($locale, $width = null, $id = null)
     {
         if (self::$_languages === null) {
-            $languagesModel = new Application_Model_Languages();
+            $languagesModel = new Application_Model_LanguageEntries();
             $languages = $languagesModel->getLanguages();
             self::$_languages = array();
             foreach ($languages as $language) {

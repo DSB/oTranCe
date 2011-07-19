@@ -39,7 +39,6 @@ class Admin_LanguagesController extends AdminController
         if (!$intValidate->isValid($id)) {
             $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
         }
-        $langModel = new Application_Model_Languages();
         $this->view->langId = $id;
         $this->view->flag = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
@@ -60,7 +59,13 @@ class Admin_LanguagesController extends AdminController
             }
 
             if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
-                $creationResult = $langModel->saveLanguage($id, $langActive, $langLocale, $langName, $sourceExt);
+                $creationResult = $this->_languagesModel->saveLanguage(
+                    $id,
+                    $langActive,
+                    $langLocale,
+                    $langName,
+                    $sourceExt
+                );
                 if ($flagUploaded && $creationResult === true) {
                     $this->_deleteFlags($langLocale);
                     $this->view->flagFile = $upload->receive();
@@ -72,7 +77,7 @@ class Admin_LanguagesController extends AdminController
             $this->view->langName = $langName;
             $this->view->flagExtension = $sourceExt;
         } else {
-            $langData = $langModel->getLanguageById($id);
+            $langData = $this->_languagesModel->getLanguageById($id);
             if (count($langData) > 0) {
                 $this->view->langActive = $langData['active'];
                 $this->view->langLocale = $langData['locale'];

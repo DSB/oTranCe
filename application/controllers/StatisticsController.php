@@ -37,7 +37,7 @@ class StatisticsController extends Zend_Controller_Action
     public function indexAction()
     {
         $this->view->userStatistics = $this->_statisticsModel->getUserstatistics();
-        $languagesModel = new Application_Model_Languages();
+        $languagesModel = new Application_Model_LanguageEntries();
         $this->view->languages = $languagesModel->getLanguages();
     }
 

@@ -15,7 +15,7 @@ class ImportController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_languagesModel = new Application_Model_Languages();
+        $this->_languagesModel = new Application_Model_LanguageEntries();
         $this->_userModel = new Application_Model_User();
         $this->_analyzerModel = new Application_Model_Analyzer();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();

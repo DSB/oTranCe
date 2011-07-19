@@ -8,7 +8,7 @@ class ExportController extends Zend_Controller_Action
 
     public function init()
     {
-        $this->_languageModel = new Application_Model_Languages();
+        $this->_languageModel = new Application_Model_LanguageEntries();
         $this->_export = new Msd_Export();
         $this->_historyModel = new Application_Model_History();
     }

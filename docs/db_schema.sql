@@ -86,9 +86,11 @@ DROP TABLE IF EXISTS `keys`;
 CREATE TABLE `keys` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `key` varchar(200) NOT NULL,
+  `template_id` tinyint(4) NOT NULL,
   `dt` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  KEY `tpl_assign` (`template_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8
 
 --
 -- Data for Table `keys`

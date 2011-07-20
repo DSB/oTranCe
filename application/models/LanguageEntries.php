@@ -402,7 +402,7 @@ class Application_Model_LanguageEntries
         $keyId = $this->_dbo->escape($keyId);
         $sql = "SELECT ft.`id`, ft.`name`, ft.`filename`
             FROM `{$this->_database}`.`{$this->_tableKeys}` k
-            LEFT JOIN `{$this->_database}`.`{$this->_tableFileTemplates}` ft ON ft.`id` = k.`templateId`
+            LEFT JOIN `{$this->_database}`.`{$this->_tableFileTemplates}` ft ON ft.`id` = k.`template_id`
             WHERE k.`id` = '$keyId'";
         $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($result[0]) ? $result[0] : array('id' => 0);
@@ -413,13 +413,13 @@ class Application_Model_LanguageEntries
      *
      * @param string $keyId      ID of the language variable.
      * @param string $templateId ID of the template to assign.
-     * 
+     *
      * @return bool|string Returns TRUE on success, otherwise returns the error message.
      */
     public function assignFileTemplate($keyId, $templateId)
     {
         $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}`
-            SET `templateId` = '$templateId'
+            SET `template_id` = '$templateId'
             WHERE `id` = '$keyId'";
         try {
             $this->_dbo->query($sql, Msd_Db::SIMPLE);

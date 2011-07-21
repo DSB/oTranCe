@@ -85,13 +85,14 @@ class Application_Model_LanguageEntries
     public function getLanguageKeys($language)
     {
         $ret = array();
-        $sql = 'SELECT `key`,`text` FROM `' . $this->_tableTranslations . '`'
-               . ' WHERE `locale`= \'' . $language . '\' ORDER BY `keyval` ASC';
+        $sql = "SELECT k.`key`, t.`text` FROM `{$this->_tableTranslations}` t
+            LEFT JOIN `{$this->_tableKeys}` k ON k.`id` = t.`key_id`
+            WHERE t.`lang_id`= '{$language}' ORDER BY k.`key` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
-            $val = $this->_dbo->escape($data[$language]);
+            $val = $this->_dbo->escape($data['text']);
             $val = $this->_normalize($val);
-            $ret[$data['keyval']] = $val;
+            $ret[$data['key']] = $val;
         }
         return $ret;
     }

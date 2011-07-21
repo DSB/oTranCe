@@ -36,8 +36,8 @@ CREATE TABLE `filetemplates` (
 --
 
 /*!40000 ALTER TABLE `filetemplates` DISABLE KEYS */;
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','PHP language array','<?php\r\n/**\r\n * This file is part of\r\nMySQLDumper released under the GNU/GPL 2 license\r\n  *\r\nhttp://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n *\r\n@subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author\r\n       $Author: dsb $\r\n  */\r\n$lang=array(',');\r\nreturn $lang;','\"{KEY}\" => \"{VALUE}\"','languages/{LOCALE}.php');
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','PHP language array','<?php\r\n/**\r\n * This file is part of\r\nMySQLDumper released under the GNU/GPL 2 license\r\n  *\r\nhttp://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n *\r\n@subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author\r\n       $Author: dsb $\r\n  */','return $lang;','$lang[\"{KEY}\"]= \"{VALUE}\";','languages/{LOCALE}/lang.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','PHP language array','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n  * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */\r\n$lang=array(\r\n',');\r\nreturn $lang;\r\n','\"{KEY}\" => \"{VALUE}\"\r\n','languages/{LOCALE}.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','PHP language array','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n  * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */\r\n','return $lang;\r\n','$lang[\"{KEY}\"]= \"{VALUE}\";\r\n','languages/{LOCALE}/lang.php');
 /*!40000 ALTER TABLE `filetemplates` ENABLE KEYS */;
 
 

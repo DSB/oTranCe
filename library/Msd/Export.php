@@ -33,6 +33,13 @@ class Msd_Export
      */
     private $_commitMessageAllLanguages;
 
+    /**
+     * Array with file templates.
+     *
+     * @var array
+     */
+    private $_fileTemplates = array();
+
     public function __construct()
     {
         $config = Msd_Configuration::getInstance();
@@ -40,7 +47,8 @@ class Msd_Export
         $this->_svnPassword = $config->get('config.subversion.password');
         $this->_commitMessageOneLanguage = $config->get('config.subversion.commitMessageOneLanguage');
         $this->_commitMessageAllLanguages = $config->get('config.subversion.commitMessageAllLanguages');
-
+        $fileTemplateModel = new Application_Model_FileTemplates();
+        $this->_fileTemplates = $fileTemplateModel->getFileTemplatesAssoc();
     }
 
     /**
@@ -72,49 +80,39 @@ class Msd_Export
      * @param string $language
      * @return int|false
      */
-    public function exportLanguageFile($language)
+    public function exportLanguageFile($language, $templateId = 1)
     {
-        $languageModel = new Application_Model_LanguageEntries();
-        $data = $languageModel->getLanguageKeys($language);
-        $english = $languageModel->getLanguageKeys('en'); // used as fallback for unmaintained vars
-        $fileData = $this->_getFileHeader();
+        $languageModel = new Application_Model_Languages();
+        $langInfo = $languageModel->getLanguageById($language);
+        $langFilename = EXPORT_PATH . DS . trim(
+            str_replace('{LOCALE}', $langInfo['locale'], $this->_fileTemplates[$templateId]['filename']),
+            '/'
+        );
+        $langDir = dirname($langFilename);
+        $fileLangVar = $this->_fileTemplates[$templateId]['content'];
+
+        $languageEntriesModel = new Application_Model_LanguageEntries();
+        $data = $languageEntriesModel->getLanguageKeys($language);
+        $english = $languageEntriesModel->getLanguageKeys(2); // used as fallback for unmaintained vars
+
+        if (!file_exists($langDir)) {
+            mkdir($langDir, 0775, true);
+        }
+        $fh = fopen($langFilename, 'wb+');
+        if (!$fh) {
+            return false;
+        }
+
+        $res = (int) fwrite($fh, $this->_fileTemplates[$templateId]['header']);
         foreach ($data as $key => $val) {
             if ($val == '') {
                 $val = $english[$key];
             }
-            $fileData .= '$lang[\'' . $key . '\']="' . $val . '";' . "\n";
+            $res += (int) fwrite($fh, str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $fileLangVar));
         }
-        $fileData .= $this->_getFileFooter();
-        $res = false;
-        $fh = fopen(EXPORT_PATH . DS . 'language' . DS . $language . DS . 'lang.php', 'wb');
-        if ($fh) {
-            $res = fwrite($fh, $fileData);
-            fclose($fh);
-        }
-        return $res;
-    }
-
-    private function _getFileHeader()
-    {
-        $header = '<?php
-/**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
- *
- * @package       MySQLDumper
- * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
- */
-$lang=array();
-';
-        return $header;
-    }
-
-    private function _getFileFooter()
-    {
-        $footer = 'return $lang;' . "\n";
-        return $footer;
+        $res += (int) fwrite($fh, $this->_fileTemplates[$templateId]['footer']);
+        fclose($fh);
+        return ($res > 0) ? $res : false;
     }
 
     /**

@@ -145,4 +145,23 @@ class Application_Model_FileTemplates
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return true;
     }
+
+    /**
+     * Retrieves the file templates as an associated array.
+     *
+     * @return array
+     */
+    public function getFileTemplatesAssoc()
+    {
+        $sql = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}`";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        $fileTemplates = array();
+        if (isset($res[0])) {
+            foreach ($res as $row) {
+                $fileTemplates[$row['id']] = $row;
+            }
+        }
+
+        return $fileTemplates;
+    }
 }

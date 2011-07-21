@@ -2,21 +2,35 @@
 class ExportController extends Zend_Controller_Action
 {
 
-    private $_languageModel;
+    /**
+     * @var Application_Model_LanguageEntries
+     */
+    private $_languageEntriesModel;
+    /**
+     * @var Application_Model_History
+     */
     private $_historyModel;
+    /**
+     * @var Msd_Export
+     */
     private $_export;
+    /**
+     * @var Application_Model_Languages
+     */
+    private $_languagesModel;
 
     public function init()
     {
-        $this->_languageModel = new Application_Model_LanguageEntries();
+        $this->_languageEntriesModel = new Application_Model_LanguageEntries();
+        $this->_languagesModel = new Application_Model_Languages();
         $this->_export = new Msd_Export();
         $this->_historyModel = new Application_Model_History();
     }
 
     public function indexAction()
     {
-        $this->view->status = $this->_languageModel->getStatus();
-        $this->view->languages = $this->_languageModel->getLanguages();
+        $this->view->status = $this->_languageEntriesModel->getStatus();
+        $this->view->languages = $this->_languageEntriesModel->getLanguages();
         $this->view->historyModel = $this->_historyModel;
         $this->view->export = $this->_export;
     }
@@ -32,8 +46,9 @@ class ExportController extends Zend_Controller_Action
     {
         $request = $this->getRequest();
         $language = $request->getParam('language');
-        $this->view->language = $language;
-        $allLangs = array_keys($this->_languageModel->getLanguages());
+        $languageInfo = $this->_languagesModel->getLanguageById($language);
+        $this->view->language = $languageInfo['locale'];
+        $allLangs = array_keys($this->_languageEntriesModel->getLanguages());
         if (!in_array($language, $allLangs)) {
             // non existant language submitted; quietly return to index page
             $this->_forward('index');
@@ -56,7 +71,7 @@ class ExportController extends Zend_Controller_Action
      */
     public function updateAllAction()
     {
-        $langs = $this->_languageModel->getLanguages();
+        $langs = $this->_languageEntriesModel->getLanguages();
         $languages = array();
         $i = 0;
         $exportError = false;

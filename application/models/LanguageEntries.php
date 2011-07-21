@@ -183,10 +183,11 @@ class Application_Model_LanguageEntries
      * @param string $filter
      * @param int    $offset
      * @param int    $nrOfRecords
+     * @param int    $fileTemplateId
      *
      * @return array
      */
-    public function getEntries($languages, $filter, $offset = 0, $nrOfRecords = 30)
+    public function getEntries($languages, $filter, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
     {
         if (empty($languages)) {
             return array();
@@ -199,13 +200,16 @@ class Application_Model_LanguageEntries
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`'
                . ' FROM `' . $this->_tableKeys . '` k '
                . ' LEFT JOIN `' . $this->_tableTranslations . '` t ON  k.`id` = t.`key_id`'
-               . ' WHERE t.`lang_id` IN (' . implode(',', $languages) . ') ';
+               . ' WHERE (t.`lang_id` IN (' . implode(',', $languages) . ') ';
         if ($filter > '') {
             $sql .= ' AND (t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
             $sql .= ' OR k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\')';
-            $sql .= ' OR (k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND t.`lang_id` IS NULL)';
+            $sql .= ' OR (k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND t.`lang_id` IS NULL))';
         } else {
-            $sql .= 'OR t.`lang_id` IS NULL';
+            $sql .= ' OR t.`lang_id` IS NULL)';
+        }
+        if ($fileTemplateId > 0) {
+            $sql .= ' AND k.`template_id` = ' . $this->_dbo->escape($fileTemplateId);
         }
         $sql .= ' GROUP BY k.`id` ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);

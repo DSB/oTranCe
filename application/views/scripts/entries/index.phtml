@@ -41,7 +41,16 @@ $languageModel = new Application_Model_LanguageEntries();
             <button type="submit" class="Formbutton" onclick="resetOffset();">
                 <?php echo $this->getIcon('Edit', '', 16);?> Find
             </button>
-        </span>
+        </span><br/><br/>
+        <label for="fileTemplateFilter">Filter by file template:</label>
+        <select name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
+            <option value="0"<?php echo ($this->fileTemplateFilter == 0) ? ' selected="selected"' : ''; ?>>Display all entries</option>
+        <?php foreach ($this->fileTemplates as $fileTemplate) { ?>
+            <option value="<?php echo $fileTemplate['id']; ?>"<?php echo ($this->fileTemplateFilter == $fileTemplate['id']) ? ' selected="selected"' : ''; ?>>
+                <?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)
+            </option>
+        <?php } ?>
+        </select>
         <br /><br />
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
             onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"

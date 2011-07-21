@@ -59,13 +59,17 @@ class EntriesController extends Zend_Controller_Action
         $this->setLanguages();
         $filterLanguageArray = $this->_languagesModel->getLanguages(true);
         $this->view->selLanguage = Msd_Html::getHtmlOptions($filterLanguageArray, $this->_config->get('dynamic.getUntranslated'), false);
+        $this->view->fileTemplateFilter = $this->_config->get('dynamic.fileTemplateFilter');
+        $fileTemplatesModel = new Application_Model_FileTemplates();
+        $this->view->fileTemplates = $fileTemplatesModel->getFileTemplates('name');
         if ($this->view->getUntranslated == 0) {
             $this->view->hits =
                     $this->_languagesModel->getEntries(
                         $this->_showLanguages,
                         $this->view->filter,
                         $this->view->offset,
-                        $this->view->recordsPerPage
+                        $this->view->recordsPerPage,
+                        $this->view->fileTemplateFilter
                     );
         } else {
             $languageId = $this->_config->get('dynamic.getUntranslated');
@@ -183,10 +187,12 @@ class EntriesController extends Zend_Controller_Action
         $recordsPerPage = (int)$this->_request->getParam('recordsPerPage', 0);
         // will be not 0 if set and set to id of language to search in
         $getUntranslated = (int)$this->_request->getParam('getUntranslated', 0);
+        $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
         $this->_config->set('dynamic.offset', $offset);
         $this->_config->set('dynamic.filter', $filter);
         $this->_config->set('dynamic.recordsPerPage', $recordsPerPage);
         $this->_config->set('dynamic.getUntranslated', $getUntranslated);
+        $this->_config->set('dynamic.fileTemplateFilter', $fileTemplateFilter);
     }
 
     /**

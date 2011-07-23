@@ -326,16 +326,17 @@ class Application_Model_LanguageEntries
     /**
      * Create a new key
      *
-     * @param string $key The key to create
+     * @param string $key        The key to create
+     * @param int    $templateId ID of file template
      *
      * @return bool
      */
-    public function saveNewKey($key)
+    public function saveNewKey($key, $templateId)
     {
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableKeys . '`'
                . ' SET `key`=\'' . $this->_dbo->escape($key) . '\', '
-               . '`dt`=\'' . date('Y-m-d H-i-s', time()) . '\'';
-
+               . '`dt`=\'' . date('Y-m-d H-i-s', time()) . '\', '
+               . '`template_id`=' . intval($templateId);
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return $res;
     }

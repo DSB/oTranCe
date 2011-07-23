@@ -321,16 +321,13 @@ class EntriesController extends Zend_Controller_Action
             }
             if (empty($error)) {
                 try {
-                    $this->_languagesModel->saveNewKey($newVar);
+                    $fileTemplate = $this->_request->getParam('fileTemplate', 0);
+                    $this->_languagesModel->saveNewKey($newVar, $fileTemplate);
                     $historyModel = new Application_Model_History();
                     $entry = $this->_languagesModel->getEntryByKey($newVar);
                     $historyModel->logNewVarCreated($entry['id']);
                     $this->view->entry = $entry;
                     $this->_request->setParam('id', $entry['id']);
-                    $this->_languagesModel->assignFileTemplate(
-                        $entry['id'],
-                        $this->_request->getParam('fileTemplate', 0)
-                    );
                     $this->_myForward('edit');
                     return;
                 } catch (Exception $e) {

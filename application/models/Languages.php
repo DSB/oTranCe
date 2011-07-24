@@ -61,7 +61,7 @@ class Application_Model_Languages
     {
         return $this->_dbo->getRowCount();
     }
-    
+
     /**
      * Saves language data to the database.
      *
@@ -141,10 +141,10 @@ class Application_Model_Languages
     public function localeExists($locale)
     {
         $locale = $this->_dbo->escape($locale);
-        $sql = "SELECT (COUNT(*) > 0) localeExists FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale'";
+        $sql = "SELECT `locale` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale' LIMIT 1";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        if (isset($res[0])) {
-            return (bool) $res[0]['localeExists'];
+        if (isset($res[0]['locale'])) {
+            return true;
         }
         return false;
     }

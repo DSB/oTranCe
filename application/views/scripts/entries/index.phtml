@@ -9,18 +9,14 @@ $languageModel = new Application_Model_LanguageEntries();
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
         Filter / Search:
         <input
-                <?php if ($this->getUntranslated > 0) {
+                <?php if (false && $this->getUntranslated > 0) {
                     echo ' disabled="disabled"';
                 }?>
             type="text" class="text" id="filter" name="filter" value="<?php echo $this->escape($this->filter);?>" onchange="resetOffset()"/>
-        <button
-            <?php if ($this->getUntranslated > 0) {
-                echo ' disabled="disabled"';
-            }?>
-            type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
             <?php echo $this->getIcon('search', '', 16);?> Search
         </button>
-        <button type="submit" class="Formbutton" onclick="$('#filter').val('');resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+        <button type="submit" class="Formbutton" onclick="$('#filter').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
         <?php
@@ -33,24 +29,28 @@ $languageModel = new Application_Model_LanguageEntries();
             ?>
         <span style="float:right;padding:0;margin:0;">
             Find untranslated for:
-            <select id="getUntranslated" name="getUntranslated">
+            <select id="getUntranslated" name="getUntranslated" onchange="setPageInactive();$('#myForm').submit();">
                 <option value="0">---</option>
                 <?php echo $this->selLanguage;?>
             </select>
-
-            <button type="submit" class="Formbutton" onclick="resetOffset();">
-                <?php echo $this->getIcon('Edit', '', 16);?> Find
+            <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                <?php echo $this->getIcon('search', '', 16);?> Search
             </button>
-        </span><br/><br/>
+
+            <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+                <?php echo $this->getIcon('delete', '');?> Reset
+            </button>
+        </span>
+
+        <br/><br/>
         <label for="fileTemplateFilter">Filter by file template:</label>
         <select name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
-            <option value="0"<?php echo ($this->fileTemplateFilter == 0) ? ' selected="selected"' : ''; ?>>Display all entries</option>
-        <?php foreach ($this->fileTemplates as $fileTemplate) { ?>
-            <option value="<?php echo $fileTemplate['id']; ?>"<?php echo ($this->fileTemplateFilter == $fileTemplate['id']) ? ' selected="selected"' : ''; ?>>
-                <?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)
-            </option>
-        <?php } ?>
+            <?php echo $this->selFileTemplate;?>
         </select>
+        <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+
         <br /><br />
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
             onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
@@ -89,6 +89,7 @@ if (empty($this->showLanguages)) {
             }
             ?>
         <th>#</th>
+        <th>Template</th>
         <th>Key</th>
         <?php
             foreach ($this->showLanguages as $lang) {
@@ -128,6 +129,9 @@ foreach ($this->hits as $hit)
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall">
+            <?php echo $edit . $this->printFileTemplate($hit['template_id']);?></a>
+        </td>
+        <td class="ssmall">
             <?php echo $edit . $hit['key'];?></a>
         </td>
         <?php
@@ -158,19 +162,8 @@ if ($this->rows == 0) {
     <tr class="row-even">
         <td colspan="<?php echo $rowCount;?>" class="small">
             <br />
-            <?php if ($this->getUntranslated > 0) { ?>
-                <span class="ok">
-                Congratulations!<br /><br />
-                All variables of the language <?php echo $this->languages[$this->getUntranslated]['name'];?>
-                are translated. Perfect!<br />
-                Please come back in a few days and check if new variables have been added meanwhile.
-                <br /><br />Thank you very much for your work and efforts.<br />
-                All users will be thankful for this. <br />Hopefully. ;)
-                </span>
-            <?php } else { ?>
             Nothing found.<br />
             Select another filter / search value.
-            <?php } ?>
             <br /><br />
         </td>
     </tr>
@@ -179,18 +172,6 @@ if ($this->rows == 0) {
     ?>
 </table>
 <script type="text/javascript">
-$('#filter').keypress(function (e) {
-    var code = null;
-    code = (e.keyCode ? e.keyCode : e.which);
-    if (code == 13) {
-        resetOffset();
-        $('#getUntranslated option[value=\'0\']').attr('selected', true);
-        $('#myForm').submit();
-    } else {
-        return true;
-    }
-});
-
 function deleteVar(id, name)
 {
     if (confirm('Are you really sure you want to delete the variable \''+name+'\'?\nAll language entries will be lost!')) {

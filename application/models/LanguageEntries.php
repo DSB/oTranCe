@@ -198,7 +198,7 @@ class Application_Model_LanguageEntries
             $nrOfRecords = 10;
         }
         //find key ids
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`'
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
                . ' FROM `' . $this->_tableKeys . '` k '
                . ' LEFT JOIN `' . $this->_tableTranslations . '` t ON  k.`id` = t.`key_id`'
                . ' WHERE (t.`lang_id` IN (' . implode(',', $languages) . ') ';
@@ -223,21 +223,48 @@ class Application_Model_LanguageEntries
     /**
      * Get key ids of untranslated variables for given language
      *
-     * @param array $languageId Array with all language ids to fetch
-     * @param int   $offset
-     * @param int   $nrOfRecords
+     * @param int    $languageId ID of language
+     * @param string $filter     Filter for key
+     * @param int    $offset
+     * @param int    $nrOfRecords
+     * @param int    $templateId
      *
      * @return array
      */
-    public function getUntranslated($languageId, $offset = 0, $nrOfRecords = 30)
+    public function getUntranslated($languageId = 0, $filter = '', $offset = 0, $nrOfRecords = 30, $templateId = 0)
     {
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`'
-               . ' FROM `' . $this->_tableKeys . '` k '
-               . ' WHERE NOT EXISTS ('
-               . ' SELECT * FROM `' . $this->_tableTranslations . '` t'
-               . ' WHERE t.`lang_id` = ' . $languageId
-               . ' AND t.`key_id` = k.`id`)'
-               . ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
+               . ' FROM `' . $this->_tableKeys . '` k ';
+
+        $sql .= ' LEFT JOIN `' . $this->_tableTranslations . '` t'
+               . ' ON t.`key_id` = k.`id`';
+
+        $where = array();
+
+        if ($filter > '' ) {
+            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
+        }
+
+        if ($templateId > 0) {
+            $where[] = 'k.`template_id` = '. intval($templateId);
+        }
+
+        if ($languageId > 0) {
+            // we are looking for a specific language
+            $sql .= ' WHERE ((t.`text`=\'\' AND t.`lang_id`=' . $languageId.') OR ISNULL(t.`text`))';
+        } else {
+            // find alle untranslated keys
+            $sql .= ' WHERE ((t.`text`=\'\' OR ISNULL(t.`text`))';
+        }
+
+        if (!empty($where)) {
+            $sql .= ' AND ' . implode(' AND ', $where);
+        }
+
+        $sql .= ' ORDER BY k.`key` ASC ';
+        if ($nrOfRecords > 0) {
+            $sql .= ' LIMIT ' . $offset . ', ' . $nrOfRecords;
+        }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }

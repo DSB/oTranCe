@@ -60,8 +60,14 @@ class EntriesController extends Zend_Controller_Action
         $filterLanguageArray = $this->_languagesModel->getLanguages(true);
         $this->view->selLanguage = Msd_Html::getHtmlOptions($filterLanguageArray, $this->_config->get('dynamic.getUntranslated'), false);
         $this->view->fileTemplateFilter = $this->_config->get('dynamic.fileTemplateFilter');
+
         $fileTemplatesModel = new Application_Model_FileTemplates();
-        $this->view->fileTemplates = $fileTemplatesModel->getFileTemplates('name');
+        $fileTemplates = $fileTemplatesModel->getFileTemplates('name');
+        $selFileTemplates = array();
+        foreach ($fileTemplates as $fileTemplate) {
+            $selFileTemplates[$fileTemplate['id']] = $fileTemplate['filename'];
+        }
+        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($selFileTemplates, $this->_config->get('dynamic.fileTemplateFilter'));
         if ($this->view->getUntranslated == 0) {
             $this->view->hits =
                     $this->_languagesModel->getEntries(
@@ -76,8 +82,10 @@ class EntriesController extends Zend_Controller_Action
             $this->view->hits =
                     $this->_languagesModel->getUntranslated(
                         $languageId,
+                        $this->view->filter,
                         $this->view->offset,
-                        $this->view->recordsPerPage
+                        $this->view->recordsPerPage,
+                        $this->view->fileTemplateFilter
                     );
         }
         $this->view->rows = $this->_languagesModel->getRowCount();
@@ -120,11 +128,12 @@ class EntriesController extends Zend_Controller_Action
             $this->view->entrySaved = $this->_saveEntries();
             if ($this->view->entrySaved == 1) {
                 // return to entry list
-                if ($this->_request->getParam('saveReturn') != null) {
+                if ($this->_request->getParam('saveReturn') !== null) {
                     $this->_myForward('index');
                     return;
                 }
                 // Get next untranslated var
+                //TODO Implement button "get net untranslated"
                 if ($this->_request->getParam('saveUntranslated') != null) {
                     $entry = $this->_languagesModel->getUntranslated(
                         $this->getRefLanguages(),

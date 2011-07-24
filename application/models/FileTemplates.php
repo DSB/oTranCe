@@ -49,7 +49,7 @@ class Application_Model_FileTemplates
      *
      * @return array
      */
-    public function getFileTemplates($order, $filter = '', $offset = 0, $recsPerPage = 0)
+    public function getFileTemplates($order = '', $filter = '', $offset = 0, $recsPerPage = 0)
     {
         $where = '';
         $limit = '';
@@ -63,8 +63,13 @@ class Application_Model_FileTemplates
             $offset = $this->_dbo->escape($offset);
             $limit = "LIMIT $offset, $recsPerPage";
         }
-        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM `{$this->_database}`.`{$this->_tableFiletemplates}` $where
-            ORDER BY `$order` $limit";
+        $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM `{$this->_database}`.`{$this->_tableFiletemplates}`";
+        if ($where > '') {
+            $sql .= ' ' . $where;
+        }
+        if ($order > '') {
+            $sql .= ' ORDER BY `' . $order .'` ' . $limit;
+        }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }
@@ -131,19 +136,19 @@ class Application_Model_FileTemplates
      */
     public function saveFileTemplate($id, $name, $header, $content, $footer, $filename)
     {
-        $id = $this->_dbo->escape($id);
-        $name = $this->_dbo->escape($name);
-        $header = $this->_dbo->escape($header);
-        $content = $this->_dbo->escape($content);
-        $footer = $this->_dbo->escape($footer);
+        $id        = (int) $id;
+        $name      = $this->_dbo->escape($name);
+        $header    = $this->_dbo->escape($header);
+        $content   = $this->_dbo->escape($content);
+        $footer    = $this->_dbo->escape($footer);
         $filename  = $this->_dbo->escape($filename);
 
         $sql = "INSERT INTO `{$this->_database}`.`{$this->_tableFiletemplates}`
             (`id`, `name`, `header`, `content`, `footer`, `filename`) VALUES
             ($id, '$name', '$header', '$content', '$footer', '$filename') ON DUPLICATE KEY UPDATE `name` = '$name',
             `header` = '$header', `content` = '$content', `footer` = '$footer', `filename` = '$filename'";
-        $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return true;
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return $res;
     }
 
     /**

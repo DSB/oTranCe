@@ -144,7 +144,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      * @param int     $kind    Type of result set
      * @param boolean $getRows Wether to fetch all rows and return them
      *
-     * @return resource|array
+     * @return resource|array|bool
      */
     public function query($query, $kind = self::ARRAY_OBJECT, $getRows = true)
     {

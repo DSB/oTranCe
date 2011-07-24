@@ -51,7 +51,7 @@ class Msd_Html
     {
         $options = '';
         if ($selectAll) {
-            $options = '<option value="">---</option>'."\n";
+            $options = '<option value="0">---</option>'."\n";
         }
         foreach ($array as $key => $val) {
             $options .='<option value="' . $key . '"';

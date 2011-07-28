@@ -8,7 +8,7 @@
     foreach ($this->languages as $lang) {
     ?>
     <tr class="<?php echo $cycle->next();?>">
-        <td>Exporting language <b><?php echo $lang['name'];?></b> from database to file 'languages/<?php echo $lang['key'];?>/lang.php'</td>
+        <td>Exporting language <b><?php echo $lang['meta']['name'];?> (<?php echo $lang['meta']['locale'];?>)</b> from database their language files</td>
         <td>
     <?php
         if ($lang['filesize'] !== false) {

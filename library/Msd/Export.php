@@ -78,40 +78,66 @@ class Msd_Export
      * Export language vars from db to file
      *
      * @param string $language
+     * 
      * @return int|false
      */
-    public function exportLanguageFile($language, $templateId = 1)
+    public function exportLanguageFile($language)
     {
         $languageModel = new Application_Model_Languages();
         $langInfo = $languageModel->getLanguageById($language);
-        $langFilename = EXPORT_PATH . DS . trim(
-            str_replace('{LOCALE}', $langInfo['locale'], $this->_fileTemplates[$templateId]['filename']),
-            '/'
-        );
-        $langDir = dirname($langFilename);
-        $fileLangVar = $this->_fileTemplates[$templateId]['content'];
 
         $languageEntriesModel = new Application_Model_LanguageEntries();
         $data = $languageEntriesModel->getLanguageKeys($language);
         $english = $languageEntriesModel->getLanguageKeys(2); // used as fallback for unmaintained vars
 
-        if (!file_exists($langDir)) {
-            mkdir($langDir, 0775, true);
-        }
-        $fh = fopen($langFilename, 'wb+');
-        if (!$fh) {
-            return false;
-        }
+        $langMetaData = array();
+        $res = 0;
 
-        $res = (int) fwrite($fh, $this->_fileTemplates[$templateId]['header']);
-        foreach ($data as $key => $val) {
-            if ($val == '') {
-                $val = $english[$key];
+        foreach ($data as $key => $entry) {
+            $templateId = $entry['templateId'];
+            // Did we have the meta data for the exported language file? If not, we will create it now.
+            if (!isset($langMetaData[$templateId])) {
+                $langFilename = EXPORT_PATH . DS . trim(
+                    str_replace('{LOCALE}', $langInfo['locale'], $this->_fileTemplates[$templateId]['filename']),
+                    '/'
+                );
+                $langDir = dirname($langFilename);
+                if (!file_exists($langDir)) {
+                    mkdir($langDir, 0775, true);
+                }
+                $fileLangVar = $this->_fileTemplates[$templateId]['content'];
+                $fh = fopen($langFilename, "wb+");
+                if (!$fh) {
+                    return false;
+                }
+                $langMetaData[$templateId] = array(
+                    'dir' => $langDir,
+                    'filename' => $langFilename,
+                    'fileHandle' => $fh,
+                    'langVar' => $fileLangVar,
+                );
+                $res += (int) fwrite($fh, $this->_fileTemplates[$templateId]['header']);
             }
-            $res += (int) fwrite($fh, str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $fileLangVar));
+            // Get the meta data for the current template.
+            $langMeta = $langMetaData[$templateId];
+
+            // If we have no value, fill the var with the english/default text.
+            $val = $entry['text'];
+            if ($val == '') {
+                $val = $english[$key]['text'];
+            }
+            // Put the lang var into the language file.
+            $res += (int) fwrite(
+                $langMeta['fileHandle'],
+                str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $langMeta['langVar'])
+            );
         }
-        $res += (int) fwrite($fh, $this->_fileTemplates[$templateId]['footer']);
-        fclose($fh);
+        // Write footers and close the file handles
+        foreach ($langMetaData as $templateId => $langMeta) {
+            $res += (int) fwrite($langMeta['fileHandle'], $this->_fileTemplates[$templateId]['footer']);
+            fclose($langMeta['fileHandle']);
+            chmod($langMeta['filename'], 0664);
+        }
         return ($res > 0) ? $res : false;
     }
 

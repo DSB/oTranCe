@@ -75,10 +75,10 @@ class ExportController extends Zend_Controller_Action
         $languages = array();
         $i = 0;
         $exportError = false;
-        foreach ($langs as $lang => $name) {
+        foreach ($langs as $lang => $langMeta) {
             $languages[$i] = array();
             $languages[$i]['key'] = $lang;
-            $languages[$i]['name'] = $name;
+            $languages[$i]['meta'] = $langMeta;
             $languages[$i]['filesize'] = $this->_export->exportLanguageFile($lang);
             if ($languages[$i]['filesize'] === false) {
                 $exportError = true;

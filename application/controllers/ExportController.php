@@ -86,8 +86,8 @@ class ExportController extends Zend_Controller_Action
             $i++;
         }
         if ($exportError === false) {
-            $this->view->svnExportResult = $this->_export->updateSvnAll($lang);
-            $this->_historyModel->logSvnUpdateAll($lang);
+            $this->view->svnExportResult = $this->_export->updateSvnAll();
+            $this->_historyModel->logSvnUpdateAll();
         }
         $this->view->languages = $languages;
     }

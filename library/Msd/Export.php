@@ -40,6 +40,13 @@ class Msd_Export
      */
     private $_fileTemplates = array();
 
+    /**
+     * Array with filenames that are changed during the export process.
+     *
+     * @var array
+     */
+    private $_changedFiles = array();
+
     public function __construct()
     {
         $config = Msd_Configuration::getInstance();
@@ -132,11 +139,12 @@ class Msd_Export
                 str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $langMeta['langVar'])
             );
         }
-        // Write footers and close the file handles
+        // Write footers, close the file handles and save changed filenames.
         foreach ($langMetaData as $templateId => $langMeta) {
             $res += (int) fwrite($langMeta['fileHandle'], $this->_fileTemplates[$templateId]['footer']);
             fclose($langMeta['fileHandle']);
             chmod($langMeta['filename'], 0664);
+            $this->_changedFiles[] = $langMeta['filename'];
         }
         return ($res > 0) ? $res : false;
     }
@@ -144,14 +152,14 @@ class Msd_Export
     /**
      * Commit language file to svn repository
      *
-     * @param string $language
      * @return string
      */
     public function updateSvn($language)
     {
+        $sFiles = implode(' ', $this->_changedFiles);
         $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
                 .' -m"' . sprintf($this->_commitMessageOneLanguage, $language) . '" '
-               .' '.EXPORT_PATH.'/language/'.$language.'/lang.php';
+               .' '.$sFiles;
         $res = shell_exec($cmd);
         if (trim($res == '')) {
             $res = 'Nothing to update.';
@@ -168,7 +176,7 @@ class Msd_Export
     {
         $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
                 .' -m"' . $this->_commitMessageAllLanguages . '" '
-               . EXPORT_PATH.'/language';
+               . EXPORT_PATH;
         $res = shell_exec($cmd);
         if (trim($res == '')) {
             $res = 'Nothing to update.';

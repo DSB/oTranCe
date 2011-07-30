@@ -162,4 +162,46 @@ class Application_Model_Languages
         $sql = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $id";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
+
+    /**
+     * Retrieves the current fallback language.
+     *
+     * @return int|false
+     */
+    public function getFallbackLanguage()
+    {
+        $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `is_fallback` = 1";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return (isset($res[0]['id'])) ? $res[0]['id'] : false;
+    }
+
+    /**
+     * Sets the fallback language for empty entries.
+     *
+     * @param int $langId Id of the new fallback language.
+     *
+     * @return void
+     */
+    public function setFallbackLanguage($langId)
+    {
+        $langId = $this->_dbo->escape($langId);
+        $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 0";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 1 WHERE `id` = $langId";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * returns the language id of the given locale.
+     *
+     * @param string $locale locale
+     *
+     * @return int
+     */
+    public function getLanguageIdFromLocale($locale)
+    {
+        $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale'";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return (isset($res[0]['id'])) ? $res[0]['id'] : 0;
+    }
 }

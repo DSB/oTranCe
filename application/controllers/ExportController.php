@@ -50,7 +50,7 @@ class ExportController extends Zend_Controller_Action
         $this->view->language = $languageInfo['locale'];
         $allLangs = array_keys($this->_languageEntriesModel->getLanguages());
         if (!in_array($language, $allLangs)) {
-            // non existant language submitted; quietly return to index page
+            // non existent language submitted; quietly return to index page
             $this->_forward('index');
             return;
         }

@@ -1,19 +1,43 @@
-<h2>Admin - Import</h2>
+<h2>Admin - Export</h2>
 <?php echo $this->partial('admin/head-navi.phtml');?>
-<h4>Import settings:</h4>
-<p>
-Import extracted data into file:
-<br />
-Language:
-<br />Analyzer:
-</p>
+<h4>Export settings</h4>
 <form action="" method="post">
-<p>
-    <textarea name="impportData" id="importData" cols="120" rows="10"></textarea>
-
-    <br /><br />
-    <button type="submit" class="Formbutton" name="analyze" id="analyze">
-    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
-    </button>
-</p>
+    <table class="bdr more-padding">
+        <tr class="thead">
+            <th colspan="2">Subversion</th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="svnUser">Username:</label></td>
+            <td><input type="text" class="text" name="svnUser" id="svnUser" value="<?php echo $this->svnUser; ?>"/></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="svnPass">Password:</label></td>
+            <td><input type="password" class="text" name="svnPass" id="svnPass" value="<?php echo $this->svnPass; ?>"/></td>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="svnCommitOne">Message for one language export:</label></td>
+            <td><input type="text" class="text" name="svnCommitOne" id="svnCommitOne" value="<?php echo $this->svnCommitOne; ?>"/></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="svnCommitAll">Message for all languages export:</label></td>
+            <td><input type="text" class="text" name="svnCommitAll" id="svnCommitAll" value="<?php echo $this->svnCommitAll; ?>"/></td>
+        </tr>
+        <tr class="row-odd">
+            <td></td>
+            <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+        </tr>
+    </table><br/>
+    <table class="bdr more-padding">
+        <tr class="thead">
+            <th colspan="2">Language settings</th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="fallbackLang">Fallback language:</label></td>
+            <td><select name="fallbackLang" id="fallbackLang">
+                <?php foreach ($this->languages as $language) { ?>
+                <option value="<?php echo $language['id']; ?>"<?php echo ($language['id'] == $this->fallbackLang) ? ' selected="selected"' : ''; ?>><?php echo $language['name']; ?> (<?php echo $language['locale']; ?>)</option>
+                <?php } ?>
+            </select></td>
+        </tr>
+    </table>
 </form>

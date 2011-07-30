@@ -91,19 +91,25 @@ class Msd_Export
     public function exportLanguageFile($language)
     {
         $languageModel = new Application_Model_Languages();
+        // retrieving fallback language,
+        $fallbackLang = $languageModel->getFallbackLanguage();
+        // if the fallback language isn't set, detect id for "English" and use it instead
+        if ($fallbackLang === false) {
+            $fallbackLang = $languageModel->getLanguageIdFromLocale('en');
+        }
         $langInfo = $languageModel->getLanguageById($language);
 
         $languageEntriesModel = new Application_Model_LanguageEntries();
         $data = $languageEntriesModel->getLanguageKeys($language);
-        $english = $languageEntriesModel->getLanguageKeys(2); // used as fallback for unmaintained vars
+        $english = $languageEntriesModel->getLanguageKeys($fallbackLang); // used as fallback for unmaintained vars
 
-        $langMetaData = array();
+        $langFileData = array();
         $res = 0;
 
         foreach ($data as $key => $entry) {
             $templateId = $entry['templateId'];
             // Did we have the meta data for the exported language file? If not, we will create it now.
-            if (!isset($langMetaData[$templateId])) {
+            if (!isset($langFileData[$templateId])) {
                 $langFilename = EXPORT_PATH . DS . trim(
                     str_replace('{LOCALE}', $langInfo['locale'], $this->_fileTemplates[$templateId]['filename']),
                     '/'
@@ -113,20 +119,16 @@ class Msd_Export
                     mkdir($langDir, 0775, true);
                 }
                 $fileLangVar = $this->_fileTemplates[$templateId]['content'];
-                $fh = fopen($langFilename, "wb+");
-                if (!$fh) {
-                    return false;
-                }
-                $langMetaData[$templateId] = array(
+                $langFileData[$templateId] = array(
                     'dir' => $langDir,
                     'filename' => $langFilename,
-                    'fileHandle' => $fh,
                     'langVar' => $fileLangVar,
+                    'filecontent' => '',
                 );
-                $res += (int) fwrite($fh, $this->_fileTemplates[$templateId]['header']);
+                $langFileData['fileContent'] .= $this->_fileTemplates[$templateId]['header'];
             }
             // Get the meta data for the current template.
-            $langMeta = $langMetaData[$templateId];
+            $langFile = $langFileData[$templateId];
 
             // If we have no value, fill the var with the english/default text.
             $val = $entry['text'];
@@ -134,19 +136,16 @@ class Msd_Export
                 $val = $english[$key]['text'];
             }
             // Put the lang var into the language file.
-            $res += (int) fwrite(
-                $langMeta['fileHandle'],
-                str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $langMeta['langVar'])
-            );
+            $langFile['fileContent'] .= str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $langFile['langVar']);
         }
         // Write footers, close the file handles and save changed filenames.
-        foreach ($langMetaData as $templateId => $langMeta) {
-            $res += (int) fwrite($langMeta['fileHandle'], $this->_fileTemplates[$templateId]['footer']);
-            fclose($langMeta['fileHandle']);
-            chmod($langMeta['filename'], 0664);
-            $this->_changedFiles[] = $langMeta['filename'];
+        foreach ($langFileData as $templateId => $langFile) {
+            $fileContent = $langFile['fileContent'] . $this->_fileTemplates[$templateId]['footer'];
+            $res = file_put_contents($langFile['filename'], $fileContent);
+            chmod($langFile['filename'], 0664);
+            $this->_changedFiles[] = $langFile['filename'];
         }
-        return ($res > 0) ? $res : false;
+        return (($res !== false) && $res > 0) ? $res : false;
     }
 
     /**
@@ -178,6 +177,9 @@ class Msd_Export
                 .' -m"' . $this->_commitMessageAllLanguages . '" '
                . EXPORT_PATH;
         $res = shell_exec($cmd);
+        if (preg_match('/Revision (\d+)/s', $res, $matches)) {
+            $revision = $matches[0][1];
+        }
         if (trim($res == '')) {
             $res = 'Nothing to update.';
         }

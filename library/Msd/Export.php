@@ -177,8 +177,10 @@ class Msd_Export
                 .' -m"' . $this->_commitMessageAllLanguages . '" '
                . EXPORT_PATH;
         $res = shell_exec($cmd);
-        if (preg_match('/Revision (\d+)/s', $res, $matches)) {
-            $revision = $matches[0][1];
+        $lines = explode("\n", $res);
+        $lastLine = $lines[count($lines) - 1];
+        if (preg_match('/Revision (\d+)/s', $lastLine, $matches)) {
+            $revision = $matches[1];
         }
         if (trim($res == '')) {
             $res = 'Nothing to update.';

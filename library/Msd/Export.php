@@ -123,9 +123,9 @@ class Msd_Export
                     'dir' => $langDir,
                     'filename' => $langFilename,
                     'langVar' => $fileLangVar,
-                    'filecontent' => '',
+                    'fileContent' => '',
                 );
-                $langFileData['fileContent'] .= $this->_fileTemplates[$templateId]['header'];
+                $langFileData[$templateId]['fileContent'] .= $this->_fileTemplates[$templateId]['header'];
             }
             // Get the meta data for the current template.
             $langFile = $langFileData[$templateId];

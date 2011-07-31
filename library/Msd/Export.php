@@ -85,7 +85,7 @@ class Msd_Export
      * Export language vars from db to file
      *
      * @param string $language
-     * 
+     *
      * @return int|false
      */
     public function exportLanguageFile($language)
@@ -125,7 +125,7 @@ class Msd_Export
                     'langVar' => $fileLangVar,
                     'fileContent' => '',
                 );
-                $langFileData[$templateId]['fileContent'] .= $this->_fileTemplates[$templateId]['header'];
+                $langFileData[$templateId]['fileContent'] .= $this->_fileTemplates[$templateId]['header'] . "\n";
             }
 
             // If we have no value, fill the var with the english/default text.
@@ -139,10 +139,11 @@ class Msd_Export
                 array($key, $val),
                 $langFileData[$templateId]['langVar']
             );
+            $langFileData[$templateId]['fileContent'] .= "\n";
         }
         // Write footers, close the file handles and save changed filenames.
         foreach ($langFileData as $templateId => $langFile) {
-            $fileContent = $langFile['fileContent'] . $this->_fileTemplates[$templateId]['footer'];
+            $fileContent = $langFile['fileContent'] . $this->_fileTemplates[$templateId]['footer'] . "\n";
             $res = file_put_contents($langFile['filename'], $fileContent);
             chmod($langFile['filename'], 0664);
             $this->_changedFiles[] = $langFile['filename'];

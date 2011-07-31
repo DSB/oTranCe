@@ -109,21 +109,30 @@ class Application_Model_Languages
      * @param string $filter      String to filter the languages (effects lang locale and lang name)
      * @param int    $offset      Offset of entry where the result starts
      * @param int    $recsPerPage Number of records per page
+     * @param bool   $activeOnly  Return only active languages
      *
      * @return array
      */
-    public function getAllLanguages($filter = '', $offset = 0, $recsPerPage = 0)
+    public function getAllLanguages($filter = '', $offset = 0, $recsPerPage = 0, $activeOnly = false)
     {
         $where = '';
         $limit = '';
         if ($filter > '') {
             $filter = $this->_dbo->escape($filter);
-            $where = "WHERE `locale` LIKE '%$filter%' OR `name` LIKE '%$filter%'";
+            $where = "WHERE (`locale` LIKE '%$filter%' OR `name` LIKE '%$filter%')";
         }
         if ($recsPerPage > 0) {
             $recsPerPage = $this->_dbo->escape($recsPerPage);
             $offset = $this->_dbo->escape($offset);
             $limit = "LIMIT $offset, $recsPerPage";
+        }
+        if ($activeOnly) {
+            if ($where != '') {
+                $where .= " AND";
+            } else {
+                $where = "WHERE";
+            }
+            $where .= " `active` = 1";
         }
         $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, (`flag_extension` != '') hasFlag
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC $limit";

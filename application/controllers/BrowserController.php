@@ -17,7 +17,7 @@ class BrowserController extends Zend_Controller_Action
                 $this->view->fileContent = file($filename);
             }
         }
-        $this->view->languages = $langModel->getAllLanguages();
+        $this->view->languages = $langModel->getAllLanguages('', 0, 0, true);
         $this->view->templates = $templateModel->getFileTemplates();
         $this->view->browseLang = $langLocale;
         $this->view->browseTemplate = $templateId;

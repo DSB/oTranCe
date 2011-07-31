@@ -63,11 +63,7 @@ class EntriesController extends Zend_Controller_Action
 
         $fileTemplatesModel = new Application_Model_FileTemplates();
         $fileTemplates = $fileTemplatesModel->getFileTemplates('name');
-        $selFileTemplates = array();
-        foreach ($fileTemplates as $fileTemplate) {
-            $selFileTemplates[$fileTemplate['id']] = $fileTemplate['filename'];
-        }
-        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($selFileTemplates, $this->_config->get('dynamic.fileTemplateFilter'));
+        $this->view->selFileTemplate = Msd_Html::getHtmlOptionsFromAssocArray($fileTemplates, 'id', 'filename', $this->_config->get('dynamic.fileTemplateFilter'));
         if ($this->view->getUntranslated == 0) {
             $this->view->hits =
                     $this->_languagesModel->getEntries(

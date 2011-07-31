@@ -64,6 +64,40 @@ class Msd_Html
     }
 
     /**
+     * Build Html option string from associative array
+     *
+     * Input:
+     *      array( 0 => array('id'    => 'id1',
+     *                        'value' => 'value1',
+     *                        'dummy' => 'ignoredValue1'),
+     *             1 => array('id'    => 'id2',
+     *                        'value' => 'value2',
+     *                        'dummy' => 'ignoredValue2')
+     *      );
+     *
+     * Return string:
+     *      <option value="id1">value1</option>
+     *      <option value="id2">value2</option>
+     *
+     * @param array   $array     ass. Array
+     * @param string  $key       The kex index of array
+     * @param string  $value     The value index of array
+     * @param string  $selected  Selected key
+     * @param boolean $selectAll Show option to select all
+     *
+     * @return string Html option string
+     */
+    public static function getHtmlOptionsFromAssocArray($array, $key, $value, $selected, $selectAll = true)
+    {
+        $newArray = array();
+        foreach ($array as $val) {
+            $newArray[$val[$key]] = $val[$value];
+        }
+        $options = self::getHtmlOptions($newArray, $selected, $selectAll);
+        return $options;
+    }
+
+    /**
      * Build HTML option array
      *
      * @static

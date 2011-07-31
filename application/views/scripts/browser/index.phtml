@@ -1,0 +1,48 @@
+<h2>Browse files</h2>
+<p>
+    <form action="<?php echo $this->baseUrl(); ?>/browser/" method="post">
+        <table class="bdr">
+            <tr class="thead">
+                <th colspan="2">Select a language and a file template to browse the exported file.</th>
+            </tr>
+            <tr class="row-odd">
+                <td><label for="browseLang">Language:</label></td>
+                <td><select name="browseLang" id="browseLang">
+                    <?php echo Msd_Html::getHtmlOptionsFromAssocArray($this->languages, 'locale', '{name} ({locale})', $this->browseLang, false); ?>
+                </select></td>
+            </tr>
+            <tr class="row-even">
+                <td><label for="browseTemplate">File template</label></td>
+                <td><select name="browseTemplate" id="browseTemplate">
+                    <?php echo Msd_Html::getHtmlOptionsFromAssocArray($this->templates, 'id', '{name} ({filename})', $this->browseTemplate, false); ?>
+                </select></td>
+            </tr>
+            <tr class="row-odd">
+                <td></td>
+                <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('List', '', 16); ?> Browse</td>
+            </tr>
+        </table>
+    </form>
+</p>
+
+<?php if (isset($this->fileContent)) { ?>
+<p>
+    <table class="bdr">
+        <tr class="thead">
+            <th colspan="2">Content of file <?php echo $this->filename; ?></th>
+        </tr>
+<?php
+    if (is_array($this->fileContent)) {
+?>
+        <tr class="row-odd">
+            <td class="code right"><?php echo implode("<br/>\n", range(1, count($this->fileContent))); ?></td>
+            <td class="code"><?php echo highlight_string(implode("", $this->fileContent), true); ?></td>
+        </tr>
+<?php
+    } else {
+        echo '<tr><td class="error" colspan="2">' . $this->fileContent . '</td></tr>';
+    }
+?>
+    </table>
+</p>
+<?php } ?>

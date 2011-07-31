@@ -38,6 +38,12 @@ $user = new Application_Model_User();
         ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
         </li>
         <li
+            <?php if ($this->controller == 'browser') {
+                echo ' class="active"';
+            };?>
+        ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?>Browse files</a>
+        </li>
+        <li
             <?php if ($this->controller == 'import') {
                 echo ' class="active"';
             };?>

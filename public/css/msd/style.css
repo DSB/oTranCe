@@ -913,3 +913,7 @@ label {
 #importData {
     font: 11px/ 1.2 "Courier New", Courier, monospace;
 }
+.code {
+    font: 11px/ 1.2 "Courier New", Courier, monospace;
+    color:#000;
+}

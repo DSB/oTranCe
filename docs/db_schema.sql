@@ -1,21 +1,21 @@
--- Status:9:63:MP_0:translations:php:1.24.4::5.1.50-community-log:1:::utf8:EXTINFO
+-- Status:9:64:MP_0:translations:php:1.24.4::5.1.50-community-log:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
--- TABLE|conversions|1|152896|2011-07-31 13:53:28|MyISAM
--- TABLE|filetemplates|2|2764|2011-07-09 17:49:16|MyISAM
--- TABLE|history|27|3088|2011-07-31 22:44:46|MyISAM
--- TABLE|keys|3|3176|2011-07-24 19:03:03|MyISAM
--- TABLE|languages|3|3140|2011-07-31 00:06:20|MyISAM
--- TABLE|translations|9|151044|2011-07-31 13:23:28|MyISAM
--- TABLE|userrights|10|2408|2011-07-30 23:37:26|MyISAM
--- TABLE|users|2|2264|2011-07-09 14:49:16|MyISAM
--- TABLE|usersettings|6|2324|2011-07-24 19:03:03|MyISAM
+-- TABLE|conversions|1|152896|2011-07-31 22:49:58|MyISAM
+-- TABLE|filetemplates|2|2748|2011-07-31 22:50:01|MyISAM
+-- TABLE|history|28|3124|2011-07-31 22:50:09|MyISAM
+-- TABLE|keys|3|2136|2011-07-31 22:50:05|MyISAM
+-- TABLE|languages|3|3140|2011-07-31 22:50:05|MyISAM
+-- TABLE|translations|9|2268|2011-07-31 22:50:05|MyISAM
+-- TABLE|userrights|10|1228|2011-07-31 22:50:05|MyISAM
+-- TABLE|users|2|2148|2011-07-31 22:50:05|MyISAM
+-- TABLE|usersettings|6|2232|2011-07-31 22:50:05|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-07-31 22:45
+-- Dump created: 2011-07-31 22:51
 
 --
 -- Create Table `conversions`
@@ -77,7 +77,7 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
@@ -111,6 +111,7 @@ INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('25','1','2011-07-31 22:39:21','0','updated SVN','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('26','1','2011-07-31 22:40:08','0','updated SVN','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('27','1','2011-07-31 22:44:46','0','updated SVN','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('28','1','2011-07-31 22:50:09','0','updated SVN','0','-','-');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
 

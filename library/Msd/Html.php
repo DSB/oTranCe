@@ -79,6 +79,13 @@ class Msd_Html
      *      <option value="id1">value1</option>
      *      <option value="id2">value2</option>
      *
+     * The "$value" parameter can be a template for the option names. Just put the desired keys into braces.
+     *
+     * For the example above, the template looks like '{value} ({dummy})'
+     * Then the result looks like:
+     *      <option value="id1">value1 (ignoredValue1)</option>
+     *      <option value="id2">value2 (ignoredValue2)</option>
+     *
      * @param array   $array     ass. Array
      * @param string  $key       The kex index of array
      * @param string  $value     The value index of array
@@ -91,7 +98,16 @@ class Msd_Html
     {
         $newArray = array();
         foreach ($array as $val) {
-            $newArray[$val[$key]] = $val[$value];
+            if (isset($val[$value])) {
+                $newArray[$val[$key]] = $val[$value];
+            } else {
+                $valKeys = array_keys($val);
+                $newVal = $value;
+                foreach ($valKeys as $valKey) {
+                    $newVal = str_replace('{' . $valKey . '}', $val[$valKey], $newVal);
+                }
+                $newArray[$val[$key]] = $newVal;
+            }
         }
         $options = self::getHtmlOptions($newArray, $selected, $selectAll);
         return $options;

@@ -1,7 +1,7 @@
 <h2>Import language data</h2>
 <h4>Import settings:</h4>
-<form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="POST" id="myForm">
-<table class="bdr more-padding">
+<form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm">
+<table class="bdr more-padding" summary=""  style="margin-bottom:8px;">
     <tr class="row-even">
         <td class="small">Data is for language:</td>
         <td class="small">
@@ -48,17 +48,14 @@
     </tr>
 
 </table>
-<br />
 <div class="invisible" id="importerInfo">
 <?php
     if ($this->selectedAnalyzer > '') {
-        echo "<br />";
         echo $this->partial('import/importer/' . strtolower($this->selectedAnalyzer) . '.phtml');
         echo "<br />";
     }
 ?>
 </div>
-
 <h4>Data to analyze:</h4>
 <p>
     <button class="Formbutton" type="submit" name="analyze">

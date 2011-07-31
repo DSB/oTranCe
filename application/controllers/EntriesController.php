@@ -309,6 +309,7 @@ class EntriesController extends Zend_Controller_Action
                            . 'Only "A-Z" and "_" is allowed.';
             }
             // check if we already have a lang var with that name
+            //TODO check for unique combination of key and file template!
             if ($this->_languagesModel->hasEntryWithKey($newVar)) {
                 $error = array('A language variable with this name already exists!');
             }

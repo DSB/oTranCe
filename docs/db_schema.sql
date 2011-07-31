@@ -112,6 +112,7 @@ CREATE TABLE `languages` (
   `locale` varchar(5) NOT NULL,
   `name` varchar(50) NOT NULL,
   `flag_extension` varchar(255) NOT NULL,
+  `is_fallback` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `locale` (`locale`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;

@@ -76,6 +76,9 @@ class ExportController extends Zend_Controller_Action
         $i = 0;
         $exportError = false;
         foreach ($langs as $lang => $langMeta) {
+            if ($langMeta['active'] == 0) {
+                continue;
+            }
             $languages[$i] = array();
             $languages[$i]['key'] = $lang;
             $languages[$i]['meta'] = $langMeta;

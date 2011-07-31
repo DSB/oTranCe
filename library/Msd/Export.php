@@ -98,6 +98,9 @@ class Msd_Export
             $fallbackLang = $languageModel->getLanguageIdFromLocale('en');
         }
         $langInfo = $languageModel->getLanguageById($language);
+        if ($langInfo['active'] == 0) {
+            return false;
+        }
 
         $languageEntriesModel = new Application_Model_LanguageEntries();
         $data = $languageEntriesModel->getLanguageKeys($language);

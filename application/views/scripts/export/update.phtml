@@ -15,9 +15,10 @@
 if ($this->filesize) {
 ?>
    <h4>Committing changes to Subversion Repository:</h4>
-    <p>
-        <pre><?php echo $this->svnExportResult;?></pre>
-    </p>
+<p>
+    <?php if ($this->svnExportResult['output'] > '') { ?><pre><span class="success">SVN output:</span> <?php echo $this->svnExportResult['output']; ?></pre><?php } ?>
+    <?php if ($this->svnExportResult['error'] > '') { ?><pre><span class="error">SVN error:</span> <?php echo $this->svnExportResult['error']; ?></pre><?php } ?>
+</p>
 <?php
 }
 ?>

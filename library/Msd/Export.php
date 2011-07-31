@@ -127,8 +127,6 @@ class Msd_Export
                 );
                 $langFileData[$templateId]['fileContent'] .= $this->_fileTemplates[$templateId]['header'];
             }
-            // Get the meta data for the current template.
-            $langFile = $langFileData[$templateId];
 
             // If we have no value, fill the var with the english/default text.
             $val = $entry['text'];
@@ -136,7 +134,11 @@ class Msd_Export
                 $val = $english[$key]['text'];
             }
             // Put the lang var into the language file.
-            $langFile['fileContent'] .= str_replace(array('{KEY}', '{VALUE}'), array($key, $val), $langFile['langVar']);
+            $langFileData[$templateId]['fileContent'] .= str_replace(
+                array('{KEY}', '{VALUE}'),
+                array($key, $val),
+                $langFileData[$templateId]['langVar']
+            );
         }
         // Write footers, close the file handles and save changed filenames.
         foreach ($langFileData as $templateId => $langFile) {
@@ -151,40 +153,54 @@ class Msd_Export
     /**
      * Commit language file to svn repository
      *
-     * @return string
+     * @param string $language
+     *
+     * @return array
      */
     public function updateSvn($language)
     {
         $sFiles = implode(' ', $this->_changedFiles);
-        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
-                .' -m"' . sprintf($this->_commitMessageOneLanguage, $language) . '" '
-               .' '.$sFiles;
-        $res = shell_exec($cmd);
-        if (trim($res == '')) {
-            $res = 'Nothing to update.';
-        }
+        $res = $this->_runSvnCommit('-m"' . sprintf($this->_commitMessageOneLanguage, $language) . '" ' . $sFiles);
         return $res;
     }
 
     /**
      * Commit all language files to svn repository
      *
-     * @return string
+     * @return array
      */
     public function updateSvnAll()
     {
-        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword
-                .' -m"' . $this->_commitMessageAllLanguages . '" '
-               . EXPORT_PATH;
-        $res = shell_exec($cmd);
-        $lines = explode("\n", $res);
-        $lastLine = $lines[count($lines) - 1];
-        if (preg_match('/Revision (\d+)/s', $lastLine, $matches)) {
-            $revision = $matches[1];
-        }
-        if (trim($res == '')) {
-            $res = 'Nothing to update.';
-        }
+        $res = $this->_runSvnCommit('-m"' . $this->_commitMessageAllLanguages . '"');
         return $res;
+    }
+
+    /**
+     * Executes subversion commit and returns the content of the standard output and error stream.
+     *
+     * @param string $svnParams Additional SVN params.
+     *
+     * @return array
+     */
+    private function _runSvnCommit($svnParams = null)
+    {
+        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword;
+        if ($svnParams !== null) {
+            $cmd .= " $svnParams";
+        }
+
+        $stdOut = '';
+        $stdErr = '';
+        $process = new Msd_Process($cmd, EXPORT_PATH);
+        $process->execute();
+        while ($process->isRunning()) {
+            $stdOut .= $process->readOutput();
+            $stdErr .=  $process->readError();
+        }
+        $process->close();
+        return array(
+            'output' => $stdOut,
+            'error'  => $stdErr,
+        );
     }
 }

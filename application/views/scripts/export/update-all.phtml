@@ -27,14 +27,8 @@
 </p>
 <h4>Committing changes to Subversion Repository</h4>
 <p>
-    <pre><?php
-            if ($this->svnExportResult > '') {
-                echo $this->svnExportResult;
-            } else {
-                echo 'Nothing to do.';
-            }
-        ?>
-    </pre>
+    <?php if ($this->svnExportResult['output'] > '') { ?><pre><span class="success">SVN output:</span> <?php echo $this->svnExportResult['output']; ?></pre><?php } ?>
+    <?php if ($this->svnExportResult['error'] > '') { ?><pre><span class="error">SVN error:</span> <?php echo $this->svnExportResult['error']; ?></pre><?php } ?>
 </p>
 <br />
 <a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>

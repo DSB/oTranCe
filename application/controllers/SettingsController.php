@@ -36,7 +36,7 @@ class SettingsController extends Zend_Controller_Action
     public function indexAction()
     {
         $languagesModel = new Application_Model_Languages();
-        $this->view->languages = $languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->languages = $languagesModel->getAllLanguages();
         $request = $this->getRequest();
         if ($request->isPost()) {
             $languagesSelected = array();

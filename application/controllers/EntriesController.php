@@ -62,7 +62,7 @@ class EntriesController extends Zend_Controller_Action
         $this->_assignVars();
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
         $this->setLanguages();
-        $filterLanguageArray = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $filterLanguageArray = $this->_languagesModel->getAllLanguages();
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $filterLanguageArray,
             'id',
@@ -107,7 +107,7 @@ class EntriesController extends Zend_Controller_Action
      */
     public function setLanguages()
     {
-        $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->languages = $this->_languagesModel->getAllLanguages();
         $this->_languagesEdit = $this->getEditLanguages();
         $this->view->languagesEdit = $this->_languagesEdit;
         $this->_showLanguages = $this->_languagesEdit;

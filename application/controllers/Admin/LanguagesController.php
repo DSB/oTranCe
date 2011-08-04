@@ -22,7 +22,8 @@ class Admin_LanguagesController extends AdminController
         $this->view->languages = $this->_languagesModel->getAllLanguages(
             $this->_config->get('dynamic.filterUser'),
             $this->_config->get('dynamic.offset'),
-            $this->_config->get('dynamic.recordsPerPage')
+            $this->_config->get('dynamic.recordsPerPage'),
+            false
         );
         $this->view->hits = $this->_languagesModel->getRowCount();
     }

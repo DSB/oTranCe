@@ -52,7 +52,7 @@ class IndexController extends Zend_Controller_Action
         $languagesModel = new Application_Model_Languages();
         $entriesModel = new Application_Model_LanguageEntries();
         $userModel = new Application_Model_User();
-        $this->view->languages = $languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->languages = $languagesModel->getAllLanguages();
         $this->view->translators = $userModel->getTranslators();
         $this->view->status = $entriesModel->getStatus($this->view->languages);
     }

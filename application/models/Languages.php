@@ -113,7 +113,7 @@ class Application_Model_Languages
      *
      * @return array
      */
-    public function getAllLanguages($filter = '', $offset = 0, $recsPerPage = 0, $activeOnly = false)
+    public function getAllLanguages($filter = '', $offset = 0, $recsPerPage = 0, $activeOnly = true)
     {
         $where = '';
         $limit = '';

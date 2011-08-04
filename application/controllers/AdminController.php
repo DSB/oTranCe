@@ -54,7 +54,7 @@ class AdminController extends Zend_Controller_Action
         }
         $this->_getPostParams();
         $this->_assignVars();
-        $this->view->languages = $this->_languagesModel->getAllLanguages();
+        $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, false);
     }
 
     /**

@@ -50,7 +50,7 @@ class LogController extends Zend_Controller_Action
         }
         $request        = $this->getRequest();
         $filterLanguage = $request->getParam('filterLanguage', '');
-        $languages      = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $languages      = $this->_languagesModel->getAllLanguages();
         asort($languages);
         $this->view->selectFilterLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $languages,

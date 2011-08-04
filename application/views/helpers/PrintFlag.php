@@ -37,7 +37,7 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
     {
         if (self::$_languages === null) {
             $languagesModel = new Application_Model_Languages();
-            self::$_languages = $languagesModel->getAllLanguages();
+            self::$_languages = $languagesModel->getAllLanguages('', 0, 0, false);
         }
         $ret = '';
         $langs = self::$_languages;

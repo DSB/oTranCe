@@ -51,7 +51,7 @@ class ImportController extends Zend_Controller_Action
     {
         $params = $this->_request->getParams();
         $selectedLanguage = (int) $this->_request->getParam('selectedLanguage', 0);
-        $languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $languages = $this->_languagesModel->getAllLanguages();
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $languages,
             'id',
@@ -61,7 +61,7 @@ class ImportController extends Zend_Controller_Action
         $this->view->selectedLanguage = $selectedLanguage;
         $this->view->importData = $this->_request->getParam('importData', '');
         if ($selectedLanguage != 0) {
-            $languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+            $languages = $this->_languagesModel->getAllLanguages();
             $selectedFileTemplate = (int) $this->_request->getParam('selectedFileTemplate', 0);
             $fileTemplates = array();
             $files = $this->_fileTemplatesModel->getFileTemplates('name');

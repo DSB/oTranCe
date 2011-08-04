@@ -54,28 +54,6 @@ class Application_Model_LanguageEntries
     }
 
     /**
-     * Get the list of available languages as ass. array[id] = array(meta);
-     *
-     * @param bool $languageNamesOnly If set, only the names are returned
-     *
-     * @return array
-     */
-    public function getLanguages($languageNamesOnly = false)
-    {
-        $sql = 'SELECT * FROM `' . $this->_tableLanguages . '` ORDER BY `locale`';
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        $ret = array();
-        foreach ($res as $val) {
-            if ($languageNamesOnly === true) {
-                $ret[$val['id']] = $val['name'];
-            } else {
-                $ret[$val['id']] = $val;
-            }
-        }
-        return $ret;
-    }
-
-    /**
      * Get all language vars of a language and return as ass. array
      *
      * @param string $language
@@ -126,13 +104,14 @@ class Application_Model_LanguageEntries
     /**
      * Get combined status info of all languages
      *
+     * @param array $languages Array with all active languages.
+     *
      * @return array
      */
-    public function getStatus()
+    public function getStatus($languages)
     {
         $ret = array();
         $totalLanguageVars = $this->getNrOfLanguageVars();
-        $languages = $this->getLanguages(false);
         $translators = $this->getTranslators();
         $pattern = "SELECT count(*) as anzahl FROM `" . $this->_tableTranslations . "` "
                    . " WHERE `lang_id`= %d AND `text` > ''";

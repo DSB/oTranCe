@@ -1,6 +1,6 @@
 <?php
 $i = $this->offset+1;
-$languageModel = new Application_Model_LanguageEntries();
+$entriesModel = new Application_Model_LanguageEntries();
 ?>
 <h2>Edit entries</h2>
 
@@ -96,7 +96,7 @@ if (empty($this->showLanguages)) {
         ?>
                 <th colspan="2" class="nowrap">
                     <?php
-                        echo $this->printFlag($this->languages[$lang]['locale'], 16).'&nbsp;';
+                        echo $this->printFlag($lang, 16).'&nbsp;';
                         echo $this->languages[$lang]['name'];
                     ?>
                 </th>
@@ -108,7 +108,7 @@ if (empty($this->showLanguages)) {
 foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
-    $entry = $languageModel->getEntryById($keyId, $this->showLanguages);
+    $entry = $entriesModel->getEntryById($keyId, $this->showLanguages);
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable">';
     ?>
@@ -129,10 +129,10 @@ foreach ($this->hits as $hit)
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall">
-            <?php echo $edit . $this->printFileTemplate($hit['template_id']);?></a>
+            <?php echo $edit . $this->printFileTemplate($hit['template_id']) . '</a>';?>
         </td>
         <td class="ssmall">
-            <?php echo $edit . $hit['key'];?></a>
+            <?php echo $edit . $hit['key'] . '</a>';?>
         </td>
         <?php
         foreach ($this->showLanguages as $lang) {

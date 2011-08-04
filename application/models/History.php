@@ -41,26 +41,26 @@ class Application_Model_History {
     /**
      * Get entries from history table
      *
-     * @param int    $offset
-     * @param int    $nr
-     * @param string $filterLanguage
-     * @param string $filterUser
-     * @param string $filterAction
+     * @param int        $offset
+     * @param int        $nr
+     * @param int        $filterLanguage
+     * @param string|int $filterUser
+     * @param string|int $filterAction
      *
      * @return array
      */
-    public function getEntries($offset = 0, $nr = 50, $filterLanguage = '', $filterUser = '', $filterAction = '')
+    public function getEntries($offset = 0, $nr = 50, $filterLanguage = 0, $filterUser = 0, $filterAction = 0)
     {
         $sql = 'SELECT SQL_CALC_FOUND_ROWS h.*, k.`id` as `key_id`, k.`key` FROM `'.$this->_tableHistory .'` h ';
         $sql .= ' LEFT JOIN `' . $this->_config->get('config.table.keys').'` k ON h.`key_id` = k.`id`';
         $sql .= ' WHERE 1';
-        if ($filterLanguage > '') {
+        if ($filterLanguage > 0) {
             $sql .= ' AND `lang_id`=' . intval($filterLanguage);
         }
-        if ($filterUser > '') {
+        if ($filterUser > 0) {
             $sql .= ' AND `user_id`=\'' . $filterUser .'\'';
         }
-        if ($filterAction > '') {
+        if (!is_numeric($filterAction)) {
             if (strpos($filterAction, '%') !== false) {
                 $sql .= ' AND `action` LIKE \'' . $filterAction .'\'';
             } else {

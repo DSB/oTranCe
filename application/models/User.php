@@ -4,7 +4,7 @@ class Application_Model_User {
 
     /**
      * Database object
-     * @var \MsdDbFactory
+     * @var Msd_Db_MysqlCommon
      */
     private $_dbo;
 
@@ -53,6 +53,7 @@ class Application_Model_User {
         $this->_database = $this->_config->get('config.dbuser.db');
         $this->_tableUsersettings = $this->_config->get('config.table.usersettings');
         $this->_tableUserrights = $this->_config->get('config.table.userrights');
+        $this->_tableLanguages = $this->_config->get('config.table.languages');
         $this->_tableUsers = $this->_config->get('config.table.users');
         $this->_dbo = Msd_Db::getAdapter();
         $auth = Zend_Auth::getInstance()->getIdentity();
@@ -201,6 +202,22 @@ class Application_Model_User {
     }
 
     /**
+     * Get user reference languages
+     *
+     * @return mixed
+     */
+    public function getRefLanguages()
+    {
+        $sql = "SELECT us.`value`
+            FROM `{$this->_database}`.`{$this->_tableUsersettings}` us
+            LEFT JOIN`{$this->_database}`.`{$this->_tableLanguages}` l ON l.`id` = us.`value`
+            WHERE us.`user_id` = '{$this->_userId}' AND us.`setting` = 'referenceLanguage' AND l.`active` = 1
+            ORDER BY us.`value` ASC";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]) ? $res[0] : false;
+    }
+
+    /**
      * Save user settings to db
      *
      * @param  string       $name   The setting to save to db
@@ -280,7 +297,7 @@ class Application_Model_User {
         $sql = 'SELECT `r`.* FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '` `r`'
                 . ' LEFT JOIN `'.$this->_database.'`.`' . $this->_config->get('config.table.languages') . '` `l`'
                 . ' ON `r`.`value` = `l`.`id` '
-                . ' WHERE `user_id`=\''.$userId.'\''
+                . ' WHERE `user_id`=\''.$userId.'\' AND `l`.`active` = 1'
                 . ' AND `right` = \'edit\''
                 . ' ORDER BY `l`.`locale` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);

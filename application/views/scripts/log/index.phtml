@@ -91,7 +91,7 @@ foreach ($this->logEntries as $entry)
         <td class="small">
             <?php
                 if (isset($this->languages[$entry['lang_id']])) {
-                    echo $this->languages[$entry['lang_id']];
+                    echo $this->languages[$entry['lang_id']]['name'] . ' (' . $this->languages[$entry['lang_id']]['locale'] . ')';
                 } else {
                     echo '-';
                 }

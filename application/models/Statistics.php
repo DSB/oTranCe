@@ -23,6 +23,7 @@ class Application_Model_Statistics {
         $config = Msd_Configuration::getInstance();
         $this->_dbo->selectDb($config->get('config.dbuser.db'));
         $this->_tableHistory = $config->get('config.table.history');
+        $this->_tableLanguages = $config->get('config.table.languages');
     }
 
     /**
@@ -32,8 +33,11 @@ class Application_Model_Statistics {
      */
     public function getUserstatistics()
     {
-        $sql = 'SELECT `user_id`, `lang_id`, count(*) as `editActions` FROM `' . $this->_tableHistory .'`';
-        $sql .= ' WHERE `action`=\'changed\' GROUP BY `user_id`, `lang_id`';
+        $sql = "SELECT h.`user_id`, h.`lang_id`, count(*) as `editActions`
+            FROM `{$this->_tableHistory}` h
+            LEFT JOIN `{$this->_tableLanguages}` l ON l.`id` = h.`lang_id`
+            WHERE h.`action`='changed' AND l.`active` = 1
+            GROUP BY h.`user_id`, h.`lang_id`";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }

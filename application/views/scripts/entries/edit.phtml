@@ -59,7 +59,7 @@ if (isset($this->entrySaved)) {
                 $rowclass = $cycleHelper->next();
                 ?>
                 <tr class="<?php echo $rowclass;?>">
-                    <td><?php echo $this->printFlag($this->languages[$lang]['locale']);?></td>
+                    <td><?php echo $this->printFlag($lang);?></td>
                     </td>
                     <td>
                         <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
@@ -109,7 +109,7 @@ if (!empty($this->referenceLanguages)) {
                 ?>
                 <tr class="<?php echo $rowclass;?>">
                     <td>
-                        <?php echo $this->printFlag($this->languages[$lang]['locale'], 20);?>
+                        <?php echo $this->printFlag($lang, 20);?>
                     </td>
                     <td colspan="4">
                         <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
@@ -134,20 +134,20 @@ if (!empty($this->referenceLanguages)) {
                     <td>
                         <?php foreach ($this->languagesEdit as $langEdit) { ?>
                         <a href="#" class="copy">
-                            <?php echo $this->printFlag($this->languages[$langEdit]['locale'], 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                            <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
                         </a>
                         <?php } ?>
                     </td>
                     <td class="small">Translate into:</td>
                     <td>
                         <?php foreach ($this->languagesEdit as $langEdit) {
-                        if (in_array($this->languages[$langEdit]['locale'], $this->translatable) && in_array($this->languages[$lang]['locale'], $this->translatable)) {
+                        if (in_array($langEdit, $this->translatable) && in_array($this->languages[$lang]['locale'], $this->translatable)) {
                             if ($lang == $langEdit) {
                                 continue;
                             }
                             ?>
                             <a href="#" class="translate">
-                                <?php echo $this->printFlag($this->languages[$langEdit]['locale'], 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                                <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
                             </a>
                             <?php
                         }

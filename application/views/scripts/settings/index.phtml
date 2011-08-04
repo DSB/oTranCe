@@ -18,7 +18,7 @@ $i = 1;
         <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
             <td class="small right"><?php echo $i;?>.</td>
             <td class="small">
-                <?php echo $this->printFlag($langLocale);?>
+                <?php echo $this->printFlag($langId);?>
             </td>
             <td class="small"><?php echo $langLocale;?></td>
             <td class="small"><?php echo $langName;?></td>
@@ -64,7 +64,7 @@ $i = 1;
             <td class="small right"><?php echo $i;?>.</td>
             <td class="small">
                 <label for="<?php echo $id;?>">
-                    <?php echo $this->printFlag($langLocale);?>
+                    <?php echo $this->printFlag($key);?>
                 </label>
             </td>
             <td class="small">

@@ -27,29 +27,26 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
     /**
      * Print image of given locale
      *
-     * @param string $locale Language locale
+     * @param string $langId Language locale
      * @param int    $width  Width of image
      * @param string $id     Set HTML id
      *
      * @return string
      */
-    public function printFlag($locale, $width = null, $id = null)
+    public function printFlag($langId, $width = null, $id = null)
     {
         if (self::$_languages === null) {
-            $languagesModel = new Application_Model_LanguageEntries();
-            $languages = $languagesModel->getLanguages();
-            self::$_languages = array();
-            foreach ($languages as $language) {
-                self::$_languages[$language['locale']] = $language;
-            }
+            $languagesModel = new Application_Model_Languages();
+            self::$_languages = $languagesModel->getAllLanguages();
         }
         $ret = '';
-        if (isset(self::$_languages[$locale]) && !empty(self::$_languages[$locale]['flag_extension'])) {
+        $langs = self::$_languages;
+        if (isset(self::$_languages[$langId]) && !empty(self::$_languages[$langId]['flag_extension'])) {
             $ret = '<img src="' . $this->view->baseUrl() . '/images/flags/';
-            $ret .= self::$_languages[$locale]['locale'] . '.'
-                    . self::$_languages[$locale]['flag_extension'] . '"'
-                    . ' alt="' . self::$_languages[$locale]['name'] . '"'
-                    . ' title="' . self::$_languages[$locale]['name'] . '"';
+            $ret .= self::$_languages[$langId]['locale'] . '.'
+                    . self::$_languages[$langId]['flag_extension'] . '"'
+                    . ' alt="' . self::$_languages[$langId]['name'] . '"'
+                    . ' title="' . self::$_languages[$langId]['name'] . '"';
             if ($width !== null) {
                 $ret .= ' width="' . $width . '"';
             }

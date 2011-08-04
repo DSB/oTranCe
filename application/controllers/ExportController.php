@@ -29,8 +29,8 @@ class ExportController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        $this->view->status = $this->_languageEntriesModel->getStatus();
-        $this->view->languages = $this->_languageEntriesModel->getLanguages();
+        $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->status = $this->_languageEntriesModel->getStatus($this->view->languages);
         $this->view->historyModel = $this->_historyModel;
         $this->view->export = $this->_export;
     }
@@ -48,7 +48,7 @@ class ExportController extends Zend_Controller_Action
         $language = $request->getParam('language');
         $languageInfo = $this->_languagesModel->getLanguageById($language);
         $this->view->language = $languageInfo['locale'];
-        $allLangs = array_keys($this->_languageEntriesModel->getLanguages());
+        $allLangs = array_keys($this->_languagesModel->getAllLanguages('', 0, 0, true));
         if (!in_array($language, $allLangs)) {
             // non existent language submitted; quietly return to index page
             $this->_forward('index');
@@ -71,7 +71,7 @@ class ExportController extends Zend_Controller_Action
      */
     public function updateAllAction()
     {
-        $langs = $this->_languageEntriesModel->getLanguages();
+        $langs = $this->_languagesModel->getAllLanguages('', 0, 0, true);
         $languages = array();
         $i = 0;
         $exportError = false;

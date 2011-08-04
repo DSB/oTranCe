@@ -4,8 +4,12 @@ class EntriesController extends Zend_Controller_Action
     /**
      * @var Application_Model_LanguageEntries
      */
-    private $_languagesModel;
+    private $_entriesModel;
     /**
+      * @var Application_Model_Languages
+      */
+    private $_languagesModel;
+     /**
      * @var Application_Model_User
      */
     private $_userModel;
@@ -34,9 +38,10 @@ class EntriesController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_languagesModel = new Application_Model_LanguageEntries();
+        $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_userModel = new Application_Model_User();
         $this->_config = Msd_Configuration::getInstance();
+        $this->_languagesModel = new Application_Model_Languages();
     }
 
     /**
@@ -57,8 +62,14 @@ class EntriesController extends Zend_Controller_Action
         $this->_assignVars();
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
         $this->setLanguages();
-        $filterLanguageArray = $this->_languagesModel->getLanguages(true);
-        $this->view->selLanguage = Msd_Html::getHtmlOptions($filterLanguageArray, $this->_config->get('dynamic.getUntranslated'), false);
+        $filterLanguageArray = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
+            $filterLanguageArray,
+            'id',
+            '{name} ({locale})',
+            $this->_config->get('dynamic.getUntranslated'),
+            false
+        );
 
         // assign file template filter
         $fileTemplateFilter = $this->_config->get('dynamic.fileTemplateFilter');
@@ -69,7 +80,7 @@ class EntriesController extends Zend_Controller_Action
 
         if ($this->view->getUntranslated == 0) {
             $this->view->hits =
-                    $this->_languagesModel->getEntries(
+                    $this->_entriesModel->getEntries(
                         $this->_showLanguages,
                         $this->view->filter,
                         $this->view->offset,
@@ -79,7 +90,7 @@ class EntriesController extends Zend_Controller_Action
         } else {
             $languageId = $this->_config->get('dynamic.getUntranslated');
             $this->view->hits =
-                    $this->_languagesModel->getUntranslated(
+                    $this->_entriesModel->getUntranslated(
                         $languageId,
                         $this->view->filter,
                         $this->view->offset,
@@ -87,7 +98,7 @@ class EntriesController extends Zend_Controller_Action
                         $this->view->fileTemplateFilter
                     );
         }
-        $this->view->rows = $this->_languagesModel->getRowCount();
+        $this->view->rows = $this->_entriesModel->getRowCount();
     }
 
     /**
@@ -96,11 +107,12 @@ class EntriesController extends Zend_Controller_Action
      */
     public function setLanguages()
     {
-        $this->view->languages = $this->_languagesModel->getLanguages();
+        $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
         $this->_languagesEdit = $this->getEditLanguages();
         $this->view->languagesEdit = $this->_languagesEdit;
         $this->_showLanguages = $this->_languagesEdit;
-        $this->_referenceLanguages = $this->getRefLanguages();
+        $userModel = new Application_Model_User();
+        $this->_referenceLanguages = $userModel->getRefLanguages();
         if (is_array($this->_referenceLanguages)) {
             $this->_showLanguages = array_merge($this->_showLanguages, $this->_referenceLanguages);
             $this->_showLanguages = array_unique($this->_showLanguages);
@@ -138,12 +150,12 @@ class EntriesController extends Zend_Controller_Action
             }
         }
         $this->setLanguages();
-        $this->view->key = $this->_languagesModel->getKeyById($id);
-        $this->view->entry = $this->_languagesModel->getEntryById($id, $this->_showLanguages);
+        $this->view->key = $this->_entriesModel->getKeyById($id);
+        $this->view->entry = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
         $this->view->user = $this->_userModel;
         $templatesModel = new Application_Model_FileTemplates();
         $this->view->fileTemplates = $templatesModel->getFileTemplates('name');
-        $this->view->assignedFileTemplate = $this->_languagesModel->getAssignedFileTemplate($id);
+        $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
         $config = Msd_Configuration::getInstance();
         $this->view->googleKey = $config->get('config.google.apikey');
     }
@@ -158,8 +170,8 @@ class EntriesController extends Zend_Controller_Action
         // check, that the user really has delete rights
         if ($this->_userModel->hasRight('addVar')) {
             $id = $this->_request->getParam('id');
-            $entry = $this->_languagesModel->getKeyById($id);
-            $res = $this->_languagesModel->deleteEntryByKeyId($id);
+            $entry = $this->_entriesModel->getKeyById($id);
+            $res = $this->_entriesModel->deleteEntryByKeyId($id);
             if ($res) {
                 $historyModel = new Application_Model_History();
                 $historyModel->logVarDeleted($entry['key']);
@@ -222,18 +234,6 @@ class EntriesController extends Zend_Controller_Action
     }
 
     /**
-     * Get list of reference languages
-     *
-     * @return array
-     */
-    public function getRefLanguages()
-    {
-        $userModel = new Application_Model_User();
-        $res = $userModel->loadSetting('referenceLanguage', '', true);
-        return isset($res[0]) ? $res : false;
-    }
-
-    /**
      * Save and log changes
      *
      * @return bool
@@ -249,9 +249,9 @@ class EntriesController extends Zend_Controller_Action
         }
         $res = true;
         if (isset($params['fileTemplate'])) {
-            $res &= $this->_languagesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
+            $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
-        $res &= $this->_languagesModel->saveEntries((int)$params['id'], $values);
+        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
         return $res;
     }
 
@@ -275,7 +275,7 @@ class EntriesController extends Zend_Controller_Action
      */
     public function getEntryById($id)
     {
-        return $this->_languagesModel->getEntryById($id, $this->_showLanguages);
+        return $this->_entriesModel->getEntryById($id, $this->_showLanguages);
     }
 
     /**
@@ -310,15 +310,15 @@ class EntriesController extends Zend_Controller_Action
             }
             // check if we already have a lang var with that name
             //TODO check for unique combination of key and file template!
-            if ($this->_languagesModel->hasEntryWithKey($newVar)) {
+            if ($this->_entriesModel->hasEntryWithKey($newVar)) {
                 $error = array('A language variable with this name already exists!');
             }
             if (empty($error)) {
                 try {
                     $fileTemplate = $this->_request->getParam('fileTemplate', 0);
-                    $this->_languagesModel->saveNewKey($newVar, $fileTemplate);
+                    $this->_entriesModel->saveNewKey($newVar, $fileTemplate);
                     $historyModel = new Application_Model_History();
-                    $entry = $this->_languagesModel->getEntryByKey($newVar);
+                    $entry = $this->_entriesModel->getEntryByKey($newVar);
                     $historyModel->logNewVarCreated($entry['id']);
                     $this->view->entry = $entry;
                     $this->_request->setParam('id', $entry['id']);

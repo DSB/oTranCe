@@ -18,16 +18,22 @@ class LogController extends Zend_Controller_Action
      * Languages model
      * @var Application_Model_LanguagesEntries
      */
-    private $_languageModel;
+    private $_entriesModel;
+
+    /**
+     * @var Application_Model_Languages
+     */
+    private $_languagesModel;
 
     /**
      * Init
      */
      public function init()
      {
-        $this->_userModel     = new Application_Model_User();
-        $this->_historyModel  = new Application_Model_History();
-        $this->_languageModel = new Application_Model_LanguageEntries();
+         $this->_userModel      = new Application_Model_User();
+         $this->_historyModel   = new Application_Model_History();
+         $this->_entriesModel   = new Application_Model_LanguageEntries();
+         $this->_languagesModel = new Application_Model_Languages();
      }
 
     /**
@@ -44,9 +50,15 @@ class LogController extends Zend_Controller_Action
         }
         $request        = $this->getRequest();
         $filterLanguage = $request->getParam('filterLanguage', '');
-        $languages      = $this->_languageModel->getLanguages(true);
+        $languages      = $this->_languagesModel->getAllLanguages('', 0, 0, true);
         asort($languages);
-        $this->view->selectFilterLanguage = Msd_Html::getHtmlOptions($languages, $filterLanguage, true);
+        $this->view->selectFilterLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
+            $languages,
+            'id',
+            '{name} ({locale})',
+            $filterLanguage,
+            true
+        );
 
         $filterUser = $request->getParam('filterUser', '');
         $users      = $this->_userModel->getUserNames();

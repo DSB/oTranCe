@@ -9,9 +9,15 @@ class AdminController extends Zend_Controller_Action
 
     /**
      * Languages model
-     * @var Application_Model_LanguagesEntries
+     * @var Application_Model_LanguageEntries
      */
     protected $_languageEntriesModel;
+
+    /**
+     * Languages model
+     * @var Application_Model_Languages
+     */
+    protected $_languagesModel;
 
     /**
      * User model
@@ -48,7 +54,7 @@ class AdminController extends Zend_Controller_Action
         }
         $this->_getPostParams();
         $this->_assignVars();
-        $this->view->languages = $this->_languageEntriesModel->getLanguages();
+        $this->view->languages = $this->_languagesModel->getAllLanguages();
     }
 
     /**
@@ -101,7 +107,7 @@ class AdminController extends Zend_Controller_Action
         $this->view->filterUser     = $this->_config->get('dynamic.filterUser');
         $this->view->offset         = $this->_config->get('dynamic.offset');
         $this->view->recordsPerPage = $this->_config->get('dynamic.recordsPerPage');
-        $this->view->languages      = $this->_languageEntriesModel->getLanguages();
+        $this->view->languages      = $this->_languagesModel->getAllLanguages();
     }
 
 }

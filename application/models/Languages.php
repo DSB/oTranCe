@@ -134,10 +134,15 @@ class Application_Model_Languages
             }
             $where .= " `active` = 1";
         }
-        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, (`flag_extension` != '') hasFlag
+        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
+                (`flag_extension` != '') hasFlag
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC $limit";
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        return $res;
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $languages = array();
+        while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+            $languages[$row['id']] = $row;
+        }
+        return $languages;
     }
 
     /**

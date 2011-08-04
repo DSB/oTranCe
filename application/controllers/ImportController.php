@@ -1,11 +1,29 @@
 <?php
 class ImportController extends Zend_Controller_Action
 {
+    /**
+     * @var Application_Model_LanguageEntries
+     */
+    private $_entriesModel;
+    /**
+     * @var Application_Model_Languages
+     */
     private $_languagesModel;
+    /**
+     * @var Application_Model_User
+     */
     private $_userModel;
+    /**
+     * @var Msd_Configuration
+     */
     private $_config;
-    protected $_request;
+    /**
+     * @var Application_Model_Analyzer
+     */
     private $_analyzerModel;
+    /**
+     * @var Application_Model_FileTemplates
+     */
     private $_fileTemplatesModel;
 
     /**
@@ -15,7 +33,8 @@ class ImportController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_languagesModel = new Application_Model_LanguageEntries();
+        $this->_entriesModel = new Application_Model_LanguageEntries();
+        $this->_languagesModel = new Application_Model_Languages();
         $this->_userModel = new Application_Model_User();
         $this->_analyzerModel = new Application_Model_Analyzer();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
@@ -32,12 +51,17 @@ class ImportController extends Zend_Controller_Action
     {
         $params = $this->_request->getParams();
         $selectedLanguage = (int) $this->_request->getParam('selectedLanguage', 0);
-        $languages = $this->_languagesModel->getLanguages(true);
-        $this->view->selLanguage = Msd_Html::getHtmlOptions($languages, $selectedLanguage);
+        $languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
+        $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
+            $languages,
+            'id',
+            '{name} ({locale})',
+            $selectedLanguage
+        );
         $this->view->selectedLanguage = $selectedLanguage;
         $this->view->importData = $this->_request->getParam('importData', '');
         if ($selectedLanguage != 0) {
-            $languages = $this->_languagesModel->getLanguages();
+            $languages = $this->_languagesModel->getAllLanguages('', 0, 0, true);
             $selectedFileTemplate = (int) $this->_request->getParam('selectedFileTemplate', 0);
             $fileTemplates = array();
             $files = $this->_fileTemplatesModel->getFileTemplates('name');

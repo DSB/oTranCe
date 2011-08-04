@@ -25,7 +25,7 @@ foreach ($this->status as $key => $s)
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
         <td class="small right"><?php echo $i;?>.</td>
         <td class="small">
-            <?php echo $this->printFlag($this->languages[$key]['locale']);?>
+            <?php echo $this->printFlag($key);?>
         </td>
         <td class="small"><?php echo $this->languages[$key]['locale'];?></td>
         <td class="small"><?php echo $this->languages[$key]['name'];?></td>

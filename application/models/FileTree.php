@@ -78,9 +78,10 @@ class Application_Model_FileTree
                 $entry['children'] = $this->_buildJsTreeData($dir->getPathname());
             } else {
                 $pathname = str_replace($this->_basePath, '', $dir->getPathname());
+                $pathname = addslashes($pathname);
                 $entryData['attr'] = array(
                     'href' => '#',
-                    'onclick' => 'loadFileContent("' . htmlspecialchars($pathname) . '");',
+                    'onclick' => 'loadFileContent("' . htmlspecialchars($pathname, ENT_COMPAT, 'UTF-8') . '");',
                 );
                 $entryData['icon'] = 'file';
             }

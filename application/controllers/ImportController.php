@@ -110,9 +110,11 @@ class ImportController extends Zend_Controller_Action
                 $this->view->conversionError = true;
                 $this->view->targetCharset = $selectedCharset;
             }
+            $this->_config->set('dynamic.importConvertedData', $res);
             $this->view->importData = $res;
         }
         if (isset($params['analyze'])) {
+            $this->_config->set('dynamic.importConvertedData', $this->view->importData);
             $this->_forward('analyze');
             return;
         }
@@ -125,7 +127,8 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $data = $this->_config->get('dynamic.importOriginalData');
+        $data = $this->_config->get('dynamic.importConvertedData');
+        $data = stripcslashes($data);
         $importer = new Application_Model_Importer_Oxid();
         $this->view->extractedData = $importer->extract($data);
     }

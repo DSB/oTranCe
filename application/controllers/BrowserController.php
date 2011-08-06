@@ -14,7 +14,11 @@ class BrowserController extends Zend_Controller_Action
             $this->view->filename = ltrim(str_replace(EXPORT_PATH, '', $filename), '/');
             $this->view->fileContent = "File doesn't exists, please run export first.";
             if (file_exists($filename)) {
-                $this->view->fileContent = file($filename);
+                $content = file($filename);
+                $search  = array("\t");
+                $replace = array("    ");
+                $content = str_replace($search, $replace, $content);
+                $this->view->fileContent = $content;
             }
         }
         $this->view->languages = $langModel->getAllLanguages();

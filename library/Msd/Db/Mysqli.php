@@ -195,6 +195,18 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
     }
 
     /**
+     * Wrapper for mysqli's preare method
+     *
+     * @param $prepare The query to prepare
+     *
+     * @return mysqli_stmt
+     */
+    public function prepare($prepare)
+    {
+        return $this->_mysqli->prepare($prepare);
+    }
+
+    /**
      * Gets the number of affected rows for the last executed query.
      *
      * @see inc/classes/db/MsdDbFactory#affectedRows()

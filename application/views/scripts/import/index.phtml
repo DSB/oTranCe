@@ -46,7 +46,6 @@
         </td>
 
     </tr>
-
 </table>
 <div class="invisible" id="importerInfo">
 <?php
@@ -60,8 +59,32 @@
 <p>
     <button class="Formbutton" type="submit" name="analyze">
     <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
-    </button><br /><br />
+    </button>
+</p>
 
+<?php
+if ($this->importData > '') { ?>
+    <h4>Check characters!</h4>
+    <p>
+    If you discover "weird" looking characters you can try to convert them.<br />
+    Selected a character set in the select box and hit the button "Convert data to".
+    You can try different character sets until the text is ok.
+    Each conversion is taken from the originally uploaded file.<br />
+    If everything looks good, start to analyze the data.
+    </p>
+    <p>
+        <button class="Formbutton" type="submit" name="convert">
+        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> Convert data to:
+        </button>
+        <select name="selectedCharset" id="selectedCharset">
+            <?php echo $this->selCharset;?>
+        </select>
+    </p>
+    <?php
+    }
+    ?>
+
+<p>
     <textarea name="importData" id="importData" cols="120" rows="1"><?php echo $this->importData;?></textarea>
     <br /><br />
 
@@ -76,4 +99,18 @@ $('#showImporterInfo').click(function () {
 });
 $("textarea").autoGrow();
 
-<?php $this->jQuery()->onLoadCaptureEnd();?>
+<?php
+if (isset($this->conversionError)) {
+    $this->popUpMessage()->addMessage(
+        'conversionError',
+        'Error',
+        'Sorry, data couldn\'t be interpreted as ' . $this->targetCharset .'.',
+        array(
+            'modal' => true,
+            'height' => 160,
+            'width' => 260,
+            'dialogClass' => 'error',
+        )
+    );
+}
+$this->jQuery()->onLoadCaptureEnd();?>

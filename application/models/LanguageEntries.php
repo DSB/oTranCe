@@ -440,4 +440,5 @@ class Application_Model_LanguageEntries
         }
         return true;
     }
+
 }

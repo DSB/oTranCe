@@ -25,7 +25,7 @@
     <tr class="row-odd">
         <td class="small">Use analyzer:</td>
         <td>
-            <select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select>
+            <select name="selectedAnalyzer" id="selectedAnalyzer" onchange="$('#myForm').submit()"><?php echo $this->selAnalyzer;?></select>
             <span style="float:right">
                 <a href="#" title="show info" id="showImporterInfo">
                     <?php echo $this->getIcon('Info', '', 16);?>
@@ -67,14 +67,14 @@ if ($this->importData > '') { ?>
     <h4>Check characters!</h4>
     <p>
     If you discover "weird" looking characters you can try to convert them.<br />
-    Selected a character set in the select box and hit the button "Convert data to".
+    Selected a character set in the select box and hit the button "Convert data from".
     You can try different character sets until the text is ok.
     Each conversion is taken from the originally uploaded file.<br />
     If everything looks good, start to analyze the data.
     </p>
     <p>
         <button class="Formbutton" type="submit" name="convert">
-        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> Convert data to:
+        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> Convert data from:
         </button>
         <select name="selectedCharset" id="selectedCharset">
             <?php echo $this->selCharset;?>

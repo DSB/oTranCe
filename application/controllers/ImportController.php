@@ -39,7 +39,6 @@ class ImportController extends Zend_Controller_Action
         $this->_analyzerModel = new Application_Model_Analyzer();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
         $this->_config = Msd_Configuration::getInstance();
-        $this->_request = $this->getRequest();
     }
 
     /**
@@ -69,13 +68,13 @@ class ImportController extends Zend_Controller_Action
                 $filename = str_replace('{LOCALE}', $languages[$selectedLanguage]['locale'], $file['filename']);
                 $fileTemplates[$file['id']] = $filename;
             }
-            $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate);
+            $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
         }
 
         $analyzers = $this->_analyzerModel->getAvailableImportAnalyzers();
         $analyzersNames = array_keys($analyzers);
         $selectedAnalyzer = $this->_request->getParam('selectedAnalyzer', $analyzersNames[0]);
-        $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, count($analyzers) != 1);
+        $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
         $this->view->selectedAnalyzer = $selectedAnalyzer;
 
         if (!$this->_config->get('dynamic.selectedCharset')) {
@@ -127,9 +126,11 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
+        $selectedAnalyzer = $this->_request->getParam('selectedAnalyzer');
         $data = $this->_config->get('dynamic.importConvertedData');
-        $data = stripcslashes($data);
-        $importer = new Application_Model_Importer_Oxid();
+        //$data = stripcslashes($data);
+        $importer = 'Application_Model_Importer_' . $selectedAnalyzer;
+        $importer = new $importer();
         $this->view->extractedData = $importer->extract($data);
     }
 }

@@ -1,0 +1,45 @@
+<?php
+$code = <<<CODE
+/**
+...
+ */
+\$lang['key'] = "Value";
+\$lang["key"] = 'Value';
+
+\$lang = array(
+    'key' => "Value",
+    'key2' => 'Very long value'
+    . ' value continues', // Comment
+...
+);
+CODE
+?>
+<h4>PHP Array importer information:</h4>
+<table class="bdr more-padding" summary="">
+<tr class="row-even">
+    <td class="small">Author:</td>
+    <td class="small">
+        Stefan Krenz, Daniel Schlichtholz
+    </td>
+</tr>
+
+<tr class="row-odd">
+    <td class="small">Description:</td>
+    <td class="small">
+        This importer is intended to import language files from PHP files.<br />
+    </td>
+</tr>
+<tr class="row-even">
+    <td class="small">Structure that can be detected:</td>
+    <td class="small">
+        <pre><?php echo $this->out($code);?></pre>
+    </td>
+</tr>
+<tr class="row-even">
+    <td class="small">Note:</td>
+    <td class="small">
+        If you discover character encoding problems, copy &amp; paste the text into the text box
+        instead of uploading it. Or try to use the convert button until all characters are shown correctly.
+    </td>
+</tr>
+</table>

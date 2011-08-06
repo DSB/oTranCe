@@ -917,3 +917,18 @@ label {
     font: 11px/ 1.2 "Courier New", Courier, monospace;
     color:#000;
 }
+/** File browser styles **/
+#treeBrowser {
+    float:left;
+    margin-right:20px;
+}
+#treeBrowser table {
+    height:500px;
+    width:250px;
+}
+#treeBrowser .thead th {
+    height:14px;
+}
+#fileContent {
+    float:left;
+}

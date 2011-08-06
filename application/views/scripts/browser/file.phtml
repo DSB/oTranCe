@@ -1,0 +1,17 @@
+    <table class="bdr">
+        <tr class="thead">
+            <th colspan="2">Content of file <?php echo $this->filename; ?></th>
+        </tr>
+<?php
+    if (is_array($this->fileContent)) {
+?>
+        <tr class="row-odd">
+            <td class="code right"><?php echo implode("<br/>\n", range(1, count($this->fileContent))); ?></td>
+            <td class="code"><?php echo highlight_string(implode("", $this->fileContent), true); ?></td>
+        </tr>
+<?php
+    } else {
+        echo '<tr><td class="error" colspan="2">' . $this->fileContent . '</td></tr>';
+    }
+?>
+    </table>

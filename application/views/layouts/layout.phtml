@@ -11,12 +11,12 @@ $this->headMeta()->appendHttpEquiv('content-language', $language)
     ->appendName('author', 'Daniel Schlichtholz')
     ->appendName('robots', 'noindex,nofollow');
 
+$this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jquery-ui.custom.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/style.css');
 $request = Zend_Controller_Front::getInstance()->getRequest();
 if ($request->getActionName() == 'login') {
     $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/login.css');
 }
-$this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery' . '/jquery-ui.custom.css');
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/script.js'));
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/autogrow.js'));
 

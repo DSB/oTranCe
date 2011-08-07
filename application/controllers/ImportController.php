@@ -102,7 +102,7 @@ class ImportController extends Zend_Controller_Action
 
         if (isset($params['convert'])) {
             $entriesModel = new Application_Model_Converter();
-            $res = $entriesModel->convertData($selectedCharset, $data);
+            $res = $entriesModel->convertData($selectedCharset, $this->_config->get('dynamic.importOriginalData'));
             if ($res === false) {
                 $res = $data;
                 $this->view->conversionError = true;

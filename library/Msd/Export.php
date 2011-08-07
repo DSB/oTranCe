@@ -91,19 +91,19 @@ class Msd_Export
             $fallbackLang = $languageModel->getLanguageIdFromLocale('en');
         }
         $langInfo = $languageModel->getLanguageById($language);
-        if ($langInfo['active'] == 0) {
+        if ($langInfo['active'] != 1) {
             return false;
         }
 
         $languageEntriesModel = new Application_Model_LanguageEntries();
-        $data = $languageEntriesModel->getLanguageKeys($language);
-        $english = $languageEntriesModel->getLanguageKeys($fallbackLang); // used as fallback for unmaintained vars
+        $data                 = $languageEntriesModel->getLanguageKeys($language);
+        $fallbackLanguage     = $languageEntriesModel->getLanguageKeys($fallbackLang);
 
         $langFileData = array();
         $res = array();
-
-        foreach ($data as $key => $entry) {
-            $templateId = $entry['templateId'];
+        $languageKeys = array_keys($fallbackLanguage);
+        foreach ($languageKeys as $key) {
+            $templateId = $fallbackLanguage[$key]['templateId'];
             // Did we have the meta data for the exported language file? If not, we will create it now.
             if (!isset($langFileData[$templateId])) {
                 $langFilename = EXPORT_PATH . DS . trim(
@@ -125,9 +125,9 @@ class Msd_Export
             }
 
             // If we have no value, fill the var with the english/default text.
-            $val = $entry['text'];
-            if ($val == '') {
-                $val = $english[$key]['text'];
+            $val = isset($data[$key]['text']) ? $data[$key]['text'] : '';
+            if (trim($val) == '') {
+                $val = $fallbackLanguage[$key]['text'];
             }
             // Put the lang var into the language file.
             $langFileData[$templateId]['fileContent'] .= str_replace(

@@ -88,7 +88,7 @@ foreach ($this->logEntries as $entry)
         <td class="small nowrap"><?php echo $entry['dt'];?></td>
         <td class="small"><?php echo $this->printTranslators($entry['user_id']);?></td>
         <td class="small nowrap"><?php echo $entry['action'];?></td>
-        <td class="small">
+        <td class="small nowrap">
             <?php
                 if (isset($this->languages[$entry['lang_id']])) {
                     echo $this->languages[$entry['lang_id']]['name'] . ' (' . $this->languages[$entry['lang_id']]['locale'] . ')';

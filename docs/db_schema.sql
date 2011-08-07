@@ -276,6 +276,14 @@ INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('153','1',
 INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('152','1','referenceLanguage','3');
 /*!40000 ALTER TABLE `usersettings` ENABLE KEYS */;
 
+CREATE TABLE `exportlog` (
+ `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `export_id` varchar(128) NOT NULL,
+ `filename` varchar(255) NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `export_id` (`export_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=117 DEFAULT CHARSET=utf8
+
 SET FOREIGN_KEY_CHECKS=1;
 -- EOB
 

@@ -377,8 +377,10 @@ class Application_Model_LanguageEntries
      */
     public function saveEntries($keyId, $newValues)
     {
+        $keyId = (int) $keyId;
         $oldValues = $this->getEntryById($keyId, array_keys($newValues), true);
         foreach ($newValues as $lang => $text) {
+            $lang = (int) $lang;
             $text = $this->_dbo->escape($text);
             $date = date('Y-m-d H:i:s', time());
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
@@ -394,7 +396,7 @@ class Application_Model_LanguageEntries
         // log changes all at once
         foreach ($newValues as $lang => $text) {
             if (!isset($oldValues[$lang])) {
-                $oldValue[$lang] = '';
+                $oldValues[$lang] = '';
             }
         }
         $historyModel = new Application_Model_History();

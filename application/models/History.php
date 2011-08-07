@@ -64,7 +64,9 @@ class Application_Model_History {
             if (strpos($filterAction, '%') !== false) {
                 $sql .= ' AND `action` LIKE \'' . $filterAction .'\'';
             } else {
-                $sql .= ' AND `action`=\'' . $filterAction .'\'';
+                if ($filterAction > '') {
+                    $sql .= ' AND `action`=\'' . $filterAction .'\'';
+                }
             }
         }
         $sql .= ' ORDER BY `dt` DESC'

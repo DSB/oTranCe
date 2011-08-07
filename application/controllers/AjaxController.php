@@ -9,6 +9,9 @@ class AjaxController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->disableLayout();
+        $this->_languagesModel = new Application_Model_Languages();
+        $this->languages       = $this->_languagesModel->getAllLanguages();
+        $this->_entriesModel   = new Application_Model_LanguageEntries();
     }
 
     /**
@@ -22,15 +25,53 @@ class AjaxController extends Zend_Controller_Action
         $keyId = $request->getParam('key');
         $sourceLang = $request->getParam('source');
         $targetLang = $request->getParam('target');
-        $languageModel = new Application_Model_Languages();
-        $this->languages = $languageModel->getAllLanguages();
-        $entriesModel = new Application_Model_LanguageEntries();
-        $entry = $entriesModel->getEntryById($keyId, array($sourceLang));
+        $entry = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
         $this->view->data = $this->_getTranslation(
             $entry[$sourceLang],
             $this->languages[$sourceLang]['locale'],
             $this->languages[$targetLang]['locale']
         );
+    }
+
+    public function importKeyAction()
+    {
+        $userModel    = new Application_Model_User();
+        $params       = $this->_request->getParams();
+        $key          = $params['key'];
+        $value        = $params['value'];
+        $language     = $params['language'];
+        $fileTemplate = $params['fileTemplate'];
+        $ret = '';
+        // check edit right for language
+        $userEditRights = $userModel->getUserEditRights();
+        if (!in_array($language, $userEditRights)) {
+            //user is not allowed to edit this language
+            $ret .= $this->view->getIcon('Attention', '', 16). ' You are not allowed to edit this language!';
+        }
+
+        if (!$this->_entriesModel->hasEntryWithKey($key)) {
+            //new entry - check rights
+            if (!$userModel->hasRight('addVar')) {
+                $ret .= $this->view->getIcon('Attention', '', 16). ' You are not allowed to add new entries!';
+            } else {
+                $this->_entriesModel->saveNewKey($key, $fileTemplate);
+            }
+        }
+
+        if ($ret == '') {
+            // everything ok - we can save the value
+            // get Key id
+            $entry = $this->_entriesModel->getEntryByKey($key);
+            $keyId = $entry['id'];
+            $res = $this->_entriesModel->saveEntries($keyId, array($language => $value));
+            if ($res === true) {
+                $ret .= $this->view->getIcon('Ok', '', 16);
+            } else {
+                $ret .= $this->view->getIcon('Attention', '', 16). $res;
+            }
+        }
+        $this->view->message = $ret;
+        //print_r($params);
     }
 
     /**

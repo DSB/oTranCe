@@ -1,8 +1,16 @@
 <h2>Analyzing data:</h2>
-<p>Found <?php echo $this->numberFormat(sizeof($this->extractedData));?> language keys.</p>
+<p>
+    Found <?php echo $this->numberFormat(sizeof($this->extractedData));?> language keys.
+    <br />Start import by clicking the "Import to database" button.
+    <br /><br />
+    <button type="button" class="Formbutton" id="importButton">
+    <?php echo $this->getIcon('save', 'Save to database');?> Import to database
+    </button>
+</p>
 
-<table class="bdr">
+<table class="bdr" summary="Extracted key-value pairs">
 <tr class="thead">
+    <th>Action</th>
     <th class="right">#</th>
     <th>Key</th>
     <th>Value</th>
@@ -12,13 +20,65 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i=1;
 foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?>">
+        <td>
+            <span id="<?php echo $key;?>" class="import"></span>
+        </td>
         <td class="small right"><?php echo $this->numberFormat($i);?></td>
         <td class="small"><?php echo $this->out($key);?></td>
-        <td class="small"><?php echo $this->out($val);?></td>
+        <td class="small" id="val-<?php echo $key;?>"><?php echo $this->out($val);?></td>
     </tr>
 <?php
     $i++;
 }
 ?>
 </table>
+<script type="text/javascript">
+var nextKey = false;
+var importValues = new Array();
+var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
+$('#importButton').click(function () {
+    $('.import').each(function (index, domElement) {
+        key = domElement.id;
+        val = $('#val-' + key).html();
+        importValues.push({'key':key, 'val':val, 'processed':false});
+    });
+    doImport();
+});
+
+function doImport() {
+    //console.debug(importValues);
+    nextKey = false;
+    $.each(importValues, function(key, value) {
+        if (value.processed == true) {
+            return true;
+        } else {
+            nextKey = value;
+            return false;
+        }
+    });
+    if (nextKey !== false) {
+        $('#' + nextKey.key).html(imgLoader);
+        var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
+        $.ajax({
+            'type':'POST',
+            'url':requestUrl,
+            'data':{
+                'language':<?php echo $this->language;?>,
+                'fileTemplate':<?php echo $this->fileTemplate;?>,
+                'key':nextKey.key,
+                'value':nextKey.val
+    },
+            'success':function(data) {
+                $('#' + nextKey.key).html(data);
+                nextKey.processed = true;
+                doImport();
+            },
+            error:function(data) {
+                $('#' + nextKey.key).html(imgError);
+                nextKey.processed = true;
+            }
+        });
+    }
+}
+</script>
 

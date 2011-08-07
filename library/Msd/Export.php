@@ -40,13 +40,6 @@ class Msd_Export
      */
     private $_fileTemplates = array();
 
-    /**
-     * Array with filenames that are changed during the export process.
-     *
-     * @var array
-     */
-    private $_changedFiles = array();
-
     public function __construct()
     {
         $config = Msd_Configuration::getInstance();
@@ -86,7 +79,7 @@ class Msd_Export
      *
      * @param string $language
      *
-     * @return int|false
+     * @return array
      */
     public function exportLanguageFile($language)
     {
@@ -107,7 +100,7 @@ class Msd_Export
         $english = $languageEntriesModel->getLanguageKeys($fallbackLang); // used as fallback for unmaintained vars
 
         $langFileData = array();
-        $res = 0;
+        $res = array();
 
         foreach ($data as $key => $entry) {
             $templateId = $entry['templateId'];
@@ -145,66 +138,16 @@ class Msd_Export
             $langFileData[$templateId]['fileContent'] .= "\n";
         }
         // Write footers, close the file handles and save changed filenames.
+        $exportOk = true;
         foreach ($langFileData as $templateId => $langFile) {
             $fileContent = $langFile['fileContent'] . $this->_fileTemplates[$templateId]['footer'] . "\n";
-            $res = file_put_contents($langFile['filename'], $fileContent);
+            $size = file_put_contents($langFile['filename'], $fileContent);
+            $exportOk = ($size !== false) && $exportOk;
+            $res[$templateId]['size'] = $size;
+            $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
             chmod($langFile['filename'], 0664);
-            $this->_changedFiles[] = $langFile['filename'];
         }
-        return (($res !== false) && $res > 0) ? $res : false;
-    }
-
-    /**
-     * Commit language file to svn repository
-     *
-     * @param string $language
-     *
-     * @return array
-     */
-    public function updateSvn($language)
-    {
-        $sFiles = implode(' ', $this->_changedFiles);
-        $res = $this->_runSvnCommit('-m"' . sprintf($this->_commitMessageOneLanguage, $language) . '" ' . $sFiles);
+        $res['exportOk'] = (count($res) > 0) && $exportOk;
         return $res;
-    }
-
-    /**
-     * Commit all language files to svn repository
-     *
-     * @return array
-     */
-    public function updateSvnAll()
-    {
-        $res = $this->_runSvnCommit('-m"' . $this->_commitMessageAllLanguages . '"');
-        return $res;
-    }
-
-    /**
-     * Executes subversion commit and returns the content of the standard output and error stream.
-     *
-     * @param string $svnParams Additional SVN params.
-     *
-     * @return array
-     */
-    private function _runSvnCommit($svnParams = null)
-    {
-        $cmd = 'svn ci --username ' . $this->_svnUser . ' --password ' . $this->_svnPassword;
-        if ($svnParams !== null) {
-            $cmd .= " $svnParams";
-        }
-
-        $stdOut = '';
-        $stdErr = '';
-        $process = new Msd_Process($cmd, EXPORT_PATH);
-        $process->execute();
-        while ($process->isRunning()) {
-            $stdOut .= $process->readOutput();
-            $stdErr .=  $process->readError();
-        }
-        $process->close();
-        return array(
-            'output' => $stdOut,
-            'error'  => $stdErr,
-        );
     }
 }

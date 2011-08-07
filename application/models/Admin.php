@@ -16,7 +16,7 @@ class Application_Model_Admin {
 
     /**
      * Configuration object
-     * @var \Msd_Configuration
+     * @var Msd_Configuration
      */
     private $_config;
 

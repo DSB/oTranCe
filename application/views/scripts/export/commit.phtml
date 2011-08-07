@@ -1,0 +1,27 @@
+<h2>Export</h2>
+<h4>Commit files to VCS</h4>
+<?php if (isset($this->commitResult['stdout']) && strlen($this->commitResult['stdout']) > 0) { ?>
+<table class="bdr more-padding">
+    <tr class="thead">
+        <th>VCS output</th>
+    </tr>
+    <tr class="row-odd">
+        <td><pre><?php echo $this->out($this->commitResult['stdout']); ?></pre></td>
+    </tr>
+</table><br/>
+<?php } ?>
+<?php
+if (isset($this->commitResult['stderr']) && strlen($this->commitResult['stderr']) > 0) {
+    $this->popUpMessage()->addMessage(
+        'vcsError',
+        'VCS Error',
+        $this->commitResult['stderr'],
+        array(
+            'modal' => true,
+            'autoOpen' => true,
+            'dialogClass' => 'error',
+        )
+    );
+}
+?>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>

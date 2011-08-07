@@ -1,6 +1,5 @@
 <?php
 define('DS', DIRECTORY_SEPARATOR);
-define('WORK_PATH', realpath(dirname(__FILE__) . DS. '..' . DS . 'work'));
 
 // Define path to application directory
 defined('APPLICATION_PATH') || define(
@@ -11,7 +10,7 @@ defined('APPLICATION_PATH') || define(
 
 defined('EXPORT_PATH') || define(
     'EXPORT_PATH', realpath(
-        dirname(__FILE__) . DS . '..' . DS . 'export'
+        dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'export'
     )
 );
 

@@ -1,26 +1,26 @@
 <h2>Export</h2>
-<h4>Exporting language '<?php echo $this->language;?>':</h4>
-<p>
-    Exporting data from database to file 'languages/<?php echo $this->language;?>/lang.php'.
-    <br /><br />
-    <?php
-        if ($this->filesize !== false) {
-            echo $this->getIcon('Ok', '', 16). ' Ok - Filesize: '.$this->byteOutput($this->filesize);
-        } else {
-            echo $this->getIcon('Attention', '', 16) . ' - ERROR! The file couldn\'t be saved!';
-        }
-    ?>
-</p>
+<h4>Exporting language '<?php echo $this->language['name'];?> (<?php echo $this->language['locale'];?>)':</h4>
+<table class="bdr more-pading">
+    <tr class="thead">
+        <th colspan="2">Filename</th>
+        <th>Filesize</th>
+    </tr>
 <?php
-if ($this->filesize) {
+foreach ($this->exportedFiles as $exportedFile) {
+    $cycle = $this->cycle(array('row-even', 'row-odd'));
 ?>
-   <h4>Committing changes to Subversion Repository:</h4>
-<p>
-    <?php if ($this->svnExportResult['output'] > '') { ?><pre><span class="success">SVN output:</span> <?php echo $this->svnExportResult['output']; ?></pre><?php } ?>
-    <?php if ($this->svnExportResult['error'] > '') { ?><pre><span class="error">SVN error:</span> <?php echo $this->svnExportResult['error']; ?></pre><?php } ?>
-</p>
-<?php
-}
-?>
-<br />
+   <tr class="<?php echo $cycle->next();?>">
+        <td><?php echo $exportedFile['filename']; ?></td>
+        <td><?php echo ($exportedFile['size'] !== false) ? $this->getIcon('Ok', '', 16) : $this->getIcon('Attention', '', 16); ?></td>
+        <td><?php echo $this->byteOutput($exportedFile['size']); ?></td>
+    </tr>
+<?php } ?>
+<?php if ($this->exportOk) { ?>
+    <tr class="<?php echo $cycle->next();?>">
+        <td colspan="3">
+            <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
+        </td>
+    </tr>
+<?php } ?>
+</table><br/>
 <a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>

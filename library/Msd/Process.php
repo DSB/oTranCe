@@ -73,7 +73,7 @@ class Msd_Process
         if ($command !== null) {
             $this->_command = $command;
         }
-        
+
         if ($workDir !== null && file_exists($workDir)) {
             $this->_workDir = realpath((string) $workDir);
         } else {
@@ -155,7 +155,7 @@ class Msd_Process
     {
         $output = null;
         if (is_resource($this->_pipes[1])) {
-            $output = fgets($this->_pipes[1]);
+            $output = fgets($this->_pipes[1], 128);
         }
 
         return $output;
@@ -170,7 +170,7 @@ class Msd_Process
     {
         $error = null;
         if (is_resource($this->_pipes[2])) {
-            $error = fgets($this->_pipes[2]);
+            $error = fgets($this->_pipes[2], 128);
         }
 
         return $error;

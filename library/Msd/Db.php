@@ -212,13 +212,12 @@ abstract class Msd_Db
      * If $getRows is true alls rows are fetched and returned
      *
      * @param string  $query   The query to execute
-     * @param const   $kind    Type of result set
+     * @param int     $kind    Type of result set
      * @param boolean $getRows Whether to fetch all rows and return them
      *
-     * @return boolean|array
+     * @return boolean|array|mysqli_result
      */
-    abstract public function query ($query,
-    $kind = self::ARRAY_OBJECT, $getRows = true);
+    abstract public function query ($query, $kind = self::ARRAY_OBJECT, $getRows = true);
 
     /**
      * Get next row from result set

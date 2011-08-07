@@ -23,6 +23,16 @@ class ExportController extends Zend_Controller_Action
     private $_languagesModel;
 
     /**
+     * @var Msd_Vcs_Interface
+     */
+    private $_vcs = null;
+
+    /**
+     * @var Msd_Configuration
+     */
+    private $_config;
+
+    /**
      * Init
      *
      * @return void
@@ -33,6 +43,7 @@ class ExportController extends Zend_Controller_Action
         $this->_languagesModel = new Application_Model_Languages();
         $this->_export = new Msd_Export();
         $this->_historyModel = new Application_Model_History();
+        $this->_config = Msd_Configuration::getInstance();
     }
 
     /**
@@ -57,22 +68,98 @@ class ExportController extends Zend_Controller_Action
      */
     public function updateAction()
     {
-        $request = $this->getRequest();
-        $language = $request->getParam('language');
-        $languageInfo = $this->_languagesModel->getLanguageById($language);
-        $this->view->language = $languageInfo['locale'];
-        $allLangs = array_keys($this->_languagesModel->getAllLanguages());
-        if (!in_array($language, $allLangs)) {
-            // non existent language submitted; quietly return to index page
+        $vcs = $this->_getVcsInstance();
+        $vcs->update();
+        $language = $this->_request->getParam('language');
+        if (!$this->_languageExists($language)) {
+            // If the user provides an invalid language id, redirect to index action, silently.
             $this->_forward('index');
             return;
         }
-        $res = $this->_export->exportLanguageFile($language);
-        $this->view->filesize = $res;
-        if ($res) {
-            $this->view->svnExportResult = $this->_export->updateSvn($language);
-            $this->_historyModel->logSvnUpdate($language);
+
+        $languageInfo = $this->_languagesModel->getLanguageById($language);
+        $this->view->language = $languageInfo;
+        $exportedFiles = $this->_export->exportLanguageFile($language);
+        $this->view->exportOk = $exportedFiles['exportOk'];
+        unset($exportedFiles['exportOk']);
+        $this->_writeExportLog($exportedFiles);
+        $this->view->exportedFiles = $exportedFiles;
+    }
+
+    public function commitAction()
+    {
+        $vcs = $this->_getVcsInstance();
+        $statusResult = $vcs->status();
+        $log = new Application_Model_ExportLog();
+        if (!empty($statusResult)) {
+            $files = $log->getFileList(session_id());
+            $files = $this->_getCommitFileList($statusResult, $files, $vcs);
+            $commtResult = $vcs->commit($files, $this->_config->get('config.vcs.commitMessage','Languagepack update'));
+            $this->view->commitResult = $commtResult;
+        } else {
+            $this->view->commitResult = array('stdout' => 'Nothing to do.');
         }
+        $log->delete(session_id());
+    }
+
+    private function _getCommitFileList($statusResult, $files, $vcs)
+    {
+        if (isset($statusResult['unversioned'])) {
+            // Compare unversioned file list with exported file list.
+            $addFiles = array();
+            foreach ($statusResult['unversioned'] as $unverFile) {
+                foreach ($files as $file) {
+                    if (substr($file, 0, strlen($unverFile)) == $unverFile) {
+                        $addFiles[] = $unverFile;
+                        $addFiles[] = dirname($file);
+                        $addFiles[] = $file;
+                    }
+                }
+            }
+            $addFiles = array_unique($addFiles);
+            $vcs->add($addFiles);
+            foreach (array_reverse($addFiles) as $addFile) {
+                array_unshift($files, $addFile);
+            }
+        }
+
+        $files = array_unique($files);
+        return $files;
+    }
+
+    /**
+     * @return Msd_Vcs_Interface
+     */
+    private function _getVcsInstance()
+    {
+        // TODO: Make VCS configurable from GUI
+        if ($this->_vcs === null) {
+            $vcsConfig = $this->_config->get('config.vcs');
+            $this->_vcs = Msd_Vcs::factory($vcsConfig['class'], $vcsConfig['options']);
+        }
+
+        return $this->_vcs;
+    }
+
+    private function _writeExportLog($exportedFiles)
+    {
+        $exportLog = new Application_Model_ExportLog();
+        foreach ($exportedFiles as $exportedFile) {
+            if ($exportedFile['size'] !== false) {
+                $exportLog->add(session_id(), $exportedFile['filename']);
+            }
+        }
+    }
+
+    private function _languageExists($lang)
+    {
+        $allLangs = array_keys($this->_languagesModel->getAllLanguages());
+        $langExists = false;
+        if (in_array($lang, $allLangs)) {
+            $langExists = true;
+        }
+
+        return $langExists;
     }
 
     /**
@@ -84,10 +171,11 @@ class ExportController extends Zend_Controller_Action
      */
     public function updateAllAction()
     {
+        $this->_getVcsInstance()->update();
         $langs = $this->_languagesModel->getAllLanguages();
         $languages = array();
         $i = 0;
-        $exportError = false;
+        $exportOk = true;
         foreach ($langs as $lang => $langMeta) {
             if ($langMeta['active'] == 0) {
                 continue;
@@ -95,16 +183,29 @@ class ExportController extends Zend_Controller_Action
             $languages[$i] = array();
             $languages[$i]['key'] = $lang;
             $languages[$i]['meta'] = $langMeta;
-            $languages[$i]['filesize'] = $this->_export->exportLanguageFile($lang);
-            if ($languages[$i]['filesize'] === false) {
-                $exportError = true;
-            }
+            $exportResult = $this->_export->exportLanguageFile($lang);
+            $exportOk = $exportOk && $exportResult['exportOk'];
+            unset($exportResult['exportOk']);
+            $this->_writeExportLog($exportResult);
+            $languages[$i]['files'] = $exportResult;
             $i++;
         }
-        if ($exportError === false) {
-            $this->view->svnExportResult = $this->_export->updateSvnAll();
-            $this->_historyModel->logSvnUpdateAll();
-        }
+        $this->view->exportOk = $exportOk;
         $this->view->languages = $languages;
+    }
+
+    public function svnAction()
+    {
+        $svn = Msd_Vcs::factory(
+            'subversion',
+            array(
+                'processClass' => 'Msd_Process',
+                'checkoutPath' => EXPORT_PATH . '/../',
+                'username' => 'MyUser',
+                'password' => 'MyPassword',
+            )
+        );
+        var_dump($svn->status());
+        die();
     }
 }

@@ -163,8 +163,7 @@ class EntriesController extends Zend_Controller_Action
         $templatesModel = new Application_Model_FileTemplates();
         $this->view->fileTemplates = $templatesModel->getFileTemplates('name');
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
-        $config = Msd_Configuration::getInstance();
-        $this->view->googleKey = $config->get('config.google.apikey');
+        $this->view->translatable = Msd_Google::getTranslatableLanguages();
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 $entry = $this->entry;
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$this->translatable = Msd_Google::getTranslatableLanguages();
 ?>
 <h2>Edit entry</h2>
 <h4>Key: <?php echo $this->key['key'];?>
@@ -140,18 +139,19 @@ if (!empty($this->referenceLanguages)) {
                     </td>
                     <td class="small">Translate into:</td>
                     <td>
-                        <?php foreach ($this->languagesEdit as $langEdit) {
-                        if (in_array($langEdit, $this->translatable) && in_array($this->languages[$lang]['locale'], $this->translatable)) {
-                            if ($lang == $langEdit) {
-                                continue;
+                        <?php
+                        foreach ($this->languagesEdit as $langEdit) {
+                            if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
+                                if ($lang == $langEdit) {
+                                    continue;
+                                }
+                                ?>
+                                <a href="#" class="translate">
+                                    <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                                </a>
+                                <?php
                             }
-                            ?>
-                            <a href="#" class="translate">
-                                <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                            </a>
-                            <?php
                         }
-                    }
                         ?>
                     </td>
                 </tr>

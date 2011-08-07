@@ -80,7 +80,13 @@ class Application_Model_Importer_PhpArray implements Msd_Import_Interface
         $escaped = false;
         WHILE (!$delimiterFound && $this->_pointer < $this->_dataLength) {
             $char = $this->_data{$this->_pointer};
-
+            // check for comments
+            if (!$escaped && $char == '/' && $this->_data{($this->_pointer+1)} == '/') {
+                // found inline comment-> move to next new line
+                WHILE ($this->_data{$this->_pointer} != "\n" && $this->_pointer < $this->_dataLength) {
+                    $this->_pointer++;
+                }
+            }
             if (!$escaped && ($char == '"' || $char == "'")) {
                 $delimiterFound = true;
                 $this->_delimiter = $char;

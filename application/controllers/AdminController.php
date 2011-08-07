@@ -26,12 +26,6 @@ class AdminController extends Zend_Controller_Action
     protected $_userModel;
 
     /**
-     * Request object
-     * @var Zend_Controller_Request_Abstract
-     */
-    protected $_request;
-
-    /**
      * Init
      * Automatically read post and set session params
      *
@@ -48,8 +42,7 @@ class AdminController extends Zend_Controller_Action
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
-        $this->_request = $this->getRequest();
-        if (!$this->getRequest()->isPost()) {
+        if (!$this->_request->isPost()) {
             $this->_setSessionParams();
         }
         $this->_getPostParams();

@@ -37,9 +37,8 @@ class IndexController extends Zend_Controller_Action
      */
     public function init()
     {
-        $request = $this->getRequest();
-        $this->_lastController = $request->getParam('lastController', 'index');
-        $this->_lastAction = $request->getParam('lastAction', 'index');
+        $this->_lastController = $this->_request->getParam('lastController', 'index');
+        $this->_lastAction = $this->_request->getParam('lastAction', 'index');
     }
 
     /**
@@ -139,6 +138,5 @@ class IndexController extends Zend_Controller_Action
         }
         $this->view->form = $form;
     }
-
 
 }

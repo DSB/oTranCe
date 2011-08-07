@@ -6,19 +6,27 @@ class ExportController extends Zend_Controller_Action
      * @var Application_Model_LanguageEntries
      */
     private $_languageEntriesModel;
+
     /**
      * @var Application_Model_History
      */
     private $_historyModel;
+
     /**
      * @var Msd_Export
      */
     private $_export;
+
     /**
      * @var Application_Model_Languages
      */
     private $_languagesModel;
 
+    /**
+     * Init
+     *
+     * @return void
+     */
     public function init()
     {
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
@@ -27,6 +35,11 @@ class ExportController extends Zend_Controller_Action
         $this->_historyModel = new Application_Model_History();
     }
 
+    /**
+     * Index action
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $this->view->languages = $this->_languagesModel->getAllLanguages();

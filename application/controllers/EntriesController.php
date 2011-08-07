@@ -5,14 +5,17 @@ class EntriesController extends Zend_Controller_Action
      * @var Application_Model_LanguageEntries
      */
     private $_entriesModel;
+
     /**
       * @var Application_Model_Languages
       */
     private $_languagesModel;
+
      /**
      * @var Application_Model_User
      */
     private $_userModel;
+
     /**
      * @var Msd_Configuration
      */
@@ -22,10 +25,12 @@ class EntriesController extends Zend_Controller_Action
      * @var array
      */
     private $_languagesEdit = array();
+
     /**
      * @var array
      */
     private $_showLanguages = array();
+
     /**
      * @var array
      */
@@ -104,6 +109,8 @@ class EntriesController extends Zend_Controller_Action
     /**
      * Get and set language params in view and in private properties
      * (Languages to edit, references and which to show in list view)
+     *
+     * @return void
      */
     public function setLanguages()
     {

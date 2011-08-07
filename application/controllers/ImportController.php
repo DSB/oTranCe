@@ -102,7 +102,6 @@ class ImportController extends Zend_Controller_Action
 
         if (isset($params['convert'])) {
             $entriesModel = new Application_Model_Converter();
-            $data = $this->_config->get('dynamic.importOriginalData');
             $res = $entriesModel->convertData($selectedCharset, $data);
             if ($res === false) {
                 $res = $data;
@@ -128,7 +127,6 @@ class ImportController extends Zend_Controller_Action
     {
         $selectedAnalyzer = $this->_request->getParam('selectedAnalyzer');
         $data = $this->_config->get('dynamic.importConvertedData');
-        //$data = stripcslashes($data);
         $importer = 'Application_Model_Importer_' . $selectedAnalyzer;
         $importer = new $importer();
         $this->view->extractedData = $importer->extract($data);

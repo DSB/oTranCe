@@ -25,6 +25,11 @@ class StatisticsController extends Zend_Controller_Action
      */
     private $_statisticsModel;
 
+    /**
+     * Init
+     *
+     * @return void
+     */
     public function init()
     {
         $this->_statisticsModel = new Application_Model_Statistics();

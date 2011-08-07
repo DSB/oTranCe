@@ -23,6 +23,11 @@ class SettingsController extends Zend_Controller_Action
      */
     private $_userModel;
 
+    /**
+     * Init
+     *
+     * @return void
+     */
     public function init()
     {
         $this->_userModel = new Application_Model_User();
@@ -67,6 +72,7 @@ class SettingsController extends Zend_Controller_Action
      *
      * @param array $languagesSelected
      * @param int   $recordsPerPage
+     *
      * @return boolean
      */
     public function saveUserSettings($languagesSelected, $recordsPerPage)

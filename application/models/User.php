@@ -202,9 +202,10 @@ class Application_Model_User {
     }
 
     /**
-     * Get user reference languages
+     * Get user reference languages as array.
+     * Returns active languages only.
      *
-     * @return mixed
+     * @return array
      */
     public function getRefLanguages()
     {
@@ -214,7 +215,13 @@ class Application_Model_User {
             WHERE us.`user_id` = '{$this->_userId}' AND us.`setting` = 'referenceLanguage' AND l.`active` = 1
             ORDER BY us.`value` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        return isset($res[0]) ? $res[0] : false;
+        $ret = array();
+        if (is_array($res)) {
+            foreach ($res as $value) {
+                $ret[] = $value['value'];
+            }
+        }
+        return $ret;
     }
 
     /**

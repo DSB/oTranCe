@@ -42,16 +42,15 @@ class SettingsController extends Zend_Controller_Action
     {
         $languagesModel = new Application_Model_Languages();
         $this->view->languages = $languagesModel->getAllLanguages();
-        $request = $this->getRequest();
-        if ($request->isPost()) {
+        if ($this->_request->isPost()) {
             $languagesSelected = array();
-            $params = array_keys($request->getParams());
+            $params = array_keys($this->_request->getParams());
             foreach ($params as $val) {
                 if (substr($val, 0, 5) == 'lang_') {
                     $languagesSelected[] = substr($val, 5);
                 }
             }
-            $recordsPerPage = $request->getParam('recordsPerPage', 20);
+            $recordsPerPage = $this->_request->getParam('recordsPerPage', 20);
             //save new settings to session
             $config = Msd_Configuration::getInstance();
             $config->set('dynamic.recordsPerPage', $recordsPerPage);

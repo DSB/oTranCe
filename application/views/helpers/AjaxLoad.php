@@ -32,8 +32,7 @@ class Msd_View_Helper_AjaxLoad extends Zend_View_Helper_Abstract
      */
     public function ajaxLoad($ajaxOptions, $viewOptions = null)
     {
-        $viewRenderer = Zend_Controller_Action_HelperBroker::
-                            getStaticHelper('viewRenderer');
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('viewRenderer');
         $viewRenderer->initView();
         $view = $viewRenderer->view;
         $view->domId = str_replace('.', '-', uniqid('', true));

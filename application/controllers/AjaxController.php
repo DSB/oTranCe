@@ -1,12 +1,22 @@
 <?php
 class AjaxController extends Zend_Controller_Action
 {
+    /**
+     * Init
+     *
+     * @return void
+     */
     public function init()
     {
         $this->_helper->layout()->disableLayout();
     }
 
-    public function indexAction()
+    /**
+     * Translate an entry using Google translate
+     *
+     * @return void
+     */
+    public function translateAction()
     {
         $request = $this->getRequest();
         $keyId = $request->getParam('key');
@@ -29,6 +39,7 @@ class AjaxController extends Zend_Controller_Action
      * @param  string $text
      * @param  string $sourceLang
      * @param  string $targetLang
+     *
      * @return string
      */
     private function _getTranslation($text, $sourceLang, $targetLang)
@@ -59,6 +70,7 @@ class AjaxController extends Zend_Controller_Action
      * Convert lang code like vi_VN into Googles code vn
      *
      * @param  string $code
+     *
      * @return string
      */
     private function _mapLangCode($code)

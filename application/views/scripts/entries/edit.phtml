@@ -194,7 +194,7 @@ function translate(event) {
     var targetLang = lang[1];
     setPageInactive();
     $.ajax({
-        url: '<?php echo $this->baseUrl();?>/ajax/index/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
+        url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
         dataType : 'HTML',
         success: function(response) {
             $('#edit-'+lang[1]).val(response.trim());

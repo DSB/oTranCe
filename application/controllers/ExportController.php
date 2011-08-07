@@ -196,16 +196,7 @@ class ExportController extends Zend_Controller_Action
 
     public function svnAction()
     {
-        $svn = Msd_Vcs::factory(
-            'subversion',
-            array(
-                'processClass' => 'Msd_Process',
-                'checkoutPath' => EXPORT_PATH . '/../',
-                'username' => 'MyUser',
-                'password' => 'MyPassword',
-            )
-        );
-        var_dump($svn->status());
+        var_dump(Msd_Vcs::getAvailableAdapter());
         die();
     }
 }

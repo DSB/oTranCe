@@ -29,11 +29,11 @@ if (isset($this->entrySaved)) {
             <table class="bdr" summary="List of edit boxes">
                 <tr class="thead"><th colspan="2">Edit:</th></tr>
                 <tr class="row-odd">
-                    <td></td>
+                    <td>&nbsp;</td>
                     <td><?php echo $assignTitle; ?></td>
                 </tr>
                 <tr class="row-odd">
-                    <td></td>
+                    <td>&nbsp;</td>
                     <td><?php if ($this->user->hasRight('addVar')) { ?>
                         <select name="fileTemplate" style="width:402px;">
                             <option value="0"<?php if ($this->assignedFileTemplate['id'] == 0) { ?> selected="selected"<?php } ?>>Unassigned</option>

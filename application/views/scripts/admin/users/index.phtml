@@ -49,8 +49,8 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
         <th>&nbsp;</th>
         <th>#</th>
         <th>Username</th>
-        <th>Can edit</th>
         <th>Active</th>
+        <th>Can edit</th>
     </tr>
 <?php
 
@@ -75,6 +75,15 @@ foreach ($this->users as $userId => $user)
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall"><?php echo $edit . $user['username'];?></a></td>
+        <td>
+            <?php
+                if ($user['active'] == 1) {
+                    echo $this->getIcon('Ok', 'Yes', 16);
+                } else {
+                    echo $this->getIcon('Attention', 'No', 16);
+                };
+            ?>
+        </td>
         <td class="ssmall">
             <?php
                 $languageEditRights = $this->userModel->getUserEditRights($userId);
@@ -98,15 +107,6 @@ foreach ($this->users as $userId => $user)
                 }
             } ?>
             </table>
-        </td>
-        <td>
-            <?php
-                if ($user['active'] == 1) {
-                    echo $this->getIcon('Ok', 'Yes', 16);
-                } else {
-                    echo $this->getIcon('Attention', 'No', 16);
-                };
-            ?>
         </td>
     </tr>
     <?php

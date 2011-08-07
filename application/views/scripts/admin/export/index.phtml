@@ -2,7 +2,7 @@
 <?php echo $this->partial('admin/head-navi.phtml');?>
 <h4>Export settings</h4>
 <form action="" method="post">
-    <table class="bdr more-padding">
+    <table class="bdr more-padding" summary="List of vcs settings">
         <tr class="thead">
             <th colspan="2">Subversion</th>
         </tr>
@@ -23,11 +23,12 @@
             <td><textarea class="textarea-edit" name="svnCommitAll" id="svnCommitAll" cols="80" rows="5"><?php echo $this->svnCommitAll; ?></textarea></td>
         </tr>
         <tr class="row-odd">
-            <td></td>
+            <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
         </tr>
-    </table><br/>
-    <table class="bdr more-padding">
+    </table>
+    <div class="clear"><br /></div>
+    <table class="bdr more-padding" summary="Set fallback language">
         <tr class="thead">
             <th colspan="2">Language settings</th>
         </tr>

@@ -26,7 +26,7 @@ if (isset($this->entrySaved)) {
         $assignTitle = 'Assign file template';
     }
 ?>
-            <table class="bdr">
+            <table class="bdr" summary="List of edit boxes">
                 <tr class="thead"><th colspan="2">Edit:</th></tr>
                 <tr class="row-odd">
                     <td></td>
@@ -59,7 +59,6 @@ if (isset($this->entrySaved)) {
                 ?>
                 <tr class="<?php echo $rowclass;?>">
                     <td><?php echo $this->printFlag($lang);?></td>
-                    </td>
                     <td>
                         <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
                     </td>
@@ -99,7 +98,7 @@ $cycleHelper->rewind();
 if (!empty($this->referenceLanguages)) {
 ?>
     <div style="float:left">
-        <table class="bdr" style="margin-bottom: 20px;">
+        <table class="bdr" style="margin-bottom: 20px;" summary="Output of reference languages">
             <tr class="thead"><th colspan="5">Reference languages:</th></tr>
             <?php
             $rowclass = $cycleHelper->next();

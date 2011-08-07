@@ -17,7 +17,7 @@ if ($user['id'] == 0) { ?>
 <?php } ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
-<table class="bdr more-padding">
+<table class="bdr more-padding" summary="User account settings">
     <tr class="thead">
        <th colspan="2">Account settings</th>
     </tr>
@@ -164,7 +164,7 @@ if ($user['id'] == 0) { ?>
     </tr>
     <tr>
         <td colspan="2">
-            <table class="bdr" style="width:100%">
+            <table class="bdr" style="width:100%" summary="List of editable languages">
                 <tr class="thead">
                     <th class="right">#</th>
                     <th colspan="3">Language</th>

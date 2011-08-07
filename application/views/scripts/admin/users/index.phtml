@@ -44,7 +44,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
     </p>
 </form>
 
-<table class="bdr">
+<table class="bdr" summary="Userlist">
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
@@ -91,7 +91,7 @@ foreach ($this->users as $userId => $user)
                     echo '<i>Nothing</i>';
                 }
             ?>
-            <table>
+            <table summary="Flags of edit languages">
         <?php
             foreach ($languageEditRights as $langId) {
                 if (isset($this->languages[$langId])) {

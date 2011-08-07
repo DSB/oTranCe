@@ -40,7 +40,7 @@
     </p>
 </form>
 
-    <table class="bdr more-padding">
+    <table class="bdr more-padding" summary="List of file templates">
         <tr class="thead">
             <th></th>
             <th>#</th>
@@ -66,7 +66,7 @@ foreach ($this->fileTemplates as $fileTemplate) {
     );
     $headerShort = $this->cutString($fileTemplate['header'], 40, $cutOptions);
     $footerShort = $this->cutString($fileTemplate['footer'], 40, $cutOptions);
-    
+
     $counter++;
     $editUrl = $this->baseUrl() . '/admin_files/edit/id/' . $fileTemplate['id'] . '/';
 ?>

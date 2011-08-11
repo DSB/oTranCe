@@ -1,4 +1,19 @@
 <?php
+/**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ * @version         SVN: $Rev: 780 $
+ * @author          $Author: DSB $
+ */
+/**
+ * Archive factory
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ */
 class Msd_Archive
 {
     /**
@@ -9,7 +24,7 @@ class Msd_Archive
     }
 
     /**
-     * Create a new instance of an archive adapter and returns it.
+     * Creates a new instance of an archive adapter and returns it.
      *
      * @static
      * @param string $archiveAdapter  Name of the archive adapter

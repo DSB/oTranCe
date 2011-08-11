@@ -1,5 +1,19 @@
 <?php
 require_once 'AdminController.php';
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Admin/Files Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class Admin_FilesController extends AdminController
 {
     /**

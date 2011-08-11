@@ -1,9 +1,8 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe http://www.oTranCe.de
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Controllers
  * @version         SVN: $Rev$
  * @author          $Author$
@@ -13,7 +12,7 @@
  *
  * Handle unexpected errors and uncaught Exceptions
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Controllers
  */
 class ErrorController extends Zend_Controller_Action

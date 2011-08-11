@@ -1,13 +1,19 @@
 <?php
 require_once('AdminController.php');
 /**
- * Created by JetBrains PhpStorm.
- * User: David
- * Date: 06.07.11
- * Time: 14:26
- * To change this template use File | Settings | File Templates.
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
-
+/**
+ * Admin/Languages Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class Admin_LanguagesController extends AdminController
 {
     /**

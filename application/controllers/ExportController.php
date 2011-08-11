@@ -1,7 +1,20 @@
 <?php
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Export Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class ExportController extends Zend_Controller_Action
 {
-
     /**
      * @var Application_Model_LanguageEntries
      */

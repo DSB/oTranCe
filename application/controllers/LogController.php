@@ -1,4 +1,18 @@
 <?php
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Log Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class LogController extends Zend_Controller_Action
 {
 
@@ -48,8 +62,7 @@ class LogController extends Zend_Controller_Action
         if ($recordsPerPage < 10) {
             $recordsPerPage = 20;
         }
-        $request        = $this->getRequest();
-        $filterLanguage = $request->getParam('filterLanguage', '');
+        $filterLanguage = $this->_request->getParam('filterLanguage', '');
         $languages      = $this->_languagesModel->getAllLanguages();
         asort($languages);
         $this->view->selectFilterLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
@@ -60,11 +73,11 @@ class LogController extends Zend_Controller_Action
             true
         );
 
-        $filterUser = $request->getParam('filterUser', '');
+        $filterUser = $this->_request->getParam('filterUser', '');
         $users      = $this->_userModel->getUserNames();
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
-        $filterAction = $request->getParam('filterAction', '');
+        $filterAction = $this->_request->getParam('filterAction', '');
         $actions = array(
             'changed' => 'changed',
             'deleted %' => 'deleted',
@@ -77,7 +90,7 @@ class LogController extends Zend_Controller_Action
         natcasesort($actions);
         $this->view->selectFilterAction = Msd_Html::getHtmlOptions($actions, $filterAction, true);
 
-        $offset = $request->getParam('offset', 0);
+        $offset = $this->_request->getParam('offset', 0);
         $this->view->logEntries = $this->_historyModel->getEntries(
             $offset,
             $recordsPerPage,

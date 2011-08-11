@@ -17,14 +17,17 @@
 class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
 {
     /**
+     * Mysqli instance
      * @var mysqli
      */
     private $_mysqli = null;
 
     /**
+     * Result handle
      * @var resource
      */
     private $_resultHandle = null;
+
     /**
      * Establish a connection to MySQL.
      *

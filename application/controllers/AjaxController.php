@@ -1,6 +1,38 @@
 <?php
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Ajax Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class AjaxController extends Zend_Controller_Action
 {
+    /**
+     * Languages model
+     * @var Application_Model_Languages
+     */
+    protected $_languagesModel;
+
+    /**
+     * Languages entries model
+     * @var Application_Model_Entries
+     */
+    protected $_entriesModel;
+
+    /**
+     * Array holding all languages
+     * @var array
+     */
+    protected $languages;
+
     /**
      * Init
      *
@@ -21,10 +53,9 @@ class AjaxController extends Zend_Controller_Action
      */
     public function translateAction()
     {
-        $request = $this->getRequest();
-        $keyId = $request->getParam('key');
-        $sourceLang = $request->getParam('source');
-        $targetLang = $request->getParam('target');
+        $keyId = $this->_request->getParam('key');
+        $sourceLang = $this->_request->getParam('source');
+        $targetLang = $this->_request->getParam('target');
         $entry = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
         $this->view->data = $this->_getTranslation(
             $entry[$sourceLang],
@@ -33,6 +64,11 @@ class AjaxController extends Zend_Controller_Action
         );
     }
 
+    /**
+     * Import action
+     *
+     * @return void
+     */
     public function importKeyAction()
     {
         $userModel    = new Application_Model_User();

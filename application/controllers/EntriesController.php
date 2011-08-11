@@ -1,4 +1,18 @@
 <?php
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Entries Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class EntriesController extends Zend_Controller_Action
 {
     /**

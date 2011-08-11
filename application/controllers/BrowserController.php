@@ -1,4 +1,18 @@
 <?php
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Browser Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class BrowserController extends Zend_Controller_Action
 {
     private $_testFiles = array('languages/de.php', 'languages/de/lang.php');

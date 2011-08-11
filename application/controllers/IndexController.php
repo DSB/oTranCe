@@ -1,19 +1,16 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe http://www.oTranCe.de
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Controllers
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
- * Index controller
+ * Index Controller
  *
- * Controller to handle actions triggered on index screen
- *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Controllers
  */
 class IndexController extends Zend_Controller_Action

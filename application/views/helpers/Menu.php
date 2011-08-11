@@ -1,9 +1,8 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe http://www.oTranCe.de
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      View_Helpers
  * @version         SVN: $Rev$
  * @author          $Author$
@@ -12,15 +11,13 @@
 /**
  * Renders the menu
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      View_Helpers
  */
 class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
 {
     /**
      * Renders the menu
-     *
-     * @param Msd_Version $version Msd_Version object
      *
      * @return void
      */

@@ -127,7 +127,7 @@ abstract class Msd_Archive_Abstract
      *
      * @return string
      */
-    abstract public function getAchiveFilename();
+    abstract public function getArchiveFilename();
 
     /**
      * Creates the archive

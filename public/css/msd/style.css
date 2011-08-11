@@ -932,3 +932,6 @@ label {
 #fileContent {
     float:left;
 }
+.clear {
+    clear:both;
+}

@@ -14,6 +14,12 @@ defined('EXPORT_PATH') || define(
     )
 );
 
+defined('DOWNLOAD_PATH') || define(
+    'DOWNLOAD_PATH', realpath(
+        dirname(__FILE__) . DS . '..' . DS . 'downloads'
+    )
+);
+
 // Define application environment
 if (!defined('APPLICATION_ENV')) {
     $appEnvironment = getenv('APPLICATION_ENV');

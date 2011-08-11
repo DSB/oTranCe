@@ -19,11 +19,11 @@ class Msd_Archive_Tar_Gz extends Msd_Archive_Abstract
     }
 
     /**
-     * Retrives the resulting filename of the archive.
+     * Retrieves the resulting filename of the archive.
      *
      * @return string
      */
-    public function getAchiveFilename()
+    public function getArchiveFilename()
     {
         return $this->_archiveFilename;
     }

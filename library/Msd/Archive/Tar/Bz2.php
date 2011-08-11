@@ -23,7 +23,7 @@ class Msd_Archive_Tar_Bz2 extends Msd_Archive_Abstract
      *
      * @return string
      */
-    public function getAchiveFilename()
+    public function getArchiveFilename()
     {
         return $this->_archiveFilename;
     }

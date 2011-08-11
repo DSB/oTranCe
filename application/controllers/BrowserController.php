@@ -21,7 +21,7 @@ class BrowserController extends Zend_Controller_Action
         $fileTree = new Application_Model_FileTree(EXPORT_PATH);
         $fileTreeData = $fileTree->getJsTreeData();
         $this->view->fileTree = $fileTreeData;
-        $this->view->entryCount = $fileTree->getEntryCount();
+        $this->view->entryCount = $fileTree->getJsTreeEntryCount();
     }
 
     public function fileAction()
@@ -56,8 +56,8 @@ class BrowserController extends Zend_Controller_Action
         if ($success) {
             $this->_response->setHeader('Content-Type', $archive->getMimeType(), true);
             $this->_response->setHeader('Content-Disposition','attachment; filename="'
-                . basename($archive->getAchiveFilename()) . '"');
-            $this->_response->setBody(file_get_contents($archive->getAchiveFilename()));
+                . basename($archive->getArchiveFilename()) . '"');
+            $this->_response->setBody(file_get_contents($archive->getArchiveFilename()));
         } else {
             $this->_response->setHeader('Content-Type', 'text/plain; charset=utf8', true);
             $this->_response->setBody($archive->getErrorMessage());

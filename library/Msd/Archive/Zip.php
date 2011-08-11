@@ -43,7 +43,8 @@ class Msd_Archive_Zip extends Msd_Archive_Abstract
             return false;
         }
 
-        mkdir(dirname($this->_archiveFilename), 0775, true);
+        // Suppress warnings about already existing directories.
+        @mkdir(dirname($this->_archiveFilename), 0775, true);
         $zipOpened = $this->_zip->open($this->_archiveFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         if ($zipOpened !== true) {
             $this->_errorMessage .= Msd_Archive_Zip_Messages::getErrorMessage($zipOpened) . "\n";
@@ -79,7 +80,7 @@ class Msd_Archive_Zip extends Msd_Archive_Abstract
      *
      * @return string
      */
-    public function getAchiveFilename()
+    public function getArchiveFilename()
     {
         return $this->_archiveFilename;
     }

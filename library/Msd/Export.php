@@ -112,7 +112,8 @@ class Msd_Export
                 );
                 $langDir = dirname($langFilename);
                 if (!file_exists($langDir)) {
-                    mkdir($langDir, 0775, true);
+                    // Suppress warnings about already existing directories.
+                    @mkdir($langDir, 0775, true);
                 }
                 $fileLangVar = $this->_fileTemplates[$templateId]['content'];
                 $langFileData[$templateId] = array(
@@ -145,7 +146,8 @@ class Msd_Export
             $exportOk = ($size !== false) && $exportOk;
             $res[$templateId]['size'] = $size;
             $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
-            chmod($langFile['filename'], 0664);
+            // Suppress warnings, if we can't change the file permissions.
+            @chmod($langFile['filename'], 0664);
         }
         $res['exportOk'] = (count($res) > 0) && $exportOk;
         return $res;

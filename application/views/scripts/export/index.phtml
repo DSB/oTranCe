@@ -48,4 +48,44 @@ foreach ($this->status as $key => $s)
 <br />
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
     <?php echo $this->getIcon('save', 'Update SVN');?> Export all languages
-</a>
+</a><br/>
+<div class="downloads">
+    <h2>Language Pack downloads</h2>
+<?php if (count($this->archives) > 0) {
+    /**
+     * @var Zend_View_Helper_Cycle $cycle
+     */
+    $cycle = $this->cycle(array('row-odd'. 'row-even'));
+    $oldCTime = null;
+    foreach ($this->archives as $archiveName => $archiveMeta) {
+        if ($oldCTime != $archiveMeta['creationTime']) {
+            if ($oldCTime !== null) {
+                echo "    </table>\n    <br/>\n";
+            }
+?>
+    <br/>
+    <h4>Created at <?php echo date('d.m.Y', $archiveMeta['creationTime']); ?> on <?php echo date('H:i:s', $archiveMeta['creationTime']); ?></h4>
+    <table class="bdr more-padding" summary="Downloadable language packs.">
+        <tr class="thead">
+            <th colspan="2">Filename</th>
+            <th colspan="2">File size</th>
+        </tr>
+<?php
+        }
+?>
+        <tr>
+            <td><?php echo $this->getIcon('Archive', '', 16); ?></td>
+            <td><?php echo $this->out($archiveName); ?></td>
+            <td><?php echo $this->byteOutput($archiveMeta['fileSize']);?></td>
+            <td><a href="<?php $this->baseUrl(); ?>/export/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton" target="_blank"><?php echo $this->getIcon('Download', '', 16); ?> Download</a></td>
+        </tr>
+<?php
+        $oldCTime = $archiveMeta['creationTime'];
+        $cycle->next();
+    }
+?>
+    </table>
+<?php } else { ?>
+    <div class="success">No downloads available. You must run an export first.</div>
+<?php } ?>
+</div>

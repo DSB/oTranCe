@@ -70,6 +70,7 @@ class ExportController extends Zend_Controller_Action
         $this->view->status = $this->_languageEntriesModel->getStatus($this->view->languages);
         $this->view->historyModel = $this->_historyModel;
         $this->view->export = $this->_export;
+        $this->view->archives = $this->_getAvailableArchives();
     }
 
     /**
@@ -97,6 +98,7 @@ class ExportController extends Zend_Controller_Action
         unset($exportedFiles['exportOk']);
         $this->_writeExportLog($exportedFiles);
         $this->view->exportedFiles = $exportedFiles;
+        $this->_buildArchives($exportedFiles);
     }
 
     public function commitAction()
@@ -107,12 +109,77 @@ class ExportController extends Zend_Controller_Action
         if (!empty($statusResult)) {
             $files = $log->getFileList(session_id());
             $files = $this->_getCommitFileList($statusResult, $files, $vcs);
-            $commtResult = $vcs->commit($files, $this->_config->get('config.vcs.commitMessage','Languagepack update'));
-            $this->view->commitResult = $commtResult;
+            $commitResult = $vcs->commit($files, $this->_config->get('config.vcs.commitMessage','Languagepack update'));
+            $this->view->commitResult = $commitResult;
         } else {
             $this->view->commitResult = array('stdout' => 'Nothing to do.');
         }
         $log->delete(session_id());
+    }
+
+    public function downloadAction()
+    {
+        Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
+        Zend_Layout::getMvcInstance()->disableLayout();
+        $filename = $this->_request->getParam('file');
+        $this->_response->setHeader(
+            'Content-Type',
+            $this->_getArchiveContentType($filename)
+        );
+        $this->_response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        readfile(DOWNLOAD_PATH . DS . $filename);
+    }
+
+    private function _getArchiveContentType($filename)
+    {
+        if (substr($filename, -4) == '.zip') {
+            return 'application/zip';
+        }
+
+        if (substr($filename, -7) == '.tar.gz') {
+            return 'application/x-compressed-tar';
+        }
+
+        if (substr($filename, -8) == '.tar.bz2') {
+            return 'application/x-bzip-compressed-tar';
+        }
+
+        return 'application/octet-stream';
+    }
+
+    private function _getAvailableArchives()
+    {
+        $files = glob(DOWNLOAD_PATH . DS . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
+        rsort($files);
+        $archives = array();
+        foreach ($files as $file) {
+            $filename = str_replace(DOWNLOAD_PATH . DS, '', $file);
+            $fileStats = stat($file);
+            $archives[$filename] = array(
+                'creationTime' => $fileStats['ctime'],
+                'fileSize' => filesize($file),
+            );
+        }
+
+        return $archives;
+    }
+
+    private function _buildArchives()
+    {
+        $fileTree = new Application_Model_FileTree(EXPORT_PATH);
+        $fileList = $fileTree->getSimpleTree();
+        $filename = DOWNLOAD_PATH . DS . 'language_pack-' . date('Ymd-His');
+        $zipArch = Msd_Archive::factory('Zip', $filename, EXPORT_PATH);
+        $tarGzArch = Msd_Archive::factory('Tar_Gz', $filename, EXPORT_PATH);
+        $tarBz2Arch = Msd_Archive::factory('Tar_Bz2', $filename, EXPORT_PATH);
+        foreach ($fileList as $file) {
+            $zipArch->addFile($file);
+            $tarGzArch->addFile($file);
+            $tarBz2Arch->addFile($file);
+        }
+        $zipArch->buildArchive();
+        $tarGzArch->buildArchive();
+        $tarBz2Arch->buildArchive();
     }
 
     private function _getCommitFileList($statusResult, $files, $vcs)
@@ -200,6 +267,7 @@ class ExportController extends Zend_Controller_Action
             $exportOk = $exportOk && $exportResult['exportOk'];
             unset($exportResult['exportOk']);
             $this->_writeExportLog($exportResult);
+            $this->_buildArchives($exportResult);
             $languages[$i]['files'] = $exportResult;
             $i++;
         }

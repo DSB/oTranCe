@@ -9,12 +9,12 @@ class Msd_Archive
     }
 
     /**
-     * Create a new instance of an archive adpater and returns it.
+     * Create a new instance of an archive adapter and returns it.
      *
      * @static
      * @param string $archiveAdapter  Name of the archive adapter
      * @param string $baseArchiveName Path- and filename of the resulting archive, without extension.
-     * @param string $workingDir      Working directiry for the archive adapter.
+     * @param string $workingDir      Working directory for the archive adapter.
      *
      * @return Msd_Archive_Abstract
      */

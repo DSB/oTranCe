@@ -470,7 +470,7 @@ table {
 	color: #000;
 }
 
-table.bdr,.bdr {
+table.bdr,.bdr,table.xdebug-error {
 	border: 1px solid #ddd !important;
 }
 
@@ -479,7 +479,7 @@ table.more-padding tr td {
     font-size: 12px;
 }
 
-#fullcontent table.bdr {
+#fullcontent table.bdr, #fullcontent table.xdebug-error {
 	margin: 0px auto;
 }
 
@@ -571,7 +571,7 @@ table td.sum {
 	text-align: right;
 }
 
-table tr.thead th,table tr.thead td {
+table tr.thead th,table tr.thead td, table.xdebug-error tr th {
 	background: url(pics/bg-buttons.gif) repeat-x;
 	border: 1px solid #ddd;
 	color: #256777;
@@ -850,7 +850,7 @@ pre { font-size:12px; color:#000; }
 }
 
 /* Installation */
-#fullcontent .bdr td {
+#fullcontent .bdr td, #fullcontent .xdebug-error td {
 	border: 1px solid #ddd;
 	vertical-align: middle;
 }

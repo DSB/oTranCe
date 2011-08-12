@@ -123,7 +123,11 @@ class Application_Model_LanguageEntries
             $ret[$langId] = array();
             $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
             $ret[$langId]['translated'] = $translated;
-            $percentTranslated = (100 * $translated) / $totalLanguageVars;
+            if ($totalLanguageVars > 0) {
+                $percentTranslated = (100 * $translated) / $totalLanguageVars;
+            } else {
+                $percentTranslated = 0;
+            }
             $ret[$langId]['done'] = round($percentTranslated, 2);
             $ret[$langId]['translators'] = '';
             if (isset($translators[$langId])) {

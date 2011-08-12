@@ -68,21 +68,19 @@ class ImportController extends Zend_Controller_Action
         $selectedLanguage = $this->_getSelectedLanguage();
 
         $this->view->importData = $this->_request->getParam('importData', '');
-        if ($selectedLanguage != 0) {
-            $selectedFileTemplate = (int)$this->_request->getParam(
-                'selectedFileTemplate',
-                $this->_config->get('dynamic.importFileTemplate')
-            );
-            $this->_config->set('dynamic.importFileTemplate', $selectedFileTemplate);
+        $selectedFileTemplate = (int)$this->_request->getParam(
+            'selectedFileTemplate',
+            $this->_config->get('dynamic.importFileTemplate')
+        );
+        $this->_config->set('dynamic.importFileTemplate', $selectedFileTemplate);
 
-            $fileTemplates = array();
-            $files = $this->_fileTemplatesModel->getFileTemplates('name');
-            foreach ($files as $file) {
-                $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
-                $fileTemplates[$file['id']] = $filename;
-            }
-            $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
+        $fileTemplates = array();
+        $files = $this->_fileTemplatesModel->getFileTemplates('name');
+        foreach ($files as $file) {
+            $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
+            $fileTemplates[$file['id']] = $filename;
         }
+        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
 
         $this->_setAnalyzer();
         $this->_setSelectedCharset();
@@ -119,6 +117,10 @@ class ImportController extends Zend_Controller_Action
             'selectedLanguage',
             $this->_config->get('dynamic.selectedLanguage')
         );
+        if ($selectedLanguage == '') {
+            // get fallback language
+            $selectedLanguage = $this->_languagesModel->getFallbackLanguage();
+        }
         $this->_config->set('dynamic.selectedLanguage', $selectedLanguage);
         $this->view->selectedLanguage = $selectedLanguage;
 
@@ -179,7 +181,7 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $selectedAnalyzer =             $this->_config->get('dynamic.selectedAnalyzer');
+        $selectedAnalyzer = $this->_config->get('dynamic.selectedAnalyzer');
         $data = $this->_config->get('dynamic.importConvertedData');
         $importer = 'Application_Model_Importer_' . $selectedAnalyzer;
         $importer = new $importer();

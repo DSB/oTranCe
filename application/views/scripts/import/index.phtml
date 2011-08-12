@@ -13,13 +13,9 @@
     <tr class="row-odd">
         <td class="small">Extracted data is for file:</td>
         <td>
-            <?php if ($this->selectedLanguage == '') { ?>
-                <i>Select target language first</i>
-            <?php } else { ?>
-                <select name="selectedFileTemplate" id="selectedFileTemplate">
-                    <?php echo $this->selFileTemplate;?>
-                </select>
-            <?php } ?>
+            <select name="selectedFileTemplate" id="selectedFileTemplate">
+                <?php echo $this->selFileTemplate;?>
+            </select>
         </td>
     </tr>
     <tr class="row-odd">

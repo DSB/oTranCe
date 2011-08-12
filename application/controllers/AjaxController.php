@@ -16,6 +16,12 @@
 class AjaxController extends Zend_Controller_Action
 {
     /**
+     * Configuration object
+     * @var Msd_Cofiguration
+     */
+    protected $_config;
+
+    /**
      * Languages model
      * @var Application_Model_Languages
      */
@@ -41,6 +47,7 @@ class AjaxController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->disableLayout();
+        $this->_config         = Msd_Configuration::getInstance();
         $this->_languagesModel = new Application_Model_Languages();
         $this->languages       = $this->_languagesModel->getAllLanguages();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
@@ -73,10 +80,14 @@ class AjaxController extends Zend_Controller_Action
     {
         $userModel    = new Application_Model_User();
         $params       = $this->_request->getParams();
-        $key          = $params['key'];
-        $value        = $params['value'];
         $language     = $params['language'];
         $fileTemplate = $params['fileTemplate'];
+        $key          = $params['key'];
+        $data         = $this->_config->get('dynamic.importConvertedData');
+        if (!isset($data[$key])) {
+            return false;
+        }
+        $value = $data[$key];
         $ret = '';
         // check edit right for language
         $userEditRights = $userModel->getUserEditRights();

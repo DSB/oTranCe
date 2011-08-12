@@ -39,8 +39,7 @@ var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
 $('#importButton').click(function () {
     $('.import').each(function (index, domElement) {
         key = domElement.id;
-        val = $('#val-' + key).html();
-        importValues.push({'key':key, 'val':val, 'processed':false});
+        importValues.push({'key':key, 'processed':false});
     });
     doImport();
 });
@@ -65,8 +64,7 @@ function doImport() {
             'data':{
                 'language':<?php echo $this->language;?>,
                 'fileTemplate':<?php echo $this->fileTemplate;?>,
-                'key':nextKey.key,
-                'value':nextKey.val
+                'key':nextKey.key
     },
             'success':function(data) {
                 $('#' + nextKey.key).html(data);

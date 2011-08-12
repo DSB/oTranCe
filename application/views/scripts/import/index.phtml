@@ -1,6 +1,7 @@
 <h2>Import language data</h2>
 <h4>Import settings:</h4>
-<form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm">
+<form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm"
+    onsubmit="setPageInactive()">
 <table class="bdr more-padding" summary=""  style="margin-bottom:8px;">
     <tr class="row-even">
         <td class="small">Data is for language:</td>
@@ -21,7 +22,7 @@
     <tr class="row-odd">
         <td class="small">Use analyzer:</td>
         <td>
-            <select name="selectedAnalyzer" id="selectedAnalyzer" onchange="$('#myForm').submit()"><?php echo $this->selAnalyzer;?></select>
+            <select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select>
             <span style="float:right">
                 <a href="#" title="show info" id="showImporterInfo">
                     <?php echo $this->getIcon('Info', '', 16);?>
@@ -51,13 +52,6 @@
     }
 ?>
 </div>
-<h4>Data to analyze:</h4>
-<p>
-    <button class="Formbutton" type="submit" name="analyze">
-    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
-    </button>
-</p>
-
 <?php
 if ($this->importData > '') { ?>
     <h4>Check characters!</h4>
@@ -77,8 +71,13 @@ if ($this->importData > '') { ?>
         </select>
     </p>
     <?php
-    }
-    ?>
+} ?>
+<h4>Data to analyze:</h4>
+<p>
+    <button class="Formbutton" type="submit" name="analyze">
+    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    </button>
+</p>
 
 <p>
     <textarea name="importData" id="importData" cols="120" rows="1"><?php echo $this->importData;?></textarea>

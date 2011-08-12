@@ -1,10 +1,23 @@
 <?php
-
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Import Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ */
 class Application_Model_LanguageEntries
 {
     /**
      * Configuration object
-     * @var \Msd_Configuration
+     * @var Msd_Configuration
      */
     private $_config;
 
@@ -69,7 +82,7 @@ class Application_Model_LanguageEntries
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
             $val = $this->_dbo->escape($data['text']);
-            $val = $this->_normalize($val);
+            //$val = $this->_normalize($val);
             $ret[$data['key']] = array('text' => $val, 'templateId' => $data['template_id']);
         }
         return $ret;
@@ -83,7 +96,8 @@ class Application_Model_LanguageEntries
      */
     private function _normalize($val)
     {
-        //TODO Use for import afterwards remove
+        //TODO Make normalizing configurable for each project
+        // disabled for the moment
         $search = array(
             "\\\\n",
             "\r\n",

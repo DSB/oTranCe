@@ -83,7 +83,7 @@ class AjaxController extends Zend_Controller_Action
         $language     = $params['language'];
         $fileTemplate = $params['fileTemplate'];
         $key          = $params['key'];
-        $data         = $this->_config->get('dynamic.importConvertedData');
+        $data         = $this->_config->get('dynamic.extractedData');
         if (!isset($data[$key])) {
             return false;
         }

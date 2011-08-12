@@ -19,26 +19,37 @@ class ImportController extends Zend_Controller_Action
      * @var Application_Model_LanguageEntries
      */
     private $_entriesModel;
+
     /**
      * @var Application_Model_Languages
      */
     private $_languagesModel;
+
     /**
      * @var Application_Model_User
      */
     private $_userModel;
+
     /**
      * @var Msd_Configuration
      */
     private $_config;
+
     /**
      * @var Application_Model_Analyzer
      */
     private $_analyzerModel;
+
     /**
      * @var Application_Model_FileTemplates
      */
     private $_fileTemplatesModel;
+
+    /**
+     * Ass. languages array which the user is allowed to edit
+     * @var array
+     */
+    private $_languages;
 
     /**
      * Init
@@ -47,14 +58,21 @@ class ImportController extends Zend_Controller_Action
      */
     public function init()
     {
+        $this->_config = Msd_Configuration::getInstance();
         $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
-        //TODO Get only languages the user is allowed to edit
-        $this->_languages = $this->_languagesModel->getAllLanguages();
-        $this->_userModel = new Application_Model_User();
         $this->_analyzerModel = new Application_Model_Analyzer();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
-        $this->_config = Msd_Configuration::getInstance();
+        $this->_userModel = new Application_Model_User();
+        // build array containing those languages the user is allowed to edit
+        $allLanguages = $this->_languagesModel->getAllLanguages();
+        $userLanguages = $this->_userModel->getUserEditRights();
+        if (!empty($userLanguages)) {
+            $userLanguages = array_flip($userLanguages);
+        } else {
+            $userLanguages = array();
+        }
+        $this->_languages = array_uintersect_assoc($allLanguages, $userLanguages, create_function(null, "return 0;"));
     }
 
     /**
@@ -65,25 +83,11 @@ class ImportController extends Zend_Controller_Action
     public function indexAction()
     {
         $params = $this->_request->getParams();
-        $selectedLanguage = $this->_getSelectedLanguage();
-
-        $this->view->importData = $this->_request->getParam('importData', '');
-        $selectedFileTemplate = (int)$this->_request->getParam(
-            'selectedFileTemplate',
-            $this->_config->get('dynamic.importFileTemplate')
-        );
-        $this->_config->set('dynamic.importFileTemplate', $selectedFileTemplate);
-
-        $fileTemplates = array();
-        $files = $this->_fileTemplatesModel->getFileTemplates('name');
-        foreach ($files as $file) {
-            $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
-            $fileTemplates[$file['id']] = $filename;
-        }
-        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
-
+        $this->_getSelectedLanguage();
+        $this->_setSelectedFileTemplate();
         $this->_setAnalyzer();
         $this->_setSelectedCharset();
+        $this->view->importData = $this->_request->getParam('importData', '');
 
         if ($this->_request->isPost()) {
             if (isset($_FILES['fileUploaded']) && $_FILES['fileUploaded']['size'] > 0) {
@@ -111,6 +115,11 @@ class ImportController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Handle selected language and set selectbox in view
+     *
+     * @return void
+     */
     private function _getSelectedLanguage()
     {
         $selectedLanguage = (int)$this->_request->getParam(
@@ -131,9 +140,36 @@ class ImportController extends Zend_Controller_Action
             $selectedLanguage,
             false
         );
-        return $selectedLanguage;
     }
 
+    /**
+     * Handle selection of FileTemplate and set selectbox in view
+     *
+     * @return void
+     */
+    private function _setSelectedFileTemplate()
+    {
+        $selectedLanguage = $this->_config->get('dynamic.selectedLanguage');
+        $selectedFileTemplate = (int)$this->_request->getParam(
+            'selectedFileTemplate',
+            $this->_config->get('dynamic.importFileTemplate')
+        );
+        $this->_config->set('dynamic.importFileTemplate', $selectedFileTemplate);
+
+        $fileTemplates = array();
+        $files = $this->_fileTemplatesModel->getFileTemplates('name');
+        foreach ($files as $file) {
+            $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
+            $fileTemplates[$file['id']] = $filename;
+        }
+        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
+    }
+
+    /**
+     * Handle selected charset for import and set selectbox in view
+     *
+     * @return void
+     */
     private function _setSelectedCharset()
     {
         if ($this->_config->get('dynamic.selectedCharset') == null) {
@@ -150,11 +186,10 @@ class ImportController extends Zend_Controller_Action
             $selectedCharset,
             false
         );
-        return $selectedCharset;
     }
 
     /**
-     * Get and set used analyzer
+     * Handle selected analyzer and set selectbox in view
      *
      * @return void
      */
@@ -187,6 +222,10 @@ class ImportController extends Zend_Controller_Action
         $importer = new $importer();
         $this->view->fileTemplate  = $this->_config->get('dynamic.importFileTemplate');
         $this->view->language      = $this->_config->get('dynamic.selectedLanguage');
-        $this->view->extractedData = $importer->extract($data);
+        $extractedData = $importer->extract($data);
+        $this->_config->set('dynamic.importOriginalData', null);
+        $this->_config->set('dynamic.importConvertedData', null);
+        $this->_config->set('dynamic.extractedData', $extractedData);
+        $this->view->extractedData = $extractedData;
     }
 }

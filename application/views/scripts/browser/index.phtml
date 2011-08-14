@@ -6,14 +6,14 @@ $theme = $config->get('config.interface.theme');
 <div id="treeBrowser">
     <table class="bdr" summary="Tree of files you can browse">
         <tr class="thead">
-            <th>Select a file to browse:</th>
+            <th colspan="2">Select a file:</th>
         </tr>
         <tr>
-            <td id="fileTree"></td>
+            <td id="fileTree" class="bdr"></td>
+            <td><div id="fileContent">Select a file</div></td>
         </tr>
     </table>
 </div>
-<div id="fileContent"></div>
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery/jquery.jstree.js');
 ?>

@@ -17,7 +17,7 @@ if ($user['id'] == 0) { ?>
 <?php } ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
-<table class="bdr more-padding" summary="User account settings">
+<table class="bdr more-padding small" summary="User account settings">
     <tr class="thead">
        <th colspan="2">Account settings</th>
     </tr>
@@ -64,7 +64,7 @@ if ($user['id'] == 0) { ?>
     </tr>
 
     <tr class="row-odd">
-        <td class="ssmall" colspan="2">
+        <td colspan="2">
             <div style="margin-left:24px;">
             (*) Enter a password if you want to change it.<br />
             If you leave this field empty the current password will remain.</div>
@@ -152,7 +152,7 @@ if ($user['id'] == 0) { ?>
     </tr>
     <tr class="row-even">
         <td>&nbsp;</td>
-        <td class="ssmall">
+        <td>
             <button type="submit" class="Formbutton" name="saveAccount">
                 <?php echo $this->getIcon('save', '');?> Save
             </button>
@@ -164,7 +164,7 @@ if ($user['id'] == 0) { ?>
     </tr>
     <tr>
         <td colspan="2">
-            <table class="bdr" style="width:100%" summary="List of editable languages">
+            <table class="bdr small" style="width:100%" summary="List of editable languages">
                 <tr class="thead">
                     <th class="right">#</th>
                     <th colspan="3">Language</th>
@@ -177,17 +177,17 @@ if ($user['id'] == 0) { ?>
                     $label = '<label for="lang-' . $language['id'] .'">';
                 ?>
                 <tr class="<?php echo $cycleHelper->next();?>">
-                    <td class="small right" style="width:20px;">
+                    <td class="right" style="width:20px;">
                         <?php echo $label . $this->numberFormat($i);?>.</label>
                     </td>
-                    <td class="small" style="width:28px;">
+                    <td style="width:28px;">
                         <?php echo $label . $this->printFlag($language['id']);?></label>
                     </td>
-                    <td class="small" style="width:30px;">
+                    <td style="width:30px;">
                         <?php echo $label . $language['locale'];?></label>
                     </td>
-                    <td class="small"><?php echo $label . $language['name'];?></label></td>
-                    <td class="small right">
+                    <td><?php echo $label . $language['name'];?></label></td>
+                    <td class="right">
                         <input type="checkbox"
                             name="lang-<?php echo $language['id'];?>"
                             id="lang-<?php echo $language['id'];?>"
@@ -206,7 +206,7 @@ if ($user['id'] == 0) { ?>
     </tr>
     <tr class="row-odd">
         <td>&nbsp;</td>
-        <td class="ssmall">
+        <td>
             <button type="submit" class="Formbutton" name="saveAccount">
                 <?php echo $this->getIcon('save', '');?> Save
             </button>

@@ -5,7 +5,7 @@ $export = $this->export;
 <h2>Export</h2>
 <h4>File status of language packs in VCS:</h4>
 
-<table class="bdr" summary="List of languages and their change status">
+<table class="bdr small" summary="List of languages and their change status">
     <tr class="thead">
         <th>#</th>
         <th colspan="3">Language</th>
@@ -22,13 +22,13 @@ foreach ($this->status as $key => $s)
     $tsDb = $this->historyModel->getLatestChange($key);
 ?>
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
-        <td class="small right"><?php echo $i;?>.</td>
-        <td class="small">
+        <td class="right"><?php echo $i;?>.</td>
+        <td>
             <?php echo $this->printFlag($key);?>
         </td>
-        <td class="small"><?php echo $this->languages[$key]['locale'];?></td>
-        <td class="small"><?php echo $this->languages[$key]['name'];?></td>
-        <td class="small right"><?php echo $tsDb;?></td>
+        <td><?php echo $this->languages[$key]['locale'];?></td>
+        <td><?php echo $this->languages[$key]['name'];?></td>
+        <td class="right"><?php echo $tsDb;?></td>
         <td>
             <?php
                 if ($tsSvn < $tsDb) {

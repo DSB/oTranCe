@@ -81,7 +81,7 @@ if (empty($this->showLanguages)) {
     return;
 }
 ?>
-<table class="bdr" summary="List of entries">
+<table class="bdr small" summary="List of entries">
     <tr class="thead">
         <?php
             if ($this->addVar) {
@@ -125,7 +125,7 @@ foreach ($this->hits as $hit)
                 echo '</a></td>';
             }
         ?>
-        <td class="small right">
+        <td class="right">
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall nowrap">
@@ -142,10 +142,10 @@ foreach ($this->hits as $hit)
                 $text = '<i>untranslated</i>';
             }
             if (in_array($lang, $this->languagesEdit)) {
-                echo '<td class="small">'. $edit . $this->getIcon('Edit', '').'</a></td>'
+                echo '<td>'. $edit . $this->getIcon('Edit', '').'</a></td>'
                     .'<td>'. $edit. $text . '</a></td>';
             } else {
-                echo '<td class="small" colspan="2">'. $text .'</td>';
+                echo '<td colspan="2">'. $text .'</td>';
             }
         }
         ?>
@@ -160,7 +160,7 @@ if ($this->rows == 0) {
     }
 ?>
     <tr class="row-even">
-        <td colspan="<?php echo $rowCount;?>" class="small">
+        <td colspan="<?php echo $rowCount;?>">
             <br />
             Nothing found.<br />
             Select another filter / search value.

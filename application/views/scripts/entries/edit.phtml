@@ -23,7 +23,7 @@ if (isset($this->entrySaved)) {
 <?php
     $assignTitle = 'Assigned file template';
     if ($this->user->hasRight('addVar')) {
-        $assignTitle = 'Assign file template';
+        $assignTitle = 'Assign to file template:';
     }
 ?>
             <table class="bdr" summary="List of edit boxes">
@@ -98,7 +98,7 @@ $cycleHelper->rewind();
 if (!empty($this->referenceLanguages)) {
 ?>
     <div style="float:left">
-        <table class="bdr" style="margin-bottom: 20px;" summary="Output of reference languages">
+        <table class="bdr small" style="margin-bottom: 20px;" summary="Output of reference languages">
             <tr class="thead"><th colspan="5">Reference languages:</th></tr>
             <?php
             $rowclass = $cycleHelper->next();
@@ -128,7 +128,7 @@ if (!empty($this->referenceLanguages)) {
                 </tr>
                 <tr class="<?php echo $rowclass;?>">
                     <td>&nbsp;</td>
-                    <td class="small">Copy to:</td>
+                    <td>Copy to:</td>
                     <td>
                         <?php foreach ($this->languagesEdit as $langEdit) { ?>
                         <a href="#" class="copy">
@@ -136,7 +136,7 @@ if (!empty($this->referenceLanguages)) {
                         </a>
                         <?php } ?>
                     </td>
-                    <td class="small">Translate into:</td>
+                    <td>Translate into:</td>
                     <td>
                         <?php
                         foreach ($this->languagesEdit as $langEdit) {

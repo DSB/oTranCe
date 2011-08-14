@@ -40,7 +40,7 @@
     </p>
 </form>
 
-    <table class="bdr more-padding" summary="List of file templates">
+    <table class="bdr more-padding ssmall" summary="List of file templates">
         <tr class="thead">
             <th></th>
             <th>#</th>
@@ -71,27 +71,27 @@ foreach ($this->fileTemplates as $fileTemplate) {
     $editUrl = $this->baseUrl() . '/admin_files/edit/id/' . $fileTemplate['id'] . '/';
 ?>
         <tr class="<?php echo $cycleHelper->next(); ?>">
-            <td class="ssmall">
+            <td>
                 <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->getIcon('Edit', ''); ?></a>
             </td>
-            <td class="ssmall"><?php echo $counter; ?></td>
-            <td class="ssmall">
+            <td><?php echo $counter; ?></td>
+            <td>
                 <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->out($fileTemplate['name']); ?></a>
             </td>
-            <td class="ssmall">
+            <td>
                 <pre><?php echo $headerShort; ?></pre>
                 <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete header</a>
                 <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>">Complete file header:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
             </td>
-            <td class="ssmall">
+            <td>
                 <pre><?php echo $this->out($fileTemplate['content']); ?></pre>
             </td>
-            <td class="ssmall">
+            <td>
                 <pre><?php echo $footerShort; ?></pre>
                 <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete footer</a>
                 <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>">Complete file footer:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
             </td>
-            <td class="ssmall"><?php echo $this->out($fileTemplate['filename']); ?></td>
+            <td><?php echo $this->out($fileTemplate['filename']); ?></td>
         </tr>
 <?php
 }

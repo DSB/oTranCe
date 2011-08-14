@@ -44,7 +44,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
     </p>
 </form>
 
-<table class="bdr" summary="Userlist">
+<table class="bdr small" summary="Userlist">
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
@@ -68,13 +68,13 @@ foreach ($this->users as $userId => $user)
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="Edit user">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td class="small">
+        <td>
             <?php echo $edit . $this->getIcon('Edit', '');?></a>
         </td>
-        <td class="small right">
+        <td class="right">
             <?php echo $this->numberFormat($i);?>.
         </td>
-        <td class="ssmall"><?php echo $edit . $user['username'];?></a></td>
+        <td><?php echo $edit . $user['username'];?></a></td>
         <td>
             <?php
                 if ($user['active'] == 1) {
@@ -84,7 +84,7 @@ foreach ($this->users as $userId => $user)
                 };
             ?>
         </td>
-        <td class="ssmall">
+        <td>
             <?php
                 $languageEditRights = $this->userModel->getUserEditRights($userId);
                 if (empty($languageEditRights)) {
@@ -97,7 +97,7 @@ foreach ($this->users as $userId => $user)
                 if (isset($this->languages[$langId])) {
                 ?>
                     <tr>
-                    <td class="small">
+                    <td>
                         <?php echo $this->printFlag($langId, 20);?>
                     </td>
                     <td><?php echo $this->languages[$langId]['locale'];?></td>

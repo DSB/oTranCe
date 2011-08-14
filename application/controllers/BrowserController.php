@@ -15,7 +15,8 @@
  */
 class BrowserController extends Zend_Controller_Action
 {
-    private $_testFiles = array('languages/de.php', 'languages/de/lang.php');
+    private $_testFiles = array();
+
     public function indexAction()
     {
         $fileTree = new Application_Model_FileTree(EXPORT_PATH);
@@ -26,9 +27,8 @@ class BrowserController extends Zend_Controller_Action
 
     public function fileAction()
     {
-        sleep(2);
         Zend_Layout::getMvcInstance()->disableLayout();
-        $this->_response->setHeader('Content-Type', 'application/html; charset=utf8', true);
+        $this->_response->setHeader('Content-Type', 'text/html;charset=utf-8', true);
         $filename = $this->_request->getParam('filename');
         if ($filename !== null) {
             $filename = ltrim(str_replace(EXPORT_PATH, '', $filename), '/');

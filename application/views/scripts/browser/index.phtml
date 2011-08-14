@@ -4,7 +4,7 @@ $theme = $config->get('config.interface.theme');
 ?>
 <h2>Browse exported files</h2>
 <div id="treeBrowser">
-    <table class="bdr">
+    <table class="bdr" summary="Tree of files you can browse">
         <tr class="thead">
             <th>Select a file to browse:</th>
         </tr>
@@ -39,8 +39,10 @@ $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/jquery/jquery.jstree.
         data.inst.open_all(-1, true);
     <?php } ?>
     });
-<?php $this->jQuery()->onLoadCaptureEnd(); ?>
-<?php $this->jQuery()->javascriptCaptureStart(); ?>
+<?php
+$this->jQuery()->onLoadCaptureEnd();
+$this->jQuery()->javascriptCaptureStart();
+?>
 function loadFileContent(filename)
 {
     setPageInactive();
@@ -51,15 +53,15 @@ function loadFileContent(filename)
         'data':{
             'filename':filename
         },
-        'success':function(data) {
+        success:function(data) {
             $('#fileContent').html(data);
             setPageActive();
         },
-        error:function() {
+        error:function(error) {
+            $('#fileContent').html('Error with ajax request!');
             setPageActive();
         }
     });
 }
 <?php $this->jQuery()->javascriptCaptureEnd(); ?>
-
 </script>

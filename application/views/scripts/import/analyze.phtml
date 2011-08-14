@@ -18,14 +18,16 @@
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i=1;
-foreach ($this->extractedData as $key => $val) { ?>
-    <tr class="<?php echo $cycleHelper->next();?>">
+foreach ($this->extractedData as $key => $val) {
+    //if ($i>903) die();
+?>
+    <tr class="<?php echo $cycleHelper->next();?> small">
         <td class="importLineHeight">
             <span id="<?php echo $key;?>" class="import"></span>
         </td>
-        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
-        <td class="small"><?php echo $this->out($key);?></td>
-        <td class="small" id="val-<?php echo $key;?>"><?php echo $this->out($val);?></td>
+        <td class="right"><?php echo $this->numberFormat($i);?>.</td>
+        <td><?php echo $this->out($key);?></td>
+        <td><?php echo $this->out($val);?></td>
     </tr>
 <?php
     $i++;
@@ -34,30 +36,30 @@ foreach ($this->extractedData as $key => $val) { ?>
 </table>
 <div id="importInfo">
     <span class="headline">Import status:</span>
-    <table style="width:100%" summary="Import status">
+    <table style="width:100%" class="small" summary="Import status">
         <tr>
-            <td class="small">Keys total:</td>
-            <td class="small right"><?php echo sizeof($this->extractedData)?></td>
+            <td>Keys total:</td>
+            <td class="right"><?php echo sizeof($this->extractedData)?></td>
         </tr>
         <tr>
-            <td class="small">Keys processed:</td>
-            <td class="small right"><span id="processed">0</span></td>
+            <td>Keys processed:</td>
+            <td class="right"><span id="processed">0</span></td>
         </tr>
         <tr>
-            <td class="small">Keys to import:</td>
-            <td class="small right"><span id="toImport"><?php echo sizeof($this->extractedData)?></span></td>
+            <td>Keys to import:</td>
+            <td class="right"><span id="toImport"><?php echo sizeof($this->extractedData)?></span></td>
         </tr>
         <tr>
-            <td class="small">Saved:</td>
-            <td class="small right"><span id="savedSuccessfully">0</span></td>
+            <td>Saved:</td>
+            <td class="right"><span id="savedSuccessfully">0</span></td>
         </tr>
         <tr>
-            <td class="small">Errors:</td>
-            <td class="small right"><span id="errors">0</span></td>
+            <td>Errors:</td>
+            <td class="right"><span id="errors">0</span></td>
         </tr>
         <tr>
-            <td class="small">Done:</td>
-            <td class="small right"><span id="done">-</span></td>
+            <td>Done:</td>
+            <td class="right"><span id="done">-</span></td>
         </tr>
     </table>
 </div>
@@ -71,7 +73,8 @@ $('#importButton').click(function () {
     });
     $('#importButton').attr('disabled','disabled');
     doImport();
-});<?php   $this->jQuery()->onLoadCaptureEnd(); ?>
+});
+<?php   $this->jQuery()->onLoadCaptureEnd(); ?>
 <script type="text/javascript">
 //<![CDATA[
     var importValues = new Array();
@@ -171,7 +174,6 @@ function calcDone()
 //]]>
 </script>
 <?php
-
 $this->popUpMessage()->addMessage(
     'importDone',
     'Finished',
@@ -213,4 +215,3 @@ $this->popUpMessage()->addMessage(
                     )
     )
 );
-?>

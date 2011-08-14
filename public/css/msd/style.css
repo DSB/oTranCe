@@ -416,18 +416,10 @@ a.ul {
 }
 
 .small {
-	font-size: 0.9em !important;
-}
-
-.ssmall {
-	font-size: 0.8em !important;
-}
-
-td.small {
 	font-size: 11px !important;
 }
 
-td.ssmall {
+.ssmall {
 	font-size: 10px !important;
 }
 
@@ -476,7 +468,6 @@ table.bdr,.bdr,table.xdebug-error {
 
 table.more-padding tr td {
     padding:  4px 8px;
-    font-size: 12px;
 }
 
 #fullcontent table.bdr, #fullcontent table.xdebug-error {

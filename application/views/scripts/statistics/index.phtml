@@ -1,6 +1,6 @@
 <h2>Statistics</h2>
 <h4>Activities:</h4>
-<table class="bdr" summary="Activity statistics of users">
+<table class="bdr small" summary="Activity statistics of users">
     <tr class="thead">
         <th>#</th>
         <th>User</th>
@@ -24,14 +24,14 @@ foreach ($this->userStatistics as $user) {
     }
 ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td class="small right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
-        <td class="small">&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
-        <td class="small">
+        <td class="right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
+        <td>&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
+        <td>
             <?php echo $this->printFlag($user['lang_id'], 16);?>
         </td>
-        <td class="small"><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
-        <td class="small"><?php echo $this->languages[$user['lang_id']]['name'];?></td>
-        <td class="small right"><?php echo $this->numberFormat($user['editActions']);?></td>
+        <td><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
+        <td><?php echo $this->languages[$user['lang_id']]['name'];?></td>
+        <td class="right"><?php echo $this->numberFormat($user['editActions']);?></td>
     </tr>
 <?php
     $lastUser = $user['user_id'];

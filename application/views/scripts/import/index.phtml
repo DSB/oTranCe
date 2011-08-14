@@ -2,17 +2,17 @@
 <h4>Import settings:</h4>
 <form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm"
     onsubmit="setPageInactive()">
-<table class="bdr more-padding" summary=""  style="margin-bottom:8px;">
+<table class="bdr more-padding small" summary=""  style="margin-bottom:8px;">
     <tr class="row-even">
-        <td class="small">Data is for language:</td>
-        <td class="small">
+        <td>Data is for language:</td>
+        <td>
             <select name="selectedLanguage" id="selectedLanguage" onchange="$('#myForm').submit()">
                 <?php echo $this->selLanguage;?>
             </select>
         </td>
     </tr>
     <tr class="row-odd">
-        <td class="small">Extracted data is for file:</td>
+        <td>Extracted data is for file:</td>
         <td>
             <select name="selectedFileTemplate" id="selectedFileTemplate">
                 <?php echo $this->selFileTemplate;?>
@@ -20,7 +20,7 @@
         </td>
     </tr>
     <tr class="row-odd">
-        <td class="small">Use analyzer:</td>
+        <td>Use analyzer:</td>
         <td>
             <select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select>
             <span style="float:right">
@@ -32,10 +32,10 @@
     </tr>
 
     <tr class="row-even">
-        <td class="small">
+        <td>
             Upload a file:
         </td>
-        <td class="small">
+        <td>
             <input type="file" class="text" name="fileUploaded" id="fileUploaded" />
             <button type="submit" class="Formbutton">
             <?php echo $this->getIcon('OpenFile', '', 16);?> Upload file

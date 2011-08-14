@@ -14,36 +14,36 @@ $code = <<<CODE
 CODE
 ?>
 <h4>Oxid importer information:</h4>
-<table class="bdr more-padding" summary="">
+<table class="bdr more-padding small" summary="">
 <tr class="row-even">
-    <td class="small">Author:</td>
-    <td class="small">
+    <td>Author:</td>
+    <td>
         Stefan Krenz, Daniel Schlichtholz
     </td>
 </tr>
 
 <tr class="row-odd">
-    <td class="small">Description:</td>
-    <td class="small">
+    <td>Description:</td>
+    <td>
         This importer is intended to import language files from Oxid eShop.<br />
         It tries to extract the keys and values from typical structure of Oxid's language files.
     </td>
 </tr>
 <tr class="row-even">
-    <td class="small">Structure that can be detected:</td>
-    <td class="small">
+    <td>Structure that can be detected:</td>
+    <td>
         <pre><?php echo $this->out($code);?></pre>
     </td>
 </tr>
 <tr class="row-odd">
-    <td class="small">Ignored constants:</td>
-    <td class="small">
+    <td>Ignored constants:</td>
+    <td>
         The constant "charset" is ignored. The export will always be encoded in UTF-8!<br />
     </td>
 </tr>
     <tr class="row-even">
-        <td class="small">Note:</td>
-        <td class="small">
+        <td>Note:</td>
+        <td>
             If you discover character encoding problems, copy &amp; paste the text into the text box
             instead of uploading it. Or try to use the convert button until all characters are shown correctly.
         </td>

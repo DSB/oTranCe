@@ -46,7 +46,7 @@
     </p>
 </form>
 
-<table class="bdr" summary="List of log entries">
+<table class="bdr small" summary="List of log entries">
     <tr class="thead">
 <?php if ($this->canDelete) { ?>
         <th>&nbsp;</th>
@@ -65,7 +65,7 @@ $i = $i = $this->offset+1;
     if (sizeof($this->logEntries) == 0) {
         ?>
         <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
-            <td colspan="8" class="small error">Sorry, no Hits</td>
+            <td colspan="8" class="error">Sorry, no Hits</td>
         </tr>
 
         <?php
@@ -84,11 +84,11 @@ foreach ($this->logEntries as $entry)
                 echo '</a></td>';
             }
         ?>
-        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
-        <td class="small nowrap"><?php echo $entry['dt'];?></td>
-        <td class="small"><?php echo $this->printTranslators($entry['user_id']);?></td>
-        <td class="small nowrap"><?php echo $entry['action'];?></td>
-        <td class="small nowrap">
+        <td class="right"><?php echo $this->numberFormat($i);?>.</td>
+        <td class="nowrap"><?php echo $entry['dt'];?></td>
+        <td><?php echo $this->printTranslators($entry['user_id']);?></td>
+        <td class="nowrap"><?php echo $entry['action'];?></td>
+        <td class="nowrap">
             <?php
                 if (isset($this->languages[$entry['lang_id']])) {
                     echo $this->languages[$entry['lang_id']]['name'] . ' (' . $this->languages[$entry['lang_id']]['locale'] . ')';
@@ -97,7 +97,7 @@ foreach ($this->logEntries as $entry)
                 }
             ?>
         </td>
-        <td class="small">
+        <td>
             <?php
                 if ($entry['key_id'] == 0) {
                     echo '-';
@@ -106,8 +106,8 @@ foreach ($this->logEntries as $entry)
             }
             ;?>
         </td>
-        <td class="small"><?php echo str_replace('<br>', '<br />', $entry['newValue']);?></td>
-        <td class="small"><?php echo str_replace('<br>', '<br />', $entry['oldValue']);?></td>
+        <td><?php echo str_replace('<br>', '<br />', $entry['newValue']);?></td>
+        <td><?php echo str_replace('<br>', '<br />', $entry['oldValue']);?></td>
     </tr>
 <?php
     $i++;

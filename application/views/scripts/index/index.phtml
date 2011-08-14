@@ -3,7 +3,7 @@ $i = 1;
 ?>
 <h2>Home</h2>
 <h4>Status of language packs:</h4>
-<table class="bdr" summary="List of languages and their maintainers">
+<table class="bdr small" summary="List of languages and their maintainers">
     <tr class="thead">
         <th>#</th>
         <th colspan="3">Language</th>
@@ -22,21 +22,21 @@ foreach ($this->status as $langId => $val)
     $redBar = (int) 200-$greenBar;
 ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td class="small right"><?php echo $i;?>.</td>
-        <td class="small">
+        <td class="right"><?php echo $i;?>.</td>
+        <td>
             <?php echo $this->printFlag($langId);?>
         </td>
-        <td class="small"><?php echo $this->languages[$langId]['locale'];?></td>
-        <td class="small"><?php echo $this->languages[$langId]['name'];?></td>
-        <td class="small right">
+        <td><?php echo $this->languages[$langId]['locale'];?></td>
+        <td><?php echo $this->languages[$langId]['name'];?></td>
+        <td class="right">
             <div style="width:200px;height:14px;border:1px solid #ccc;margin-top:2px;">
                 <div class="greenBar" style="width:<?php echo $greenBar;?>px;">&nbsp;</div>
                 <div class="redBar" style="width:<?php echo $redBar;?>px;">&nbsp;</div>
              </div>
              <div style="position:relative;top:-15px;left:-6px;"><?php echo $val['done'];?>%</div>
          </td>
-        <td class="small right"><?php echo $val['translated'];?></td>
-        <td class="small right">
+        <td class="right"><?php echo $val['translated'];?></td>
+        <td class="right">
             <?php
                 if ($val['notTranslated'] == 0) {
                     echo '-';
@@ -45,8 +45,8 @@ foreach ($this->status as $langId => $val)
         }
             ?>
         </td>
-        <td class="small right"><?php echo $val['done'];?>%</td>
-        <td class="small">
+        <td class="right"><?php echo $val['done'];?>%</td>
+        <td>
         <?php
             if ($val['done'] < 90) {
                 echo '<span class="error">Needs work</span>';
@@ -58,7 +58,7 @@ foreach ($this->status as $langId => $val)
         ?>
 
         </td>
-        <td class="small"><?php echo $this->printTranslators($val['translators']);?></td>
+        <td><?php echo $this->printTranslators($val['translators']);?></td>
     </tr>
 <?php
     $i++;

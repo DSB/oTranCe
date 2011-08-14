@@ -941,7 +941,7 @@ label {
     height:108px;
     background-color:#ffff00;
     border:1px solid #CCC;
-    opacity:0.8;
+    /*opacity:0.8;*/
     padding:4px;
 }
 

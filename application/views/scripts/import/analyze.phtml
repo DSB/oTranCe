@@ -171,6 +171,8 @@ function calcDone()
     var percentage = done * 100 / total;
     $('#done').html(Math.round(percentage) + '%');
 }
+/* for our "lovely" IE which gets confused and doesn't show the content if there are more than 903 language keys */
+setPageActive();
 //]]>
 </script>
 <?php

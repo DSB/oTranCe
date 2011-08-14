@@ -77,14 +77,14 @@ $('#importButton').click(function () {
 <?php   $this->jQuery()->onLoadCaptureEnd(); ?>
 <script type="text/javascript">
 //<![CDATA[
-    var importValues = new Array();
-    var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
-    var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
-    var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
-    var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
-    var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
-    var keysToProcess = new Array();
-    var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
+var importValues = new Array();
+var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
+var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
+var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
+var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
+var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
+var keysToProcess = new Array();
+var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
 
 function doImport() {
     // get next keys

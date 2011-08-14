@@ -61,19 +61,9 @@ foreach ($this->extractedData as $key => $val) { ?>
         </tr>
     </table>
 </div>
-<script type="text/javascript">
 <?php
 $this->jQuery()->onLoadCaptureStart();
 ?>
-var importValues = new Array();
-var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
-var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
-var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
-var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
-var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
-var keysToProcess = new Array();
-var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
-
 $('#importButton').click(function () {
     $('.import').each(function (index, domElement) {
         key = domElement.id;
@@ -81,7 +71,17 @@ $('#importButton').click(function () {
     });
     $('#importButton').attr('disabled','disabled');
     doImport();
-});
+});<?php   $this->jQuery()->onLoadCaptureEnd(); ?>
+<script type="text/javascript">
+//<![CDATA[
+    var importValues = new Array();
+    var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
+    var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
+    var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
+    var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
+    var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
+    var keysToProcess = new Array();
+    var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
 
 function doImport() {
     // get next keys
@@ -168,8 +168,9 @@ function calcDone()
     var percentage = done * 100 / total;
     $('#done').html(Math.round(percentage) + '%');
 }
+//]]>
+</script>
 <?php
-$this->jQuery()->onLoadCaptureEnd();
 
 $this->popUpMessage()->addMessage(
     'importDone',
@@ -177,8 +178,8 @@ $this->popUpMessage()->addMessage(
     'Congratulations.<br />The importer has processed all entries.',
     array(
         'modal' => true,
-        'height' => 130,
-        'width' => 360,
+        'height' => 140,
+        'width' => 320,
         'dialogClass' => 'info',
         'autoOpen' => false,
         'buttons' => array(
@@ -213,4 +214,3 @@ $this->popUpMessage()->addMessage(
     )
 );
 ?>
-</script>

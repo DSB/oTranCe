@@ -32,7 +32,6 @@ foreach ($this->extractedData as $key => $val) { ?>
 }
 ?>
 </table>
-
 <div id="importInfo">
     <span class="headline">Import status:</span>
     <table style="width:100%" summary="Import status">
@@ -62,7 +61,6 @@ foreach ($this->extractedData as $key => $val) { ?>
         </tr>
     </table>
 </div>
-
 <script type="text/javascript">
 <?php
 $this->jQuery()->onLoadCaptureStart();
@@ -163,18 +161,6 @@ function setState(id, state) {
     increase('processed');
 }
 
-function increase(id) {
-    var value = $('#' + id).html();
-    value++;
-    $('#' + id).html(value);
-}
-
-function decrease(id) {
-    var value = $('#' + id).html();
-    value--;
-    $('#' + id).html(value);
-}
-
 function calcDone()
 {
     var done = $('#processed').html();
@@ -182,11 +168,6 @@ function calcDone()
     var percentage = done * 100 / total;
     $('#done').html(Math.round(percentage) + '%');
 }
-
-function scrollToId(id){
-    $('html,body').animate({scrollTop: $("#"+id).offset().top -40}, 100);
-}
-
 <?php
 $this->jQuery()->onLoadCaptureEnd();
 

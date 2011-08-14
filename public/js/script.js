@@ -35,4 +35,21 @@ function tabOut(selector)
     $(selector).removeClass("ui-state-active");
 }
 
+function increase(id) {
+    var value = $('#' + id).html();
+    value++;
+    $('#' + id).html(value);
+}
+
+function decrease(id) {
+    var value = $('#' + id).html();
+    value--;
+    $('#' + id).html(value);
+}
+
+function scrollToId(id){
+    $('html,body').animate({scrollTop: $("#"+id).offset().top -40}, 100);
+}
+
+
 

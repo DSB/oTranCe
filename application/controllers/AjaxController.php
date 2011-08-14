@@ -22,6 +22,12 @@ class AjaxController extends Zend_Controller_Action
     protected $_config;
 
     /**
+     * User model
+     * @var Application_Model_User
+     */
+    protected $_userModel;
+
+    /**
      * Languages model
      * @var Application_Model_Languages
      */
@@ -51,6 +57,7 @@ class AjaxController extends Zend_Controller_Action
         $this->_languagesModel = new Application_Model_Languages();
         $this->languages       = $this->_languagesModel->getAllLanguages();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
+        $this->_userModel      = new Application_Model_User();
     }
 
     /**
@@ -72,53 +79,71 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
-     * Import action
+     * Import action.
+     * Expects array of language entry keys as param in request and returns an array(key => status).
+     * Status:
+     *  0 = technical error
+     *  1 = saved successfully
+     *  2 = user has no edit right for this language
+     *  3 = user is not allowed to add this new entry
      *
      * @return void
      */
     public function importKeyAction()
     {
-        $userModel    = new Application_Model_User();
+        $ret = array();
         $params       = $this->_request->getParams();
         $language     = $params['language'];
         $fileTemplate = $params['fileTemplate'];
-        $key          = $params['key'];
-        $data         = $this->_config->get('dynamic.extractedData');
-        if (!isset($data[$key])) {
-            return false;
+        $keys         = $params['keys'];
+        $this->_data  = $this->_config->get('dynamic.extractedData');
+        $i = 0;
+        foreach ($keys as $key) {
+            $res = $this->_saveKey($key, $fileTemplate, $language);
+            $ret[$i] = array('key' => $key, 'result' => $res);
+            $i++;
         }
-        $value = $data[$key];
-        $ret = '';
+        $this->view->data = $ret;
+    }
+
+    /**
+     * Save a key and it's value to the database.
+     *
+     * @param $key
+     * @param $fileTemplate
+     * @param $language
+     *
+     * @return int
+     */
+    private function _saveKey($key, $fileTemplate, $language)
+    {
+        $value = $this->_data[$key];
         // check edit right for language
-        $userEditRights = $userModel->getUserEditRights();
+        $userEditRights = $this->_userModel->getUserEditRights();
         if (!in_array($language, $userEditRights)) {
             //user is not allowed to edit this language
-            $ret .= $this->view->getIcon('Attention', '', 16). ' You are not allowed to edit this language!';
+            return 2;
         }
 
         if (!$this->_entriesModel->hasEntryWithKey($key)) {
-            //new entry - check rights
-            if (!$userModel->hasRight('addVar')) {
-                $ret .= $this->view->getIcon('Attention', '', 16). ' You are not allowed to add new entries!';
+            //it is a new entry - check rights
+            if (!$this->_userModel->hasRight('addVar')) {
+                return 3;
             } else {
+                // user is allowed to add new keys -> create it
                 $this->_entriesModel->saveNewKey($key, $fileTemplate);
             }
         }
 
-        if ($ret == '') {
-            // everything ok - we can save the value
-            // get Key id
-            $entry = $this->_entriesModel->getEntryByKey($key);
-            $keyId = $entry['id'];
-            $res = $this->_entriesModel->saveEntries($keyId, array($language => $value));
-            if ($res === true) {
-                $ret .= $this->view->getIcon('Ok', '', 16);
-            } else {
-                $ret .= $this->view->getIcon('Attention', '', 16). $res;
-            }
+        // ok - we can save the value -> key id
+        $entry = $this->_entriesModel->getEntryByKey($key);
+        $keyId = $entry['id'];
+        $res = $this->_entriesModel->saveEntries($keyId, array($language => $value));
+        if ($res === true) {
+            return 1;
+        } else {
+            return 0;
         }
-        $this->view->message = $ret;
-        //print_r($params);
     }
 
     /**

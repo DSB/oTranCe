@@ -489,6 +489,12 @@ table td {
 	padding: 0px 6px;
 }
 
+/* line height of table on analyze page at import:
+ fix height for not flickering table when loading ajax-requets*/
+.importLineHeight {
+    height: 26px;
+}
+
 table th {
 	padding: 4px 6px;
 }
@@ -934,4 +940,22 @@ label {
 }
 .clear {
     clear:both;
+}
+
+#importInfo {
+    position: fixed;
+    top:38px;
+    right:18px;
+    width:200px;
+    height:108px;
+    background-color:#ffff00;
+    border:1px solid #CCC;
+    opacity:0.8;
+    padding:4px;
+}
+
+#importInfo .headline {
+    font-size: 1.5em;
+    font-weight:bold;
+    color: #256777;
 }

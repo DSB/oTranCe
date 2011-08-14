@@ -73,7 +73,7 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
         }
         $translatedButtons = array();
         foreach ($options['buttons'] as $key => $value) {
-            $translatedButtons[$translator->_($key)] = $value;
+            $translatedButtons['"' . $translator->_($key) . '"'] = $value;
         }
         $options['buttons'] = $translatedButtons;
         if (!in_array('dialogClass', $optionKeys)) {
@@ -142,13 +142,13 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
         $json = '{';
         $opts = array();
         foreach ($options as $key => $value) {
-            $jsonOpt = '"' . $key . '": ';
+            $jsonOpt = $key . ': ';
             if (is_array($value)) {
                 $jsonOpt .= $this->_renderOptions($value);
+            } elseif (is_bool($value)) {
+                $jsonOpt .= $value === true ? 'true':'false';
             } elseif (
-                is_bool($value) || is_double($value) ||
-                is_real($value) || is_int($value) ||
-                strpos($value, 'function') !== false
+                is_numeric($value) || strpos($value, 'function') !== false
             ) {
                 $jsonOpt .= $value;
             } else {
@@ -167,9 +167,8 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
      */
     private function _getDefaultPosition()
     {
-        $position = $this->_positions['middleCenter']; // default
         $config = Msd_Configuration::getInstance();
-        $position = $config->get('config.interface.notificationWindowPosition');
+        $position = $config->get('config.interface.notificationWindowPosition', $this->_positions['middleCenter']);
         if (isset($this->_positions[$position])) {
             $position = $this->_positions[$position];
         }

@@ -8,7 +8,7 @@
     </button>
 </p>
 
-<table class="bdr" summary="Extracted key-value pairs">
+<table class="bdr more-padding" summary="Extracted key-value pairs">
 <tr class="thead">
     <th>Action</th>
     <th class="right">#</th>
@@ -20,10 +20,10 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i=1;
 foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td>
+        <td class="importLineHeight">
             <span id="<?php echo $key;?>" class="import"></span>
         </td>
-        <td class="small right"><?php echo $this->numberFormat($i);?></td>
+        <td class="small right"><?php echo $this->numberFormat($i);?>.</td>
         <td class="small"><?php echo $this->out($key);?></td>
         <td class="small" id="val-<?php echo $key;?>"><?php echo $this->out($val);?></td>
     </tr>
@@ -32,51 +32,204 @@ foreach ($this->extractedData as $key => $val) { ?>
 }
 ?>
 </table>
-<?php $this->jQuery()->onLoadCaptureStart();?>
-var nextKey = false;
+
+<div id="importInfo">
+    <span class="headline">Import status:</span>
+    <table style="width:100%" summary="Import status">
+        <tr>
+            <td class="small">Keys total:</td>
+            <td class="small right"><?php echo sizeof($this->extractedData)?></td>
+        </tr>
+        <tr>
+            <td class="small">Keys processed:</td>
+            <td class="small right"><span id="processed">0</span></td>
+        </tr>
+        <tr>
+            <td class="small">Keys to import:</td>
+            <td class="small right"><span id="toImport"><?php echo sizeof($this->extractedData)?></span></td>
+        </tr>
+        <tr>
+            <td class="small">Saved:</td>
+            <td class="small right"><span id="savedSuccessfully">0</span></td>
+        </tr>
+        <tr>
+            <td class="small">Errors:</td>
+            <td class="small right"><span id="errors">0</span></td>
+        </tr>
+        <tr>
+            <td class="small">Done:</td>
+            <td class="small right"><span id="done">-</span></td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+<?php
+$this->jQuery()->onLoadCaptureStart();
+?>
 var importValues = new Array();
 var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
+var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
+var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
+var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
+var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
+var keysToProcess = new Array();
+var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
+
 $('#importButton').click(function () {
     $('.import').each(function (index, domElement) {
         key = domElement.id;
-        importValues.push({'key':key, 'processed':false});
+        importValues.push(key);
     });
+    $('#importButton').attr('disabled','disabled');
     doImport();
 });
 
 function doImport() {
-    //console.debug(importValues);
-    nextKey = false;
-    $.each(importValues, function(key, value) {
-        if (value.processed == true) {
-            return true;
-        } else {
-            nextKey = value;
-            return false;
-        }
-    });
-    if (nextKey !== false) {
-        $('#' + nextKey.key).html(imgLoader);
-        var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
+    // get next keys
+    keysToProcess = importValues.slice(0,15);
+    // remove copied items from old array
+    importValues.reverse();
+    for (var i=0; i < keysToProcess.length;i++) {
+        importValues.pop();
+    }
+    importValues.reverse();
+
+    if (keysToProcess.length > 0) {
+        // need to save some more keys -> show ajax loader
+        $.each(keysToProcess, function () {
+               $('#' + this).html(imgLoader);
+            }
+        );
+
         $.ajax({
             'type':'POST',
             'url':requestUrl,
             'data':{
                 'language':<?php echo $this->language;?>,
                 'fileTemplate':<?php echo $this->fileTemplate;?>,
-                'key':nextKey.key
-    },
-            'success':function(data) {
-                $('#' + nextKey.key).html(data);
-                nextKey.processed = true;
-                doImport();
+                'keys': keysToProcess
             },
-            error:function(data) {
-                $('#' + nextKey.key).html(imgError);
-                nextKey.processed = true;
+            'success':function(data) {
+                try {
+                    var result = $.parseJSON(data);
+                    $.each(result, function () {
+                        setState(this.key,this.result);
+                    });
+                    scrollToId(result[(result.length -1)].key);
+                    calcDone();
+                    doImport();
+                } catch(error) {
+                    showError(error);
+                }
+            },
+            error:function(error) {
+                showError(error);
             }
         });
+    } else {
+        // show finish popup
+        $('#importDone').dialog("open");
     }
 }
-<?php $this->jQuery()->onLoadCaptureEnd();?>
 
+function showError(error) {
+    $('#requestError').html(error);
+    $('#requestError').dialog("open");
+}
+
+function setState(id, state) {
+    var content = '';
+    switch (state) {
+        case 1:
+            content = imgOk;
+            increase('savedSuccessfully');
+            break;
+        case 2:
+            content = imgNoEditRight;
+            increase('errors');
+            break;
+        case 3:
+            content = imgNoAddRight;
+            increase('errors');
+            break;
+        default:
+            content = imgError;
+            increase('errors');
+            break;
+    }
+    $('#' + id).html(content);
+    decrease('toImport');
+    increase('processed');
+}
+
+function increase(id) {
+    var value = $('#' + id).html();
+    value++;
+    $('#' + id).html(value);
+}
+
+function decrease(id) {
+    var value = $('#' + id).html();
+    value--;
+    $('#' + id).html(value);
+}
+
+function calcDone()
+{
+    var done = $('#processed').html();
+    var total = <?php echo sizeof($this->extractedData);?>;
+    var percentage = done * 100 / total;
+    $('#done').html(Math.round(percentage) + '%');
+}
+
+function scrollToId(id){
+    $('html,body').animate({scrollTop: $("#"+id).offset().top -40}, 100);
+}
+
+<?php
+$this->jQuery()->onLoadCaptureEnd();
+
+$this->popUpMessage()->addMessage(
+    'importDone',
+    'Finished',
+    'Congratulations.<br />The importer has processed all entries.',
+    array(
+        'modal' => true,
+        'height' => 130,
+        'width' => 360,
+        'dialogClass' => 'info',
+        'autoOpen' => false,
+        'buttons' => array(
+                        'Entries' => 'function() {
+                                    $(this).dialog("close");
+                                    window.location.href="'. $this->serverUrl() . $this->baseUrl().'/entries/index";
+                                }',
+                        'Import another file' => 'function() {
+                            $(this).dialog("close");
+                            window.location.href="'. $this->serverUrl() . $this->baseUrl().'/import/index";
+                        }'
+                    )
+    )
+);
+
+$this->popUpMessage()->addMessage(
+    'requestError',
+    'Fatal error!',
+    'Oops - there was a fatal error with the ajax request!<br />Please retry.',
+    array(
+        'modal' => true,
+        'height' => 450,
+        'width' => 600,
+        'dialogClass' => 'error',
+        'autoOpen' => false,
+        'buttons' => array(
+                        'Retry' => 'function() {
+                                    $(this).dialog("close");
+                                    doImport();
+                                }'
+                    )
+    )
+);
+?>
+</script>

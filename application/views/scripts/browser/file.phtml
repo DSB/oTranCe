@@ -1,7 +1,7 @@
-    <table class="bdr" style="width:100%">
-        <tr class="thead">
-            <th colspan="2">Content of file <?php echo $this->filename; ?></th>
-        </tr>
+<table class="bdr" style="width:100%">
+    <tr class="thead">
+        <th colspan="2">Content of file <?php echo $this->filename; ?></th>
+    </tr>
 <?php
     if (is_array($this->fileContent)) {
 ?>
@@ -14,4 +14,4 @@
         echo '<tr><td class="error" colspan="2">' . $this->fileContent . '</td></tr>';
     }
 ?>
-    </table>
+</table>

@@ -81,7 +81,7 @@ class Application_Model_LanguageEntries
             WHERE t.`lang_id`= '{$language}' ORDER BY k.`key` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
-            $val = $this->_dbo->escape($data['text']);
+            $val = $data['text'];
             //$val = $this->_normalize($val);
             $ret[$data['key']] = array('text' => $val, 'templateId' => $data['template_id']);
         }

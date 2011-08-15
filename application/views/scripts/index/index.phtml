@@ -35,13 +35,13 @@ foreach ($this->status as $langId => $val)
              </div>
              <div style="position:relative;top:-15px;left:-6px;"><?php echo $val['done'];?>%</div>
          </td>
-        <td class="right"><?php echo $val['translated'];?></td>
+        <td class="right"><?php echo $this->numberFormat($val['translated']);?></td>
         <td class="right">
             <?php
                 if ($val['notTranslated'] == 0) {
                     echo '-';
                 } else {
-                    echo $val['notTranslated'];
+                    echo $this->numberFormat($val['notTranslated']);
         }
             ?>
         </td>

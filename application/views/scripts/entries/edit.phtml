@@ -21,16 +21,16 @@ if (isset($this->entrySaved)) {
     <div style="float:left;margin-right:20px;">
         <form action="<?php echo $this->baseUrl();?>/entries/edit" method="post">
 <?php
-    $assignTitle = 'Assigned file template';
+    $assignTitle = 'Entry is located in file';
     if ($this->user->hasRight('addVar')) {
-        $assignTitle = 'Assign to file template:';
+        $assignTitle = 'Assign to file template';
     }
 ?>
             <table class="bdr" summary="List of edit boxes">
                 <tr class="thead"><th colspan="2">Edit:</th></tr>
-                <tr class="row-odd">
+                <tr class="row-even">
                     <td>&nbsp;</td>
-                    <td><?php echo $assignTitle; ?></td>
+                    <td><?php echo $assignTitle; ?>:</td>
                 </tr>
                 <tr class="row-odd">
                     <td>&nbsp;</td>

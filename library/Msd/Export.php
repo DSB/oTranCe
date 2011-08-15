@@ -35,10 +35,15 @@ class Msd_Export
 
     /**
      * Array with file templates.
-     *
      * @var array
      */
     private $_fileTemplates = array();
+
+    /**
+     * Array with language meta infos (name, locale, ect.).
+     * @var array
+     */
+    private $_langInfo = array();
 
     public function __construct()
     {
@@ -77,43 +82,44 @@ class Msd_Export
     /**
      * Export language vars from db to file
      *
-     * @param string $language
+     * @param string $languageId
      *
      * @return array
      */
-    public function exportLanguageFile($language)
+    public function exportLanguageFile($languageId)
     {
         $languageModel = new Application_Model_Languages();
         // retrieving fallback language,
-        $fallbackLang = $languageModel->getFallbackLanguage();
+        $fallbackLangId = $languageModel->getFallbackLanguage();
         // if the fallback language isn't set, detect id for "English" and use it instead
-        if ($fallbackLang === false) {
-            $fallbackLang = $languageModel->getLanguageIdFromLocale('en');
+        if ($fallbackLangId === false) {
+            $fallbackLangId = $languageModel->getLanguageIdFromLocale('en');
         }
-        $langInfo = $languageModel->getLanguageById($language);
-        if ($langInfo['active'] != 1) {
+        // mini cache - only read once per request
+        if (!isset($this->_langInfo[$languageId])) {
+            $this->_langInfo[$languageId] = $languageModel->getLanguageById($languageId);
+        }
+        if ($this->_langInfo[$languageId]['active'] != 1) {
             return false;
         }
 
         $languageEntriesModel = new Application_Model_LanguageEntries();
-        $data                 = $languageEntriesModel->getLanguageKeys($language);
-        $fallbackLanguage     = $languageEntriesModel->getLanguageKeys($fallbackLang);
-
+        $data                 = $languageEntriesModel->getLanguageKeys($languageId);
+        $fallbackLanguage     = $languageEntriesModel->getLanguageKeys($fallbackLangId);
         $langFileData = array();
         $res = array();
         $languageKeys = array_keys($fallbackLanguage);
         foreach ($languageKeys as $key) {
             $templateId = $fallbackLanguage[$key]['templateId'];
-            // Did we have the meta data for the exported language file? If not, we will create it now.
+            // Do we have the meta data for the exported language file? If not, we will create it now.
             if (!isset($langFileData[$templateId])) {
                 $langFilename = EXPORT_PATH . DS . trim(
-                    str_replace('{LOCALE}', $langInfo['locale'], $this->_fileTemplates[$templateId]['filename']),
+                    str_replace('{LOCALE}', $this->_langInfo[$languageId]['locale'], $this->_fileTemplates[$templateId]['filename']),
                     '/'
                 );
                 $langDir = dirname($langFilename);
                 if (!file_exists($langDir)) {
-                    // Suppress warnings about already existing directories.
-                    @mkdir($langDir, 0775, true);
+                    mkdir($langDir, 0775, true);
                 }
                 $fileLangVar = $this->_fileTemplates[$templateId]['content'];
                 $langFileData[$templateId] = array(
@@ -121,8 +127,14 @@ class Msd_Export
                     'filename' => $langFilename,
                     'langVar' => $fileLangVar,
                     'fileContent' => '',
+                    'langName' => $this->_langInfo[$languageId]['name'],
+                    'langLocale' => $this->_langInfo[$languageId]['locale']
                 );
-                $langFileData[$templateId]['fileContent'] .= $this->_fileTemplates[$templateId]['header'] . "\n";
+                $langFileData[$templateId]['fileContent'] =
+                    $this->_replaceLanguageMetaPlaceholder(
+                        $this->_fileTemplates[$templateId]['header'],
+                        $languageId
+                    ) . "\n";
             }
 
             // If we have no value, fill the var with the english/default text.
@@ -133,7 +145,7 @@ class Msd_Export
             // Put the lang var into the language file.
             $langFileData[$templateId]['fileContent'] .= str_replace(
                 array('{KEY}', '{VALUE}'),
-                array($key, $val),
+                array($key, addslashes($val)),
                 $langFileData[$templateId]['langVar']
             );
             $langFileData[$templateId]['fileContent'] .= "\n";
@@ -141,8 +153,13 @@ class Msd_Export
         // Write footers, close the file handles and save changed filenames.
         $exportOk = true;
         foreach ($langFileData as $templateId => $langFile) {
-            $fileContent = $langFile['fileContent'] . $this->_fileTemplates[$templateId]['footer'] . "\n";
-            $size = file_put_contents($langFile['filename'], $fileContent);
+            $fileFooter =
+                $this->_replaceLanguageMetaPlaceholder(
+                    $this->_fileTemplates[$templateId]['footer'],
+                    $languageId
+                );
+            $langFile['fileContent'] .= $fileFooter . "\n";
+            $size = file_put_contents($langFile['filename'], $langFile['fileContent']);
             $exportOk = ($size !== false) && $exportOk;
             $res[$templateId]['size'] = $size;
             $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
@@ -150,6 +167,29 @@ class Msd_Export
             @chmod($langFile['filename'], 0664);
         }
         $res['exportOk'] = (count($res) > 0) && $exportOk;
+        return $res;
+    }
+
+    /**
+     * Replace meta placeholder of language.
+     *
+     * @param string $content    The content in which to search and replace
+     * @param int    $languageId The Id of the language
+     *
+     * @return string
+     */
+    protected function _replaceLanguageMetaPlaceholder($content, $languageId)
+    {
+        $search = array(
+            '{LANG_NAME}',
+            '{LOCALE}'
+        );
+
+        $replace = array(
+            $this->_langInfo[$languageId]['name'],
+            $this->_langInfo[$languageId]['locale']
+        );
+        $res = str_replace($search, $replace, $content);
         return $res;
     }
 }

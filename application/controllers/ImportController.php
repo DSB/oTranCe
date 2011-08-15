@@ -223,6 +223,7 @@ class ImportController extends Zend_Controller_Action
         $this->view->fileTemplate  = $this->_config->get('dynamic.importFileTemplate');
         $this->view->language      = $this->_config->get('dynamic.selectedLanguage');
         $extractedData = $importer->extract($data);
+        $extractedData = array_map('stripslashes', $extractedData);
         $this->_config->set('dynamic.importOriginalData', null);
         $this->_config->set('dynamic.importConvertedData', null);
         $this->_config->set('dynamic.extractedData', $extractedData);

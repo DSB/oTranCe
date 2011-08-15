@@ -10,7 +10,7 @@ defined('APPLICATION_PATH') || define(
 
 defined('EXPORT_PATH') || define(
     'EXPORT_PATH', realpath(
-        dirname(__FILE__) . DS . '..' . DS . '..' . DS . 'export'
+        dirname(__FILE__) . DS . '..' . DS . 'data' . DS . 'export'
     )
 );
 

@@ -18,9 +18,7 @@
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i=1;
-foreach ($this->extractedData as $key => $val) {
-    //if ($i>903) die();
-?>
+foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?> small">
         <td class="importLineHeight">
             <span id="<?php echo $key;?>" class="import"></span>

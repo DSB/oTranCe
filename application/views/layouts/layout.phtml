@@ -19,6 +19,7 @@ if ($request->getActionName() == 'login') {
 }
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/script.js'));
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/autogrow.js'));
+$this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jquery.tmpl.min.js'));
 
 $this->jQuery()->setLocalPath($this->baseUrl() . '/js/jquery/jquery.min.js');
 $this->jQuery()->setUiLocalPath($this->baseUrl() . '/js/jquery/jquery-ui.min.js');

@@ -73,6 +73,7 @@ foreach ($this->fileTemplates as $fileTemplate) {
         <tr class="<?php echo $cycleHelper->next(); ?>">
             <td>
                 <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->getIcon('Edit', ''); ?></a>
+                <a href="#" title="Delete file template" onclick="showDelConfirm(<?php echo $fileTemplate['id']; ?>);"><?php echo $this->getIcon('delete', ''); ?></a>
             </td>
             <td><?php echo $counter; ?></td>
             <td>
@@ -98,6 +99,49 @@ foreach ($this->fileTemplates as $fileTemplate) {
 ?>
     </table>
 <script type="text/javascript">
+<?php $this->jQuery()->javascriptCaptureStart(); ?>
+var templateList = <?php echo Zend_Json_Encoder::encode($this->fileTemplates); ?>;
+function showDelConfirm(tmplId)
+{
+    var tempTemplateList = [];
+    tempTemplateList.push({'id':0, 'name':'Unassigned'});
+    var tmplToDelete;
+    for (var i in templateList) {
+        if (templateList[i].id == tmplId) {
+            tmplToDelete = templateList[i];
+            continue;
+        }
+        tempTemplateList.push(templateList[i]);
+    }
+    var dialogDiv = $(
+        '<div>Are you sure, that you want delete the file template "'
+            + tmplToDelete.name
+            + '"?<br\/><br\/><br\/>Please select a replacement for the deleted file template:<br\/>'
+            + '<form action="<?php echo $this->baseUrl(); ?>/admin_files/delete/" method="post" id="delTemplateForm">'
+            + '<span id="delTmplFormContent"\/><input type="hidden" name="delTemplateId" value="'
+            + tmplId + '" \/><\/form><\/div>'
+    );
+    var select = $('<select name="replacementId"><\/select>');
+    var template = $.template(null, '<option value="${id}">${name}<\/option>');
+    $.tmpl(template, tempTemplateList).appendTo(select);
+    dialogDiv.find('#delTmplFormContent').append(select);
+    console.debug(dialogDiv.find('#delTmplFormContent').size(), dialogDiv);
+    dialogDiv.dialog({
+        'autoOpen':true,
+        'modal':true,
+        'dialogClass':'info',
+        'title':'Delete file template',
+        'minWidth':560,
+        'buttons':[{
+            'text':'Yes',
+            'click':function() { $(this).dialog('close'); $('#delTemplateForm')[0].submit(); }
+        }, {
+            'text':"No",
+            'click':function() { $(this).dialog('close'); }
+        }]
+    });
+}
+<?php $this->jQuery()->javascriptCaptureEnd(); ?>
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 $('.expandButton').click(function(){
     var tmplInfo = $(this).attr('id').split('-');
@@ -113,3 +157,35 @@ $('.expandButton').click(function(){
 });
 <?php $this->jQuery()->onLoadCaptureEnd(); ?>
 </script>
+<?php if ($this->deletionResult !== null) {
+    if ($this->deletionResult['delete'] && $this->deletionResult['update']) {
+        $this->popUpMessage()->addMessage(
+            'deletionSuccess',
+            'Deletion successful',
+            '<span class="success">The file template was successfully deleted.<br/><br/>Template assignments has been updated.</span>',
+            array(
+                'modal' => true,
+                'dialogClass' => 'success',
+                'width' => '350px',
+            )
+        );
+    } else {
+        $deletion = $this->deletionResult['delete'] ?
+            '<span class="success">The file template was successfully deleted.</span>' :
+            '<span class="error">Can\'t delete the file template.</span>';
+        $update = $this->deletionResult['update'] ?
+            '<span class="success">Template assignments has been updated.</span>' :
+            '<span class="error">Can\'t update template assignments.</span>';
+        $this->popUpMessage()->addMessage(
+            'deletionErroneous',
+            'Deletion successful',
+            $deletion . '<br/><br/>' . $update,
+            array(
+                'modal' => true,
+                'dialogClass' => 'error',
+                'width' => '350px',
+            )
+        );
+    }
+}
+var_dump($this->fileTemplates);

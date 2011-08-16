@@ -35,6 +35,7 @@ class Application_Model_FileTemplates
         $this->_config = Msd_Configuration::getInstance();
         $this->_database = $this->_config->get('config.dbuser.db');
         $this->_tableFiletemplates = $this->_config->get('config.table.filetemplates');
+        $this->_tableKeys = $this->_config->get('config.table.keys');
         $this->_dbo = Msd_Db::getAdapter();
         $this->_dbo->selectDb($this->_database);
     }
@@ -168,5 +169,33 @@ class Application_Model_FileTemplates
         }
 
         return $fileTemplates;
+    }
+
+    /**
+     * Deletes a file template and assigns the dependent language keys to a ne template id.
+     *
+     * @param int $templateId  ID of the template to delete.
+     * @param int $replacement ID of the new template to assign to the dependent language keys.
+     *
+     * @return array
+     */
+    public function deleteFileTemplate($templateId, $replacement = 0)
+    {
+        $result = array(
+            'delete' => false,
+            'update' => false,
+        );
+        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = "
+            . $this->_dbo->escape($templateId);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $result['delete'] = $res;
+
+        if ($res) {
+            $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` SET `template_id` = "
+                . $this->_dbo->escape($replacement) . " WHERE `template_id` = " . $this->_dbo->escape($templateId);
+            $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+            $result['update'] = $res;
+        }
+        return $result;
     }
 }

@@ -59,7 +59,7 @@ class Admin_FilesController extends AdminController
     }
 
     /**
-     * Edit action for maintaining languages
+     * Edit action for maintaining file templates
      *
      * @return void
      */
@@ -79,5 +79,21 @@ class Admin_FilesController extends AdminController
             );
         }
         $this->view->fileTemplate = $templatesModel->getFileTemplate($templateId);
+    }
+
+    /**
+     * Deletes a file template, passes the result to the view script and invokes an internal forward to index action.
+     *
+     * @return void
+     */
+    public function deleteAction()
+    {
+        if ($this->_request->isPost()) {
+            $templatesModel = new Application_Model_FileTemplates();
+            $delTemplateId = $this->_request->getParam('delTemplateId', 0);
+            $replacementId = $this->_request->getParam('replacementId', 0);
+            $this->view->deletionResult = $templatesModel->deleteFileTemplate($delTemplateId, $replacementId);
+        }
+        $this->_forward('index');
     }
 }

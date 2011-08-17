@@ -45,13 +45,6 @@ class Msd_Crypt
     private $_encryptionKey = null;
 
     /**
-     * Instance of this class.
-     *
-     * @var Msd_Crypt
-     */
-    private static $_instance = null;
-
-    /**
      * Identificator for encrypted text
      *
      * @var string
@@ -64,9 +57,9 @@ class Msd_Crypt
      * @param string $cryptKey  Encryption key
      * @param string $algorithm Algorithm for encryption
      *
-     * @return void
+     * @return Msd_Crypt
      */
-    private function __construct($cryptKey = null, $algorithm = null)
+    public function __construct($cryptKey = null, $algorithm = null)
     {
         if ($cryptKey === null) {
             $cryptKey = md5(time());
@@ -75,23 +68,6 @@ class Msd_Crypt
             $algorithm = $this->_algorithm;
         }
         $this->init($cryptKey, $algorithm);
-    }
-
-    /**
-     * Get the instance of this class.
-     *
-     * @param string $cryptKey  Encryption key
-     * @param string $algorithm Algorithm for encryption
-     *
-     * @return Msd_Crypt
-     */
-    public static function getInstance($cryptKey = null, $algorithm = null)
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self($cryptKey, $algorithm);
-        }
-
-        return self::$_instance;
     }
 
     /**

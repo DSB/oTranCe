@@ -71,6 +71,7 @@ class ExportController extends Zend_Controller_Action
         $this->view->historyModel = $this->_historyModel;
         $this->view->export = $this->_export;
         $this->view->archives = $this->_getAvailableArchives();
+
     }
 
     /**
@@ -215,7 +216,14 @@ class ExportController extends Zend_Controller_Action
         // TODO: Make VCS configurable from GUI
         if ($this->_vcs === null) {
             $vcsConfig = $this->_config->get('config.vcs');
-            $this->_vcs = Msd_Vcs::factory($vcsConfig['class'], $vcsConfig['options']);
+            $userModel = new Application_Model_User();
+            $cryptedVcsCreds = $userModel->loadSetting('vcsCredentials', null);
+            if ($cryptedVcsCreds !== null) {
+                $msdCrypt = new Msd_Crypt('otc_DaNieL_SteFAn');
+                $vcsCredentials = $msdCrypt->decrypt($cryptedVcsCreds);
+                list ($vcsConfig['username'], $vcsConfig['password']) = explode('%@%', $vcsCredentials);
+            }
+            $this->_vcs = Msd_Vcs::factory($vcsConfig['adapter'], $vcsConfig['options']);
         }
 
         return $this->_vcs;

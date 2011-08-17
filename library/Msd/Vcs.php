@@ -25,17 +25,14 @@ class Msd_Vcs
     /**
      * @static
      * @throws Msd_Vcs_Exception
-     * @param $vcsName
+     * @param $adapter
      * @param array $adapterOptions
      * @return Msd_Vcs_Interface
      */
-    public static function factory($vcsName, $adapterOptions = array())
+    public static function factory($adapter, $adapterOptions = array())
     {
-        $vcsNameParts = explode('_', $vcsName);
-        foreach (array_keys($vcsNameParts) as $key) {
-            $vcsNameParts[$key] = ucfirst($vcsNameParts[$key]);
-        }
-        $vcsClass = 'Vcs_' . implode('_', $vcsNameParts);
+        $vcsClass = str_replace('_', ' ', strtolower($adapter));
+        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
         if (self::$_loader === null) {
             self::_initLoader();
         }
@@ -81,5 +78,16 @@ class Msd_Vcs
             }
         }
         return $classes;
+    }
+
+    public static function getAdapterOptions($adapter)
+    {
+        $vcsClass = str_replace('_', ' ', strtolower($adapter));
+        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
+        if (self::$_loader === null) {
+            self::_initLoader();
+        }
+        $className = self::$_loader->load($vcsClass);
+        return $className::getAdapterOptions();
     }
 }

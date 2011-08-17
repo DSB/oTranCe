@@ -19,14 +19,19 @@ class Admin_ExportController extends AdminController
     public function indexAction()
     {
         $config = Msd_Configuration::getInstance();
+        $vcsConf = $config->get('config.vcs');
         if ($this->_request->isPost()) {
-            $this->_saveSvnConfig($config);
+            if ($this->_request->getParam('saveButton') !== null) {
+                $this->_saveSvnConfig($config);
+                $vcsConf = $config->get('config.vcs');
+            } else {
+                $vcsConf['adapter'] = $this->_request->getParam('vcsAdapter');
+            }
         }
-        $subversionConf = $config->get('config.subversion');
-        $this->view->svnUser = $subversionConf['user'];
-        $this->view->svnPass = $subversionConf['password'];
-        $this->view->svnCommitOne = $subversionConf['commitMessageOneLanguage'];
-        $this->view->svnCommitAll = $subversionConf['commitMessageAllLanguages'];
+        $this->view->vcsAdapterParams = Msd_Vcs::getAdapterOptions($vcsConf['adapter']);
+        $this->view->vcsConfig = $vcsConf;
+        $this->view->vcsAvailAdapter = Msd_Vcs::getAvailableAdapter();
+
         $langModel = new Application_Model_Languages();
         $this->view->languages = $langModel->getAllLanguages();
         $this->view->fallbackLang = $langModel->getFallbackLanguage();
@@ -35,12 +40,11 @@ class Admin_ExportController extends AdminController
     private function _saveSvnConfig(Msd_Configuration $config)
     {
         $subversionConf = array(
-            'user' => $this->_request->getParam('svnUser'),
-            'password' => $this->_request->getParam('svnPass'),
-            'commitMessageOneLanguage' => $this->_request->getParam('svnCommitOne'),
-            'commitMessageAllLanguages' => $this->_request->getParam('svnCommitAll'),
+            'adapter' => $this->_request->getParam('vcsAdapter'),
+            'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
         );
-        $config->set('config.subversion', $subversionConf);
+        $config->set('config.vcs', $subversionConf);
+        $config->set('config.vcs.options', $this->_request->getParam('vcsOptions'));
 
         $langModel = new Application_Model_Languages();
         $langModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
@@ -57,7 +61,13 @@ class Admin_ExportController extends AdminController
         foreach ($configArray as $section => $sectionArray) {
             $newConfig .= "[$section]\n";
             foreach ($sectionArray as $key => $value) {
-                $newConfig .= "$key = $value\n";
+                if (is_array($value)) {
+                    foreach ($value as $subKey => $subValue) {
+                        $newConfig .= "$key.$subKey = $subValue\n";
+                    }
+                } else {
+                    $newConfig .= "$key = $value\n";
+                }
             }
         }
         $configFile = implode(

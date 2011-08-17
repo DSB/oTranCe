@@ -7,4 +7,5 @@ interface Msd_Vcs_Interface
     public function commit($filenames, $comment = null);
     public function update();
     public function revert($filenames);
+    public static function getAdapterOptions();
 }

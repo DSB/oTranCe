@@ -238,4 +238,14 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
 
         return $statusKey;
     }
+
+    public static function getAdapterOptions()
+    {
+        return array(
+            'checkoutPath' => 'SVN Checkout path',
+            'username' => 'SVN Username',
+            'password' => 'SVN Password',
+            'execParams' => 'SVN execution parameters',
+        );
+    }
 }

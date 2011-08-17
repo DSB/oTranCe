@@ -52,13 +52,6 @@ class Msd_User
     const GENERAL_FAILURE   = 0xFF;
 
     /**
-     * Path and filename of the user ini file.
-     *
-     * @var string
-     */
-    private $_usersFile;
-
-    /**
      * Instance to authentication storage.
      *
      * @var Zend_Auth_Storage_Session
@@ -96,7 +89,7 @@ class Msd_User
     /**
      * Constructor
      *
-     * @return void
+     * @return Msd_User
      */
     public function __construct()
     {
@@ -161,7 +154,7 @@ class Msd_User
             $this->_isLoggedIn = true;
             if ($autoLogin) {
                 Zend_Session::regenerateId();
-                $crypt = Msd_Crypt::getInstance('oTranCe');
+                $crypt = new Msd_Crypt('oTranCe');
                 $identity = $crypt->encrypt(
                     $username . ':' . $password
                 );
@@ -199,7 +192,7 @@ class Msd_User
             return;
         }
 
-        $crypt = Msd_Crypt::getInstance('oTranCe');
+        $crypt = new Msd_Crypt('oTranCe');
         list($username, $pass) = explode(':', $crypt->decrypt($authInfo));
         // Try to log in the user and refresh the cookie. Because you want
         // to stay logged in until you logout.

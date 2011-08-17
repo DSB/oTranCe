@@ -1,30 +1,50 @@
 <h2>Admin - Export</h2>
 <?php echo $this->partial('admin/head-navi.phtml');?>
 <h4>Export settings</h4>
-<form action="" method="post">
+<form action="" method="post" id="exportConfigForm">
     <table class="bdr more-padding" summary="List of vcs settings">
         <tr class="thead">
-            <th colspan="2">Subversion</th>
+            <th colspan="2">Version Control System (VCS)</th>
         </tr>
         <tr class="row-odd">
-            <td><label for="svnUser">Username:</label></td>
-            <td><input type="text" class="text" name="svnUser" id="svnUser" value="<?php echo $this->svnUser; ?>"/></td>
+            <td><label for="vcsAdapter">Current VCS adapter:</label></td>
+            <td>
+                <select name="vcsAdapter" id="vcsAdapter" onchange="$('#exportConfigForm').submit();">
+<?php foreach ($this->vcsAvailAdapter as $vcsAdapter) {
+                    $isSeleted = (bool) (strtolower($vcsAdapter) == strtolower($this->vcsConfig['adapter']));
+?>
+                    <option value="<?php echo $vcsAdapter; ?>"<?php echo $isSeleted ? ' selected="selected"' : ''; ?>><?php echo str_replace('_', ' ', $vcsAdapter); ?></option>
+<?php } ?>
+                </select>
+            </td>
         </tr>
         <tr class="row-even">
-            <td><label for="svnPass">Password:</label></td>
-            <td><input type="password" class="text" name="svnPass" id="svnPass" value="<?php echo $this->svnPass; ?>"/></td>
+            <td><label for="vcsCommitMessage">Commit message:</label></td>
+            <td><input type="text" class="text" name="vcsCommitMessage" id="vcsCommitMessage" value="<?php echo $this->vcsConfig['commitMessage']; ?>" /></td>
         </tr>
-        <tr class="row-odd">
-            <td><label for="svnCommitOne">Message for one language export:</label></td>
-            <td><textarea class="textarea-edit" name="svnCommitOne" id="svnCommitOne" cols="80" rows="5"><?php echo $this->svnCommitOne; ?></textarea></td>
+        <tr class="thead">
+            <th colspan="2">VCS adapter options</th>
         </tr>
-        <tr class="row-even">
-            <td><label for="svnCommitAll">Message for all languages export:</label></td>
-            <td><textarea class="textarea-edit" name="svnCommitAll" id="svnCommitAll" cols="80" rows="5"><?php echo $this->svnCommitAll; ?></textarea></td>
+<?php
+/**
+ * @var $cycle Zend_View_Helper_Cycle
+ */
+$cycle = $this->cycle(array('row-even', 'row-odd'));
+foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
+    if (isset($this->vcsConfig['options'][$optionName])) {
+        $optionValue = $this->vcsConfig['options'][$optionName];
+    } else {
+        $optionValue = '';
+    }
+?>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
+            <td><input type="text" class="text" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
         </tr>
-        <tr class="row-odd">
+<?php } ?>
+        <tr class="<?php echo $cycle->next(); ?>">
             <td>&nbsp;</td>
-            <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+            <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> Save</button></td>
         </tr>
     </table>
     <div class="clear"><br /></div>

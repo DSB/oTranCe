@@ -8,4 +8,5 @@ interface Msd_Vcs_Interface
     public function update();
     public function revert($filenames);
     public static function getAdapterOptions();
+    public static function getCredentialFields();
 }

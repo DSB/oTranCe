@@ -22,6 +22,16 @@ class Msd_Vcs
         );
     }
 
+    private static function _getAdapterClassName($adapter)
+    {
+        $vcsClass = str_replace('_', ' ', strtolower($adapter));
+        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
+        if (self::$_loader === null) {
+            self::_initLoader();
+        }
+        return self::$_loader->load($vcsClass);
+    }
+
     /**
      * @static
      * @throws Msd_Vcs_Exception
@@ -31,12 +41,7 @@ class Msd_Vcs
      */
     public static function factory($adapter, $adapterOptions = array())
     {
-        $vcsClass = str_replace('_', ' ', strtolower($adapter));
-        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
-        if (self::$_loader === null) {
-            self::_initLoader();
-        }
-        $className = self::$_loader->load($vcsClass);
+        $className = self::_getAdapterClassName($adapter);
         $vcs = new $className($adapterOptions);
         if (!$vcs instanceof Msd_Vcs_Interface) {
             throw new Msd_Vcs_Exception("The specified VCS adapter doesn't implement the interface Msd_Vcs_Interface.");
@@ -82,12 +87,13 @@ class Msd_Vcs
 
     public static function getAdapterOptions($adapter)
     {
-        $vcsClass = str_replace('_', ' ', strtolower($adapter));
-        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
-        if (self::$_loader === null) {
-            self::_initLoader();
-        }
-        $className = self::$_loader->load($vcsClass);
+        $className = self::_getAdapterClassName($adapter);
         return $className::getAdapterOptions();
+    }
+
+    public static function getCredentialFields($adapter)
+    {
+        $className = self::_getAdapterClassName($adapter);
+        return $className::getCredentialFields();
     }
 }

@@ -248,4 +248,11 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
             'execParams' => 'SVN execution parameters',
         );
     }
+    public static function getCredentialFields()
+    {
+        return array(
+            'username' => 'username',
+            'password' => 'password',
+        );
+    }
 }

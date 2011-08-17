@@ -213,7 +213,6 @@ class ExportController extends Zend_Controller_Action
      */
     private function _getVcsInstance()
     {
-        // TODO: Make VCS configurable from GUI
         if ($this->_vcs === null) {
             $vcsConfig = $this->_config->get('config.vcs');
             $userModel = new Application_Model_User();
@@ -221,7 +220,10 @@ class ExportController extends Zend_Controller_Action
             if ($cryptedVcsCreds !== null) {
                 $msdCrypt = new Msd_Crypt('otc_DaNieL_SteFAn');
                 $vcsCredentials = $msdCrypt->decrypt($cryptedVcsCreds);
-                list ($vcsConfig['username'], $vcsConfig['password']) = explode('%@%', $vcsCredentials);
+                $vcsCredFields = Msd_Vcs::getCredentialFields($vcsConfig['adapter']);
+                list ($vcsUser, $vcsPass) = explode('%@%', $vcsCredentials);
+                $vcsConfig[$vcsCredFields['username']] = $vcsUser;
+                $vcsConfig[$vcsCredFields['password']] = $vcsPass;
             }
             $this->_vcs = Msd_Vcs::factory($vcsConfig['adapter'], $vcsConfig['options']);
         }

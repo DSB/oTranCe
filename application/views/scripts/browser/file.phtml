@@ -4,14 +4,15 @@
     </tr>
 <?php
     if (is_array($this->fileContent)) {
-?>
+        $highlightedCode = highlight_string(implode("", $this->fileContent), true);
+            ?>
         <tr class="row-odd">
-            <td class="code right"><?php echo implode("<br/>\n", range(1, count($this->fileContent))); ?></td>
-            <td class="code"><?php echo highlight_string(implode("", $this->fileContent), true); ?></td>
+            <td class="code right"><?php echo (implode("<br/>", range(1, count($this->fileContent)))); ?></td>
+            <td class="code nowrap"><?php echo str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $highlightedCode); ?></td>
         </tr>
 <?php
     } else {
-        echo '<tr><td class="error" colspan="2">' . $this->fileContent . '</td></tr>';
+?><tr><td class="error" colspan="2"><?php echo $this->fileContent; ?></td></tr><?php
     }
 ?>
 </table>

@@ -59,6 +59,7 @@ class Application_Model_User {
         $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_username = $auth['name'];
         $this->_userId = $auth['id'];
+        $this->_dbo->selectDb($this->_database);
     }
 
     /**
@@ -234,7 +235,6 @@ class Application_Model_User {
      */
     public function saveSetting($name, $values)
     {
-        $this->_dbo->selectDb($this->_database);
         // delete old entries
         $sql = 'DELETE FROM `'.$this->_tableUsersettings . '` WHERE '
                 . '`user_id`=' . $this->_userId .' AND `setting`=\''. $name .'\'';

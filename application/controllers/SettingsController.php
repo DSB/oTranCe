@@ -39,6 +39,7 @@ class SettingsController extends Zend_Controller_Action
 
     const VCS_SAVE_SUCCESS = 0x00;
     const VCS_PASS_NOT_EQUAL = 0x01;
+    const VCS_NO_USER = 0x02;
 
     /**
      * Process index action
@@ -98,6 +99,12 @@ class SettingsController extends Zend_Controller_Action
         return $res;
     }
 
+    public function deleteCredentialsAction()
+    {
+        $this->_userModel->deleteSetting('vcsCredentials');
+        $this->_forward('index');
+    }
+
     private function _saveVcsCredentials()
     {
         if ($this->_crypt === null) {
@@ -112,10 +119,10 @@ class SettingsController extends Zend_Controller_Action
             }
             $encrypted = $this->_crypt->encrypt($vcsUser . '%@%' . $vcsPass);
             $this->_userModel->saveSetting('vcsCredentials', $encrypted);
+            return self::VCS_SAVE_SUCCESS;
         } else {
-            $this->_userModel->deleteSetting('vcsCredentials');
+            return self::VCS_NO_USER;
         }
-        return self::VCS_SAVE_SUCCESS;
     }
 
     private function _getVcsUser()

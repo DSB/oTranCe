@@ -96,7 +96,7 @@ $i = 1;
 <br />
 <h4>Personal Version Control System (VCS) credentials:</h4>
     <p>
-        To delete the VCS credentials clear the username input field and click 'Save settings'.
+        Enter at least the username of your personal VCS credentials.
     </p>
 <table class="bdr" summary="Credentials for VCS access.">
     <tr class="thead">
@@ -114,6 +114,10 @@ $i = 1;
         <td><label for="vcsPass2">... confirm:</label></td>
         <td><input type="password" class="text" name="vcsPass2" id="vcsPass2"/></td>
     </tr>
+    <tr class="row-even">
+        <td></td>
+        <td><button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton"><?php echo $this->getIcon('delete', ''); ?> Delete credentials</button></td>
+    </tr>
 </table>
 <p>
     <br />
@@ -123,6 +127,22 @@ $i = 1;
 </form>
 
 <?php
+$this->popUpMessage()->addMessage(
+    'confirmVCDeletion',
+    'Confirm delete of VCS credentials',
+    'Are your sure, that you want delete your personal VCS credentials?',
+    array(
+        'modal' => true,
+        'height' => 160,
+        'width' => 260,
+        'dialogClass' => 'info',
+        'autoOpen' => false,
+        'buttons' => array(
+            'Yes' => 'function() { window.location.href="' . $this->baseUrl() . '/settings/delete-credentials/"; $(this).dialog("close"); }',
+            'No' => 'function() { $(this).dialog("close"); }',
+        ),
+    )
+);
 if (isset($this->saved)) {
     if ($this->saved !== false) {
         $this->popUpMessage()->addMessage(

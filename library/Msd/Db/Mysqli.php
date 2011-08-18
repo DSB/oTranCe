@@ -24,7 +24,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
 
     /**
      * Result handle
-     * @var resource
+     * @var mysqli_result
      */
     private $_resultHandle = null;
 
@@ -147,7 +147,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      * @param int     $kind    Type of result set
      * @param boolean $getRows Wether to fetch all rows and return them
      *
-     * @return resource|array|bool
+     * @return mysqli_result|array|bool
      */
     public function query($query, $kind = self::ARRAY_OBJECT, $getRows = true)
     {
@@ -157,20 +157,22 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
                 $this->_getHandle()->error,
                 $this->_getHandle()->errno
             );
+            return false;
         }
-        if (!$this->_resultHandle instanceof mysqli_result
-            || $kind === self::SIMPLE) {
+        if (!$this->_resultHandle instanceof mysqli_result || $kind === self::SIMPLE) {
             return $this->_resultHandle;
         }
         // return result set?
         if ($getRows) {
             $ret = array();
-            WHILE ($row = $this->getNextRow($kind)) {
+            while ($row = $this->getNextRow($kind)) {
                 $ret[] = $row;
             }
             $this->_resultHandle = null;
             return $ret;
         }
+
+        return null;
     }
 
     /**
@@ -184,17 +186,19 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      */
     public function getNextRow($kind)
     {
-       switch ($kind)
-       {
-           case self::ARRAY_ASSOC:
-               return $this->_resultHandle->fetch_assoc();
-           case self::ARRAY_OBJECT:
-               return $this->_resultHandle->fetch_object();
-               break;
-           case self::ARRAY_NUMERIC:
-               return $this->_resultHandle->fetch_array(MYSQLI_NUM);
-               break;
-       }
+        switch ($kind)
+        {
+            case self::ARRAY_ASSOC:
+                return $this->_resultHandle->fetch_assoc();
+            case self::ARRAY_OBJECT:
+                return $this->_resultHandle->fetch_object();
+                break;
+            case self::ARRAY_NUMERIC:
+                return $this->_resultHandle->fetch_array(MYSQLI_NUM);
+                break;
+            default:
+                return $this->_resultHandle->fetch_array(); // unknown fetch method; return MYSQLI_BOTH.
+        }
     }
 
     /**

@@ -51,7 +51,11 @@ $i = 1;
         <th colspan="4">Language</th>
     </tr>
     <?php
-    $i=1;
+    $i = 1;
+    /**
+     * @var Zend_View_Helper_Cycle $cycle
+     */
+    $cycle = $this->cycle(array('row-even', 'row-odd'));
     foreach ($this->languages as $key => $language)
     {
         $id = 'lang_'.$language['id'];
@@ -60,7 +64,7 @@ $i = 1;
         $langLocale = $this->languages[$langId]['locale'];
 
     ?>
-        <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
+        <tr class="<?php echo $cycle->next();?>">
             <td class="right"><?php echo $i;?>.</td>
             <td>
                 <label for="<?php echo $id;?>">
@@ -74,7 +78,7 @@ $i = 1;
                 <label for="<?php echo $id;?>"><?php echo $langName;?></label>
             </td>
             <td>
-                <input type="checkbox" class="checkbox" value="1" name="<?php echo $id;?>" id="<?php echo $id;?>"
+                <input type="checkbox" class="checkbox" value="<?php echo $language['id']; ?>" name="selLangs[]" id="<?php echo $id;?>"
                 <?php
                     if (in_array($key, $this->refLanguagesSelected)) {
                         echo ' checked="checked"';
@@ -87,6 +91,29 @@ $i = 1;
         $i++;
     }
     ?>
+</table>
+<br />
+<br />
+<h4>Personal Version Control System (VCS) credentials:</h4>
+    <p>
+        To delete the VCS credentials clear the username input field and click 'Save settings'.
+    </p>
+<table class="bdr" summary="Credentials for VCS access.">
+    <tr class="thead">
+        <th colspan="2">VCS Credentials</th>
+    </tr>
+    <tr class="row-odd">
+        <td><label for="vcsUser">Username:</label></td>
+        <td><input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/></td>
+    </tr>
+    <tr class="row-even">
+        <td><label for="vcsPass">Password:</label></td>
+        <td><input type="password" class="text" name="vcsPass" id="vcsPass"/></td>
+    </tr>
+    <tr class="row-odd">
+        <td><label for="vcsPass2">... confirm:</label></td>
+        <td><input type="password" class="text" name="vcsPass2" id="vcsPass2"/></td>
+    </tr>
 </table>
 <p>
     <br />

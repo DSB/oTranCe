@@ -247,12 +247,12 @@ class Application_Model_User {
             // nothing to save -> return
             return true;
         }
-        $paramPattern = '(%s,\'%s\',%d)';
-        $params = '';
+        $paramPattern = "(%s, '%s', '%s')";
+        $insertValues = array();
         foreach ($values as $value) {
-            $params .= sprintf($paramPattern, $this->_userId, $name, $value) .', ';
+            $insertValues[] = sprintf($paramPattern, $this->_userId, $name, $value);
         }
-        $params = substr($params, 0, -2);
+        $params = implode(', ', $insertValues);
 
         $sql = 'INSERT INTO `'.$this->_tableUsersettings . '`'
                     . ' (`user_id`,`setting`,`value`) VALUES '.$params;
@@ -260,6 +260,21 @@ class Application_Model_User {
         return $res;
     }
 
+    /**
+     * Deletes an user setting.
+     *
+     * @param string $name Name of setting to delete.
+     *
+     * @return bool
+     */
+    public function deleteSetting($name)
+    {
+        $sqlName = $this->_dbo->escape($name);
+        $sql = "DELETE FROM `{$this->_tableUsersettings}`
+            WHERE `user_id` = {$this->_userId} AND `setting` = '$sqlName'";
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return ($res !== null && $res !== false);
+    }
     /**
      * Get user rights
      *

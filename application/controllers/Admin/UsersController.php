@@ -1,5 +1,8 @@
 <?php
 require_once('AdminController.php');
+/**
+ * Controller for user administration.
+ */
 class Admin_UsersController extends AdminController
 {
     /**

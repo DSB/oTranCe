@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class for dynamic (session lifetime) configuration settings.
+ */
 class Msd_Config_Dynamic
 {
     /**

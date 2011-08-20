@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class for Subversion support.
+ */
 class Msd_Vcs_Subversion implements Msd_Vcs_Interface
 {
     /**
@@ -229,6 +232,13 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
         return $cmdParams;
     }
 
+    /**
+     * Returns the status key for a char, returned by "svn st".
+     *
+     * @param string $charStatus
+     *
+     * @return string
+     */
     private function _getStatusKey($charStatus)
     {
         $statusKey = 'unknown';
@@ -239,6 +249,15 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
         return $statusKey;
     }
 
+    /**
+     * Returns available options for the adapter.
+     *
+     * @static
+     *
+     * @abstract
+     *
+     * @return array
+     */
     public static function getAdapterOptions()
     {
         return array(
@@ -248,6 +267,16 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
             'execParams' => 'SVN execution parameters',
         );
     }
+
+    /**
+     * Returns the adapter option names for user specific credentials.
+     *
+     * @static
+     *
+     * @abstract
+     *
+     * @return array
+     */
     public static function getCredentialFields()
     {
         return array(

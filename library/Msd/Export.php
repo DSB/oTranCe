@@ -21,6 +21,9 @@ class Msd_Export
      */
     private $_langInfo = array();
 
+    /**
+     * Class constructor
+     */
     public function __construct()
     {
         $fileTemplateModel = new Application_Model_FileTemplates();

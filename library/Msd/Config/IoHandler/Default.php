@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Default config IO-Handler.
+ */
 class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
 {
     /**

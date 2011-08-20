@@ -1,4 +1,7 @@
 <?php
+/**
+ * Builds tree of a fyle system path.
+ */
 class Application_Model_FileTree
 {
     /**
@@ -48,6 +51,13 @@ class Application_Model_FileTree
         $this->_basePath = (string) $basePath;
     }
 
+    /**
+     * Retrieves a simple FS tree.
+     *
+     * @param bool $rebuild Force rebuild of the tree.
+     *
+     * @return array
+     */
     public function getSimpleTree($rebuild = false)
     {
         if ($this->_simpleTree === null || $rebuild == true) {

@@ -16,6 +16,13 @@
  */
 class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
 {
+    /**
+     * Method will be executed befor the dispatch process starts.
+     *
+     * @param Zend_Controller_Request_Abstract $request
+     *
+     * @return
+     */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         $controllerName = $request->getControllerName();

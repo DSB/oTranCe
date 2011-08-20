@@ -21,6 +21,15 @@ class Msd_Archive_Zip_Messages
         ZIPARCHIVE::ER_SEEK => 'Error occurred while seeking inside the archive.',
     );
 
+    /**
+     * Returns the mmessage for a ZIP error.
+     *
+     * @static
+     *
+     * @param int $zipError
+     *
+     * @return string
+     */
     public static function getErrorMessage($zipError)
     {
         if (isset(self::$_errorMessages[$zipError])) {

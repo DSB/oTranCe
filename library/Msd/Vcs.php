@@ -1,4 +1,9 @@
 <?php
+/**
+ * Factory class for Version Control System support.
+ * 
+ * @throws Msd_Vcs_Exception
+  */
 class Msd_Vcs
 {
     /**
@@ -6,12 +11,25 @@ class Msd_Vcs
      */
     private static $_loader = null;
 
+    /**
+     * Ignore these filenames in the "available adapters" list.
+     *
+     * @var array
+     */
     private static $_ignoreFileNames = array('Exception.php', 'Interface.php', 'Abstract.php');
 
+    /**
+     * Disabled Class contructor. This is a factory pattern.
+     */
     private function __construct()
     {
     }
 
+    /**
+     * Initialize the plugin loader. It's used to load third-party modules.
+     * @static
+     * @return void
+     */
     private static function _initLoader()
     {
         if (self::$_loader === null) {
@@ -24,6 +42,15 @@ class Msd_Vcs
         }
     }
 
+    /**
+     * Retrieves the class name for an adapter.
+     *
+     * @static
+     *
+     * @param string $adapter
+     *
+     * @return false|string
+     */
     private static function _getAdapterClassName($adapter)
     {
         $vcsClass = str_replace('_', ' ', strtolower($adapter));
@@ -50,6 +77,13 @@ class Msd_Vcs
         return $vcs;
     }
 
+    /**
+     * Retrieves a list with availavle adapter.
+     *
+     * @static
+     *
+     * @return array
+     */
     public static function getAvailableAdapter()
     {
         self::_initLoader();
@@ -62,6 +96,15 @@ class Msd_Vcs
         return $classes;
     }
 
+    /**
+     * Builds the list with available adapters.
+     *
+     * @static
+     *
+     * @param string $path
+     *
+     * @return array
+     */
     private static function _getDirEntries($path)
     {
         $dir = new DirectoryIterator($path);
@@ -83,14 +126,38 @@ class Msd_Vcs
         return $classes;
     }
 
+    /**
+     * Retrieves the available options for an adapter.
+     *
+     * @static
+     *
+     * @param string $adapter
+     *
+     * @return array
+     */
     public static function getAdapterOptions($adapter)
     {
+        /**
+         * @var Msd_Vcs_Interface $className
+         */
         $className = self::_getAdapterClassName($adapter);
         return $className::getAdapterOptions();
     }
 
+    /**
+     * Returns the adapter option names for user specific credentials.
+     *
+     * @static
+     *
+     * @param string $adapter
+     *
+     * @return array
+     */
     public static function getCredentialFields($adapter)
     {
+        /**
+         * @var Msd_Vcs_Interface $className
+         */
         $className = self::_getAdapterClassName($adapter);
         return $className::getCredentialFields();
     }

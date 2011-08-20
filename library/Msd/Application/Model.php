@@ -29,6 +29,9 @@ abstract class Msd_Application_Model
      */
     protected $_database;
 
+    /**
+     * Class constructor.
+     */
     public function __construct()
     {
         $this->_config = Msd_Registry::getConfig();
@@ -41,6 +44,11 @@ abstract class Msd_Application_Model
         $this->init();
     }
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
     }

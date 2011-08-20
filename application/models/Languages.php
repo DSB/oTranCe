@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Model to manage languages.
+ */
 class Application_Model_Languages extends Msd_Application_Model
 {
     /**
@@ -20,6 +22,11 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     private $_tableLanguages;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $tableConfig = $this->_config->getParam('table');

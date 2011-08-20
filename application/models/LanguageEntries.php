@@ -39,6 +39,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     private $_tableFileTemplates;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $tableConfig = $this->_config->getParam('table');

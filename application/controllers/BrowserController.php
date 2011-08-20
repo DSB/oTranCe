@@ -17,6 +17,11 @@ class BrowserController extends Zend_Controller_Action
 {
     private $_testFiles = array();
 
+    /**
+     * Index action
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $fileTree = new Application_Model_FileTree(EXPORT_PATH);
@@ -25,6 +30,11 @@ class BrowserController extends Zend_Controller_Action
         $this->view->entryCount = $fileTree->getJsTreeEntryCount();
     }
 
+    /**
+     * Get file contents action
+     *
+     * @return void
+     */
     public function fileAction()
     {
         Zend_Layout::getMvcInstance()->disableLayout();
@@ -41,26 +51,6 @@ class BrowserController extends Zend_Controller_Action
                 $content = str_replace($search, $replace, $content);
                 $this->view->fileContent = $content;
             }
-        }
-    }
-
-    public function zipAction()
-    {
-        Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
-        Zend_Layout::getMvcInstance()->disableLayout();
-
-        $date= date('Ymd-His');
-        $archive = Msd_Archive::factory('Tar_Bz2', EXPORT_PATH . DS . "archive-$date", EXPORT_PATH);
-        $archive->addFiles($this->_testFiles);
-        $success = $archive->buildArchive();
-        if ($success) {
-            $this->_response->setHeader('Content-Type', $archive->getMimeType(), true);
-            $this->_response->setHeader('Content-Disposition','attachment; filename="'
-                . basename($archive->getArchiveFilename()) . '"');
-            $this->_response->setBody(file_get_contents($archive->getArchiveFilename()));
-        } else {
-            $this->_response->setHeader('Content-Type', 'text/plain; charset=utf8', true);
-            $this->_response->setBody($archive->getErrorMessage());
         }
     }
 }

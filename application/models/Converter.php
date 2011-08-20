@@ -10,6 +10,11 @@ class Application_Model_Converter extends Msd_Application_Model
      */
     private $_tableConversions;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $dbTables = $this->_config->getParam('table');

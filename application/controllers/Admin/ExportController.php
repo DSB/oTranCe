@@ -16,13 +16,18 @@ require_once 'AdminController.php';
  */
 class Admin_ExportController extends AdminController
 {
+    /**
+     * Index action
+     *
+     * @return void
+     */
     public function indexAction()
     {
         $vcsConf = $this->_config->getParam('vcs');
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('saveButton') !== null) {
-                $this->_saveSvnConfig();
-                $vcsConf = $config->getParam('vcs');
+                $this->_saveVcsConfig();
+                $vcsConf = $this->_config->getParam('vcs');
             } else {
                 $vcsConf['adapter'] = $this->_request->getParam('vcsAdapter');
             }
@@ -36,7 +41,12 @@ class Admin_ExportController extends AdminController
         $this->view->fallbackLang = $langModel->getFallbackLanguage();
     }
 
-    private function _saveSvnConfig()
+    /**
+     * Saves the config for VCS.
+     *
+     * @return void
+     */
+    private function _saveVcsConfig()
     {
         $subversionConf = array(
             'adapter' => $this->_request->getParam('vcsAdapter'),

@@ -96,6 +96,11 @@ class ExportController extends Msd_Controller_Action
         $this->_buildArchives($exportedFiles);
     }
 
+    /**
+     * Commit changes to VCS.
+     *
+     * @return void
+     */
     public function commitAction()
     {
         $vcs = $this->_getVcsInstance();
@@ -117,6 +122,11 @@ class ExportController extends Msd_Controller_Action
         $log->delete(session_id());
     }
 
+    /**
+     * Download a language pack.
+     *
+     * @return void
+     */
     public function downloadAction()
     {
         Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
@@ -130,6 +140,13 @@ class ExportController extends Msd_Controller_Action
         readfile(DOWNLOAD_PATH . DS . $filename);
     }
 
+    /**
+     * Retrives the content type of an archive.
+     *
+     * @param string $filename
+     * 
+     * @return string
+     */
     private function _getArchiveContentType($filename)
     {
         if (substr($filename, -4) == '.zip') {
@@ -147,6 +164,11 @@ class ExportController extends Msd_Controller_Action
         return 'application/octet-stream';
     }
 
+    /**
+     * Creates a list with available archives.
+     *
+     * @return array
+     */
     private function _getAvailableArchives()
     {
         $files = glob(DOWNLOAD_PATH . DS . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
@@ -164,6 +186,11 @@ class ExportController extends Msd_Controller_Action
         return $archives;
     }
 
+    /**
+     * Builds the language pack archives.
+     *
+     * @return void
+     */
     private function _buildArchives()
     {
         $fileTree = new Application_Model_FileTree(EXPORT_PATH);
@@ -182,6 +209,15 @@ class ExportController extends Msd_Controller_Action
         $tarBz2Arch->buildArchive();
     }
 
+    /**
+     * Builds the file list for VCS commit.
+     *
+     * @param array $statusResult
+     * @param array $files
+     * @param Msd_Vcs_Interface $vcs
+     *
+     * @return array
+     */
     private function _getCommitFileList($statusResult, $files, $vcs)
     {
         if (isset($statusResult['unversioned'])) {
@@ -231,6 +267,13 @@ class ExportController extends Msd_Controller_Action
         return $this->_vcs;
     }
 
+    /**
+     * Adds an etry to the export log.
+     *
+     * @param array $exportedFiles
+     *
+     * @return void
+     */
     private function _writeExportLog($exportedFiles)
     {
         $exportLog = new Application_Model_ExportLog();
@@ -241,6 +284,13 @@ class ExportController extends Msd_Controller_Action
         }
     }
 
+    /**
+     * Checks wheter the language exsists and is active.
+     *
+     * @param int $lang
+     * 
+     * @return bool
+     */
     private function _languageExists($lang)
     {
         $allLangs = array_keys($this->_languagesModel->getAllLanguages());
@@ -283,11 +333,5 @@ class ExportController extends Msd_Controller_Action
         }
         $this->view->exportOk = $exportOk;
         $this->view->languages = $languages;
-    }
-
-    public function svnAction()
-    {
-        var_dump(Msd_Vcs::getAvailableAdapter());
-        die();
     }
 }

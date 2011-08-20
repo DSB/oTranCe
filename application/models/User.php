@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Model to manage users.
+ */
 class Application_Model_User extends Msd_Application_Model
 {
     /**
@@ -44,6 +46,11 @@ class Application_Model_User extends Msd_Application_Model
      */
     private $_userrights;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $tableConfig = $this->_config->getParam('table');

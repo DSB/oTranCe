@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class to manage configuration.
+ *
+ * @throws Msd_Config_Exception
+  */
 class Msd_Config
 {
     /**

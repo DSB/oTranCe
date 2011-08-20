@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Model to manage file templates.
+ */
 class Application_Model_FileTemplates extends Msd_Application_Model
 {
     /**
@@ -14,6 +16,11 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     private $_tableKeys;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $tableConfig = $this->_config->getParam('table');

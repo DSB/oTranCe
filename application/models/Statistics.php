@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * mmodel to manage statistics.
+ */
 class Application_Model_Statistics extends Msd_Application_Model
 {
     /**
@@ -14,6 +16,11 @@ class Application_Model_Statistics extends Msd_Application_Model
      */
     private $_tableLanguages;
 
+    /**
+     * Model initialization method.
+     *
+     * @return void
+     */
     public function init()
     {
         $tableConfig = $this->_config->getParam('table');

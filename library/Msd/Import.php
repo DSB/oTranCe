@@ -14,8 +14,16 @@ class Msd_Import
      */
     private static $_loader = null;
 
+    /**
+     * Ignore these filenames in the "available adapters" list.
+     *
+     * @var array
+     */
     private static $_ignoreFileNames = array('Exception.php', 'Interface.php', 'Abstract.php');
 
+    /**
+     * Disabled class constructor.
+     */
     private function __construct()
     {
     }
@@ -45,6 +53,13 @@ class Msd_Import
         return $importer;
     }
 
+    /**
+     * Returns an array with available analyzers.
+     *
+     * @static
+     *
+     * @return array
+     */
     public static function getAvailableImportAnalyzers()
     {
         self::_initLoader();
@@ -59,6 +74,15 @@ class Msd_Import
         return $classes;
     }
 
+    /**
+     * Builds a list with available analyzers.
+     *
+     * @static
+     *
+     * @param string $path
+     *
+     * @return array
+     */
     private static function _getDirEntries($path)
     {
         $dir = new DirectoryIterator($path);
@@ -80,6 +104,13 @@ class Msd_Import
         return $classes;
     }
 
+    /**
+     * Initiaöoze the plug in loader.
+     *
+     * @static
+     * 
+     * @return void
+     */
     private static function _initLoader()
     {
         if (self::$_loader === null) {

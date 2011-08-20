@@ -1,4 +1,7 @@
 <?php
+/**
+ * Abstract class for archive creator classes.
+ */
 abstract class Msd_Archive_Abstract
 {
     /**

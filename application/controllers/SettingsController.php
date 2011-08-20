@@ -97,12 +97,22 @@ class SettingsController extends Msd_Controller_Action
         return $res;
     }
 
+    /**
+     * Delete the user specific VCS credentials.
+     *
+     * @return void
+     */
     public function deleteCredentialsAction()
     {
         $this->_userModel->deleteSetting('vcsCredentials');
         $this->_forward('index');
     }
 
+    /**
+     * Save the user specific VCS credentials.
+     *
+     * @return int
+     */
     private function _saveVcsCredentials()
     {
         if ($this->_crypt === null) {
@@ -122,6 +132,11 @@ class SettingsController extends Msd_Controller_Action
         return self::VCS_SAVE_SUCCESS;
     }
 
+    /**
+     * Retrives the user specific VCS username.
+     *
+     * @return string|null
+     */
     private function _getVcsUser()
     {
         if ($this->_crypt === null) {
@@ -137,6 +152,11 @@ class SettingsController extends Msd_Controller_Action
         return null;
     }
 
+    /**
+     * Iniotialize class for en- and decryption.
+     *
+     * @return void
+     */
     private function _initCrypt()
     {
         $projectConfig = $this->_config->getParam('project');

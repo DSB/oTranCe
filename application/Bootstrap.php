@@ -14,6 +14,11 @@
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    /**
+     * Initialize action helpers.
+     *
+     * @return void
+     */
     public function _initActionHelpers()
     {
         Zend_Controller_Action_HelperBroker::addHelper(
@@ -35,6 +40,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Session::start();
     }
 
+    /**
+     * Initialize configuration.
+     *
+     * @return void
+     */
     public function _initConfiguration()
     {
         $dynamicConfig = new Msd_Config_Dynamic();

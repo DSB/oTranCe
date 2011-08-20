@@ -208,6 +208,16 @@ class Debug
         return $result;
     }
 
+    /**
+     * Retrives the call stack.
+     *
+     * @static
+     *
+     * @param array $backtrace
+     * @param int   $outputBacktraceType
+     *
+     * @return string
+     */
     private static function _getBacktrace($backtrace, $outputBacktraceType)
     {
         $outputBacktrace = '';
@@ -239,7 +249,19 @@ class Debug
         }
         return $outputBacktrace;
     }
-    
+
+    /**
+     * Put the debug output out.
+     *
+     * @static
+     *
+     * @param int    $outputFormatType
+     * @param array  $outputBacktrace
+     * @param string $dumpedVar
+     * @param int    $outputHtmlModeType
+     *
+     * @return void
+     */
     private static function _doOutput(
         $outputFormatType,
         $outputBacktrace,

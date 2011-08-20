@@ -1,4 +1,7 @@
 <?php
+/**
+ * Interface definition for language file importer.
+ */
 interface Msd_Import_Interface
 {
     /**

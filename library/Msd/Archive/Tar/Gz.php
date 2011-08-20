@@ -1,4 +1,7 @@
 <?php
+/**
+ * Class for .tar.gz. archive creation.
+ */
 class Msd_Archive_Tar_Gz extends Msd_Archive_Abstract
 {
     /**

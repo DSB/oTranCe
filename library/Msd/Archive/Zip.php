@@ -1,4 +1,9 @@
 <?php
+/**
+ * Class for ZIP archive creation.
+ * 
+ * @throws Msd_Archive_Zip_Exception
+  */
 class Msd_Archive_Zip extends Msd_Archive_Abstract
 {
     /**

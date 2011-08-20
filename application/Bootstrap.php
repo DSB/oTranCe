@@ -38,6 +38,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     //print_r(get_include_path());die();
         Zend_Session::setOptions(array('strict' => true));
         Zend_Session::start();
+
+        $moduleLoader = new Msd_Module_Loader(
+            array(
+                'Module_' => realpath(APPLICATION_PATH . '/../modules/library/')
+            )
+        );
+
+        Zend_Loader_Autoloader::getInstance()->pushAutoloader($moduleLoader, 'Module_');
     }
 
     /**

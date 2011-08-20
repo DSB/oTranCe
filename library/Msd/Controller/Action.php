@@ -46,7 +46,7 @@ class Msd_Controller_Action extends Zend_Controller_Action
      *
      * @return Msd_Controller_Action
      */
-    protected function __construct(
+    public function __construct(
         Zend_Controller_Request_Abstract $request,
         Zend_Controller_Response_Abstract $response,
         array $invokeArgs = array()

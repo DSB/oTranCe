@@ -24,7 +24,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     /**
      * Start session
      *
-     * Anyhing else is set in configs/application.ini
+     * Anything else is set in configs/application.ini
      *
      * @return void
      */
@@ -37,15 +37,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function _initConfiguration()
     {
+        $dynamicConfig = new Msd_Config_Dynamic();
+        $configFile = $dynamicConfig->getParam('configFile', 'defaultConfig.ini');
         $config = new Msd_Config(
             'Default',
             array(
                 'directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs',
             )
         );
-        $config->load('defaultConfig.ini');
-        var_dump($config);
-        Zend_Registry::set('config', $config);
+        $config->load($configFile);
+        Msd_Registry::setConfig($config);
+
+        Msd_Registry::setDynamicConfig($dynamicConfig);
     }
 
     /**
@@ -54,7 +57,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      *
      * @return void
      */
-    public function _initFirbugLogger()
+    public function _initFirebugLogger()
     {
         $writer = new Zend_Log_Writer_Firebug();
         $logger = new Zend_Log($writer);

@@ -9,12 +9,12 @@ class Admin_UsersController extends AdminController
      */
     public function indexAction()
     {
-        $recordsPerPage = (int) $this->_config->get('dynamic.recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->users = $this->_userModel->getUsers(
-            $this->_config->get('dynamic.filterUser'),
-            $this->_config->get('dynamic.offset'),
-            $this->_config->get('dynamic.recordsPerPage')
+            $this->_dynamicConfig->getParam('filterUser'),
+            $this->_dynamicConfig->getParam('offset'),
+            $this->_dynamicConfig->getParam('recordsPerPage')
         );
         $this->view->hits = $this->_userModel->getRowCount();
         $this->view->userModel = $this->_userModel;

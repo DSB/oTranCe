@@ -16,10 +16,14 @@
 class AjaxController extends Zend_Controller_Action
 {
     /**
-     * Configuration object
-     * @var Msd_Cofiguration
+     * @var Msd_Config
      */
     protected $_config;
+
+    /**
+     * @var Msd_Config_Dynamic
+     */
+    protected $_dynamicConfig;
 
     /**
      * User model
@@ -35,7 +39,7 @@ class AjaxController extends Zend_Controller_Action
 
     /**
      * Languages entries model
-     * @var Application_Model_Entries
+     * @var Application_Model_LanguageEntries
      */
     protected $_entriesModel;
 
@@ -43,7 +47,7 @@ class AjaxController extends Zend_Controller_Action
      * Array holding all languages
      * @var array
      */
-    protected $languages;
+    protected $_languages;
 
     /**
      * Init
@@ -53,9 +57,11 @@ class AjaxController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->disableLayout();
-        $this->_config         = Msd_Configuration::getInstance();
+
+        $this->_config         = Msd_Registry::getConfig();
+        $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
         $this->_languagesModel = new Application_Model_Languages();
-        $this->languages       = $this->_languagesModel->getAllLanguages();
+        $this->_languages      = $this->_languagesModel->getAllLanguages();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
         $this->_userModel      = new Application_Model_User();
     }
@@ -73,8 +79,8 @@ class AjaxController extends Zend_Controller_Action
         $entry = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
         $this->view->data = $this->_getTranslation(
             $entry[$sourceLang],
-            $this->languages[$sourceLang]['locale'],
-            $this->languages[$targetLang]['locale']
+            $this->_languages[$sourceLang]['locale'],
+            $this->_languages[$targetLang]['locale']
         );
     }
 
@@ -96,7 +102,7 @@ class AjaxController extends Zend_Controller_Action
         $language     = $params['language'];
         $fileTemplate = $params['fileTemplate'];
         $keys         = $params['keys'];
-        $this->_data  = $this->_config->get('dynamic.extractedData');
+        $this->_data  = $this->_dynamicConfig->getParam('extractedData');
         $i = 0;
         foreach ($keys as $key) {
             $res = $this->_saveKey($key, $fileTemplate, $language);
@@ -162,11 +168,11 @@ class AjaxController extends Zend_Controller_Action
         }
         $sourceLang = $this->_mapLangCode($sourceLang);
         $targetLang = $this->_mapLangCode($targetLang);
-        $config = Msd_Configuration::getInstance();
-        $googleKey = $config->get('config.google.apikey');
+        $config = Msd_Registry::getConfig();
+        $googleConfig = $config->getParam('google');
         $pattern = 'https://www.googleapis.com/language/translate/v2?key=%s'
                    .'&q=%s&source=%s&target=%s' ;
-        $url = sprintf($pattern, $googleKey, urlencode($text), $sourceLang, $targetLang);
+        $url = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
         $handle = @fopen($url, "r");
         if ($handle) {
             $contents = fread($handle, 4*4096);

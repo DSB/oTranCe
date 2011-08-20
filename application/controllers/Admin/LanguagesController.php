@@ -23,12 +23,12 @@ class Admin_LanguagesController extends AdminController
      */
     public function indexAction()
     {
-        $recordsPerPage = (int) $this->_config->get('dynamic.recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
-            $this->_config->get('dynamic.filterUser'),
-            $this->_config->get('dynamic.offset'),
-            $this->_config->get('dynamic.recordsPerPage'),
+            $this->_dynamicConfig->getParam('filterUser'),
+            $this->_dynamicConfig->getParam('offset'),
+            $this->_dynamicConfig->getParam('recordsPerPage'),
             false
         );
         $this->view->hits = $this->_languagesModel->getRowCount();

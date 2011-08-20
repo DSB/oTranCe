@@ -1,13 +1,7 @@
 <?php
 
-class Application_Model_Statistics {
-
-    /**
-     * Database object
-     * @var \MsdDbFactory
-     */
-    private $_dbo;
-
+class Application_Model_Statistics extends Msd_Application_Model
+{
     /**
      * Tablename of history table
      * @var string
@@ -15,15 +9,16 @@ class Application_Model_Statistics {
     private $_tableHistory;
 
     /**
-     * Constructor
+     * Name of languages table
+     * @var string
      */
-    public function __construct()
+    private $_tableLanguages;
+
+    public function init()
     {
-        $this->_dbo = Msd_Db::getAdapter();
-        $config = Msd_Configuration::getInstance();
-        $this->_dbo->selectDb($config->get('config.dbuser.db'));
-        $this->_tableHistory = $config->get('config.table.history');
-        $this->_tableLanguages = $config->get('config.table.languages');
+        $tableConfig = $this->_config->getParam('table');
+        $this->_tableHistory = $tableConfig['history'];
+        $this->_tableLanguages = $tableConfig['languages'];
     }
 
     /**

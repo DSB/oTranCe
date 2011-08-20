@@ -2,7 +2,7 @@
 /**
  * Helper to class which uses MySQL to convert strings to UTF-8
  */
-class Application_Model_Converter
+class Application_Model_Converter extends Msd_Application_Model
 {
     /**
      * Database table used for converting
@@ -10,15 +10,10 @@ class Application_Model_Converter
      */
     private $_tableConversions;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function init()
     {
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_database = $this->_config->get('config.dbuser.db');
-        $this->_tableConversions = $this->_config->get('config.table.conversions');
-        $this->_dbo = Msd_Db::getAdapter();
+        $dbTables = $this->_config->getParam('table');
+        $this->_tableConversions = $dbTables['conversions'];
     }
 
     /**
@@ -36,7 +31,7 @@ class Application_Model_Converter
         $id = $this->_dbo->escape(Zend_Session::getId());
         $text = $this->_dbo->escape($text);
 
-        $stmt = $this->_dbo->prepare('Insert INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
+        $stmt = $this->_dbo->prepare('INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
                 . ' (`id`, `text`) VALUES (? , ?)');
         $stmt->bind_param('ss', $id, $text);
         $stmt->execute();

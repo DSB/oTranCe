@@ -1,25 +1,7 @@
 <?php
 
-class Application_Model_Languages
+class Application_Model_Languages extends Msd_Application_Model
 {
-    /**
-     * Configuration object
-     * @var \Msd_Configuration
-     */
-    private $_config;
-
-    /**
-     * Database object
-     * @var Msd_Db_Mysqli
-     */
-    private $_dbo;
-
-    /**
-     * Database name containing the tables
-     * @var array|string
-     */
-    private $_database;
-
     /**
      * Database table containing language var keys
      * @var string
@@ -38,18 +20,12 @@ class Application_Model_Languages
      */
     private $_tableLanguages;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function init()
     {
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_database = $this->_config->get('config.dbuser.db');
-        $this->_tableLanguages = $this->_config->get('config.table.languages');
-        $this->_tableTranslations = $this->_config->get('config.table.translations');
-        $this->_tableKeys = $this->_config->get('config.table.keys');
-        $this->_dbo = Msd_Db::getAdapter();
-        $this->_dbo->selectDb($this->_database);
+        $tableConfig = $this->_config->getParam('table');
+        $this->_tableLanguages = $tableConfig['languages'];
+        $this->_tableTranslations = $tableConfig['translations'];
+        $this->_tableKeys = $tableConfig['keys'];
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
-$config = Msd_Configuration::getInstance();
-$theme = $config->get('config.interface.theme');
+$config = Msd_Registry::getConfig();
+$interfaceConfig = $config->getParam('interface');
+$theme = $interfaceConfig['theme'];
 ?>
 <h2>Browse exported files</h2>
 <div id="treeBrowser">

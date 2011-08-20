@@ -17,6 +17,7 @@
  */
 class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
 {
+    private static $_iconPath = null;
     /**
      * Get path of an image
      *
@@ -25,8 +26,14 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
      *
      * @return string
      */
-    public function getIconSrc($name, $size='')
+    public function getIconSrc($name, $size = null)
     {
+        if (self::$_iconPath === null) {
+            $config = Msd_Registry::getConfig();
+            $interfaceConfig = $config->getParam('interface');
+            self::$_iconPath = 'css/' . $interfaceConfig['theme'] . '/icons';
+        }
+
         static $baseUrl = false;
         if (!$baseUrl) {
             $baseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
@@ -37,20 +44,19 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
                 'GetIconSrc: unknown icon \''.$name . '\' requested'
             );
         }
-        $config = Msd_Configuration::getInstance();
         $img = $baseUrl.'/%s/%s';
-        if ($size>'') {
+        if ($size !== null) {
             $img = $baseUrl.'/%s/%sx%s/%s';
             $ret = sprintf(
                 $img,
-                $config->get('paths.iconpath'),
+                self::$_iconPath,
                 $size,
                 $size,
                 $icons[$name]
             );
         } else {
             $ret = sprintf(
-                $img, $config->get('paths.iconpath'), $icons[$name]
+                $img, self::$_iconPath, $icons[$name]
             );
         }
         return $ret;
@@ -65,10 +71,8 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
     {
         static $icons = false;
         if (!$icons) {
-            $config = Msd_Configuration::getInstance();
             $file = realpath(
-                APPLICATION_PATH . DS . '..' . DS . 'public'
-                . DS . $config->get('paths.iconpath') . DS .'icon.ini'
+                APPLICATION_PATH . '/../public/' . self::$_iconPath . '/icon.ini'
             );
             $iconsIni = new Zend_Config_Ini($file, 'icons');
             $icons = $iconsIni->toArray();
@@ -76,5 +80,4 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
         }
         return $icons;
     }
-
 }

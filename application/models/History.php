@@ -1,25 +1,7 @@
 <?php
 
-class Application_Model_History {
-
-    /**
-     * Configuration object
-     * @var \MsdConfiguration
-     */
-    private $_config;
-
-    /**
-     * Database object
-     * @var \MsdDbFactory
-     */
-    private $_dbo;
-
-    /**
-     * Database name
-     * @var string
-     */
-    private $_database;
-
+class Application_Model_History extends Msd_Application_Model
+{
     /**
      * Name of table containing history data
      * @var string
@@ -27,15 +9,16 @@ class Application_Model_History {
     private $_tableHistory;
 
     /**
-     * Constructor
+     * Database table containing language keys.
+     * @var string
      */
-    public function __construct()
+    private $_tableKeys;
+
+    public function init()
     {
-        $this->_dbo = Msd_Db::getAdapter();
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_database = $this->_config->get('config.dbuser.db');
-        $this->_tableHistory = $this->_config->get('config.table.history');
-        $this->_dbo->selectDb($this->_database);
+        $tableConfig = $this->_config->getParam('table');
+        $this->_tableHistory = $tableConfig['history'];
+        $this->_tableKeys = $tableConfig['keys'];
     }
 
     /**
@@ -52,7 +35,7 @@ class Application_Model_History {
     public function getEntries($offset = 0, $nr = 50, $filterLanguage = 0, $filterUser = 0, $filterAction = 0)
     {
         $sql = 'SELECT SQL_CALC_FOUND_ROWS h.*, k.`id` as `key_id`, k.`key` FROM `'.$this->_tableHistory .'` h ';
-        $sql .= ' LEFT JOIN `' . $this->_config->get('config.table.keys').'` k ON h.`key_id` = k.`id`';
+        $sql .= ' LEFT JOIN `' . $this->_tableKeys.'` k ON h.`key_id` = k.`id`';
         $sql .= ' WHERE 1';
         if ($filterLanguage > 0) {
             $sql .= ' AND `lang_id`=' . intval($filterLanguage);

@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class ExportController extends Zend_Controller_Action
+class ExportController extends Msd_Controller_Action
 {
     /**
      * @var Application_Model_LanguageEntries
@@ -41,11 +41,6 @@ class ExportController extends Zend_Controller_Action
     private $_vcs = null;
 
     /**
-     * @var Msd_Configuration
-     */
-    private $_config;
-
-    /**
      * Init
      *
      * @return void
@@ -56,7 +51,6 @@ class ExportController extends Zend_Controller_Action
         $this->_languagesModel = new Application_Model_Languages();
         $this->_export = new Msd_Export();
         $this->_historyModel = new Application_Model_History();
-        $this->_config = Msd_Configuration::getInstance();
     }
 
     /**
@@ -110,7 +104,12 @@ class ExportController extends Zend_Controller_Action
         if (!empty($statusResult)) {
             $files = $log->getFileList(session_id());
             $files = $this->_getCommitFileList($statusResult, $files, $vcs);
-            $commitResult = $vcs->commit($files, $this->_config->get('config.vcs.commitMessage','Languagepack update'));
+            $vcsConfig = $this->_config->getParam('vcs');
+            $commitMessage = 'Language pack update';
+            if (isset($vcsConfig['commitMessage'])) {
+                $commitMessage = $vcsConfig['commitMessage'];
+            }
+            $commitResult = $vcs->commit($files, $commitMessage);
             $this->view->commitResult = $commitResult;
         } else {
             $this->view->commitResult = array('stdout' => 'Nothing to do.');
@@ -214,11 +213,12 @@ class ExportController extends Zend_Controller_Action
     private function _getVcsInstance()
     {
         if ($this->_vcs === null) {
-            $vcsConfig = $this->_config->get('config.vcs');
+            $vcsConfig = $this->_config->getParam('vcs');
             $userModel = new Application_Model_User();
             $cryptedVcsCreds = $userModel->loadSetting('vcsCredentials', null);
             if ($cryptedVcsCreds !== null) {
-                $msdCrypt = new Msd_Crypt($this->_config->get('config.project.encryptionKey'));
+                $projectConfig = $this->_config->getParam('project');
+                $msdCrypt = new Msd_Crypt($projectConfig['encryptionKey']);
                 $vcsCredentials = $msdCrypt->decrypt($cryptedVcsCreds);
                 $vcsCredFields = Msd_Vcs::getCredentialFields($vcsConfig['adapter']);
                 list ($vcsUser, $vcsPass) = explode('%@%', $vcsCredentials);

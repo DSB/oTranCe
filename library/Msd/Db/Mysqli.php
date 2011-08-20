@@ -204,7 +204,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
     /**
      * Wrapper for mysqli's preare method
      *
-     * @param $prepare The query to prepare
+     * @param string $prepare The query to prepare
      *
      * @return mysqli_stmt
      */

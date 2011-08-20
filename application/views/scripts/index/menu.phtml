@@ -1,18 +1,26 @@
 <?php
-$theme = $this->config->get('config.interface.theme');
+/**
+ * @var Zend_View_Interface $this
+ * @var Msd_Config $config
+ */
+$config = $this->config;
+$interfaceConfig = $config->getParam('interface');
+$projectConfig = $config->getParam('project');
+
+$theme = $interfaceConfig['theme'];
 $this->controller = $this->request->getControllerName();
 $this->action = $this->request->getActionName();
 $user = new Application_Model_User();
 ?>
 <div id="sidebar">
 
-<a href="<?php echo $this->config->get('config.project.url');?>"
+<a href="<?php echo $projectConfig['url'];?>"
     title="Project Home">
         <img src="<?php echo $this->baseUrl(); ?>/css/<?php echo $theme?>/pics/menu-headlogo.gif" alt="MySQLDumper - Homepage" /></a>
 
 <div id="version">
-    <a href="<?php echo $this->config->get('config.project.url');?>" title="Project Home">
-        <span class="version-line"><?php echo $this->config->get('config.project.name');?></span>
+    <a href="<?php echo $projectConfig['url'];?>" title="Project Home">
+        <span class="version-line"><?php echo $projectConfig['name'];?></span>
     </a>
     <img src="<?php echo $this->baseUrl(); ?>/css/<?php echo $theme?>/pics/navi_bg_expert.jpg" alt="" />
 </div>

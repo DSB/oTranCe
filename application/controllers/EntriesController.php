@@ -31,9 +31,14 @@ class EntriesController extends Zend_Controller_Action
     private $_userModel;
 
     /**
-     * @var Msd_Configuration
+     * @var Msd_Config
      */
-    private $_config;
+    protected $_config;
+
+    /**
+     * @var Msd_Config_Dynamic
+     */
+    protected $_dynamicConfig;
 
     /**
      * @var array
@@ -59,7 +64,9 @@ class EntriesController extends Zend_Controller_Action
     {
         $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_userModel = new Application_Model_User();
-        $this->_config = Msd_Configuration::getInstance();
+
+        $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
+        $this->_config = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();
         $this->_setSessionParams();
     }
@@ -87,12 +94,12 @@ class EntriesController extends Zend_Controller_Action
             $filterLanguageArray,
             'id',
             '{name} ({locale})',
-            $this->_config->get('dynamic.getUntranslated'),
+            $this->_dynamicConfig->getParam('getUntranslated'),
             false
         );
 
         // assign file template filter
-        $fileTemplateFilter = $this->_config->get('dynamic.fileTemplateFilter');
+        $fileTemplateFilter = $this->_dynamicConfig->getParam('fileTemplateFilter');
         $this->view->fileTemplateFilter = $fileTemplateFilter;
         $fileTemplatesModel = new Application_Model_FileTemplates();
         $fileTemplates = $fileTemplatesModel->getFileTemplates('name');
@@ -108,7 +115,7 @@ class EntriesController extends Zend_Controller_Action
                         $this->view->fileTemplateFilter
                     );
         } else {
-            $languageId = $this->_config->get('dynamic.getUntranslated');
+            $languageId = $this->_dynamicConfig->getParam('getUntranslated');
             $this->view->hits =
                     $this->_entriesModel->getUntranslated(
                         $languageId,
@@ -214,11 +221,11 @@ class EntriesController extends Zend_Controller_Action
         // will be not 0 if set and set to id of language to search in
         $getUntranslated    = (int) $this->_request->getParam('getUntranslated', 0);
         $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
-        $this->_config->set('dynamic.offset', $offset);
-        $this->_config->set('dynamic.filter', $filter);
-        $this->_config->set('dynamic.recordsPerPage', $recordsPerPage);
-        $this->_config->set('dynamic.getUntranslated', $getUntranslated);
-        $this->_config->set('dynamic.fileTemplateFilter', $fileTemplateFilter);
+        $this->_dynamicConfig->setParam('offset', $offset);
+        $this->_dynamicConfig->setParam('filter', $filter);
+        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam('getUntranslated', $getUntranslated);
+        $this->_dynamicConfig->setParam('fileTemplateFilter', $fileTemplateFilter);
     }
 
     /**
@@ -229,12 +236,12 @@ class EntriesController extends Zend_Controller_Action
     private function _setSessionParams()
     {
         // set defaults on first page call
-        if ($this->_config->get('dynamic.offset') === null) {
-            $this->_config->set('dynamic.offset', 0);
-            $this->_config->set('dynamic.filter', '');
+        if ($this->_dynamicConfig->getParam('offset') === null) {
+            $this->_dynamicConfig->setParam('offset', 0);
+            $this->_dynamicConfig->setParam('filter', '');
             $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage', 20);
-            $this->_config->set('dynamic.recordsPerPage', $recordsPerPage);
-            $this->view->getUntranslated = $this->_config->get('dynamic.getUntranslated');
+            $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
+            $this->view->getUntranslated = $this->_dynamicConfig->getParam('getUntranslated');
             $this->view->addVar = $this->_userModel->hasRight('addVar');
         }
     }
@@ -246,10 +253,10 @@ class EntriesController extends Zend_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filter          = $this->_config->get('dynamic.filter');
-        $this->view->offset          = $this->_config->get('dynamic.offset');
-        $this->view->recordsPerPage  = $this->_config->get('dynamic.recordsPerPage');
-        $this->view->getUntranslated = $this->_config->get('dynamic.getUntranslated');
+        $this->view->filter          = $this->_dynamicConfig->getParam('filter');
+        $this->view->offset          = $this->_dynamicConfig->getParam('offset');
+        $this->view->recordsPerPage  = $this->_dynamicConfig->getParam('recordsPerPage');
+        $this->view->getUntranslated = $this->_dynamicConfig->getParam('getUntranslated');
         $this->view->addVar          = $this->_userModel->hasRight('addVar');
 
     }

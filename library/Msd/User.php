@@ -211,12 +211,12 @@ class Msd_User
     }
 
     /**
-     * Forec loading of default configuration file
+     * Force loading of default configuration file
      *
      *  @return void
      */
     public function setDefaultConfiguration()
     {
-        Msd_Configuration::getInstance('defaultConfig', true);
+        $config = Msd_Registry::getConfig()->load('defaultConfig.ini');
     }
 }

@@ -18,12 +18,11 @@ class Admin_ExportController extends AdminController
 {
     public function indexAction()
     {
-        $config = Msd_Configuration::getInstance();
-        $vcsConf = $config->get('config.vcs');
+        $vcsConf = $this->_config->getParam('vcs');
         if ($this->_request->isPost()) {
             if ($this->_request->getParam('saveButton') !== null) {
-                $this->_saveSvnConfig($config);
-                $vcsConf = $config->get('config.vcs');
+                $this->_saveSvnConfig();
+                $vcsConf = $config->getParam('vcs');
             } else {
                 $vcsConf['adapter'] = $this->_request->getParam('vcsAdapter');
             }
@@ -37,43 +36,19 @@ class Admin_ExportController extends AdminController
         $this->view->fallbackLang = $langModel->getFallbackLanguage();
     }
 
-    private function _saveSvnConfig(Msd_Configuration $config)
+    private function _saveSvnConfig()
     {
         $subversionConf = array(
             'adapter' => $this->_request->getParam('vcsAdapter'),
             'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
+            'options' => $this->_request->getParam('vcsOptions'),
         );
-        $config->set('config.vcs', $subversionConf);
-        $config->set('config.vcs.options', $this->_request->getParam('vcsOptions'));
+        $this->_config->setParam('vcs', $subversionConf);
 
         $langModel = new Application_Model_Languages();
         $langModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
 
-        $config->saveConfigToSession();
-        $config->loadConfigFromSession();
-        $this->_saveConfigToFile($config);
+        $this->_config->save();
     }
 
-    private function _saveConfigToFile(Msd_Configuration $config)
-    {
-        $configArray = $config->get('config');
-        $newConfig = '';
-        foreach ($configArray as $section => $sectionArray) {
-            $newConfig .= "[$section]\n";
-            foreach ($sectionArray as $key => $value) {
-                if (is_array($value)) {
-                    foreach ($value as $subKey => $subValue) {
-                        $newConfig .= "$key.$subKey = $subValue\n";
-                    }
-                } else {
-                    $newConfig .= "$key = $value\n";
-                }
-            }
-        }
-        $configFile = implode(
-            DS,
-            array(APPLICATION_PATH, 'configs', $config->get('dynamic.configFile') . '.ini')
-        );
-        file_put_contents($configFile, $newConfig);
-    }
 }

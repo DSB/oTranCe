@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Importer_PhpArray implements Msd_Import_Interface
+class Msd_Import_PhpArray implements Msd_Import_Interface
 {
     /**
      * Will hold detected and extracted data

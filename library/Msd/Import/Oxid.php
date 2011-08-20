@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Importer_Oxid extends Application_Model_Importer_PhpArray
+class Msd_Import_Oxid extends Msd_Import_PhpArray
 {
     /**
      * Constructor

@@ -13,14 +13,8 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class AdminController extends Zend_Controller_Action
+class AdminController extends Msd_Controller_Action
 {
-    /**
-     * Configuration object
-     * @var Msd_Configuration
-     */
-    protected $_config;
-
     /**
      * Languages model
      * @var Application_Model_LanguageEntries
@@ -47,7 +41,6 @@ class AdminController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_config = Msd_Configuration::getInstance();
         $this->_userModel = new Application_Model_User();
         // security - if user doesn't have admin rights -> send him to index page
         if (!$this->_userModel->hasRight('admin')) {
@@ -83,11 +76,11 @@ class AdminController extends Zend_Controller_Action
     {
         $filter = trim($this->_request->getParam('filterUser', ''));
         $offset = (int) $this->_request->getParam('offset', 0);
-        $recordsPerPage = (int) $this->_config->get('dynamic.recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
         $recordsPerPage = (int) $this->_request->getParam('recordsPerPage', $recordsPerPage);
-        $this->_config->set('dynamic.recordsPerPage', $recordsPerPage);
-        $this->_config->set('dynamic.offset', $offset);
-        $this->_config->set('dynamic.filterUser', $filter);
+        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam('offset', $offset);
+        $this->_dynamicConfig->setParam('filterUser', $filter);
     }
 
     /**
@@ -98,10 +91,10 @@ class AdminController extends Zend_Controller_Action
     private function _setSessionParams()
     {
         // set defaults on first page call
-        $this->_config->set('dynamic.offset', 0);
-        $this->_config->set('dynamic.filterUser', '');
+        $this->_dynamicConfig->setParam('offset', 0);
+        $this->_dynamicConfig->setParam('filterUser', '');
         $recordsPerPage = $this->_userModel->getUserRights('recordsPerPage');
-        $this->_config->set('dynamic.recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
     }
 
     /**
@@ -111,9 +104,9 @@ class AdminController extends Zend_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filterUser     = $this->_config->get('dynamic.filterUser');
-        $this->view->offset         = $this->_config->get('dynamic.offset');
-        $this->view->recordsPerPage = $this->_config->get('dynamic.recordsPerPage');
+        $this->view->filterUser     = $this->_dynamicConfig->getParam('filterUser');
+        $this->view->offset         = $this->_dynamicConfig->getParam('offset');
+        $this->view->recordsPerPage = $this->_dynamicConfig->getParam('recordsPerPage');
         $this->view->languages      = $this->_languagesModel->getAllLanguages();
     }
 

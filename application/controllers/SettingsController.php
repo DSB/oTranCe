@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class SettingsController extends Zend_Controller_Action
+class SettingsController extends Msd_Controller_Action
 {
     /**
      * @var Application_Model_User
@@ -55,8 +55,7 @@ class SettingsController extends Zend_Controller_Action
             $recordsPerPage = $this->_request->getParam('recordsPerPage', 20);
             $vcsUser = $this->_request->getParam('vcsUser');
             //save new settings to session
-            $config = Msd_Configuration::getInstance();
-            $config->set('dynamic.recordsPerPage', $recordsPerPage);
+            $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
 
             $saved = $this->saveUserSettings($languagesSelected, $recordsPerPage);
             $saveVcsCredsResult = $this->_saveVcsCredentials();
@@ -142,8 +141,7 @@ class SettingsController extends Zend_Controller_Action
 
     private function _initCrypt()
     {
-        $config = Msd_Configuration::getInstance();
-        $encKey = $config->get('config.project.encryptionKey');
-        $this->_crypt = new Msd_Crypt($encKey);
+        $projectConfig = $this->_config->getParam('project');
+        $this->_crypt = new Msd_Crypt($projectConfig['encryptionKey']);
     }
 }

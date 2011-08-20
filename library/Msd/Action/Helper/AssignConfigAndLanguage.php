@@ -20,8 +20,8 @@ class Msd_Action_Helper_AssignConfigAndLanguage
     extends Zend_Controller_Action_Helper_Abstract
 {
     /**
-     * Actual Zend_View instance
-     * @var Zend_View
+     * Actual Zend_View_Interface instance
+     * @var Zend_View_Interface
      */
     protected $_view;
 
@@ -37,23 +37,21 @@ class Msd_Action_Helper_AssignConfigAndLanguage
             return;
         }
         $view = $this->getView();
-        $view->config = Msd_Configuration::getInstance();
+        $view->config = Msd_Registry::getConfig();
         $view->lang = Msd_Language::getInstance();
     }
 
     /**
      * Get the view instance of the actual controller
      *
-     * @return Zend_View
+     * @return Zend_View_Interface
      */
     public function getView()
     {
-        if (null !== $this->_view) {
-            return $this->_view;
-        } else {
+        if ($this->_view === null) {
             $controller = $this->getActionController();
             $this->_view = $controller->view;
-            return $this->_view;
         }
+        return $this->_view;
     }
 }

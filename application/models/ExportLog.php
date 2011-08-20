@@ -7,31 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class Application_Model_ExportLog
+class Application_Model_ExportLog extends Msd_Application_Model
 {
-    /**
-     * Database object
-     *
-     * @var Msd_Db_MysqlCommon
-     */
-    private $_dbo;
-
-    /**
-     * Configuration object
-     * @var Msd_Configuration
-     */
-    private $_config;
-
-    /**
-     * Class constructor
-     */
-    public function __construct()
-    {
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_dbo = Msd_Db::getAdapter();
-        $this->_dbo->selectDb($this->_config->get('config.dbuser.db'));
-    }
-
     /**
      * Retrieves all files of an export process.
      *

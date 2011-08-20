@@ -36,9 +36,11 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
     public function __construct()
     {
         $this->_db = Msd_Db::getAdapter();
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_database = $this->_config->get('config.dbuser.db');
-        $this->_users = $this->_config->get('config.table.users');;
+        $config = Msd_Registry::getConfig();
+        $tableConfig = $config->getParam('table');
+        $dbUserConfig = $config->getParam('dbuser');
+        $this->_database = $dbUserConfig['db'];
+        $this->_users = $tableConfig['users'];
     }
 
     /**
@@ -109,7 +111,7 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
             // user log in valid
             $authResult = array(
                 'name' => $res[0]['name'],
-                'id' => $userId,
+                'id' => $res[0]['id'],
             );
             return new Zend_Auth_Result(
                 Zend_Auth_Result::SUCCESS,

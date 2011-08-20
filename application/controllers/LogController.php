@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class LogController extends Zend_Controller_Action
+class LogController extends Msd_Controller_Action
 {
 
     /**
@@ -57,8 +57,7 @@ class LogController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $config = Msd_Configuration::getInstance();
-        $recordsPerPage = $config->get('dynamic.recordsPerPage');
+        $recordsPerPage = $this->_dynamicConfig->getParam('recordsPerPage');
         if ($recordsPerPage < 10) {
             $recordsPerPage = 20;
         }

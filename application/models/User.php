@@ -1,25 +1,7 @@
 <?php
 
-class Application_Model_User {
-
-    /**
-     * Database object
-     * @var Msd_Db_MysqlCommon
-     */
-    private $_dbo;
-
-    /**
-     * Database name
-     * @var string
-     */
-    private $_database;
-
-    /**
-     * Configuration
-     * @var \Msd_Configuration
-     */
-    private $_config;
-
+class Application_Model_User extends Msd_Application_Model
+{
     /**
      * Name of current user
      * @var
@@ -39,27 +21,39 @@ class Application_Model_User {
     private $_tableUsers;
 
     /**
+     * User table
+     * @var array|string
+     */
+    private $_tableUsersettings;
+
+    /**
+     * User table
+     * @var array|string
+     */
+    private $_tableUserrights;
+
+    /**
+     * User table
+     * @var array|string
+     */
+    private $_tableLanguages;
+
+    /**
      * Rights of the current user
      * @var array
      */
     private $_userrights;
 
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function init()
     {
-        $this->_config = Msd_Configuration::getInstance();
-        $this->_database = $this->_config->get('config.dbuser.db');
-        $this->_tableUsersettings = $this->_config->get('config.table.usersettings');
-        $this->_tableUserrights = $this->_config->get('config.table.userrights');
-        $this->_tableLanguages = $this->_config->get('config.table.languages');
-        $this->_tableUsers = $this->_config->get('config.table.users');
-        $this->_dbo = Msd_Db::getAdapter();
+        $tableConfig = $this->_config->getParam('table');
+        $this->_tableUsersettings = $tableConfig['usersettings'];
+        $this->_tableUserrights = $tableConfig['userrights'];
+        $this->_tableLanguages = $tableConfig['languages'];
+        $this->_tableUsers = $tableConfig['users'];
         $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_username = $auth['name'];
         $this->_userId = $auth['id'];
-        $this->_dbo->selectDb($this->_database);
     }
 
     /**
@@ -317,7 +311,7 @@ class Application_Model_User {
             $userId = $this->_userId;
         }
         $sql = 'SELECT `r`.* FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '` `r`'
-                . ' LEFT JOIN `'.$this->_database.'`.`' . $this->_config->get('config.table.languages') . '` `l`'
+                . ' LEFT JOIN `'.$this->_database.'`.`' . $this->_tableLanguages . '` `l`'
                 . ' ON `r`.`value` = `l`.`id` '
                 . ' WHERE `user_id`=\''.$userId.'\' AND `l`.`active` = 1'
                 . ' AND `right` = \'edit\''

@@ -42,13 +42,13 @@ class Msd_Language
     /**
      * Constructor gets the configuration params
      *
-     * @return array
+     * @return Msd_Language
      */
     private function __construct ()
     {
-        $config = Msd_Configuration::getInstance();
-        $language = $config->get('config.interface.language');
-        $this->loadLanguage($language);
+        $config = Msd_Registry::getConfig();
+        $interfaceConfig = $config->getParam('interface');
+        $this->loadLanguage($interfaceConfig['language']);
     }
 
     /**

@@ -10,30 +10,6 @@
 class Msd_Export
 {
     /**
-     * Name of subversion user
-     * @var string
-     */
-    private $_svnUser;
-
-    /**
-     * Password of subversion user
-     * @var string
-     */
-    private $_svnPassword;
-
-    /**
-     * Commit message when changing one language
-     * @var string
-     */
-    private $_commitMessageOneLanguage;
-
-    /**
-     * Commit message when changing all languages
-     * @var string
-     */
-    private $_commitMessageAllLanguages;
-
-    /**
      * Array with file templates.
      * @var array
      */
@@ -47,11 +23,6 @@ class Msd_Export
 
     public function __construct()
     {
-        $config = Msd_Configuration::getInstance();
-        $this->_svnUser = $config->get('config.subversion.user');
-        $this->_svnPassword = $config->get('config.subversion.password');
-        $this->_commitMessageOneLanguage = $config->get('config.subversion.commitMessageOneLanguage');
-        $this->_commitMessageAllLanguages = $config->get('config.subversion.commitMessageAllLanguages');
         $fileTemplateModel = new Application_Model_FileTemplates();
         $this->_fileTemplates = $fileTemplateModel->getFileTemplatesAssoc();
     }

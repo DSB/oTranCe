@@ -31,14 +31,14 @@ class ImportController extends Zend_Controller_Action
     private $_userModel;
 
     /**
-     * @var Msd_Configuration
+     * @var Msd_Config
      */
     private $_config;
 
     /**
-     * @var Application_Model_Analyzer
+     * @var Msd_Config_Dynamic
      */
-    private $_analyzerModel;
+    private $_dynamicConfig;
 
     /**
      * @var Application_Model_FileTemplates
@@ -58,10 +58,11 @@ class ImportController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_config = Msd_Configuration::getInstance();
+        $this->_config = Msd_Registry::getConfig();
+        $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
+
         $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
-        $this->_analyzerModel = new Application_Model_Analyzer();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
         $this->_userModel = new Application_Model_User();
         // build array containing those languages the user is allowed to edit
@@ -92,24 +93,24 @@ class ImportController extends Zend_Controller_Action
         if ($this->_request->isPost()) {
             if (isset($_FILES['fileUploaded']) && $_FILES['fileUploaded']['size'] > 0) {
                 $data = trim(file_get_contents($_FILES['fileUploaded']['tmp_name']));
-                $this->_config->set('dynamic.importOriginalData', $data);
+                $this->_dynamicConfig->setParam('importOriginalData', $data);
                 $this->view->importData = $data;
             }
         }
 
         if (isset($params['convert'])) {
             $entriesModel = new Application_Model_Converter();
-            $res = $entriesModel->convertData($this->_config->get('dynamic.selectedCharset'), $this->_config->get('dynamic.importOriginalData'));
+            $res = $entriesModel->convertData($this->_dynamicConfig->getParam('selectedCharset'), $this->_dynamicConfig->getParam('importOriginalData'));
             if ($res === false) {
                 $res = $data;
                 $this->view->conversionError = true;
-                $this->view->targetCharset = $this->_config->get('dynamic.selectedCharset');
+                $this->view->targetCharset = $this->_dynamicConfig->getParam('selectedCharset');
             }
-            $this->_config->set('dynamic.importConvertedData', $res);
+            $this->_dynamicConfig->setParam('importConvertedData', $res);
             $this->view->importData = $res;
         }
         if (isset($params['analyze'])) {
-            $this->_config->set('dynamic.importConvertedData', $this->view->importData);
+            $this->_dynamicConfig->setParam('importConvertedData', $this->view->importData);
             $this->_forward('analyze');
             return;
         }
@@ -124,13 +125,13 @@ class ImportController extends Zend_Controller_Action
     {
         $selectedLanguage = (int)$this->_request->getParam(
             'selectedLanguage',
-            $this->_config->get('dynamic.selectedLanguage')
+            $this->_dynamicConfig->getParam('selectedLanguage')
         );
         if ($selectedLanguage == '') {
             // get fallback language
             $selectedLanguage = $this->_languagesModel->getFallbackLanguage();
         }
-        $this->_config->set('dynamic.selectedLanguage', $selectedLanguage);
+        $this->_dynamicConfig->setParam('selectedLanguage', $selectedLanguage);
         $this->view->selectedLanguage = $selectedLanguage;
 
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
@@ -149,12 +150,12 @@ class ImportController extends Zend_Controller_Action
      */
     private function _setSelectedFileTemplate()
     {
-        $selectedLanguage = $this->_config->get('dynamic.selectedLanguage');
+        $selectedLanguage = $this->_dynamicConfig->getParam('selectedLanguage');
         $selectedFileTemplate = (int)$this->_request->getParam(
             'selectedFileTemplate',
-            $this->_config->get('dynamic.importFileTemplate')
+            $this->_dynamicConfig->getParam('importFileTemplate')
         );
-        $this->_config->set('dynamic.importFileTemplate', $selectedFileTemplate);
+        $this->_dynamicConfig->setParam('importFileTemplate', $selectedFileTemplate);
 
         $fileTemplates = array();
         $files = $this->_fileTemplatesModel->getFileTemplates('name');
@@ -172,11 +173,11 @@ class ImportController extends Zend_Controller_Action
      */
     private function _setSelectedCharset()
     {
-        if ($this->_config->get('dynamic.selectedCharset') == null) {
-            $this->_config->set('dynamic.selectedCharset', 'utf8');
+        if ($this->_dynamicConfig->getParam('selectedCharset') == null) {
+            $this->_dynamicConfig->setParam('selectedCharset', 'utf8');
         }
-        $selectedCharset = $this->_request->getParam('selectedCharset', $this->_config->get('dynamic.selectedCharset'));
-        $this->_config->set('dynamic.selectedCharset', $selectedCharset);
+        $selectedCharset = $this->_request->getParam('selectedCharset', $this->_dynamicConfig->getParam('selectedCharset'));
+        $this->_dynamicConfig->setParam('selectedCharset', $selectedCharset);
         $this->_dbo = Msd_Db::getAdapter();
         $charactersets = $this->_dbo->getCharsets();
         $this->view->selCharset = Msd_Html::getHtmlOptionsFromAssocArray(
@@ -195,16 +196,16 @@ class ImportController extends Zend_Controller_Action
      */
     private function _setAnalyzer()
     {
-        $analyzers = $this->_analyzerModel->getAvailableImportAnalyzers();
+        $analyzers = Msd_Import::getAvailableImportAnalyzers();
         $analyzersNames = array_keys($analyzers);
-        if ($this->_config->get('dynamic.selectedAnalyzer') == null) {
-            $this->_config->set('dynamic.selectedAnalyzer', $analyzersNames[0]);
+        if ($this->_dynamicConfig->getParam('selectedAnalyzer') == null) {
+            $this->_dynamicConfig->setParam('selectedAnalyzer', $analyzersNames[0]);
         }
         $selectedAnalyzer = $this->_request->getParam(
             'selectedAnalyzer',
-            $this->_config->get('dynamic.selectedAnalyzer')
+            $this->_dynamicConfig->getParam('selectedAnalyzer')
         );
-        $this->_config->set('dynamic.selectedAnalyzer', $selectedAnalyzer);
+        $this->_dynamicConfig->setParam('selectedAnalyzer', $selectedAnalyzer);
         $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
         $this->view->selectedAnalyzer = $selectedAnalyzer;
     }
@@ -216,17 +217,16 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $selectedAnalyzer = $this->_config->get('dynamic.selectedAnalyzer');
-        $data = $this->_config->get('dynamic.importConvertedData');
-        $importer = 'Application_Model_Importer_' . $selectedAnalyzer;
-        $importer = new $importer();
-        $this->view->fileTemplate  = $this->_config->get('dynamic.importFileTemplate');
-        $this->view->language      = $this->_config->get('dynamic.selectedLanguage');
+        $selectedAnalyzer = $this->_dynamicConfig->getParam('selectedAnalyzer');
+        $data = $this->_dynamicConfig->getParam('importConvertedData');
+        $importer = Msd_Import::factory($selectedAnalyzer);
+        $this->view->fileTemplate  = $this->_dynamicConfig->getParam('importFileTemplate');
+        $this->view->language      = $this->_dynamicConfig->getParam('selectedLanguage');
         $extractedData = $importer->extract($data);
         $extractedData = array_map('stripslashes', $extractedData);
-        $this->_config->set('dynamic.importOriginalData', null);
-        $this->_config->set('dynamic.importConvertedData', null);
-        $this->_config->set('dynamic.extractedData', $extractedData);
+        $this->_dynamicConfig->setParam('importOriginalData', null);
+        $this->_dynamicConfig->setParam('importConvertedData', null);
+        $this->_dynamicConfig->setParam('extractedData', $extractedData);
         $this->view->extractedData = $extractedData;
     }
 }

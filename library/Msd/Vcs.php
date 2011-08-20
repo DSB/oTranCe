@@ -14,21 +14,21 @@ class Msd_Vcs
 
     private static function _initLoader()
     {
-        self::$_loader = new Zend_Loader_PluginLoader(
-            array(
-                'Msd_' => implode(DS, array(APPLICATION_PATH, '..', 'library', 'Msd')),
-                'Module_' => implode(DS, array(APPLICATION_PATH, '..', 'modules', 'library')),
-            )
-        );
+        if (self::$_loader === null) {
+            self::$_loader = new Zend_Loader_PluginLoader(
+                array(
+                    'Msd_' => implode(DS, array(APPLICATION_PATH, '..', 'library', 'Msd')),
+                    'Module_' => implode(DS, array(APPLICATION_PATH, '..', 'modules', 'library')),
+                )
+            );
+        }
     }
 
     private static function _getAdapterClassName($adapter)
     {
         $vcsClass = str_replace('_', ' ', strtolower($adapter));
         $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
-        if (self::$_loader === null) {
-            self::_initLoader();
-        }
+        self::_initLoader();
         return self::$_loader->load($vcsClass);
     }
 
@@ -52,9 +52,7 @@ class Msd_Vcs
 
     public static function getAvailableAdapter()
     {
-        if (self::$_loader === null) {
-            self::_initLoader();
-        }
+        self::_initLoader();
 
         $paths = self::$_loader->getPaths();
         $classes = array();

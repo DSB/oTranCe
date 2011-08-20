@@ -119,18 +119,19 @@ abstract class Msd_Db
      * @param array   $options    Connection options
      * @param boolean $forceMysql Whether to force the use of MySQL
      *
-     * @return MsdDbFactory
+     * @return Msd_Db_MysqlCommon
      */
     public static function getAdapter($options = null, $forceMysql = false)
     {
         if ($options === null) {
-            $config = Msd_Configuration::getInstance();
+            $config = Msd_Registry::getConfig();
+            $dbUserConfig = $config->getParam('dbuser');
             $options = array(
-                'host' => $config->get('config.dbuser.host'),
-                'user' => $config->get('config.dbuser.user'),
-                'pass' => $config->get('config.dbuser.pass'),
-                'port' => (int) $config->get('config.dbuser.port'),
-                'socket' => $config->get('config.dbuser.socket'),
+                'host' => $dbUserConfig['host'],
+                'user' => $dbUserConfig['user'],
+                'pass' => $dbUserConfig['pass'],
+                'port' => (int) $dbUserConfig['port'],
+                'socket' => $dbUserConfig['socket'],
             );
         }
         if (function_exists('mysqli_connect') && !$forceMysql) {

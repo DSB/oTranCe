@@ -9,3 +9,9 @@ fieldset table {
 #send {
     margin:6px 0 0 2px;
 }
+fieldset {
+    border: 1px solid #DDDDDD;
+    color: #256777;
+    margin: 0 0 12px;
+    padding: 5px;
+}

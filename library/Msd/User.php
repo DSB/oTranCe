@@ -176,12 +176,16 @@ class Msd_User
      *
      * Logs in user if auto log in cookie is valid.
      *
+     *
      * @return void
      */
     private function _loginByCookie()
     {
+        /**
+         * @var Zend_Controller_Request_Http $request
+         */
         $request = Zend_Controller_Front::getInstance()->getRequest();
-        $cookie = $request->get('oTranCe_autologin');
+        $cookie = $request->getCookie('oTranCe_autologin');
         if ($cookie === null || $cookie == '') {
             // no cookie found
             return;

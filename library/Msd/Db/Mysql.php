@@ -183,7 +183,7 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
      *
      * Can be used to walk through result sets.
      *
-     * @param const $kind
+     * @param int $kind
      *
      * @return array|object|null
      */

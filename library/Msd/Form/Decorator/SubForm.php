@@ -49,7 +49,5 @@ class Msd_Form_Decorator_SubForm extends Msd_Form_Decorator_Abstract
             default:
                 return $content . $separator . $htmlOutput;
         }
-
-        return $htmlOutput;
     }
 }

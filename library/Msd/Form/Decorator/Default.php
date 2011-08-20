@@ -37,7 +37,6 @@ class Msd_Form_Decorator_Default
         }
         $label = $this->buildLabel();
         $input = $this->buildInput();
-        $errors = strip_tags($this->buildErrors());
         $desc = $this->buildDescription();
         $descOutput = '';
         if ($desc != '') {
@@ -45,7 +44,6 @@ class Msd_Form_Decorator_Default
         }
         $attribs = $element->getAttribs();
         $output = '<tr>';
-        $rowclass = '';
         if (isset($attribs['rowclass'])) {
             $rowclass = $attribs['rowclass'];
             $output = '<tr class="' . $rowclass . '">';

@@ -79,7 +79,7 @@ foreach ($this->logEntries as $entry)
                 $delete = '<a href="#" title="Delete log entry" onclick="deleteLogEntry(\''
                             . $entry['id'] . '\');">';
                 echo '<td>' . $delete;
-                echo '<img src="' . $this->getIconSrc('delete', '') . '" style="padding-top:2px;" alt="" '
+                echo '<img src="' . $this->getIconSrc('delete') . '" style="padding-top:2px;" alt="" '
                     .'title="Delete this log entry" height="10" width="10"/> ';
                 echo '</a></td>';
             }

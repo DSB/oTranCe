@@ -148,10 +148,10 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
      * is returned.
      *
      * @param string  $query   The query to execute
-     * @param const   $kind    Type of result set
+     * @param int     $kind    Type of result set
      * @param boolean $getRows Wether to fetch all rows and return them
      *
-     * @return boolean|array
+     * @return boolean|array|null
      */
     public function query($query, $kind = self::ARRAY_OBJECT, $getRows = true)
     {
@@ -169,12 +169,13 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
         // return result set?
         if ($getRows) {
             $ret = array();
-            WHILE ($row = $this->getNextRow($kind)) {
+            while ($row = $this->getNextRow($kind)) {
                 $ret[] = $row;
             }
             $this->_resultHandle = null;
             return $ret;
         }
+        return null;
     }
 
     /**
@@ -184,20 +185,23 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
      *
      * @param const $kind
      *
-     * @return array|object
+     * @return array|object|null
      */
     public function getNextRow($kind)
     {
-       switch ($kind)
-       {
-           case self::ARRAY_OBJECT:
-               return mysql_fetch_object($this->_resultHandle);
-               break;
-           case self::ARRAY_NUMERIC:
-               return mysql_fetch_array($this->_resultHandle, MYSQL_NUM);
-               break;
-           case self::ARRAY_ASSOC:
-               return mysql_fetch_array($this->_resultHandle, MYSQL_ASSOC);
+        switch ($kind)
+        {
+            case self::ARRAY_OBJECT:
+                return mysql_fetch_object($this->_resultHandle);
+                break;
+            case self::ARRAY_NUMERIC:
+                return mysql_fetch_array($this->_resultHandle, MYSQL_NUM);
+                break;
+            case self::ARRAY_ASSOC:
+                return mysql_fetch_array($this->_resultHandle, MYSQL_ASSOC);
+                break;
+            default:
+                return null;
        }
     }
 

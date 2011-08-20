@@ -20,7 +20,7 @@ class Msd_View_Helper_NumberFormat extends Zend_View_Helper_Abstract
     /**
      * Format a number and return string ready to output
      *
-     * @param float $nr        Number to format
+     * @param float $number    Number to format
      * @param int   $precision Precision defaults to 0
      *
      * @return string

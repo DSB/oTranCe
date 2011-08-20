@@ -217,6 +217,6 @@ class Msd_User
      */
     public function setDefaultConfiguration()
     {
-        $config = Msd_Registry::getConfig()->load('defaultConfig.ini');
+        Msd_Registry::getConfig()->load('defaultConfig.ini');
     }
 }

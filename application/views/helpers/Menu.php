@@ -19,7 +19,7 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
     /**
      * Renders the menu
      *
-     * @return void
+     * @return string
      */
     public function menu()
     {

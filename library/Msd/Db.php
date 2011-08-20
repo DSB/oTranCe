@@ -103,9 +103,9 @@ abstract class Msd_Db
      *
      * @param array $options Array containing connection options
      *
-     * @return void
+     * @return Msd_Db
      */
-    protected function __construct ($options)
+    protected function __construct($options)
     {
         $this->_server = $options['host'];
         $this->_user = $options['user'];
@@ -240,7 +240,7 @@ abstract class Msd_Db
     /**
      * Gets extended table information for one or all tables
      *
-     * @param string $table
+     * @param string|bool $table
      *
      * @return array
      */

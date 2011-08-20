@@ -27,7 +27,7 @@ class Msd_View_Helper_Filesize extends Zend_View_Helper_Abstract
     /**
      * Output human readable filesize
      *
-     * @param string $filename Filename to read size
+     * @param string $file Filename to read size
      *
      * @return string
      */

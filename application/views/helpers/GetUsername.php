@@ -20,8 +20,6 @@ class Msd_View_Helper_GetUsername extends Zend_View_Helper_Abstract
     /**
      * Get name of currently logged in user
      *
-     * @param string $time
-     *
      * @return string
      */
     public function getUsername()

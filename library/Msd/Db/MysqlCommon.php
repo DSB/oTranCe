@@ -165,14 +165,14 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
      *
      * @return array
      */
-    public function getTableStatus($tableName = false, $databaseName = false)
+    public function getTableStatus($tableName = null, $databaseName = null)
     {
-        if ($databaseName === false) {
+        if ($databaseName === null) {
             $databaseName = $this->getSelectedDb();
         }
         $sql = 'SELECT * FROM `information_schema`.`TABLES` WHERE '
                 . '`TABLE_SCHEMA`=\''.$databaseName.'\'';
-        if ($tableName !== false) {
+        if ($tableName !== null) {
             $sql .= ' AND `TABLE_NAME` LIKE \'' . $tableName . '\'';
         }
         $res = $this->query($sql, self::ARRAY_ASSOC);

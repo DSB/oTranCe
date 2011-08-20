@@ -70,7 +70,7 @@ class Application_Form_Login extends Zend_Form
                     $this->getView()->getIcon('Key', '', 16) . ' ' .
                     $translator->_('L_LOGIN'),
                 'escape' => false,
-                'onclick' => '$(forms[0].submit());'
+                'type' => 'submit',
             )
         );
 

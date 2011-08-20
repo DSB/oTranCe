@@ -90,7 +90,7 @@ class Msd_Language
     /**
      * Magic getter to keep syntax in rest of script short
      *
-     * @param mixed $var
+     * @param mixed $property
      *
      * @return mixed
      */

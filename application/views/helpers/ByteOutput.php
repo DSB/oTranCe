@@ -20,11 +20,11 @@ class Msd_View_Helper_ByteOutput extends Zend_View_Helper_Abstract
     /**
      * Humanize byte output
      *
-     * @param int     $bytes
-     * @param int     $precision
-     * @param boolean $useHTML
+     * @param int $bytes
+     * @param int $precision
+     * @param bool $useHtml
      *
-     * @return string
+     * @return string|float
      */
     public function byteOutput($bytes, $precision = 2, $useHtml = true)
     {

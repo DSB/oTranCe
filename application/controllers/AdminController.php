@@ -96,7 +96,7 @@ class AdminController extends Msd_Controller_Action
         $this->_dynamicConfig->setParam('adminInitiated', true);
         $this->_dynamicConfig->setParam('offset', 0);
         $this->_dynamicConfig->setParam('filterUser', '');
-        $recordsPerPage = $this->_userModel->getUserRights('recordsPerPage');
+        $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage');
         $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
     }
 
@@ -107,9 +107,9 @@ class AdminController extends Msd_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filterUser     = $this->_dynamicConfig->getParam('filterUser');
-        $this->view->offset         = $this->_dynamicConfig->getParam('offset');
-        $this->view->recordsPerPage = $this->_dynamicConfig->getParam('recordsPerPage');
+        $this->view->filterUser     = (string) $this->_dynamicConfig->getParam('filterUser');
+        $this->view->offset         = (int) $this->_dynamicConfig->getParam('offset');
+        $this->view->recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
         $this->view->languages      = $this->_languagesModel->getAllLanguages();
     }
 

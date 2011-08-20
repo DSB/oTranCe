@@ -15,9 +15,9 @@ class Admin_UsersController extends AdminController
         $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->users = $this->_userModel->getUsers(
-            $this->_dynamicConfig->getParam('filterUser'),
-            $this->_dynamicConfig->getParam('offset'),
-            $this->_dynamicConfig->getParam('recordsPerPage')
+            (string) $this->_dynamicConfig->getParam('filterUser'),
+            (int) $this->_dynamicConfig->getParam('offset'),
+            $recordsPerPage
         );
         $this->view->hits = $this->_userModel->getRowCount();
         $this->view->userModel = $this->_userModel;

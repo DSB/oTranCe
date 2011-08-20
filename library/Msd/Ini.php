@@ -35,7 +35,7 @@ class Msd_Ini
      *
      * @param array|string $options Configuration or filename of INI to load
      *
-     * @return void
+     * @return Msd_Ini
      */
     public function __construct($options = array())
     {
@@ -84,7 +84,7 @@ class Msd_Ini
      *
      * @return void
      */
-    public function save($filename = null)
+    public function saveFile($filename = null)
     {
         if ($filename === null) {
             $filename = $this->_iniFilename;
@@ -103,7 +103,7 @@ class Msd_Ini
      * Converts an array into the INI file format.
      *
      * @param array   $array Array to convert.
-     * @param integer $level Current depthlevel in the array.
+     * @param integer $level Current depth level in the array.
      *
      * @return string
      */
@@ -188,5 +188,21 @@ class Msd_Ini
     public function __toString()
     {
         return $this->_arrayToIniString();
+    }
+
+    /**
+     * @param array $iniData
+     */
+    public function setIniData($iniData)
+    {
+        $this->_iniData = $iniData;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIniData()
+    {
+        return $this->_iniData;
     }
 }

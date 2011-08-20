@@ -35,6 +35,19 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Session::start();
     }
 
+    public function _initConfiguration()
+    {
+        $config = new Msd_Config(
+            'Default',
+            array(
+                'directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs',
+            )
+        );
+        $config->load('defaultConfig.ini');
+        var_dump($config);
+        Zend_Registry::set('config', $config);
+    }
+
     /**
      *
      * Set Firebug_logger in registry

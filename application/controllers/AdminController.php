@@ -49,10 +49,12 @@ class AdminController extends Msd_Controller_Action
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
-        if (!$this->_request->isPost()) {
+        if (!$this->_dynamicConfig->getParam('adminInitiated', false)) {
             $this->_setSessionParams();
         }
-        $this->_getPostParams();
+        if ($this->_request->isPost()) {
+            $this->_getPostParams();
+        }
         $this->_assignVars();
         $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, false);
     }
@@ -91,6 +93,7 @@ class AdminController extends Msd_Controller_Action
     private function _setSessionParams()
     {
         // set defaults on first page call
+        $this->_dynamicConfig->setParam('adminInitiated', true);
         $this->_dynamicConfig->setParam('offset', 0);
         $this->_dynamicConfig->setParam('filterUser', '');
         $recordsPerPage = $this->_userModel->getUserRights('recordsPerPage');

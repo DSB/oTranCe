@@ -52,8 +52,8 @@ class Msd_Controller_Action extends Zend_Controller_Action
         array $invokeArgs = array()
     )
     {
-        parent::__construct($request, $response, $invokeArgs);
         $this->_config = Msd_Registry::getConfig();
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
+        parent::__construct($request, $response, $invokeArgs);
     }
 }

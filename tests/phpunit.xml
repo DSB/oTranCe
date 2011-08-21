@@ -12,9 +12,8 @@
          verbose="true"
          strict="true">
     <testsuites>
-        <testsuite name="MySQLDumper2TestSuite">
+        <testsuite name="oTranCeTestSuite">
             <directory>unit/</directory>
-            <directory>functional</directory>
         </testsuite>
     </testsuites>
 

@@ -1,4 +1,4 @@
-<project name="oTranCe" default="build" basedir="/home/jenkins/msd">
+<project name="oTranCe" default="build" basedir="/home/jenkins/otc">
 
 <property name="repodir" value="${basedir}/svn" />
 <property name="builddir" value="${basedir}/build" />

@@ -95,13 +95,13 @@ class Msd_Vcs
         self::_initLoader();
 
         $paths = self::$_loader->getPaths();
-        $classes = array();
+        $classNames = array();
         foreach ($paths as $path) {
             if (file_exists($path[0])) {
-                $classes = array_merge($classes, self::_getDirEntries($path[0]));
+                $classNames = array_merge($classNames, self::_getDirEntries($path[0]));
             }
         }
-        return $classes;
+        return $classNames;
     }
 
     /**

@@ -37,8 +37,8 @@ class Msd_Vcs
         if (self::$_loader === null) {
             self::$_loader = new Zend_Loader_PluginLoader(
                 array(
-                    'Msd_' => implode(DS, array(APPLICATION_PATH, '..', 'library', 'Msd')),
-                    'Module_' => implode(DS, array(APPLICATION_PATH, '..', 'modules', 'library')),
+                    'Msd_' => implode(DS, array(APPLICATION_PATH, '..', 'library', 'Msd', 'Vcs')),
+                    'Module_' => implode(DS, array(APPLICATION_PATH, '..', 'modules', 'library', 'Vcs')),
                 )
             );
         }
@@ -56,7 +56,7 @@ class Msd_Vcs
     private static function _getAdapterClassName($adapter)
     {
         $vcsClass = str_replace('_', ' ', strtolower($adapter));
-        $vcsClass = 'Vcs_' . str_replace(' ', '_', ucwords($vcsClass));
+        $vcsClass = str_replace(' ', '_', ucwords($vcsClass));
         self::_initLoader();
         return self::$_loader->load($vcsClass);
     }
@@ -97,7 +97,9 @@ class Msd_Vcs
         $paths = self::$_loader->getPaths();
         $classes = array();
         foreach ($paths as $path) {
-            $classes = array_merge($classes, self::_getDirEntries($path[0] . DS . 'Vcs'));
+            if (file_exists($path[0])) {
+                $classes = array_merge($classes, self::_getDirEntries($path[0]));
+            }
         }
         return $classes;
     }

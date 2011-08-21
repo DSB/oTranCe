@@ -223,7 +223,7 @@ class ExportController extends Msd_Controller_Action
      * Checks wheter the language exsists and is active.
      *
      * @param int $lang
-     * 
+     *
      * @return bool
      */
     private function _languageExists($lang)

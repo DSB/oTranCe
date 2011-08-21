@@ -2,23 +2,9 @@
 define('DS', DIRECTORY_SEPARATOR);
 
 // Define path to application directory
-defined('APPLICATION_PATH') || define(
-    'APPLICATION_PATH', realpath(
-        dirname(__FILE__) . DS . '..' . DS . 'application'
-    )
-);
-
-defined('EXPORT_PATH') || define(
-    'EXPORT_PATH', realpath(
-        dirname(__FILE__) . DS . '..' . DS . 'data' . DS . 'export'
-    )
-);
-
-defined('DOWNLOAD_PATH') || define(
-    'DOWNLOAD_PATH', realpath(
-        dirname(__FILE__) . DS . '..' . DS . 'downloads'
-    )
-);
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . DS . '..' . DS . 'application'));
+defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH . DS . '..' . DS . 'data' . DS . 'export'));
+defined('DOWNLOAD_PATH') || define('DOWNLOAD_PATH', realpath(EXPORT_PATH . DS . '..' . DS . 'downloads'));
 
 // Define application environment
 if (!defined('APPLICATION_ENV')) {

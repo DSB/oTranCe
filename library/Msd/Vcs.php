@@ -105,7 +105,7 @@ class Msd_Vcs
     }
 
     /**
-     * Builds the list with available adapters.
+     * Build the list of available adapters.
      *
      * @static
      *

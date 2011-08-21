@@ -26,7 +26,7 @@
             <td><?php echo $this->getIcon('Archive', '', 16); ?></td>
             <td><?php echo $this->out($archiveName); ?></td>
             <td><?php echo $this->byteOutput($archiveMeta['fileSize']);?></td>
-            <td><a href="<?php $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton"><?php echo $this->getIcon('Download', '', 16); ?> Download</a></td>
+            <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton"><?php echo $this->getIcon('Download', '', 16); ?> Download</a></td>
         </tr>
 <?php
         $oldCTime = $archiveMeta['creationTime'];
@@ -35,6 +35,6 @@
 ?>
     </table>
 <?php } else { ?>
-    <div class="success">No downloads available. You must run an export first.</div>
+    <div class="success">No downloads available. Run export first.</div>
 <?php } ?>
 </div>

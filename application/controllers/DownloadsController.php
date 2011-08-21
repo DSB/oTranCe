@@ -21,9 +21,13 @@ class DownloadsController extends Zend_Controller_Action
      */
     public function downloadAction()
     {
+        $filename = $this->_request->getParam('file');
+        if (preg_match('/^[A-Z0-9_-]+\z/i', $filename)) {
+            // someone manipulated the filename. Die silently.
+            die();
+        }
         Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
         Zend_Layout::getMvcInstance()->disableLayout();
-        $filename = $this->_request->getParam('file');
         $this->_response->setHeader(
             'Content-Type',
             $this->_getArchiveContentType($filename)

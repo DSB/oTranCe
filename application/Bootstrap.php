@@ -35,7 +35,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     public function _initApplication()
     {
-    //print_r(get_include_path());die();
         Zend_Session::setOptions(array('strict' => true));
         Zend_Session::start();
 
@@ -59,9 +58,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $configFile = $dynamicConfig->getParam('configFile', 'defaultConfig.ini');
         $config = new Msd_Config(
             'Default',
-            array(
-                'directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs',
-            )
+            array('directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs')
         );
         $config->load($configFile);
         Msd_Registry::setConfig($config);

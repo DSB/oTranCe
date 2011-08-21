@@ -6,9 +6,6 @@ class Testhelper
      */
     public static function setUp()
     {
-        Testhelper::copyFile(
-            'users.ini', APPLICATION_PATH . DS . 'configs' . DS .'users.ini'
-        );
     }
 
     /**

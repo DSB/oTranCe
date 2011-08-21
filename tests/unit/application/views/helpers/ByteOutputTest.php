@@ -18,7 +18,7 @@ class ByteOutputTest extends PHPUnit_Framework_TestCase
 
     public function testByteOutputWithHtml()
     {
-        $expected = '1.00 <span class="explain tooltip" title="KiloBytes">KB</span>';
+        $expected = '1.00 <span class="explain" title="KiloBytes">KB</span>';
         $viewHelper = new Msd_View_Helper_ByteOutput();
         $res = $viewHelper->byteOutput(1024, 2, true);
         $this->assertEquals($expected, $res);

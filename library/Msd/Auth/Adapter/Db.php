@@ -131,7 +131,8 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
      *
      * @return void
      */
-    private function _updatePassword() {
+    private function _updatePassword()
+    {
         $sql = 'UPDATE `' . $this->_database .'`.`' . $this->_users
                 . '` SET `password` = \'' . md5($this->_password) .'\'';
         $this->_db->query($sql);

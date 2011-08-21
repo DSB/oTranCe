@@ -1,6 +1,6 @@
 <?php
 /**
- * 
+ *
  */
 class Msd_Import_PhpArray implements Msd_Import_Interface
 {
@@ -230,7 +230,8 @@ class Msd_Import_PhpArray implements Msd_Import_Interface
      *
      * @return void
      */
-    private function _removeIgnoreKeys() {
+    private function _removeIgnoreKeys()
+    {
         foreach ($this->_ignoreKeys as $ignoreKey) {
             if (isset($this->_extractedData[$ignoreKey])) {
                 unset($this->_extractedData[$ignoreKey]);

@@ -27,15 +27,15 @@ class Msd_View_Helper_PrintTranslators extends Zend_View_Helper_Abstract
     /**
      * Print name/s of user_id's
      *
-     * @param int|array $user_ids
+     * @param int|array $userIds
      *
      * @return string
      */
-    public function printTranslators($user_ids)
+    public function printTranslators($userIds)
     {
 
-        if (!is_array($user_ids)) {
-            $user_ids = array($user_ids);
+        if (!is_array($userIds)) {
+            $userIds = array($userIds);
         }
 
         if (self::$_translators === null) {
@@ -44,12 +44,12 @@ class Msd_View_Helper_PrintTranslators extends Zend_View_Helper_Abstract
         }
         $ret = '';
 
-        foreach ($user_ids as $userId) {
+        foreach ($userIds as $userId) {
             if (isset(self::$_translators[$userId])) {
                 $ret .= self::$_translators[$userId]['username'] .', ';
             }
         }
-        $ret = substr($ret,0, -2);
+        $ret = substr($ret, 0, -2);
         return $ret;
     }
 }

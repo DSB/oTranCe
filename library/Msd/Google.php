@@ -2,7 +2,8 @@
 /**
  * Gollge translator support class.
  */
-class Msd_Google {
+class Msd_Google
+{
     /**
      * Get a list of translatable languages
      *

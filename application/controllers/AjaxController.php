@@ -194,7 +194,7 @@ class AjaxController extends Zend_Controller_Action
      */
     private function _mapLangCode($code)
     {
-        $pos = strrpos($code,'_');
+        $pos = strrpos($code, '_');
         if ($pos === false) {
             return $code;
         }

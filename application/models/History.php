@@ -108,7 +108,7 @@ class Application_Model_History extends Msd_Application_Model
      * Save change to history table in database
      *
      * @param string $keyId   The key to save, 0 if not referring to a key
-     * @param string $lang_id Language
+     * @param string $langId Language
      * @param string $oldVal
      * @param string $newVal
      * @param string $action
@@ -116,7 +116,7 @@ class Application_Model_History extends Msd_Application_Model
      *
      * @return void
      */
-    public function saveChange($keyId, $lang_id, $oldVal, $newVal, $action = 'changed', $time = false)
+    public function saveChange($keyId, $langId, $oldVal, $newVal, $action = 'changed', $time = false)
     {
         $auth = Zend_Auth::getInstance()->getIdentity();
         if ($oldVal == '') {
@@ -132,7 +132,7 @@ class Application_Model_History extends Msd_Application_Model
                .'\'' . $time .'\', '
                . intval($keyId) . ', '
                .'\'' . $this->_dbo->escape($action) .'\', '
-               . intval($lang_id) . ', '
+               . intval($langId) . ', '
                .'\'' . $this->_dbo->escape($oldVal) . '\', '
                .'\'' . $this->_dbo->escape($newVal) . '\')';
         $this->_dbo->query($sql);
@@ -144,7 +144,8 @@ class Application_Model_History extends Msd_Application_Model
      * @param int $id
      * @return boolean
      */
-    public function deleteById($id) {
+    public function deleteById($id)
+    {
         $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `id` = '.intval($id) . ' LIMIT 1';
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -152,14 +153,14 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Get latest change of the langugae
      *
-     * @param string $lang_id
+     * @param string $langId
      * @return string
      */
-    public function getLatestChange($lang_id)
+    public function getLatestChange($langId)
     {
-        $lang_id = (int) $lang_id;
+        $langId = (int) $langId;
         $sql = 'SELECT `dt` FROM `'.$this->_tableHistory . '`'
-                .' WHERE `lang_id`=' . $lang_id .' OR `lang_id`=0 ORDER BY `dt` DESC LIMIT 1';
+                .' WHERE `lang_id`=' . $langId .' OR `lang_id`=0 ORDER BY `dt` DESC LIMIT 1';
         $res =$this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($res[0]['dt']) ? $res[0]['dt'] : '';
     }

@@ -202,7 +202,7 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
                 break;
             default:
                 return null;
-       }
+        }
     }
 
     /**

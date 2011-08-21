@@ -35,9 +35,9 @@ class Application_Model_Converter extends Msd_Application_Model
         $this->_dbo->setConnectionCharset($inputCharset);
         $id = $this->_dbo->escape(Zend_Session::getId());
         $text = $this->_dbo->escape($text);
-
-        $stmt = $this->_dbo->prepare('INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
-                . ' (`id`, `text`) VALUES (? , ?)');
+        $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
+                . ' (`id`, `text`) VALUES (? , ?)';
+        $stmt = $this->_dbo->prepare($sql);
         $stmt->bind_param('ss', $id, $text);
         $stmt->execute();
         $stmt->close();

@@ -36,7 +36,8 @@ class Msd_Export
      * @param string $language
      * @return int
      */
-    public function getFileTimestamp($language) {
+    public function getFileTimestamp($language)
+    {
         clearstatcache();
         $mTime = @filemtime(EXPORT_PATH . '/language/' . $language . '/lang.php');
         return $mTime;
@@ -88,7 +89,11 @@ class Msd_Export
             // Do we have the meta data for the exported language file? If not, we will create it now.
             if (!isset($langFileData[$templateId])) {
                 $langFilename = EXPORT_PATH . DS . trim(
-                    str_replace('{LOCALE}', $this->_langInfo[$languageId]['locale'], $this->_fileTemplates[$templateId]['filename']),
+                    str_replace(
+                        '{LOCALE}',
+                        $this->_langInfo[$languageId]['locale'],
+                        $this->_fileTemplates[$templateId]['filename']
+                    ),
                     '/'
                 );
                 $langDir = dirname($langFilename);

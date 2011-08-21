@@ -100,7 +100,10 @@ class ImportController extends Zend_Controller_Action
 
         if (isset($params['convert'])) {
             $entriesModel = new Application_Model_Converter();
-            $res = $entriesModel->convertData($this->_dynamicConfig->getParam('selectedCharset'), $this->_dynamicConfig->getParam('importOriginalData'));
+            $res = $entriesModel->convertData(
+                $this->_dynamicConfig->getParam('selectedCharset'),
+                $this->_dynamicConfig->getParam('importOriginalData')
+            );
             if ($res === false) {
                 $res = $data;
                 $this->view->conversionError = true;
@@ -176,7 +179,10 @@ class ImportController extends Zend_Controller_Action
         if ($this->_dynamicConfig->getParam('selectedCharset') == null) {
             $this->_dynamicConfig->setParam('selectedCharset', 'utf8');
         }
-        $selectedCharset = $this->_request->getParam('selectedCharset', $this->_dynamicConfig->getParam('selectedCharset'));
+        $selectedCharset = $this->_request->getParam(
+            'selectedCharset',
+            $this->_dynamicConfig->getParam('selectedCharset')
+        );
         $this->_dynamicConfig->setParam('selectedCharset', $selectedCharset);
         $this->_dbo = Msd_Db::getAdapter();
         $charactersets = $this->_dbo->getCharsets();

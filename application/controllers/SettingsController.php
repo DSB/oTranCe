@@ -121,8 +121,8 @@ class SettingsController extends Msd_Controller_Action
         $vcsUser = $this->_request->getParam('vcsUser');
         if ($vcsUser !== null && strlen($vcsUser) > 0) {
             $vcsPass = $this->_request->getParam('vcsPass');
-            $vcsPass2 = $this->_request->getParam('vcsPass2');
-            if ($vcsPass != $vcsPass2) {
+            $vcsPassConfirm = $this->_request->getParam('vcsPass2');
+            if ($vcsPass != $vcsPassConfirm) {
                 return self::VCS_PASS_NOT_EQUAL;
             }
             $encrypted = $this->_crypt->encrypt($vcsUser . '%@%' . $vcsPass);

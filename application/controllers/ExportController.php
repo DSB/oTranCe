@@ -133,15 +133,15 @@ class ExportController extends Msd_Controller_Action
         $filename = DOWNLOAD_PATH . DS . 'language_pack-' . date('Ymd-His');
         $zipArch = Msd_Archive::factory('Zip', $filename, EXPORT_PATH);
         $tarGzArch = Msd_Archive::factory('Tar_Gz', $filename, EXPORT_PATH);
-        $tarBz2Arch = Msd_Archive::factory('Tar_Bz2', $filename, EXPORT_PATH);
+        $tarBzArch = Msd_Archive::factory('Tar_Bz2', $filename, EXPORT_PATH);
         foreach ($fileList as $file) {
             $zipArch->addFile($file);
             $tarGzArch->addFile($file);
-            $tarBz2Arch->addFile($file);
+            $tarBzArch->addFile($file);
         }
         $zipArch->buildArchive();
         $tarGzArch->buildArchive();
-        $tarBz2Arch->buildArchive();
+        $tarBzArch->buildArchive();
     }
 
     /**

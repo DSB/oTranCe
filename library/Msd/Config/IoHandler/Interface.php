@@ -1,6 +1,6 @@
 <?php
 /**
- * Interface for configuraiotn IO-Handler.
+ * Interface for configuration IO-Handler.
  */
 interface Msd_Config_IoHandler_Interface
 {

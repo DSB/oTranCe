@@ -182,7 +182,7 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
     private function _executeSvnCommand($command, $filenames = array(), $params = array())
     {
         $filenames = (array) $filenames;
-        $svnCommand = "svn " . $command;
+        $svnCommand = 'svn ' . $command;
 
         $svnCommand .= $this->buildParams($params);
 
@@ -262,9 +262,9 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
     {
         return array(
             'checkoutPath' => 'SVN Checkout path',
-            'username' => 'SVN Username',
-            'password' => 'SVN Password',
-            'execParams' => 'SVN execution parameters',
+            'username'     => 'SVN Username',
+            'password'     => 'SVN Password',
+            'execParams'   => 'SVN execution parameters',
         );
     }
 

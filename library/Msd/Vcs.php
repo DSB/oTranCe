@@ -1,7 +1,7 @@
 <?php
 /**
  * Factory class for Version Control System support.
- * 
+ *
  * @throws Msd_Vcs_Exception
   */
 class Msd_Vcs
@@ -27,7 +27,9 @@ class Msd_Vcs
 
     /**
      * Initialize the plugin loader. It's used to load third-party modules.
+     *
      * @static
+     *
      * @return void
      */
     private static function _initLoader()
@@ -60,10 +62,14 @@ class Msd_Vcs
     }
 
     /**
+     * Get VCS adapter.
+     *
      * @static
+     *
      * @throws Msd_Vcs_Exception
-     * @param $adapter
-     * @param array $adapterOptions
+     * @param string $adapter        Name of vcs adapter class
+     * @param array  $adapterOptions Params for vcs adapter class
+     *
      * @return Msd_Vcs_Interface
      */
     public static function factory($adapter, $adapterOptions = array())
@@ -78,7 +84,7 @@ class Msd_Vcs
     }
 
     /**
-     * Retrieves a list with availavle adapter.
+     * Returns list of available vcs adapter classes.
      *
      * @static
      *
@@ -101,7 +107,7 @@ class Msd_Vcs
      *
      * @static
      *
-     * @param string $path
+     * @param string $path Path to read
      *
      * @return array
      */
@@ -131,7 +137,7 @@ class Msd_Vcs
      *
      * @static
      *
-     * @param string $adapter
+     * @param string $adapter Name of vcs adapter class
      *
      * @return array
      */
@@ -149,7 +155,7 @@ class Msd_Vcs
      *
      * @static
      *
-     * @param string $adapter
+     * @param string $adapter Name of vcs adapter class
      *
      * @return array
      */

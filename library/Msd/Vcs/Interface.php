@@ -57,7 +57,7 @@ interface Msd_Vcs_Interface
     public function update();
 
     /**
-     * Ubdo file changes.
+     * Undo file changes.
      *
      * @abstract
      *

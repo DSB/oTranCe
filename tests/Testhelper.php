@@ -3,18 +3,23 @@ class Testhelper
 {
     private static $_copiedFiles = array();
 
+    private static $_shutdownRegistered = false;
+
     /**
      * Prepare tests
      */
     public static function setUp()
     {
-        self::copyFile('defaultConfig.ini', APPLICATION_PATH . DS . 'configs'. DS .'defaultConfig.ini');
+        $destinationFile = APPLICATION_PATH . DS . 'configs'. DS .'defaultConfig.ini';
+        if (!in_array($destinationFile, self::$_copiedFiles)) {
+            self::copyFile('defaultConfig.ini', $destinationFile);
+        }
     }
 
     /**
      * Rollback actions, made by setUp() method
      */
-    public static function tearDown()
+    public static function onShutdown()
     {
         foreach (self::$_copiedFiles as $copiedFile) {
             self::removeFile($copiedFile);
@@ -54,6 +59,10 @@ class Testhelper
         };
         chmod($destination, 0755);
         self::$_copiedFiles[] = $destination;
+        if (!self::$_shutdownRegistered) {
+            register_shutdown_function(array(__CLASS__, 'onShutdown'));
+            self::$_shutdownRegistered = true;
+        }
     }
 
     /**

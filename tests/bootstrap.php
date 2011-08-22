@@ -47,6 +47,4 @@ $application = new Zend_Application(
 );
 $application->bootstrap();
 
-Testhelper::tearDown();
 clearstatcache();
-

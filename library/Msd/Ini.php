@@ -94,9 +94,7 @@ class Msd_Ini
                 'You must specify a filename to save the INI!'
             );
         }
-        $fileHandle = fopen($filename, 'w+');
-        fwrite($fileHandle, (string) $this);
-        fclose($fileHandle);
+        file_put_contents($filename, (string) $this);
     }
 
     /**
@@ -171,16 +169,6 @@ class Msd_Ini
         } else {
             $this->_iniData[$section][$key] = $value;
         }
-    }
-
-    /**
-     * Get the complete INI.
-     *
-     * @return array
-     */
-    public function getAll()
-    {
-        return $this->_iniData;
     }
 
     /**

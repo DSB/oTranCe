@@ -80,7 +80,7 @@ class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
     /**
      * Saves the configuration to session and .ini file.
      *
-     * @param array  $config         Configuration to save.
+     * @param array  $config Configuration to save.
      *
      * @return void
      */

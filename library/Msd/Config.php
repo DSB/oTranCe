@@ -169,4 +169,14 @@ class Msd_Config
     {
         $this->_autosave = false;
     }
+
+    /**
+     * Returns the autosave status.
+     *
+     * @return bool
+     */
+    public function isAutosaveActive()
+    {
+        return $this->_autosave;
+    }
 }

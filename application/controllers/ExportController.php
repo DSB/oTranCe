@@ -192,8 +192,6 @@ class ExportController extends Msd_Controller_Action
                 $msdCrypt = new Msd_Crypt($projectConfig['encryptionKey']);
                 $vcsCredentials = $msdCrypt->decrypt($cryptedVcsCreds);
                 $vcsCredFields = Msd_Vcs::getCredentialFields($vcsConfig['adapter']);
-                $vcsConfig['options'][$vcsCredFields['username']] = '';
-                $vcsConfig['options'][$vcsCredFields['password']] = '';
                 if (strpos($vcsCredentials, '%@%') !== false) {
                     list ($vcsUser, $vcsPass) = explode('%@%', $vcsCredentials);
                     $vcsConfig['options'][$vcsCredFields['username']] = $vcsUser;

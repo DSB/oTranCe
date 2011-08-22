@@ -22,12 +22,13 @@
     <tr class="row-odd">
         <td>Use analyzer:</td>
         <td>
-            <select name="selectedAnalyzer" id="selectedAnalyzer"><?php echo $this->selAnalyzer;?></select>
-            <span style="float:right">
-                <a href="#" title="show info" id="showImporterInfo">
-                    <?php echo $this->getIcon('Info', '', 16);?>
-                </a>
-            </span>
+            <select name="selectedAnalyzer" id="selectedAnalyzer" onchange="$('#myForm').submit()">
+                <?php echo $this->selAnalyzer;?></select>
+                <span style="float:right">
+                    <a href="#" title="show info" id="showImporterInfo">
+                        <?php echo $this->getIcon('Info', '', 16);?>
+                    </a>
+                </span>
         </td>
     </tr>
 
@@ -47,7 +48,7 @@
 <div class="invisible" id="importerInfo">
 <?php
     if ($this->selectedAnalyzer > '') {
-        echo $this->partial('import/importer/' . strtolower($this->selectedAnalyzer) . '.phtml');
+        echo $this->partial('import/importer/' . strtolower($this->analyzers[$this->selectedAnalyzer]) . '.phtml');
         echo "<br />";
     }
 ?>
@@ -93,7 +94,6 @@ $('#showImporterInfo').click(function () {
     $('#importerInfo').toggle('blind', {}, 1000);
 });
 $("textarea").autoGrow();
-
 <?php
 if (isset($this->conversionError)) {
     $this->popUpMessage()->addMessage(

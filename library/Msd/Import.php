@@ -6,7 +6,7 @@
  * Time: 16:16
  * To change this template use File | Settings | File Templates.
  */
- 
+
 class Msd_Import
 {
     /**
@@ -108,7 +108,7 @@ class Msd_Import
      * Initiaöoze the plug in loader.
      *
      * @static
-     * 
+     *
      * @return void
      */
     private static function _initLoader()

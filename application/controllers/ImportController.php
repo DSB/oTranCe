@@ -203,15 +203,15 @@ class ImportController extends Zend_Controller_Action
     private function _setAnalyzer()
     {
         $analyzers = Msd_Import::getAvailableImportAnalyzers();
-        $analyzersNames = array_keys($analyzers);
         if ($this->_dynamicConfig->getParam('selectedAnalyzer') == null) {
-            $this->_dynamicConfig->setParam('selectedAnalyzer', $analyzersNames[0]);
+            $this->_dynamicConfig->setParam('selectedAnalyzer', $analyzers[0]);
         }
         $selectedAnalyzer = $this->_request->getParam(
             'selectedAnalyzer',
             $this->_dynamicConfig->getParam('selectedAnalyzer')
         );
         $this->_dynamicConfig->setParam('selectedAnalyzer', $selectedAnalyzer);
+        $this->view->analyzers = $analyzers;
         $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
         $this->view->selectedAnalyzer = $selectedAnalyzer;
     }
@@ -223,7 +223,8 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $selectedAnalyzer = $this->_dynamicConfig->getParam('selectedAnalyzer');
+        $analyzers = Msd_Import::getAvailableImportAnalyzers();
+        $selectedAnalyzer = $analyzers[$this->_dynamicConfig->getParam('selectedAnalyzer')];
         $data = $this->_dynamicConfig->getParam('importConvertedData');
         $importer = Msd_Import::factory($selectedAnalyzer);
         $this->view->fileTemplate  = $this->_dynamicConfig->getParam('importFileTemplate');

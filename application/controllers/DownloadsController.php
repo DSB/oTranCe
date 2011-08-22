@@ -68,7 +68,9 @@ class DownloadsController extends Zend_Controller_Action
     private function _getAvailableArchives()
     {
         $files = glob(DOWNLOAD_PATH . DS . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
-        rsort($files);
+        if (is_array($files)) {
+            rsort($files);
+        }
         $archives = array();
         foreach ($files as $file) {
             $filename = str_replace(DOWNLOAD_PATH . DS, '', $file);

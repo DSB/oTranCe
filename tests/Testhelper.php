@@ -6,6 +6,7 @@ class Testhelper
      */
     public static function setUp()
     {
+        self::copyFile('defaultConfig.ini', APPLICATION_PATH . DS . 'configs'. DS .'defaultConfig.ini');
     }
 
     /**

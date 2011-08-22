@@ -48,12 +48,12 @@ class Admin_ExportController extends AdminController
      */
     private function _saveVcsConfig()
     {
-        $subversionConf = array(
+        $vcsConfig = array(
             'adapter' => $this->_request->getParam('vcsAdapter'),
             'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
             'options' => $this->_request->getParam('vcsOptions'),
         );
-        $this->_config->setParam('vcs', $subversionConf);
+        $this->_config->setParam('vcs', $vcsConfig);
 
         $langModel = new Application_Model_Languages();
         $langModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));

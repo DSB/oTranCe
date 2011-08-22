@@ -102,12 +102,13 @@ class Msd_Ini
     /**
      * Converts an array into the INI file format.
      *
-     * @param array   $array Array to convert.
-     * @param integer $level Current depth level in the array.
+     * @param array   $array  Array to convert.
+     * @param integer $level  Current depth level in the array.
+     * @param string  $prefix Prefix to use for var name.
      *
      * @return string
      */
-    private function _arrayToIniString($array = null, $level = -1)
+    private function _arrayToIniString($array = null, $level = -1, $prefix = '')
     {
         if ($array === null) {
             $array = $this->_iniData;
@@ -116,17 +117,19 @@ class Msd_Ini
         $resultString = '';
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $resultString .= ($level == 0) ?
-                    '[' . $key . ']' . "\n" :
-                    $key . '.';
-                $resultString .= $this->_arrayToIniString($value);
+                if ($level == 0) {
+                    $resultString .= '[' . $key . ']' . "\n";
+                    $resultString .= $this->_arrayToIniString($value, $level);
+                } else {
+                    $resultString .= $this->_arrayToIniString($value, $level, $key);
+                }
             } else {
                 $newValue = str_replace(
                     array('\\', '"'),
                     array('\\\\', '\\"'),
                     $value
                 );
-                $resultString .= $key . ' = "' . (string) $newValue . '"';
+                $resultString .= ltrim($prefix . '.' . $key, '.') . ' = "' . (string) $newValue . '"';
             }
             $resultString .= "\n";
         }

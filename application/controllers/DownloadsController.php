@@ -72,6 +72,9 @@ class DownloadsController extends Zend_Controller_Action
             rsort($files);
         }
         $archives = array();
+        if (empty($files)) {
+            return $archives;
+        }
         foreach ($files as $file) {
             $filename = str_replace(DOWNLOAD_PATH . DS, '', $file);
             $fileStats = stat($file);

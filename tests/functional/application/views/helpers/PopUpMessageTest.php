@@ -20,7 +20,7 @@ class PopUpMessageTest extends ControllerTestCase
         $this->assertNotRedirect();
         // make sure we see the login error message
         $this->assertQueryCount("//div[@id='login-message']", 1);
-        $msg = "Diese Kombination von Benutzername und Passwort ist unbekannt.";
+        $msg = "Unknown combination of username and password.";
         $this->assertQueryContentContains('#login-message', $msg);
     }
 

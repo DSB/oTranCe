@@ -14,7 +14,7 @@
     <testsuites>
         <testsuite name="MySQLDumper2TestSuite">
             <directory>unit/</directory>
-            <directory>functional</directory>
+            <directory>functional/</directory>
         </testsuite>
     </testsuites>
 

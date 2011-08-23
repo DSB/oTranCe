@@ -86,8 +86,8 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
             // user not found in db
             $loginResult = false;
         } else {
-            $loginResult = false;
             if ($res[0]['password'] != md5($this->_password)) {
+                $loginResult = false;
                 //TODO extract this to own model and make it configurable
                 // admin should be able to glue this to any referring database
                 // password incorrect - try to look into forum db

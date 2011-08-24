@@ -27,18 +27,18 @@ class Admin_FilesController extends AdminController
             'name' => 'Name',
             'filename' => 'Filename',
         );
-        $templateOrderField = $this->_dynamicConfig->getParam('templateOrderField');
+        $templateOrderField = $this->_dynamicConfig->getParam($this->_requestedController . '.templateOrderField');
         if ($templateOrderField === null) {
             $templateOrderField = 'name';
         }
         $templatesModel = new Application_Model_FileTemplates();
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->fileTemplates = $templatesModel->getFileTemplates(
             $templateOrderField,
-            $this->_dynamicConfig->getParam('filterUser'),
-            $this->_dynamicConfig->getParam('offset'),
-            $this->_dynamicConfig->getParam('recordsPerPage')
+            $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
         );
         $this->view->hits = $templatesModel->getRowCount();
         $this->view->selOrderField = $templateOrderField;
@@ -52,9 +52,9 @@ class Admin_FilesController extends AdminController
      */
     protected function _getPostParams()
     {
-        $templateOrderField = $this->_dynamicConfig->getParam('templateOrderField');
-        $templateOrderField = $this->_getParam('templateOrderBy', $templateOrderField);
-        $this->_dynamicConfig->setParam('templateOrderField', $templateOrderField);
+        $templateOrderField = $this->_dynamicConfig->getParam($this->_requestedController . '.templateOrderField');
+        $templateOrderField = $this->_request->getParam('templateOrderBy', $templateOrderField);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.templateOrderField', $templateOrderField);
         parent::_getPostParams();
     }
 

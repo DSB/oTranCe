@@ -34,6 +34,13 @@ class AdminController extends Msd_Controller_Action
     protected $_userModel;
 
     /**
+     * Name of the requested controller.
+     *
+     * @var string
+     */
+    protected $_requestedController;
+
+    /**
      * Init
      * Automatically read post and set session params
      *
@@ -41,6 +48,7 @@ class AdminController extends Msd_Controller_Action
      */
     public function init()
     {
+        $this->_requestedController = $this->_request->getControllerName();
         $this->_userModel = new Application_Model_User();
         // security - if user doesn't have admin rights -> send him to index page
         if (!$this->_userModel->hasRight('admin')) {
@@ -78,11 +86,11 @@ class AdminController extends Msd_Controller_Action
     {
         $filter = trim($this->_request->getParam('filterUser', ''));
         $offset = (int) $this->_request->getParam('offset', 0);
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $recordsPerPage = (int) $this->_request->getParam('recordsPerPage', $recordsPerPage);
-        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
-        $this->_dynamicConfig->setParam('offset', $offset);
-        $this->_dynamicConfig->setParam('filterUser', $filter);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.offset', $offset);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.filterUser', $filter);
     }
 
     /**
@@ -94,10 +102,10 @@ class AdminController extends Msd_Controller_Action
     {
         // set defaults on first page call
         $this->_dynamicConfig->setParam('adminInitiated', true);
-        $this->_dynamicConfig->setParam('offset', 0);
-        $this->_dynamicConfig->setParam('filterUser', '');
+        $this->_dynamicConfig->setParam($this->_requestedController . '.offset', 0);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.filterUser', '');
         $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage');
-        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.recordsPerPage', $recordsPerPage);
     }
 
     /**
@@ -107,9 +115,13 @@ class AdminController extends Msd_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filterUser     = (string) $this->_dynamicConfig->getParam('filterUser');
-        $this->view->offset         = (int) $this->_dynamicConfig->getParam('offset');
-        $this->view->recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
+        $this->view->filterUser     = (string) $this->_dynamicConfig->getParam(
+            $this->_requestedController . '.filterUser'
+        );
+        $this->view->offset         = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.offset');
+        $this->view->recordsPerPage = (int) $this->_dynamicConfig->getParam(
+            $this->_requestedController . '.recordsPerPage'
+        );
         $this->view->languages      = $this->_languagesModel->getAllLanguages();
     }
 

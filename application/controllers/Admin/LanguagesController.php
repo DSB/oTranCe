@@ -23,12 +23,12 @@ class Admin_LanguagesController extends AdminController
      */
     public function indexAction()
     {
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam('recordsPerPage');
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
-            $this->_dynamicConfig->getParam('filterUser'),
-            $this->_dynamicConfig->getParam('offset'),
-            $this->_dynamicConfig->getParam('recordsPerPage'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage'),
             false
         );
         $this->view->hits = $this->_languagesModel->getRowCount();
@@ -61,8 +61,8 @@ class Admin_LanguagesController extends AdminController
                 if (is_string($sourceFile)) {
                     $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
                     $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
+                    $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
                 }
-                $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
             }
 
             if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {

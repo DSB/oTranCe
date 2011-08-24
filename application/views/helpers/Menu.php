@@ -31,7 +31,9 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
         }
 
         $view = $this->view;
-        $this->view->request = $request;
+        $view->request = $request;
+        $config = Msd_Registry::getConfig();
+        $view->projectConfig = $config->getParam('project');
         $menu = $view->render('index/menu.phtml');
         return $menu;
     }

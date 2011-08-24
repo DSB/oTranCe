@@ -1,0 +1,45 @@
+<h2>Admin - Project</h2>
+<?php
+echo $this->partial('admin/head-navi.phtml');
+/**
+ * @var Zend_View_Helper_Cycle $cycle
+ */
+$cycle = $this->cycle(array('row-odd', 'row-even'));
+?>
+<form action="<?php echo $this->baseUrl(); ?>/admin_project" method="post">
+    <table class="bdr more-padding">
+        <tr class="thead">
+            <th colspan="2">Project settings</th>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="name">Project title:</label></td>
+            <td><input type="text" class="text" name="name" id="name" value="<?php echo $this->settings['name']; ?>" size="40"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="url">Project URL:</label></td>
+            <td><input type="text" class="text" name="url" id="url" value="<?php echo $this->settings['url']; ?>" size="40"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="logo_small">Small project logo:</label></td>
+            <td><input type="text" class="text" name="logo[small]" id="logo_small" value="<?php echo $this->settings['logo']['small']; ?>" onkeyup="updatePreviewImage('small', this.value);" size="40"/><br/>
+            <img id="small_preview" src="<?php echo $this->settings['logo']['small']; ?>" alt="Small logo preview"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="logo_large">Large project logo:</label></td>
+            <td><input type="text" class="text" name="logo[large]" id="logo_large" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
+            <img id="large_preview" src="<?php echo $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td></td>
+            <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', ''); ?> Save</button></td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+function updatePreviewImage(size, url)
+{
+    $('#' + size + '_preview').each(function() {
+        $(this)[0].src = url;
+    });
+}
+</script>

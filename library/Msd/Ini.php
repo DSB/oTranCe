@@ -127,8 +127,11 @@ class Msd_Ini
                     array('\\\\', '\\"'),
                     $value
                 );
-                $resultString .= ltrim($prefix . '.' . $key, '.') . ' = "' . (string) $newValue . '"';
+                $resultString .= ltrim("$prefix.$key", '.') . " = \"$newValue\"\n";
             }
+        }
+
+        if ($level < 2) {
             $resultString .= "\n";
         }
 

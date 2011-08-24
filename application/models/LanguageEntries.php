@@ -235,10 +235,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         if ($languageId > 0) {
             // we are looking for a specific language
-            $sql .= ' WHERE ((t.`text`=\'\' AND t.`lang_id`=' . $languageId.') OR ISNULL(t.`text`))';
+            // Add the language condition to the JOIN, not to the WHERE clause.
+            $sql .= ' AND t.`lang_id`=' . $languageId.' WHERE (t.`text`=\'\' OR t.`text` IS NULL)';
         } else {
-            // find alle untranslated keys
-            $sql .= ' WHERE ((t.`text`=\'\' OR ISNULL(t.`text`))';
+            // find all untranslated keys
+            $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)';
         }
 
         if (!empty($where)) {

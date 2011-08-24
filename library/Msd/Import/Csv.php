@@ -1,6 +1,19 @@
 <?php
-/*
+/**
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Importer
+ * @version         SVN: $
+ * @author          $Author: $
+ */
+
+/**
  * Generic comma seperated file importer
+ *
+ * @package         oTranCe
+ * @subpackage      Importer
  */
 
 class Msd_Import_Csv implements Msd_Import_Interface
@@ -43,14 +56,11 @@ class Msd_Import_Csv implements Msd_Import_Interface
         $this->_lines = explode("\n", $this->_data);
 
         for ($i = 0; $i < count($this->_lines); $i++) {
-
             $this->_currentLine = explode(";", $this->_lines[$i]);
             $this->_extractedData[$this->_currentLine[0]] = $this->_currentLine[1];
-
         }
 
         return $this->_extractedData;
-
     }
 
 }

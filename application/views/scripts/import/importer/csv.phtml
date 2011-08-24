@@ -1,0 +1,43 @@
+<?php
+$code = <<<CODE
+TEST_KEY1;TEST_VALUE1
+TEST_KEY2;TEST_VALUE2
+CODE
+?>
+<h4>CSV importer information:</h4>
+<table class="bdr more-padding small" summary="">
+<tr class="row-even">
+    <td>Author:</td>
+    <td>
+        Steffen Hartmann
+    </td>
+</tr>
+
+<tr class="row-odd">
+    <td>Description:</td>
+    <td>
+        This importer is intended to import generic comma seperated files<br />
+        It extracts keys and values from semicolon seperated CSV files
+    </td>
+</tr>
+<tr class="row-even">
+    <td>Structure that can be detected:</td>
+    <td>
+        <pre><?php echo $this->out($code);?></pre>
+    </td>
+</tr>
+<tr class="row-odd">
+    <td>Ignored constants:</td>
+    <td>
+        none<br />
+    </td>
+</tr>
+    <tr class="row-even">
+        <td>Note:</td>
+        <td>
+            If you discover character encoding problems, copy &amp; paste the text into the text box
+            instead of uploading it. Or try to use the convert button until all characters are shown correctly.
+        </td>
+    </tr>
+
+</table>

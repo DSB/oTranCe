@@ -7,7 +7,7 @@ echo $this->partial('admin/head-navi.phtml');
 $cycle = $this->cycle(array('row-odd', 'row-even'));
 ?>
 <form action="<?php echo $this->baseUrl(); ?>/admin_project" method="post">
-    <table class="bdr more-padding">
+    <table class="bdr more-padding" summary="List of project settings">
         <tr class="thead">
             <th colspan="2">Project settings</th>
         </tr>

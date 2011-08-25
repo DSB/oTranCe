@@ -71,7 +71,7 @@ foreach ($this->fileTemplates as $fileTemplate) {
     $editUrl = $this->baseUrl() . '/admin_files/edit/id/' . $fileTemplate['id'] . '/';
 ?>
         <tr class="<?php echo $cycleHelper->next(); ?>">
-            <td>
+            <td class="nowrap">
                 <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->getIcon('Edit', ''); ?></a>
                 <a href="#" title="Delete file template" onclick="showDelConfirm(<?php echo $fileTemplate['id']; ?>);"><?php echo $this->getIcon('delete', ''); ?></a>
             </td>

@@ -1,8 +1,23 @@
 <h2>Admin - Export</h2>
 <?php echo $this->partial('admin/head-navi.phtml');?>
-<h4>Export settings</h4>
+<h4>Export settings:</h4>
 <form action="" method="post" id="exportConfigForm">
-    <table class="bdr more-padding" summary="List of vcs settings">
+    <table class="bdr more-padding" summary="Set fallback language">
+        <tr class="thead">
+            <th colspan="2">Language settings</th>
+        </tr>
+        <tr class="row-odd">
+            <td>
+                Fallback language:<br />The value of this language will be used<br />if the exported language
+                constant is empty.
+            </td>
+            <td><select name="fallbackLang" id="fallbackLang">
+                <?php foreach ($this->languages as $language) { ?>
+                <option value="<?php echo $language['id']; ?>"<?php echo ($language['id'] == $this->fallbackLang) ? ' selected="selected"' : ''; ?>><?php echo $language['name']; ?> (<?php echo $language['locale']; ?>)</option>
+                <?php } ?>
+            </select></td>
+        </tr>
+
         <tr class="thead">
             <th colspan="2">Version Control System (VCS)</th>
         </tr>
@@ -10,11 +25,11 @@
             <td><label for="vcsAdapter">Current VCS adapter:</label></td>
             <td>
                 <select name="vcsAdapter" id="vcsAdapter" onchange="$('#exportConfigForm').submit();">
-<?php foreach ($this->vcsAvailAdapter as $vcsAdapter) {
+                <?php foreach ($this->vcsAvailAdapter as $vcsAdapter) {
                     $isSeleted = (bool) (strtolower($vcsAdapter) == strtolower($this->vcsConfig['adapter']));
-?>
+                ?>
                     <option value="<?php echo $vcsAdapter; ?>"<?php echo $isSeleted ? ' selected="selected"' : ''; ?>><?php echo str_replace('_', ' ', $vcsAdapter); ?></option>
-<?php } ?>
+                <?php } ?>
                 </select>
             </td>
         </tr>
@@ -26,20 +41,20 @@
             <th colspan="2">VCS adapter options</th>
         </tr>
 <?php
-/**
- * @var $cycle Zend_View_Helper_Cycle
- */
-$cycle = $this->cycle(array('row-even', 'row-odd'));
-foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
-    if (isset($this->vcsConfig['options'][$optionName])) {
-        $optionValue = $this->vcsConfig['options'][$optionName];
-    } else {
-        $optionValue = '';
-    }
+        /**
+         * @var $cycle Zend_View_Helper_Cycle
+         */
+        $cycle = $this->cycle(array('row-even', 'row-odd'));
+        foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
+            if (isset($this->vcsConfig['options'][$optionName])) {
+                $optionValue = $this->vcsConfig['options'][$optionName];
+            } else {
+                $optionValue = '';
+            }
 ?>
         <tr class="<?php echo $cycle->next(); ?>">
             <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
-            <td><input type="text" class="text" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
+            <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
         </tr>
 <?php } ?>
         <tr class="<?php echo $cycle->next(); ?>">
@@ -47,19 +62,6 @@ foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
             <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> Save</button></td>
         </tr>
     </table>
-    <div class="clear"><br /></div>
-    <table class="bdr more-padding" summary="Set fallback language">
-        <tr class="thead">
-            <th colspan="2">Language settings</th>
-        </tr>
-        <tr class="row-odd">
-            <td><label for="fallbackLang">Fallback language:</label></td>
-            <td><select name="fallbackLang" id="fallbackLang">
-                <?php foreach ($this->languages as $language) { ?>
-                <option value="<?php echo $language['id']; ?>"<?php echo ($language['id'] == $this->fallbackLang) ? ' selected="selected"' : ''; ?>><?php echo $language['name']; ?> (<?php echo $language['locale']; ?>)</option>
-                <?php } ?>
-            </select></td>
-        </tr>
-    </table>
+
 </form>
 <?php $this->jQuery()->addOnLoad('$("textarea").autoGrow();'); ?>

@@ -23,12 +23,12 @@ class Msd_Import_Csv implements Msd_Import_Interface
      */
     private $_data;
 
-    /*
+    /**
      * @var array
      */
     private $_lines;
 
-    /*
+    /**
      * @var array
      */
     private $_currentLine;
@@ -38,6 +38,12 @@ class Msd_Import_Csv implements Msd_Import_Interface
      * @var array
      */
     protected $_extractedData = array();
+
+    /**
+     * Key -> Value separator
+     * @var string
+     */
+    protected $_separator = ',';
 
     /**
      * Analyze data and return exracted key=>value pairs
@@ -56,7 +62,7 @@ class Msd_Import_Csv implements Msd_Import_Interface
         $this->_lines = explode("\n", $this->_data);
 
         for ($i = 0; $i < count($this->_lines); $i++) {
-            $this->_currentLine = explode(";", $this->_lines[$i]);
+            $this->_currentLine = explode($this->_separator, $this->_lines[$i]);
             $this->_extractedData[$this->_currentLine[0]] = $this->_currentLine[1];
         }
 

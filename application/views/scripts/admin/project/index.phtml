@@ -22,12 +22,12 @@ $cycle = $this->cycle(array('row-odd', 'row-even'));
         <tr class="<?php echo $cycle->next(); ?>">
             <td><label for="logo_small">Small project logo:</label></td>
             <td><input type="text" class="text" name="logo[small]" id="logo_small" value="<?php echo $this->settings['logo']['small']; ?>" onkeyup="updatePreviewImage('small', this.value);" size="40"/><br/>
-            <img id="small_preview" src="<?php echo $this->settings['logo']['small']; ?>" alt="Small logo preview"/></td>
+            <img id="small_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['small']; ?>" alt="Small logo preview"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
             <td><label for="logo_large">Large project logo:</label></td>
             <td><input type="text" class="text" name="logo[large]" id="logo_large" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
-            <img id="large_preview" src="<?php echo $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>
+            <img id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
             <td></td>
@@ -39,7 +39,7 @@ $cycle = $this->cycle(array('row-odd', 'row-even'));
 function updatePreviewImage(size, url)
 {
     $('#' + size + '_preview').each(function() {
-        $(this)[0].src = url;
+        $(this)[0].src = '<?php echo $this->baseUrl();?>' + url;
     });
 }
 </script>

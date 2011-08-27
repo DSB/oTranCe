@@ -46,6 +46,16 @@ class Msd_Import_Csv implements Msd_Import_Interface
     protected $_separator = ',';
 
     /**
+     * @var string
+     */
+    protected $_currentKey;
+
+    /**
+     * @var string
+     */
+    protected $_currentValue;
+
+    /**
      * Analyze data and return exracted key=>value pairs
      *
      * @abstract
@@ -62,8 +72,17 @@ class Msd_Import_Csv implements Msd_Import_Interface
         $this->_lines = explode("\n", $this->_data);
 
         for ($i = 0; $i < count($this->_lines); $i++) {
-            $this->_currentLine = explode($this->_separator, $this->_lines[$i]);
-            $this->_extractedData[$this->_currentLine[0]] = $this->_currentLine[1];
+            $currentLine = explode($this->_separator, $this->_lines[$i], 2);
+
+            $currentKey = $currentLine[0];
+            $currentValue = trim($currentLine[1]);
+            $dataLength = strlen($currentValue);
+
+            if ($currentValue{0} == "'" && $currentValue{$dataLength -1} == "'" || $currentValue{0} == "\"" && $currentValue{$dataLength -1} == "\"") {
+                $currentValue = substr($currentValue, 1, $dataLength - 2);
+            }
+
+            $this->_extractedData[$currentKey] = $currentValue;
         }
 
         return $this->_extractedData;

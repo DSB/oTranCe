@@ -78,7 +78,8 @@ class Msd_Import_Csv implements Msd_Import_Interface
             $currentValue = trim($currentLine[1]);
             $dataLength = strlen($currentValue);
 
-            if ($currentValue{0} == "'" && $currentValue{$dataLength -1} == "'" || $currentValue{0} == "\"" && $currentValue{$dataLength -1} == "\"") {
+            if (($currentValue{0} == "'" && $currentValue{$dataLength -1} == "'")
+                || ($currentValue{0} == "\"" && $currentValue{$dataLength -1} == "\"")) {
                 $currentValue = substr($currentValue, 1, $dataLength - 2);
             }
 

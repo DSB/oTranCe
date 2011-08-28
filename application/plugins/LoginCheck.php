@@ -38,7 +38,7 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
             // redirect to login form if user is not logged in
             $frontController = Zend_Controller_Front::getInstance();
             $view = new Zend_View;
-            $fullUrl = 'http://' . $request->getHttpHost() . $view->baseUrl() .'/index/login/';
+            $fullUrl = $view->serverUrl() . $view->baseUrl() .'/index/login/';
             $frontController->getResponse()->setRedirect($fullUrl);
         }
     }

@@ -1,11 +1,5 @@
 <?php
-/**
- * @var Zend_View_Interface $this
- * @var Msd_Config $config
- */
-$config = $this->config;
-$interfaceConfig = $config->getParam('interface');
-
+$interfaceConfig = $this->config->getParam('interface');
 $theme = $interfaceConfig['theme'];
 $this->controller = $this->request->getControllerName();
 $this->action = $this->request->getActionName();

@@ -15,12 +15,17 @@ foreach ($this->exportedFiles as $exportedFile) {
         <td><?php echo $this->byteOutput($exportedFile['size']); ?></td>
     </tr>
 <?php } ?>
-<?php if ($this->exportOk) { ?>
-    <tr class="<?php echo $cycle->next();?>">
-        <td colspan="3">
-            <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
-        </td>
-    </tr>
-<?php } ?>
+<?php if ($this->exportOk) {
+    $projectConfig = $this->config->getParam('project', 0);
+    if ($projectConfig['vcsActivated'] > 0) { ?>
+        <tr class="<?php echo $cycle->next();?>">
+            <td colspan="3">
+                <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
+            </td>
+        </tr>
+    <?php
+    }
+}
+?>
 </table><br/>
 <a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>

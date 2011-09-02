@@ -1,30 +1,34 @@
 <h2>Export</h2>
 <?php
 $exportError = false;
-    foreach ($this->languages as $lang) {
-        $cycle = $this->cycle(array('row-even', 'row-odd'));
-        ?>
-        <h4>Exporting language <b><?php echo $lang['meta']['name'];?> (<?php echo $lang['meta']['locale'];?>)</b></h4>
-        <table class="bdr" style="margin-bottom:20px;">
-            <tr class="thead">
-                <th colspan="2">Filename</th>
-                <th>Filesize</th>
-            </tr>
-        <?php foreach ($lang['files'] as $exportedFile) { ?>
-            <tr class="<?php echo $cycle->next();?>">
-                 <td><?php echo $exportedFile['filename']; ?></td>
-                 <td><?php echo ($exportedFile['size'] !== false) ? $this->getIcon('Ok', '', 16) : $this->getIcon('Attention', '', 16); ?></td>
-                 <td><?php echo $this->byteOutput($exportedFile['size']); ?></td>
-             </tr>
-        <?php
-            }
-        ?>
-        </table>
+foreach ($this->languages as $lang) {
+    $cycle = $this->cycle(array('row-even', 'row-odd'));
+    ?>
+    <h4>Exporting language <b><?php echo $lang['meta']['name'];?> (<?php echo $lang['meta']['locale'];?>)</b></h4>
+    <table class="bdr" style="margin-bottom:20px;">
+        <tr class="thead">
+            <th colspan="2">Filename</th>
+            <th>Filesize</th>
+        </tr>
+    <?php foreach ($lang['files'] as $exportedFile) { ?>
+        <tr class="<?php echo $cycle->next();?>">
+             <td><?php echo $exportedFile['filename']; ?></td>
+             <td><?php echo ($exportedFile['size'] !== false) ? $this->getIcon('Ok', '', 16) : $this->getIcon('Attention', '', 16); ?></td>
+             <td><?php echo $this->byteOutput($exportedFile['size']); ?></td>
+         </tr>
     <?php
+        }
+    ?>
+    </table>
+<?php
+}
+if ($this->exportOk) {
+    $projectConfig = $this->config->getParam('project', 0);
+    if ($projectConfig['vcsActivated'] > 0) { ?>
+        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
+        <?php
     }
-    if ($this->exportOk) {
+}
 ?>
-            <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
-<?php } ?>
 <br />
 <a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>

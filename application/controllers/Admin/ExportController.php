@@ -35,7 +35,6 @@ class Admin_ExportController extends AdminController
         $this->view->vcsAdapterParams = Msd_Vcs::getAdapterOptions($vcsConf['adapter']);
         $this->view->vcsConfig = $vcsConf;
         $this->view->vcsAvailAdapter = Msd_Vcs::getAvailableAdapter();
-
         $langModel = new Application_Model_Languages();
         $this->view->languages = $langModel->getAllLanguages();
         $this->view->fallbackLang = $langModel->getFallbackLanguage();
@@ -54,6 +53,10 @@ class Admin_ExportController extends AdminController
             'options' => $this->_request->getParam('vcsOptions'),
         );
         $this->_config->setParam('vcs', $vcsConfig);
+
+        $projectConfig = $this->_config->getParam('project');
+        $projectConfig['vcsActivated'] = (int) $this->_request->getParam('vcsActivated', 0);
+        $this->_config->setParam('project', $projectConfig);
 
         $langModel = new Application_Model_Languages();
         $langModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));

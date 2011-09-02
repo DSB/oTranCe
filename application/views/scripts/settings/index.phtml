@@ -1,5 +1,6 @@
 <?php
 $i = 1;
+$projectConfig = $this->config->getParam('project');
 ?>
 <h2>Configuration</h2>
 <h4>You are allowed to edit:</h4>
@@ -93,6 +94,9 @@ $i = 1;
     ?>
 </table>
 <br />
+<?php
+if ($projectConfig['vcsActivated'] > 0) {
+    ?>
 <br />
 <h4>Personal Version Control System (VCS) credentials:</h4>
     <p>
@@ -107,11 +111,14 @@ $i = 1;
         <td><input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/></td>
     </tr>
     <tr class="row-even">
-        <td><label for="vcsPass">Password:</label></td>
+        <td><label for="vcsPass">
+                Password:<br />
+                (* only enter if you want to change the current password)
+            </label></td>
         <td><input type="password" class="text" name="vcsPass" id="vcsPass"/></td>
     </tr>
     <tr class="row-odd">
-        <td><label for="vcsPass2">... confirm:</label></td>
+        <td><label for="vcsPass2">Confirm password:</label></td>
         <td><input type="password" class="text" name="vcsPass2" id="vcsPass2"/></td>
     </tr>
     <tr class="row-even">
@@ -119,6 +126,7 @@ $i = 1;
         <td><button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton"><?php echo $this->getIcon('delete', ''); ?> Delete credentials</button></td>
     </tr>
 </table>
+<?php } ?>
 <p>
     <br />
     <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save settings</button>

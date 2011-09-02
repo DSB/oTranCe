@@ -51,24 +51,28 @@ class SettingsController extends Msd_Controller_Action
         $this->view->languages = $languagesModel->getAllLanguages();
         if ($this->_request->isPost()) {
             $languagesSelected = $this->_request->getParam('selLangs', array());
-            $recordsPerPage = $this->_request->getParam('recordsPerPage', 20);
-            $vcsUser = $this->_request->getParam('vcsUser');
-            //save new settings to session
+            $recordsPerPage    = $this->_request->getParam('recordsPerPage', 20);
+            $saved             = $this->saveUserSettings($languagesSelected, $recordsPerPage);
             $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
 
-            $saved = $this->saveUserSettings($languagesSelected, $recordsPerPage);
-            $saveVcsCredsResult = $this->_saveVcsCredentials();
-            $saved = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
+            $projectConfig = $this->_config->getParam('project');
+            if ($projectConfig['vcsActivated'] == 1) {
+                $vcsUser            = $this->_request->getParam('vcsUser');
+                $saveVcsCredsResult = $this->_saveVcsCredentials();
+                $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
+            }
             $this->view->saved = $saved;
         } else {
-            $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage', 10);
+            $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
             $languagesSelected = $this->getRefLanguageSettings();
-            $vcsUser = $this->_getVcsUser();
+            $vcsUser           = $this->_getVcsUser();
         }
-        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
+        $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
-        $this->view->editLanguages = $this->_userModel->getUserEditRights();
-        $this->view->vcsUser = $vcsUser;
+        $this->view->editLanguages        = $this->_userModel->getUserEditRights();
+        if (isset($vcsUser)) {
+            $this->view->vcsUser = $vcsUser;
+        }
     }
 
     /**
@@ -81,7 +85,7 @@ class SettingsController extends Msd_Controller_Action
      */
     public function saveUserSettings($languagesSelected, $recordsPerPage)
     {
-        $res = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
+        $res  = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
         $res &= $this->_userModel->saveSetting('referenceLanguage', $languagesSelected);
         return $res;
     }
@@ -120,7 +124,7 @@ class SettingsController extends Msd_Controller_Action
         }
         $vcsUser = $this->_request->getParam('vcsUser');
         if ($vcsUser !== null && strlen($vcsUser) > 0) {
-            $vcsPass = $this->_request->getParam('vcsPass');
+            $vcsPass        = $this->_request->getParam('vcsPass');
             $vcsPassConfirm = $this->_request->getParam('vcsPass2');
             if ($vcsPass != $vcsPassConfirm) {
                 return self::VCS_PASS_NOT_EQUAL;
@@ -144,7 +148,7 @@ class SettingsController extends Msd_Controller_Action
         }
         $cryptedVcsCreds = $this->_userModel->loadSetting('vcsCredentials', null);
         if ($cryptedVcsCreds !== null) {
-            $vcsCredentials = $this->_crypt->decrypt($cryptedVcsCreds);
+            $vcsCredentials   = $this->_crypt->decrypt($cryptedVcsCreds);
             list ($vcsUser, ) = explode('%@%', $vcsCredentials);
             return $vcsUser;
         }

@@ -1,6 +1,8 @@
 <?php
 $entry = $this->entry;
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$translateConfig = $this->config->getParam('google');
+$apiKey = $translateConfig['apikey'];
 ?>
 <h2>Edit entry</h2>
 <h4>Key: <?php echo $this->key['key'];?>
@@ -136,6 +138,9 @@ if (!empty($this->referenceLanguages)) {
                         </a>
                         <?php } ?>
                     </td>
+                    <?php
+                        if ($apiKey > '') {
+                    ?>
                     <td>Translate into:</td>
                     <td>
                         <?php
@@ -153,6 +158,9 @@ if (!empty($this->referenceLanguages)) {
                         }
                         ?>
                     </td>
+                    <?php } else { ?>
+                    <td colspan="2">&nbsp</td>
+                    <?php } ?>
                 </tr>
                 <tr class="<?php echo $cycleHelper->next();?>"><td colspan="5">&nbsp;</td></tr>
                 <?php

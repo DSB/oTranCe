@@ -92,6 +92,7 @@ class Admin_LanguagesController extends AdminController
                 $this->view->flagExtension = $langData['flag_extension'];
             }
         }
+        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
     }
 
     /**

@@ -24,7 +24,13 @@ $inputFieldMap = array(
                 <input type="radio" name="langActive" id="langActiveYes" value="1"<?php echo (!isset($this->langActive) || $this->langActive) ? ' checked="checked"' : ''; ?>/>
                 <label for="langActiveYes"> Yes</label>
                 &nbsp;&nbsp;
-                <input type="radio" name="langActive" id="langActiveNo" value="0"<?php echo (isset($this->langActive) && !$this->langActive) ? ' checked="checked"' : ''; ?>/>
+                <input type="radio" name="langActive" id="langActiveNo" value="0"<?php echo (isset($this->langActive) && !$this->langActive) ? ' checked="checked"' : ''; ?>
+                    <?php
+                    if ($this->fallbackLanguageId == $this->langId) {
+                        echo ' disabled="disabled"';
+                    }
+                    ?>
+                />
                 <label for="langActiveNo"> No</label>
             </td>
         </tr>

@@ -14,7 +14,7 @@ require_once 'AdminController.php';
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class Admin_ExportController extends AdminController
+class Admin_VcsController extends AdminController
 {
     /**
      * Index action
@@ -33,11 +33,8 @@ class Admin_ExportController extends AdminController
             }
         }
         $this->view->vcsAdapterParams = Msd_Vcs::getAdapterOptions($vcsConf['adapter']);
-        $this->view->vcsConfig = $vcsConf;
-        $this->view->vcsAvailAdapter = Msd_Vcs::getAvailableAdapter();
-        $langModel = new Application_Model_Languages();
-        $this->view->languages = $langModel->getAllLanguages();
-        $this->view->fallbackLang = $langModel->getFallbackLanguage();
+        $this->view->vcsConfig        = $vcsConf;
+        $this->view->vcsAvailAdapter  = Msd_Vcs::getAvailableAdapter();
     }
 
     /**
@@ -48,19 +45,15 @@ class Admin_ExportController extends AdminController
     private function _saveVcsConfig()
     {
         $vcsConfig = array(
-            'adapter' => $this->_request->getParam('vcsAdapter'),
+            'adapter'       => $this->_request->getParam('vcsAdapter'),
             'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
-            'options' => $this->_request->getParam('vcsOptions'),
+            'options'       => $this->_request->getParam('vcsOptions'),
         );
         $this->_config->setParam('vcs', $vcsConfig);
 
-        $projectConfig = $this->_config->getParam('project');
+        $projectConfig                 = $this->_config->getParam('project');
         $projectConfig['vcsActivated'] = (int) $this->_request->getParam('vcsActivated', 0);
         $this->_config->setParam('project', $projectConfig);
-
-        $langModel = new Application_Model_Languages();
-        $langModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
-
         $this->_config->save();
     }
 

@@ -1,0 +1,74 @@
+<h2>Admin - Export</h2>
+<?php
+echo $this->partial('admin/head-navi.phtml');
+$projectConfig = $this->config->getParam('project');
+?>
+<h4>General Version Control Settings:</h4>
+<form action="" method="post" id="exportConfigForm">
+    <table class="bdr more-padding" summary="Set fallback language">
+        <tr class="thead">
+            <th colspan="2">Version Control System (VCS)</th>
+        </tr>
+        <tr class="row-odd">
+            <td>Project uses a version control system:</td>
+            <td>
+                <input type="radio" name="vcsActivated" id="vcs_active_yes" value="1"
+                    <?php if ($projectConfig['vcsActivated'] == 1) { ?>
+                        checked="checked"
+                    <?php } ?>
+                />
+                <label for="vcs_active_yes"> Yes</label>
+                &nbsp;&nbsp;
+                <input type="radio" name="vcsActivated" id="vcs_active_no" value="0"
+                    <?php if ($projectConfig['vcsActivated'] == 0) { ?>
+                        checked="checked"
+                    <?php } ?>
+                />
+                <label for="vcs_active_no"> No</label>
+            </td>
+        </tr>
+
+        <tr class="row-odd">
+            <td><label for="vcsAdapter">Current VCS adapter:</label></td>
+            <td>
+                <select name="vcsAdapter" id="vcsAdapter" onchange="$('#exportConfigForm').submit();">
+                <?php foreach ($this->vcsAvailAdapter as $vcsAdapter) {
+                    $isSeleted = (bool) (strtolower($vcsAdapter) == strtolower($this->vcsConfig['adapter']));
+                ?>
+                    <option value="<?php echo $vcsAdapter; ?>"<?php echo $isSeleted ? ' selected="selected"' : ''; ?>><?php echo str_replace('_', ' ', $vcsAdapter); ?></option>
+                <?php } ?>
+                </select>
+            </td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="vcsCommitMessage">Commit message:</label></td>
+            <td><input type="text" class="text width300" name="vcsCommitMessage" id="vcsCommitMessage" value="<?php echo $this->vcsConfig['commitMessage']; ?>" /></td>
+        </tr>
+        <tr class="thead">
+            <th colspan="2">VCS adapter options</th>
+        </tr>
+<?php
+        /**
+         * @var $cycle Zend_View_Helper_Cycle
+         */
+        $cycle = $this->cycle(array('row-even', 'row-odd'));
+        foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
+            if (isset($this->vcsConfig['options'][$optionName])) {
+                $optionValue = $this->vcsConfig['options'][$optionName];
+            } else {
+                $optionValue = '';
+            }
+?>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
+            <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
+        </tr>
+<?php } ?>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>&nbsp;</td>
+            <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+        </tr>
+    </table>
+
+</form>
+<?php $this->jQuery()->addOnLoad('$("textarea").autoGrow();'); ?>

@@ -35,6 +35,17 @@ $cycle = $this->cycle(array('row-odd', 'row-even'));
                 <img style="padding:12px;" id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
+            <td>
+                Fallback language:<br />The values of this language will be used for other languages
+                <br />if the exported language constant is untranslated.
+            </td>
+            <td><select name="fallbackLang" id="fallbackLang">
+                <?php foreach ($this->languages as $language) { ?>
+                <option value="<?php echo $language['id']; ?>"<?php echo ($language['id'] == $this->fallbackLanguageId) ? ' selected="selected"' : ''; ?>><?php echo $language['name']; ?> (<?php echo $language['locale']; ?>)</option>
+                <?php } ?>
+            </select></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
             <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', ''); ?> Save</button></td>
         </tr>

@@ -47,8 +47,6 @@ class SettingsController extends Msd_Controller_Action
      */
     public function indexAction()
     {
-        $languagesModel = new Application_Model_Languages();
-        $this->view->languages = $languagesModel->getAllLanguages();
         if ($this->_request->isPost()) {
             $languagesSelected = $this->_request->getParam('selLangs', array());
             $recordsPerPage    = $this->_request->getParam('recordsPerPage', 20);
@@ -67,6 +65,10 @@ class SettingsController extends Msd_Controller_Action
             $languagesSelected = $this->getRefLanguageSettings();
             $vcsUser           = $this->_getVcsUser();
         }
+
+        $languagesModel                   = new Application_Model_Languages();
+        $this->view->languages            = $languagesModel->getAllLanguages();
+        $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguage();
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
         $this->view->editLanguages        = $this->_userModel->getUserEditRights();

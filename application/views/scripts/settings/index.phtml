@@ -63,8 +63,7 @@ $projectConfig = $this->config->getParam('project');
         $langId = $language['id'];
         $langName = $this->languages[$langId]['name'];
         $langLocale = $this->languages[$langId]['locale'];
-
-    ?>
+        ?>
         <tr class="<?php echo $cycle->next();?>">
             <td class="right"><?php echo $i;?>.</td>
             <td>
@@ -81,11 +80,13 @@ $projectConfig = $this->config->getParam('project');
             <td>
                 <input type="checkbox" class="checkbox" value="<?php echo $language['id']; ?>" name="selLangs[]" id="<?php echo $id;?>"
                 <?php
-                    if (in_array($key, $this->refLanguagesSelected)) {
+                    if (in_array($key, $this->refLanguagesSelected) || $langId == $this->fallbackLanguageId) {
                         echo ' checked="checked"';
                     }
+                    if ($langId == $this->fallbackLanguageId) {
+                        echo ' disabled="disabled"';
+                    }
                 ?>
-                />
             </td>
         </tr>
     <?php

@@ -47,7 +47,7 @@ $projectConfig = $this->config->getParam('project');
         <tr class="thead">
             <th colspan="2">VCS adapter options</th>
         </tr>
-<?php
+        <?php
         /**
          * @var $cycle Zend_View_Helper_Cycle
          */
@@ -58,12 +58,14 @@ $projectConfig = $this->config->getParam('project');
             } else {
                 $optionValue = '';
             }
-?>
-        <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
-            <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
-        </tr>
-<?php } ?>
+            ?>
+            <tr class="<?php echo $cycle->next(); ?>">
+                <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
+                <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
+            </tr>
+            <?php
+        }
+        ?>
         <tr class="<?php echo $cycle->next(); ?>">
             <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> Save</button></td>

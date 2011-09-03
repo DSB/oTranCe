@@ -255,6 +255,28 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
+     * Get the key id of the first untranslated variables in given languages
+     *
+     * @param int $languageId ID of languages to search in
+     *
+     * @return null|int
+     */
+    public function getFirstUntranslated($languageId)
+    {
+        $sql = 'SELECT k.`id`, t.`lang_id`, t.`text` FROM `' . $this->_tableKeys . '` k '
+                . ' LEFT JOIN `' . $this->_tableTranslations . '` t'
+                . ' ON t.`key_id` = k.`id`'
+                . ' AND t.`lang_id` = ' . $languageId
+                . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)'
+                . ' ORDER BY k.`key` ASC LIMIT 0, 1';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if (isset($res[0]['id'])) {
+            return $res[0]['id'];
+        }
+        return null;
+    }
+
+    /**
      * Get nr of rows of last query (needs to invoked using SQL_CALC_FOUND_ROWS)
      *
      * @return integer

@@ -178,8 +178,13 @@ class EntriesController extends Zend_Controller_Action
                     return;
                 }
                 // Get next untranslated var
-                //TODO Implement button "get next untranslated"
-                if ($this->_request->getParam('saveUntranslated') != null) {
+                if ($this->view->entrySaved !== false && $this->_request->getParam('saveUntranslated') != null) {
+                    $nextId = $this->_findNextUntranslated();
+                    if ($nextId !== null) {
+                        $id = $nextId;
+                    } else {
+                        $this->view->noUntranslatedFound = true;
+                    }
                 }
             }
         }
@@ -194,6 +199,26 @@ class EntriesController extends Zend_Controller_Action
         $this->view->translatable         = Msd_Google::getTranslatableLanguages();
     }
 
+    /**
+     * Find next untranslated language variable and return its Id.
+     *
+     * Iterates over all languages the user is allowed to edit.
+     *
+     * @return int|null
+     */
+    private function _findNextUntranslated()
+    {
+        $nextId = null;
+        $langEnriesModel = new Application_Model_LanguageEntries();
+        $languages = $this->getEditLanguages();
+        foreach ($languages as $lang) {
+            $nextId = $langEnriesModel->getFirstUntranslated($lang);
+            if ($nextId !== null) {
+                break;
+            }
+        }
+        return $nextId;
+    }
     /**
      * Handle delete action
      *

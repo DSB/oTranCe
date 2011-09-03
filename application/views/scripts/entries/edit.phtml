@@ -85,9 +85,7 @@ if (isset($this->entrySaved)) {
                         <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
                         <input type="submit" class="Formbutton" name="save" value="Save" />
                         <input type="submit" class="Formbutton" name="saveReturn" value="Save &amp; Return" />
-                        <!--
                         <input type="submit" class="Formbutton" name="saveUntranslated" value="Save &amp; Get Untranslated" />
-                        -->
                         <input type="submit" class="Formbutton" name="cancel" value="Cancel" />
                     </td>
                 </tr>
@@ -216,3 +214,17 @@ function translate(event) {
     });
 }
 </script>
+<?php
+if (isset($this->noUntranslatedFound)) {
+    $this->popUpMessage()->addMessage(
+        'noUntranslatedFound',
+        'Congratulations',
+        'All entries you can maintain are translated.<br>Congratulations and thank you for your work.<br /><br />Best regards, your project team',
+        array(
+            'modal' => true,
+            'height' => 180,
+            'width' => 320,
+            'dialogClass' => 'info',
+        )
+    );
+}

@@ -137,17 +137,21 @@ class EntriesController extends Zend_Controller_Action
      */
     public function setLanguages()
     {
-        $this->view->languages = $this->_languagesModel->getAllLanguages();
-        $this->_languagesEdit = $this->getEditLanguages();
+        $this->view->languages     = $this->_languagesModel->getAllLanguages();
+        $this->_languagesEdit      = $this->getEditLanguages();
         $this->view->languagesEdit = $this->_languagesEdit;
-        $this->_showLanguages = $this->_languagesEdit;
         $userModel = new Application_Model_User();
-        $this->_referenceLanguages = $userModel->getRefLanguages();
-        if (is_array($this->_referenceLanguages)) {
-            $this->_showLanguages = array_merge($this->_showLanguages, $this->_referenceLanguages);
-            $this->_showLanguages = array_unique($this->_showLanguages);
-        }
+
+        // get reference languages and make sure that the fallback language is at top
+        $this->_referenceLanguages      = array(0 => $this->_languagesModel->getFallbackLanguage());
+        $this->_referenceLanguages      = array_merge($this->_referenceLanguages, $userModel->getRefLanguages());
+        $this->_referenceLanguages      = array_unique($this->_referenceLanguages);
         $this->view->referenceLanguages = $this->_referenceLanguages;
+
+        // build show language array for index page
+        $this->_showLanguages      = $this->_languagesEdit;
+        $this->_showLanguages      = array_merge($this->_showLanguages, $this->_referenceLanguages);
+        $this->_showLanguages      = array_unique($this->_showLanguages);
         $this->view->showLanguages = $this->_showLanguages;
     }
 
@@ -180,13 +184,14 @@ class EntriesController extends Zend_Controller_Action
             }
         }
         $this->setLanguages();
-        $this->view->key = $this->_entriesModel->getKeyById($id);
+        $this->view->key   = $this->_entriesModel->getKeyById($id);
         $this->view->entry = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
-        $this->view->user = $this->_userModel;
+        $this->view->user  = $this->_userModel;
+
         $templatesModel = new Application_Model_FileTemplates();
-        $this->view->fileTemplates = $templatesModel->getFileTemplates('name');
+        $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
-        $this->view->translatable = Msd_Google::getTranslatableLanguages();
+        $this->view->translatable         = Msd_Google::getTranslatableLanguages();
     }
 
     /**

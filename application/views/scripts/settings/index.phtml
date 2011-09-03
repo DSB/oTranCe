@@ -8,6 +8,7 @@ $projectConfig = $this->config->getParam('project');
     <tr class="thead">
         <th>#</th>
         <th colspan="3">Language</th>
+        <th>Fallback language</th>
     </tr>
 <?php
     foreach ($this->editLanguages as $lang)
@@ -23,6 +24,14 @@ $projectConfig = $this->config->getParam('project');
             </td>
             <td><?php echo $langLocale;?></td>
             <td><?php echo $langName;?></td>
+            <td>
+                <?php
+                    if ($langId == $this->fallbackLanguageId) {
+                        echo $this->getIcon('Ok', '', 16);
+                    }
+                ?>
+                &nbsp;
+            </td>
         </tr>
     <?php
         $i++;
@@ -50,6 +59,7 @@ $projectConfig = $this->config->getParam('project');
     <tr class="thead">
         <th>#</th>
         <th colspan="4">Language</th>
+        <th>Fallback language</th>
     </tr>
     <?php
     $i = 1;
@@ -86,7 +96,14 @@ $projectConfig = $this->config->getParam('project');
                     if ($langId == $this->fallbackLanguageId) {
                         echo ' disabled="disabled"';
                     }
-                ?>
+                ?>/>
+            </td>
+            <td>
+                <?php
+                    if ($langId == $this->fallbackLanguageId) {
+                        echo $this->getIcon('Ok', '', 16);
+                    }
+                ?>&nbsp;
             </td>
         </tr>
     <?php
@@ -94,44 +111,46 @@ $projectConfig = $this->config->getParam('project');
     }
     ?>
 </table>
-<br />
+
 <?php
 if ($projectConfig['vcsActivated'] > 0) {
     ?>
-<br />
-<h4>Personal Version Control System (VCS) credentials:</h4>
+    <p><br /></p>
+    <h4>Personal Version Control System (VCS) credentials:</h4>
     <p>
         Enter at least the username of your personal VCS credentials.
     </p>
-<table class="bdr" summary="Credentials for VCS access.">
-    <tr class="thead">
-        <th colspan="2">VCS Credentials</th>
-    </tr>
-    <tr class="row-odd">
-        <td><label for="vcsUser">Username:</label></td>
-        <td><input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/></td>
-    </tr>
-    <tr class="row-even">
-        <td><label for="vcsPass">
-                Password:<br />
-                (* only enter if you want to change the current password)
-            </label></td>
-        <td><input type="password" class="text" name="vcsPass" id="vcsPass"/></td>
-    </tr>
-    <tr class="row-odd">
-        <td><label for="vcsPass2">Confirm password:</label></td>
-        <td><input type="password" class="text" name="vcsPass2" id="vcsPass2"/></td>
-    </tr>
-    <tr class="row-even">
-        <td></td>
-        <td><button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton"><?php echo $this->getIcon('delete', ''); ?> Delete credentials</button></td>
-    </tr>
-</table>
+    <table class="bdr" summary="Credentials for VCS access.">
+        <tr class="thead">
+            <th colspan="2">VCS Credentials</th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="vcsUser">Username:</label></td>
+            <td><input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/></td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="vcsPass">
+                    Password:<br />
+                    (* provide this if you want to change the current password)
+                </label></td>
+            <td><input type="password" class="text" name="vcsPass" id="vcsPass"/></td>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="vcsPass2">
+                    Confirm password:<br />
+                    (* provide this if you want to change the current password)
+                </label>
+            </td>
+            <td><input type="password" class="text" name="vcsPass2" id="vcsPass2"/></td>
+        </tr>
+        <tr class="row-even">
+            <td></td>
+            <td><button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton"><?php echo $this->getIcon('delete', ''); ?> Delete credentials</button></td>
+        </tr>
+    </table>
 <?php } ?>
-<p>
-    <br />
+<p><br />
     <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save settings</button>
-    <br /><br />
 </p>
 </form>
 

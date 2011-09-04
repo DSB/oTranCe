@@ -407,13 +407,25 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $keyId = (int) $keyId;
         $oldValues = $this->getEntryById($keyId, array_keys($newValues), true);
-        foreach ($newValues as $lang => $text) {
-            $lang = (int) $lang;
+        // remove unchanged languages
+        foreach ($oldValues as $langId => $oldValue) {
+            if ($newValues[$langId] == $oldValue) {
+                unset($newValues[$langId]);
+            }
+        }
+        if (empty($newValues)) {
+            //nothing changed == nothing to do -> return
+            return true;
+        }
+
+        // save changes to database
+        foreach ($newValues as $langId => $text) {
+            $langId = (int) $langId;
             $text = $this->_dbo->escape($text);
             $date = date('Y-m-d H:i:s', time());
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
                     . ' (`lang_id`, `key_id`, `text`, `dt`) VALUES ('
-                    . $lang . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
+                    . $langId . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
                    . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\'';
             try {
                 $this->_dbo->query($sql, Msd_Db::SIMPLE);
@@ -421,10 +433,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
                 return $e->getMessage();
             }
         }
-        // log changes all at once
-        foreach ($newValues as $lang => $text) {
-            if (!isset($oldValues[$lang])) {
-                $oldValues[$lang] = '';
+
+        // log changes
+        foreach ($newValues as $langId => $text) {
+            if (!isset($oldValues[$langId])) {
+                $oldValues[$langId] = '';
             }
         }
         $historyModel = new Application_Model_History();

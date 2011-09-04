@@ -1,12 +1,19 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: David
- * Date: 21.04.11
- * Time: 10:48
- * To change this template use File | Settings | File Templates.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Export
+ * @version         SVN: $
+ * @author          $Author$
  */
-
+/**
+ * Export
+ *
+ * @package         MySQLDumper
+ * @subpackage      Export
+ */
 class Msd_Export
 {
     /**
@@ -31,15 +38,21 @@ class Msd_Export
     }
 
     /**
-     * Get last change timestamp of a file
+     * Get timestamp of the latest download package
      *
-     * @param string $language
+     *
      * @return int
      */
-    public function getFileTimestamp($language)
+    public function getLatestDownloadPackageTimestamp()
     {
-        clearstatcache();
-        $mTime = @filemtime(EXPORT_PATH . '/language/' . $language . '/lang.php');
+        $mTime = 0;
+        $iterator = new DirectoryIterator(DOWNLOAD_PATH);
+        foreach ($iterator as $fileinfo) {
+            if (!$fileinfo->isFile()) {
+                continue;
+            }
+            $mTime = $fileinfo->getMTime();
+        }
         return $mTime;
     }
 
@@ -116,9 +129,9 @@ class Msd_Export
                     ) . "\n";
             }
 
-            // If we have no value, fill the var with the english/default text.
             $val = isset($data[$key]['text']) ? $data[$key]['text'] : '';
             if (trim($val) == '') {
+                // If we have no value, fill the var with the value of the fallback language.
                 $val = $fallbackLanguage[$key]['text'];
             }
             // Put the lang var into the language file.

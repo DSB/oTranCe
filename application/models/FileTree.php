@@ -1,6 +1,6 @@
 <?php
 /**
- * Builds tree of a fyle system path.
+ * Builds tree of a file system path.
  */
 class Application_Model_FileTree
 {

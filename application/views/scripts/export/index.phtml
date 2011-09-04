@@ -3,23 +3,25 @@ $i = 1;
 $export = $this->export;
 ?>
 <h2>Export</h2>
-<h4>File status of language packs in VCS:</h4>
+<h4>File status of download package:</h4>
 
 <table class="bdr small" summary="List of languages and their change status">
     <tr class="thead">
         <th>#</th>
         <th colspan="3">Language</th>
-        <th colspan="2">Latest change</th>
+        <th>Latest change in database</th>
+        <th>Latest change in download package?</th>
     </tr>
 <?php
 $languagesToUpdate = 0;
+$exportNeeded = false;
 foreach ($this->status as $key => $s)
 {
     if ($this->languages[$key]['active'] == 0) {
         continue;
     }
-    $tsSvn = $export->convertUnixDate($export->getFileTimestamp($key) +60);
-    $tsDb = $this->historyModel->getLatestChange($key);
+    $tsDownloadPackage = $export->convertUnixDate($export->getLatestDownloadPackageTimestamp());
+    $tsDatabase        = $this->historyModel->getLatestChange($key);
 ?>
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
         <td class="right"><?php echo $i;?>.</td>
@@ -28,14 +30,14 @@ foreach ($this->status as $key => $s)
         </td>
         <td><?php echo $this->languages[$key]['locale'];?></td>
         <td><?php echo $this->languages[$key]['name'];?></td>
-        <td class="right"><?php echo $tsDb;?></td>
+        <td class="right"><?php echo $tsDatabase;?></td>
         <td>
             <?php
-                if ($tsSvn < $tsDb) {
-                ?>
-                <a href="<?php echo $this->baseUrl()."/export/update/language/".$key;?>" class="Formbutton">
-                    <?php echo $this->getIcon('save', 'Update SVN');?> Export to file</a>
-                <?php
+                if ($tsDownloadPackage < $tsDatabase) {
+                    $exportNeeded = true;
+                    echo $this->getIcon('Attention', 'Not up to date', 16);
+                } else {
+                    echo $this->getIcon('Ok', 'Up to date', 16);
                 }
             ?>
         </td>
@@ -46,6 +48,13 @@ foreach ($this->status as $key => $s)
 ?>
 </table>
 <br />
-<a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
-    <?php echo $this->getIcon('save', 'Update SVN');?> Export all languages
-</a><br/>
+<?php
+if ($exportNeeded) {
+?>
+    <p class="error">Download package needs to be updated.</p>
+    <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
+        <?php echo $this->getIcon('save', '');?> Build download package
+    </a><br/>
+<?php } else { ?>
+<p class="ok">Download package is up to date.</p>
+<?php }

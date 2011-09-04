@@ -26,6 +26,7 @@ class Application_Model_History extends Msd_Application_Model
         $tableConfig = $this->_config->getParam('table');
         $this->_tableHistory = $tableConfig['history'];
         $this->_tableKeys = $tableConfig['keys'];
+        $this->_tableTranslations = $tableConfig['translations'];
     }
 
     /**
@@ -75,9 +76,9 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logChanges($keyId, $oldValues, $newValues)
     {
-        foreach ($oldValues as $lang => $val) {
-            if ($newValues[$lang] !== $val) {
-                $this->saveChange($keyId, $lang, $val, $newValues[$lang]);
+        foreach ($newValues as $langId => $newVal) {
+            if ($newVal !== $oldValues[$langId]) {
+                $this->saveChange($keyId, $langId, $oldValues[$langId], $newVal);
             }
         }
     }
@@ -151,7 +152,7 @@ class Application_Model_History extends Msd_Application_Model
     }
 
     /**
-     * Get latest change of the langugae
+     * Get latest edit change of the given language
      *
      * @param string $langId
      * @return string
@@ -159,10 +160,10 @@ class Application_Model_History extends Msd_Application_Model
     public function getLatestChange($langId)
     {
         $langId = (int) $langId;
-        $sql = 'SELECT `dt` FROM `'.$this->_tableHistory . '`'
-                .' WHERE `lang_id`=' . $langId .' OR `lang_id`=0 ORDER BY `dt` DESC LIMIT 1';
+        $sql = 'SELECT MAX(`dt`)  as `latestChange` FROM `'.$this->_tableTranslations . '`'
+                .' WHERE `lang_id`=' . $langId;
         $res =$this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        return isset($res[0]['dt']) ? $res[0]['dt'] : '';
+        return isset($res[0]['latestChange']) ? $res[0]['latestChange'] : '';
     }
 
     /**

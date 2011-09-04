@@ -163,7 +163,7 @@ class ExportController extends Msd_Controller_Action
             }
             $filename = $fileinfo->getFilename();
             $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
-            $fileNameWoExt = substr($filename, 0, -(strlen($fileExtension) +1) );
+            $fileNameWoExt = substr($filename, 0, -(strlen($fileExtension)+1));
             if (!in_array($fileExtension, $fileExtensions)) {
                 $fileExtensions[] = $fileExtension;
             }

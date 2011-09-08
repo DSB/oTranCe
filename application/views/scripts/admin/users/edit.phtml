@@ -17,7 +17,7 @@ if ($user['id'] == 0) { ?>
 <?php } ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
-<table class="bdr more-padding small" summary="User account settings">
+<table class="bdr more-padding small" style="float:left;margin: 0 12px 12px 0;" summary="User account settings">
     <tr class="thead">
        <th colspan="2">Account settings</th>
     </tr>
@@ -95,7 +95,7 @@ if ($user['id'] == 0) { ?>
     </tr>
 
     <tr class="row-even">
-        <td>User can edit his own configuration:</td>
+        <td>User can edit his own configuration settings:</td>
         <td>
             <input type="radio" name="editConfig" id="editConfig_yes" value="1"
                 <?php if ($userRights['editConfig'] == 1) { ?>
@@ -177,55 +177,58 @@ if ($user['id'] == 0) { ?>
             </button>
         </td>
     </tr>
-
+</table>
+<?php
+    $i = 1;
+    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+<table class="bdr more-padding small" style="float:left;" summary="List of editable languages">
     <tr class="thead">
-       <th colspan="2">Languages edit rights</th>
+        <th class="right">#</th>
+        <th colspan="3">Language</th>
+        <th>Can edit</th>
+        <th>Active</th>
     </tr>
-    <tr>
-        <td colspan="2">
-            <table class="bdr small" style="width:100%" summary="List of editable languages">
-                <tr class="thead">
-                    <th class="right">#</th>
-                    <th colspan="3">Language</th>
-                    <th>Can edit</th>
-                </tr>
-            <?php
-                $i = 1;
-                $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-                foreach ($this->languages as $language) {
-                    $label = '<label for="lang-' . $language['id'] .'">';
-                ?>
-                <tr class="<?php echo $cycleHelper->next();?>">
-                    <td class="right" style="width:20px;">
-                        <?php echo $label . $this->numberFormat($i);?>.</label>
-                    </td>
-                    <td style="width:28px;">
-                        <?php echo $label . $this->printFlag($language['id']);?></label>
-                    </td>
-                    <td style="width:30px;">
-                        <?php echo $label . $language['locale'];?></label>
-                    </td>
-                    <td><?php echo $label . $language['name'];?></label></td>
-                    <td class="right">
-                        <input type="checkbox"
-                            name="lang-<?php echo $language['id'];?>"
-                            id="lang-<?php echo $language['id'];?>"
-                            <?php if (in_array($language['id'], $this->editLanguages)) { ?>
-                                checked="checked"
-                            <?php };?>
-                        />
-                    </td>
-
-                </tr>
+    <?php
+        foreach ($this->languages as $language) {
+            $label = '<label for="lang-' . $language['id'] .'">';
+        ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="right">
+                <?php echo $label . $this->numberFormat($i);?>.</label>
+            </td>
+            <td>
+                <?php echo $label . $this->printFlag($language['id']);?></label>
+            </td>
+            <td>
+                <?php echo $label . $language['locale'];?></label>
+            </td>
+            <td><?php echo $label . $language['name'];?></label></td>
+            <td>
+                <input type="checkbox"
+                    name="lang-<?php echo $language['id'];?>"
+                    id="lang-<?php echo $language['id'];?>"
+                    <?php if (in_array($language['id'], $this->editLanguages)) { ?>
+                        checked="checked"
+                    <?php };?>
+                />
+            </td>
+            <td>
                 <?php
-                    $i++;
-                } ?>
-            </table>
-        </td>
-    </tr>
-    <tr class="row-odd">
+                    if ($language['active'] == 1) {
+                        echo $this->getIcon('Ok', 'Language is active', 16);
+                    } else {
+                        echo $this->getIcon('Attention', 'Language is inactive', 16);
+                    }
+                ?>
+            </td>
+        </tr>
+        <?php
+            $i++;
+        } ?>
+    <tr class="<?php echo $cycleHelper->next();?>">
         <td>&nbsp;</td>
-        <td>
+        <td colspan="5">
             <button type="submit" class="Formbutton" name="saveAccount">
                 <?php echo $this->getIcon('save', '');?> Save
             </button>

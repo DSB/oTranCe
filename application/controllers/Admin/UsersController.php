@@ -50,12 +50,14 @@ class Admin_UsersController extends AdminController
             }
         }
 
-        $user = $this->_userModel->getUserById($userId);
         $userDefaults = array(
+            'id' => 0,
             'username' => '',
             'active' => 0,
             'editConfig' => 0,
         );
+        $user = $this->_userModel->getUserById($userId);
+        $user = array_merge($userDefaults, $user);
         $this->view->user = $user;
         $this->view->userRights = array_merge($userDefaults, $this->_userModel->getUserGlobalRights($userId));
         $this->view->editLanguages = $this->_userModel->getUserRights('edit', $userId);

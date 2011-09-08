@@ -26,12 +26,14 @@ $user = new Application_Model_User();
             };?>
             ><a href="<?php echo $this->baseUrl();?>/index/index"><?php echo $this->getIcon('Home', $this->lang->L_HOME, 20);?>Home</a>
         </li>
-        <li
-            <?php if ($this->controller == 'settings') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?>Configuration</a>
-        </li>
+        <?php if ($user->hasRight('editConfig')) { ?>
+            <li
+                <?php if ($this->controller == 'settings') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?>Configuration</a>
+            </li>
+        <?php } ?>
         <li
             <?php if ($this->controller == 'entries') {
                 echo ' class="active"';

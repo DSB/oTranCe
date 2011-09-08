@@ -49,18 +49,15 @@ class Admin_UsersController extends AdminController
                 }
             }
         }
-        if ($userId == 0) {
-            // create new user - set defaults
-            $user = array(
-                'id' => 0,
-                'username' => '',
-                'active' => 1
-            );
-        } else {
-            $user = $this->_userModel->getUserById($userId);
-        }
+
+        $user = $this->_userModel->getUserById($userId);
+        $userDefaults = array(
+            'username' => '',
+            'active' => 0,
+            'editConfig' => 0,
+        );
         $this->view->user = $user;
-        $this->view->userRights = $this->_userModel->getUserGlobalRights($userId);
+        $this->view->userRights = array_merge($userDefaults, $this->_userModel->getUserGlobalRights($userId));
         $this->view->editLanguages = $this->_userModel->getUserRights('edit', $userId);
     }
 
@@ -118,7 +115,7 @@ class Admin_UsersController extends AdminController
     public function _saveUserRights($params)
     {
         $res = true;
-        $rights = array('addVar', 'admin', 'export', 'createFile');
+        $rights = array('addVar', 'admin', 'export', 'createFile', 'editConfig');
         foreach ($rights as $right) {
             if (isset($params[$right]) && $params[$right] == 1) {
                 $res &= $this->_userModel->saveRight($params['id'], $right, 1);

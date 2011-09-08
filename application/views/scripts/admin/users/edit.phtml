@@ -86,11 +86,30 @@ if ($user['id'] == 0) { ?>
             <label for="admin_yes"> Yes</label>
             &nbsp;&nbsp;
             <input type="radio" name="admin" id="admin_no" value="0"
-                <?php if ($userRights['admin'] == 0) { ?>
+                <?php if ($userRights['admin'] != 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
             <label for="admin_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-even">
+        <td>User can edit his own configuration:</td>
+        <td>
+            <input type="radio" name="editConfig" id="editConfig_yes" value="1"
+                <?php if ($userRights['editConfig'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="editConfig_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="editConfig" id="editConfig_no" value="0"
+                <?php if ($userRights['editConfig'] != 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="editConfig_no"> No</label>
         </td>
     </tr>
 
@@ -105,7 +124,7 @@ if ($user['id'] == 0) { ?>
             <label for="addVar_yes"> Yes</label>
             &nbsp;&nbsp;
             <input type="radio" name="addVar" id="addVar_no" value="0"
-                <?php if ($userRights['addVar'] == 0) { ?>
+                <?php if ($userRights['addVar'] != 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
@@ -124,7 +143,7 @@ if ($user['id'] == 0) { ?>
             <label for="createFile_yes"> Yes</label>
             &nbsp;&nbsp;
             <input type="radio" name="createFile" id="createFile_no" value="0"
-                <?php if ($userRights['createFile'] == 0) { ?>
+                <?php if ($userRights['createFile'] != 1) { ?>
                     checked="checked"
                 <?php } ?>
             />
@@ -143,7 +162,7 @@ if ($user['id'] == 0) { ?>
             <label for="export_yes"> Yes</label>
             &nbsp;&nbsp;
             <input type="radio" name="export" id="export_no" value="0"
-                <?php if ($userRights['export'] == 0) { ?>
+                <?php if ($userRights['export'] != 1) { ?>
                     checked="checked"
                 <?php } ?>
             />

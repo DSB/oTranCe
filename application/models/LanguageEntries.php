@@ -83,7 +83,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     private function _normalize($val)
     {
-        //TODO Make normalizing configurable for each project
+        //TODO Normalizing should be configurable
         // disabled for the moment
         $search = array(
             "\\\\n",

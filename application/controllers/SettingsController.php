@@ -47,6 +47,9 @@ class SettingsController extends Msd_Controller_Action
      */
     public function indexAction()
     {
+        if (!$this->_userModel->hasRight('admin')) {
+            $this->_redirect('/');
+        }
         if ($this->_request->isPost()) {
             $languagesSelected = $this->_request->getParam('selLangs', array());
             $recordsPerPage    = $this->_request->getParam('recordsPerPage', 20);

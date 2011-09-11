@@ -74,7 +74,7 @@ class SettingsController extends Msd_Controller_Action
         $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguage();
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
-        $this->view->editLanguages        = $this->_userModel->getUserEditRights();
+        $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
         if (isset($vcsUser)) {
             $this->view->vcsUser = $vcsUser;
         }

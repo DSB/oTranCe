@@ -86,7 +86,7 @@ foreach ($this->users as $userId => $user)
         </td>
         <td>
             <?php
-                $languageEditRights = $this->userModel->getUserEditRights($userId);
+                $languageEditRights = $this->userModel->getUserLanguageRights($userId, false);
                 if (empty($languageEditRights)) {
                     echo '<i>Nothing</i>';
                 }

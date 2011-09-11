@@ -67,7 +67,7 @@ class ImportController extends Zend_Controller_Action
         $this->_userModel = new Application_Model_User();
         // build array containing those languages the user is allowed to edit
         $allLanguages = $this->_languagesModel->getAllLanguages();
-        $userLanguages = $this->_userModel->getUserEditRights();
+        $userLanguages = $this->_userModel->getUserLanguageRights();
         if (!empty($userLanguages)) {
             $userLanguages = array_flip($userLanguages);
         } else {

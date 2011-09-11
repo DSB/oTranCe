@@ -322,7 +322,7 @@ class EntriesController extends Zend_Controller_Action
     public function getEditLanguages()
     {
         $userModel = new Application_Model_User();
-        return $userModel->getUserEditRights();
+        return $userModel->getUserLanguageRights();
     }
 
     /**

@@ -18,25 +18,31 @@ class Application_Model_User extends Msd_Application_Model
 
     /**
      * User table
-     * @var array|string
+     * @var string
      */
     private $_tableUsers;
 
     /**
-     * User table
-     * @var array|string
+     * Usersettings table
+     * @var string
      */
     private $_tableUsersettings;
 
     /**
-     * User table
-     * @var array|string
+     * Userrights table
+     * @var string
      */
     private $_tableUserrights;
 
     /**
-     * User table
-     * @var array|string
+     * User language edit rights table
+     * @var string
+     */
+    private $_tableUserLanguages;
+
+    /**
+     * Language table
+     * @var string
      */
     private $_tableLanguages;
 
@@ -57,6 +63,7 @@ class Application_Model_User extends Msd_Application_Model
         $this->_tableUsersettings = $tableConfig['usersettings'];
         $this->_tableUserrights = $tableConfig['userrights'];
         $this->_tableLanguages = $tableConfig['languages'];
+        $this->_tableUserLanguages = $tableConfig['user_languages'];
         $this->_tableUsers = $tableConfig['users'];
         $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_username = $auth['name'];
@@ -74,11 +81,10 @@ class Application_Model_User extends Msd_Application_Model
     {
         $ret = array();
         $this->_dbo->selectDb($this->_database);
-        $sql = 'SELECT * FROM `' . $this->_tableUserrights .'`'
-                .' WHERE `right`=\'edit\' ORDER BY `value` ASC';
+        $sql = 'SELECT * FROM `' . $this->_tableUserLanguages .'`';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $val) {
-            $ret[$val['value']][] = $val['user_id'];
+            $ret[$val['language_id']][] = $val['user_id'];
         }
         $this->_tableUsers = $ret;
         return $ret;
@@ -262,6 +268,38 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
+     * Save language edit rights of a user db
+     *
+     * @param  int   $userId      The id of the user
+     * @param  array $languageIds Array of language ids
+     *
+     * @return boolean
+     */
+    public function saveLanguageRights($userId, $languageIds)
+    {
+        // first remove rights from all other languages
+        $sql = 'DELETE FROM `'.$this->_tableUserLanguages . '`'
+                    . ' WHERE `user_id` = ' . $userId;
+        if (!empty($languageIds)) {
+            $sql .= ' AND NOT `language_id` IN (' . implode(',', $languageIds) . ')';
+        }
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if ($res === false) {
+            return false;
+        }
+
+        if (!empty($languageIds)) {
+            $sql = 'REPLACE INTO `'.$this->_tableUserLanguages . '`' . ' (`user_id`,`language_id`) VALUES ';
+            foreach ($languageIds as $languageId) {
+                $sql .= sprintf('(%s, %s), ', (int) $userId, (int) $languageId);
+            }
+            $sql = substr($sql, 0, -2);
+            $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        }
+        return $res;
+    }
+
+    /**
      * Deletes an user setting.
      *
      * @param string $name Name of setting to delete.
@@ -276,6 +314,7 @@ class Application_Model_User extends Msd_Application_Model
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return ($res !== null && $res !== false);
     }
+
     /**
      * Get user rights
      *
@@ -307,26 +346,29 @@ class Application_Model_User extends Msd_Application_Model
      * Get user language edit rights.
      * Needed to get a sortet list by locale.
      *
-     * @param int    $userId Id of user, if not set use the current user
+     * @param int  $userId Id of user, if not set use the current user
+     * @param bool $skipInactiveLanguages Only return active languages
      *
      * @return array
      */
-    public function getUserEditRights($userId = 0)
+    public function getUserLanguageRights($userId = 0, $skipInactiveLanguages = true)
     {
         $userId = (int) $userId;
         if ($userId == 0) {
             $userId = $this->_userId;
         }
-        $sql = 'SELECT `r`.* FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '` `r`'
-                . ' LEFT JOIN `'.$this->_database.'`.`' . $this->_tableLanguages . '` `l`'
-                . ' ON `r`.`value` = `l`.`id` '
-                . ' WHERE `user_id`=\''.$userId.'\' AND `l`.`active` = 1'
-                . ' AND `right` = \'edit\''
-                . ' ORDER BY `l`.`locale` ASC';
+        $sql = 'SELECT r.`language_id` FROM `'.$this->_database.'`.`' . $this->_tableUserLanguages . '` r'
+                . ' JOIN `'.$this->_database.'`.`' . $this->_tableLanguages . '` l ON '
+                . ' l.`id` = r.`language_id`'
+                . ' WHERE `user_id`=\''.$userId.'\'';
+        if ($skipInactiveLanguages === true) {
+            $sql .= ' AND `l`.`active` = 1';
+        }
+        $sql .= ' ORDER BY `l`.`locale` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $val) {
-            $ret[] = $val['value'];
+            $ret[] = $val['language_id'];
         }
         return $ret;
     }
@@ -420,7 +462,7 @@ class Application_Model_User extends Msd_Application_Model
                 .' (`user_id`, `right`, `value`) VALUES ('
                 . intval($userId) . ', '
                 . '\'' . $this->_dbo->escape($right) . '\', '
-               . $value . ')';
+               . $value . ') ON DUPLICATE KEY UPDATE `value` = ' . (int) $value;
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
         return $res;
     }
@@ -446,33 +488,11 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Delete user language rights that are not given
-     *
-     * @param int   $userId Id of user
-     * @param array $languageIds Language ids the user can edit
-     *
-     * @return bool
-     */
-    public function deleteLanguageRights($userId, $languageIds = array())
-    {
-        // check if user has an entry for this right
-        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
-                . ' WHERE `user_id`=' . intval($userId)
-                . ' AND `right`=\'edit\'';
-        if (!empty($languageIds)) {
-            $sql .= ' AND NOT `value` IN (' . implode(',', $languageIds) . ')';
-        }
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return $res;
-    }
-
-    /**
      * Create or update a user account
-     * Return updated account data.
      *
      * @param array $params Parameters of account
      *
-     * @return false|array False if there was an error, otherwise return updated user data
+     * @return false|int False if there was an error, otherwise return user id
      */
     public function saveAccount($params)
     {

@@ -1,22 +1,23 @@
--- Status:10:37:MP_0:otc:php:1.24.4::5.1.53-log:1:::utf8:EXTINFO
+-- Status:11:36:MP_0:translations:php:1.24.4::5.1.50-community-log:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
--- TABLE|conversions|1|6304|2011-08-11 20:00:49|MyISAM
--- TABLE|exportlog|0|2048|2011-08-17 23:10:27|MyISAM
--- TABLE|filetemplates|2|2828|2011-08-17 23:07:36|MyISAM
--- TABLE|history|0|1024|2011-08-17 23:10:22|MyISAM
--- TABLE|keys|3|3160|2011-08-16 21:57:49|MyISAM
--- TABLE|languages|3|3140|2011-08-17 23:01:33|MyISAM
--- TABLE|translations|9|2264|2011-08-16 21:57:39|MyISAM
--- TABLE|userrights|10|2252|2011-08-11 20:00:49|MyISAM
--- TABLE|users|2|2148|2011-08-11 20:00:49|MyISAM
--- TABLE|usersettings|7|2304|2011-08-17 21:21:29|MyISAM
+-- TABLE|conversions|0|2048|2011-09-04 20:07:12|MyISAM
+-- TABLE|exportlog|0|2048|2011-09-11 13:34:43|MyISAM
+-- TABLE|filetemplates|1|2828|2011-09-04 20:23:03|MyISAM
+-- TABLE|history|2|2120|2011-09-11 13:35:44|MyISAM
+-- TABLE|keys|0|1024|2011-09-11 13:34:54|MyISAM
+-- TABLE|languages|3|3160|2011-09-08 21:22:01|MyISAM
+-- TABLE|translations|0|1024|2011-09-11 13:35:01|MyISAM
+-- TABLE|user_languages|4|2129|2011-09-11 13:17:30|MyISAM
+-- TABLE|userrights|22|2544|2011-09-11 13:17:30|MyISAM
+-- TABLE|users|2|2196|2011-09-11 13:17:30|MyISAM
+-- TABLE|usersettings|2|2336|2011-09-11 13:17:30|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-08-17 23:10
+-- Dump created: 2011-09-11 13:36
 
 --
 -- Create Table `conversions`
@@ -34,7 +35,6 @@ CREATE TABLE `conversions` (
 --
 
 /*!40000 ALTER TABLE `conversions` DISABLE KEYS */;
-INSERT INTO `conversions` (`text`,`id`) VALUES ('<?php\n/**\n *    This file is part of OXID eShop Community Edition.\n *\n *    OXID eShop Community Edition is free software: you can redistribute it and/or modify\n *    it under the terms of the GNU General Public License as published by\n *    the Free Software Foundation, either version 3 of the License, or\n *    (at your option) any later version.\n *\n *    OXID eShop Community Edition is distributed in the hope that it will be useful,\n *    but WITHOUT ANY WARRANTY; without even the implied warranty of\n *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n *    GNU General Public License for more details.\n *\n *    You should have received a copy of the GNU General Public License\n *    along with OXID eShop Community Edition.  If not, see <http://www.gnu.org/licenses/>.\n *\n * @link      http://www.oxid-esales.com\n * @package   lang\n * @copyright (C) OXID eSales AG 2003-2011\n * @version OXID eShop CE\n * @version   SVN: $Id: lang.php 36520 2011-06-23 09:40:53Z juergen.busch $\n */\n\n$sLangName  = \'Deutsch\';\n// -------------------------------\n// RESOURCE IDENTITFIER = STRING\n// -------------------------------\n$aLang = array(\n\n\'charset\'                                                  => \'ISO-8859-15\',\n\'fullDateFormat\'                                           => \'d.m.Y H:i:s\',\n\'simpleDateFormat\'                                         => \'d.m.Y\',\n\n\'GENERAL_ACTIVE\'                                           => \'Aktiv\',\n\'GENERAL_ACTIVFROMTILL\'                                    => \'Oder aktiv\',\n\'GENERAL_OR\'                                               => \'Oder\',\n\'GENERAL_ACTIVTITLE\'                                       => \'A\',\n\'GENERAL_ADMIN_TITLE\'                                      => \'[OXID eShop Administrationsbereich]\',\n\'GENERAL_ADMIN_TITLE_1\'                                    => \'[OXID eShop Administrationsbereich]\',\n\'GENERAL_AJAX_ASSIGNALL\'                                   => \'Alle zuordnen\',\n\'GENERAL_AJAX_DESCRIPTION\'                                 => \'Ziehen Sie die Elemente zwischen den Listen hin und her, um die Elemente zuzuordnen\',\n\'GENERAL_AJAX_UNASSIGNALL\'                                 => \'Alle Zuordnungen l','brh3dmol5a8j8tj40qe7825lb0');
 /*!40000 ALTER TABLE `conversions` ENABLE KEYS */;
 
 
@@ -79,8 +79,7 @@ CREATE TABLE `filetemplates` (
 --
 
 /*!40000 ALTER TABLE `filetemplates` DISABLE KEYS */;
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','ÖXID','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */\r\n$lang=array(',');\r\nreturn $lang;','                                                                                             \"{KEY}\" => \"{VALUE}\"','languages/{LOCALE}.php');
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','PHP language array','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */','return $lang;','$lang[\"{KEY}\"] = \"{VALUE}\";','languages/{LOCALE}/lang.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','OXID','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */\r\n$lang=array(',');\r\nreturn $lang;','\"{KEY}\" => \"{VALUE}\"','languages/{LOCALE}.php');
 /*!40000 ALTER TABLE `filetemplates` ENABLE KEYS */;
 
 
@@ -99,7 +98,7 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
@@ -121,16 +120,13 @@ CREATE TABLE `keys` (
   `dt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tpl_assign` (`template_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `keys`
 --
 
 /*!40000 ALTER TABLE `keys` DISABLE KEYS */;
-INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('1','L_TEST_ENTRY','2','2011-06-30 13:54:17');
-INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('12','L_OTTO','1','2011-07-23 11:51:43');
-INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('13','L_OTTO_HERZ','2','2011-07-23 11:52:44');
 /*!40000 ALTER TABLE `keys` ENABLE KEYS */;
 
 
@@ -179,16 +175,30 @@ CREATE TABLE `translations` (
 --
 
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Aktion','2011-08-16 21:57:39');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','1','???','2011-07-23 11:51:33');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('2','1','Action','2011-08-16 21:57:39');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','12','','2011-07-24 19:01:53');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','12','','2011-07-24 19:01:53');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('2','12','test','2011-07-24 19:01:53');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('3','13','','2011-07-24 19:03:07');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','13','Herz','2011-07-24 19:03:07');
-INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('2','13','testr2','2011-07-24 19:03:07');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
+
+
+--
+-- Create Table `user_languages`
+--
+
+DROP TABLE IF EXISTS `user_languages`;
+CREATE TABLE `user_languages` (
+  `user_id` int(11) unsigned NOT NULL,
+  `language_id` int(11) NOT NULL,
+  UNIQUE KEY `user_id` (`user_id`,`language_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Data for Table `user_languages`
+--
+
+/*!40000 ALTER TABLE `user_languages` DISABLE KEYS */;
+INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','1');
+INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','2');
+INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','3');
+INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('2','1');
+/*!40000 ALTER TABLE `user_languages` ENABLE KEYS */;
 
 
 --
@@ -200,7 +210,7 @@ CREATE TABLE `userrights` (
   `user_id` int(11) NOT NULL,
   `right` varchar(10) NOT NULL,
   `value` smallint(5) unsigned NOT NULL,
-  KEY `user_id` (`user_id`)
+  UNIQUE KEY `user_id` (`user_id`,`right`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -208,16 +218,16 @@ CREATE TABLE `userrights` (
 --
 
 /*!40000 ALTER TABLE `userrights` DISABLE KEYS */;
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','1');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','3');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','admin','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addVar','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','export','1');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','edit','1');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','edit','2');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','edit','2');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','export','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','createFile','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editConfig','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addVar','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','admin','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','export','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','createFile','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editConfig','1');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -232,7 +242,7 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `users`
@@ -240,7 +250,7 @@ CREATE TABLE `users` (
 
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('1','Admin','21232f297a57a5a743894a0e4a801fc3','1');
-INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('2','Tester','098f6bcd4621d373cade4e832627b4f6','1');
+INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('2','tester','098f6bcd4621d373cade4e832627b4f6','1');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
@@ -255,20 +265,15 @@ CREATE TABLE `usersettings` (
   `setting` varchar(20) NOT NULL,
   `value` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=156 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `usersettings`
 --
 
 /*!40000 ALTER TABLE `usersettings` DISABLE KEYS */;
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('151','1','recordsPerPage','10');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('154','1','referenceLanguage','2');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('5','2','referenceLanguage','1');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('6','2','recordsPerPage','20');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('153','1','referenceLanguage','1');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('152','1','referenceLanguage','3');
-INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('155','1','vcsCredentials','ZnB3G7nAS_YhlAFHIukbdhqyqbjfGTOvSksfbMyW0KVc-');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('1','1','recordsPerPage','30');
+INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('2','1','referenceLanguage','1');
 /*!40000 ALTER TABLE `usersettings` ENABLE KEYS */;
 
 SET FOREIGN_KEY_CHECKS=1;

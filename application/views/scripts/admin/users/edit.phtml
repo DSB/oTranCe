@@ -179,64 +179,11 @@ if ($user['id'] == 0) { ?>
     </tr>
 </table>
 <?php
-    $i = 1;
-    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+echo $this->partial('admin/users/edit/languages.phtml',
+        array('languages' => $this->languages, 'editLanguages' => $this->editLanguages)
+    );
 ?>
-<table class="bdr more-padding small" style="float:left;" summary="List of editable languages">
-    <tr class="thead">
-        <th class="right">#</th>
-        <th colspan="3">Language</th>
-        <th>Can edit</th>
-        <th>Active</th>
-    </tr>
-    <?php
-        foreach ($this->languages as $language) {
-            $label = '<label for="lang-' . $language['id'] .'">';
-        ?>
-        <tr class="<?php echo $cycleHelper->next();?>">
-            <td class="right">
-                <?php echo $label . $this->numberFormat($i);?>.</label>
-            </td>
-            <td>
-                <?php echo $label . $this->printFlag($language['id']);?></label>
-            </td>
-            <td>
-                <?php echo $label . $language['locale'];?></label>
-            </td>
-            <td><?php echo $label . $language['name'];?></label></td>
-            <td>
-                <input type="checkbox"
-                    name="lang-<?php echo $language['id'];?>"
-                    id="lang-<?php echo $language['id'];?>"
-                    <?php if (in_array($language['id'], $this->editLanguages)) { ?>
-                        checked="checked"
-                    <?php };?>
-                />
-            </td>
-            <td>
-                <?php
-                    if ($language['active'] == 1) {
-                        echo $this->getIcon('Ok', 'Language is active', 16);
-                    } else {
-                        echo $this->getIcon('Attention', 'Language is inactive', 16);
-                    }
-                ?>
-            </td>
-        </tr>
-        <?php
-            $i++;
-        } ?>
-    <tr class="<?php echo $cycleHelper->next();?>">
-        <td>&nbsp;</td>
-        <td colspan="5">
-            <button type="submit" class="Formbutton" name="saveAccount">
-                <?php echo $this->getIcon('save', '');?> Save
-            </button>
-        </td>
-    </tr>
-</table>
 </form>
-
 <?php
 if (!empty($this->errors)) {
     $inputErrors = '<table>';

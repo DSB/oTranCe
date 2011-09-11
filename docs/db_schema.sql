@@ -208,7 +208,7 @@ INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('2','1');
 DROP TABLE IF EXISTS `userrights`;
 CREATE TABLE `userrights` (
   `user_id` int(11) NOT NULL,
-  `right` varchar(10) NOT NULL,
+  `right` varchar(20) NOT NULL,
   `value` smallint(5) unsigned NOT NULL,
   UNIQUE KEY `user_id` (`user_id`,`right`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

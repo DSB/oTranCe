@@ -149,7 +149,16 @@ class Application_Model_User extends Msd_Application_Model
         $sql = 'SELECT * FROM `'.$this->_database.'`.`'.$this->_tableUsers . '`'
                 .' WHERE `id`= ' . $userId;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        return isset($res[0]) ? $res[0] : array();
+        if (isset($res[0]['id'])) {
+            return $res[0];
+        }
+        $defaults = array(
+            'id' => 0,
+            'username' => '',
+            'password' => '',
+            'active' => 0,
+        );
+        return $defaults;
     }
 
     /**
@@ -335,11 +344,12 @@ class Application_Model_User extends Msd_Application_Model
             $sql .= ' AND `right` = \'' . $right .'\'';
         }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        $ret = array();
+        $rights = $this->getDefaultRights();
         foreach ($res as $val) {
-            $ret[$val['right']] = $val['value'];
+            $rights[$val['right']] = $val['value'];
         }
-        return $ret;
+        $this->_userrights = $rights;
+        return $rights;
     }
 
     /**
@@ -386,22 +396,14 @@ class Application_Model_User extends Msd_Application_Model
             $userId = $this->_userId;
         }
         $sql = 'SELECT * FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
-                .' WHERE `user_id`=\''.$userId.'\' AND NOT `right`=\'edit\'';
+                .' WHERE `user_id`=\''.$userId.'\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $r) {
             $ret[$r['right']] = $r['value'];
         }
-        //set defaults
-        $defaults = array(
-            'addVar' => 0,
-            'admin'  => 0,
-            'export' => 0,
-            'createFile' => 0
-        );
-        $ret = array_merge($defaults, $ret);
-        $this->_userrights = $ret;
-        return $this->_userrights;
+        $ret = array_merge($this->getDefaultRights(), $ret);
+        return $ret;
     }
 
     /**
@@ -415,7 +417,7 @@ class Application_Model_User extends Msd_Application_Model
     public function hasRight($right, $value = 1)
     {
         if ($this->_userrights === null) {
-            $this->getUserGlobalRights();
+            $this->_userrights = $this->getUserRights();
         }
         if (isset($this->_userrights[$right])) {
             if ($this->_userrights[$right] == $value) {
@@ -519,4 +521,25 @@ class Application_Model_User extends Msd_Application_Model
         }
         return false;
     }
+
+    /**
+     * Get array with default rights
+     *
+     * @return array
+     */
+    public function getDefaultRights()
+    {
+        $defaultRights = array(
+            'admin'           => 0,
+            'addVar'          => 0,
+            'createFile'      => 0,
+            'export'          => 1,
+            'editConfig'      => 1,
+            'showEntries'     => 1,
+            'showDownloads'   => 1,
+            'showBrowseFiles' => 1,
+        );
+        return $defaultRights;
+    }
+
 }

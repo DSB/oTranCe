@@ -5,6 +5,19 @@
 class DownloadsController extends Zend_Controller_Action
 {
     /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $userModel = new Application_Model_User();
+        if (!$userModel->hasRight('showDownloads')) {
+            $this->_redirect('/');
+        }
+    }
+
+    /**
      * Index action.
      *
      * @return void

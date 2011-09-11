@@ -44,6 +44,25 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 </tr>
 
 <tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Downloads":</td>
+    <td>
+        <input type="radio" name="showDownloads" id="showDownloads_yes" value="1"
+            <?php if ($this->userRights['showDownloads'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showDownloads_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="showDownloads" id="showDownloads_no" value="0"
+            <?php if ($this->userRights['showDownloads'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showDownloads_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User can see and use menu item "Export":</td>
     <td>
         <input type="radio" name="export" id="export_yes" value="1"

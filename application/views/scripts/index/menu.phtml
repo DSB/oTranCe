@@ -45,6 +45,7 @@ $user = new Application_Model_User();
         </li>
         <?php
         }
+        if ($user->hasRight('showDownloads')) {
         ?>
         <li
             <?php if ($this->controller == 'downloads') {
@@ -52,6 +53,7 @@ $user = new Application_Model_User();
             };?>
         ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?>Downloads</a>
         </li>
+        <?php } ?>
         <li
             <?php if ($this->controller == 'browser') {
                 echo ' class="active"';

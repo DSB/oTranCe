@@ -50,11 +50,7 @@ class Admin_UsersController extends AdminController
             }
         }
 
-        $userDefaults = array(
-            'id' => 0,
-            'username' => '',
-            'active' => 0
-        );
+        $userDefaults = $this->_userModel->getDefaultRights();
         $userGlobalDefaults = array(
             'editConfig' => 1,
         );
@@ -117,7 +113,7 @@ class Admin_UsersController extends AdminController
     public function _saveUserRights($params)
     {
         $res = true;
-        $rights = $this->getDefaultRights();
+        $rights = $this->_userModel->getDefaultRights();
         foreach ($rights as $right => $defaultValue) {
             if (isset($params[$right])) {
                 $res &= $this->_userModel->saveRight($params['id'], $right, $params[$right]);
@@ -149,22 +145,4 @@ class Admin_UsersController extends AdminController
         return $res;
     }
 
-    /**
-     * Get array with default rights
-     *
-     * @return array
-     */
-    public function getDefaultRights()
-    {
-        $defaultRights = array(
-            'admin'       => 0,
-            'addVar'      => 0,
-            'createFile'  => 0,
-            'export'      => 1,
-            'editConfig'  => 1,
-            'showEntries' => 1,
-
-        );
-        return $defaultRights;
-    }
 }

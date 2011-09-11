@@ -1,0 +1,82 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+<tr class="thead">
+   <th colspan="2">Menu rights</th>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Configuration":</td>
+    <td>
+        <input type="radio" name="editConfig" id="editConfig_yes" value="1"
+            <?php if ($this->userRights['editConfig'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editConfig_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="editConfig" id="editConfig_no" value="0"
+            <?php if ($this->userRights['editConfig'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editConfig_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Entries":</td>
+    <td>
+        <input type="radio" name="showEntries" id="showEntries_yes" value="1"
+            <?php if ($this->userRights['showEntries'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showEntries_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="showEntries" id="showEntries_no" value="0"
+            <?php if ($this->userRights['showEntries'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showEntries_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Export":</td>
+    <td>
+        <input type="radio" name="export" id="export_yes" value="1"
+            <?php if ($this->userRights['export'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="export_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="export" id="export_no" value="0"
+            <?php if ($this->userRights['export'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="export_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Admin":</td>
+    <td>
+        <input type="radio" name="admin" id="admin_yes" value="1"
+            <?php if ($this->userRights['admin'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="admin_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="admin" id="admin_no" value="0"
+            <?php if ($this->userRights['admin'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="admin_no"> No</label>
+    </td>
+</tr>

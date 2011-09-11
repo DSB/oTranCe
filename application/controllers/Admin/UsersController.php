@@ -117,10 +117,12 @@ class Admin_UsersController extends AdminController
     public function _saveUserRights($params)
     {
         $res = true;
-        $rights = array('addVar', 'admin', 'export', 'createFile', 'editConfig');
-        foreach ($rights as $right) {
+        $rights = $this->getDefaultRights();
+        foreach ($rights as $right => $defaultValue) {
             if (isset($params[$right])) {
                 $res &= $this->_userModel->saveRight($params['id'], $right, $params[$right]);
+            } else {
+                $res &= $this->_userModel->saveRight($params['id'], $right, $defaultValue);
             }
         }
         return $res;
@@ -145,5 +147,24 @@ class Admin_UsersController extends AdminController
         }
         $res = $this->_userModel->saveLanguageRights($params['id'], $languages);
         return $res;
+    }
+
+    /**
+     * Get array with default rights
+     *
+     * @return array
+     */
+    public function getDefaultRights()
+    {
+        $defaultRights = array(
+            'admin'       => 0,
+            'addVar'      => 0,
+            'createFile'  => 0,
+            'export'      => 1,
+            'editConfig'  => 1,
+            'showEntries' => 1,
+
+        );
+        return $defaultRights;
     }
 }

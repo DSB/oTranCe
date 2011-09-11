@@ -1,6 +1,6 @@
 <h2>Admin - Version Control System</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights));
 $projectConfig = $this->config->getParam('project');
 ?>
 <h4>General Version Control Settings:</h4>

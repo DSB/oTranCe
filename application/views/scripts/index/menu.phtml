@@ -33,13 +33,19 @@ $user = new Application_Model_User();
                 };?>
                 ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?>Configuration</a>
             </li>
-        <?php } ?>
+        <?php
+        }
+        if ($user->hasRight('showEntries')) {
+        ?>
         <li
             <?php if ($this->controller == 'entries') {
                 echo ' class="active"';
             };?>
         ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
         </li>
+        <?php
+        }
+        ?>
         <li
             <?php if ($this->controller == 'downloads') {
                 echo ' class="active"';

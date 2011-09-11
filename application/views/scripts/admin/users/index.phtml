@@ -1,6 +1,6 @@
 <h2>Admin - Users</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights));
 $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
 ?>
 

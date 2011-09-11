@@ -1,6 +1,6 @@
 <h2>Admin - Project</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights));
 /**
  * @var Zend_View_Helper_Cycle $cycle
  */

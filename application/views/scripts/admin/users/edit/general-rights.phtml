@@ -1,0 +1,41 @@
+<tr class="thead">
+   <th colspan="2">Other user rights</th>
+</tr>
+
+<tr class="row-odd">
+    <td>User is allowed to create new language keys:</td>
+    <td>
+        <input type="radio" name="addVar" id="addVar_yes" value="1"
+            <?php if ($this->userRights['addVar'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addVar_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="addVar" id="addVar_no" value="0"
+            <?php if ($this->userRights['addVar'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addVar_no"> No</label>
+    </td>
+</tr>
+
+<tr class="row-even">
+    <td>User is allowed to create new file templates:</td>
+    <td>
+        <input type="radio" name="createFile" id="createFile_yes" value="1"
+            <?php if ($this->userRights['createFile'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="createFile_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="createFile" id="createFile_no" value="0"
+            <?php if ($this->userRights['createFile'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="createFile_no"> No</label>
+    </td>
+</tr>

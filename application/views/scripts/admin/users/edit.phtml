@@ -8,7 +8,7 @@ $inputNamesMap = array(
 ?>
 <h2>Admin - Edit User</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('userRights' => $userRights));
 if ($user['id'] == 0) { ?>
     <h4>Create new user account</h4>
 <?php
@@ -18,157 +18,19 @@ if ($user['id'] == 0) { ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
 <table class="bdr more-padding small" style="float:left;margin: 0 12px 12px 0;" summary="User account settings">
-    <tr class="thead">
-       <th colspan="2">Account settings</th>
-    </tr>
-    <tr class="row-odd">
-        <td>User account is active:</td>
-        <td>
-            <input type="radio" name="user_active" id="user_active_yes" value="1"
-                <?php if ($user['active'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="user_active_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="user_active" id="user_active_no" value="0"
-                <?php if ($user['active'] == 0) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="user_active_no"> No</label>
-        </td>
-    </tr>
+<?php
+echo $this->partial('admin/users/edit/account-settings.phtml',
+        array('user' => $user, 'errors' => $this->errors)
+    );
 
-    <tr class="row-even">
-        <td>Username:</td>
-        <td>
-            <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($user['username']);?>"/><br/>
-            <?php if (isset($this->errors['user_name'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['user_name']); ?></span><?php } ?>
-        </td>
-    </tr>
+echo $this->partial('admin/users/edit/menu-rights.phtml',
+        array('userRights' => $userRights)
+    );
+echo $this->partial('admin/users/edit/general-rights.phtml',
+        array('userRights' => $userRights)
+    );
+?>
 
-    <tr class="row-odd">
-        <td>Password (*):</td>
-        <td>
-            <input type="password" class="text" name="pass1" id="pass1" value="" /><br/>
-            <?php if (isset($this->errors['pass1'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['pass1']); ?></span><?php } ?>
-        </td>
-    </tr>
-
-    <tr class="row-even">
-        <td>Confirm password (*):</td>
-        <td>
-            <input type="password" class="text" name="pass2" id="pass2" value="" />
-        </td>
-    </tr>
-
-    <tr class="row-odd">
-        <td colspan="2">
-            <div style="margin-left:24px;">
-            (*) Enter a password if you want to change it.<br />
-            If you leave this field empty the current password will remain.</div>
-        </td>
-    </tr>
-
-    <tr class="thead">
-       <th colspan="2">General user rights</th>
-    </tr>
-
-    <tr class="row-even">
-        <td>User has admin rights:</td>
-        <td>
-            <input type="radio" name="admin" id="admin_yes" value="1"
-                <?php if ($userRights['admin'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="admin_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="admin" id="admin_no" value="0"
-                <?php if ($userRights['admin'] != 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="admin_no"> No</label>
-        </td>
-    </tr>
-
-    <tr class="row-even">
-        <td>User can edit his own configuration settings:</td>
-        <td>
-            <input type="radio" name="editConfig" id="editConfig_yes" value="1"
-                <?php if ($userRights['editConfig'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="editConfig_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="editConfig" id="editConfig_no" value="0"
-                <?php if ($userRights['editConfig'] != 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="editConfig_no"> No</label>
-        </td>
-    </tr>
-
-    <tr class="row-odd">
-        <td>User can create new language keys:</td>
-        <td>
-            <input type="radio" name="addVar" id="addVar_yes" value="1"
-                <?php if ($userRights['addVar'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="addVar_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="addVar" id="addVar_no" value="0"
-                <?php if ($userRights['addVar'] != 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="addVar_no"> No</label>
-        </td>
-    </tr>
-
-    <tr class="row-even">
-        <td>User can create new export files:</td>
-        <td>
-            <input type="radio" name="createFile" id="createFile_yes" value="1"
-                <?php if ($userRights['createFile'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="createFile_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="createFile" id="createFile_no" value="0"
-                <?php if ($userRights['createFile'] != 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="createFile_no"> No</label>
-        </td>
-    </tr>
-
-    <tr class="row-odd">
-        <td>User can export changes to repository:</td>
-        <td>
-            <input type="radio" name="export" id="export_yes" value="1"
-                <?php if ($userRights['export'] == 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="export_yes"> Yes</label>
-            &nbsp;&nbsp;
-            <input type="radio" name="export" id="export_no" value="0"
-                <?php if ($userRights['export'] != 1) { ?>
-                    checked="checked"
-                <?php } ?>
-            />
-            <label for="export_no"> No</label>
-        </td>
-    </tr>
     <tr class="row-even">
         <td>&nbsp;</td>
         <td>

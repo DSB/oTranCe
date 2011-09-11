@@ -1,0 +1,52 @@
+    <tr class="thead">
+       <th colspan="2">Account settings</th>
+    </tr>
+    <tr class="row-odd">
+        <td>User account is active:</td>
+        <td>
+            <input type="radio" name="user_active" id="user_active_yes" value="1"
+                <?php if ($this->user['active'] == 1) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_active_yes"> Yes</label>
+            &nbsp;&nbsp;
+            <input type="radio" name="user_active" id="user_active_no" value="0"
+                <?php if ($this->user['active'] == 0) { ?>
+                    checked="checked"
+                <?php } ?>
+            />
+            <label for="user_active_no"> No</label>
+        </td>
+    </tr>
+
+    <tr class="row-even">
+        <td>Username:</td>
+        <td>
+            <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($this->user['username']);?>"/><br/>
+            <?php if (isset($this->errors['user_name'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['user_name']); ?></span><?php } ?>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td>Password (*):</td>
+        <td>
+            <input type="password" class="text" name="pass1" id="pass1" value="" /><br/>
+            <?php if (isset($this->errors['pass1'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['pass1']); ?></span><?php } ?>
+        </td>
+    </tr>
+
+    <tr class="row-even">
+        <td>Confirm password (*):</td>
+        <td>
+            <input type="password" class="text" name="pass2" id="pass2" value="" />
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td colspan="2">
+            <div style="margin-left:24px;">
+            (*) Enter a password if you want to change it.<br />
+            If you leave this field empty the current password will remain.</div>
+        </td>
+    </tr>

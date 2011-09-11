@@ -65,6 +65,7 @@ class AdminController extends Msd_Controller_Action
         }
         $this->_assignVars();
         $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, false);
+        $this->view->userRights = $this->_userModel->getUserRights();
     }
 
     /**

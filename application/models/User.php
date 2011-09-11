@@ -337,7 +337,7 @@ class Application_Model_User extends Msd_Application_Model
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $val) {
-            $ret[] = $val['value'];
+            $ret[$val['right']] = $val['value'];
         }
         return $ret;
     }

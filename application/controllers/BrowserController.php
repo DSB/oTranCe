@@ -15,7 +15,19 @@
  */
 class BrowserController extends Zend_Controller_Action
 {
-    private $_testFiles = array();
+
+    /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        $this->_userModel = new Application_Model_User();
+        if (!$this->_userModel->hasRight('showBrowseFiles')) {
+            $this->_redirect('/');
+        }
+    }
 
     /**
      * Index action

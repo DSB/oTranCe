@@ -63,21 +63,40 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 </tr>
 
 <tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Browse files":</td>
+    <td>
+        <input type="radio" name="showBrowseFiles" id="showBrowseFiles_yes" value="1"
+            <?php if ($this->userRights['showBrowseFiles'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showBrowseFiles_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="showBrowseFiles" id="showBrowseFiles_no" value="0"
+            <?php if ($this->userRights['showBrowseFiles'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showBrowseFiles_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User can see and use menu item "Export":</td>
     <td>
-        <input type="radio" name="export" id="export_yes" value="1"
-            <?php if ($this->userRights['export'] == 1) { ?>
+        <input type="radio" name="showExport" id="showExport_yes" value="1"
+            <?php if ($this->userRights['showExport'] == 1) { ?>
                 checked="checked"
             <?php } ?>
         />
-        <label for="export_yes"> Yes</label>
+        <label for="showExport_yes"> Yes</label>
         &nbsp;&nbsp;
-        <input type="radio" name="export" id="export_no" value="0"
-            <?php if ($this->userRights['export'] != 1) { ?>
+        <input type="radio" name="showExport" id="showExport_no" value="0"
+            <?php if ($this->userRights['showExport'] != 1) { ?>
                 checked="checked"
             <?php } ?>
         />
-        <label for="export_no"> No</label>
+        <label for="showExport_no"> No</label>
     </td>
 </tr>
 

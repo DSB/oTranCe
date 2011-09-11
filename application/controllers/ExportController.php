@@ -47,6 +47,11 @@ class ExportController extends Msd_Controller_Action
      */
     public function init()
     {
+        $this->_userModel = new Application_Model_User();
+        if (!$this->_userModel->hasRight('showExport')) {
+            $this->_redirect('/');
+        }
+
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
         $this->_export = new Msd_Export();

@@ -53,20 +53,30 @@ $user = new Application_Model_User();
             };?>
         ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?>Downloads</a>
         </li>
-        <?php } ?>
+        <?php
+        }
+        if ($user->hasRight('showBrowseFiles')) {
+        ?>
         <li
             <?php if ($this->controller == 'browser') {
                 echo ' class="active"';
             };?>
         ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?>Browse files</a>
         </li>
+        <?php
+        }
+        if ($user->hasRight('showImport')) {
+        ?>
         <li
             <?php if ($this->controller == 'import') {
                 echo ' class="active"';
             };?>
             ><a href="<?php echo $this->baseUrl();?>/import"><?php echo $this->getIcon('OpenFile', '', 20);?>Import</a>
         </li>
-        <?php if ($user->hasRight('export')) { ?>
+        <?php
+        }
+        if ($user->hasRight('showExport')) {
+        ?>
             <li
                 <?php if ($this->controller == 'export') {
                     echo ' class="active"';

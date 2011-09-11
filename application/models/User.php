@@ -533,11 +533,12 @@ class Application_Model_User extends Msd_Application_Model
             'admin'           => 0,
             'addVar'          => 0,
             'createFile'      => 0,
-            'export'          => 1,
             'editConfig'      => 1,
             'showEntries'     => 1,
             'showDownloads'   => 1,
             'showBrowseFiles' => 1,
+            'showImport'      => 1,
+            'showExport'      => 1,
         );
         return $defaultRights;
     }

@@ -297,6 +297,7 @@ class Application_Model_User extends Msd_Application_Model
             return false;
         }
 
+        // save language edit rights
         if (!empty($languageIds)) {
             $sql = 'REPLACE INTO `'.$this->_tableUserLanguages . '`' . ' (`user_id`,`language_id`) VALUES ';
             foreach ($languageIds as $languageId) {
@@ -539,6 +540,8 @@ class Application_Model_User extends Msd_Application_Model
             'showBrowseFiles' => 1,
             'showImport'      => 1,
             'showExport'      => 1,
+            'showLog'         => 1,
+            'showStatistics'  => 1,
         );
         return $defaultRights;
     }

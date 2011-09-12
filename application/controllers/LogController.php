@@ -45,6 +45,10 @@ class LogController extends Msd_Controller_Action
      public function init()
      {
          $this->_userModel      = new Application_Model_User();
+         if (!$this->_userModel->hasRight('showLog')) {
+             $this->_redirect('/');
+         }
+
          $this->_historyModel   = new Application_Model_History();
          $this->_entriesModel   = new Application_Model_LanguageEntries();
          $this->_languagesModel = new Application_Model_Languages();

@@ -101,6 +101,44 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 </tr>
 
 <tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Log":</td>
+    <td>
+        <input type="radio" name="showLog" id="showLog_yes" value="1"
+            <?php if ($this->userRights['showLog'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showLog_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="showLog" id="showLog_no" value="0"
+            <?php if ($this->userRights['showLog'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showLog_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use menu item "Statistics":</td>
+    <td>
+        <input type="radio" name="showStatistics" id="showStatistics_yes" value="1"
+            <?php if ($this->userRights['showStatistics'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showStatistics_yes"> Yes</label>
+        &nbsp;&nbsp;
+        <input type="radio" name="showStatistics" id="showStatistics_no" value="0"
+            <?php if ($this->userRights['showStatistics'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="showStatistics_no"> No</label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User can see and use menu item "Admin":</td>
     <td>
         <input type="radio" name="admin" id="admin_yes" value="1"

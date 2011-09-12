@@ -83,20 +83,30 @@ $user = new Application_Model_User();
                 };?>
                 ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
             </li>
-        <?php } ?>
+        <?php
+        }
+        if ($user->hasRight('showLog')) {
+        ?>
         <li
             <?php if ($this->controller == 'log') {
                 echo ' class="active"';
             };?>
             ><a href="<?php echo $this->baseUrl();?>/log"><?php echo $this->getIcon('log', '', 20);?>Log</a>
         </li>
+        <?php
+        }
+        if ($user->hasRight('showStatistics')) {
+        ?>
         <li
             <?php if ($this->controller == 'statistics') {
                 echo ' class="active"';
             };?>
             ><a href="<?php echo $this->baseUrl();?>/statistics"><?php echo $this->getIcon('Statistics', '', 20);?>Statistics</a>
         </li>
-        <?php if ($user->hasRight('admin')) { ?>
+        <?php
+        }
+        if ($user->hasRight('admin')) {
+        ?>
         <li
             <?php if ($this->controller == 'admin') {
                 echo ' class="active"';

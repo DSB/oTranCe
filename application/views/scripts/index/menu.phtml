@@ -1,8 +1,5 @@
 <?php
-$interfaceConfig = $this->config->getParam('interface');
-$theme = $interfaceConfig['theme'];
 $this->controller = $this->request->getControllerName();
-$this->action = $this->request->getActionName();
 $user = new Application_Model_User();
 ?>
 <div id="sidebar">
@@ -26,94 +23,98 @@ $user = new Application_Model_User();
             };?>
             ><a href="<?php echo $this->baseUrl();?>/index/index"><?php echo $this->getIcon('Home', $this->lang->L_HOME, 20);?>Home</a>
         </li>
-        <?php if ($user->hasRight('editConfig')) { ?>
+        <?php
+        if ($user->hasRight('editConfig')) {
+            ?>
             <li
                 <?php if ($this->controller == 'settings') {
                     echo ' class="active"';
                 };?>
                 ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?>Configuration</a>
             </li>
-        <?php
+            <?php
         }
         if ($user->hasRight('showEntries')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'entries') {
-                echo ' class="active"';
-            };?>
-        ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
-        </li>
-        <?php
-        }
-        if ($user->hasRight('showDownloads')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'downloads') {
-                echo ' class="active"';
-            };?>
-        ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?>Downloads</a>
-        </li>
-        <?php
-        }
-        if ($user->hasRight('showBrowseFiles')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'browser') {
-                echo ' class="active"';
-            };?>
-        ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?>Browse files</a>
-        </li>
-        <?php
-        }
-        if ($user->hasRight('showImport')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'import') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/import"><?php echo $this->getIcon('OpenFile', '', 20);?>Import</a>
-        </li>
-        <?php
-        }
-        if ($user->hasRight('showExport')) {
-        ?>
+         ?>
             <li
-                <?php if ($this->controller == 'export') {
+                <?php if ($this->controller == 'entries') {
                     echo ' class="active"';
                 };?>
-                ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
+            ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
             </li>
-        <?php
+            <?php
+        }
+        if ($user->hasRight('showDownloads')) {
+            ?>
+            <li
+                <?php if ($this->controller == 'downloads') {
+                    echo ' class="active"';
+                };?>
+            ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?>Downloads</a>
+            </li>
+            <?php
+        }
+        if ($user->hasRight('showBrowseFiles')) {
+            ?>
+            <li
+                <?php if ($this->controller == 'browser') {
+                    echo ' class="active"';
+                };?>
+            ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?>Browse files</a>
+            </li>
+            <?php
+        }
+        if ($user->hasRight('showImport')) {
+            ?>
+            <li
+                <?php if ($this->controller == 'import') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/import"><?php echo $this->getIcon('OpenFile', '', 20);?>Import</a>
+            </li>
+            <?php
+        }
+        if ($user->hasRight('showExport')) {
+            ?>
+                <li
+                    <?php if ($this->controller == 'export') {
+                        echo ' class="active"';
+                    };?>
+                    ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
+                </li>
+            <?php
         }
         if ($user->hasRight('showLog')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'log') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/log"><?php echo $this->getIcon('log', '', 20);?>Log</a>
-        </li>
-        <?php
+            ?>
+            <li
+                <?php if ($this->controller == 'log') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/log"><?php echo $this->getIcon('log', '', 20);?>Log</a>
+            </li>
+            <?php
         }
         if ($user->hasRight('showStatistics')) {
-        ?>
-        <li
-            <?php if ($this->controller == 'statistics') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/statistics"><?php echo $this->getIcon('Statistics', '', 20);?>Statistics</a>
-        </li>
-        <?php
+            ?>
+            <li
+                <?php if ($this->controller == 'statistics') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/statistics"><?php echo $this->getIcon('Statistics', '', 20);?>Statistics</a>
+            </li>
+            <?php
         }
         if ($user->hasRight('admin')) {
+            ?>
+            <li
+                <?php if ($this->controller == 'admin') {
+                    echo ' class="active"';
+                };?>
+                ><a href="<?php echo $this->baseUrl();?>/admin"><?php echo $this->getIcon('Admin', '', 20);?>Admin</a>
+            </li>
+            <?php
+        }
         ?>
-        <li
-            <?php if ($this->controller == 'admin') {
-                echo ' class="active"';
-            };?>
-            ><a href="<?php echo $this->baseUrl();?>/admin"><?php echo $this->getIcon('Admin', '', 20);?>Admin</a>
-        </li>
-        <?php } ?>
     </ul>
 </div>
 

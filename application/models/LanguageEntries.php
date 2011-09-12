@@ -316,14 +316,16 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get translation key
      *
-     * @param string $key The key to look for
+     * @param string $key          The key to look for
+     * @param int    $fileTemplate Id of file template
      *
      * @return bool
      */
-    public function getEntryByKey($key)
+    public function getEntryByKey($key, $fileTemplate = 0)
     {
         $sql = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' WHERE `key`=\'' . $this->_dbo->escape($key) . '\'';
+               . ' WHERE `key`=\'' . $this->_dbo->escape($key) . '\''
+               . ' AND `template_id` = '. (int) $fileTemplate;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($res[0]) ? $res[0] : false;
     }
@@ -347,13 +349,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Check if the given key exists
      *
-     * @param string $key The key to check
+     * @param string $key          The key to check
+     * @param int    $fileTemplate Id of file template
      *
      * @return bool
      */
-    public function hasEntryWithKey($key)
+    public function hasEntryWithKey($key, $fileTemplate = 0)
     {
-        $res = $this->getEntryByKey($key);
+        $res = $this->getEntryByKey($key, $fileTemplate);
         return isset($res['id']) ? true : false;
     }
 

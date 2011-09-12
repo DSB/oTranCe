@@ -348,36 +348,31 @@ class EntriesController extends Zend_Controller_Action
         if (!$this->_userModel->hasRight('addVar')) {
             $error = array('You are not allowed to add a new language variable!');
         }
-        $newVar = 'L_';
-
+        $newVar = '';
         if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') !== null) {
             if ($this->_request->getParam('cancel') != null) {
                 $this->_myForward('index');
                 return;
             }
             $newVar = trim($this->_request->getParam('var'));
-            if (strlen($newVar) < 6) {
+            $fileTemplate = $this->_request->getParam('fileTemplate', 0);
+            if (strlen($newVar) < 1) {
                 $error[] = 'Name is too short.';
             }
-            if (substr($newVar, 0, 2) != 'L_') {
-                $error[] = 'Illegal prefix! Name must begin with "L_".';
-            }
-            $pattern = '/[^A-Z_]/';
+            $pattern = '/[^A-Z_]/i';
             if (preg_replace($pattern, '', $newVar) !== $newVar) {
                 $error[] = 'Name contains illegal characters.<br />'
                            . 'Only "A-Z" and "_" is allowed.';
             }
             // check if we already have a lang var with that name
-            //TODO check for unique combination of key and file template!
-            if ($this->_entriesModel->hasEntryWithKey($newVar)) {
-                $error = array('A language variable with this name already exists!');
+            if ($this->_entriesModel->hasEntryWithKey($newVar, $fileTemplate)) {
+                $error = array('A language variable with this name already exists in this file template!');
             }
             if (empty($error)) {
                 try {
-                    $fileTemplate = $this->_request->getParam('fileTemplate', 0);
                     $this->_entriesModel->saveNewKey($newVar, $fileTemplate);
+                    $entry = $this->_entriesModel->getEntryByKey($newVar, $fileTemplate);
                     $historyModel = new Application_Model_History();
-                    $entry = $this->_entriesModel->getEntryByKey($newVar);
                     $historyModel->logNewVarCreated($entry['id']);
                     $this->view->entry = $entry;
                     $this->_request->setParam('id', $entry['id']);

@@ -5,6 +5,9 @@ class Admin_ProjectController extends AdminController
 {
     public function indexAction()
     {
+        if (!$this->_userModel->hasRight('editProject')) {
+            $this->_redirect('/');
+        }
         /**
          * @var Zend_Controller_Request_Http $request
          */

@@ -60,11 +60,14 @@ class ImportController extends Zend_Controller_Action
     {
         $this->_config = Msd_Registry::getConfig();
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
+        $this->_userModel = new Application_Model_User();
+        if (!$this->_userModel->hasRight('showImport')) {
+            $this->_redirect('/');
+        }
 
         $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
-        $this->_userModel = new Application_Model_User();
         // build array containing those languages the user is allowed to edit
         $allLanguages = $this->_languagesModel->getAllLanguages();
         $userLanguages = $this->_userModel->getUserLanguageRights();

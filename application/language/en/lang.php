@@ -18,6 +18,8 @@ $lang['L_CREDITS']="Credits / Help";
 $lang['L_DELETE']="Delete";
 $lang['L_DESCRIPTION']="Description";
 $lang['L_OK']="OK";
+$lang['L_YES']="Ja";
+$lang['L_NO']="Nein";
 $lang['L_ZEND_ID_ACCESS_NOT_A_DIRECTORY']="The given filename '%value%' isn't a"
     ." directory.";
 $lang['L_ZEND_ID_ACCESS_NOT_A_FILE']="The given filename '%value%' isn't a"

@@ -21,21 +21,3 @@
     </td>
 </tr>
 
-<tr class="row-even">
-    <td>User is allowed to create new file templates:</td>
-    <td>
-        <input type="radio" name="createFile" id="createFile_yes" value="1"
-            <?php if ($this->userRights['createFile'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="createFile_yes"> Yes</label>
-        &nbsp;&nbsp;
-        <input type="radio" name="createFile" id="createFile_no" value="0"
-            <?php if ($this->userRights['createFile'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="createFile_no"> No</label>
-    </td>
-</tr>

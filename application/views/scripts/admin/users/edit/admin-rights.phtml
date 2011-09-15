@@ -1,0 +1,83 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+<tr class="thead">
+   <th colspan="2">Admin rights</th>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use admin tab "Project":</td>
+    <td>
+        <input type="radio" name="editProject" id="editProject_yes" value="1"
+            <?php if ($this->userRights['editProject'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editProject_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="editProject" id="editProject_no" value="0"
+            <?php if ($this->userRights['editProject'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editProject_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use admin tab "Language":</td>
+    <td>
+        <input type="radio" name="editLanguage" id="editLanguage_yes" value="1"
+            <?php if ($this->userRights['editProject'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="editLanguage" id="editLanguage_no" value="0"
+            <?php if ($this->userRights['editLanguage'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editLanguage_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="row-even">
+    <td>User is allowed to add new languages:</td>
+    <td>
+        <input type="radio" name="addLanguage" id="addLanguage_yes" value="1"
+            <?php if ($this->userRights['addLanguage'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="addLanguage" id="addLanguage_no" value="0"
+            <?php if ($this->userRights['addLanguage'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addLanguage_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="row-even">
+    <td>User is allowed to add new file templates:</td>
+    <td>
+        <input type="radio" name="addTemplate" id="addTemplate_yes" value="1"
+            <?php if ($this->userRights['addTemplate'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addTemplate_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="addTemplate" id="addTemplate_no" value="0"
+            <?php if ($this->userRights['addTemplate'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addTemplate_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+

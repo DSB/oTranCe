@@ -69,13 +69,12 @@ class AdminController extends Msd_Controller_Action
     }
 
     /**
-     * Index action forwards to users action
+     * Index action
      *
      * @return void
      */
     public function indexAction()
     {
-        $this->_forward('index', 'admin_project');
     }
 
     /**

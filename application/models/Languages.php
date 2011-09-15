@@ -29,10 +29,10 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->_tableLanguages = $tableConfig['languages'];
+        $tableConfig              = $this->_config->getParam('table');
+        $this->_tableLanguages    = $tableConfig['languages'];
         $this->_tableTranslations = $tableConfig['translations'];
-        $this->_tableKeys = $tableConfig['keys'];
+        $this->_tableKeys         = $tableConfig['keys'];
     }
 
     /**

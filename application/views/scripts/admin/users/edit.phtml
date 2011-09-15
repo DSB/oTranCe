@@ -24,10 +24,13 @@ echo $this->partial('admin/users/edit/account-settings.phtml',
     );
 
 echo $this->partial('admin/users/edit/menu-rights.phtml',
-        array('userRights' => $userRights)
+        array('userRights' => $userRights, 'lang' => $this->lang)
     );
 echo $this->partial('admin/users/edit/general-rights.phtml',
         array('userRights' => $userRights)
+    );
+echo $this->partial('admin/users/edit/admin-rights.phtml',
+        array('userRights' => $userRights, 'lang' => $this->lang)
     );
 ?>
 

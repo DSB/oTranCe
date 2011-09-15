@@ -1,4 +1,5 @@
 <?php
+$user = new Application_Model_User();
 $projectUrl   = $this->url(array('controller'=>'admin_project','action'=>'index'));
 $usersUrl     = $this->url(array('controller'=>'admin_users','action'=>'index'));
 $languagesUrl = $this->url(array('controller'=>'admin_languages','action'=>'index'));
@@ -15,31 +16,41 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
 
 <div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-        <li id="admin_project" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
-            <a href="<?php echo $projectUrl;?>">
-                <?php echo$this->getIcon('Project', '', 16);?>
-                Project
-            </a>
-        </li>
-        <li id="admin_users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
-            <a href="<?php echo $usersUrl;?>">
-                <?php echo$this->getIcon('Users', '', 16);?>
-                Users
-            </a>
-        </li>
-        <li id="admin_languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
-            <a href="<?php echo $languagesUrl;?>">
-                <?php echo$this->getIcon('Document', '', 16);?>
-                Languages
-            </a>
-        </li>
-        <?php if ($this->userRights['createFile'] == 1) { ?>
-        <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
-            <a href="<?php echo $filesUrl;?>">
-                <?php echo$this->getIcon('OpenFile', '', 16);?>
-                File templates
-            </a>
-        </li>
+        <?php
+        if ($user->hasRight('editProject')) { ?>
+            <li id="admin_project" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $projectUrl;?>">
+                    <?php echo$this->getIcon('Project', '', 16);?>
+                    Project
+                </a>
+            </li>
+        <?php
+        }
+        if ($user->hasRight('editLanguage')) { ?>
+            <li id="admin_users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $usersUrl;?>">
+                    <?php echo$this->getIcon('Users', '', 16);?>
+                    Users
+                </a>
+            </li>
+        <?php
+        }
+        if ($user->hasRight('editLanguage')) { ?>
+            <li id="admin_languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $languagesUrl;?>">
+                    <?php echo$this->getIcon('Document', '', 16);?>
+                    Languages
+                </a>
+            </li>
+            <?php
+        }
+        if ($this->userRights['createFile'] == 1) { ?>
+            <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $filesUrl;?>">
+                    <?php echo$this->getIcon('OpenFile', '', 16);?>
+                    File templates
+                </a>
+            </li>
         <?php } ?>
         <li id="admin_export" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
             <a href="<?php echo $vcsUrl;?>">

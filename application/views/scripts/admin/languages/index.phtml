@@ -11,9 +11,11 @@
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
-        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
+        <?php if ($this->user->hasRight('addLanguage')) {?>
+            <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
             <?php echo $this->getIcon('plus', '');?> Add language
-        </button>
+            </button>
+        <?php } ?>
         <br /><br />
 
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"

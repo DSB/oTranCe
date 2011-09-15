@@ -23,6 +23,9 @@ class Admin_LanguagesController extends AdminController
      */
     public function indexAction()
     {
+        if (!$this->_userModel->hasRight('editLanguage')) {
+            $this->_redirect('/');
+        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
@@ -32,6 +35,7 @@ class Admin_LanguagesController extends AdminController
             false
         );
         $this->view->hits = $this->_languagesModel->getRowCount();
+        $this->view->user = $this->_userModel;
     }
     /**
      * Edit action for maintaining languages
@@ -40,12 +44,21 @@ class Admin_LanguagesController extends AdminController
      */
     public function editAction()
     {
-        $this->view->inputErrors = array();
-        $id          = $this->_request->getParam('id', 0);
+        $id = $this->_request->getParam('id', 0);
         $intValidate = new Zend_Validate_Int();
         if (!$intValidate->isValid($id)) {
-            $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
+            // someone manipulated the id of the language - silently jump to index page
+            $this->_redirect('/');
         }
+        if (!$this->_userModel->hasRight('addLanguage')) {
+            // check if it is a new language
+            $language = $this->_languagesModel->getLanguageById($id);
+            if (empty($language)) {
+                $this->_redirect('/');
+            }
+        }
+
+        $this->view->inputErrors = array();
         $this->view->langId = $id;
         $this->view->flag   = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {

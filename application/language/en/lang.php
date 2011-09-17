@@ -24,6 +24,7 @@ $lang['L_USERNAME']="Username";
 $lang['L_PASSWORD']="Password";
 $lang['L_LOGIN']="Login";
 $lang['L_LOGIN_AUTOLOGIN']="Automatic login";
+$lang['L_LOGIN_INVALID_USER']="Unknown combination of username and password.";
 $lang['L_ZEND_ID_ACCESS_NOT_A_DIRECTORY']="The given filename '%value%' isn't a"
     ." directory.";
 $lang['L_ZEND_ID_ACCESS_NOT_A_FILE']="The given filename '%value%' isn't a"

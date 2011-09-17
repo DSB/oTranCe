@@ -26,7 +26,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
             </li>
         <?php
         }
-        if ($user->hasRight('editLanguage')) { ?>
+        if ($user->hasRight('editUsers')) { ?>
             <li id="admin_users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $usersUrl;?>">
                     <?php echo$this->getIcon('Users', '', 16);?>
@@ -44,19 +44,22 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
             </li>
             <?php
         }
-        if ($this->userRights['createFile'] == 1) { ?>
+        if ($user->hasRight('editTemplate')) { ?>
             <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $filesUrl;?>">
                     <?php echo$this->getIcon('OpenFile', '', 16);?>
-                    File templates
+                    File Templates
+                </a>
+            </li>
+            <?php
+        }
+        if ($user->hasRight('editVcs')) { ?>
+            <li id="admin_export" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $vcsUrl;?>">
+                    <?php echo$this->getIcon('BackupDatabase', '', 16);?>
+                    VCS
                 </a>
             </li>
         <?php } ?>
-        <li id="admin_export" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
-            <a href="<?php echo $vcsUrl;?>">
-                <?php echo$this->getIcon('BackupDatabase', '', 16);?>
-                VCS
-            </a>
-        </li>
     </ul>
 </div>

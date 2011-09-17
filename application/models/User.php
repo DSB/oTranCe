@@ -524,28 +524,34 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Get array with default rights
+     * Get array with default rights.
+     *
+     * Default array shows all menu items (except "Admin") and disallows adding of new language keys.
      *
      * @return array
      */
     public function getDefaultRights()
     {
         $defaultRights = array(
-            'admin'           => 0,
-            'addVar'          => 0,
             'editConfig'      => 1,
             'showEntries'     => 1,
+            'addVar'          => 0,
             'showDownloads'   => 1,
             'showBrowseFiles' => 1,
             'showImport'      => 1,
             'showExport'      => 1,
             'showLog'         => 1,
             'showStatistics'  => 1,
+            'admin'           => 0,
+            /* admin rights */
             'editProject'     => 0,
+            'editUsers'       => 0,
+            'addUser'         => 0,
             'editLanguage'    => 0,
             'addLanguage'     => 0,
             'editTemplate'    => 0,
             'addTemplate'     => 0,
+            'editVcs'         => 0,
         );
         return $defaultRights;
     }

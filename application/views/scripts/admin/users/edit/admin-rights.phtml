@@ -25,7 +25,45 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 </tr>
 
 <tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "Language":</td>
+    <td>User can see and use admin tab "Users":</td>
+    <td>
+        <input type="radio" name="editUsers" id="editUsers_yes" value="1"
+            <?php if ($this->userRights['editUsers'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editUsers_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="editUsers" id="editUsers_no" value="0"
+            <?php if ($this->userRights['editUsers'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editUsers_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User is allowed to add a new user:</td>
+    <td>
+        <input type="radio" name="addUser" id="addUser_yes" value="1"
+            <?php if ($this->userRights['addUser'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addUser_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="addUser" id="addUser_no" value="0"
+            <?php if ($this->userRights['addUser'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="addUser_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use admin tab "Languages":</td>
     <td>
         <input type="radio" name="editLanguage" id="editLanguage_yes" value="1"
             <?php if ($this->userRights['editProject'] == 1) { ?>
@@ -59,6 +97,25 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             <?php } ?>
         />
         <label for="addLanguage_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User can see and use admin tab "File Templates":</td>
+    <td>
+        <input type="radio" name="editTemplate" id="editTemplate_yes" value="1"
+            <?php if ($this->userRights['editTemplate'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editTemplate_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="editTemplate" id="editTemplate_no" value="0"
+            <?php if ($this->userRights['editTemplate'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="editTemplate_no"> <?php echo $this->lang->L_NO;?></label>
     </td>
 </tr>
 

@@ -1,10 +1,34 @@
 <?php
 require_once('AdminController.php');
 /**
- * Controller for user administration.
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Admin/Users Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
  */
 class Admin_UsersController extends AdminController
 {
+    /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+        if (!$this->_userModel->hasRight('editUsers')) {
+            $this->_redirect('/');
+        }
+    }
+
     /**
      * Index action for maintaining users
      *
@@ -30,14 +54,20 @@ class Admin_UsersController extends AdminController
      */
     public function editAction()
     {
-        $userId = $this->_request->getParam('id', 0);
+        $userId = (int) $this->_request->getParam('id', 0);
+        if ($userId == 0) {
+            if (!$this->_userModel->hasRight('addUsers')) {
+                $this->_redirect('/');
+            }
+        }
         if ($this->_request->isPost()) {
             $params = $this->_request->getParams();
             if (isset($params['saveAccount'])) {
                 if ($this->_validateAccountSettings()) {
                     $newUserData = $this->_saveAccountSettings();
                     if ($newUserData !== false) {
-                        $userId = $newUserData['id'];
+                        $userId = (int) $newUserData;
+                        $params['id'] = $userId;
                         $res = $this->_saveUserRights($params);
                         $res &= $this->_saveLanguageEditRights($params);
                         if ($res == true) {

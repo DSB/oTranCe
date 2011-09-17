@@ -84,8 +84,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function getFileTemplate($templateId)
     {
+        $templateId = (int) $templateId;
         // Fake db row for new file template or if the result set is empty.
-        $emptyTemplate = array(
+        $template = array(
             'id' => 0,
             'name' => '',
             'header' => '',
@@ -95,10 +96,8 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         );
         // If a new file template is created, return empty db row immediately.
         if ($templateId == 0) {
-            return $emptyTemplate;
+            return $template;
         }
-        // Escape ID. It comes from an user input or url parameter, so we can't trust them.
-        $templateId = $this->_dbo->escape($templateId);
 
         // Build and execute the SQL statement to get file template db record.
         $sql = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = $templateId LIMIT 1";
@@ -108,7 +107,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         if (isset($res[0])) {
             return $res[0];
         }
-        return $emptyTemplate;
+        return $template;
     }
 
     /**

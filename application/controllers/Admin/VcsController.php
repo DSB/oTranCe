@@ -9,7 +9,7 @@ require_once 'AdminController.php';
  * @author          $Author$
  */
 /**
- * Admin/Export Controller
+ * Admin/Vcs Controller
  *
  * @package         oTranCe
  * @subpackage      Controllers

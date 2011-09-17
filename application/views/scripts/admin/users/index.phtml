@@ -1,9 +1,8 @@
 <h2>Admin - Users</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights));
+echo $this->partial('admin/head-navi.phtml');
 $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
 ?>
-
 <form action="<?php echo $this->baseUrl();?>/admin_users/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
@@ -15,9 +14,11 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
-        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $addUserUrl;?>'">
-            <?php echo $this->getIcon('plus', '');?> Add user
-        </button>
+        <?php if ($this->user->hasRight('addUser')) { ?>
+            <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $addUserUrl;?>'">
+                <?php echo $this->getIcon('plus', '');?> Add user
+            </button>
+        <?php } ?>
         <br /><br />
 
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"

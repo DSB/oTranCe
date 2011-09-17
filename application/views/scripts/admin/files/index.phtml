@@ -1,5 +1,5 @@
 <h2>Admin - Files</h2>
-<?php echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights)); ?>
+<?php echo $this->partial('admin/head-navi.phtml'); ?>
 <form action="<?php echo $this->baseUrl();?>/admin_files/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
@@ -11,9 +11,11 @@
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
-        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_files/edit/id/0'">
-            <?php echo $this->getIcon('plus', '');?> Add file template
-        </button>
+        <?php if ($this->user->hasRight('addTemplate')) { ?>
+            <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_files/edit/id/0'">
+                <?php echo $this->getIcon('plus', '');?> Add file template
+            </button>
+        <?php } ?>
         Order list by: <select name="templateOrderBy" onchange="$(this).parents('form')[0].submit();"><?php echo Msd_Html::getHtmlOptions($this->templateOrderFields, $this->selOrderField, false); ?></select>
         <br /><br />
 

@@ -1,13 +1,41 @@
 <?php
 require_once 'AdminController.php';
-
+/**
+ * This file is part of oTranCe http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ * @version         SVN: $Rev: 1569 $
+ * @author          $Author: dsb $
+ */
+/**
+ * Admin/Project Controller
+ *
+ * @package         oTranCe
+ * @subpackage      Controllers
+ */
 class Admin_ProjectController extends AdminController
 {
-    public function indexAction()
+    /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
     {
+        parent::init();
         if (!$this->_userModel->hasRight('editProject')) {
             $this->_redirect('/');
         }
+    }
+
+    /**
+     * Index action - show project settings
+     *
+     * @return void
+     */
+    public function indexAction()
+    {
         /**
          * @var Zend_Controller_Request_Http $request
          */

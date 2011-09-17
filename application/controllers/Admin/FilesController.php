@@ -17,6 +17,19 @@ require_once 'AdminController.php';
 class Admin_FilesController extends AdminController
 {
     /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+        if (!$this->_userModel->hasRight('editTemplate')) {
+            $this->_redirect('/');
+        }
+    }
+
+    /**
      * Retrieve data for index view.
      *
      * @return void
@@ -67,6 +80,14 @@ class Admin_FilesController extends AdminController
     {
         $templateId = $this->_request->getParam('id', 0);
         $templatesModel = new Application_Model_FileTemplates();
+        // check if this is a new template and if the user is allowed to add it
+        $template = $templatesModel->getFileTemplate($templateId);
+        if ($template['id'] == 0) {
+            if (!$this->_userModel->hasRight('addTemplate')) {
+                $this->_redirect('/');
+            }
+        }
+
         if ($this->_request->isPost()) {
             $params = $this->_request->getParams();
             $this->view->creationResult = $templatesModel->saveFileTemplate(

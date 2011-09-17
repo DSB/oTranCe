@@ -17,15 +17,25 @@ require_once('AdminController.php');
 class Admin_LanguagesController extends AdminController
 {
     /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+        if (!$this->_userModel->hasRight('editLanguage')) {
+            $this->_redirect('/');
+        }
+    }
+
+    /**
      * Retrieve data for index view.
      *
      * @return void
      */
     public function indexAction()
     {
-        if (!$this->_userModel->hasRight('editLanguage')) {
-            $this->_redirect('/');
-        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
@@ -35,7 +45,6 @@ class Admin_LanguagesController extends AdminController
             false
         );
         $this->view->hits = $this->_languagesModel->getRowCount();
-        $this->view->user = $this->_userModel;
     }
     /**
      * Edit action for maintaining languages

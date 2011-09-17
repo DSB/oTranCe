@@ -298,6 +298,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getEntryById($id, $languageIds)
     {
+        $id = (int) $id;
+        $ret = array();
+        if ($id == 0 || empty($languageIds)) {
+            return $ret;
+        }
         $languages = implode(',', $languageIds);
         $sql = 'SELECT `lang_id`, `text`'
                . ' FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
@@ -306,7 +311,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if (empty($res)) {
             return array();
         }
-        $ret = array();
         foreach ($res as $r) {
             $ret[$r['lang_id']] = $r['text'];
         }

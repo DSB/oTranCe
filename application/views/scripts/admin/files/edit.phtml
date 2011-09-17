@@ -1,6 +1,6 @@
 <h2>Admin - Files</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml', array('userRights' => $this->userRights));
+echo $this->partial('admin/head-navi.phtml');
 if ($this->fileTemplate['id'] == 0) {
     $subTitle = "Create new file template";
 } else {

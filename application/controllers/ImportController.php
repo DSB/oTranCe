@@ -211,6 +211,7 @@ class ImportController extends Zend_Controller_Action
         $this->view->analyzers = $analyzers;
         $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
         $this->view->selectedAnalyzer = $selectedAnalyzer;
+        $this->view->analyzer = Msd_Import::factory($analyzers[$selectedAnalyzer]);
     }
 
     /**

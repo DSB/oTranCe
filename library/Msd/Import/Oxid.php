@@ -11,4 +11,17 @@ class Msd_Import_Oxid extends Msd_Import_PhpArray
     {
         $this->_ignoreKeys = array('charset');
     }
+
+    /**
+     * Get rendered info view
+     *
+     * @return string
+     */
+    public function getInfo()
+    {
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+        $view = $viewRenderer->view;
+        return $view->render('import/importer/oxid.phtml');
+    }
+
 }

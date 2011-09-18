@@ -238,5 +238,16 @@ class Msd_Import_PhpArray implements Msd_Import_Interface
             }
         }
     }
+    /**
+     * Get rendered info view
+     *
+     * @return string
+     */
+    public function getInfo()
+    {
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+        $view = $viewRenderer->view;
+        return $view->render('import/importer/phparray.phtml');
+    }
 
 }

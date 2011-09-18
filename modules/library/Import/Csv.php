@@ -16,7 +16,7 @@
  * @subpackage      Importer
  */
 
-class Msd_Import_Csv implements Msd_Import_Interface
+class Module_Import_Csv implements Msd_Import_Interface
 {
     /**
      * @var string
@@ -84,4 +84,17 @@ class Msd_Import_Csv implements Msd_Import_Interface
         return $this->_extractedData;
     }
 
+    /**
+     * Get rendered info view
+     *
+     * @return string
+     */
+    public function getInfo()
+    {
+        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
+        $view = $viewRenderer->view;
+        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
+        $view->addScriptPath($path);
+        return $view->render('csv.phtml');
+    }
 }

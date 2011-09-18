@@ -13,4 +13,12 @@ interface Msd_Import_Interface
      * @return array Extracted key => value-Array
      */
     public function extract($data);
+
+    /**
+     * Get rendered info view
+     *
+     * @return string
+     */
+    public function getInfo();
+
 }

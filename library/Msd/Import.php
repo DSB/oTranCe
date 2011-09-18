@@ -71,6 +71,7 @@ class Msd_Import
             }
             $classes = array_merge($classes, self::_getDirEntries($path[0]));
         }
+        sort($classes);
         return $classes;
     }
 
@@ -89,7 +90,7 @@ class Msd_Import
         $classes = array();
         for (; $dir->valid(); $dir->next()) {
             $filename = $dir->getFilename();
-            if ($dir->isDot() || $filename{0} == '.' || in_array($filename, self::$_ignoreFileNames)) {
+            if ($dir->isDot() || $filename{0} == '.' || strripos($filename, '.phtml') !== false || in_array($filename, self::$_ignoreFileNames)) {
                 continue;
             }
             if ($dir->isDir()) {

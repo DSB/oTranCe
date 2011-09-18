@@ -47,7 +47,7 @@
 </table>
 <div class="invisible" id="importerInfo">
 <?php
-    echo $this->partial('import/importer/' . strtolower($this->analyzers[$this->selectedAnalyzer]) . '.phtml');
+    echo $this->analyzer->getInfo();
     echo "<br />";
 ?>
 </div>

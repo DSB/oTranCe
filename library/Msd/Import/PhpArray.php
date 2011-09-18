@@ -68,8 +68,8 @@ class Msd_Import_PhpArray implements Msd_Import_Interface
         $this->_data = $data;
         unset($data);
         $this->_data = preg_replace('!/\*.*?\*/!s', '', $this->_data);
-        $this->_data = $this->stripString($this->_data, '$aLang');
-        $this->_data = $this->stripString($this->_data, 'array(');
+        $this->_data = $this->_stripString($this->_data, '$aLang');
+        $this->_data = $this->_stripString($this->_data, 'array(');
         $this->_extractedData = array();
         $this->_dataLength = strlen($this->_data);
         $this->_delimiter = false;
@@ -216,7 +216,7 @@ class Msd_Import_PhpArray implements Msd_Import_Interface
      *
      * @return string
      */
-    private function stripString($data, $stripAt)
+    private function _stripString($data, $stripAt)
     {
         $pos = strpos($data, $stripAt);
         if ($pos !== false) {

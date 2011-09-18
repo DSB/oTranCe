@@ -1,12 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Darky
- * Date: 20.08.11
- * Time: 16:16
- * To change this template use File | Settings | File Templates.
+ * Importer factory
  */
-
 class Msd_Import
 {
     /**

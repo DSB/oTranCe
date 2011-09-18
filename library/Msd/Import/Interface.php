@@ -17,8 +17,10 @@ interface Msd_Import_Interface
     /**
      * Get rendered info view
      *
+     * @param Zend_View $view View instance
+     *
      * @return string
      */
-    public function getInfo();
+    public function getInfo(Zend_View $view);
 
 }

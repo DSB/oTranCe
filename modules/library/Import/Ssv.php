@@ -26,12 +26,12 @@ class Module_Import_Ssv extends Module_Import_Csv
     /**
      * Get rendered info view
      *
+     * @param Zend_View $view View instance
+     *
      * @return string
      */
-    public function getInfo()
+    public function getInfo(Zend_View $view)
     {
-        $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
-        $view = $viewRenderer->view;
         $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
         $view->addScriptPath($path);
         return $view->render('ssv.phtml');

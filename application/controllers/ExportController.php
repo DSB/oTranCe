@@ -81,8 +81,6 @@ class ExportController extends Msd_Controller_Action
      */
     public function updateAction()
     {
-        $vcs = $this->_getVcsInstance();
-        $vcs->update();
         $language = $this->_request->getParam('language');
         if (!$this->_languageExists($language)) {
             // If the user provides an invalid language id, redirect to index action, silently.
@@ -108,6 +106,7 @@ class ExportController extends Msd_Controller_Action
     public function commitAction()
     {
         $vcs = $this->_getVcsInstance();
+        $vcs->update();
         $statusResult = $vcs->status();
         $log = new Application_Model_ExportLog();
         if (!empty($statusResult)) {
@@ -298,7 +297,6 @@ class ExportController extends Msd_Controller_Action
      */
     public function updateAllAction()
     {
-        $this->_getVcsInstance()->update();
         $langs = $this->_languagesModel->getAllLanguages();
         $languages = array();
         $i = 0;

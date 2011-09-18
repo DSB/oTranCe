@@ -32,8 +32,6 @@ class Module_Import_Ssv extends Module_Import_Csv
      */
     public function getInfo(Zend_View $view)
     {
-        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
-        $view->addScriptPath($path);
         return $view->render('ssv.phtml');
     }
 }

@@ -93,8 +93,6 @@ class Module_Import_Csv implements Msd_Import_Interface
      */
     public function getInfo(Zend_View $view)
     {
-        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
-        $view->addScriptPath($path);
         return $view->render('csv.phtml');
     }
 }

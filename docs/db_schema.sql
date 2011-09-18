@@ -1,23 +1,23 @@
--- Status:11:36:MP_0:translations:php:1.24.4::5.1.50-community-log:1:::utf8:EXTINFO
+-- Status:11:50:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
--- TABLE|conversions|0|2048|2011-09-04 20:07:12|MyISAM
--- TABLE|exportlog|0|2048|2011-09-11 13:34:43|MyISAM
--- TABLE|filetemplates|1|2828|2011-09-04 20:23:03|MyISAM
--- TABLE|history|2|2120|2011-09-11 13:35:44|MyISAM
--- TABLE|keys|0|1024|2011-09-11 13:34:54|MyISAM
--- TABLE|languages|3|3160|2011-09-08 21:22:01|MyISAM
--- TABLE|translations|0|1024|2011-09-11 13:35:01|MyISAM
--- TABLE|user_languages|4|2129|2011-09-11 13:17:30|MyISAM
--- TABLE|userrights|22|2544|2011-09-11 13:17:30|MyISAM
--- TABLE|users|2|2196|2011-09-11 13:17:30|MyISAM
--- TABLE|usersettings|2|2336|2011-09-11 13:17:30|MyISAM
+-- TABLE|conversions|0|2048|2011-09-18 17:09:18|MyISAM
+-- TABLE|exportlog|0|2048|2011-09-18 17:39:04|MyISAM
+-- TABLE|filetemplates|2|5460|2011-09-18 17:34:09|MyISAM
+-- TABLE|history|0|1024|2011-09-18 17:39:07|MyISAM
+-- TABLE|keys|0|1024|2011-09-18 17:39:14|MyISAM
+-- TABLE|languages|3|3160|2011-09-17 11:19:24|MyISAM
+-- TABLE|translations|0|1024|2011-09-18 17:39:18|MyISAM
+-- TABLE|user_languages|3|2075|2011-09-18 17:34:09|MyISAM
+-- TABLE|userrights|38|7956|2011-09-18 17:34:09|MyISAM
+-- TABLE|users|2|2244|2011-09-18 17:34:09|MyISAM
+-- TABLE|usersettings|2|2252|2011-09-18 17:34:09|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2011-09-11 13:36
+-- Dump created: 2011-09-18 17:39
 
 --
 -- Create Table `conversions`
@@ -72,14 +72,15 @@ CREATE TABLE `filetemplates` (
   `content` varchar(255) NOT NULL,
   `filename` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `filetemplates`
 --
 
 /*!40000 ALTER TABLE `filetemplates` DISABLE KEYS */;
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','OXID','<?php\r\n/**\r\n * This file is part of MySQLDumper released under the GNU/GPL 2 license\r\n * http://www.mysqldumper.net\r\n *\r\n * @package       MySQLDumper\r\n * @subpackage    Language\r\n * @version       $Rev: 1291 $\r\n * @author        $Author: dsb $\r\n */\r\n$lang=array(',');\r\nreturn $lang;','\"{KEY}\" => \"{VALUE}\"','languages/{LOCALE}.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','Admin','<?php\r\n/**\r\n *    This file is part of OXID eShop Community Edition.\r\n *\r\n *    OXID eShop Community Edition is free software: you can redistribute it and/or modify\r\n *    it under the terms of the GNU General Public License as published by\r\n *    the Free Software Foundation, either version 3 of the License, or\r\n *    (at your option) any later version.\r\n *\r\n *    OXID eShop Community Edition is distributed in the hope that it will be useful,\r\n *    but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n *    GNU General Public License for more details.\r\n *\r\n *    You should have received a copy of the GNU General Public License\r\n *    along with OXID eShop Community Edition.  If not, see <http://www.gnu.org/licenses/>.\r\n *\r\n * @link      http://www.oxid-esales.com\r\n * @package   lang\r\n * @copyright (C) OXID eSales AG 2003-2011\r\n * @version OXID eShop CE\r\n * @version   SVN: $Id: lang.php 38692 2011-09-09 08:32:48Z arvydas.vapsva $\r\n */\r\n\r\n/*\r\n * Capitalisation in this document:\r\n * First letter is always capitalized\r\n * All nouns are capitalized\r\n */\r\n$sLangName  = \'{LANG_NAME}\';\r\n\r\n// -------------------------------\r\n// RESOURCE IDENTITFIER = STRING\r\n// -------------------------------\r\n$aLang = array(',');','\'{KEY}\' => \'{VALUE}\',','out/admin/{LOCALE}/lang.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','Admin help','<?php\r\n/**\r\n *    This file is part of OXID eShop Community Edition.\r\n *\r\n *    OXID eShop Community Edition is free software: you can redistribute it and/or modify\r\n *    it under the terms of the GNU General Public License as published by\r\n *    the Free Software Foundation, either version 3 of the License, or\r\n *    (at your option) any later version.\r\n *\r\n *    OXID eShop Community Edition is distributed in the hope that it will be useful,\r\n *    but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n *    GNU General Public License for more details.\r\n *\r\n *    You should have received a copy of the GNU General Public License\r\n *    along with OXID eShop Community Edition.  If not, see <http://www.gnu.org/licenses/>.\r\n *\r\n * @link      http://www.oxid-esales.com\r\n * @package   lang\r\n * @copyright (C) OXID eSales AG 2003-2011\r\n * @version OXID eShop CE\r\n * @version   SVN: $Id: help_lang.php 38434 2011-08-25 09:21:54Z juergen.busch $\r\n */\r\n\r\n/**\r\n * In this file, the content for help popups is stored:\r\n *\r\n * Syntax for identifier: HELP_TABNAME_INPUTNAME, e.g. HELP_SHOP_CONFIG_BIDIRECTCROSS.\r\n * !!!The INPUTNAME is same as in lang.php for avoiding even more different Identifiers.!!!\r\n * In some cases, in lang.php GENERAL_ identifiers are used. In this file, always the tab name is used.\r\n *\r\n *\r\n * HTML Tags for markup (same as in online manual):\r\n * <span class=\'navipath_or_inputname\'>...</span> for names of input fields, selectlists and Buttons, e.g. <span class=\'navipath_or_inputname\'>Active</span>\r\n * <span class=\'userinput_or_code\'>...</span> for input in input fields (also options in selectlists) and code\r\n * <span class=\'filename_filepath_or_italic\'>...</span> for filenames, filepaths and other italic stuff\r\n * <span class=\'warning_or_important_hint\'>...</span> for warning and important things\r\n * <ul> and <li> for lists\r\n */\r\n\r\n$aLang =  array(',');','\'{KEY}\' => \'{VALUE}\',','out/admin/{LOCALE}/help_lang.php');
 /*!40000 ALTER TABLE `filetemplates` ENABLE KEYS */;
 
 
@@ -98,7 +99,7 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
@@ -144,7 +145,7 @@ CREATE TABLE `languages` (
   `is_fallback` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `locale` (`locale`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `languages`
@@ -153,7 +154,7 @@ CREATE TABLE `languages` (
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
 INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('1','1','de','Deutsch','gif','0');
 INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('2','1','en','English','gif','1');
-INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('3','0','ar','Arabic','gif','0');
+INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('3','1','ar','Arabic','gif','0');
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 
 
@@ -196,7 +197,6 @@ CREATE TABLE `user_languages` (
 /*!40000 ALTER TABLE `user_languages` DISABLE KEYS */;
 INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','1');
 INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','2');
-INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('1','3');
 INSERT INTO `user_languages` (`user_id`,`language_id`) VALUES ('2','1');
 /*!40000 ALTER TABLE `user_languages` ENABLE KEYS */;
 
@@ -223,11 +223,39 @@ INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addVar','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','export','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','createFile','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editConfig','1');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addVar','0');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','admin','0');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','export','0');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','createFile','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editTemplate','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addLanguage','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showEntries','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showDownloads','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showBrowseFiles','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showImport','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showExport','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showLog','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','showStatistics','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editConfig','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showEntries','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editLanguage','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addUser','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editProject','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editTemplate','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addTemplate','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editLanguage','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editUsers','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editVcs','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addLanguage','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editUsers','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editProject','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','admin','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','addUser','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showStatistics','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showLog','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showExport','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showImport','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showBrowseFiles','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','showDownloads','1');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addVar','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','addTemplate','0');
+INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('2','editVcs','0');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -242,7 +270,7 @@ CREATE TABLE `users` (
   `password` varchar(64) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `users`

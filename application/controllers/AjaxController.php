@@ -142,7 +142,7 @@ class AjaxController extends Zend_Controller_Action
         }
 
         // ok - we can save the value -> key id
-        $entry = $this->_entriesModel->getEntryByKey($key);
+        $entry = $this->_entriesModel->getEntryByKey($key, $fileTemplate);
         $keyId = $entry['id'];
         $res = $this->_entriesModel->saveEntries($keyId, array($language => $value));
         if ($res === true) {

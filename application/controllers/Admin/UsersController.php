@@ -56,7 +56,7 @@ class Admin_UsersController extends AdminController
     {
         $userId = (int) $this->_request->getParam('id', 0);
         if ($userId == 0) {
-            if (!$this->_userModel->hasRight('addUsers')) {
+            if (!$this->_userModel->hasRight('addUser')) {
                 $this->_redirect('/');
             }
         }

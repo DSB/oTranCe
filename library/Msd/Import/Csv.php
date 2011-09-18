@@ -29,11 +29,6 @@ class Msd_Import_Csv implements Msd_Import_Interface
     private $_lines;
 
     /**
-     * @var array
-     */
-    private $_currentLine;
-
-    /**
      * Will hold detected and extracted data
      * @var array
      */

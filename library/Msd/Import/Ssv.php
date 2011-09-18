@@ -10,7 +10,7 @@
  */
 
 /**
- * Generic comma seperated file importer
+ * Generic semicolon seperated file importer
  *
  * @package         oTranCe
  * @subpackage      Importer

@@ -1,7 +1,7 @@
 <?php
 $code = <<<CODE
-TEST_KEY1;TEST_VALUE1
-TEST_KEY2;TEST_VALUE2
+TEST_KEY1,TEST_VALUE1
+TEST_KEY2,TEST_VALUE2
 CODE
 ?>
 <h4>CSV importer information:</h4>
@@ -27,17 +27,12 @@ CODE
     </td>
 </tr>
 <tr class="row-odd">
-    <td>Ignored constants:</td>
+    <td>Note:</td>
     <td>
-        none<br />
+        If your data is seperated by a semicolon, use the SSV analyzer.<br />
+        If you discover character encoding problems, copy &amp; paste the text into the text box
+        instead of uploading it. Or try to use the convert button until all characters are shown correctly.
     </td>
 </tr>
-    <tr class="row-even">
-        <td>Note:</td>
-        <td>
-            If you discover character encoding problems, copy &amp; paste the text into the text box
-            instead of uploading it. Or try to use the convert button until all characters are shown correctly.
-        </td>
-    </tr>
 
 </table>

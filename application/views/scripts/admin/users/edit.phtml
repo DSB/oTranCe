@@ -3,7 +3,7 @@ $user = $this->user;
 $userRights = $this->userRights;
 $inputNamesMap = array(
     'user_name' => 'Username',
-    'pass1' => 'Password',
+    'pass1'     => 'Password',
 );
 ?>
 <h2>Admin - Edit User</h2>
@@ -56,7 +56,7 @@ if (!empty($this->errors)) {
         if (array_key_exists($inputName, $inputNamesMap)) {
             $inputName = $inputNamesMap[$inputName];
         }
-        $inputErrors .= '<tr><td class="error">' . $inputName . '</td><td class="error">'
+        $inputErrors .= '<tr><td class="error">' . $inputName . ':</td><td class="error">'
             . implode('<br/>', $inputError) . '</td></tr>';
     }
     $inputErrors .= '</table>';
@@ -64,11 +64,11 @@ if (!empty($this->errors)) {
         'settingsNotSaved',
         'Error',
         'Error validating your inputs:<br /><br /><span class="error">' . $inputErrors
-            .'</span><br /><br />Please correct your input.',
+            .'</span><br />Please correct your input.',
         array(
             'modal' => true,
-            'height' => 200,
-            'width' => 360,
+            'height' => 240,
+            'width' => 420,
             'dialogClass' => 'info',
         )
     );

@@ -90,7 +90,7 @@ class Admin_UsersController extends AdminController
     }
 
     /**
-     * Validate inputs for account settings
+     * Validate inputs for account settings and set view error mesages.
      *
      * @return bool
      */
@@ -98,10 +98,29 @@ class Admin_UsersController extends AdminController
     {
         $errors = array();
         $params = $this->_request->getParams();
+
+        if ($params['id'] == 0) {
+            $notEmptyValidate = new Zend_Validate_NotEmpty();
+            if (!$notEmptyValidate->isValid($params['pass1'])) {
+                $errors['pass1'] = $notEmptyValidate->getMessages();
+            }
+
+            // check if we already have a user with that name
+            $existingUser = $this->_userModel->getUserByName($params['user_name']);
+            if (!empty($existingUser)) {
+                $errors['user_name'] = array();
+                $errors['user_name'][] = 'A user with the name \'' . $params['user_name'] .'\' already exists!';
+            }
+        }
+
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (!$strLenValidate->isValid($params['user_name'])) {
+            if (!isset($errors['user_name']) || !is_array($errors['user_name'])) {
+                $errors['user_name'] = array();
+            }
             $errors['user_name'] = $strLenValidate->getMessages();
         }
+
         if ($params['pass1'] > '' || $params['pass2'] > '') {
             $identicalValidate = new Zend_Validate_Identical($params['pass1']);
             if (!$identicalValidate->isValid($params['pass2'])) {
@@ -109,12 +128,6 @@ class Admin_UsersController extends AdminController
             }
         }
 
-        if ($params['id'] == 0) {
-            $notEmptyValidate = new Zend_Validate_NotEmpty();
-            if (!$notEmptyValidate->isValid($params['pass1'])) {
-                $errors['pass1'] = $notEmptyValidate->getMessages();
-            }
-        }
         $this->view->errors = $errors;
         if (empty($errors)) {
             return true;

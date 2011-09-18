@@ -17,6 +17,19 @@ require_once 'AdminController.php';
 class Admin_VcsController extends AdminController
 {
     /**
+     * Init
+     *
+     * @return void
+     */
+    public function init()
+    {
+        parent::init();
+        if (!$this->_userModel->hasRight('editVcs')) {
+            $this->_redirect('/');
+        }
+    }
+
+    /**
      * Index action
      *
      * @return void

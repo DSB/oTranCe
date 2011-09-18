@@ -2,7 +2,7 @@
 /**
  * Importer class for OXID language files.
  */
-class Msd_Import_Oxid extends Msd_Import_PhpArray
+class Module_Import_Oxid extends Msd_Import_PhpArray
 {
     /**
      * Constructor
@@ -21,7 +21,9 @@ class Msd_Import_Oxid extends Msd_Import_PhpArray
      */
     public function getInfo(Zend_View $view)
     {
-        return $view->render('import/importer/oxid.phtml');
+        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
+        $view->addScriptPath($path);
+        return $view->render('oxid.phtml');
     }
 
 }

@@ -52,9 +52,9 @@ foreach ($this->status as $key => $s)
 if ($exportNeeded) {
 ?>
     <p class="error">Download package needs to be updated.</p>
-    <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
-        <?php echo $this->getIcon('save', '');?> Build download package
-    </a><br/>
 <?php } else { ?>
 <p class="ok">Download package is up to date.</p>
-<?php }
+<?php } ?>
+<a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
+    <?php echo $this->getIcon('save', '');?> Build download package
+</a><br/>

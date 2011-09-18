@@ -131,7 +131,7 @@ class AjaxController extends Zend_Controller_Action
             return 2;
         }
 
-        if (!$this->_entriesModel->hasEntryWithKey($key)) {
+        if (!$this->_entriesModel->hasEntryWithKey($key, $fileTemplate)) {
             //it is a new entry - check rights
             if (!$this->_userModel->hasRight('addVar')) {
                 return 3;

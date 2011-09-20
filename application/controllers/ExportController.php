@@ -88,14 +88,13 @@ class ExportController extends Msd_Controller_Action
      */
     public function updateAction()
     {
-        $this->_vcsUpdate();
         $language = $this->_request->getParam('language');
         if (!$this->_languageExists($language)) {
             // If the user provides an invalid language id, redirect to index action, silently.
             $this->_forward('index');
             return;
         }
-
+        $this->_vcsUpdate();
         $languageInfo = $this->_languagesModel->getLanguageById($language);
         $this->view->language = $languageInfo;
         $exportedFiles = $this->_export->exportLanguageFile($language);

@@ -41,6 +41,12 @@ class ExportController extends Msd_Controller_Action
     private $_vcs = null;
 
     /**
+     * Project config from configuration
+     * @var array
+     */
+    private $_projectConfig;
+
+    /**
      * Init
      *
      * @return void
@@ -56,6 +62,7 @@ class ExportController extends Msd_Controller_Action
         $this->_languagesModel = new Application_Model_Languages();
         $this->_export = new Msd_Export();
         $this->_historyModel = new Application_Model_History();
+        $this->_projectConfig = $this->_config->getParam('project');
     }
 
     /**
@@ -81,6 +88,7 @@ class ExportController extends Msd_Controller_Action
      */
     public function updateAction()
     {
+        $this->_vcsUpdate();
         $language = $this->_request->getParam('language');
         if (!$this->_languageExists($language)) {
             // If the user provides an invalid language id, redirect to index action, silently.
@@ -297,6 +305,7 @@ class ExportController extends Msd_Controller_Action
      */
     public function updateAllAction()
     {
+        $this->_vcsUpdate();
         $langs = $this->_languagesModel->getAllLanguages();
         $languages = array();
         $i = 0;
@@ -318,5 +327,18 @@ class ExportController extends Msd_Controller_Action
         }
         $this->view->exportOk = $exportOk;
         $this->view->languages = $languages;
+    }
+
+    /**
+     * Perform vcs update action
+     *
+     * @return void
+     */
+    private function _vcsUpdate()
+    {
+        if ($this->_projectConfig['vcsActivated'] == 1) {
+            $vcs = $this->_getVcsInstance();
+            $vcs->update();
+        }
     }
 }

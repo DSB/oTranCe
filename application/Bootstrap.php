@@ -40,11 +40,16 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         $moduleLoader = new Msd_Module_Loader(
             array(
-                'Module_' => realpath(APPLICATION_PATH . '/../modules/library/')
+                 'Module_' => realpath(APPLICATION_PATH . '/../modules/library/')
             )
         );
 
         Zend_Loader_Autoloader::getInstance()->pushAutoloader($moduleLoader, 'Module_');
+
+        // check if server has magic quotes enabled and normalize params
+        if ( (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1)) {
+            $_POST = Bootstrap::stripslashes_deep($_POST);
+        }
     }
 
     /**
@@ -78,4 +83,18 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $logger = new Zend_Log($writer);
         Zend_Registry::set('logger', $logger);
     }
+
+    /**
+     * Un-quote a string or array
+     *
+     * @param string|array $value The value to strip
+     *
+     * @return string|array
+     */
+    public static function stripslashes_deep($value)
+    {
+        $value = is_array($value) ? array_map('Bootstrap::stripslashes_deep', $value) : stripslashes($value);
+        return $value;
+    }
+
 }

@@ -67,6 +67,15 @@
             </then>
         </if>
     </target>
+    <target name="run-tests">
+        <phpunit printsummary="true" bootstrap="${project.testsdir}/bootstrap.php" haltonerror="true" haltonfailure="true" haltonincomplete="true" haltonskipped="true">
+            <batchtest>
+                <fileset dir="${project.testsdir}">
+                    <include name="**/*Test.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+    </target>
 
-    <target name="build-all" depends="prepare,build-dist-packages,cleanup"/>
+    <target name="build-all" depends="prepare,run-tests,build-dist-packages,cleanup"/>
 </project>

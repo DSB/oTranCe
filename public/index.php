@@ -39,7 +39,3 @@ $application = new Zend_Application(
 );
 $application->bootstrap()
             ->run();
-ob_start();
-var_dump($application);
-$output = ob_get_clean();
-file_put_contents('debug.txt', $output);

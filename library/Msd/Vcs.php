@@ -146,10 +146,11 @@ class Msd_Vcs
     public static function getAdapterOptions($adapter)
     {
         /**
-         * @var Msd_Vcs_Interface $className
+         * @var Msd_Vcs_Interface $adapter
          */
         $className = self::_getAdapterClassName($adapter);
-        return $className::getAdapterOptions();
+        $adapter = new $className();
+        return $adapter->getAdapterOptions();
     }
 
     /**
@@ -164,9 +165,10 @@ class Msd_Vcs
     public static function getCredentialFields($adapter)
     {
         /**
-         * @var Msd_Vcs_Interface $className
+         * @var Msd_Vcs_Interface $adapter
          */
         $className = self::_getAdapterClassName($adapter);
-        return $className::getCredentialFields();
+        $adapter = new $className();
+        return $adapter->getCredentialFields();
     }
 }

@@ -60,7 +60,7 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
      *
      * @param array $adapterParams Array with specific options.
      */
-    public function __construct($adapterParams)
+    public function __construct($adapterParams = array())
     {
         if (isset($adapterParams['username'])) {
             $this->_username = $adapterParams['username'];
@@ -252,13 +252,11 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
     /**
      * Returns available options for the adapter.
      *
-     * @static
-     *
      * @abstract
      *
      * @return array
      */
-    public static function getAdapterOptions()
+    public function getAdapterOptions()
     {
         return array(
             'checkoutPath' => 'SVN Checkout path',
@@ -271,13 +269,11 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
     /**
      * Returns the adapter option names for user specific credentials.
      *
-     * @static
-     *
      * @abstract
      *
      * @return array
      */
-    public static function getCredentialFields()
+    public function getCredentialFields()
     {
         return array(
             'username' => 'username',

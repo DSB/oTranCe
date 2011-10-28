@@ -5,6 +5,17 @@
 interface Msd_Vcs_Interface
 {
     /**
+     * Creates and initializes a new instance of the adapter class.
+     *
+     * @abstract
+     *
+     * @param array $adapterParams Array with adapter specific parameters
+     *
+     * @return \Msd_Vcs_Interface
+     */
+    public function __construct($adapterParams = array());
+
+    /**
      * Adds a file to the VCS.
      *
      * @abstract
@@ -70,22 +81,18 @@ interface Msd_Vcs_Interface
     /**
      * Returns available options for the adapter.
      *
-     * @static
-     *
      * @abstract
      *
      * @return array
      */
-    public static function getAdapterOptions();
+    public function getAdapterOptions();
 
     /**
      * Returns the adapter option names for user specific credentials.
      *
-     * @static
-     *
      * @abstract
      *
      * @return array
      */
-    public static function getCredentialFields();
+    public function getCredentialFields();
 }

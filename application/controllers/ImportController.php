@@ -209,8 +209,12 @@ class ImportController extends Zend_Controller_Action
     private function _setAnalyzer()
     {
         $analyzers = Msd_Import::getAvailableImportAnalyzers();
-        $selectedAnalyzer = strtolower($this->_request->getParam('selectedAnalyzer', 0));
-        $this->_dynamicConfig->setParam('selectedAnalyzer', $analyzers[$selectedAnalyzer]);
+        $lastSelectedAnalyzerIndex = $this->_dynamicConfig->getParam('selectedAnalyzer');
+        if (!isset($analyzers[$lastSelectedAnalyzerIndex])) {
+            $lastSelectedAnalyzerIndex = 0;
+        }
+        $selectedAnalyzer = strtolower($this->_request->getParam('selectedAnalyzer', $lastSelectedAnalyzerIndex));
+        $this->_dynamicConfig->setParam('selectedAnalyzer', $selectedAnalyzer);
         $this->view->analyzers = $analyzers;
         $this->view->selAnalyzer = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
         $this->view->selectedAnalyzer = $selectedAnalyzer;

@@ -228,7 +228,8 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $selectedAnalyzer = $this->_dynamicConfig->getParam('selectedAnalyzer');
+        $analyzers = Msd_Import::getAvailableImportAnalyzers();
+        $selectedAnalyzer = $analyzers[$this->_dynamicConfig->getParam('selectedAnalyzer')];
         $data = $this->_dynamicConfig->getParam('importConvertedData');
         $importer = Msd_Import::factory($selectedAnalyzer);
         $this->view->fileTemplate  = $this->_dynamicConfig->getParam('importFileTemplate');

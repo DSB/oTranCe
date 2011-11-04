@@ -155,7 +155,7 @@ class Msd_Process
     {
         $output = null;
         if (is_resource($this->_pipes[1])) {
-            $output = fgets($this->_pipes[1], 128);
+            $output = stream_get_contents($this->_pipes[1]);
         }
 
         return $output;
@@ -170,7 +170,7 @@ class Msd_Process
     {
         $error = null;
         if (is_resource($this->_pipes[2])) {
-            $error = fgets($this->_pipes[2], 128);
+            $error = stream_get_contents($this->_pipes[2]);
         }
 
         return $error;

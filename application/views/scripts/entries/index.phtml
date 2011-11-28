@@ -1,5 +1,7 @@
 <?php
 $i = $this->offset+1;
+$currentPage = ceil(($this->offset + 1) / $this->recordsPerPage);
+$nrOfPages = ceil($this->rows / $this->recordsPerPage);
 $entriesModel = new Application_Model_LanguageEntries();
 ?>
 <h2>Edit entries</h2>
@@ -83,11 +85,14 @@ $entriesModel = new Application_Model_LanguageEntries();
             class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
-        Entries per page:
-        <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
-            <?php echo $this->selRecordsPerPage;?>
-        </select>
-        Hits: <?php echo $this->numberFormat($this->rows);?>
+        Page <?php echo $currentPage; ?> of <?php echo $nrOfPages; ?> (Hits: <?php echo $this->numberFormat($this->rows);?>)
+        <span style="float:right;padding:0;margin:0;">
+            Entries per page:
+            <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
+                <?php echo $this->selRecordsPerPage;?>
+            </select>
+        </span>
+
     </p>
 </form>
 <?php

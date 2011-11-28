@@ -135,12 +135,12 @@ class EntriesController extends Zend_Controller_Action
                     );
         }
 
-        $this->view->hits = $this->_entriesModel->addTranslations(
+        $this->view->rows = $this->_entriesModel->getRowCount();
+
+        $this->view->hits = $this->_entriesModel->assignTranslations(
             $this->view->showLanguages,
             $this->view->hits
         );
-
-        $this->view->rows = $this->_entriesModel->getRowCount();
     }
 
     /**

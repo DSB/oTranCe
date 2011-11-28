@@ -197,6 +197,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql .= ' ORDER BY t.`key_id` DESC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
         $this->_foundRows = $this->_dbo->getRowCount();
+        if ($this->_foundRows == 0) {
+            return array();
+        }
         $keyIds = array();
         foreach ($rawKeyIds as $rawKeyId) {
             $keyIds[] = $rawKeyId[0];
@@ -374,9 +377,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * @return array
      */
-    public function addTranslations($languageIds, $entries)
+    public function assignTranslations($languageIds, $entries)
     {
-        if (empty($languageIds)) {
+        if (empty($languageIds) || empty($entries)) {
             return array();
         }
 

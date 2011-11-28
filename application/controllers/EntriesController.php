@@ -107,14 +107,22 @@ class EntriesController extends Zend_Controller_Action
                 Msd_Html::getHtmlOptionsFromAssocArray($fileTemplates, 'id', 'filename', $fileTemplateFilter);
 
         if ($this->view->getUntranslated == 0) {
-            $this->view->hits =
-                    $this->_entriesModel->getEntries(
-                        $this->_showLanguages,
-                        $this->view->filter,
-                        $this->view->offset,
-                        $this->view->recordsPerPage,
-                        $this->view->fileTemplateFilter
-                    );
+            if ($this->view->filterKeys > '' | $this->view->fileTemplateFilter > 0) {
+                $this->view->hits = $this->_entriesModel->getEntriesByKey(
+                    $this->view->filterKeys,
+                    $this->view->offset,
+                    $this->view->recordsPerPage,
+                    $this->view->fileTemplateFilter
+                );
+            } else {
+                $this->view->hits = $this->_entriesModel->getEntriesByValue(
+                    $this->view->showLanguages,
+                    $this->view->filterValues,
+                    $this->view->offset,
+                    $this->view->recordsPerPage,
+                    $this->view->fileTemplateFilter
+                );
+            }
         } else {
             $languageId = $this->_dynamicConfig->getParam('entries.getUntranslated');
             $this->view->hits =
@@ -246,14 +254,16 @@ class EntriesController extends Zend_Controller_Action
      */
     private function _getPostParams()
     {
-        $filter             = trim($this->_request->getParam('filter', ''));
+        $filterValues       = trim($this->_request->getParam('filterValues', ''));
+        $filterKeys         = trim($this->_request->getParam('filterKeys', ''));
         $offset             = (int) $this->_request->getParam('offset', 0);
         $recordsPerPage     = (int) $this->_request->getParam('recordsPerPage', 0);
         // will be not 0 if set and set to id of language to search in
         $getUntranslated    = (int) $this->_request->getParam('getUntranslated', 0);
         $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
         $this->_dynamicConfig->setParam('entries.offset', $offset);
-        $this->_dynamicConfig->setParam('entries.filter', $filter);
+        $this->_dynamicConfig->setParam('entries.filterValues', $filterValues);
+        $this->_dynamicConfig->setParam('entries.filterKeys', $filterKeys);
         $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
         $this->_dynamicConfig->setParam('entries.getUntranslated', $getUntranslated);
         $this->_dynamicConfig->setParam('entries.fileTemplateFilter', $fileTemplateFilter);
@@ -269,7 +279,8 @@ class EntriesController extends Zend_Controller_Action
         // set defaults on first page call
         if ($this->_dynamicConfig->getParam('entries.offset') === null) {
             $this->_dynamicConfig->setParam('entries.offset', 0);
-            $this->_dynamicConfig->setParam('entries.filter', '');
+            $this->_dynamicConfig->setParam('entries.filterValues', '');
+            $this->_dynamicConfig->setParam('entries.filterKeys', '');
             $recordsPerPage = $this->_userModel->loadSetting('entries.recordsPerPage', 20);
             $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
             $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
@@ -284,7 +295,8 @@ class EntriesController extends Zend_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filter          = $this->_dynamicConfig->getParam('entries.filter');
+        $this->view->filterValues    = $this->_dynamicConfig->getParam('entries.filterValues');
+        $this->view->filterKeys      = $this->_dynamicConfig->getParam('entries.filterKeys');
         $this->view->offset          = $this->_dynamicConfig->getParam('entries.offset');
         $this->view->recordsPerPage  = $this->_dynamicConfig->getParam('entries.recordsPerPage');
         $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');

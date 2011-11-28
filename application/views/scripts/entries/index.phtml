@@ -6,27 +6,6 @@ $entriesModel = new Application_Model_LanguageEntries();
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
     <p style="margin:0;padding:0;">
-        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-        Filter / Search:
-        <input
-                <?php if (false && $this->getUntranslated > 0) {
-                    echo ' disabled="disabled"';
-                }?>
-            type="text" class="text" id="filter" name="filter" value="<?php echo $this->escape($this->filter);?>" onchange="resetOffset()"/>
-        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-            <?php echo $this->getIcon('search', '', 16);?> Search
-        </button>
-        <button type="submit" class="Formbutton" onclick="$('#filter').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-        <?php
-        if ($this->addVar) { ?>
-             <button type="submit" class="Formbutton" name="addVar" value="addVar">
-                 <?php echo $this->getIcon('plus', '');?> Add new variable
-             </button>
-            <?php
-        }
-            ?>
         <span style="float:right;padding:0;margin:0;">
             Find untranslated for:
             <select id="getUntranslated" name="getUntranslated" onchange="setPageInactive();$('#myForm').submit();">
@@ -42,7 +21,35 @@ $entriesModel = new Application_Model_LanguageEntries();
             </button>
         </span>
 
-        <br/><br/>
+        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+        Search for value:
+        <input
+                <?php if (false && $this->getUntranslated > 0) {
+                    echo ' disabled="disabled"';
+                }?>
+            type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
+        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+            <?php echo $this->getIcon('search', '', 16);?> Search
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        <br /><br />
+
+        Search for language key:
+        <input
+                <?php if (false && $this->getUntranslated > 0) {
+                    echo ' disabled="disabled"';
+                }?>
+            type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
+        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+            <?php echo $this->getIcon('search', '', 16);?> Search
+        </button>
+        <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
+            <?php echo $this->getIcon('delete', '');?> Reset
+        </button>
+        <br /><br />
+
         <label for="fileTemplateFilter">Filter by file template:</label>
         <select name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
             <?php echo $this->selFileTemplate;?>
@@ -52,6 +59,15 @@ $entriesModel = new Application_Model_LanguageEntries();
         </button>
 
         <br /><br />
+        <?php
+        if ($this->addVar) { ?>
+             <button type="submit" class="Formbutton" name="addVar" value="addVar">
+                 <?php echo $this->getIcon('plus', '');?> Add new variable
+             </button>
+        <br/><br/>
+            <?php
+        }
+            ?>
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
             onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
             accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
@@ -68,11 +84,10 @@ $entriesModel = new Application_Model_LanguageEntries();
             <?php endif; ?>
         </a>
         Entries per page:
-        <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+        <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
             <?php echo $this->selRecordsPerPage;?>
         </select>
         Hits: <?php echo $this->numberFormat($this->rows);?>
-
     </p>
 </form>
 <?php

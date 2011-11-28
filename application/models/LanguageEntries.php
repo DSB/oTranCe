@@ -40,6 +40,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     private $_tableFileTemplates;
 
     /**
+     * Number of found rows for SQL_CALC_FOUND_ROWS keyword.
+     *
+     * @var int
+     */
+    private $_foundRows = null;
+
+    /**
      * Model initialization method.
      *
      * @return void
@@ -162,17 +169,16 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
-     * Get key ids from database
+     * Search for term in translations table.
      *
      * @param string $languages
      * @param string $filter
      * @param int    $offset
      * @param int    $nrOfRecords
-     * @param int    $fileTemplateId
      *
      * @return array
      */
-    public function getEntries($languages, $filter, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
+    public function getEntriesByValue($languages, $filter, $offset = 0, $nrOfRecords = 30)
     {
         if (empty($languages)) {
             return array();
@@ -181,22 +187,61 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if ($nrOfRecords < 10) {
             $nrOfRecords = 10;
         }
+        $this->_foundRows = null;
+        //find key ids
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT t.`key_id` FROM `' . $this->_tableTranslations . '` t ';
+        if ($filter > '') {
+            $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND '
+                . 't.`lang_id` IN (' . implode(",", $languages) . ')';
+        }
+        $sql .= ' ORDER BY t.`key_id` DESC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
+        $this->_foundRows = $this->_dbo->getRowCount();
+        $keyIds = array();
+        foreach ($rawKeyIds as $rawKeyId) {
+            $keyIds[] = $rawKeyId[0];
+        }
+        $sql = 'SELECT `id`,  `key`, `template_id` FROM `' . $this->_tableKeys . '` '
+            . 'WHERE `id` IN (' . implode(',', $keyIds) . ')';
+        $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if (!is_array($hits)) {
+            return array();
+        }
+        return $hits;
+
+    }
+
+    /**
+     * Search for term in keys table.
+     *
+     * @param string $filter
+     * @param int    $offset
+     * @param int    $nrOfRecords
+     * @param int    $fileTemplateId
+     *
+     * @return array
+     */
+    public function getEntriesByKey($filter, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
+    {
+        if ($nrOfRecords < 10) {
+            $nrOfRecords = 10;
+        }
+        $this->_foundRows = null;
         //find key ids
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
-               . ' FROM `' . $this->_tableKeys . '` k '
-               . ' LEFT JOIN `' . $this->_tableTranslations . '` t ON  k.`id` = t.`key_id`'
-               . ' WHERE (t.`lang_id` IN (' . implode(',', $languages) . ') ';
+               . ' FROM `' . $this->_tableKeys . '` k ';
+        $where = array();
         if ($filter > '') {
-            $sql .= ' AND (t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
-            $sql .= ' OR k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\')';
-            $sql .= ' OR (k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND t.`lang_id` IS NULL))';
-        } else {
-            $sql .= ' OR t.`lang_id` IS NULL)';
+            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
         }
         if ($fileTemplateId > 0) {
-            $sql .= ' AND k.`template_id` = ' . $this->_dbo->escape($fileTemplateId);
+            $where[] .= 'k.`template_id` = ' . $this->_dbo->escape($fileTemplateId);
+        }
+        if (count($where) > 0) {
+            $sql .= ' WHERE ' . implode(' AND ', $where);
         }
         $sql .= ' GROUP BY k.`id` ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
+
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (!is_array($hits)) {
             return array();
@@ -217,6 +262,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getUntranslated($languageId = 0, $filter = '', $offset = 0, $nrOfRecords = 30, $templateId = 0)
     {
+        $this->_foundRows = null;
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
                . ' FROM `' . $this->_tableKeys . '` k ';
 
@@ -283,7 +329,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getRowCount()
     {
-        return $this->_dbo->getRowCount();
+        if ($this->_foundRows === null) {
+            $this->_foundRows = $this->_dbo->getRowCount();
+        }
+        return $this->_foundRows;
     }
 
     /**

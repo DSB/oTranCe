@@ -367,6 +367,44 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
+     * Add translations for the given languages to the entries.
+     *
+     * @param array $languageIds
+     * @param array $entries
+     *
+     * @return array
+     */
+    public function addTranslations($languageIds, $entries)
+    {
+        if (empty($languageIds)) {
+            return array();
+        }
+
+        $result = array();
+        $keyIds = array();
+        foreach ($entries as $entry) {
+            $keyId = $entry['id'];
+            $keyIds[] = $keyId;
+            $result[$keyId] = $entry;
+        }
+
+        $sql = 'SELECT `key_id`, `lang_id`, `text` FROM `' . $this->_tableTranslations . '` WHERE '
+            . '`key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN (' . implode(',', $languageIds) . ')';
+        $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
+        foreach ($translations as $translation) {
+            $keyId = $translation['key_id'];
+            $langId = $translation['lang_id'];
+            if (!isset($result[$keyId]['languages'])) {
+                $result[$keyId]['languages'] = array();
+            }
+            $result[$keyId]['languages'][$langId] = $translation['text'];
+        }
+
+        return $result;
+    }
+
+    /**
      * Get translation key
      *
      * @param string $key          The key to look for

@@ -123,7 +123,6 @@ if (empty($this->showLanguages)) {
 foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
-    $entry = $entriesModel->getEntryById($keyId, $this->showLanguages);
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable">';
     ?>
@@ -151,7 +150,7 @@ foreach ($this->hits as $hit)
         </td>
         <?php
         foreach ($this->showLanguages as $lang) {
-            $text = isset($entry[$lang]) ? $entry[$lang] : '';
+            $text = isset($hit['languages'][$lang]) ? $hit['languages'][$lang] : '';
             $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
             if (!isset($text) || $text == '') {
                 $text = '<i>untranslated</i>';

@@ -134,6 +134,12 @@ class EntriesController extends Zend_Controller_Action
                         $this->view->fileTemplateFilter
                     );
         }
+
+        $this->view->hits = $this->_entriesModel->addTranslations(
+            $this->view->showLanguages,
+            $this->view->hits
+        );
+
         $this->view->rows = $this->_entriesModel->getRowCount();
     }
 

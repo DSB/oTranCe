@@ -117,6 +117,12 @@ class Msd_Vcs_Subversion implements Msd_Vcs_Interface
     public function status()
     {
         $rawSvnStatus = $this->_executeSvnCommand('status');
+        if (isset($rawSvnStatus['stderr']) && $rawSvnStatus['stderr'] > '') {
+            // we got an error - return it to let the view show it
+            return $rawSvnStatus;
+        }
+
+        // extract information about files to add, ect.
         $lines = explode(PHP_EOL, $rawSvnStatus['stdout']);
         $svnStatus = array();
         foreach ($lines as $line) {

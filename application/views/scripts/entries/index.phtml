@@ -11,7 +11,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             <tr>
                 <td>
                     <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-                    Search for value:
+                    Search in phrases:
                 </td>
                 <td>
                     <input
@@ -32,7 +32,7 @@ $entriesModel = new Application_Model_LanguageEntries();
                 </td>
             </tr>
             <tr>
-                <td>Search for language key:</td>
+                <td>Search in keys:</td>
                 <td>
                     <input
                         <?php if (false && $this->getUntranslated > 0) {

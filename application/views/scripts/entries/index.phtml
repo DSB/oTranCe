@@ -7,60 +7,88 @@ $entriesModel = new Application_Model_LanguageEntries();
 <h2>Edit entries</h2>
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
-    <p style="margin:0;padding:0;">
-        <span style="float:right;padding:0;margin:0;">
-            Find untranslated for:
-            <select id="getUntranslated" name="getUntranslated" onchange="setPageInactive();$('#myForm').submit();">
-                <option value="0">---</option>
-                <?php echo $this->selLanguage;?>
-            </select>
-            <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                <?php echo $this->getIcon('search', '', 16);?> Search
-            </button>
+        <table class="bdr morepadding" summary="Filter and find values">
+            <tr>
+                <td>
+                    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+                    Search for value:
+                </td>
+                <td>
+                    <input
+                        <?php if (false && $this->getUntranslated > 0) {
+                            echo ' disabled="disabled"';
+                        }?>
+                    type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                        <?php echo $this->getIcon('search', '', 16);?> Search
+                    </button>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
+                        <?php echo $this->getIcon('delete', '');?> Reset
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Search for language key:</td>
+                <td>
+                    <input
+                        <?php if (false && $this->getUntranslated > 0) {
+                            echo ' disabled="disabled"';
+                        }?>
+                    type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                        <?php echo $this->getIcon('search', '', 16);?> Search
+                    </button>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
+                        <?php echo $this->getIcon('delete', '');?> Reset
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="fileTemplateFilter">Filter by file template:</label>
+                </td>
+                <td>
+                    <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
+                        <?php echo $this->selFileTemplate;?>
+                    </select>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+                        <?php echo $this->getIcon('delete', '');?> Reset
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>Find untranslated for:</td>
+                <td>
+                    <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();$('#myForm').submit();">
+                        <option value="0">---</option>
+                        <?php echo $this->selLanguage;?>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                        <?php echo $this->getIcon('search', '', 16);?> Search
+                    </button>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+                        <?php echo $this->getIcon('delete', '');?> Reset
+                    </button>
+                </td>
+            </tr>
+        </table>
 
-            <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
-                <?php echo $this->getIcon('delete', '');?> Reset
-            </button>
-        </span>
-
-        <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-        Search for value:
-        <input
-                <?php if (false && $this->getUntranslated > 0) {
-                    echo ' disabled="disabled"';
-                }?>
-            type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
-        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-            <?php echo $this->getIcon('search', '', 16);?> Search
-        </button>
-        <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-        <br /><br />
-
-        Search for language key:
-        <input
-                <?php if (false && $this->getUntranslated > 0) {
-                    echo ' disabled="disabled"';
-                }?>
-            type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
-        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-            <?php echo $this->getIcon('search', '', 16);?> Search
-        </button>
-        <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-        <br /><br />
-
-        <label for="fileTemplateFilter">Filter by file template:</label>
-        <select name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
-            <?php echo $this->selFileTemplate;?>
-        </select>
-        <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-
-        <br /><br />
+    <p style="margin:12px 0 0 0">
         <?php
         if ($this->addVar) { ?>
              <button type="submit" class="Formbutton" name="addVar" value="addVar">
@@ -86,13 +114,12 @@ $entriesModel = new Application_Model_LanguageEntries();
             <?php endif; ?>
         </a>
         Page <?php echo $currentPage; ?> of <?php echo $nrOfPages; ?> (Hits: <?php echo $this->numberFormat($this->rows);?>)
-        <span style="float:right;padding:0;margin:0;">
+        <span style="padding:0;margin:0;">
             Entries per page:
             <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                 <?php echo $this->selRecordsPerPage;?>
             </select>
         </span>
-
     </p>
 </form>
 <?php

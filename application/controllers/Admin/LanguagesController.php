@@ -208,7 +208,13 @@ class Admin_LanguagesController extends AdminController
     private function _deleteFlags($locale)
     {
         $result = true;
-        foreach (glob(realpath(APPLICATION_PATH . '/../public/images/flags') . "/$locale.*") as $flagFile) {
+        $flagFiles = glob(realpath(APPLICATION_PATH . '/../public/images/flags') . "/$locale.*");
+        if (empty($flagFiles)) {
+            //nothing to delete
+            return true;
+        }
+
+        foreach ($flagFiles as $flagFile) {
             $result &= @unlink($flagFile);
         }
         return $result;

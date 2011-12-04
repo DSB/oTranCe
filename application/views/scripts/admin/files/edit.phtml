@@ -11,30 +11,38 @@ if ($this->fileTemplate['id'] == 0) {
     <table class="bdr more-padding" summary="List of file template settings">
         <tr class="thead">
             <th colspan="2">File template settings</th>
+            <th>Possible placeholder</th>
         </tr>
         <tr class="row-odd">
             <td><label for="tplName">Name</label></td>
             <td><input type="text" name="tplName" id="tplName" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['name']); ?>"/></td>
+            <td>-</td>
         </tr>
         <tr class="row-even">
-            <td><label for="tplHeader">Header</label></td>
+            <td>
+                <label for="tplHeader">Header</label>
+            </td>
             <td><textarea name="tplHeader" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
+            <td>{LANG_NAME}, {LOCALE}</td>
         </tr>
         <tr class="row-odd">
             <td><label for="tplContent">Content</label></td>
             <td><textarea name="tplContent" id="tplContent" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['content']); ?></textarea></td>
+            <td>{KEY}, {VALUE}</td>
         </tr>
         <tr class="row-even">
             <td><label for="tplFooter">Footer</label></td>
             <td><textarea name="tplFooter" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
+            <td>{LANG_NAME}, {LOCALE}</td>
         </tr>
         <tr class="row-odd">
             <td><label for="tplFile">Filename</label></td>
             <td><input type="text" name="tplFile" id="tplFile" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/></td>
+            <td>{LOCALE}</td>
         </tr>
         <tr class="row-even">
             <td>&nbsp;</td>
-            <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+            <td colspan="2"><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
         </tr>
     </table>
 </form>

@@ -127,7 +127,6 @@ function showDelConfirm(tmplId)
     var template = $.template(null, '<option value="${id}">${name}<\/option>');
     $.tmpl(template, tempTemplateList).appendTo(select);
     dialogDiv.find('#delTmplFormContent').append(select);
-    console.debug(dialogDiv.find('#delTmplFormContent').size(), dialogDiv);
     dialogDiv.dialog({
         'autoOpen':true,
         'modal':true,

@@ -56,7 +56,7 @@ $entriesModel = new Application_Model_LanguageEntries();
                     <label for="fileTemplateFilter">Filter by file template:</label>
                 </td>
                 <td>
-                    <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();$('#myForm').submit();">
+                    <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                         <?php echo $this->selFileTemplate;?>
                     </select>
                 </td>
@@ -70,7 +70,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             <tr>
                 <td>Find untranslated for:</td>
                 <td>
-                    <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();$('#myForm').submit();">
+                    <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                         <option value="0">---</option>
                         <?php echo $this->selLanguage;?>
                     </select>
@@ -113,8 +113,8 @@ $entriesModel = new Application_Model_LanguageEntries();
             class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
-        Page <?php echo $currentPage; ?> of <?php echo $nrOfPages; ?> (Hits: <?php echo $this->numberFormat($this->rows);?>)
-        <span style="padding:0;margin:0;">
+        Page <?php echo $currentPage; ?> of <?php echo $nrOfPages; ?> | Hits: <?php echo $this->numberFormat($this->rows);?>
+        <span style="padding:0;margin:0;">|
             Entries per page:
             <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                 <?php echo $this->selRecordsPerPage;?>

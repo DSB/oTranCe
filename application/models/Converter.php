@@ -31,6 +31,11 @@ class Application_Model_Converter extends Msd_Application_Model
      */
     public function convertData($inputCharset, $text)
     {
+        if ($inputCharset === 'utf8') {
+            //nothing to convert - return original text immediately without bothering mysql
+            return $text;
+        }
+
         $this->_dbo->selectDb($this->_database);
         $this->_dbo->setConnectionCharset($inputCharset);
         $id = $this->_dbo->escape(Zend_Session::getId());

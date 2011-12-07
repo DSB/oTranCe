@@ -77,6 +77,11 @@ class Application_Model_History extends Msd_Application_Model
     public function logChanges($keyId, $oldValues, $newValues)
     {
         foreach ($newValues as $langId => $newVal) {
+            // if old value wasn't set
+            if (!isset($oldValues[$langId])) {
+                $oldValues[$langId] = '-';
+            }
+
             if ($newVal !== $oldValues[$langId]) {
                 $this->saveChange($keyId, $langId, $oldValues[$langId], $newVal);
             }

@@ -531,12 +531,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             }
         }
 
-        // log changes
-        foreach ($newValues as $langId => $text) {
-            if (!isset($oldValues[$langId])) {
-                $oldValues[$langId] = '';
-            }
-        }
         $historyModel = new Application_Model_History();
         $historyModel->logChanges($keyId, $oldValues, $newValues);
         return true;

@@ -11,9 +11,9 @@ class GetUsernameTest extends ControllerTestCase
     {
         $this->loginUser();
         $viewHelper = new Msd_View_Helper_GetUsername();
-        $res = $viewHelper->getUsername();
+        $res = strtolower($viewHelper->getUsername());
         $this->assertTrue(is_string($res));
-        $this->assertEquals('Tester', $res);
+        $this->assertEquals('tester', $res);
     }
 
 }

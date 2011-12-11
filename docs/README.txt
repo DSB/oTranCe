@@ -65,7 +65,6 @@ In our example the RewriteBase looks like:
 RewriteBase /oTranCe
 
 
-
 - start the application in your browser by calling the url of your vhost
 - log in using the username "Admin" with password "admin" to log in as a user with admin rights
 - log in using the username "Tester" and the password "test" to log in as a user with edit rights

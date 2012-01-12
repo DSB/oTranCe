@@ -70,9 +70,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function getLanguageKeys($language)
     {
         $ret = array();
-        $sql = "SELECT k.`key`, t.`text`, k.`template_id` FROM `{$this->_tableTranslations}` t
-            LEFT JOIN `{$this->_tableKeys}` k ON k.`id` = t.`key_id`
-            WHERE t.`lang_id`= {$language} ORDER BY k.`template_id`, k.`key` ASC";
+        $sql = "SELECT k.`key`, t.`text`, k.`template_id` FROM `{$this->_tableKeys}` k
+            LEFT JOIN `{$this->_tableTranslations}` t ON k.`id` = t.`key_id`
+            WHERE t.`lang_id`= {$language} ORDER BY k.`template_id` ASC, k.`key` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
             $val = $data['text'];

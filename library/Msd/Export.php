@@ -70,7 +70,7 @@ class Msd_Export
     /**
      * Export language vars from db to file
      *
-     * @param string $languageId
+     * @param int $languageId
      *
      * @return array
      */
@@ -101,32 +101,7 @@ class Msd_Export
             $templateId = $fallbackLanguage[$key]['templateId'];
             // Do we have the meta data for the exported language file? If not, we will create it now.
             if (!isset($langFileData[$templateId])) {
-                $langFilename = EXPORT_PATH . DS . trim(
-                    str_replace(
-                        '{LOCALE}',
-                        $this->_langInfo[$languageId]['locale'],
-                        $this->_fileTemplates[$templateId]['filename']
-                    ),
-                    '/'
-                );
-                $langDir = dirname($langFilename);
-                if (!file_exists($langDir)) {
-                    mkdir($langDir, 0775, true);
-                }
-                $fileLangVar = $this->_fileTemplates[$templateId]['content'];
-                $langFileData[$templateId] = array(
-                    'dir' => $langDir,
-                    'filename' => $langFilename,
-                    'langVar' => $fileLangVar,
-                    'fileContent' => '',
-                    'langName' => $this->_langInfo[$languageId]['name'],
-                    'langLocale' => $this->_langInfo[$languageId]['locale']
-                );
-                $langFileData[$templateId]['fileContent'] =
-                    $this->_replaceLanguageMetaPlaceholder(
-                        $this->_fileTemplates[$templateId]['header'],
-                        $languageId
-                    ) . "\n";
+                $langFileData[$templateId] = $this->_getFileMetaData($languageId, $templateId);
             }
 
             $val = isset($data[$key]['text']) ? $data[$key]['text'] : '';
@@ -142,7 +117,7 @@ class Msd_Export
             );
             $langFileData[$templateId]['fileContent'] .= "\n";
         }
-        // Write footers, close the file handles and save changed filenames.
+        // Add footers and save file content to physical file
         $exportOk = true;
         foreach ($langFileData as $templateId => $langFile) {
             $fileFooter =
@@ -151,15 +126,55 @@ class Msd_Export
                     $languageId
                 );
             $langFile['fileContent'] .= $fileFooter . "\n";
+            unlink($langFile['filename']);
             $size = file_put_contents($langFile['filename'], $langFile['fileContent']);
             $exportOk = ($size !== false) && $exportOk;
-            $res[$templateId]['size'] = $size;
-            $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
             // Suppress warnings, if we can't change the file permissions.
             @chmod($langFile['filename'], 0664);
+
+            $res[$templateId]['size'] = $size;
+            $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
         }
         $res['exportOk'] = (count($res) > 0) && $exportOk;
         return $res;
+    }
+
+    /**
+     * Extract meta data for a file adn create directory if it doesn't exist
+     *
+     * @param int   $languageId   Id of language
+     * @param int   $templateId   Id of template
+     *
+     * @return array
+     */
+    public function _getFileMetaData($languageId, $templateId)
+    {
+        $langFilename = EXPORT_PATH . DS . trim(
+            str_replace(
+                '{LOCALE}',
+                $this->_langInfo[$languageId]['locale'],
+                $this->_fileTemplates[$templateId]['filename']
+            ),
+            '/'
+        );
+        $langDir = dirname($langFilename);
+        if (!file_exists($langDir)) {
+            mkdir($langDir, 0775, true);
+        }
+        $fileLangVar = $this->_fileTemplates[$templateId]['content'];
+        $data = array(
+            'dir' => $langDir,
+            'filename' => $langFilename,
+            'langVar' => $fileLangVar,
+            'langName' => $this->_langInfo[$languageId]['name'],
+            'langLocale' => $this->_langInfo[$languageId]['locale']
+        );
+        $data['fileContent'] =
+                $this->_replaceLanguageMetaPlaceholder(
+                    $this->_fileTemplates[$templateId]['header'],
+                    $languageId
+                ) . "\n";
+        return $data;
     }
 
     /**

@@ -61,52 +61,42 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
-     * Get all language vars of a language and return as ass. array
-     *
-     * @param string $language
+     * Get all keys
      *
      * @return array
      */
-    public function getLanguageKeys($language)
+    public function getAllKeys()
     {
-        $ret = array();
-        $sql = "SELECT k.`key`, t.`text`, k.`template_id` FROM `{$this->_tableKeys}` k
-            LEFT JOIN `{$this->_tableTranslations}` t ON k.`id` = t.`key_id`
-            WHERE t.`lang_id`= {$language} ORDER BY k.`template_id` ASC, k.`key` ASC";
+        $sql = "SELECT `id`, `key`,`template_id` FROM `{$this->_tableKeys}` "
+                ." ORDER BY `template_id` ASC, `key` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $ret = array();
         foreach ($res as $data) {
-            $val = $data['text'];
-            //$val = $this->_normalize($val);
-            $ret[$data['key']] = array('text' => $val, 'templateId' => $data['template_id']);
+            $ret[$data['id']] = array(
+                'templateId' => $data['template_id'],
+                'key'         => $data['key']
+            );
         }
         return $ret;
     }
 
     /**
-     * Normalize data from database
+     * Get all language vars of a language and return as ass. array
      *
-     * @param string $val
-     * @return string
+     * @param int   $languageId Id of language to fetch
+     *
+     * @return array
      */
-    private function _normalize($val)
+    public function getTranslations($languageId)
     {
-        //TODO Normalizing should be configurable
-        // disabled for the moment
-        $search = array(
-            "\\\\n",
-            "\r\n",
-            "\n\r",
-            "\r",
-            "<br>");
-        $replace = array(
-            "\n",
-            "\n",
-            "\n",
-            "\n",
-            "<br />");
-        $val = trim(str_replace($search, $replace, $val));
-        $val = wordwrap($val, 38, "\"\n    .\" ");
-        return $val;
+        $ret = array();
+        $sql = "SELECT `key_id`, `text` FROM `{$this->_tableTranslations}`
+              WHERE `lang_id`= ". intval($languageId);
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        foreach ($res as $data) {
+            $ret[$data['key_id']] = $data['text'];
+        }
+        return $ret;
     }
 
     /**

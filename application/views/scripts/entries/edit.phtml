@@ -55,29 +55,28 @@ if (isset($this->entrySaved)) {
                     </td>
                 </tr>
 <?php
-    foreach ($this->languagesEdit as $lang) {
-                $rowclass = $cycleHelper->next();
-                ?>
-                <tr class="<?php echo $rowclass;?>">
-                    <td><?php echo $this->printFlag($lang);?></td>
-                    <td>
-                        <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
-                    </td>
-                </tr>
-                <tr class="<?php echo $rowclass;?>">
-                    <td>&nbsp;</td>
-                    <td>
-                        <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
-                                  class="textarea-edit" rows="2" cols="55"><?php
-                                    if (isset($entry[$lang])) {
-                                        echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
-                                    };?></textarea>
-                        <br /><br />
-                    </td>
-                </tr>
-                <?php
-                    }
-                ?>
+                foreach ($this->languagesEdit as $lang) {
+                $rowclass = $cycleHelper->next();?>
+                    <tr class="<?php echo $rowclass;?>">
+                        <td><?php echo $this->printFlag($lang);?></td>
+                        <td>
+                            <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
+                        </td>
+                    </tr>
+                    <tr class="<?php echo $rowclass;?>">
+                        <td>&nbsp;</td>
+                        <td>
+                            <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
+                                      class="textarea-edit" rows="2" cols="55"><?php
+                                        if (isset($entry[$lang])) {
+                                            echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
+                                        };?></textarea>
+                            <br /><br />
+                        </td>
+                    </tr>
+            <?php
+                }
+            ?>
                 <tr class="<?php echo $cycleHelper->next();?>">
                     <td>&nbsp;</td>
                     <td>

@@ -535,7 +535,6 @@ class Application_Model_User extends Msd_Application_Model
         $defaultRights = array(
             'editConfig'      => 1,
             'showEntries'     => 1,
-            'addVar'          => 0,
             'showDownloads'   => 1,
             'showBrowseFiles' => 1,
             'showImport'      => 1,
@@ -543,6 +542,9 @@ class Application_Model_User extends Msd_Application_Model
             'showLog'         => 1,
             'showStatistics'  => 1,
             'admin'           => 0,
+            /* other rights */
+            'addVar'          => 0,
+            'importEqualVar'  => 0,
             /* admin rights */
             'editProject'     => 0,
             'editUsers'       => 0,

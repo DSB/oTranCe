@@ -10,14 +10,32 @@
                 checked="checked"
             <?php } ?>
         />
-        <label for="addVar_yes"> Yes</label>
+        <label for="addVar_yes"> <?php echo $this->lang->L_YES;?></label>
         &nbsp;&nbsp;
         <input type="radio" name="addVar" id="addVar_no" value="0"
             <?php if ($this->userRights['addVar'] != 1) { ?>
                 checked="checked"
             <?php } ?>
         />
-        <label for="addVar_no"> No</label>
+        <label for="addVar_no"> <?php echo $this->lang->L_NO;?></label>
     </td>
 </tr>
 
+<tr class="row-odd">
+    <td>User is allowed to import phrases that are equal to the fallback language:</td>
+    <td>
+        <input type="radio" name="importEqualVar" id="importEqualVar_yes" value="1"
+            <?php if ($this->userRights['importEqualVar'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="importEqualVar_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="importEqualVar" id="importEqualVar_no" value="0"
+            <?php if ($this->userRights['importEqualVar'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="importEqualVar_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>

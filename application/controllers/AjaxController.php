@@ -122,7 +122,11 @@ class AjaxController extends Zend_Controller_Action
             $saveKey = true;
             if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
                 // value is the same as in the fallback language
+                // check if user is allowed to import such phrases
                 $saveKey = false;
+                if ($this->_userModel->hasRight('importEqualVar')) {
+                    $saveKey = true;
+                }
             }
 
             if ($saveKey === false) {

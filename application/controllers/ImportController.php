@@ -136,9 +136,11 @@ class ImportController extends Zend_Controller_Action
             'selectedLanguage',
             $this->_dynamicConfig->getParam('selectedLanguage')
         );
-        if ($selectedLanguage == '') {
-            // get fallback language
-            $selectedLanguage = $this->_languagesModel->getFallbackLanguage();
+
+        if (!isset($this->_languages[$selectedLanguage])) {
+            // user is not allowed to edit the given language
+            $userLanguages = $this->_userModel->getUserLanguageRights();
+            $selectedLanguage = $userLanguages[0];
         }
         $this->_dynamicConfig->setParam('selectedLanguage', $selectedLanguage);
         $this->view->selectedLanguage = $selectedLanguage;
@@ -168,6 +170,7 @@ class ImportController extends Zend_Controller_Action
 
         $fileTemplates = array();
         $files = $this->_fileTemplatesModel->getFileTemplates('name');
+
         foreach ($files as $file) {
             $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
             $fileTemplates[$file['id']] = $filename;

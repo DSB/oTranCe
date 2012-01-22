@@ -38,14 +38,13 @@ if (isset($this->entrySaved)) {
                     <td>&nbsp;</td>
                     <td><?php if ($this->user->hasRight('addVar')) { ?>
                         <select name="fileTemplate" style="width:402px;">
-                            <option value="0"<?php if ($this->assignedFileTemplate['id'] == 0) { ?> selected="selected"<?php } ?>>Unassigned</option>
-    <?php
-        foreach ($this->fileTemplates as $fileTemplate) {
-    ?>
+                        <?php
+                            foreach ($this->fileTemplates as $fileTemplate) {
+                        ?>
                             <option value="<?php echo $fileTemplate['id']; ?>"<?php if ($fileTemplate['id'] == $this->assignedFileTemplate['id']) { ?> selected="selected"<?php } ?>><?php echo $fileTemplate['name']; ?> (<?php echo $fileTemplate['filename']; ?>)</option>
-    <?php
-        }
-    ?>
+                        <?php
+                            }
+                        ?>
                         </select><?php } else { ?>
                         <?php if (!empty($this->assignedFileTemplate['name']) && !empty($this->assignedFileTemplate['filename'])) {
                             echo $this->assignedFileTemplate['name'] . ' (' . $this->assignedFileTemplate['filename'] . ')';

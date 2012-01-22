@@ -13,9 +13,13 @@
             <td>
                 <select name="fileTemplate" id="fileTemplate" style="width:406px;" class="text">
                     <option value="0">Don't assign to a file template.</option>
-<?php foreach ($this->fileTemplates as $fileTemplate) { ?>
-                    <option value="<?php echo $fileTemplate['id']; ?>"><?php echo $fileTemplate['name'];?> (<?php echo $fileTemplate['filename']; ?>)</option>
-<?php } ?>
+                    <?php
+                        foreach ($this->fileTemplates as $fileTemplate) { ?>
+                            <option value="<?php echo $fileTemplate['id'];?>"
+                            <?php if ($fileTemplate['id'] == $this->fileTemplateSelected) echo ' selected="selected"';?>">
+                                <?php echo $fileTemplate['name'];?> (<?php echo $fileTemplate['filename']; ?>)
+                            </option>
+                    <?php } ?>
                 </select>
             </td>
         </tr>

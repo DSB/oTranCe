@@ -367,13 +367,18 @@ class EntriesController extends Zend_Controller_Action
             $error = array('You are not allowed to add a new language variable!');
         }
         $newVar = '';
+        $fileTemplate = $this->_request->getParam(
+            'fileTemplate',
+            $this->_dynamicConfig->getParam('entries.addVar.fileTemplate')
+        );
+        $this->_dynamicConfig->setParam('entries.addVar.fileTemplate', $fileTemplate);
         if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') !== null) {
             if ($this->_request->getParam('cancel') != null) {
                 $this->_myForward('index');
                 return;
             }
             $newVar = trim($this->_request->getParam('var'));
-            $fileTemplate = $this->_request->getParam('fileTemplate', 0);
+            $this->_dynamicConfig->setParam('entries.fileTemplate', $fileTemplate);
             if (strlen($newVar) < 1) {
                 $error[] = 'Name is too short.';
             }
@@ -404,9 +409,10 @@ class EntriesController extends Zend_Controller_Action
         if (!empty($error)) {
             $this->view->error = implode('<br />', $error);
         }
-        $this->view->newVar        = $newVar;
-        $fileTemplatesModel        = new Application_Model_FileTemplates();
-        $this->view->fileTemplates = $fileTemplatesModel->getFileTemplates('name');
+        $this->view->newVar               = $newVar;
+        $fileTemplatesModel               = new Application_Model_FileTemplates();
+        $this->view->fileTemplates        = $fileTemplatesModel->getFileTemplates('name');
+        $this->view->fileTemplateSelected = $this->_dynamicConfig->getParam('entries.addVar.fileTemplate', 0);
     }
 
     /**

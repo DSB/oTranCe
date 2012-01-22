@@ -23,9 +23,10 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
+        $tableConfig               = $this->_config->getParam('table');
         $this->_tableFiletemplates = $tableConfig['filetemplates'];
-        $this->_tableKeys = $tableConfig['keys'];
+        $this->_tableKeys          = $tableConfig['keys'];
+        $this->_tableTranslations  = $tableConfig['translations'];
     }
 
     /**
@@ -162,27 +163,72 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      * Deletes a file template and assigns the dependent language keys to a ne template id.
      *
      * @param int $templateId  ID of the template to delete.
-     * @param int $replacement ID of the new template to assign to the dependent language keys.
+     * @param int $replacement ID of the new template to assign to the dependent language keys. (0=delete keys)
      *
      * @return array
      */
     public function deleteFileTemplate($templateId, $replacement = 0)
     {
+        $replacement = (int) $replacement;
+        $templateId  = (int) $templateId;
         $result = array(
             'delete' => false,
             'update' => false,
         );
-        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = "
-            . $this->_dbo->escape($templateId);
+
+        if ($replacement == 0) {
+            $res = $this->_deleteFileTemplate($templateId);
+        } else {
+            $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` SET `template_id` = "
+                . $replacement . " WHERE `template_id` = " . $templateId;
+            $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        }
+        $result['update'] = $res;
+
+        // now delete file template
+        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = " . $templateId;
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $result['delete'] = $res;
 
-        if ($res) {
-            $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` SET `template_id` = "
-                . $this->_dbo->escape($replacement) . " WHERE `template_id` = " . $this->_dbo->escape($templateId);
-            $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-            $result['update'] = $res;
-        }
         return $result;
+    }
+
+    /**
+     * Delete all translations and all keys assigned to the given file template
+     *
+     * @param int $templateId
+     *
+     * @return bool
+     */
+    private function _deleteFileTemplate($templateId)
+    {
+        // first get all key-Ids
+        $sql = "SELECT `id` FROM `{$this->_database}`.`{$this->_tableKeys}` "
+            . " WHERE `template_id` = " . $templateId;
+        $res = $this->_dbo->query($sql, MSD_DB::ARRAY_ASSOC);
+        if (empty($res[0])) {
+            // nothing to delete
+            return true;
+        }
+
+        $keyIds = array();
+        foreach ($res as $data) {
+            $keyIds[] = $data['id'];
+        }
+        // delete all translations of these keys
+        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableTranslations}` "
+            . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
+        $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
+        if ($res === false) {
+            return false;
+        }
+        // delete all keys assigned to that file template
+        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableKeys}` "
+            . " WHERE `template_id` = " . $templateId;
+        $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
+        if ($res === false) {
+            return false;
+        }
+        return true;
     }
 }

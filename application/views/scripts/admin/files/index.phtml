@@ -106,7 +106,7 @@ var templateList = <?php echo Zend_Json_Encoder::encode($this->fileTemplates); ?
 function showDelConfirm(tmplId)
 {
     var tempTemplateList = [];
-    tempTemplateList.push({'id':0, 'name':'Unassigned'});
+    tempTemplateList.push({'id':0, 'name':'Delete all phrases'});
     var tmplToDelete;
     for (var i in templateList) {
         if (templateList[i].id == tmplId) {
@@ -163,7 +163,7 @@ $('.expandButton').click(function(){
         $this->popUpMessage()->addMessage(
             'deletionSuccess',
             'Deletion successful',
-            '<span class="success">The file template was successfully deleted.<br/><br/>Template assignments has been updated.</span>',
+            '<span class="success">The file template was successfully deleted.<br/><br/>Template assignments have been updated/deleted.</span>',
             array(
                 'modal' => true,
                 'dialogClass' => 'success',
@@ -175,7 +175,7 @@ $('.expandButton').click(function(){
             '<span class="success">The file template was successfully deleted.</span>' :
             '<span class="error">Can\'t delete the file template.</span>';
         $update = $this->deletionResult['update'] ?
-            '<span class="success">Template assignments has been updated.</span>' :
+            '<span class="success">Template assignments have been updated/deleted.</span>' :
             '<span class="error">Can\'t update template assignments.</span>';
         $this->popUpMessage()->addMessage(
             'deletionErroneous',

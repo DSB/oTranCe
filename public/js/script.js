@@ -67,5 +67,5 @@ function decrease(id) {
 }
 
 function scrollToId(id){
-    $('html,body').animate({scrollTop: $("#"+id).offset().top -40}, 100);
+    $('html,body').scrollTop($("#"+id).offset().top -40);
 }

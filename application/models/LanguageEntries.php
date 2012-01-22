@@ -360,6 +360,44 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
+     * Get translations of given keys for given languages
+     *
+     * Return array(lang_id => array (locale => text)
+     *
+     * @param array $keys       Ids of keys to fetch
+     * @param int   $templateId Id of the file template
+     * @param int   $languageId Id of the language to fetch
+     *
+     * @return array
+     */
+    public function getEntriesByKeys($keys, $templateId, $languageId)
+    {
+        $ret = array();
+        foreach ($keys as $k => $v) {
+            $keys[$k] = $this->_dbo->escape($v);
+        }
+        $sql = 'SELECT k.`key`, t.`text` FROM `' . $this->_database . '`.`' . $this->_tableKeys . '` k'
+                . ' LEFT JOIN `' . $this->_database . '`.`' . $this->_tableTranslations . '` t'
+                . ' ON t.`key_id` = k.`id`'
+                . ' WHERE k.`key` IN (\'' . implode('\',\'', $keys) . '\') '
+                . ' AND k.`template_id` = ' . (int) $templateId
+                . ' AND t.`lang_id` = ' . (int) $languageId;
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        foreach ($res as $r) {
+            $ret[$r['key']] = $r['text'];
+        }
+
+        foreach ($keys as $key) {
+            if (!isset($ret[$key])) {
+                $ret[$key] = '';
+            }
+        }
+
+        return $ret;
+    }
+
+
+    /**
      * Add translations for the given languages to the entries.
      *
      * @param array $languageIds

@@ -52,6 +52,10 @@ foreach ($this->extractedData as $key => $val) { ?>
             <td class="right"><span id="savedSuccessfully">0</span></td>
         </tr>
         <tr>
+            <td>Skipped:</td>
+            <td class="right"><span id="skipped">0</span></td>
+        </tr>
+        <tr>
             <td>Errors:</td>
             <td class="right"><span id="errors">0</span></td>
         </tr>
@@ -81,6 +85,7 @@ var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
 var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
 var imgNoEditRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to edit this language!', 16);?>';
 var imgNoAddRight = '<?php echo $this->getIcon('Attention', 'You are not allowed to add new keys!', 16);?>';
+var imgSameContentAsFallbackLanguage = '<?php echo $this->getIcon('Attention', 'The content is the same as in the fallback language. Not imported!', 16);?>';
 var keysToProcess = new Array();
 var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
 
@@ -105,7 +110,7 @@ function doImport() {
             'type':'POST',
             'url':requestUrl,
             'data':{
-                'language':<?php echo $this->language;?>,
+                'languageId':<?php echo $this->language;?>,
                 'fileTemplate':<?php echo $this->fileTemplate;?>,
                 'keys': keysToProcess
             },
@@ -151,6 +156,10 @@ function setState(id, state) {
         case 3:
             content = imgNoAddRight;
             increase('errors');
+            break;
+        case 4:
+            content = imgSameContentAsFallbackLanguage;
+            increase('skipped');
             break;
         default:
             content = imgError;

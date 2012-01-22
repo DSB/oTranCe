@@ -50,6 +50,18 @@ class AjaxController extends Zend_Controller_Action
     protected $_languages;
 
     /**
+     * The fallback language
+     * @var string
+     */
+    protected $_fallbackLanguage;
+
+    /**
+     * The fallback language data holding the values of the given keys
+     * @var array
+     */
+    protected $_fallbackLanguageData;
+
+    /**
      * Init
      *
      * @return void
@@ -99,34 +111,58 @@ class AjaxController extends Zend_Controller_Action
     {
         $ret = array();
         $params       = $this->_request->getParams();
-        $language     = $params['language'];
+        $languageId   = $params['languageId'];
         $fileTemplate = $params['fileTemplate'];
         $keys         = $params['keys'];
         $this->_data  = $this->_dynamicConfig->getParam('extractedData');
         $i = 0;
+        $fallbackData = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
+        $overallResult = true;
         foreach ($keys as $key) {
-            $res = $this->_saveKey($key, $fileTemplate, $language);
-            $ret[$i] = array('key' => $key, 'result' => $res);
+            $saveKey = true;
+            if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
+                // value is the same as in the fallback language
+                $saveKey = false;
+            }
+
+            if ($saveKey === false) {
+                $ret[$i] = array('key' => $key, 'result' => 4);
+            } else {
+                $res = $this->_saveKey($key, $fileTemplate, $languageId);
+                if ($res !== 1) {
+                    $overallResult = false;
+                }
+                $ret[$i] = array('key' => $key, 'result' => $res);
+            }
             $i++;
         }
+
+        if ($overallResult === true) {
+            //remove saved keys from session to speed up things
+            //dont do it if an error occured because the user can click on "retry". We need the data in this case.
+            foreach ($keys as $key) {
+                unset($this->data[$key]);
+            }
+            $this->_dynamicConfig->setParam('extractedData', $this->_data);
+        }
+
         $this->view->data = $ret;
     }
 
     /**
      * Save a key and it's value to the database.
      *
-     * @param $key
-     * @param $fileTemplate
-     * @param $language
+     * @param string $key          Keyname to save
+     * @param int    $fileTemplate Id of the file template
+     * @param int    $languageId   Id of language
      *
      * @return int
      */
-    private function _saveKey($key, $fileTemplate, $language)
+    private function _saveKey($key, $fileTemplate, $languageId)
     {
-        $value = $this->_data[$key];
         // check edit right for language
         $userEditRights = $this->_userModel->getUserLanguageRights();
-        if (!in_array($language, $userEditRights)) {
+        if (!in_array($languageId, $userEditRights)) {
             //user is not allowed to edit this language
             return 2;
         }
@@ -144,12 +180,32 @@ class AjaxController extends Zend_Controller_Action
         // ok - we can save the value -> key id
         $entry = $this->_entriesModel->getEntryByKey($key, $fileTemplate);
         $keyId = $entry['id'];
-        $res = $this->_entriesModel->saveEntries($keyId, array($language => $value));
+        $value = $this->_data[$key];
+        $res = $this->_entriesModel->saveEntries($keyId, array($languageId => $value));
         if ($res === true) {
             return 1;
         } else {
             return 0;
         }
+    }
+
+
+    /**
+     * Get the translations of the keys for the fallbackLanguage and savethem to aprivate property
+     *
+     * @param array $keys       The language keys
+     * @param int   $templateId Id of the file template
+     * @param int   $languageId Id of the language
+     *
+     * @return array|false
+     */
+    public function _getFallbackLanguageData($keys, $templateId, $languageId) {
+        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        if ($fallbackLanguageId == $languageId) {
+            // imported language is the fallback language - nothing to check
+            return false;
+        }
+        return $this->_entriesModel->getEntriesByKeys($keys, $templateId, $fallbackLanguageId);
     }
 
     /**

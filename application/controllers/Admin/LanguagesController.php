@@ -46,6 +46,7 @@ class Admin_LanguagesController extends AdminController
         );
         $this->view->hits = $this->_languagesModel->getRowCount();
     }
+
     /**
      * Edit action for maintaining languages
      *
@@ -71,40 +72,7 @@ class Admin_LanguagesController extends AdminController
         $this->view->langId = $id;
         $this->view->flag   = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
-            $langLocale   = $this->_request->getParam('langLocale');
-            $langActive   = $this->_request->getParam('langActive', 0);
-            $langName     = $this->_request->getParam('langName');
-            $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
-            $sourceExt    = $this->_request->getParam('flagExt');
-            $upload = null;
-            if ($flagUploaded) {
-                $upload = new Zend_File_Transfer_Adapter_Http();
-                $sourceFile = $upload->getFileName();
-                if (is_string($sourceFile)) {
-                    $sourceExt  = pathinfo($sourceFile, PATHINFO_EXTENSION);
-                    $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
-                    $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
-                }
-            }
-
-            if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
-                $creationResult = $this->_languagesModel->saveLanguage(
-                    $id,
-                    $langActive,
-                    $langLocale,
-                    $langName,
-                    $sourceExt
-                );
-                if ($flagUploaded && $creationResult === true) {
-                    $this->_deleteFlags($langLocale);
-                    $this->view->flagFile = $upload->receive();
-                }
-                $this->view->creationResult = $creationResult;
-            }
-            $this->view->langActive    = $langActive;
-            $this->view->langLocale    = $langLocale;
-            $this->view->langName      = $langName;
-            $this->view->flagExtension = $sourceExt;
+            $this->_processInputs($id);
         } else {
             $langData = $this->_languagesModel->getLanguageById($id);
             if (count($langData) > 0) {
@@ -115,6 +83,58 @@ class Admin_LanguagesController extends AdminController
             }
         }
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+    }
+
+    /**
+     * Processes inputs
+     *
+     * @param int $id Id of language
+     *
+     * @return void
+     */
+    public function _processInputs($id)
+    {
+        $langLocale = $this->_request->getParam('langLocale');
+        $langActive = $this->_request->getParam('langActive', 0);
+        $langName = $this->_request->getParam('langName');
+        $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
+        $sourceExt = $this->_request->getParam('flagExt');
+        $upload = null;
+        if ($flagUploaded) {
+            $upload = new Zend_File_Transfer_Adapter_Http();
+            $sourceFile = $upload->getFileName();
+            if (is_string($sourceFile)) {
+                $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
+                $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
+                $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
+            }
+        }
+
+        if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
+            $creationResult = $this->_languagesModel->saveLanguage(
+                $id,
+                $langActive,
+                $langLocale,
+                $langName,
+                $sourceExt
+            );
+            if ($flagUploaded && $creationResult === true) {
+                $this->_deleteFlags($langLocale);
+                $this->view->flagFile = $upload->receive();
+            }
+            $this->view->creationResult = $creationResult;
+            // after creating a new language clear inputs after successfull saving
+            // to be able to directly input another language
+            if ($creationResult === true && $id == 0) {
+                $this->view->langId = 0;
+                $langLocale = '';
+                $langName = '';
+            }
+        }
+        $this->view->langActive = $langActive;
+        $this->view->langLocale = $langLocale;
+        $this->view->langName = $langName;
+        $this->view->flagExtension = $sourceExt;
     }
 
     /**

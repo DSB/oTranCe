@@ -29,7 +29,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
             <?php endif; ?>
         </a>
 
-        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->hits): ?> title="Shortcut ALT+V"
             onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
             accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
             <?php else: ?>
@@ -65,6 +65,7 @@ if ($this->hits == 0) { ?>
 }
 foreach ($this->users as $userId => $user)
 {
+    $i += $this->offset;
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="Edit user">';
     ?>

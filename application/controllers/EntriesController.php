@@ -78,8 +78,8 @@ class EntriesController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $this->_getParams();
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
-            $this->_getPostParams();
             if ($this->_request->getParam('addVar') !== null) {
                 $this->_forward('add-variable');
             }
@@ -107,7 +107,7 @@ class EntriesController extends Zend_Controller_Action
                 Msd_Html::getHtmlOptionsFromAssocArray($fileTemplates, 'id', 'filename', $fileTemplateFilter);
 
         if ($this->view->getUntranslated == 0) {
-            if ($this->view->filterKeys > '' | $this->view->fileTemplateFilter > 0) {
+            if ($this->view->filterKeys > '' || $this->view->fileTemplateFilter > 0) {
                 $this->view->hits = $this->_entriesModel->getEntriesByKey(
                     $this->view->filterKeys,
                     $this->view->offset,
@@ -258,7 +258,7 @@ class EntriesController extends Zend_Controller_Action
      *
      * @return void
      */
-    private function _getPostParams()
+    private function _getParams()
     {
         $filterValues       = trim($this->_request->getParam('filterValues', ''));
         $filterKeys         = trim($this->_request->getParam('filterKeys', ''));
@@ -283,7 +283,7 @@ class EntriesController extends Zend_Controller_Action
     private function _setSessionParams()
     {
         // set defaults on first page call
-        if ($this->_dynamicConfig->getParam('entries.offset') === null) {
+        if ($this->_dynamicConfig->getParam('entries.recordsPerPage') == 0) {
             $this->_dynamicConfig->setParam('entries.offset', 0);
             $this->_dynamicConfig->setParam('entries.filterValues', '');
             $this->_dynamicConfig->setParam('entries.filterKeys', '');

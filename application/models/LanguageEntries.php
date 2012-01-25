@@ -184,7 +184,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND '
                 . 't.`lang_id` IN (' . implode(",", $languages) . ')';
         }
-        $sql .= ' ORDER BY t.`key_id` DESC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $sql .= ' ORDER BY t.`key_id` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
         $this->_foundRows = $this->_dbo->getRowCount();
         if ($this->_foundRows == 0) {

@@ -12,7 +12,6 @@
             <td><label for="fileTemplate">Select the file template to assign to:</label></td>
             <td>
                 <select name="fileTemplate" id="fileTemplate" style="width:406px;" class="text">
-                    <option value="0">Don't assign to a file template.</option>
                     <?php
                         foreach ($this->fileTemplates as $fileTemplate) { ?>
                             <option value="<?php echo $fileTemplate['id'];?>"

@@ -100,7 +100,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </td>
 </tr>
 
-<tr class="row-even">
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User is allowed to add new languages:</td>
     <td>
         <input type="radio" name="addLanguage" id="addLanguage_yes" value="1"
@@ -116,6 +116,25 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             <?php } ?>
         />
         <label for="addLanguage_no"> <?php echo $this->lang->L_NO;?></label>
+    </td>
+</tr>
+
+<tr class="<?php echo $cycleHelper->next();?>">
+    <td>User is allowed to delete languages:</td>
+    <td>
+        <input type="radio" name="deleteLanguage" id="deleteLanguage_yes" value="1"
+            <?php if ($this->userRights['deleteLanguage'] == 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="deleteLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
+        &nbsp;&nbsp;
+        <input type="radio" name="deleteLanguage" id="deleteLanguage_no" value="0"
+            <?php if ($this->userRights['deleteLanguage'] != 1) { ?>
+                checked="checked"
+            <?php } ?>
+        />
+        <label for="deleteLanguage_no"> <?php echo $this->lang->L_NO;?></label>
     </td>
 </tr>
 
@@ -138,7 +157,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </td>
 </tr>
 
-<tr class="row-even">
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User is allowed to add new file templates:</td>
     <td>
         <input type="radio" name="addTemplate" id="addTemplate_yes" value="1"
@@ -157,7 +176,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </td>
 </tr>
 
-<tr class="row-even">
+<tr class="<?php echo $cycleHelper->next();?>">
     <td>User can see and use admin tab "File Templates":</td>
     <td>
         <input type="radio" name="editVcs" id="editVcs_yes" value="1"

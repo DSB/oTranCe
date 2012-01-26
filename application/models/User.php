@@ -524,42 +524,6 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Get array with default rights.
-     *
-     * Default array shows all menu items (except "Admin") and disallows adding of new language keys.
-     *
-     * @return array
-     */
-    public function getDefaultRights()
-    {
-        $defaultRights = array(
-            'editConfig'      => 1,
-            'showEntries'     => 1,
-            'showDownloads'   => 1,
-            'showBrowseFiles' => 1,
-            'showImport'      => 1,
-            'showExport'      => 1,
-            'showLog'         => 1,
-            'showStatistics'  => 1,
-            'admin'           => 0,
-            /* other rights */
-            'addVar'          => 0,
-            'importEqualVar'  => 0,
-            /* admin rights */
-            'editProject'     => 0,
-            'addUser'         => 0,
-            'editUsers'       => 0,
-            'deleteUsers'     => 0,
-            'editLanguage'    => 0,
-            'addLanguage'     => 0,
-            'editTemplate'    => 0,
-            'addTemplate'     => 0,
-            'editVcs'         => 0,
-        );
-        return $defaultRights;
-    }
-
-    /**
      * Delete a user and all of his rights and settings from the database
      *
      * @param int    $userId Id of user
@@ -606,6 +570,43 @@ class Application_Model_User extends Msd_Application_Model
         }
 
         return (bool) $res;
+    }
+
+    /**
+     * Get array with default rights.
+     *
+     * Default array shows all menu items (except "Admin") and disallows adding of new language keys.
+     *
+     * @return array
+     */
+    public function getDefaultRights()
+    {
+        $defaultRights = array(
+            'editConfig'      => 1,
+            'showEntries'     => 1,
+            'showDownloads'   => 1,
+            'showBrowseFiles' => 1,
+            'showImport'      => 1,
+            'showExport'      => 1,
+            'showLog'         => 1,
+            'showStatistics'  => 1,
+            'admin'           => 0,
+            /* other rights */
+            'addVar'          => 0,
+            'importEqualVar'  => 0,
+            /* admin rights */
+            'editProject'     => 0,
+            'addUser'         => 0,
+            'editUsers'       => 0,
+            'deleteUsers'     => 0,
+            'editLanguage'    => 0,
+            'addLanguage'     => 0,
+            'deleteLanguage'  => 0,
+            'editTemplate'    => 0,
+            'addTemplate'     => 0,
+            'editVcs'         => 0,
+        );
+        return $defaultRights;
     }
 
 }

@@ -50,3 +50,8 @@
         If you leave this field empty the current password will remain.</div>
     </td>
 </tr>
+<?php $this->jQuery()->onLoadCaptureStart();?>
+$('#user_name').attr('autocomplete','off');
+$('#pass1').attr('autocomplete','off');
+$('#pass2').attr('autocomplete','off');
+<?php $this->jQuery()->onLoadCaptureEnd();?>

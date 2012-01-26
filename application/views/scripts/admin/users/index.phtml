@@ -41,7 +41,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
             <?php echo $this->selRecordsPerPage;?>
         </select>
         Hits: <?php echo $this->numberFormat($this->hits);?>
-
+        <input type="hidden" name="deleteUser" id="deleteUser" value="0"/>
     </p>
 </form>
 
@@ -72,6 +72,11 @@ foreach ($this->users as $userId => $user)
     <tr class="<?php echo $cycleHelper->next();?>">
         <td>
             <?php echo $edit . $this->getIcon('Edit', '');?></a>
+            <?php if ($this->user->hasRight('deleteUsers')) { ?>
+                <a href="#" id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="Delete user">
+                    <?php echo $this->getIcon('delete', '');?>
+                </a>
+            <?php } ?>
         </td>
         <td class="right">
             <?php echo $this->numberFormat($i);?>.
@@ -94,20 +99,20 @@ foreach ($this->users as $userId => $user)
                 }
             ?>
             <table summary="Flags of edit languages">
-        <?php
-            foreach ($languageEditRights as $langId) {
+            <tr>
+                <?php
+                foreach ($languageEditRights as $langId) {
                 if (isset($this->languages[$langId])) {
                 ?>
-                    <tr>
                     <td>
                         <?php echo $this->printFlag($langId, 20);?>
                     </td>
                     <td><?php echo $this->languages[$langId]['locale'];?></td>
                     <td><?php echo $this->languages[$langId]['name'];?></td>
-                    </tr>
             <?php
                 }
             } ?>
+            </tr>
             </table>
         </td>
     </tr>
@@ -116,3 +121,58 @@ foreach ($this->users as $userId => $user)
 }
 ?>
 </table>
+<div id="confirmDeleteUser" style="display:none">
+    Are you really sure you want to delete this user?<br />
+    This will also remove all rights, settings and log entries of this user.
+</div>
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+$('.deleteUser').click(function() {
+    var a=this;
+    $('#confirmDeleteUser').dialog({
+        autoOpen: true,
+        modal: true,
+        title: 'Really delete?',
+        width: 380,
+        height: 160,
+        buttons : {
+                    "Yes, delete user": function() {
+                        var id = a.id.replace(/deleteUser-/, '');
+                        $('#deleteUser').attr('value', id);
+                        $('#myForm').submit();
+                    },
+                    "Cancel": function() {
+                        $(this).dialog("close");
+                    }
+                  }
+    })
+});
+<?php
+if (isset($this->userDeleted)) {
+    if ($this->userDeleted == true) {
+        $this->popUpMessage()->addMessage(
+            'userDeleted',
+            'Success',
+            'The user has been deleted successfully.<br />All log entries, settings and rights have been removed too.',
+            array(
+                'modal' => true,
+                'height' => 160,
+                'width' => 340,
+                'dialogClass' => 'info',
+            )
+        );
+    } else {
+        $this->popUpMessage()->addMessage(
+            'userDeleted',
+            'Error',
+            'There was an error deleting this user.<br />Please try again.',
+            array(
+                'modal' => true,
+                'height' => 140,
+                'width' => 340,
+                'dialogClass' => 'info',
+            )
+        );
+
+    }
+}
+$this->jQuery()->onLoadCaptureEnd();

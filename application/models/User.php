@@ -273,7 +273,7 @@ class Application_Model_User extends Msd_Application_Model
         $sql = 'INSERT INTO `'.$this->_tableUsersettings . '`'
                     . ' (`user_id`,`setting`,`value`) VALUES '.$params;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        return $res;
+        return (bool) $res;
     }
 
     /**
@@ -306,7 +306,7 @@ class Application_Model_User extends Msd_Application_Model
             $sql = substr($sql, 0, -2);
             $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         }
-        return $res;
+        return (bool) $res;
     }
 
     /**
@@ -467,7 +467,7 @@ class Application_Model_User extends Msd_Application_Model
                 . '\'' . $this->_dbo->escape($right) . '\', '
                . $value . ') ON DUPLICATE KEY UPDATE `value` = ' . (int) $value;
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
-        return $res;
+        return (bool) $res;
     }
 
     /**
@@ -487,7 +487,7 @@ class Application_Model_User extends Msd_Application_Model
                 .' AND `right`=\'' . $this->_dbo->escape($right) . '\''
                 .' AND `value`=' . intval($value);
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return $res;
+        return (bool) $res;
     }
 
     /**
@@ -547,8 +547,9 @@ class Application_Model_User extends Msd_Application_Model
             'importEqualVar'  => 0,
             /* admin rights */
             'editProject'     => 0,
-            'editUsers'       => 0,
             'addUser'         => 0,
+            'editUsers'       => 0,
+            'deleteUsers'     => 0,
             'editLanguage'    => 0,
             'addLanguage'     => 0,
             'editTemplate'    => 0,
@@ -556,6 +557,55 @@ class Application_Model_User extends Msd_Application_Model
             'editVcs'         => 0,
         );
         return $defaultRights;
+    }
+
+    /**
+     * Delete a user and all of his rights and settings from the database
+     *
+     * @param int    $userId Id of user
+     *
+     * @return bool
+     */
+    public function deleteUserById($userId)
+    {
+        $res = true;
+        $userId = (int) $userId;
+        //remove user rights
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
+                .' WHERE `user_id`=' . $userId;
+        $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+        //remove user settings
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUsersettings . '`'
+                .' WHERE `user_id`=' . $userId;
+        $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+        //remove user language edit rights
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserLanguages . '`'
+                .' WHERE `user_id`=' . $userId;
+        $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+        //only remove user if other actions have been successfull
+        //if something was unsuccessful and we drop the user, you can't retry this
+        //because the name won't show up in the list and you you won't have the delete icon
+        if ($res == true) {
+            $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUsers . '`'
+                    .' WHERE `id`=' . $userId;
+            $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        }
+
+        // optimize tables to keep performance at best state
+        $tables = array(
+            $this->_tableUserrights,
+            $this->_tableUsersettings,
+            $this->_tableUserLanguages,
+            $this->_tableUsers,
+        );
+        foreach ($tables as $table) {
+            $this->_dbo->optimizeTable($table);
+        }
+
+        return (bool) $res;
     }
 
 }

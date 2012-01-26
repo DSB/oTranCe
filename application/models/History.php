@@ -234,4 +234,19 @@ class Application_Model_History extends Msd_Application_Model
     {
         $this->saveChange('-', 0, '-', '-', 'updated SVN');
     }
+
+    /**
+     * Delete all log entries of a user
+     *
+     * @param int $userId The Id of the user to delete
+     *
+     * @return bool
+     */
+    public function deleteEntriesByUserId($userId)
+    {
+        $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `user_id` = '.intval($userId);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $this->_dbo->optimizeTable($this->_tableHistory);
+        return (bool) $res;
+    }
 }

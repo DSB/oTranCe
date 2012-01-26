@@ -36,6 +36,10 @@ class Admin_UsersController extends AdminController
      */
     public function indexAction()
     {
+        $deleteUser = $this->_request->getParam('deleteUser', 0);
+        if ($deleteUser > 0) {
+            $this->_forward('delete-user');
+        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam(
             $this->_requestedController . '.recordsPerPage',
             $this->_dynamicConfig->getParam('recordsPerPage', 10)
@@ -91,6 +95,31 @@ class Admin_UsersController extends AdminController
         $this->view->user          = array_merge($userDefaults, $this->_userModel->getUserById($userId));
         $this->view->userRights    = array_merge($userGlobalDefaults, $this->_userModel->getUserGlobalRights($userId));
         $this->view->editLanguages = $this->_userModel->getUserLanguageRights($userId, false);
+    }
+
+    /**
+     * Delete a user and all of his log entries
+     *
+     * @return void
+     */
+    public function deleteUserAction()
+    {
+        if (!$this->_userModel->hasRight('deleteUsers')) {
+            $this->_redirect('/admin_users');
+        }
+        $userId = (int) $this->_request->getParam('deleteUser', 0);
+        $historyModel = new Application_Model_History();
+        $deleteResult = true;
+        $deleteResult &= $historyModel->deleteEntriesByUserId($userId);
+        $deleteResult &= $this->_userModel->deleteUserById($userId);
+        if ($deleteResult == true) {
+            $this->view->userDeleted = true;
+        } else {
+            $this->view->userDeleted = false;
+        }
+        // prevent endless forward-loop
+        $this->_request->setParam('deleteUser', 0);
+        $this->_forward('index');
     }
 
     /**

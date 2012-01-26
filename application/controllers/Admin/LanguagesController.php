@@ -36,6 +36,10 @@ class Admin_LanguagesController extends AdminController
      */
     public function indexAction()
     {
+        $deleteLanguageId = $this->_request->getParam('deleteLanguage', 0);
+        if ($deleteLanguageId > 0) {
+            $this->_forward('delete-language');
+        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
@@ -83,6 +87,52 @@ class Admin_LanguagesController extends AdminController
             }
         }
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+    }
+
+    /**
+     * Delete a language
+     *
+     * @return void
+     */
+    public function deleteLanguageAction()
+    {
+        $deleteLanguageId = (int) $this->_request->getParam('deleteLanguage');
+        if (!$this->_userModel->hasRight('deleteLanguage') || $deleteLanguageId < 1) {
+            $this->_redirect('/admin_languages');
+        }
+
+        $res = true;
+        //delete reference language settings of users
+        $res &= $this->_userModel->deleteReferenceLanguageSettings($deleteLanguageId);
+        //delete edit rights of language
+        $res &= $this->_userModel->deleteLanguageRights($deleteLanguageId);
+        //delete translations
+        $res &= $this->_languageEntriesModel->deleteLanguageEntries($deleteLanguageId);
+        if ($res == true) {
+            $this->_deleteFlag($deleteLanguageId);
+            $res = $this->_languagesModel->deleteLanguage($deleteLanguageId);
+        }
+        $this->view->languageDeleted = (bool) $res;
+        $this->_request->setParam('deleteLanguage', 0);
+        $this->_forward('index');
+    }
+
+    /**
+     * Delete the flag for a language
+     *
+     * @return void
+     */
+    public function deleteFlagAction()
+    {
+        $languageId   = (int) $this->_request->getParam('id', 0);
+        $deleteResult = 'deleted';
+        if (!$this->_deleteFlag($languageId)) {
+            $deleteResult = 'notDeleted';
+        } else {
+            //delete db entry of image
+            $this->_languagesModel->deleteFlag($languageId);
+        }
+        $this->_forward('edit', 'admin_languages', null, array('id' => $languageId, 'flag' => $deleteResult));
     }
 
     /**
@@ -135,30 +185,6 @@ class Admin_LanguagesController extends AdminController
         $this->view->langLocale = $langLocale;
         $this->view->langName = $langName;
         $this->view->flagExtension = $sourceExt;
-    }
-
-    /**
-     * Delete the flag for a language
-     *
-     * @return void
-     */
-    public function deleteFlagAction()
-    {
-        $id          = $this->_request->getParam('id', 0);
-        $intValidate = new Zend_Validate_Int();
-        if (!$intValidate->isValid($id)) {
-            $this->_response->setRedirect(Zend_Controller_Front::getInstance()->getBaseUrl());
-        }
-        $lang         = $this->_languagesModel->getLanguageById($id);
-        $deleteResult = 'deleted';
-        $imageFile    = realpath(APPLICATION_PATH . '/../public/images/flags')
-            . "/{$lang['locale']}.{$lang['flag_extension']}";
-        if (!@unlink($imageFile)) {
-            $deleteResult = 'notDeleted';
-        } else {
-            $this->_languagesModel->deleteFlag($id);
-        }
-        $this->_forward('edit', 'admin_languages', null, array('id' => $id, 'flag' => $deleteResult));
     }
 
     /**
@@ -238,5 +264,20 @@ class Admin_LanguagesController extends AdminController
             $result &= @unlink($flagFile);
         }
         return $result;
+    }
+
+    /**
+     * Delete the flag image file of the given language from disk
+     *
+     * @param int $languageId Id of language
+     *
+     * @return bool
+     */
+    protected function _deleteFlag($languageId)
+    {
+        $lang      = $this->_languagesModel->getLanguageById($languageId);
+        $imageFile = realpath(APPLICATION_PATH . '/../public/images/flags')
+                        . "/{$lang['locale']}.{$lang['flag_extension']}";
+        return @unlink($imageFile);
     }
 }

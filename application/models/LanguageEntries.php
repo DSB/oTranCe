@@ -603,4 +603,18 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         return true;
     }
 
+    /**
+     * Delete all translations of the given language
+     *
+     * @param int $languageId Id of language
+     *
+     * @return bool
+     */
+    public function deleteLanguageEntries($languageId)
+    {
+        $sql = 'DELETE FROM `'. $this->_database . '`.`' . $this->_tableTranslations . '`'
+            . ' WHERE `lang_id` = ' . intval($languageId);
+        return (bool) $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
 }

@@ -573,6 +573,37 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
+     * Delete reference language settings of a language for all users
+     *
+     * @param int $languageId Id of language
+     *
+     * @return bool
+     */
+    public function deleteReferenceLanguageSettings($languageId)
+    {
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUsersettings . '`'
+                .' WHERE `setting`= \'referenceLanguage\''
+                .' AND `value`=' . intval($languageId);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return (bool) $res;
+    }
+
+    /**
+     * Delete language edit rights of a language for all users
+     *
+     * @param int $languageId Id of language
+     *
+     * @return bool
+     */
+    public function deleteLanguageRights($languageId)
+    {
+        $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserLanguages . '`'
+                .' WHERE `language_id`= ' . intval($languageId);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        return (bool) $res;
+    }
+
+    /**
      * Get array with default rights.
      *
      * Default array shows all menu items (except "Admin") and disallows adding of new language keys.

@@ -86,7 +86,7 @@ foreach ($this->languages as $language) {
 </table>
 <div id="confirmDeleteLanguage" style="display:none">
     Are you really sure you want to delete this language?<br />
-    This will also remove all translations and all edit rights of users for this language.
+    This will also remove all translations, all log entries and and all edit rights of users for this language.
 </div>
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 $('.deleteLanguage').click(function() {
@@ -111,11 +111,11 @@ $('.deleteLanguage').click(function() {
 });
 <?php
 if (isset($this->languageDeleted)) {
-    if ($this->userDeleted == true) {
+    if ($this->languageDeleted == true) {
         $this->popUpMessage()->addMessage(
-            'userDeleted',
+            'languageDeleted',
             'Success',
-            'The user has been deleted successfully.<br />All log entries, settings and rights have been removed too.',
+            'The language has been deleted successfully.<br />All log entries, settings and rights of users have been removed too.',
             array(
                 'modal' => true,
                 'height' => 160,
@@ -125,9 +125,9 @@ if (isset($this->languageDeleted)) {
         );
     } else {
         $this->popUpMessage()->addMessage(
-            'userDeleted',
+            'languageDeleted',
             'Error',
-            'There was an error deleting this user.<br />Please try again.',
+            'There was an error deleting this language.<br />Please try again.',
             array(
                 'modal' => true,
                 'height' => 140,

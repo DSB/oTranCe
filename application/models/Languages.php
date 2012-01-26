@@ -147,16 +147,16 @@ class Application_Model_Languages extends Msd_Application_Model
     }
 
     /**
-     * Deletes the flag or the given language.
+     * Deletes the flag entry in database of the given language.
      *
-     * @param int $id Id of the language
+     * @param int $languageId Id of the language
      *
      * @return void
      */
-    public function deleteFlag($id)
+    public function deleteFlag($languageId)
     {
-        $id = $this->_dbo->escape($id);
-        $sql = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $id";
+        $languageId = (int) $languageId;
+        $sql = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $languageId";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -200,5 +200,18 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale'";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return (isset($res[0]['id'])) ? $res[0]['id'] : 0;
+    }
+
+    /**
+     * Delete a language
+     *
+     * @param int $languageId Id of language to delete
+     *
+     * @return bool
+     */
+    public function deleteLanguage($languageId)
+    {
+        $sql = "DELETE FROM `{$this->_tableLanguages}` WHERE `id` = " . intval($languageId);
+        return (bool) $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
 }

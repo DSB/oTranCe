@@ -31,7 +31,7 @@
 <tr class="row-odd">
     <td>Password (*):</td>
     <td>
-        <input type="password" class="text" name="pass1" id="pass1" value="" /><br/>
+        <input type="password" class="text" name="pass1" id="pass1" value="" autocomplete="off"/><br/>
         <?php if (isset($this->errors['pass1'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['pass1']); ?></span><?php } ?>
     </td>
 </tr>
@@ -39,7 +39,7 @@
 <tr class="row-even">
     <td>Confirm password (*):</td>
     <td>
-        <input type="password" class="text" name="pass2" id="pass2" value="" />
+        <input type="password" class="text" name="pass2" id="pass2" value="" autocomplete="off"/>
     </td>
 </tr>
 
@@ -50,8 +50,3 @@
         If you leave this field empty the current password will remain.</div>
     </td>
 </tr>
-<?php $this->jQuery()->onLoadCaptureStart();?>
-$('#user_name').attr('autocomplete','off');
-$('#pass1').attr('autocomplete','off');
-$('#pass2').attr('autocomplete','off');
-<?php $this->jQuery()->onLoadCaptureEnd();?>

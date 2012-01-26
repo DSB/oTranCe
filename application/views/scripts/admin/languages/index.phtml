@@ -26,7 +26,7 @@
             <?php endif; ?>
         </a>
 
-        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->hits): ?> title="Shortcut ALT+V"
             onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
             accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
             <?php else: ?>
@@ -38,7 +38,7 @@
             <?php echo $this->selRecordsPerPage;?>
         </select>
         Hits: <?php echo $this->numberFormat($this->hits);?>
-
+        <input type="hidden" name="deleteLanguage" id="deleteLanguage" value="0">
     </p>
 </form>
 
@@ -60,6 +60,7 @@ if ($this->hits == 0) { ?>
 <?php
 }
 $i = 1;
+$i += $this->offset;
 foreach ($this->languages as $language) {
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $editUrl = $this->baseUrl() . '/admin_languages/edit/id/' . $language['id'] . '/';
@@ -67,8 +68,13 @@ foreach ($this->languages as $language) {
     <tr class="<?php echo $cycleHelper->next(); ?>">
         <td>
             <a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $this->getIcon('Edit', ''); ?></a>
+            <?php if ($this->user->hasRight('deleteLanguage')) { ?>
+                <a href="#" title="Delete language" id="deleteLanguage-<?php echo $language['id'];?>" class="deleteLanguage">
+                    <?php echo $this->getIcon('delete', ''); ?>
+                </a>
+            <?php } ?>
         </td>
-        <td><?php echo $i++; ?></td>
+        <td class="right"><?php echo $i++; ?>.</td>
         <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['locale']; ?></a></td>
         <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['name']; ?></a></td>
         <td><?php echo $language['active'] ? $this->getIcon('Ok', 'Yes', 16) : $this->getIcon('Attention', 'No', 16); ?></td>
@@ -78,3 +84,58 @@ foreach ($this->languages as $language) {
 }
 ?>
 </table>
+<div id="confirmDeleteLanguage" style="display:none">
+    Are you really sure you want to delete this language?<br />
+    This will also remove all translations and all edit rights of users for this language.
+</div>
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+$('.deleteLanguage').click(function() {
+    var a=this;
+    $('#confirmDeleteLanguage').dialog({
+        autoOpen: true,
+        modal: true,
+        title: 'Really delete?',
+        width: 380,
+        height: 160,
+        buttons : {
+                    "Yes, delete language": function() {
+                        var id = a.id.replace(/deleteLanguage-/, '');
+                        $('#deleteLanguage').attr('value', id);
+                        $('#myForm').submit();
+                    },
+                    "Cancel": function() {
+                        $(this).dialog("close");
+                    }
+                  }
+    })
+});
+<?php
+if (isset($this->languageDeleted)) {
+    if ($this->userDeleted == true) {
+        $this->popUpMessage()->addMessage(
+            'userDeleted',
+            'Success',
+            'The user has been deleted successfully.<br />All log entries, settings and rights have been removed too.',
+            array(
+                'modal' => true,
+                'height' => 160,
+                'width' => 340,
+                'dialogClass' => 'info',
+            )
+        );
+    } else {
+        $this->popUpMessage()->addMessage(
+            'userDeleted',
+            'Error',
+            'There was an error deleting this user.<br />Please try again.',
+            array(
+                'modal' => true,
+                'height' => 140,
+                'width' => 340,
+                'dialogClass' => 'info',
+            )
+        );
+
+    }
+}
+$this->jQuery()->onLoadCaptureEnd();

@@ -1,10 +1,12 @@
 <?php
-$config = Msd_Registry::getConfig();
-$lang = Msd_Language::getInstance();
+$config          = Msd_Registry::getConfig();
+$lang            = Msd_Language::getInstance();
 $interfaceConfig = $config->getParam('interface');
-$theme = $interfaceConfig['theme'];
-$language = $interfaceConfig['language'];
-$this->headMeta()->appendHttpEquiv('content-language', $language)
+$projectConfig   = $config->getParam('project');
+$theme           = $interfaceConfig['theme'];
+$language        = $interfaceConfig['language'];
+$this->headMeta()
+    ->appendHttpEquiv('content-language', $language)
     ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
     ->appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
     ->appendHttpEquiv('pragma', 'no-cache')
@@ -36,7 +38,7 @@ $messages = (string) $this->popUpMessage();
     lang="<?php echo $language?>"
     xml:lang="<?php echo $language?>">
 <head>
-    <title>oTranCe - Online Translation Center</title>
+    <title><?php echo $projectConfig['name'];?> - Online Translation Center</title>
     <?php
         echo (string) $this->jQuery();
         echo $this->headMeta() . "\n";

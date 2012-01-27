@@ -80,32 +80,6 @@ class ExportController extends Msd_Controller_Action
     }
 
     /**
-     * Update a specific language pack
-     *
-     * Create the language file and upload it to svn repository.
-     *
-     * @return void
-     */
-    public function updateAction()
-    {
-        $language = $this->_request->getParam('language');
-        if (!$this->_languageExists($language)) {
-            // If the user provides an invalid language id, redirect to index action, silently.
-            $this->_forward('index');
-            return;
-        }
-        $this->_vcsUpdate();
-        $languageInfo = $this->_languagesModel->getLanguageById($language);
-        $this->view->language = $languageInfo;
-        $exportedFiles = $this->_export->exportLanguageFile($language);
-        $this->view->exportOk = $exportedFiles['exportOk'];
-        unset($exportedFiles['exportOk']);
-        $this->_writeExportLog($exportedFiles);
-        $this->view->exportedFiles = $exportedFiles;
-        $this->_buildArchives($exportedFiles);
-    }
-
-    /**
      * Commit changes to VCS.
      *
      * @return void

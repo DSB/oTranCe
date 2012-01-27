@@ -558,17 +558,6 @@ class Application_Model_User extends Msd_Application_Model
             $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
 
-        // optimize tables to keep performance at best state
-        $tables = array(
-            $this->_tableUserrights,
-            $this->_tableUsersettings,
-            $this->_tableUserLanguages,
-            $this->_tableUsers,
-        );
-        foreach ($tables as $table) {
-            $this->_dbo->optimizeTable($table);
-        }
-
         return (bool) $res;
     }
 

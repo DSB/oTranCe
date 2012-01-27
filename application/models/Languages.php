@@ -214,4 +214,16 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql = "DELETE FROM `{$this->_tableLanguages}` WHERE `id` = " . intval($languageId);
         return (bool) $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
+
+    /**
+     * Triggers "OPTIMIZE TABLE" for all tables to keep them defragmented and at best performance
+     *
+     * @return array
+     */
+    public function optimizeAllTables()
+    {
+        $tables = $this->_config->getParam('table');
+        $sql = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
+        return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+    }
 }

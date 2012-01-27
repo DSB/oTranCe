@@ -40,6 +40,9 @@ class Admin_LanguagesController extends AdminController
         if ($deleteLanguageId > 0) {
             $this->_forward('delete-language');
         }
+        if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
+            $this->_setSessionParams();
+        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
@@ -112,6 +115,9 @@ class Admin_LanguagesController extends AdminController
             $this->_deleteFlag($deleteLanguageId);
             $res = $this->_languagesModel->deleteLanguage($deleteLanguageId);
         }
+        //trigger ajax call to optimize database tables
+        $this->_dynamicConfig->setParam('optimizeTables', true);
+
         $this->view->languageDeleted = (bool) $res;
         $this->_request->setParam('deleteLanguage', 0);
         $this->_forward('index');
@@ -276,6 +282,10 @@ class Admin_LanguagesController extends AdminController
     protected function _deleteFlag($languageId)
     {
         $lang      = $this->_languagesModel->getLanguageById($languageId);
+        if (!isset($lang['locale'])) {
+            // language doesn't exist - nothing to delete
+            return true;
+        }
         $imageFile = realpath(APPLICATION_PATH . '/../public/images/flags')
                         . "/{$lang['locale']}.{$lang['flag_extension']}";
         return @unlink($imageFile);

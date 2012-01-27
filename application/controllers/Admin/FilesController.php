@@ -45,6 +45,9 @@ class Admin_FilesController extends AdminController
             $templateOrderField = 'name';
         }
         $templatesModel = new Application_Model_FileTemplates();
+        if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
+            $this->_setSessionParams();
+        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->fileTemplates = $templatesModel->getFileTemplates(
@@ -114,6 +117,8 @@ class Admin_FilesController extends AdminController
             $delTemplateId = $this->_request->getParam('delTemplateId', 0);
             $replacementId = $this->_request->getParam('replacementId', 0);
             $this->view->deletionResult = $templatesModel->deleteFileTemplate($delTemplateId, $replacementId);
+            //trigger ajax call to optimize database tables
+            $this->_dynamicConfig->setParam('optimizeTables', true);
         }
         $this->_forward('index');
     }

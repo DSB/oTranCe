@@ -40,11 +40,11 @@ class Admin_UsersController extends AdminController
         if ($deleteUser > 0) {
             $this->_forward('delete-user');
         }
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam(
-            $this->_requestedController . '.recordsPerPage',
-            $this->_dynamicConfig->getParam('recordsPerPage', 10)
-        );
+        if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
+            $this->_setSessionParams();
+        }
 
+        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->users = $this->_userModel->getUsers(
             (string) $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
@@ -114,6 +114,8 @@ class Admin_UsersController extends AdminController
         $deleteResult &= $this->_userModel->deleteUserById($userId);
         if ($deleteResult == true) {
             $this->view->userDeleted = true;
+            //trigger ajax call to optimize database tables
+            $this->_dynamicConfig->setParam('optimizeTables', true);
         } else {
             $this->view->userDeleted = false;
         }

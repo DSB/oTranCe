@@ -1,0 +1,29 @@
+<?php
+$this->jQuery()->onLoadCaptureStart();
+?>
+$.ajax({
+    url: '<?php echo $this->serverUrl(). $this->baseUrl() . '/ajax/optimize-tables';?>',
+    dataType: 'json',
+    type: "GET",
+    async : true,
+    cache: false,
+    success: function (data) {
+            var errorMsg = '';
+            $.each(data, function(table, msg) {
+                if (msg != 'ok') {
+                    errorMsg += table + ': ' + msg + '<br />';
+                }
+            });
+            if (errorMsg > '') {
+                $('#optimizeErrors').html(errorMsg);
+                $('#optimizationError').dialog({
+                    title: 'Error',
+                    modal: true,
+                    width: 400,
+                    buttons: { 'Ok': function() { $(this).dialog("close"); } }
+                });
+            }
+        }
+});
+<?php
+$this->jQuery()->onLoadCaptureEnd();

@@ -1,5 +1,6 @@
 <?php
 $config          = Msd_Registry::getConfig();
+$dynamicConfig  = Msd_Registry::getDynamicConfig();
 $lang            = Msd_Language::getInstance();
 $interfaceConfig = $config->getParam('interface');
 $projectConfig   = $config->getParam('project');
@@ -30,8 +31,11 @@ $this->jQuery()->setVersion('1.4.2');
 $this->jQuery()->setUiVersion('1.8.5');
 $this->jQuery()->uiEnable();
 
-$menu = $this->menu();
+$menu     = $this->menu();
 $messages = (string) $this->popUpMessage();
+if ($dynamicConfig->getParam('optimizeTables') == true) {
+    $this->partial('/helper/optimize-tables.phtml');
+}
 ?>
 <?php echo $this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -53,10 +57,19 @@ $messages = (string) $this->popUpMessage();
             echo $messages;
             echo $menu;
         ?>
-            <?php if (!$this->isLogin) { ?><div id="content"><?php } ?>
-                <?php echo $this->layout()->content; ?>
-            <?php if (!$this->isLogin) { ?></div><?php } ?>
+        <?php if (!$this->isLogin) { ?><div id="content"><?php } ?>
+            <?php echo $this->layout()->content; ?>
+        <?php if (!$this->isLogin) { ?></div><?php } ?>
     </div>
     <div id="page-loader"><?php echo $this->getIcon('ajax-loader'); ?></div>
+    <?php
+        if ($dynamicConfig->getParam('optimizeTables') == true) {
+            $dynamicConfig->setParam('optimizeTables', false);
+        ?>
+        <div id="optimizationError" style="display:none">
+            Error while executing optimization of database tables:<br /><br />
+            <span id="optimizeErrors"></span>
+        </div>
+    <?php } ?>
 </body>
 </html>

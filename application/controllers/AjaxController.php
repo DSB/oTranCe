@@ -154,6 +154,28 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Triggers optimization of all database tables.
+     * This is done after delete operations.
+     *
+     * @return void
+     */
+    public function optimizeTablesAction()
+    {
+        $results = $this->_languagesModel->optimizeAllTables();
+        $ret     = array();
+        foreach ($results as $res) {
+            if (in_array($res['Msg_type'], array('status', 'info'))) {
+                //ok
+                $ret[$res['Table']] = 'ok';
+            } else {
+                //error - get info
+                $ret[$res['Table']] = $res['Msg_text'];
+            }
+        }
+        $this->view->data = $ret;
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save
@@ -195,7 +217,7 @@ class AjaxController extends Zend_Controller_Action
 
 
     /**
-     * Get the translations of the keys for the fallbackLanguage and savethem to aprivate property
+     * Get the translations of the keys for the fallbackLanguage and save them to aprivate property
      *
      * @param array $keys       The language keys
      * @param int   $templateId Id of the file template
@@ -203,7 +225,7 @@ class AjaxController extends Zend_Controller_Action
      *
      * @return array|false
      */
-    public function _getFallbackLanguageData($keys, $templateId, $languageId)
+    private function _getFallbackLanguageData($keys, $templateId, $languageId)
     {
         $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
         if ($fallbackLanguageId == $languageId) {

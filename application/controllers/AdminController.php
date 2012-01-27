@@ -98,7 +98,7 @@ class AdminController extends Msd_Controller_Action
      *
      * @return void
      */
-    private function _setSessionParams()
+    protected function _setSessionParams()
     {
         // set defaults on first page call
         $this->_dynamicConfig->setParam('adminInitiated', true);

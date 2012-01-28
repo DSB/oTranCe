@@ -1,0 +1,76 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$i = 1;
+?>
+<div>&nbsp;</div>
+<h4>Edit rights:</h4>
+<table class="bdr more-padding" summary="List of language settings">
+    <tr class="thead">
+        <th>#</th>
+        <th><?php echo $this->lang->L_USER;?></th>
+        <th><?php echo $this->lang->L_CAN_EDIT;?></th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
+    </tr>
+    <?php
+        foreach ($this->users as $user) {
+        ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td><?php echo $i;?>.</td>
+            <td>
+                <label for="user-<?php echo $user['id'];?>">
+                    <?php echo $this->escape($user['username']);?>
+                </label>
+            </td>
+            <td>
+                <input type="checkbox" name="user-<?php echo $user['id'];?>" id="user-<?php echo $user['id'];?>"
+                <?php
+                    if (isset($this->translators[$user['id']])) {
+                        echo ' checked="checked"';
+                    }
+                ?>
+                class="switchUserEditRight" />
+            </td>
+            <td id="img-<?php echo $user['id'];?>">
+                <?php
+                    if (isset($this->translators[$user['id']])) {
+                        echo $this->getIcon('Ok', $this->lang->L_YES, 16);
+                    } else {
+                        echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
+                    }
+                ;?>
+            </td>
+
+        </tr>
+    <?php
+        $i++;
+    }
+    ?>
+</table>
+<?php
+$this->jQuery()->onLoadCaptureStart(); ?>
+var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
+var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
+
+$('.switchUserEditRight').change(function() {
+    var userId = this.id.replace(/user-/, '');
+    $('#img-' + userId).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-language-edit-right' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'languageId': <?php echo $this->languageId;?>,
+            'userId'    : userId
+        },
+        success:function(data) {
+            $('#img-' + userId).html(data.icon);
+        },
+        error:function(error) {
+            $('#img-' + userId).html(imgError);
+        }
+    });
+});
+<?php
+$this->jQuery()->onLoadCaptureEnd();

@@ -71,22 +71,26 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Get list of translators with edit rights for language
+     * Get list of translators with edit rights for all or given language
      *
      * Return ass. array[lang_id] = user_id
      *
+     * @param int $languageId Id of language
+     *
      * @return array
      */
-    public function getTranslators()
+    public function getTranslators($languageId = 0)
     {
         $ret = array();
         $this->_dbo->selectDb($this->_database);
         $sql = 'SELECT * FROM `' . $this->_tableUserLanguages .'`';
+        if ($languageId > 0) {
+            $sql .= ' WHERE `language_id` = ' . intval($languageId);
+        }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $val) {
             $ret[$val['language_id']][] = $val['user_id'];
         }
-        $this->_tableUsers = $ret;
         return $ret;
     }
 
@@ -277,6 +281,40 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
+     * Delete a users language edit rights of the given language
+     *
+     * @param  int $userId     The id of the user
+     * @param  int $languageId The id of the language
+     *
+     * @return boolean
+     */
+    public function deleteUsersEditLanguageRight($userId, $languageId)
+    {
+        $userId     = (int) $userId;
+        $languageId = (int) $languageId;
+        $sql = 'DELETE FROM `'.$this->_tableUserLanguages . '`'
+                    . ' WHERE `user_id` = ' . $userId . ' AND `language_id` = ' . $languageId;
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * Delete a users language edit rights of the given language
+     *
+     * @param  int $userId     The id of the user
+     * @param  int $languageId The id of the language
+     *
+     * @return boolean
+     */
+    public function addUsersEditLanguageRight($userId, $languageId)
+    {
+        $userId     = (int) $userId;
+        $languageId = (int) $languageId;
+        $sql = 'INSERT INTO `'.$this->_tableUserLanguages . '` (`user_id`, `language_id`)'
+                    . ' VALUES(' . $userId . ', ' . $languageId . ')';
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
      * Save language edit rights of a user db
      *
      * @param  int   $userId      The id of the user
@@ -357,7 +395,7 @@ class Application_Model_User extends Msd_Application_Model
      * Get user language edit rights.
      * Needed to get a sortet list by locale.
      *
-     * @param int  $userId Id of user, if not set use the current user
+     * @param int  $userId                Id of user, if not set use the current user
      * @param bool $skipInactiveLanguages Only return active languages
      *
      * @return array
@@ -426,6 +464,25 @@ class Application_Model_User extends Msd_Application_Model
             }
         }
         return false;
+    }
+
+    /**
+     * Checks if the current user has the edit right for the given languageId
+     *
+     * @param int $userId     The Id of the user
+     * @param int $languageId The Id of the language
+     *
+     * @return bool
+     */
+    public function hasLanguageEditRight($userId, $languageId)
+    {
+        $userId     = (int) $userId;
+        $languageId = (int) $languageId;
+        $sql        = 'SELECT `user_id` FROM `'.$this->_database.'`.`' . $this->_tableUserLanguages . '`'
+                        . ' WHERE `user_id`=\''.$userId.'\' AND `language_id` = ' . $languageId
+                        . ' LIMIT 1';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]['user_id']) ? true : false;
     }
 
     /**

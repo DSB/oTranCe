@@ -61,33 +61,43 @@ class Admin_LanguagesController extends AdminController
      */
     public function editAction()
     {
-        $id = $this->_request->getParam('id', 0);
+        $languageId = $this->_request->getParam('id', 0);
         $intValidate = new Zend_Validate_Int();
-        if (!$intValidate->isValid($id)) {
+        if (!$intValidate->isValid($languageId)) {
             // someone manipulated the id of the language - silently jump to index page
             $this->_redirect('/');
         }
         if (!$this->_userModel->hasRight('addLanguage')) {
             // check if it is a new language
-            $language = $this->_languagesModel->getLanguageById($id);
+            $language = $this->_languagesModel->getLanguageById($languageId);
             if (empty($language)) {
                 $this->_redirect('/');
             }
         }
 
         $this->view->inputErrors = array();
-        $this->view->langId = $id;
+        $this->view->langId = $languageId;
         $this->view->flag   = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
-            $this->_processInputs($id);
+            $this->_processInputs($languageId);
         } else {
-            $langData = $this->_languagesModel->getLanguageById($id);
+            $langData = $this->_languagesModel->getLanguageById($languageId);
             if (count($langData) > 0) {
                 $this->view->langActive    = $langData['active'];
                 $this->view->langLocale    = $langData['locale'];
                 $this->view->langName      = $langData['name'];
                 $this->view->flagExtension = $langData['flag_extension'];
             }
+        }
+        if ($languageId > 0) {
+            $users = $this->_userModel->getUsers('', 0, 20);
+            $this->view->users = $users;
+            $translators = $this->_userModel->getTranslators($languageId);
+            $translators = empty($translators[$languageId]) ? array(): $translators[$languageId];
+            //set user id as index - this way we can use isset() for testing if a user id has edit rights
+            // (instead of searching with in_array() which is slower)
+            $translators = array_flip($translators);
+            $this->view->translators = $translators;
         }
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
     }

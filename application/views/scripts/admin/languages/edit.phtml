@@ -12,8 +12,9 @@ if ($this->langId == 0) {
     $subTitle = "Create new language";
 } else {
     $subTitle = "Edit language \"{$this->langName} ({$this->langLocale})\"";
-} ?>
-<h4><?php echo $subTitle; ?></h4>
+}
+?>
+<h4><?php echo $subTitle; ?>:</h4>
 <form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->langId; ?>/" method="post" enctype="multipart/form-data">
     <table class="bdr more-padding" summary="List of language settings">
         <tr class="thead">
@@ -38,18 +39,18 @@ if ($this->langId == 0) {
         <tr class="row-even">
             <td><label for="langLocale">Language locale (e.g. en, de):</label></td>
             <td><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
-    if (array_key_exists('langLocale', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span><?php
-            }
-?></td>
+                if (array_key_exists('langLocale', $this->inputErrors)) { ?>
+                    <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span>
+                <?php }?>
+            </td>
         </tr>
         <tr class="row-odd">
             <td><label for="langName">Language name (e.g. English, Deutsch):</label></td>
             <td><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
-    if (array_key_exists('langName', $this->inputErrors)) {
-?><span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span><?php
-            }
-?></td>
+                if (array_key_exists('langName', $this->inputErrors)) { ?>
+                    <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span>
+                <?php } ?>
+            </td>
         </tr>
         <tr class="row-even">
             <td>
@@ -74,6 +75,19 @@ if ($this->langId == 0) {
             </td>
         </tr>
     </table>
+    <?php
+    if ($this->langId > 0 && $this->user->hasRight('editUsers')) {
+        echo $this->partial(
+        'admin/languages/language-edit-rights.phtml',
+            array(
+                'users'       => $this->users,
+                'translators' => $this->translators,
+                'languageId'  => $this->langId,
+                'lang'        => $this->lang
+            )
+        );
+    }
+    ?>
 </form>
 <?php
 if (!empty($this->inputErrors)) {
@@ -156,4 +170,3 @@ if (isset($this->creationResult)) {
     }
 }
 
-?>

@@ -21,25 +21,25 @@ class AjaxController extends Zend_Controller_Action
     protected $_config;
 
     /**
-     * @var Msd_Config_Dynamic
+     * @var \Msd_Config_Dynamic
      */
     protected $_dynamicConfig;
 
     /**
      * User model
-     * @var Application_Model_User
+     * @var \Application_Model_User
      */
     protected $_userModel;
 
     /**
      * Languages model
-     * @var Application_Model_Languages
+     * @var \Application_Model_Languages
      */
     protected $_languagesModel;
 
     /**
      * Languages entries model
-     * @var Application_Model_LanguageEntries
+     * @var \Application_Model_LanguageEntries
      */
     protected $_entriesModel;
 
@@ -85,10 +85,10 @@ class AjaxController extends Zend_Controller_Action
      */
     public function translateAction()
     {
-        $keyId = $this->_request->getParam('key');
-        $sourceLang = $this->_request->getParam('source');
-        $targetLang = $this->_request->getParam('target');
-        $entry = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
+        $keyId            = $this->_request->getParam('key');
+        $sourceLang       = $this->_request->getParam('source');
+        $targetLang       = $this->_request->getParam('target');
+        $entry            = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
         $this->view->data = $this->_getTranslation(
             $entry[$sourceLang],
             $this->_languages[$sourceLang]['locale'],
@@ -173,6 +173,45 @@ class AjaxController extends Zend_Controller_Action
             }
         }
         $this->view->data = $ret;
+    }
+
+    /**
+     * Switch the language edit right of a user
+     *
+     * @return void
+     */
+    public function switchLanguageEditRightAction()
+    {
+        $languageId   = (int) $this->_request->getParam('languageId', 0);
+        $userId       = (int) $this->_request->getParam('userId', 0);
+        $icon = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
+        if ($userId < 1 || $languageId < 1 || !$this->_userModel->hasRight('editUsers')) {
+            //Missing param or no permission to change edit right
+            $data = array('error' => 'Invalid arguments');
+        } else {
+            //get actual right
+            $languageEditRight = $this->_userModel->hasLanguageEditRight($userId, $languageId);
+            if ($languageEditRight == true) {
+                //delete right
+                $res = $this->_userModel->deleteUsersEditLanguageRight($userId, $languageId);
+            } else {
+                //add right
+                $res = $this->_userModel->addUsersEditLanguageRight($userId, $languageId);
+                if ($res == true) {
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_YES, 16);
+                }
+            }
+
+            if ($res == true) {
+                $data = array('error' => false, 'icon' => $icon);
+            } else {
+                //error saving
+                $data = array('error' => $this->view->lang->L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT, 'icon' => $icon);
+            }
+        }
+
+        $this->view->data = $data;
+        $this->render('json');
     }
 
     /**

@@ -85,9 +85,9 @@ foreach ($this->users as $userId => $user)
         <td>
             <?php
                 if ($user['active'] == 1) {
-                    echo $this->getIcon('Ok', 'Yes', 16);
+                    echo $this->getIcon('Ok', $this->lang->L_YES, 16);
                 } else {
-                    echo $this->getIcon('Attention', 'No', 16);
+                    echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
                 };
             ?>
         </td>

@@ -66,12 +66,12 @@ class Admin_FilesController extends AdminController
      *
      * @return void
      */
-    protected function _getPostParams()
+    protected function _getParams()
     {
         $templateOrderField = $this->_dynamicConfig->getParam($this->_requestedController . '.templateOrderField');
         $templateOrderField = $this->_request->getParam('templateOrderBy', $templateOrderField);
         $this->_dynamicConfig->setParam($this->_requestedController . '.templateOrderField', $templateOrderField);
-        parent::_getPostParams();
+        parent::_getParams();
     }
 
     /**

@@ -1,9 +1,21 @@
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$i = 1;
+$i = $this->offset +1;
 ?>
 <div>&nbsp;</div>
 <h4>Edit rights:</h4>
+<?php
+echo $this->partial('/helper/search-users.phtml', array(
+        'user'              => $this->user,
+        'hits'              => $this->hits,
+        'offset'            => $this->offset,
+        'recordsPerPage'    => $this->recordsPerPage,
+        'selRecordsPerPage' => $this->selRecordsPerPage,
+        'filterUser'        => $this->filterUser,
+        'offset'            => $this->offset,
+    )
+);
+?>
 <table class="bdr more-padding" summary="List of language settings">
     <tr class="thead">
         <th>#</th>
@@ -15,7 +27,7 @@ $i = 1;
         foreach ($this->users as $user) {
         ?>
         <tr class="<?php echo $cycleHelper->next();?>">
-            <td><?php echo $i;?>.</td>
+            <td class="right"><?php echo $i;?>.</td>
             <td>
                 <label for="user-<?php echo $user['id'];?>">
                     <?php echo $this->escape($user['username']);?>
@@ -30,14 +42,16 @@ $i = 1;
                 ?>
                 class="switchUserEditRight" />
             </td>
-            <td id="img-<?php echo $user['id'];?>">
-                <?php
-                    if (isset($this->translators[$user['id']])) {
-                        echo $this->getIcon('Ok', $this->lang->L_YES, 16);
-                    } else {
-                        echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
-                    }
-                ;?>
+            <td>
+                <label for="user-<?php echo $user['id'];?>"  id="img-<?php echo $user['id'];?>">
+                    <?php
+                        if (isset($this->translators[$user['id']])) {
+                            echo $this->getIcon('Ok', $this->lang->L_YES, 16);
+                        } else {
+                            echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
+                        }
+                    ;?>
+                </label>
             </td>
 
         </tr>
@@ -46,6 +60,9 @@ $i = 1;
     }
     ?>
 </table>
+<p>
+    <br /><br />
+</p>
 <?php
 $this->jQuery()->onLoadCaptureStart(); ?>
 var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';

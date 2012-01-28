@@ -40,13 +40,10 @@ class Admin_LanguagesController extends AdminController
         if ($deleteLanguageId > 0) {
             $this->_forward('delete-language');
         }
-        if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
-            $this->_setSessionParams();
-        }
         $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages = $this->_languagesModel->getAllLanguages(
-            $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
+            $this->_dynamicConfig->getParam($this->_requestedController . '.filterLanguage'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage'),
             false
@@ -61,14 +58,14 @@ class Admin_LanguagesController extends AdminController
      */
     public function editAction()
     {
-        $languageId = $this->_request->getParam('id', 0);
-        $intValidate = new Zend_Validate_Int();
-        if (!$intValidate->isValid($languageId)) {
+        $languageId  = (int) $this->_request->getParam('id', 0);
+        if ($languageId < 1) {
             // someone manipulated the id of the language - silently jump to index page
             $this->_redirect('/');
         }
+
+        // check if it is a new language and ifthe user has the rigth to add a new language
         if (!$this->_userModel->hasRight('addLanguage')) {
-            // check if it is a new language
             $language = $this->_languagesModel->getLanguageById($languageId);
             if (empty($language)) {
                 $this->_redirect('/');
@@ -76,8 +73,8 @@ class Admin_LanguagesController extends AdminController
         }
 
         $this->view->inputErrors = array();
-        $this->view->langId = $languageId;
-        $this->view->flag   = $this->_request->getParam('flag', false);
+        $this->view->languageId  = $languageId;
+        $this->view->flag        = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
             $this->_processInputs($languageId);
         } else {
@@ -89,17 +86,37 @@ class Admin_LanguagesController extends AdminController
                 $this->view->flagExtension = $langData['flag_extension'];
             }
         }
+
         if ($languageId > 0) {
-            $users = $this->_userModel->getUsers('', 0, 20);
-            $this->view->users = $users;
-            $translators = $this->_userModel->getTranslators($languageId);
-            $translators = empty($translators[$languageId]) ? array(): $translators[$languageId];
-            //set user id as index - this way we can use isset() for testing if a user id has edit rights
-            // (instead of searching with in_array() which is slower)
-            $translators = array_flip($translators);
-            $this->view->translators = $translators;
+            $this->_assignUserList($languageId);
         }
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+    }
+
+    /**
+     * If language is available show user list to set edit rights
+     *
+     * @param int $languageId The Id of the language
+     *
+     * @return void
+     */
+    protected function _assignUserList($languageId)
+    {
+        $this->view->filterUser = $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser');
+        $this->view->users = $this->_userModel->getUsers(
+            (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
+        );
+        $this->view->userHits = $this->_userModel->getRowCount();
+
+        $translators = $this->_userModel->getTranslators($languageId);
+        $translators = empty($translators[$languageId]) ? array() : $translators[$languageId];
+        //set user id as index - this way we can use isset() for testing if a user id has edit rights
+        // (instead of searching with in_array() which is slower)
+        $translators = array_flip($translators);
+        $this->view->translators = $translators;
+        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
     }
 
     /**
@@ -160,10 +177,12 @@ class Admin_LanguagesController extends AdminController
      */
     public function _processInputs($id)
     {
+        $lang = $this->_languagesModel->getLanguageById($id);
         $langLocale = $this->_request->getParam('langLocale');
         $langActive = $this->_request->getParam('langActive', 0);
         $langName = $this->_request->getParam('langName');
         $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
+
         $sourceExt = $this->_request->getParam('flagExt');
         $upload = null;
         if ($flagUploaded) {
@@ -173,6 +192,17 @@ class Admin_LanguagesController extends AdminController
                 $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
                 $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
                 $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
+            }
+        }
+        $this->view->langActive = $langActive;
+        $this->view->langLocale = $langLocale;
+        $this->view->langName = $langName;
+        $this->view->flagExtension = $sourceExt;
+
+        // check if something was changed in the language form
+        if (!$flagUploaded) {
+            if ($lang['locale'] == $langLocale && $lang['active'] == $langActive && $lang['name'] == $langName) {
+                return;
             }
         }
 
@@ -189,18 +219,7 @@ class Admin_LanguagesController extends AdminController
                 $this->view->flagFile = $upload->receive();
             }
             $this->view->creationResult = $creationResult;
-            // after creating a new language clear inputs after successfull saving
-            // to be able to directly input another language
-            if ($creationResult === true && $id == 0) {
-                $this->view->langId = 0;
-                $langLocale = '';
-                $langName = '';
-            }
         }
-        $this->view->langActive = $langActive;
-        $this->view->langLocale = $langLocale;
-        $this->view->langName = $langName;
-        $this->view->flagExtension = $sourceExt;
     }
 
     /**
@@ -283,7 +302,7 @@ class Admin_LanguagesController extends AdminController
     }
 
     /**
-     * Delete the flag image file of the given language from disk
+     * Delete the flag image file of the given language id from disk
      *
      * @param int $languageId Id of language
      *
@@ -291,7 +310,7 @@ class Admin_LanguagesController extends AdminController
      */
     protected function _deleteFlag($languageId)
     {
-        $lang      = $this->_languagesModel->getLanguageById($languageId);
+        $lang = $this->_languagesModel->getLanguageById($languageId);
         if (!isset($lang['locale'])) {
             // language doesn't exist - nothing to delete
             return true;

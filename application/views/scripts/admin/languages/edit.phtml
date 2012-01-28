@@ -8,14 +8,14 @@ $inputFieldMap = array(
 <h2>Admin - Languages</h2>
 <?php
 echo $this->partial('admin/head-navi.phtml');
-if ($this->langId == 0) {
+if ($this->languageId == 0) {
     $subTitle = "Create new language";
 } else {
     $subTitle = "Edit language \"{$this->langName} ({$this->langLocale})\"";
 }
 ?>
 <h4><?php echo $subTitle; ?>:</h4>
-<form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->langId; ?>/" method="post" enctype="multipart/form-data">
+<form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->languageId; ?>/" method="post" enctype="multipart/form-data" id="myForm">
     <table class="bdr more-padding" summary="List of language settings">
         <tr class="thead">
            <th colspan="2">Language settings</th>
@@ -28,7 +28,7 @@ if ($this->langId == 0) {
                 &nbsp;&nbsp;
                 <input type="radio" name="langActive" id="langActiveNo" value="0"<?php echo (isset($this->langActive) && !$this->langActive) ? ' checked="checked"' : ''; ?>
                     <?php
-                    if ($this->fallbackLanguageId == $this->langId) {
+                    if ($this->fallbackLanguageId == $this->languageId) {
                         echo ' disabled="disabled"';
                     }
                     ?>
@@ -55,13 +55,13 @@ if ($this->langId == 0) {
         <tr class="row-even">
             <td>
                 <label for="langFlag">Language flag:</label><br /><br />
-                <?php echo $this->printFlag($this->langId);?>
+                <?php echo $this->printFlag($this->languageId);?>
 
             </td>
             <td>
                 <input type="file" class="text" name="langFlag" id="langFlag" /><br/>
                 <?php if ($this->flagExtension > '') { ?>
-                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->langId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button>
+                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button>
                     <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
                         <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
                     <?php }
@@ -76,14 +76,20 @@ if ($this->langId == 0) {
         </tr>
     </table>
     <?php
-    if ($this->langId > 0 && $this->user->hasRight('editUsers')) {
+    if ($this->languageId > 0 && $this->user->hasRight('editUsers')) {
         echo $this->partial(
         'admin/languages/language-edit-rights.phtml',
             array(
-                'users'       => $this->users,
-                'translators' => $this->translators,
-                'languageId'  => $this->langId,
-                'lang'        => $this->lang
+                'user'              => $this->user,
+                'users'             => $this->users,
+                'hits'              => $this->userHits,
+                'filterUser'        => $this->filterUser,
+                'translators'       => $this->translators,
+                'languageId'        => $this->languageId,
+                'lang'              => $this->lang,
+                'offset'            => $this->offset,
+                'recordsPerPage'    => $this->recordsPerPage,
+                'selRecordsPerPage' => $this->selRecordsPerPage
             )
         );
     }

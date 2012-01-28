@@ -4,11 +4,11 @@
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
         Filter / Search:
-        <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
+        <input type="text" class="text" id="filterLanguage" name="filterLanguage" value="<?php echo $this->escape($this->filterLanguage);?>" />
         <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
             <?php echo $this->getIcon('search', '', 16);?> Search
         </button>
-        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+        <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
             <?php echo $this->getIcon('delete', '');?> Reset
         </button>
         <?php if ($this->user->hasRight('addLanguage')) {?>

@@ -1,0 +1,42 @@
+<?php
+$addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
+?>
+<p style="margin:0;padding:0;">
+    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+    Filter / Search users:
+    <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
+    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+        <?php echo $this->getIcon('search', '', 16);?> Search
+    </button>
+    <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+        <?php echo $this->getIcon('delete', '');?> Reset
+    </button>
+    <?php if ($this->user->hasRight('addUser')) { ?>
+        <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $addUserUrl;?>'">
+            <?php echo $this->getIcon('plus', '');?> Add user
+        </button>
+    <?php } ?>
+    <br /><br />
+
+    <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+        onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+        accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+        <?php else: ?>
+        class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+        <?php endif; ?>
+    </a>
+
+    <a href="#" <?php if($this->offset + (int) $this->recordsPerPage < $this->hits): ?> title="Shortcut ALT+V"
+        onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+        accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+        <?php else: ?>
+        class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+        <?php endif; ?>
+    </a>
+    Entries per page:
+    <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+        <?php echo $this->selRecordsPerPage;?>
+    </select>
+    Hits: <?php echo $this->numberFormat($this->hits);?>
+    <input type="hidden" name="deleteUser" id="deleteUser" value="0"/>
+</p>

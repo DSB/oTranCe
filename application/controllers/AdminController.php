@@ -56,16 +56,14 @@ class AdminController extends Msd_Controller_Action
         }
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
-        $this->_languagesModel = new Application_Model_Languages();
-        if (!$this->_dynamicConfig->getParam('adminInitiated', false)) {
+        $this->_languagesModel       = new Application_Model_Languages();
+        if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
             $this->_setSessionParams();
         }
-        if ($this->_request->isPost()) {
-            $this->_getPostParams();
-        }
+        $this->_getParams();
         $this->_assignVars();
         $this->view->languages = $this->_languagesModel->getAllLanguages('', 0, 0, false);
-        $this->view->user = $this->_userModel;
+        $this->view->user      = $this->_userModel;
     }
 
     /**
@@ -82,15 +80,22 @@ class AdminController extends Msd_Controller_Action
      *
      * @return void
      */
-    protected function _getPostParams()
+    protected function _getParams()
     {
-        $filter = trim($this->_request->getParam('filterUser', ''));
-        $offset = (int) $this->_request->getParam('offset', 0);
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
-        $recordsPerPage = (int) $this->_request->getParam('recordsPerPage', $recordsPerPage);
+        $recordsPerPage = (int) $this->_request->getParam(
+            'recordsPerPage',
+            (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
+        );
         $this->_dynamicConfig->setParam($this->_requestedController . '.recordsPerPage', $recordsPerPage);
+
+        $offset = (int) $this->_request->getParam('offset', 0);
         $this->_dynamicConfig->setParam($this->_requestedController . '.offset', $offset);
-        $this->_dynamicConfig->setParam($this->_requestedController . '.filterUser', $filter);
+
+        $filterUser = trim($this->_request->getParam('filterUser', ''));
+        $this->_dynamicConfig->setParam($this->_requestedController . '.filterUser', $filterUser);
+
+        $filterLanguage = trim($this->_request->getParam('filterLanguage', ''));
+        $this->_dynamicConfig->setParam($this->_requestedController . '.filterLanguage', $filterLanguage);
     }
 
     /**
@@ -104,8 +109,11 @@ class AdminController extends Msd_Controller_Action
         $this->_dynamicConfig->setParam('adminInitiated', true);
         $this->_dynamicConfig->setParam($this->_requestedController . '.offset', 0);
         $this->_dynamicConfig->setParam($this->_requestedController . '.filterUser', '');
-        $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage');
-        $this->_dynamicConfig->setParam($this->_requestedController . '.recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam($this->_requestedController . '.filterLanguage', '');
+        $this->_dynamicConfig->setParam(
+            $this->_requestedController . '.recordsPerPage',
+            $this->_userModel->loadSetting('recordsPerPage')
+        );
     }
 
     /**
@@ -115,8 +123,11 @@ class AdminController extends Msd_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filterUser     = (string) $this->_dynamicConfig->getParam(
+        $this->view->filterUser = (string) $this->_dynamicConfig->getParam(
             $this->_requestedController . '.filterUser'
+        );
+        $this->view->filterLanguage = (string) $this->_dynamicConfig->getParam(
+            $this->_requestedController . '.filterLanguage'
         );
         $this->view->offset         = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.offset');
         $this->view->recordsPerPage = (int) $this->_dynamicConfig->getParam(

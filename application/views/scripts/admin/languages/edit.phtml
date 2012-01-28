@@ -14,6 +14,14 @@ if ($this->languageId == 0) {
     $subTitle = "Edit language \"{$this->langName} ({$this->langLocale})\"";
 }
 ?>
+<div>
+<?php if ($this->user->hasRight('addLanguage')) {?>
+    <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
+        <?php echo $this->getIcon('plus', '') . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
+    </button>
+    <br /><br />
+<?php } ?>
+</div>
 <h4><?php echo $subTitle; ?>:</h4>
 <form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->languageId; ?>/" method="post" enctype="multipart/form-data" id="myForm">
     <table class="bdr more-padding" summary="List of language settings">

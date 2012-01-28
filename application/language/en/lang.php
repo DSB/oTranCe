@@ -26,6 +26,7 @@ $lang['L_LOGIN']="Login";
 $lang['L_STATUS'] = "Status";
 $lang['L_CAN_EDIT'] = "Can edit";
 $lang['L_USER'] = "User";
+$lang['L_ADD_NEW_LANGUAGE'] = "Add new language";
 $lang['L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT'] = "Couldn't save language edit right";
 $lang['L_LOGIN_AUTOLOGIN']="Automatic login";
 $lang['L_LOGIN_INVALID_USER']="Unknown combination of username and password.";

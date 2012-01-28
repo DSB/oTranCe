@@ -13,7 +13,7 @@
         </button>
         <?php if ($this->user->hasRight('addLanguage')) {?>
             <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
-            <?php echo $this->getIcon('plus', '');?> Add language
+                <?php echo $this->getIcon('plus', '') . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
             </button>
         <?php } ?>
         <br /><br />

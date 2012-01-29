@@ -77,8 +77,8 @@ foreach ($this->languages as $language) {
         <td class="right"><?php echo $i++; ?>.</td>
         <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['locale']; ?></a></td>
         <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['name']; ?></a></td>
-        <td><?php echo $language['active'] ? $this->getIcon('Ok', 'Yes', 16) : $this->getIcon('Attention', 'No', 16); ?></td>
-        <td><?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('Attention', 'No flag uploaded', 16); ?></td>
+        <td><?php echo $language['active'] ? $this->getIcon('Ok', 'Yes', 16) : $this->getIcon('NotOk', 'No', 16); ?></td>
+        <td><?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('NotOk', 'No flag uploaded', 16); ?></td>
     </tr>
 <?php
 }

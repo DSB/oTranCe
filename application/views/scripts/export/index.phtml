@@ -35,7 +35,7 @@ foreach ($this->status as $key => $s)
             <?php
                 if ($tsDownloadPackage < $tsDatabase) {
                     $exportNeeded = true;
-                    echo $this->getIcon('Attention', 'Not up to date', 16);
+                    echo $this->getIcon('NotOk', 'Not up to date', 16);
                 } else {
                     echo $this->getIcon('Ok', 'Up to date', 16);
                 }

@@ -24,7 +24,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
         $res = $viewHelper->getIcon('Edit', 'Titletest', 16);
         $this->assertEquals($expected, $res);
     }
-    
+
     public function testGetIconInfoSize16()
     {
         $expected = '<img src="/css/msd/icons/16x16/Info.png" '
@@ -33,7 +33,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
         $res = $viewHelper->getIcon('Info', '', 16);
         $this->assertEquals($expected, $res);
     }
-    
+
     public function testGetIconInfoSize20()
     {
         $expected = '<img src="/css/msd/icons/20x20/Info.png" '
@@ -42,7 +42,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
         $res = $viewHelper->getIcon('Info', '', 20);
         $this->assertEquals($expected, $res);
     }
-    
+
     /**
      * @expectedException Msd_Exception
      */
@@ -54,10 +54,10 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconWithoutSize()
     {
-        $expected = '<img src="/css/msd/icons/minus.gif" '
+        $expected = '<img src="/css/msd/icons/save.png" '
             . 'alt="" title="" />';
         $viewHelper = new Msd_View_Helper_GetIcon();
-        $res = $viewHelper->getIcon('minus');
+        $res = $viewHelper->getIcon('save');
         $this->assertEquals($expected, $res);
     }
 }

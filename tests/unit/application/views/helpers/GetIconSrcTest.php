@@ -31,7 +31,7 @@ class GetIconSrcTest extends PHPUnit_Framework_TestCase
     public function testFailGetNonExistantIcon()
     {
         $viewHelper = new Msd_View_Helper_GetIconSrc();
-        $res = $viewHelper->getIconSrc('nonExistantIcon', 16);
+        $viewHelper->getIconSrc('nonExistantIcon', 16);
     }
 }
 

@@ -23,7 +23,7 @@ if ($this->fileTemplate['id'] == 0) {
                 <label for="tplHeader">Header</label>
             </td>
             <td><textarea name="tplHeader" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
-            <td>{LANG_NAME}, {LOCALE}</td>
+            <td>{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
         <tr class="row-odd">
             <td><label for="tplContent">Content</label></td>
@@ -33,7 +33,7 @@ if ($this->fileTemplate['id'] == 0) {
         <tr class="row-even">
             <td><label for="tplFooter">Footer</label></td>
             <td><textarea name="tplFooter" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
-            <td>{LANG_NAME}, {LOCALE}</td>
+            <td>{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
         <tr class="row-odd">
             <td><label for="tplFile">Filename</label></td>

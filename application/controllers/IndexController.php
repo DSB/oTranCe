@@ -35,7 +35,7 @@ class IndexController extends Zend_Controller_Action
     public function init()
     {
         $this->_lastController = $this->_request->getParam('lastController', 'index');
-        $this->_lastAction = $this->_request->getParam('lastAction', 'index');
+        $this->_lastAction     = $this->_request->getParam('lastAction', 'index');
     }
 
     /**
@@ -45,12 +45,12 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $languagesModel = new Application_Model_Languages();
-        $entriesModel = new Application_Model_LanguageEntries();
-        $userModel = new Application_Model_User();
-        $this->view->languages = $languagesModel->getAllLanguages();
-        $this->view->translators = $userModel->getTranslators();
-        $this->view->status = $entriesModel->getStatus($this->view->languages);
+        $languagesModel          = new Application_Model_Languages();
+        $entriesModel            = new Application_Model_LanguageEntries();
+        $userModel               = new Application_Model_User();
+        $this->view->languages   = $languagesModel->getAllLanguages();
+        $this->view->translators = $userModel->getTranslatorList();
+        $this->view->status      = $entriesModel->getStatus($this->view->languages);
     }
 
     /**
@@ -93,8 +93,8 @@ class IndexController extends Zend_Controller_Action
     {
         // Set view parameter for layout to say "Hey it's the login page".
         $this->view->isLogin = true;
-        $form = new Application_Form_Login();
-        $loginResult = false;
+        $form                = new Application_Form_Login();
+        $loginResult         = false;
         if ($this->_request->isPost()) {
             $historyModel = new Application_Model_History();
             $user = new Msd_User();

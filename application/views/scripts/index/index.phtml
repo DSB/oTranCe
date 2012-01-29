@@ -16,25 +16,25 @@ $i = 1;
     </tr>
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-foreach ($this->status as $langId => $val)
+foreach ($this->status as $languageId => $val)
 {
     $greenBar = (int) $val['done'] * 2;
     $redBar = (int) 200-$greenBar;
-    $untranslatedLink = $this->serverUrl(). $this->baseUrl() . '/entries/index/getUntranslated/' . $langId;
+    $untranslatedLink = $this->serverUrl(). $this->baseUrl() . '/entries/index/getUntranslated/' . $languageId;
 ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="right"><?php echo $i;?>.</td>
         <td>
-            <?php echo $this->printFlag($langId);?>
+            <?php echo $this->printFlag($languageId);?>
         </td>
         <td>
             <a href="<?php echo $untranslatedLink;?>">
-                <?php echo $this->languages[$langId]['locale'];?>
+                <?php echo $this->languages[$languageId]['locale'];?>
             </a>
         </td>
         <td>
             <a href="<?php echo $untranslatedLink;?>">
-                <?php echo $this->languages[$langId]['name'];?>
+                <?php echo $this->languages[$languageId]['name'];?>
             </a>
         </td>
         <td class="right">
@@ -67,7 +67,12 @@ foreach ($this->status as $langId => $val)
         ?>
 
         </td>
-        <td><?php echo $this->printTranslators($val['translators']);?></td>
+        <td><?php
+                if (!empty($this->translators[$languageId])) {
+                    echo $this->escape($this->translators[$languageId]);
+                }
+            ?>
+        </td>
     </tr>
 <?php
     $i++;

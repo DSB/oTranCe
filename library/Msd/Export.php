@@ -18,7 +18,7 @@ class Msd_Export
 {
     /**
      * Array with file templates.
-     * @var array
+     * @var \Application_Model_FileTemplates
      */
     private $_fileTemplates = array();
 
@@ -39,6 +39,12 @@ class Msd_Export
      * @var array
      */
     private $_fallbackLanguageTranslations;
+
+    /**
+     * Will hold a list of translators grouped by languageId
+     * @var array
+     */
+    private $_translatorList;
 
     /**
      * Class constructor
@@ -211,14 +217,14 @@ class Msd_Export
         if (!file_exists($langDir)) {
             mkdir($langDir, 0775, true);
         }
-        $fileLangVar = $this->_fileTemplates[$templateId]['content'];
         $data = array(
             'dir'        => $langDir,
             'filename'   => $langFilename,
-            'langVar'    => $fileLangVar,
+            'langVar'    => $this->_fileTemplates[$templateId]['content'],
             'langName'   => $this->_langInfo[$languageId]['name'],
             'langLocale' => $this->_langInfo[$languageId]['locale']
         );
+        //Add file header
         $data['fileContent'] = $this->_replaceLanguageMetaPlaceholder(
             $this->_fileTemplates[$templateId]['header'],
             $languageId
@@ -240,8 +246,21 @@ class Msd_Export
      */
     protected function _replaceLanguageMetaPlaceholder($content, $languageId)
     {
-        $search = array('{LANG_NAME}', '{LOCALE}');
-        $replace = array($this->_langInfo[$languageId]['name'], $this->_langInfo[$languageId]['locale']);
+        if ($this->_translatorList == null) {
+            $userModel = new Application_Model_User();
+            $this->_translatorList = $userModel->getTranslatorlist();
+        }
+
+        $search = array(
+            '{LANG_NAME}',
+            '{LOCALE}',
+            '{TRANSLATOR_NAMES}'
+        );
+        $replace = array(
+            $this->_langInfo[$languageId]['name'],
+            $this->_langInfo[$languageId]['locale'],
+            empty($this->_translatorList[$languageId]) ? '' : $this->_translatorList[$languageId],
+        );
         $res = str_replace($search, $replace, $content);
         return $res;
     }

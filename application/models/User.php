@@ -95,6 +95,62 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
+     * Get an array containing all active translators grouped by languageIds.
+     *
+     * Return array[$languageId] = array( 0 => array('userId'    => x,
+     *                                               'username'  => y),
+                                          1 => array('userId' => z,
+     *                                    ....);
+     *
+     * @return array
+     */
+    public function getTranslatorData()
+    {
+        $this->_dbo->selectDb($this->_database);
+        $sql = 'SELECT l.`language_id`, u.`id` as `user_id`, u.`username` FROM `' . $this->_tableUserLanguages .'` l'
+                . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
+                . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        $ret = array();
+        foreach ($res as $val) {
+            if (empty($ret[$val['language_id']])) {
+                $ret[$val['language_id']] = array();
+            }
+            $ret[$val['language_id']][] = array(
+                'userId'   => $val['user_id'],
+                'userName' => $val['username']
+            );
+        }
+        return $ret;
+    }
+
+    /**
+     * Get an array containing all active translators as printable list grouped by languageIds.
+     *
+     * Return array[$languageId] = 'user1, user2, user3, ...';
+     *
+     * @return array
+     */
+    public function getTranslatorlist()
+    {
+        $translatorList = $this->getTranslatorData();
+        $ret = array();
+        foreach ($translatorList as $languageId => $translatorData) {
+            foreach ($translatorData as $translator) {
+                if (empty($ret[$languageId])) {
+                    $ret[$languageId] = array();
+                }
+                $ret[$languageId][] = $translator['userName'];
+            }
+        }
+        foreach ($translatorList as $languageId => $translator) {
+            $ret[$languageId] = implode(', ', $ret[$languageId]);
+        }
+        return $ret;
+    }
+
+
+    /**
      * Get list of users
      *
      * @param string $filter         Filter for user name

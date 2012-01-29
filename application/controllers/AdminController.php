@@ -17,19 +17,19 @@ class AdminController extends Msd_Controller_Action
 {
     /**
      * Languages model
-     * @var Application_Model_LanguageEntries
+     * @var \Application_Model_LanguageEntries
      */
     protected $_languageEntriesModel;
 
     /**
      * Languages model
-     * @var Application_Model_Languages
+     * @var \Application_Model_Languages
      */
     protected $_languagesModel;
 
     /**
      * User model
-     * @var Application_Model_User
+     * @var \Application_Model_User
      */
     protected $_userModel;
 

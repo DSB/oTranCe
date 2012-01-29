@@ -59,7 +59,7 @@ class Admin_LanguagesController extends AdminController
     public function editAction()
     {
         $languageId  = (int) $this->_request->getParam('id', 0);
-        if ($languageId < 1) {
+        if ($languageId < 0) {
             // someone manipulated the id of the language - silently jump to index page
             $this->_redirect('/');
         }
@@ -76,7 +76,7 @@ class Admin_LanguagesController extends AdminController
         $this->view->languageId  = $languageId;
         $this->view->flag        = $this->_request->getParam('flag', false);
         if ($this->_request->isPost()) {
-            $this->_processInputs($languageId);
+            $languageId = $this->_processInputs($languageId);
         } else {
             $langData = $this->_languagesModel->getLanguageById($languageId);
             if (count($langData) > 0) {
@@ -90,6 +90,7 @@ class Admin_LanguagesController extends AdminController
         if ($languageId > 0) {
             $this->_assignUserList($languageId);
         }
+        $this->view->languageId         = $languageId;
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
     }
 
@@ -105,8 +106,8 @@ class Admin_LanguagesController extends AdminController
         $this->view->filterUser = $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser');
         $this->view->users = $this->_userModel->getUsers(
             (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
-            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
-            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
+            (int)   $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+            (int)   $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
         );
         $this->view->userHits = $this->_userModel->getRowCount();
 
@@ -171,22 +172,21 @@ class Admin_LanguagesController extends AdminController
     /**
      * Processes inputs
      *
-     * @param int $id Id of language
+     * @param int $languageId Id of language
      *
-     * @return void
+     * @return int $languageId Id of the current language
      */
-    public function _processInputs($id)
+    public function _processInputs($languageId)
     {
-        $lang = $this->_languagesModel->getLanguageById($id);
-        $langLocale = $this->_request->getParam('langLocale');
-        $langActive = $this->_request->getParam('langActive', 0);
-        $langName = $this->_request->getParam('langName');
+        $langLocale   = $this->_request->getParam('langLocale');
+        $langActive   = $this->_request->getParam('langActive', 0);
+        $langName     = $this->_request->getParam('langName');
         $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
 
         $sourceExt = $this->_request->getParam('flagExt');
         $upload = null;
         if ($flagUploaded) {
-            $upload = new Zend_File_Transfer_Adapter_Http();
+            $upload     = new Zend_File_Transfer_Adapter_Http();
             $sourceFile = $upload->getFileName();
             if (is_string($sourceFile)) {
                 $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
@@ -194,32 +194,40 @@ class Admin_LanguagesController extends AdminController
                 $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
             }
         }
-        $this->view->langActive = $langActive;
-        $this->view->langLocale = $langLocale;
-        $this->view->langName = $langName;
+        $this->view->langActive    = $langActive;
+        $this->view->langLocale    = $langLocale;
+        $this->view->langName      = $langName;
         $this->view->flagExtension = $sourceExt;
+        $this->view->languageId    = $languageId;
 
         // check if something was changed in the language form
-        if (!$flagUploaded) {
+        if (!$flagUploaded && $languageId > 0) {
+            $lang = $this->_languagesModel->getLanguageById($languageId);
             if ($lang['locale'] == $langLocale && $lang['active'] == $langActive && $lang['name'] == $langName) {
-                return;
+                return $languageId;
             }
         }
 
-        if ($this->_validateUserLanguageInputs($id, $langActive, $langLocale, $langName, $upload)) {
+        if ($this->_validateUserLanguageInputs($languageId, $langActive, $langLocale, $langName, $upload)) {
             $creationResult = $this->_languagesModel->saveLanguage(
-                $id,
+                $languageId,
                 $langActive,
                 $langLocale,
                 $langName,
                 $sourceExt
             );
+            //if it is was a new langauge - get id
+            if ($languageId == 0) {
+                $languageId = $this->_languagesModel->getLastInsertedId();
+            }
+
             if ($flagUploaded && $creationResult === true) {
                 $this->_deleteFlags($langLocale);
                 $this->view->flagFile = $upload->receive();
             }
             $this->view->creationResult = $creationResult;
         }
+        return $languageId;
     }
 
     /**

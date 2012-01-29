@@ -226,4 +226,15 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
+
+    /**
+     * Get last inserted language id
+     *
+     * @return false|int
+     */
+    public function getLastInsertedId()
+    {
+        return $this->_dbo->getLastInsertId();
+    }
+
 }

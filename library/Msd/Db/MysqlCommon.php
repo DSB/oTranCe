@@ -228,4 +228,16 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         $rows = $this->query($sql, Msd_Db::ARRAY_ASSOC);
         return (int) $rows[0]['Rows'];
     }
+
+    /**
+     * Return the last inserted id set on auto_increment for last insert action
+     *
+     * @return false|int
+     */
+    public function getLastInsertId()
+    {
+        $sql = 'SELECT LAST_INSERT_ID() as `id`';
+        $res = $this->query($sql, Msd_Db::ARRAY_ASSOC);
+        return isset($res[0]['id']) ? $res[0]['id'] : false;
+    }
 }

@@ -41,7 +41,7 @@ class Msd_View_Helper_PrintFlag extends Zend_View_Helper_Abstract
         }
         $ret = '';
         if (isset(self::$_languages[$langId]) && !empty(self::$_languages[$langId]['flag_extension'])) {
-            $ret = '<img src="' . $this->view->baseUrl() . '/images/flags/';
+            $ret = '<img class="flag" src="' . $this->view->baseUrl() . '/images/flags/';
             $ret .= self::$_languages[$langId]['locale'] . '.'
                     . self::$_languages[$langId]['flag_extension'] . '"'
                     . ' alt="' . self::$_languages[$langId]['name'] . '"'

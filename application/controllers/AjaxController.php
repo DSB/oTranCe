@@ -182,9 +182,9 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchLanguageEditRightAction()
     {
-        $languageId   = (int) $this->_request->getParam('languageId', 0);
-        $userId       = (int) $this->_request->getParam('userId', 0);
-        $icon = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
+        $languageId = (int) $this->_request->getParam('languageId', 0);
+        $userId     = (int) $this->_request->getParam('userId', 0);
+        $icon       = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
         if ($userId < 1 || $languageId < 1 || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change edit right
             $data = array('error' => 'Invalid arguments');
@@ -199,7 +199,7 @@ class AjaxController extends Zend_Controller_Action
                 $res = $this->_userModel->addUsersEditLanguageRight($userId, $languageId);
                 if ($res == true) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_YES, 16);
-                }
+                };
             }
 
             if ($res == true) {

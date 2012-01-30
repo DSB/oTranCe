@@ -47,6 +47,12 @@ class Msd_Export
     private $_translatorList;
 
     /**
+     * Will hold the project's configuration
+     * @var array
+     */
+    private $_config;
+
+    /**
      * Class constructor
      */
     public function __construct()
@@ -164,6 +170,12 @@ class Msd_Export
     {
         $fileContent = array();
         $translations = $languageEntriesModel->getTranslations($languageId);
+
+        if ($this->_config == null) {
+            $config = Msd_Registry::getConfig();
+            $this->_config = $config->getParam('project');
+        }
+
         foreach ($this->_keys as $key => $keyData) {
             $templateId = $keyData['templateId'];
             //Do we have the meta data for the exported language file? If not, we will create it now.
@@ -173,7 +185,7 @@ class Msd_Export
 
             $val = isset($translations[$key]) ? trim($translations[$key]) : '';
             //If we have no value, fill the var with the value of the fallback language.
-            if ($val == '') {
+            if ($val == '' && (int) $this->_config['translateToFallback'] == 1) {
                 $val = $this->_fallbackLanguageTranslations[$key];
             }
 

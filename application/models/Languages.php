@@ -182,7 +182,7 @@ class Application_Model_Languages extends Msd_Application_Model
     public function setFallbackLanguage($langId)
     {
         $langId = $this->_dbo->escape($langId);
-        $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 0";
+        $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 0 WHERE `is_fallback` = 1";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 1 WHERE `id` = $langId";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);

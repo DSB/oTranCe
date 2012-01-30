@@ -28,6 +28,9 @@ $lang['L_CAN_EDIT'] = "Can edit";
 $lang['L_USER'] = "User";
 $lang['L_ADD_NEW_LANGUAGE'] = "Add new language";
 $lang['L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT'] = "Couldn't save language edit right";
+$lang['L_EXPORT_LANGUAGES'] = 'Export languages';
+$lang['L_EXPORT_LANGUAGES_EXPLAIN'] = 'Replace untranslated phrases with the translation of the fallback language
+<br />if the translation of the exported language is empty?';
 $lang['L_LOGIN_AUTOLOGIN']="Automatic login";
 $lang['L_LOGIN_INVALID_USER']="Unknown combination of username and password.";
 $lang['L_ZEND_ID_ACCESS_NOT_A_DIRECTORY']="The given filename '%value%' isn't a"

@@ -1,0 +1,73 @@
+<?php
+/**
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://otrance.org
+ *
+ * @package       otrance
+ * @subpackage    Language
+ * @version       $Rev: $
+ * @author        $Author: $
+ */
+// The following translators have been busy on translating this language for you:
+// Admin
+
+$lang = array(
+'L_ADD' => '',
+'L_ADDED' => '',
+'L_ADD_NEW_LANGUAGE' => '',
+'L_AUTHENTICATE' => '',
+'L_BACK' => '',
+'L_CANCEL' => '',
+'L_CAN_EDIT' => '',
+'L_CREDITS' => '',
+'L_DELETE' => '',
+'L_DESCRIPTION' => '',
+'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => '',
+'L_EXPORT_LANGUAGES' => '',
+'L_EXPORT_LANGUAGES_EXPLAIN' => '',
+'L_LOGIN' => '',
+'L_LOGIN_AUTOLOGIN' => '',
+'L_LOGIN_INVALID_USER' => '',
+'L_NO' => '',
+'L_OK' => '',
+'L_PASSWORD' => '',
+'L_STATUS' => '',
+'L_USER' => '',
+'L_USERNAME' => '',
+'L_YES' => '',
+'L_ZEND_ID_ACCESS_NOT_A_DIRECTORY' => '',
+'L_ZEND_ID_ACCESS_NOT_A_FILE' => '',
+'L_ZEND_ID_ACCESS_NOT_A_LINK' => '',
+'L_ZEND_ID_ACCESS_NOT_EXECUTABLE' => '',
+'L_ZEND_ID_ACCESS_NOT_EXISTS' => '',
+'L_ZEND_ID_ACCESS_NOT_READABLE' => '',
+'L_ZEND_ID_ACCESS_NOT_UPLOADED' => '',
+'L_ZEND_ID_ACCESS_NOT_WRITABLE' => '',
+'L_ZEND_ID_DIGITS_INVALID' => '',
+'L_ZEND_ID_DIGITS_STRING_EMPTY' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_DOT_ATOM' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_FORMAT' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_HOSTNAME' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_LOCAL_PART' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_MX_RECORD' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_SEGMENT' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => '',
+'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => '',
+'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => '',
+'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => '',
+'L_ZEND_ID_HOSTNAME_INVALID' => '',
+'L_ZEND_ID_HOSTNAME_INVALID_HOSTNAME' => '',
+'L_ZEND_ID_HOSTNAME_INVALID_HOSTNAME_SCHEMA' => '',
+'L_ZEND_ID_HOSTNAME_INVALID_LOCAL_NAME' => '',
+'L_ZEND_ID_HOSTNAME_INVALID_URI' => '',
+'L_ZEND_ID_HOSTNAME_IP_ADDRESS_NOT_ALLOWED' => '',
+'L_ZEND_ID_HOSTNAME_LOCAL_NAME_NOT_ALLOWED' => '',
+'L_ZEND_ID_HOSTNAME_UNDECIPHERABLE_TLD' => '',
+'L_ZEND_ID_HOSTNAME_UNKNOWN_TLD' => '',
+'L_ZEND_ID_IS_EMPTY' => '',
+'L_ZEND_ID_MISSING_TOKEN' => '',
+'L_ZEND_ID_NOT_DIGITS' => '',
+'L_ZEND_ID_NOT_EMPTY_INVALID' => '',
+'L_ZEND_ID_NOT_SAME' => '',
+);

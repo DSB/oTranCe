@@ -71,3 +71,4 @@ $lang = array(
 'L_ZEND_ID_NOT_EMPTY_INVALID' => '',
 'L_ZEND_ID_NOT_SAME' => '',
 );
+return $lang;

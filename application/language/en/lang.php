@@ -72,3 +72,4 @@ $lang = array(
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Invalid type given. String, integer, float, boolean or array expected.',
 'L_ZEND_ID_NOT_SAME' => 'The two given tokens do not match.',
 );
+return $lang;

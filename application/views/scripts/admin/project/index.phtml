@@ -21,16 +21,8 @@ $translateToFallback = $this->settings['translateToFallback'];
             <td><input type="text" class="text" name="url" id="url" value="<?php echo $this->settings['url']; ?>" size="40"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="logo_small">Small project logo:<br />(relative to project folder)</label></td>
-            <td><input type="text" class="text" name="logo[small]" id="logo_small"
-                       value="<?php echo $this->settings['logo']['small']; ?>"
-                       onkeyup="updatePreviewImage('small', this.value);" size="40"/>
-                <img style="padding:12px;" id="small_preview" class="center" src="<?php echo $this->baseUrl() . $this->settings['logo']['small']; ?>" alt="Small logo preview"/>
-
-            </td>
-        </tr>
-        <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="logo_large">Large project logo:</label><br />(relative to project folder)</td>
+            <td><label for="logo_large">Large project logo:</label>
+            <br />(relative to project folder)</td>
             <td>
                 <input type="text" class="text" name="logo[large]" id="logo_large" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
                 <img style="padding:12px;" id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>

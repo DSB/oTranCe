@@ -381,7 +381,6 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover {
 
 /*------------------*/ /*old CSS Build*/ /*-----------------*/
 #version {
-    font-size: 1.1em;
     color: #4E5665;
     text-align: center;
 }

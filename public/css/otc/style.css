@@ -1,12 +1,3 @@
-/************************************************************************************************************************
-    @MySQLDumper STYLESHEET
-    @name            msd
-    @author            Ingo Wagener <http://www.vorderdeck.de>, Daniel Schlichtholz, Christian Gresshoener <http://www.gresshoener.de>
-    @copyright        MySQLDumper - Daniel Schlichtholz <http://www.mysqldumper.de>
-    @media            screen and projection
-************************************************************************************************************************/
-
-/**************************/ /*Basics, Colors & Typography*/ /**************************/
 * {
     margin: 0px;
     padding: 0px;
@@ -25,7 +16,7 @@ body {
     font-size: 62.5%;
     font-family: Verdana, Helvetica, Sans-Serif;
     font-weight: normal;
-    color: #000;
+    color:#253D04;
     text-align: left;
 }
 #page-loader {
@@ -54,8 +45,12 @@ h2 {
 }
 
 #version a h2 {
-    padding-top:1px;
+    padding:1px 0 12px 0;
     border:0;
+    margin:0;
+}
+#version a img {
+    padding: 0 0 12px 0;
 }
 
 h4 {
@@ -72,7 +67,7 @@ p {
 }
 
 a {
-    color: #425D1C;
+    color: #253D04;
     text-decoration: none;
 }
 
@@ -190,12 +185,6 @@ ul {
     font-size: 1.2em;
     line-height: 1.5em;
     list-style-type: none;
-}
-
-/********/ /*Tables*/ /********/
-table {
-    /* margin-bottom: 1.5em; */
-    color: #000;
 }
 
 /************/ /*Formbuttons*/ /************/
@@ -343,18 +332,6 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover {
     cursor: default;
 }
 
-/**********/ /*Messages*/ /**********/
-.message {
-    display: inline-block;
-    padding: 6px;
-    font-size: 1.2em;
-    border: 1px solid #ff0000;
-    background: #ffff00 url(pics/truck_bg.png) no-repeat;
-    background-position: right;
-    z-index: 1;
-}
-
-/*------------------*/ /*old CSS Build*/ /*-----------------*/
 #version {
     font-size: 1.1em;
     color: #4E5665;
@@ -367,22 +344,6 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover {
 
 #menu {
     margin: 1px 0px 23px 0px;
-}
-
-#server0 {
-    position: fixed;
-    bottom: 4px;
-    text-align: center;
-    left: 10px;
-    color: #000;
-}
-
-#server1 {
-    position: absolute;
-    right: 16px;
-    text-align: center;
-    top: 10px;
-    z-index: 1;
 }
 
 a.ul {
@@ -432,10 +393,6 @@ a.ul {
     color: #9AA2B1;
 }
 
-table {
-    color: #000;
-}
-
 table.bdr,.bdr,table.xdebug-error {
     border: 1px solid #ddd !important;
 }
@@ -450,7 +407,7 @@ table.more-padding tr td {
 
 table td {
     text-align: left;
-    vertical-align: top;
+    vertical-align: middle;
     padding: 0px 6px;
 }
 
@@ -462,54 +419,6 @@ table td {
 
 table th {
     padding: 4px 6px;
-}
-
-/* MAIN */
-#topnavi {
-    list-style: none;
-    margin: 10px 0 20px;
-}
-
-#topnavi li {
-    float: left;
-    margin-right: 6px;
-}
-
-#topnavi li a {
-    float: left;
-    font: 1.1em verdana, arial, sans-serif;
-    border: 1px solid #ddd;
-    background: url(pics/bg-buttons.gif) repeat-x;
-    color: #E87B00;
-    padding: 3px 6px;
-    vertical-align: bottom;
-    cursor: pointer;
-    text-decoration: none;
-    white-space: nowrap;
-}
-
-#topnavi li a span {
-    color: #256777;
-}
-
-#topnavi li a:hover {
-    color: #256777;
-}
-
-#topnavi li a:hover span {
-    color: #E87B00;
-}
-
-tr.xxrow-even {
-    background-color: #DCEBC6;
-}
-
-tr.xxrow-odd {
-    background-color: #AEC888;
-}
-
-tr.xxrow-highlight {
-    background-color: #f9f3ed;
 }
 
 /*Tabellen */
@@ -538,20 +447,8 @@ table td.treffer {
     background: #000;
 }
 
-/* Treffer bei der MySQL-Suche */
-table tr.row-even .treffer,table tr.row-odd .treffer {
-    color: yellow;
-    background-color: #E87B00;
-}
-
 table.border {
     border: 1px solid #738C88;
-}
-
-table td.sum {
-    background-color: red;
-    font-weight: bold;
-    text-align: right;
 }
 
 table tr.thead th,table tr.thead td, table.xdebug-error tr th {
@@ -561,20 +458,8 @@ table tr.thead th,table tr.thead td, table.xdebug-error tr th {
     vertical-align:middle;
 }
 
-.tdcompact {
-    width: 100px;
-    height: 16px;
-    overflow: hidden;
-    font-size: 11px;
-}
-
-.tdnormal {
-    white-space: nowrap;
-    padding: 1px;
-}
-
-.sqlheadmenu a {
-
+#fileTree {
+    vertical-align: top;
 }
 
 td a.Formbutton,td button.Formbutton,td input.Formbutton {
@@ -590,7 +475,6 @@ input.Formtext {
     margin: 2px 6px 0px 0px;
     padding: 1px 2px;
     border: 1px solid #ddd;
-    color: #000;
     overflow: hidden;
     cursor: text;
 }
@@ -601,8 +485,6 @@ input.Formtext {
     border: 1px solid #ddd;
     overflow: auto;
     font: 12px/ 1.2 "Courier New", Courier, monospace;
-    color: #000;
-
 }
 
 #content textarea.hta_content {
@@ -639,7 +521,6 @@ input.text,input.small {
     padding: 1px 2px;
     border: 1px solid #256777;
     background: #fff;
-    color: #000;
 }
 
 input.text:disabled {
@@ -650,43 +531,12 @@ select {
     padding: 1px;
     border: 1px solid #7F9DB9;
     background: #FFF;
-    color: #000;
 }
 
 textarea {
     background: #EEE;
     border: 1px solid #CCC;
-    color: #000;
     padding: 6px;
-}
-
-/* disabled textarea when editign rows in SQLBrowser */
-.off {
-    background-color: #ccc !important;
-}
-
-/* for Geckos */
-input[disabled] {
-    color: #888 !important;
-}
-
-.panel {
-    display: block;
-}
-
-#selectConfig {
-    margin: 0px 6px;
-    width: 180px;
-    height: 196px;
-}
-
-pre { font-size:12px; color:#000; }
-
-
-#ilog {
-    border: 1px solid #ddd !important;
-    padding: 12px;
-    background-color: #fcfcfc;
 }
 
 .center {
@@ -769,7 +619,7 @@ pre { font-size:12px; color:#000; }
 
 .greenBar {
     height:14px;
-    background:#5ADB43;
+    background:#4FD352;
     float:left;
 }
 .redBar {
@@ -781,9 +631,6 @@ pre { font-size:12px; color:#000; }
 label {
     cursor: pointer;
 }
-.width250 {
-    width:250px;
-}
 .width300 {
     width:300px;
 }
@@ -793,7 +640,6 @@ label {
 }
 .code {
     font: 11px/ 1.2 "Courier New", Courier, monospace;
-    color:#000;
 }
 /** File browser styles **/
 #treeBrowser {
@@ -808,6 +654,7 @@ label {
     height:14px;
 }
 #fileContent {
+    vertical-align: top;
     float:left;
 }
 .clear {
@@ -846,5 +693,5 @@ pre.xdebug-var-dump {
 }
 
 .flag {
-    border:1px solid #000;
+    border:1px solid #6E9E2D;
 }

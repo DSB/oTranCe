@@ -858,16 +858,7 @@ pre.xdebug-var-dump {
     margin:20px;
 }
 #large_preview {
-    width:190px;
-    height:90px;
     display:block;
     text-align:center;
     line-height:15px;
-}
-#small_preview {
-    width:190px;
-    height:40px;
-    display:block;
-    text-align:center;
-    line-height:40px;
 }

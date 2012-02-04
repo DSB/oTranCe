@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// Admin
+// DSB, Marco.Steinhäuser
 
 $lang = array(
 'L_ADD' => 'Add',

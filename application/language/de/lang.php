@@ -25,6 +25,7 @@ $lang = array(
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
 'L_EXPORT_LANGUAGES' => 'Exportiere Sprachdateien',
 'L_EXPORT_LANGUAGES_EXPLAIN' => 'Ersetze nicht übersetzte Phrasen im Export durch die Basis-Sprache.',
+'L_HEADER_EXPORT' => 'Export',
 'L_LOGIN' => 'Anmelden',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',
 'L_LOGIN_INVALID_USER' => 'Unbekannte Kombination von Benutzername und Passwort',

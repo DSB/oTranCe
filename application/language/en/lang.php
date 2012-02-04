@@ -26,6 +26,7 @@ $lang = array(
 'L_EXPORT_LANGUAGES' => 'Export languages',
 'L_EXPORT_LANGUAGES_EXPLAIN' => 'Replace untranslated phrases with the translation of the fallback language
 <br />if the translation of the exported language is empty?',
+'L_HEADER_EXPORT' => 'Export',
 'L_LOGIN' => 'Login',
 'L_LOGIN_AUTOLOGIN' => 'Automatic login',
 'L_LOGIN_INVALID_USER' => 'Unknown combination of username and password.',

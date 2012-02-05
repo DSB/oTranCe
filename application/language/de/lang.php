@@ -36,6 +36,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_ADDVAR' => 'Benutzer darf neue Phrasen anlegen',
 'L_RIGHT_EXPLAIN_ADMIN' => 'Benutzer kann den Menüpunkt "Admin" benutzen',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'Benutzer kann den Menüpunkt "Konifguration" benutzen',
+'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'Benutzer darf Phrasen importieren, die die gleiche Übersetzung haben wie die Hauptsprache (Fallback)',
 'L_RIGHT_EXPLAIN_SHOWBROWSEFILES' => 'Benutzer kann den Menüpunkt "Dateien ansehen" benutzen',
 'L_RIGHT_EXPLAIN_SHOWDOWNLOADS' => 'Benutzer kann den Menüpunkt "Downloads" benutzen',
 'L_RIGHT_EXPLAIN_SHOWENTRIES' => 'Benutzer kann den Menüpunkt "Einträge" benutzen',
@@ -82,6 +83,5 @@ $lang = array(
 'L_ZEND_ID_NOT_DIGITS' => 'Es sind zur Ziffern erlaubt.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Falsches Format: String, integer, float, boolean oder ein Array wird erwartet.',
 'L_ZEND_ID_NOT_SAME' => 'Beide angegebene Tokens passen nicht.',
-'RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'Benutzer darf Phrasen importieren, die die gleiche Übersetzung haben wie die Hauptsprache (Fallback)',
 );
 return $lang;

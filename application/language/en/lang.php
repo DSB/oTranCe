@@ -37,6 +37,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_ADDVAR' => 'User is allowed to add new language keys',
 'L_RIGHT_EXPLAIN_ADMIN' => 'User can see and use menu item "Admin"',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'User can see and use menu item "Configuration"',
+'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'User can import phrases that are equal to the fallback language',
 'L_RIGHT_EXPLAIN_SHOWBROWSEFILES' => 'User can see and use menu item "Browse files"',
 'L_RIGHT_EXPLAIN_SHOWDOWNLOADS' => 'User can see and use menu item "Downloads"',
 'L_RIGHT_EXPLAIN_SHOWENTRIES' => 'User can see and use menu item "Entries"',
@@ -83,6 +84,5 @@ $lang = array(
 'L_ZEND_ID_NOT_DIGITS' => 'Only digits are allowed.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Invalid type given. String, integer, float, boolean or array expected.',
 'L_ZEND_ID_NOT_SAME' => 'The two given tokens do not match.',
-'RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'User can import phrases that are equal to the fallback language',
 );
 return $lang;

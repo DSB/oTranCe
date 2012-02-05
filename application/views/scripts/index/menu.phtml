@@ -4,8 +4,8 @@ $user = new Application_Model_User();
 ?>
 <div id="sidebar">
     <div id="version">
+        <h2><?php echo $this->projectConfig['name'];?></h2>
         <a href="<?php echo $this->projectConfig['url'];?>" title="Project Home">
-            <h2><?php echo $this->projectConfig['name'];?></h2>
             <img src="<?php echo $this->baseUrl() . $this->projectConfig['logo']['large']; ?>" alt="Large project logo" />
         </a>
     </div>

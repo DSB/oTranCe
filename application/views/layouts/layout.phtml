@@ -1,6 +1,6 @@
 <?php
 $config          = Msd_Registry::getConfig();
-$dynamicConfig  = Msd_Registry::getDynamicConfig();
+$dynamicConfig   = Msd_Registry::getDynamicConfig();
 $lang            = Msd_Language::getInstance();
 $interfaceConfig = $config->getParam('interface');
 $projectConfig   = $config->getParam('project');
@@ -56,10 +56,14 @@ if ($dynamicConfig->getParam('optimizeTables') == true) {
         <?php
             echo $messages;
             echo $menu;
+            if (!$this->isLogin) { ?>
+                <div id="content"><?php
+            }
+            echo $this->layout()->content;
+            if (!$this->isLogin) { ?>
+                </div><?php
+            }
         ?>
-        <?php if (!$this->isLogin) { ?><div id="content"><?php } ?>
-            <?php echo $this->layout()->content; ?>
-        <?php if (!$this->isLogin) { ?></div><?php } ?>
     </div>
     <div id="page-loader"><?php echo $this->getIcon('ajax-loader'); ?></div>
     <?php

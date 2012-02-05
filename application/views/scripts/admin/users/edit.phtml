@@ -45,7 +45,12 @@ echo $this->partial('admin/users/edit/admin-rights.phtml',
 </table>
 <?php
 echo $this->partial('admin/users/edit/languages.phtml',
-        array('languages' => $this->languages, 'editLanguages' => $this->editLanguages)
+        array(
+            'languages'     => $this->languages,
+            'editLanguages' => $this->editLanguages,
+            'user'          => $user,
+            'lang'          => $this->lang,
+        )
     );
 ?>
 </form>

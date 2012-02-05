@@ -7,7 +7,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
         <th class="right">#</th>
         <th colspan="3">Language</th>
         <th>Can edit</th>
-        <th>Active</th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
     </tr>
     <?php
         foreach ($this->languages as $language) {
@@ -25,7 +25,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             </td>
             <td><?php echo $label . $language['name'];?></label></td>
             <td>
-                <input type="checkbox"
+                <input type="checkbox" class="switchLanguageEditRight"
                     name="lang-<?php echo $language['id'];?>"
                     id="lang-<?php echo $language['id'];?>"
                     <?php if (in_array($language['id'], $this->editLanguages)) { ?>
@@ -34,24 +34,46 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
                 />
             </td>
             <td>
-                <?php
-                    if ($language['active'] == 1) {
-                        echo $this->getIcon('Ok', 'Language is active', 16);
-                    } else {
-                        echo $this->getIcon('NotOk', 'Language is inactive', 16);
-                    }
-                ?>
+                <label for="lang-<?php echo $language['id'];?>"  id="img-<?php echo $language['id'];?>">
+                    <?php
+                        if (in_array($language['id'], $this->editLanguages)) {
+                            echo $this->getIcon('Ok', $this->lang->L_YES, 16);
+                        } else {
+                            echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
+                        }
+                    ;?>
+                </label>
             </td>
         </tr>
         <?php
             $i++;
         } ?>
-    <tr class="<?php echo $cycleHelper->next();?>">
-        <td>&nbsp;</td>
-        <td colspan="5">
-            <button type="submit" class="Formbutton" name="saveAccount">
-                <?php echo $this->getIcon('save', '');?> Save
-            </button>
-        </td>
     </tr>
 </table>
+<?php
+$this->jQuery()->onLoadCaptureStart(); ?>
+var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
+var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
+$('.switchLanguageEditRight').change(function() {
+    var languageId = this.id.replace(/lang-/, '');
+    $('#img-' + languageId).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-language-edit-right' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'languageId': languageId,
+            'userId'    : <?php echo $this->user['id'];?>
+        },
+        success:function(data) {
+            $('#img-' + languageId).html(data.icon);
+        },
+        error:function(error) {
+            $('#img-' + languageId).html(imgError);
+        }
+    });
+});
+<?php
+$this->jQuery()->onLoadCaptureEnd();

@@ -625,7 +625,7 @@ class Application_Model_User extends Msd_Application_Model
                     . ' (`username`, `password`, `active`) VALUES ('
                     . '\'' . $this->_dbo->escape($params['user_name']) . '\', '
                     . 'MD5(\''. $this->_dbo->escape($params['pass1']) . '\'), '
-                    . '`active`=' . intval($params['user_active']) . ')';
+                    . intval($params['user_active']) . ')';
         }
 
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);

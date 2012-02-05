@@ -169,7 +169,7 @@ ul.menu a:hover {
 }
 
 ul.menu li.active {
-    border-bottom: 1px solid #256777;
+    border-bottom: 1px solid #6E9E2D;
 }
 
 ul.menu li.active a,ul.menu li.active a:hover {
@@ -324,7 +324,7 @@ button.Formbutton img {
 }
 
 a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover {
-    color: #256777 !important;
+    color: #6E9E2D !important;
 }
 
 .Formbutton:disabled {
@@ -519,7 +519,7 @@ option {
 /* Colors for Formelements */
 input.text,input.small {
     padding: 1px 2px;
-    border: 1px solid #256777;
+    border: 1px solid #6E9E2D;
     background: #fff;
 }
 
@@ -676,7 +676,7 @@ label {
 #importInfo .headline {
     font-size: 1.5em;
     font-weight:bold;
-    color: #256777;
+    color: #6E9E2D;
 }
 pre.xdebug-var-dump {
     font-size: 1.4em;
@@ -696,7 +696,7 @@ pre.xdebug-var-dump {
     border:1px solid #6E9E2D;
 }
 
-.switchRight {
+.switchRight, .switchLanguageEditRight {
     cursor: pointer;
 }
 

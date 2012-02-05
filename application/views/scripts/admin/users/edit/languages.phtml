@@ -5,13 +5,16 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 <table class="bdr more-padding small" style="float:left;" summary="List of editable languages">
     <tr class="thead">
         <th class="right">#</th>
-        <th colspan="3">Language</th>
-        <th>Can edit</th>
-        <th><?php echo $this->lang->L_STATUS;?></th>
+        <th colspan="4">
+            <div class="floatLeft"><?php echo $this->lang->L_LANGUAGE;?></div>
+            <div class="right"><?php echo $this->lang->L_CAN_EDIT;?></div>
+        </th>
     </tr>
     <?php
         foreach ($this->languages as $language) {
-            $label = '<label for="lang-' . $language['id'] .'">';
+            $label = '<label for="lang-' . $language['id']
+                    .'" name="label-' . $language['id']
+                    .'" class="switchLanguageEditRightLabel">';
         ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right">
@@ -25,55 +28,48 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             </td>
             <td><?php echo $label . $language['name'];?></label></td>
             <td>
-                <input type="checkbox" class="switchLanguageEditRight"
-                    name="lang-<?php echo $language['id'];?>"
-                    id="lang-<?php echo $language['id'];?>"
-                    <?php if (in_array($language['id'], $this->editLanguages)) { ?>
-                        checked="checked"
-                    <?php };?>
-                />
-            </td>
-            <td>
-                <label for="lang-<?php echo $language['id'];?>"  id="img-<?php echo $language['id'];?>">
+                <div id="lang-<?php echo $language['id'];?>" class="switchLanguageEditRight">
                     <?php
-                        if (in_array($language['id'], $this->editLanguages)) {
-                            echo $this->getIcon('Ok', $this->lang->L_YES, 16);
-                        } else {
-                            echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
-                        }
-                    ;?>
-                </label>
+                        echo $this->printStatusIcon(
+                            in_array($language['id'], $this->editLanguages),
+                            $this->lang->L_CHANGE_RIGHT
+                        );?>
+                </div>
             </td>
         </tr>
         <?php
             $i++;
         } ?>
-    </tr>
 </table>
 <?php
 $this->jQuery()->onLoadCaptureStart(); ?>
 var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
 var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
-$('.switchLanguageEditRight').change(function() {
-    var languageId = this.id.replace(/lang-/, '');
-    $('#img-' + languageId).html(imgAjax);
+$('.switchLanguageEditRight').click(function() {
+    var id = this.id.replace(/lang-/, '');
+    $(this).html(imgAjax);
     $.ajax({
         type: 'POST',
-        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-language-edit-right' ,
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-language-edit-right',
         dataType: 'json',
         async : true,
         cache: false,
         data:{
-            'languageId': languageId,
+            'languageId': id,
             'userId'    : <?php echo $this->userData['id'];?>
         },
         success:function(data) {
-            $('#img-' + languageId).html(data.icon);
+            $('#lang-' + id).html(data.icon);
         },
         error:function(error) {
-            $('#img-' + languageId).html(imgError);
+            $('#lang-' + id).html(imgError);
         }
     });
 });
+$('.switchLanguageEditRightLabel').click(function() {
+    var id = $(this).attr('name').replace(/label-/, '');
+    $('#lang-' + id).trigger('click');
+});
+
 <?php
 $this->jQuery()->onLoadCaptureEnd();

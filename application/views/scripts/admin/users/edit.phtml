@@ -1,5 +1,5 @@
 <?php
-$user = $this->user;
+$userData = $this->userData;
 $userRights = $this->userRights;
 $inputNamesMap = array(
     'user_name' => 'Username',
@@ -9,29 +9,31 @@ $inputNamesMap = array(
 <h2>Admin - Edit User</h2>
 <?php
 echo $this->partial('admin/head-navi.phtml');
-if ($user['id'] == 0) { ?>
+if ($userData['id'] == 0) { ?>
     <h4>Create new user account</h4>
 <?php
 } else { ?>
-    <h4>Account of user with id <?php echo $user['id'];?></h4>
+    <h4>Account of user with id <?php echo $userData['id'];?></h4>
 <?php } ?>
 
-<form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $user['id'];?>" method="post">
+<form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $userData['id'];?>" method="post">
 <table class="bdr more-padding small" style="float:left;margin: 0 12px 12px 0;" summary="User account settings">
 <?php
 echo $this->partial('admin/users/edit/account-settings.phtml',
-        array('user' => $user, 'errors' => $this->errors)
-    );
+    array('userData' => $userData, 'errors' => $this->errors)
+);
 
-echo $this->partial('admin/users/edit/menu-rights.phtml',
-        array('userRights' => $userRights, 'lang' => $this->lang)
-    );
-echo $this->partial('admin/users/edit/general-rights.phtml',
-        array('userRights' => $userRights, 'lang' => $this->lang)
-    );
-echo $this->partial('admin/users/edit/admin-rights.phtml',
-        array('userRights' => $userRights, 'lang' => $this->lang)
-    );
+if ($userData['id'] > 0) {
+    echo $this->partial('admin/users/edit/menu-rights.phtml',
+            array('userRights' => $userRights, 'lang' => $this->lang)
+        );
+    echo $this->partial('admin/users/edit/general-rights.phtml',
+            array('userRights' => $userRights, 'lang' => $this->lang)
+        );
+    echo $this->partial('admin/users/edit/admin-rights.phtml',
+            array('userRights' => $userRights, 'lang' => $this->lang)
+        );
+}
 ?>
 
     <tr class="row-even">
@@ -44,14 +46,16 @@ echo $this->partial('admin/users/edit/admin-rights.phtml',
     </tr>
 </table>
 <?php
-echo $this->partial('admin/users/edit/languages.phtml',
-        array(
-            'languages'     => $this->languages,
-            'editLanguages' => $this->editLanguages,
-            'user'          => $user,
-            'lang'          => $this->lang,
-        )
-    );
+if ($userData['id'] > 0) {
+    echo $this->partial('admin/users/edit/languages.phtml',
+            array(
+                'languages'     => $this->languages,
+                'editLanguages' => $this->editLanguages,
+                'userData'      => $userData,
+                'lang'          => $this->lang,
+            )
+        );
+}
 ?>
 </form>
 <?php

@@ -64,36 +64,57 @@ class Admin_UsersController extends AdminController
     {
         $userId = (int) $this->_request->getParam('id', 0);
         if ($userId == 0) {
+            // Is current user allowed to add a new user?
             if (!$this->_userModel->hasRight('addUser')) {
                 $this->_redirect('/');
             }
+
+            //set default form values for new user
+            $userData = array(
+                'id' => 0,
+                'username' => '',
+                'pass1' => '',
+                'pass2' => '',
+                'active' => 0
+            );
+        } elseif (!$this->_request->isPost()) {
+            // get user data from database
+            $userData = $this->_userModel->getUserById($userId);
         }
+
         if ($this->_request->isPost()) {
             $params = $this->_request->getParams();
+            $userData = array(
+                'id'       => $params['id'],
+                'username' => $params['username'],
+                'pass1'    => $params['pass1'],
+                'pass2'    => $params['pass2'],
+                'active'   => $params['active']
+            );
             if (isset($params['saveAccount'])) {
-                if ($this->_validateAccountSettings()) {
-                    $newUserData = $this->_saveAccountSettings();
-                    if ($newUserData !== false) {
-                        $userId = (int) $newUserData;
-                        $params['id'] = $userId;
-                        $res = $this->_saveUserRights($params);
-                        $res &= $this->_saveLanguageEditRights($params);
+                if ($this->_validateAccountSettings($userData)) {
+                    $result = $this->_saveAccountSettings($userData);
+                    if ($result !== false) {
+                        $userId = (int) $result;
+                        $res    = $this->_saveUserRights($params);
+                        $res   &= $this->_saveLanguageEditRights($params);
                         if ($res == true) {
                             $this->view->saveMessage = true;
                         } else {
                             $this->view->saveErrorMessage = true;
                         }
+                        $userData = $this->_userModel->getUserById($userId);
                     };
                 }
             }
         }
 
-        $userDefaults = $this->_userModel->getDefaultRights();
-        $userGlobalDefaults = array(
-            'editConfig' => 1,
-        );
-        $this->view->user          = array_merge($userDefaults, $this->_userModel->getUserById($userId));
-        $this->view->userRights    = array_merge($userGlobalDefaults, $this->_userModel->getUserGlobalRights($userId));
+        $this->view->userData = $userData;
+        if ($userData['id'] == 0) {
+            $this->view->userRights = $this->_userModel->getDefaultRights();
+        } else {
+            $this->view->userRights = $this->_userModel->getUserGlobalRights($userId);
+        }
         $this->view->editLanguages = $this->_userModel->getUserLanguageRights($userId, false);
     }
 
@@ -127,38 +148,39 @@ class Admin_UsersController extends AdminController
     /**
      * Validate inputs for account settings and set view error mesages.
      *
+     * @param array $userData Data to check
+     *
      * @return bool
      */
-    public function _validateAccountSettings()
+    public function _validateAccountSettings($userData)
     {
         $errors = array();
-        $params = $this->_request->getParams();
 
-        if ($params['id'] == 0) {
+        if ($userData['id'] == 0) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
-            if (!$notEmptyValidate->isValid($params['pass1'])) {
+            if (!$notEmptyValidate->isValid($userData['pass1'])) {
                 $errors['pass1'] = $notEmptyValidate->getMessages();
             }
 
             // check if we already have a user with that name
-            $existingUser = $this->_userModel->getUserByName($params['user_name']);
+            $existingUser = $this->_userModel->getUserByName($userData['username']);
             if (!empty($existingUser)) {
-                $errors['user_name'] = array();
-                $errors['user_name'][] = 'A user with the name \'' . $params['user_name'] .'\' already exists!';
+                $errors['username'] = array();
+                $errors['username'][] = 'A user with the name \'' . $userData['username'] .'\' already exists!';
             }
         }
 
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
-        if (!$strLenValidate->isValid($params['user_name'])) {
-            if (!isset($errors['user_name']) || !is_array($errors['user_name'])) {
-                $errors['user_name'] = array();
+        if (!$strLenValidate->isValid($userData['username'])) {
+            if (!isset($errors['username']) || !is_array($errors['username'])) {
+                $errors['username'] = array();
             }
-            $errors['user_name'] = $strLenValidate->getMessages();
+            $errors['username'] = $strLenValidate->getMessages();
         }
 
-        if ($params['pass1'] > '' || $params['pass2'] > '') {
-            $identicalValidate = new Zend_Validate_Identical($params['pass1']);
-            if (!$identicalValidate->isValid($params['pass2'])) {
+        if ($userData['pass1'] > '' || $userData['pass2'] > '') {
+            $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
+            if (!$identicalValidate->isValid($userData['pass2'])) {
                 $errors['pass1'] = $identicalValidate->getMessages();
             }
         }
@@ -173,12 +195,13 @@ class Admin_UsersController extends AdminController
     /**
      * Save account settings to database
      *
+     * @param array $userData Array containing username, pass1, active and id
+     *
      * @return bool|id Return user id on succes or false on error
      */
-    public function _saveAccountSettings()
+    public function _saveAccountSettings($userData)
     {
-        $params = $this->_request->getParams();
-        return $this->_userModel->saveAccount($params);
+        return $this->_userModel->saveAccount($userData);
     }
 
     /**

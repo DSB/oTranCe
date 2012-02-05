@@ -606,31 +606,31 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Create or update a user account
      *
-     * @param array $params Parameters of account
+     * @param array $userData Parameters of account
      *
      * @return false|int False if there was an error, otherwise return user id
      */
-    public function saveAccount($params)
+    public function saveAccount($userData)
     {
-        if ($params['id'] != 0) {
+        if ($userData['id'] != 0) {
             $sql = 'UPDATE `'.$this->_database.'`.`' . $this->_tableUsers . '`'
-                . ' SET `username` = \'' . $this->_dbo->escape($params['user_name']) . '\', '
-                . ' `active`=' . intval($params['user_active']);
-            if ($params['pass1'] > '') {
-                $sql .= ', `password`=MD5(\''. $this->_dbo->escape($params['pass1']) . '\')';
+                . ' SET `username` = \'' . $this->_dbo->escape($userData['username']) . '\', '
+                . ' `active`=' . intval($userData['active']);
+            if ($userData['pass1'] > '') {
+                $sql .= ', `password`=MD5(\''. $this->_dbo->escape($userData['pass1']) . '\')';
             }
-            $sql .= ' WHERE `id`=' . intval($params['id']);
+            $sql .= ' WHERE `id`=' . intval($userData['id']);
         } else {
             $sql = 'INSERT INTO `'.$this->_database.'`.`' . $this->_tableUsers . '`'
                     . ' (`username`, `password`, `active`) VALUES ('
-                    . '\'' . $this->_dbo->escape($params['user_name']) . '\', '
-                    . 'MD5(\''. $this->_dbo->escape($params['pass1']) . '\'), '
-                    . intval($params['user_active']) . ')';
+                    . '\'' . $this->_dbo->escape($userData['username']) . '\', '
+                    . 'MD5(\''. $this->_dbo->escape($userData['pass1']) . '\'), '
+                    . intval($userData['active']) . ')';
         }
 
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         if ($res !== false) {
-            $user = $this->getUserByName($params['user_name']);
+            $user = $this->getUserByName($userData['username']);
             return isset($user['id']) ? $user['id'] : false;
         }
         return false;

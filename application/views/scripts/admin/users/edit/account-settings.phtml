@@ -4,15 +4,15 @@
 <tr class="row-odd">
     <td>User account is active:</td>
     <td>
-        <input type="radio" name="user_active" id="user_active_yes" value="1"
-            <?php if ($this->user['active'] == 1) { ?>
+        <input type="radio" name="active" id="user_active_yes" value="1"
+            <?php if ($this->userData['active'] == 1) { ?>
                 checked="checked"
             <?php } ?>
         />
         <label for="user_active_yes"> Yes</label>
         &nbsp;&nbsp;
-        <input type="radio" name="user_active" id="user_active_no" value="0"
-            <?php if ($this->user['active'] == 0) { ?>
+        <input type="radio" name="active" id="user_active_no" value="0"
+            <?php if ($this->userData['active'] == 0) { ?>
                 checked="checked"
             <?php } ?>
         />
@@ -23,8 +23,8 @@
 <tr class="row-even">
     <td>Username:</td>
     <td>
-        <input type="text" class="text" name="user_name" id="user_name" value="<?php echo $this->out($this->user['username']);?>"/><br/>
-        <?php if (isset($this->errors['user_name'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['user_name']); ?></span><?php } ?>
+        <input type="text" class="text" name="username" id="username" value="<?php echo $this->out($this->userData['username']);?>"/><br/>
+        <?php if (isset($this->errors['username'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['username']); ?></span><?php } ?>
     </td>
 </tr>
 

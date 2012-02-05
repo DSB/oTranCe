@@ -48,7 +48,6 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
         <?php
             $i++;
         } ?>
-    </tr>
 </table>
 <?php
 $this->jQuery()->onLoadCaptureStart(); ?>
@@ -65,7 +64,7 @@ $('.switchLanguageEditRight').change(function() {
         cache: false,
         data:{
             'languageId': languageId,
-            'userId'    : <?php echo $this->user['id'];?>
+            'userId'    : <?php echo $this->userData['id'];?>
         },
         success:function(data) {
             $('#img-' + languageId).html(data.icon);

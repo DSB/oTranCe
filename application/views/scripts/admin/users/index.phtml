@@ -21,6 +21,7 @@ echo $this->partial('/helper/search-users.phtml', array(
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
+        <th>Id</th>
         <th>Username</th>
         <th>Active</th>
         <th>Can edit</th>
@@ -52,6 +53,9 @@ foreach ($this->users as $userId => $user)
         </td>
         <td class="right">
             <?php echo $this->numberFormat($i);?>.
+        </td>
+        <td class="right">
+            <?php echo $user['id'];?>
         </td>
         <td><?php echo $edit . $user['username'];?></a></td>
         <td>

@@ -12,10 +12,12 @@
 // DSB, Marco.Steinhäuser
 
 $lang = array(
+'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',
 'L_ADD' => 'Add',
 'L_ADDED' => 'added',
 'L_ADD_NEW_LANGUAGE' => 'Add new language',
+'L_ADMIN' => 'Admin',
 'L_AUTHENTICATE' => 'Login information',
 'L_BACK' => 'back',
 'L_CANCEL' => 'Cancel',
@@ -23,9 +25,11 @@ $lang = array(
 'L_CHANGE_RIGHT' => 'Change right',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
+'L_CREATE_NEW_USER_ACCOUNT' => 'Create new user account',
 'L_CREDITS' => 'Credits / Help',
 'L_DELETE' => 'Delete',
 'L_DESCRIPTION' => 'Description',
+'L_EDIT_USER' => 'Edit user',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
 'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',
 'L_EXPORT_LANGUAGES' => 'Export languages',

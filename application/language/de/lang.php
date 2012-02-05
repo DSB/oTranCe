@@ -12,10 +12,12 @@
 // DSB, Marco.Steinhäuser
 
 $lang = array(
+'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen Benutzerkonto',
 'L_ADD' => 'Hinzufügen',
 'L_ADDED' => 'hinzugefügt',
 'L_ADD_NEW_LANGUAGE' => 'Neue Sprache hinzufügen',
+'L_ADMIN' => 'Admin',
 'L_AUTHENTICATE' => 'Anmelde-Information',
 'L_BACK' => 'zurück',
 'L_CANCEL' => 'Abbrechen',
@@ -23,9 +25,11 @@ $lang = array(
 'L_CHANGE_RIGHT' => 'Recht ändern',
 'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen bleibt das alte Kennwort bestehen.',
+'L_CREATE_NEW_USER_ACCOUNT' => 'Neues Benutzerkonto anlegen',
 'L_CREDITS' => 'Danksagung',
 'L_DELETE' => 'Löschen',
 'L_DESCRIPTION' => 'Beschreibung',
+'L_EDIT_USER' => 'Benutzer bearbeiten',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
 'L_ERROR_SAVING_RIGHT' => 'Beim Speichern des Rechts ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',
 'L_EXPORT_LANGUAGES' => 'Exportiere Sprachdateien',

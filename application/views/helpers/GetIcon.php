@@ -24,10 +24,11 @@ class Msd_View_Helper_GetIcon  extends Zend_View_Helper_Abstract
      * @param string $name
      * @param string $title
      * @param int    $size
+     * @param string $class
      *
      * @return string
      */
-    public function getIcon($name, $title = '', $size = null)
+    public function getIcon($name, $title = '', $size = null, $class = '')
     {
         if (self::$_iconPath === null) {
             $config = Msd_Registry::getConfig();
@@ -45,9 +46,9 @@ class Msd_View_Helper_GetIcon  extends Zend_View_Helper_Abstract
                 'GetIcon: unknown icon \''.$name .'\' requested'
             );
         }
-        $img = '<img src="'.$baseUrl.'/%s/%s" alt="%s" title="%s" />';
+        $img = '<img src="'.$baseUrl.'/%s/%s" alt="%s" title="%s"';
         if ($size !== null) {
-            $img = '<img src="'.$baseUrl.'/%s/%sx%s/%s" alt="%s" title="%s" />';
+            $img = '<img src="'.$baseUrl.'/%s/%sx%s/%s" alt="%s" title="%s"';
             $ret = sprintf(
                 $img,
                 self::$_iconPath,
@@ -65,6 +66,10 @@ class Msd_View_Helper_GetIcon  extends Zend_View_Helper_Abstract
                 $title
             );
         }
+        if ($class > '') {
+            $ret .= ' class="' . $class .'"';
+        }
+        $ret .= '/>';
         return $ret;
     }
 

@@ -6,36 +6,28 @@ $inputNamesMap = array(
     'pass1'     => 'Password',
 );
 ?>
-<h2>Admin - Edit User</h2>
+<h2><?php echo $this->lang->L_ADMIN . ' - ' . $this->lang->L_EDIT_USER;?></h2>
 <?php
 echo $this->partial('admin/head-navi.phtml');
 if ($userData['id'] == 0) { ?>
-    <h4>Create new user account</h4>
+    <h4><?php echo $this->lang->L_CREATE_NEW_USER_ACCOUNT;?></h4>
 <?php
 } else { ?>
-    <h4>Account of user with id <?php echo $userData['id'];?></h4>
+    <h4><?php echo sprintf($this->lang->L_ACCOUNT_OF_USER_WITH_ID, $userData['id']);?></h4>
 <?php } ?>
 
 <form action="<?php echo $this->baseUrl() . '/admin_users/edit/id/' . $userData['id'];?>" method="post">
 <table class="bdr more-padding small" style="float:left;margin: 0 12px 12px 0;" summary="User account settings">
 <?php
-echo $this->partial('admin/users/edit/account-settings.phtml',
-    array('userData' => $userData, 'errors' => $this->errors)
+echo $this->partial(
+    'admin/users/edit/account-settings.phtml',
+    array(
+        'userData' => $userData,
+        'errors'   => $this->errors,
+        'lang'     => $this->lang
+    )
 );
-
-if ($userData['id'] > 0) {
-    echo $this->partial('admin/users/edit/menu-rights.phtml',
-            array('userRights' => $userRights, 'lang' => $this->lang)
-        );
-    echo $this->partial('admin/users/edit/general-rights.phtml',
-            array('userRights' => $userRights, 'lang' => $this->lang)
-        );
-    echo $this->partial('admin/users/edit/admin-rights.phtml',
-            array('userRights' => $userRights, 'lang' => $this->lang)
-        );
-}
 ?>
-
     <tr class="row-even">
         <td>&nbsp;</td>
         <td>
@@ -44,6 +36,19 @@ if ($userData['id'] > 0) {
             </button>
         </td>
     </tr>
+<?php
+if ($userData['id'] > 0) {
+    echo $this->partial('admin/users/edit/menu-rights.phtml',
+        array('userRights' => $userRights, 'lang' => $this->lang)
+    );
+    echo $this->partial('admin/users/edit/general-rights.phtml',
+        array('userRights' => $userRights, 'lang' => $this->lang)
+    );
+    echo $this->partial('admin/users/edit/admin-rights.phtml',
+        array('userRights' => $userRights, 'lang' => $this->lang)
+    );
+}
+?>
 </table>
 <?php
 if ($userData['id'] > 0) {
@@ -110,3 +115,36 @@ if (isset($this->saveErrorMessage)) {
         )
     );
 }
+
+$this->jQuery()->onLoadCaptureStart();
+?>
+var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
+var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
+$('.switchRight').click(function() {
+    var id = this.id;
+    $(this).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-right' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'right' : this.id,
+            'userId': <?php echo $this->userData['id'];?>
+        },
+        success:function(data) {
+            $('#' + id).html(data.icon);
+        },
+        error:function(error) {
+            $('#' + id).html(imgError);
+        }
+    });
+});
+$('.switchRightLabel').click(function() {
+    var id = this.id.replace(/label-/, '');
+    $('#' + id).trigger('click');
+});
+
+<?php
+$this->jQuery()->onLoadCaptureEnd();

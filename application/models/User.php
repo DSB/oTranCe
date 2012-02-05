@@ -422,12 +422,11 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Get user rights
      *
-     * @param string $right  If set, reduce return to considered right
      * @param int    $userId Id of user, if not set use the current user
      *
      * @return array
      */
-    public function getUserRights($right = '', $userId = 0)
+    public function getUserRights($userId = 0)
     {
         $userId = (int) $userId;
         if ($userId == 0) {
@@ -435,9 +434,6 @@ class Application_Model_User extends Msd_Application_Model
         }
         $sql = 'SELECT * FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
                 .' WHERE `user_id`=\''.$userId.'\'';
-        if ($right > '') {
-            $sql .= ' AND `right` = \'' . $right .'\'';
-        }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $rights = $this->getDefaultRights();
         foreach ($res as $val) {
@@ -588,17 +584,15 @@ class Application_Model_User extends Msd_Application_Model
      *
      * @param int    $userId Id of user
      * @param string $right  Name of right
-     * @param int    $value  The value to delete
      *
      * @return bool
      */
-    public function deleteRight($userId, $right, $value)
+    public function deleteRight($userId, $right)
     {
         // check if user has an entry for this right
         $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
                 .' WHERE `user_id`=' . intval($userId)
-                .' AND `right`=\'' . $this->_dbo->escape($right) . '\''
-                .' AND `value`=' . intval($value);
+                .' AND `right`=\'' . $this->_dbo->escape($right) . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return (bool) $res;
     }

@@ -1,8 +1,8 @@
 <tr class="thead">
-   <th colspan="2">Account settings</th>
+   <th colspan="2"><?php echo $this->lang->L_ACCOUNT_SETTINGS;?></th>
 </tr>
 <tr class="row-odd">
-    <td>User account is active:</td>
+    <td><?php echo $this->lang->L_USERACCOUNT_IS_ACTIVE;?>:</td>
     <td>
         <input type="radio" name="active" id="user_active_yes" value="1"
             <?php if ($this->userData['active'] == 1) { ?>
@@ -21,7 +21,7 @@
 </tr>
 
 <tr class="row-even">
-    <td>Username:</td>
+    <td><?php echo $this->lang->L_USERNAME;?>:</td>
     <td>
         <input type="text" class="text" name="username" id="username" value="<?php echo $this->out($this->userData['username']);?>"/><br/>
         <?php if (isset($this->errors['username'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['username']); ?></span><?php } ?>
@@ -29,7 +29,7 @@
 </tr>
 
 <tr class="row-odd">
-    <td>Password (*):</td>
+    <td><?php echo $this->lang->L_PASSWORD;?> (*):</td>
     <td>
         <input type="password" class="text" name="pass1" id="pass1" value="" autocomplete="off"/><br/>
         <?php if (isset($this->errors['pass1'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['pass1']); ?></span><?php } ?>
@@ -37,7 +37,7 @@
 </tr>
 
 <tr class="row-even">
-    <td>Confirm password (*):</td>
+    <td><?php echo $this->lang->L_CONFIRM_PASSWORD;?> (*):</td>
     <td>
         <input type="password" class="text" name="pass2" id="pass2" value="" autocomplete="off"/>
     </td>
@@ -45,8 +45,8 @@
 
 <tr class="row-odd">
     <td colspan="2">
-        <div style="margin-left:24px;">
-        (*) Enter a password if you want to change it.<br />
-        If you leave this field empty the current password will remain.</div>
+        <div class="confirm-password-explain">
+            (*) <?php echo $this->lang->L_CONFIRM_PASSWORD_EXPLAIN;?>
+        </div>
     </td>
 </tr>

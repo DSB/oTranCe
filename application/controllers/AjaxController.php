@@ -187,7 +187,7 @@ class AjaxController extends Zend_Controller_Action
         $icon       = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
         if ($userId < 1 || $languageId < 1 || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change edit right
-            $data = array('error' => 'Invalid arguments');
+            $data = array('error' => 'Invalid arguments', 'icon' => $icon);
         } else {
             //get actual right
             $languageEditRight = $this->_userModel->hasLanguageEditRight($userId, $languageId);
@@ -207,6 +207,45 @@ class AjaxController extends Zend_Controller_Action
             } else {
                 //error saving
                 $data = array('error' => $this->view->lang->L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT, 'icon' => $icon);
+            }
+        }
+
+        $this->view->data = $data;
+        $this->render('json');
+    }
+
+    /**
+     * Set/unset the right of a user
+     *
+     * @return void
+     */
+    public function switchRightAction()
+    {
+        $right  = (string) $this->_request->getParam('right', '');
+        $userId = (int) $this->_request->getParam('userId', 0);
+        $icon   = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
+        if ($userId < 1 || $right == '' || !$this->_userModel->hasRight('editUsers')) {
+            //Missing param or no permission to change edit right
+            $data = array('error' => 'Invalid arguments', 'icon' => $icon);
+        } else {
+            //get actual right
+            $userRights = $this->_userModel->getUserRights($userId);
+            if ($userRights[$right] > 0) {
+                //delete right
+                $res = $this->_userModel->saveRight($userId, $right, 0);
+            } else {
+                //add right
+                $res = $this->_userModel->saveRight($userId, $right, 1);
+                if ($res == true) {
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_YES, 16);
+                };
+            }
+
+            if ($res == true) {
+                $data = array('error' => false, 'icon' => $icon);
+            } else {
+                //error saving
+                $data = array('error' => $this->view->lang->L_ERROR_SAVING_RIGHT, 'icon' => $icon);
             }
         }
 

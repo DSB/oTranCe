@@ -2,176 +2,39 @@
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 ?>
 <tr class="thead">
-   <th colspan="2">Menu rights</th>
+    <th colspan="2">Menu rights</th>
 </tr>
 
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Configuration":</td>
-    <td>
-        <input type="radio" name="editConfig" id="editConfig_yes" value="1"
-            <?php if ($this->userRights['editConfig'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editConfig_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editConfig" id="editConfig_no" value="0"
-            <?php if ($this->userRights['editConfig'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editConfig_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
+<?php
+$menueRights = array(
+    'editConfig',
+    'showEntries',
+    'showDownloads',
+    'showBrowseFiles',
+    'showImport',
+    'showExport',
+    'showLog',
+    'showStatistics',
+    'admin'
+);
 
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Entries":</td>
-    <td>
-        <input type="radio" name="showEntries" id="showEntries_yes" value="1"
-            <?php if ($this->userRights['showEntries'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showEntries_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showEntries" id="showEntries_no" value="0"
-            <?php if ($this->userRights['showEntries'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showEntries_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Downloads":</td>
-    <td>
-        <input type="radio" name="showDownloads" id="showDownloads_yes" value="1"
-            <?php if ($this->userRights['showDownloads'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showDownloads_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showDownloads" id="showDownloads_no" value="0"
-            <?php if ($this->userRights['showDownloads'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showDownloads_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Browse files":</td>
-    <td>
-        <input type="radio" name="showBrowseFiles" id="showBrowseFiles_yes" value="1"
-            <?php if ($this->userRights['showBrowseFiles'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showBrowseFiles_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showBrowseFiles" id="showBrowseFiles_no" value="0"
-            <?php if ($this->userRights['showBrowseFiles'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showBrowseFiles_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Import":</td>
-    <td>
-        <input type="radio" name="showImport" id="showImport_yes" value="1"
-            <?php if ($this->userRights['showImport'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showImport_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showImport" id="showImport_no" value="0"
-            <?php if ($this->userRights['showImport'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showImport_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Export":</td>
-    <td>
-        <input type="radio" name="showExport" id="showExport_yes" value="1"
-            <?php if ($this->userRights['showExport'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showExport_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showExport" id="showExport_no" value="0"
-            <?php if ($this->userRights['showExport'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showExport_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Log":</td>
-    <td>
-        <input type="radio" name="showLog" id="showLog_yes" value="1"
-            <?php if ($this->userRights['showLog'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showLog_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showLog" id="showLog_no" value="0"
-            <?php if ($this->userRights['showLog'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showLog_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Statistics":</td>
-    <td>
-        <input type="radio" name="showStatistics" id="showStatistics_yes" value="1"
-            <?php if ($this->userRights['showStatistics'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showStatistics_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="showStatistics" id="showStatistics_no" value="0"
-            <?php if ($this->userRights['showStatistics'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="showStatistics_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use menu item "Admin":</td>
-    <td>
-        <input type="radio" name="admin" id="admin_yes" value="1"
-            <?php if ($this->userRights['admin'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="admin_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="admin" id="admin_no" value="0"
-            <?php if ($this->userRights['admin'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="admin_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
+foreach ($menueRights as $right) {
+    $rightDescription = 'L_RIGHT_EXPLAIN_' . strtoupper($right);
+?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td colspan="2">
+            <label for="<?php echo $right;?>" id="label-<?php echo $right;?>"
+                class="switchRightLabel floatLeft" title="<?php echo $this->lang->L_CHANGE_RIGHT;?>">
+                <?php echo $this->lang->$rightDescription;?>:
+            </label>
+        <div id="<?php echo $right;?>" class="switchRight right">
+            <?php
+                echo $this->printStatusIcon(
+                    !empty($this->userRights[$right]) && $this->userRights[$right] > 0,
+                    $this->lang->L_CHANGE_RIGHT
+                );?>
+        </div>
+        </td>
+    </tr>
+<?php
+}

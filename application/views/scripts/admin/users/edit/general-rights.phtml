@@ -1,41 +1,33 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
 <tr class="thead">
-   <th colspan="2">Other user rights</th>
+    <th colspan="2"><?php echo $this->lang->L_OTHER_USERRIGHTS;?></th>
 </tr>
 
-<tr class="row-odd">
-    <td>User is allowed to add new language keys:</td>
-    <td>
-        <input type="radio" name="addVar" id="addVar_yes" value="1"
-            <?php if ($this->userRights['addVar'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addVar_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="addVar" id="addVar_no" value="0"
-            <?php if ($this->userRights['addVar'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addVar_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
+<?php
+$rights = array(
+    'addVar',
+    'importEqualVar'
+);
 
-<tr class="row-even">
-    <td>User can import phrases that are equal to the fallback language:</td>
-    <td>
-        <input type="radio" name="importEqualVar" id="importEqualVar_yes" value="1"
-            <?php if ($this->userRights['importEqualVar'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="importEqualVar_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="importEqualVar" id="importEqualVar_no" value="0"
-            <?php if ($this->userRights['importEqualVar'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="importEqualVar_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
+foreach ($rights as $right) {
+    $rightDescription = 'L_RIGHT_EXPLAIN_' . strtoupper($right);
+?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td colspan="2">
+            <label for="<?php echo $right;?>" id="label-<?php echo $right;?>"
+                class="switchRightLabel floatLeft" title="<?php echo $this->lang->L_CHANGE_RIGHT;?>">
+                <?php echo $this->lang->$rightDescription;?>:
+            </label>
+            <div id="<?php echo $right;?>" class="switchRight right">
+            <?php
+                echo $this->printStatusIcon(
+                    !empty($this->userRights[$right]) && $this->userRights[$right] > 0,
+                    $this->lang->L_CHANGE_RIGHT
+                );?>
+            </div>
+        </td>
+    </tr>
+<?php
+}

@@ -695,3 +695,12 @@ pre.xdebug-var-dump {
 .flag {
     border:1px solid #6E9E2D;
 }
+
+.switchRight {
+    cursor: pointer;
+}
+
+.confirm-password-explain {
+    margin-left:24px;
+    width:380px;
+}

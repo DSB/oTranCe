@@ -2,196 +2,41 @@
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 ?>
 <tr class="thead">
-   <th colspan="2">Admin rights</th>
+    <th>Admin rights</th>
+    <th><?php echo $this->lang->L_STATUS;?></th>
 </tr>
 
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "Project":</td>
-    <td>
-        <input type="radio" name="editProject" id="editProject_yes" value="1"
-            <?php if ($this->userRights['editProject'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editProject_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editProject" id="editProject_no" value="0"
-            <?php if ($this->userRights['editProject'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editProject_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
+<?php
+$rights = array(
+    'editProject',
+    'editUsers',
+    'addUser',
+    'deleteUser',
+    'editLanguage',
+    'addLanguage',
+    'deleteLanguage',
+    'editTemplate',
+    'addTemplate',
+    'editVcs'
+);
 
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "Users":</td>
-    <td>
-        <input type="radio" name="editUsers" id="editUsers_yes" value="1"
-            <?php if ($this->userRights['editUsers'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editUsers_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editUsers" id="editUsers_no" value="0"
-            <?php if ($this->userRights['editUsers'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editUsers_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User is allowed to add users:</td>
-    <td>
-        <input type="radio" name="addUser" id="addUser_yes" value="1"
-            <?php if ($this->userRights['addUser'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addUser_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="addUser" id="addUser_no" value="0"
-            <?php if ($this->userRights['addUser'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addUser_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User is allowed to delete users:</td>
-    <td>
-        <input type="radio" name="deleteUsers" id="deleteUsers_yes" value="1"
-            <?php if ($this->userRights['deleteUsers'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="deleteUsers_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="deleteUsers" id="deleteUsers_no" value="0"
-            <?php if ($this->userRights['deleteUsers'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="deleteUsers_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "Languages":</td>
-    <td>
-        <input type="radio" name="editLanguage" id="editLanguage_yes" value="1"
-            <?php if ($this->userRights['editProject'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editLanguage" id="editLanguage_no" value="0"
-            <?php if ($this->userRights['editLanguage'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editLanguage_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User is allowed to add new languages:</td>
-    <td>
-        <input type="radio" name="addLanguage" id="addLanguage_yes" value="1"
-            <?php if ($this->userRights['addLanguage'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="addLanguage" id="addLanguage_no" value="0"
-            <?php if ($this->userRights['addLanguage'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addLanguage_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User is allowed to delete languages:</td>
-    <td>
-        <input type="radio" name="deleteLanguage" id="deleteLanguage_yes" value="1"
-            <?php if ($this->userRights['deleteLanguage'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="deleteLanguage_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="deleteLanguage" id="deleteLanguage_no" value="0"
-            <?php if ($this->userRights['deleteLanguage'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="deleteLanguage_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "File Templates":</td>
-    <td>
-        <input type="radio" name="editTemplate" id="editTemplate_yes" value="1"
-            <?php if ($this->userRights['editTemplate'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editTemplate_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editTemplate" id="editTemplate_no" value="0"
-            <?php if ($this->userRights['editTemplate'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editTemplate_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User is allowed to add new file templates:</td>
-    <td>
-        <input type="radio" name="addTemplate" id="addTemplate_yes" value="1"
-            <?php if ($this->userRights['addTemplate'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addTemplate_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="addTemplate" id="addTemplate_no" value="0"
-            <?php if ($this->userRights['addTemplate'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="addTemplate_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
-<tr class="<?php echo $cycleHelper->next();?>">
-    <td>User can see and use admin tab "VCS":</td>
-    <td>
-        <input type="radio" name="editVcs" id="editVcs_yes" value="1"
-            <?php if ($this->userRights['editVcs'] == 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editVcs_yes"> <?php echo $this->lang->L_YES;?></label>
-        &nbsp;&nbsp;
-        <input type="radio" name="editVcs" id="editVcs_no" value="0"
-            <?php if ($this->userRights['editVcs'] != 1) { ?>
-                checked="checked"
-            <?php } ?>
-        />
-        <label for="editVcs_no"> <?php echo $this->lang->L_NO;?></label>
-    </td>
-</tr>
-
+foreach ($rights as $right) {
+    $rightDescription = 'L_RIGHT_EXPLAIN_' . strtoupper($right);
+?>
+    <tr class="<?php echo $cycleHelper->next();?>">
+        <td colspan="2">
+            <label for="<?php echo $right;?>" id="label-<?php echo $right;?>"
+                class="switchRightLabel floatLeft" title="<?php echo $this->lang->L_CHANGE_RIGHT;?>">
+                <?php echo $this->lang->$rightDescription;?>:
+            </label>
+            <div id="<?php echo $right;?>" class="switchRight right">
+                <?php
+                    echo $this->printStatusIcon(
+                        !empty($this->userRights[$right]) && $this->userRights[$right] > 0,
+                        $this->lang->L_CHANGE_RIGHT
+                    );?>
+            </div>
+        </td>
+    </tr>
+<?php
+}

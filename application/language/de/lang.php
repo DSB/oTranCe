@@ -12,6 +12,7 @@
 // DSB, Marco.Steinhäuser
 
 $lang = array(
+'L_ACCOUNT_SETTINGS' => 'Einstellungen Benutzerkonto',
 'L_ADD' => 'Hinzufügen',
 'L_ADDED' => 'hinzugefügt',
 'L_ADD_NEW_LANGUAGE' => 'Neue Sprache hinzufügen',
@@ -20,10 +21,13 @@ $lang = array(
 'L_CANCEL' => 'Abbrechen',
 'L_CAN_EDIT' => 'Darf editieren',
 'L_CHANGE_RIGHT' => 'Recht ändern',
+'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
+'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen bleibt das alte Kennwort bestehen.',
 'L_CREDITS' => 'Danksagung',
 'L_DELETE' => 'Löschen',
 'L_DESCRIPTION' => 'Beschreibung',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
+'L_ERROR_SAVING_RIGHT' => 'Beim Speichern des Rechts ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',
 'L_EXPORT_LANGUAGES' => 'Exportiere Sprachdateien',
 'L_EXPORT_LANGUAGES_EXPLAIN' => 'Ersetze nicht übersetzte Phrasen im Export durch die Basis-Sprache.',
 'L_HEADER_EXPORT' => 'Export',
@@ -32,6 +36,7 @@ $lang = array(
 'L_LOGIN_INVALID_USER' => 'Unbekannte Kombination von Benutzername und Passwort',
 'L_NO' => 'Nein',
 'L_OK' => 'OK',
+'L_OTHER_USERRIGHTS' => 'Andere Benutzerrechte',
 'L_PASSWORD' => 'Passwort',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf neue Sprachen hinzufügen',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'Benutzer darf Dateitemplates hinzufügen oder löschen',
@@ -56,6 +61,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_SHOWSTATISTICS' => 'Benutzer kann den Menüpunkt "Statistiken" benutzen',
 'L_STATUS' => 'Status',
 'L_USER' => 'Benutzer',
+'L_USERACCOUNT_IS_ACTIVE' => 'Benutzerkonto ist aktiv',
 'L_USERNAME' => 'Benutzername',
 'L_YES' => 'Ja',
 'L_ZEND_ID_ACCESS_NOT_A_DIRECTORY' => 'Beim angegebenen Dateinamen \'%value%\' handelt es sich nicht um einen Ordner.',

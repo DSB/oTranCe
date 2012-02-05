@@ -12,6 +12,7 @@
 // DSB, Marco.Steinhäuser
 
 $lang = array(
+'L_ACCOUNT_SETTINGS' => 'Account settings',
 'L_ADD' => 'Add',
 'L_ADDED' => 'added',
 'L_ADD_NEW_LANGUAGE' => 'Add new language',
@@ -20,10 +21,13 @@ $lang = array(
 'L_CANCEL' => 'Cancel',
 'L_CAN_EDIT' => 'Can edit',
 'L_CHANGE_RIGHT' => 'Change right',
+'L_CONFIRM_PASSWORD' => 'Confirm password',
+'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
 'L_CREDITS' => 'Credits / Help',
 'L_DELETE' => 'Delete',
 'L_DESCRIPTION' => 'Description',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
+'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',
 'L_EXPORT_LANGUAGES' => 'Export languages',
 'L_EXPORT_LANGUAGES_EXPLAIN' => 'Replace untranslated phrases with the translation of the fallback language
 <br />if the translation of the exported language is empty?',
@@ -33,6 +37,7 @@ $lang = array(
 'L_LOGIN_INVALID_USER' => 'Unknown combination of username and password.',
 'L_NO' => 'No',
 'L_OK' => 'OK',
+'L_OTHER_USERRIGHTS' => 'Other user rights',
 'L_PASSWORD' => 'Password',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add new languages',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'User is allowed to add or delete file templates',
@@ -57,6 +62,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_SHOWSTATISTICS' => 'User can see and use menu item "Statistics"',
 'L_STATUS' => 'Status',
 'L_USER' => 'User',
+'L_USERACCOUNT_IS_ACTIVE' => 'User account is active',
 'L_USERNAME' => 'Username',
 'L_YES' => 'Yes',
 'L_ZEND_ID_ACCESS_NOT_A_DIRECTORY' => 'The given filename \'%value%\' isn\'t a directory.',

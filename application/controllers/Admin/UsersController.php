@@ -96,15 +96,11 @@ class Admin_UsersController extends AdminController
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
                         $userId = (int) $result;
-                        $res    = $this->_saveUserRights($params);
-                        $res   &= $this->_saveLanguageEditRights($params);
-                        if ($res == true) {
-                            $this->view->saveMessage = true;
-                        } else {
-                            $this->view->saveErrorMessage = true;
-                        }
-                        $userData = $this->_userModel->getUserById($userId);
-                    };
+                        $this->view->saveMessage = true;
+                    } else {
+                        $this->view->saveErrorMessage = true;
+                    }
+                    $userData = $this->_userModel->getUserById($userId);
                 }
             }
         }
@@ -202,48 +198,6 @@ class Admin_UsersController extends AdminController
     public function _saveAccountSettings($userData)
     {
         return $this->_userModel->saveAccount($userData);
-    }
-
-    /**
-     * Save general user rights
-     *
-     * @param array $params Post-parameters
-     *
-     * @return bool
-     */
-    public function _saveUserRights($params)
-    {
-        $res = true;
-        $rights = $this->_userModel->getDefaultRights();
-        foreach ($rights as $right => $defaultValue) {
-            if (isset($params[$right])) {
-                $res &= $this->_userModel->saveRight($params['id'], $right, $params[$right]);
-            } else {
-                $res &= $this->_userModel->saveRight($params['id'], $right, $defaultValue);
-            }
-        }
-        return $res;
-    }
-
-    /**
-     * Save language edit rights of user
-     *
-     * @param array $params Post-parameters
-     *
-     * @return bool
-     */
-    public function _saveLanguageEditRights($params)
-    {
-        $languages = array();
-        $keys = array_keys($params);
-        // extract lang edit rights
-        foreach ($keys as $key) {
-            if (substr($key, 0, 5) == 'lang-') {
-                $languages[] = substr($key, 5);
-            }
-        }
-        $res = $this->_userModel->saveLanguageRights($params['id'], $languages);
-        return $res;
     }
 
 }

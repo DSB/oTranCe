@@ -43,8 +43,6 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 </table>
 <?php
 $this->jQuery()->onLoadCaptureStart(); ?>
-var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
-var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
 $('.switchLanguageEditRight').click(function() {
     var id = this.id.replace(/lang-/, '');
     $(this).html(imgAjax);

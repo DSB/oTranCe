@@ -130,8 +130,6 @@ $('.deleteLanguage').click(function() {
                   }
     })
 });
-var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
-var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
 $('.switchLanguageStatus').click(function() {
     var id = this.id.replace(/lang-/, '');
     $(this).html(imgAjax);

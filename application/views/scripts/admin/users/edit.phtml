@@ -118,8 +118,6 @@ if (isset($this->saveErrorMessage)) {
 
 $this->jQuery()->onLoadCaptureStart();
 ?>
-var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
-var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
 $('.switchRight').click(function() {
     var id = this.id;
     $(this).html(imgAjax);

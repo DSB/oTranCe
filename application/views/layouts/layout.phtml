@@ -36,6 +36,12 @@ $messages = (string) $this->popUpMessage();
 if ($dynamicConfig->getParam('optimizeTables') == true) {
     $this->partial('/helper/optimize-tables.phtml');
 }
+$this->jQuery()->onLoadCaptureStart();
+?>
+var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
+var imgError = '<?php echo $this->getIcon('Attention', $this->lang->L_ERROR, 16);?>';
+<?php
+$this->jQuery()->onLoadCaptureEnd();
 ?>
 <?php echo $this->doctype();?>
 <html xmlns="http://www.w3.org/1999/xhtml"

@@ -698,7 +698,10 @@ pre.xdebug-var-dump {
 
 .switchRight,
 .switchLanguageEditRight,
-.switchLanguageStatus {
+.switchLanguageStatus,
+.switchUserEditRight,
+.switchUserEditRightLabel
+ {
     cursor: pointer;
 }
 

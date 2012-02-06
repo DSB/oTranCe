@@ -20,7 +20,6 @@ echo $this->partial('/helper/search-users.phtml', array(
     <tr class="thead">
         <th>#</th>
         <th><?php echo $this->lang->L_USER;?></th>
-        <th><?php echo $this->lang->L_CAN_EDIT;?></th>
         <th><?php echo $this->lang->L_STATUS;?></th>
     </tr>
     <?php
@@ -29,34 +28,25 @@ echo $this->partial('/helper/search-users.phtml', array(
         ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right">
-                <label for="user-<?php echo $user['id'];?>">
+                <label title="<?php echo $this->lang->L_CHANGE_STATUS;?>" for="img-<?php echo $user['id'];?>" class="switchUserEditRightLabel">
                     <?php echo $i;?>.
                 </label>
             </td>
             <td>
-                <label for="user-<?php echo $user['id'];?>">
+                <label title="<?php echo $this->lang->L_CHANGE_STATUS;?>" for="img-<?php echo $user['id'];?>" class="switchUserEditRightLabel">
                     <?php echo $this->escape($user['username']);?>
                 </label>
             </td>
             <td>
-                <input type="checkbox" name="user-<?php echo $user['id'];?>" id="user-<?php echo $user['id'];?>"
-                <?php
-                    if (isset($this->translators[$user['id']])) {
-                        echo ' checked="checked"';
-                    }
-                ?>
-                class="switchUserEditRight" />
-            </td>
-            <td>
-                <label for="user-<?php echo $user['id'];?>"  id="img-<?php echo $user['id'];?>">
+                <div id="img-<?php echo $user['id'];?>" class="switchUserEditRight">
                     <?php
                         if (isset($this->translators[$user['id']])) {
-                            echo $this->getIcon('Ok', $this->lang->L_YES, 16);
+                            echo $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16);
                         } else {
-                            echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
+                            echo $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16);
                         }
                     ;?>
-                </label>
+                </div>
             </td>
         </tr>
         <?php
@@ -73,8 +63,8 @@ $this->jQuery()->onLoadCaptureStart(); ?>
 var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
 var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
 
-$('.switchUserEditRight').change(function() {
-    var userId = this.id.replace(/user-/, '');
+$('.switchUserEditRight').click(function() {
+    var userId = this.id.replace(/img-/, '');
     $('#img-' + userId).html(imgAjax);
     $.ajax({
         type: 'POST',
@@ -94,5 +84,10 @@ $('.switchUserEditRight').change(function() {
         }
     });
 });
+$('.switchUserEditRightLabel').click(function() {
+    var id = $(this).attr('for');
+    $('#' + id).trigger('click');
+});
+
 <?php
 $this->jQuery()->onLoadCaptureEnd();

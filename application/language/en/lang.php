@@ -37,6 +37,7 @@ $lang = array(
 'L_EDIT_LANGUAGE' => 'Edit language',
 'L_EDIT_USER' => 'Edit user',
 'L_ENTRIES_PER_PAGE' => 'Entries per page',
+'L_ERROR' => 'Error',
 'L_ERROR_DELETING_LANGUAGE' => 'There was an error deleting this language.<br />Please try again.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
 'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',

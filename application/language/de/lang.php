@@ -37,6 +37,7 @@ $lang = array(
 'L_EDIT_LANGUAGE' => 'Sprache editieren',
 'L_EDIT_USER' => 'Benutzer bearbeiten',
 'L_ENTRIES_PER_PAGE' => 'Einträge pro Seite',
+'L_ERROR' => 'Fehler',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuchen Sie es noch einmal.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
 'L_ERROR_SAVING_RIGHT' => 'Beim Speichern des Rechts ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',

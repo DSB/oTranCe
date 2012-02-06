@@ -54,7 +54,7 @@ class Application_Model_Languages extends Msd_Application_Model
      * @param string $name          Name of the new language (e.g. English, Detusch)
      * @param string $flagExtension Extension of the flag file
      *
-     * @return bool|string
+     * @return bool
      */
     public function saveLanguage($id, $active, $locale, $name, $flagExtension)
     {
@@ -67,8 +67,23 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`) VALUES
             ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
             `name` = '$name', `flag_extension` = '$flagExtension', `active` = $active";
-        $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return true;
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * Saves the state of a language
+     *
+     * @param int  $id    Internal id of the language
+     * @param int $status State of the language
+     *
+     * @return bool
+     */
+    public function saveLanguageStatus($id, $status)
+    {
+        $id     = (int) $id;
+        $status = (int) $status;
+        $sql    = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $id;
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
     /**

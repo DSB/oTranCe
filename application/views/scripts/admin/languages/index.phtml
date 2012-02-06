@@ -3,17 +3,17 @@
 <form action="<?php echo $this->baseUrl();?>/admin_languages/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-        Filter / Search:
+            <?php echo $this->lang->L_FILTER_SEARCH;?>:
         <input type="text" class="text" id="filterLanguage" name="filterLanguage" value="<?php echo $this->escape($this->filterLanguage);?>" />
         <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-            <?php echo $this->getIcon('search', '', 16);?> Search
+            <?php echo $this->getIcon('search', $this->lang->L_SEARCH, 16);?> <?php echo $this->lang->L_SEARCH;?>
         </button>
         <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
+            <?php echo $this->getIcon('delete', $this->lang->L_RESET);?> <?php echo $this->lang->L_RESET;?>
         </button>
         <?php if ($this->user->hasRight('addLanguage')) {?>
             <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
-                <?php echo $this->getIcon('plus', '') . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
+                <?php echo $this->getIcon('plus', $this->lang->L_ADD_NEW_LANGUAGE) . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
             </button>
         <?php } ?>
         <br /><br />
@@ -33,11 +33,11 @@
             class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
-        Entries per page:
+        <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
         <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
             <?php echo $this->selRecordsPerPage;?>
         </select>
-        Hits: <?php echo $this->numberFormat($this->hits);?>
+        <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->hits);?>
         <input type="hidden" name="deleteLanguage" id="deleteLanguage" value="0" />
     </p>
 </form>
@@ -46,10 +46,10 @@
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
-        <th>Locale</th>
-        <th>Name</th>
-        <th>Active</th>
-        <th>Flag</th>
+        <th><?php echo $this->lang->L_LOCALE;?></th>
+        <th><?php echo $this->lang->L_NAME;?></th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
+        <th><?php echo $this->lang->L_FLAG;?></th>
     </tr>
 <?php
 if ($this->hits == 0) { ?>
@@ -67,26 +67,47 @@ foreach ($this->languages as $language) {
 ?>
     <tr class="<?php echo $cycleHelper->next(); ?>">
         <td>
-            <a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $this->getIcon('Edit', ''); ?></a>
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
+                <?php echo $this->getIcon('Edit', ''); ?>
+            </a>
             <?php if ($this->user->hasRight('deleteLanguage')) { ?>
-                <a href="#" title="Delete language" id="deleteLanguage-<?php echo $language['id'];?>" class="deleteLanguage">
+                <a href="#" title="<?php echo $this->lang->L_DELETE_LANGUAGE;?>" id="deleteLanguage-<?php echo $language['id'];?>" class="deleteLanguage">
                     <?php echo $this->getIcon('delete', ''); ?>
                 </a>
             <?php } ?>
         </td>
-        <td class="right"><?php echo $i++; ?>.</td>
-        <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['locale']; ?></a></td>
-        <td><a href="<?php echo $editUrl; ?>" title="Edit language"><?php echo $language['name']; ?></a></td>
-        <td><?php echo $language['active'] ? $this->getIcon('Ok', 'Yes', 16) : $this->getIcon('NotOk', 'No', 16); ?></td>
-        <td><?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('NotOk', 'No flag uploaded', 16); ?></td>
+        <td class="right">
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
+                <?php echo $i++; ?>.
+            </a>
+        </td>
+        <td>
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
+                <?php echo $language['locale']; ?>
+            </a>
+        </td>
+        <td>
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
+                <?php echo $language['name']; ?>
+            </a>
+        </td>
+        <td>
+            <div id="lang-<?php echo $language['id'];?>" class="switchLanguageStatus">
+                <?php echo $language['active'] ? $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16) : $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16); ?>
+            </div>
+        </td>
+        <td>
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
+                <?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('NotOk', $this->L_NO_FLAG, 16); ?>
+            </a>
+        </td>
     </tr>
 <?php
 }
 ?>
 </table>
 <div id="confirmDeleteLanguage" style="display:none">
-    Are you really sure you want to delete this language?<br />
-    This will also remove all translations, all log entries and and all edit rights of users for this language.
+    <?php echo $this->lang->L_CONFIRM_DELETE_LANGUAGE;?>
 </div>
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 $('.deleteLanguage').click(function() {
@@ -94,28 +115,51 @@ $('.deleteLanguage').click(function() {
     $('#confirmDeleteLanguage').dialog({
         autoOpen: true,
         modal: true,
-        title: 'Really delete?',
+        title: '<?php echo $this->escape($this->lang->L_CONFIRM_DELETE_TITLE);?>',
         width: 380,
         height: 160,
         buttons : {
-                    "Yes, delete language": function() {
+                    "<?php echo $this->escape($this->lang->L_CONFIRM_DELETE_LANGUAGE_BUTTON);?>": function() {
                         var id = a.id.replace(/deleteLanguage-/, '');
                         $('#deleteLanguage').attr('value', id);
                         $('#myForm').submit();
                     },
-                    "Cancel": function() {
+                    "<?php echo $this->lang->L_CANCEL;?>": function() {
                         $(this).dialog("close");
                     }
                   }
     })
 });
+var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
+var imgError = '<?php echo $this->getIcon('NotOk', '', 16);?>';
+$('.switchLanguageStatus').click(function() {
+    var id = this.id.replace(/lang-/, '');
+    $(this).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-language-status' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'languageId' : id
+        },
+        success:function(data) {
+            $('#lang-' + id).html(data.icon);
+        },
+        error:function(error) {
+            $('#lang-' + id).html(imgError);
+        }
+    });
+});
+
 <?php
 if (isset($this->languageDeleted)) {
     if ($this->languageDeleted == true) {
         $this->popUpMessage()->addMessage(
             'languageDeleted',
-            'Success',
-            'The language has been deleted successfully.<br />All log entries, settings and rights of users have been removed too.',
+            $this->lang->L_NOTICE,
+            $this->lang->L_LANGUAGE_DELETED_SUCCESSFULLY,
             array(
                 'modal' => true,
                 'height' => 160,
@@ -126,8 +170,9 @@ if (isset($this->languageDeleted)) {
     } else {
         $this->popUpMessage()->addMessage(
             'languageDeleted',
-            'Error',
-            'There was an error deleting this language.<br />Please try again.',
+            $this->lang->L_ERROR,
+            $this->lang->L_ERROR_DELETING_LANGUAGE,
+            '',
             array(
                 'modal' => true,
                 'height' => 140,

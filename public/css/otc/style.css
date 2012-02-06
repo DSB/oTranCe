@@ -696,7 +696,9 @@ pre.xdebug-var-dump {
     border:1px solid #6E9E2D;
 }
 
-.switchRight, .switchLanguageEditRight {
+.switchRight,
+.switchLanguageEditRight,
+.switchLanguageStatus {
     cursor: pointer;
 }
 

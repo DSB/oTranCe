@@ -254,6 +254,40 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Activate/deactivate a language
+     *
+     * @return void
+     */
+    public function switchLanguageStatusAction()
+    {
+        $languageId = (int) $this->_request->getParam('languageId', 0);
+        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        if ($languageId < 1 || !$this->_userModel->hasRight('editLanguage')) {
+            //Missing param or no permission to change status
+            $data = array('error' => 'Invalid arguments', 'icon' => $icon);
+        } else {
+            //get actual language
+            $language = $this->_languagesModel->getLanguageById($languageId);
+            //switch status
+            $language['active'] = ($language['active'] > 0) ? 0 : 1;
+            $res = $this->_languagesModel->saveLanguageStatus($languageId, $language['active']);
+            if ($res === true) {
+                if ($language['active'] > 0) {
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+                } else {
+                    $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
+                }
+                $data = array('error' => false, 'icon' => $icon);
+            } else {
+                $data = array('error' => true, 'icon' => $icon);
+            }
+        }
+
+        $this->view->data = $data;
+        $this->render('json');
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save

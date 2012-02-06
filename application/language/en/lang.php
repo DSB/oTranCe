@@ -23,6 +23,7 @@ $lang = array(
 'L_CANCEL' => 'Cancel',
 'L_CAN_EDIT' => 'Can edit',
 'L_CHANGE_RIGHT' => 'Change right',
+'L_CHANGE_STATUS' => 'Change status',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Create new user account',
@@ -32,6 +33,7 @@ $lang = array(
 'L_EDIT_USER' => 'Edit user',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
 'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',
+'L_ERROR_SAVING_STATUS' => 'Error saving changed status. Please retry.',
 'L_EXPORT_LANGUAGES' => 'Export languages',
 'L_EXPORT_LANGUAGES_EXPLAIN' => 'Replace untranslated phrases with the translation of the fallback language
 <br />if the translation of the exported language is empty?',

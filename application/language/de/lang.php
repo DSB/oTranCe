@@ -70,6 +70,7 @@ $lang = array(
 'L_KEY' => 'Schlüssel',
 'L_LANGUAGE' => 'Sprache',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'Die Sprache wurde erfolgreich gelöscht.<br />Alle Log-Einträge und Benutzerrechte für diese Sprache wurden ebenfalls erfolgreich entfernt.',
+'L_LANGUAGE_NAME' => 'Deutsch',
 'L_LOCALE' => 'Locale',
 'L_LOGIN' => 'Anmelden',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',

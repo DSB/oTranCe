@@ -309,7 +309,8 @@ class AjaxController extends Zend_Controller_Action
         }
 
         // re-read the saved key name
-        $ret['html'] = $this->_entriesModel->getKeyById($keyId);
+        $newKey = $this->_entriesModel->getKeyById($keyId);
+        $ret['html'] = $newKey['key'];
         if ($errorText > '') {
             $ret['is_error']   = true;
             $ret['error_text'] = $errorText;

@@ -14,7 +14,7 @@
 if (isset($this->commitResult['stderr']) && strlen($this->commitResult['stderr']) > 0) {
     $this->popUpMessage()->addMessage(
         'vcsError',
-        'VCS Error',
+        $this->lang->L_EXPORT_VCSERROR,
         $this->commitResult['stderr'],
         array(
             'modal' => true,

@@ -1,9 +1,9 @@
-<h2>Export</h2>
-<h4>Exporting language '<?php echo $this->language['name'];?> (<?php echo $this->language['locale'];?>)':</h4>
+<h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
+<h4><?php echo $this->lang->L_EXPORT_LANGUAGES .''.$this->language['name'];?> (<?php echo $this->language['locale'];?>)':</h4>
 <table class="bdr more-pading">
     <tr class="thead">
-        <th colspan="2">Filename</th>
-        <th>Filesize</th>
+        <th colspan="2"><?php echo $this->lang->L_FILENAME;?></th>
+        <th><?php echo $this->lang->L_FILESIZE;?></th>
     </tr>
 <?php
 foreach ($this->exportedFiles as $exportedFile) {
@@ -20,7 +20,7 @@ foreach ($this->exportedFiles as $exportedFile) {
     if ($projectConfig['vcsActivated'] > 0) { ?>
         <tr class="<?php echo $cycle->next();?>">
             <td colspan="3">
-                <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16);?> Commit to VCS </a>
+                <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16).''.$this->lang->L_EXPORT_COMMITTOVCS;?> </a>
             </td>
         </tr>
     <?php
@@ -28,4 +28,4 @@ foreach ($this->exportedFiles as $exportedFile) {
 }
 ?>
 </table><br/>
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','').''.$this->lang->L_EXPORT_BACKTOOVERVIEW;?> </a>

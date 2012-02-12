@@ -2,7 +2,7 @@
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 ?>
 <tr class="thead">
-    <th colspan="2">Menu rights</th>
+    <th colspan="2"><?php echo $this->lang->L_MENUE_RIGHTS;?></th>
 </tr>
 
 <?php
@@ -23,11 +23,11 @@ foreach ($menueRights as $right) {
 ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td colspan="2">
-            <label for="<?php echo $right;?>" id="label-<?php echo $right;?>"
-                class="switchRightLabel floatLeft" title="<?php echo $this->lang->L_CHANGE_RIGHT;?>">
+            <label title="<?php echo $this->lang->L_CHANGE_RIGHT;?>" for="<?php echo $right;?>" id="label-<?php echo $right;?>"
+                class="switchRightLabel floatLeft">
                 <?php echo $this->lang->$rightDescription;?>:
             </label>
-        <div id="<?php echo $right;?>" class="switchRight right">
+        <div title="<?php echo $this->lang->L_CHANGE_RIGHT;?>" id="<?php echo $right;?>" class="switchRight right">
             <?php
                 echo $this->printStatusIcon(
                     !empty($this->userRights[$right]) && $this->userRights[$right] > 0,

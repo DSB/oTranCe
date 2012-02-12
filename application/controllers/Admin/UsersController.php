@@ -71,11 +71,11 @@ class Admin_UsersController extends AdminController
 
             //set default form values for new user
             $userData = array(
-                'id' => 0,
+                'id'       => 0,
                 'username' => '',
-                'pass1' => '',
-                'pass2' => '',
-                'active' => 0
+                'pass1'    => '',
+                'pass2'    => '',
+                'active'   => 0
             );
         } elseif (!$this->_request->isPost()) {
             // get user data from database

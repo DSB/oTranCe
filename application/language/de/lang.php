@@ -96,6 +96,7 @@ $lang = array(
 'L_USERACCOUNT_IS_ACTIVE' => 'Benutzerkonto ist aktiv',
 'L_USERNAME' => 'Benutzername',
 'L_YES' => 'Ja',
+'L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS' => 'Sie besitzen das erforderliche Recht für diese Aktion nicht',
 'L_ZEND_ID_ACCESS_NOT_A_DIRECTORY' => 'Beim angegebenen Dateinamen \'%value%\' handelt es sich nicht um einen Ordner.',
 'L_ZEND_ID_ACCESS_NOT_A_FILE' => 'Der angegebene Dateiname \'%value%\' ist keine Datei.',
 'L_ZEND_ID_ACCESS_NOT_A_LINK' => 'Das angegebene Ziel \'%value%\' ist kein Link.',

@@ -24,6 +24,7 @@ $lang = array(
 'L_CAN_EDIT' => 'Darf editieren',
 'L_CHANGE_RIGHT' => 'Recht ändern',
 'L_CHANGE_STATUS' => 'Ändere Status',
+'L_CLICK_TO_INLINE_EDIT' => 'Klicken, um hier zu editieren',
 'L_CLKICK_TO_EDIT' => 'Zum Editieren klicken',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Wollen Sie diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Beabreitungsrechte von Benutzern für diese Sprache.',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => 'Ja, Sprache löschen',

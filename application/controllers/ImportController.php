@@ -144,7 +144,6 @@ class ImportController extends Zend_Controller_Action
         }
         $this->_dynamicConfig->setParam('selectedLanguage', $selectedLanguage);
         $this->view->selectedLanguage = $selectedLanguage;
-
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $this->_languages,
             'id',

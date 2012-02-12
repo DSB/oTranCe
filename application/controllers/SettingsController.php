@@ -62,6 +62,10 @@ class SettingsController extends Msd_Controller_Action
                 $saveVcsCredsResult = $this->_saveVcsCredentials();
                 $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
             }
+            $interfaceConfig             = $this->_config->getParam('interface');
+            $interfaceConfig['language'] = $this->_request->getParam('interfaceLanguage', 'en');
+            $this->_config->setParam('interface', $interfaceConfig);
+            $this->_config->save();
             $this->view->saved = $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
@@ -75,6 +79,16 @@ class SettingsController extends Msd_Controller_Action
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
+        $languageConfig                   = Msd_Language::getInstance();
+        $config                           = $this->_config->getParam('interface');
+        $availableLanguages               = $languageConfig->getAvailableLanguages();
+        $this->view->selInterfaceLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
+            $availableLanguages,
+            'locale',
+            '{locale} - {name}',
+            $config['language'],
+            false
+        );
         if (isset($vcsUser)) {
             $this->view->vcsUser = $vcsUser;
         }

@@ -2,7 +2,16 @@
 $i = 1;
 $projectConfig = $this->config->getParam('project');
 ?>
+<form action="<?php echo $this->baseUrl();?>/settings/index" method="post">
 <h2>Configuration</h2>
+<h4>Interface language:</h4>
+<p>
+    Select the language of this interface:
+    <select name="interfaceLanguage">
+        <?php echo $this->selInterfaceLanguage;?>
+    </select>
+    <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save settings</button>
+</p>
 <h4>You are allowed to edit:</h4>
 <table class="bdr small" summary="List of languages you are allowed to edit">
     <tr class="thead">
@@ -41,7 +50,6 @@ $projectConfig = $this->config->getParam('project');
 
 <br />
 <h4>Entries per page:</h4>
-<form action="<?php echo $this->baseUrl();?>/settings/index" method="post">
 <p>
     Select how many entries should be shown per page:
     <select name="recordsPerPage">

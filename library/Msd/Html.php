@@ -87,7 +87,7 @@ class Msd_Html
      *      <option value="id2">value2 (ignoredValue2)</option>
      *
      * @param array   $array     ass. Array
-     * @param string  $key       The kex index of array
+     * @param string  $key       The key index of array
      * @param string  $value     The value index of array
      * @param string  $selected  Selected key
      * @param boolean $selectAll Show option to select all

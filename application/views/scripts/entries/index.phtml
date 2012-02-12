@@ -156,29 +156,31 @@ foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable">';
+    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable" class="tooltip">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <?php
             if ($this->addVar) {
-                $delete = '<a href="#" title="Delete language variable" onclick="deleteVar(\''
+                $delete = '<a href="#" title="Delete language variable" class="tooltip" onclick="deleteVar(\''
                             . $keyId . '\',\''
                             . $hit['key'] . '\');">';
-
-                echo '<td>' . $delete;
-                echo '<img src="' . $this->getIconSrc('delete') . '" style="padding-top:2px;" alt="" '
-                    .'title="Delete variable" height="10" width="10"/> ';
-                echo '</a></td>';
+            ?>
+            <td>
+                <?php echo $delete;?>
+                <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
+                </a>
+            </td>
+             <?php
             }
         ?>
         <td class="right">
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall nowrap">
-            <?php echo $edit . $this->printFileTemplate($hit['template_id']) . '</a>';?>
+            <?php echo $edit . $this->printFileTemplate($hit['template_id']);?></a>
         </td>
         <td class="ssmall nowrap">
-            <?php echo $edit . $hit['key'] . '</a>';?>
+            <?php echo $edit . $hit['key'];?></a>
         </td>
         <?php
         foreach ($this->showLanguages as $lang) {

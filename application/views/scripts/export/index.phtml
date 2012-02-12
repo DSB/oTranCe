@@ -3,14 +3,14 @@ $i = 1;
 $export = $this->export;
 ?>
 <h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
-<h4>File status of download package:</h4>
+<h4><?php echo $this->lang->L_EXPORT_FILE_STATUS_DOWNLOAD_PACKAGE;?></h4>
 
 <table class="bdr small" summary="List of languages and their change status">
     <tr class="thead">
         <th>#</th>
-        <th colspan="3">Language</th>
-        <th>Latest change in database</th>
-        <th>Latest change in download package?</th>
+        <th colspan="3"><?php echo $this->lang->L_LANGUAGE;?></th>
+        <th><?php echo $this->lang->L_EXPORT_LATEST_CHANGE_DATABASE;?></th>
+        <th><?php echo $this->lang->L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE;?></th>
     </tr>
 <?php
 $languagesToUpdate = 0;
@@ -51,10 +51,10 @@ foreach ($this->status as $key => $s)
 <?php
 if ($exportNeeded) {
 ?>
-    <p class="error">Download package needs to be updated.</p>
+    <p class="error"><?php echo $this->lang->L_EXPORT_UPDATE_NEEDED;?></p>
 <?php } else { ?>
-<p class="ok">Download package is up to date.</p>
+<p class="ok"><?php echo $this->lang->L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE;?></p>
 <?php } ?>
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
-    <?php echo $this->getIcon('save', '');?> Build download package
+    <?php echo $this->getIcon('save', '').''.$this->lang->L_EXPORT_BUILD_DOWNLOAD_PACKAGE;?>
 </a><br/>

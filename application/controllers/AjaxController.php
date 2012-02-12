@@ -287,6 +287,39 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Save the name of a key (used at inline editing)
+     *
+     * @return void
+     */
+    public function saveKeyNameAction()
+    {
+        $keyId     = (int)    substr($this->_request->getParam('id'), 4);
+        $keyName   = (string) $this->_request->getParam('new_value');
+        $ret       = array('is_error' => false);
+        $errorText = '';
+
+        //check rights
+        if (!$this->_userModel->hasRight('editKey') || $keyId == 0) {
+            $errorText = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
+        } else {
+            //save
+            if (!$this->_entriesModel->updateKeyName($keyId, $keyName)) {
+                $errorText = $this->view->lang->L_ERROR_SAVING_KEY;
+            }
+        }
+
+        // re-read the saved key name
+        $ret['html'] = $this->_entriesModel->getKeyById($keyId);
+        if ($errorText > '') {
+            $ret['is_error']   = true;
+            $ret['error_text'] = $errorText;
+        }
+
+        $this->view->data = $ret;
+        $this->render('json');
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save

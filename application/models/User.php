@@ -720,6 +720,7 @@ class Application_Model_User extends Msd_Application_Model
             'admin'           => 0,
             /* other rights */
             'addVar'          => 0,
+            'editKey'         => 0,
             'importEqualVar'  => 0,
             /* admin rights */
             'editProject'     => 0,

@@ -679,6 +679,11 @@ label {
     font-weight:bold;
     color: #6E9E2D;
 }
+pre {
+    color: #000;
+    font-size:11px;
+}
+
 pre.xdebug-var-dump {
     font-size: 1.4em;
     padding:5px;
@@ -719,35 +724,16 @@ pre.xdebug-var-dump {
     padding:0;
 }
 
-/* momentary Unused */
-/* Tooltips that are generated from title tag */
-/*
-span.tooltip {
-    cursor:default;
+/** Styling of inline edit fields */
+.inlineEdit {
+    cursor: pointer;
+    border:1px solid transparent;
 }
-
-span.tooltip-text {
-    display:none;
-    position:absolute;
-    font-weight:bold;
-    padding:6px;
-    margin: 0;
-    color:#6E9E2D;
-    border:1px solid #6E9E2D;
-    background:#FFF url(pics/bg-buttons.gif) repeat-x;
-
-}
-
-#tooltip {
-    background: #EEEEEE url(pics/bg-buttons.gif) repeat-x;
+.inlineEditField {
     border: 1px solid #6E9E2D;
-    opacity: 0.9;
-    padding: 5px;
-    position: absolute;
-    z-index: 3000;
+    margin:0 0 6px 0;
+    width:300px;
 }
-#tooltip h3, #tooltip div {
-    margin: 0;
+.inlineEditMouseOver {
+    border: 1px solid #6E9E2D;
 }
-/* end of momentary Unused */
-

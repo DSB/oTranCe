@@ -1,4 +1,5 @@
 <?php
+$this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
 $i = $this->offset+1;
 $currentPage = ceil(($this->offset + 1) / $this->recordsPerPage);
 $nrOfPages = ceil($this->rows / $this->recordsPerPage);
@@ -90,7 +91,7 @@ $entriesModel = new Application_Model_LanguageEntries();
 
     <p style="margin:12px 0 0 0">
         <?php
-        if ($this->addVar) { ?>
+        if ($this->user->hasRight('addVar')) { ?>
              <button type="submit" class="Formbutton" name="addVar" value="addVar">
                  <?php echo $this->getIcon('plus', '');?> Add new key
              </button>
@@ -136,8 +137,12 @@ if (empty($this->showLanguages)) {
             }
             ?>
         <th>#</th>
-        <th>Template</th>
-        <th>Key</th>
+        <th><?php echo $this->lang->L_FILE_TEMPLATE;?></th>
+        <?php if ($this->user->hasRight('editKey')) { ?>
+            <th colspan="2"><?php echo $this->lang->L_KEY;?></th>
+        <?php } else { ?>
+            <th><?php echo $this->lang->L_KEY;?></th>
+        <?php } ?>
         <?php
             foreach ($this->showLanguages as $lang) {
         ?>
@@ -160,7 +165,7 @@ foreach ($this->hits as $hit)
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <?php
-            if ($this->addVar) {
+            if ($this->user->hasRight('addVar')) {
                 $delete = '<a href="#" title="Delete language variable" class="tooltip" onclick="deleteVar(\''
                             . $keyId . '\',\''
                             . $hit['key'] . '\');">';
@@ -173,14 +178,27 @@ foreach ($this->hits as $hit)
              <?php
             }
         ?>
-        <td class="right">
+        <td class="right top">
             <?php echo $this->numberFormat($i);?>.
         </td>
-        <td class="ssmall nowrap">
+        <td class="ssmall nowrap top">
             <?php echo $edit . $this->printFileTemplate($hit['template_id']);?></a>
         </td>
-        <td class="ssmall nowrap">
-            <?php echo $edit . $hit['key'];?></a>
+        <?php if ($this->user->hasRight('editKey')) { ?>
+            <td class="ssmall nowrap top">&nbsp;
+                <?php if ($this->user->hasRight('editKey')) { ?>
+                    <label for="key-<?php echo $hit['id'];?>" class="inlineEditTrigger">
+                        <?php echo $this->getIcon('Edit', $this->lang->L_CLICK_TO_INLINE_EDIT);?>
+                    </label>
+                <?php } ?>
+            </td>
+        <?php } ?>
+        <td class="ssmall nowrap top">
+            <?php if ($this->user->hasRight('editKey')) { ?>
+                <div class="inlineEdit" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
+            <?php } else { ?>
+                <?php echo $edit . $hit['key'];?></a>
+            <?php } ?>
         </td>
         <?php
         foreach ($this->showLanguages as $lang) {
@@ -190,10 +208,10 @@ foreach ($this->hits as $hit)
                 $text = '<i>untranslated</i>';
             }
             if (in_array($lang, $this->languagesEdit)) {
-                echo '<td>'. $edit . $this->getIcon('Edit', '').'</a></td>'
-                    .'<td>'. $edit. $text . '</a></td>';
+                echo '<td class="top">'. $edit . $this->getIcon('Edit', '').'</a></td>'
+                    .'<td class="top">'. $edit. $text . '</a></td>';
             } else {
-                echo '<td colspan="2">'. $text .'</td>';
+                echo '<td colspan="2" class="top">'. $text .'</td>';
             }
         }
         ?>
@@ -220,6 +238,7 @@ if ($this->rows == 0) {
     ?>
 </table>
 <script type="text/javascript">
+<?php $this->jQuery()->onLoadCaptureStart();?>
 function deleteVar(id, name)
 {
     if (confirm('Are you really sure you want to delete the variable \''+name+'\'?\nAll language entries will be lost!')) {
@@ -227,4 +246,23 @@ function deleteVar(id, name)
         self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
     }
 }
+
+$('.inlineEditTrigger').click(function() {
+    var id = $(this).attr('for');
+    $('#' + id).trigger('click');
+});
+
+$('.inlineEdit').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
+    saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
+    savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
+    savebutton_class: 'Formbutton',
+    cancelbutton_text: '<?php echo $this->lang->L_CANCEL;?>',
+    cancelbutton_class: 'Formbutton',
+    mouseover_class: 'inlineEditMouseOver',
+    editfield_class: 'inlineEditField',
+    size: 'auto',
+    form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />'
+
+});
+<?php $this->jQuery()->onLoadCaptureEnd();?>
 </script>

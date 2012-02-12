@@ -64,6 +64,7 @@ class EntriesController extends Zend_Controller_Action
     {
         $this->_entriesModel = new Application_Model_LanguageEntries();
         $this->_userModel = new Application_Model_User();
+        $this->view->user = $this->_userModel;
 
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
         $this->_config = Msd_Registry::getConfig();

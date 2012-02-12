@@ -455,7 +455,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get translation key
      *
-     * @param id $id The id of the key to look for
+     * @param int $id The id of the key to look for
      *
      * @return bool
      */
@@ -617,4 +617,19 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         return (bool) $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
+    /**
+     * Update the name of a key
+     *
+     * @param int    $keyId
+     * @param string $keyName
+     *
+     * @return bool
+     */
+    public function updateKeyName($keyId, $keyName)
+    {
+        $sql = 'UPDATE `'. $this->_database . '`.`' . $this->_tableKeys . '`'
+            . ' SET `key` = \'' . $this->_dbo->escape($keyName) . '\''
+            . ' WHERE `id` = '. $keyId;
+        return (bool) $this->_dbo->query($sql, Msd_db::SIMPLE);
+    }
 }

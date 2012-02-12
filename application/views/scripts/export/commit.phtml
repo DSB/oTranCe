@@ -1,9 +1,9 @@
-<h2>Export</h2>
-<h4>Commit files to VCS</h4>
+<h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
+<h4><?php echo $this->lang->L_EXPORT_COMMIT_FILES_VCS;?></h4>
 <?php if (isset($this->commitResult['stdout']) && strlen($this->commitResult['stdout']) > 0) { ?>
 <table class="bdr more-padding">
     <tr class="thead">
-        <th>VCS output</th>
+        <th><?php echo $this->lang->L_EXPORT_VCS_OUTPUT;?></th>
     </tr>
     <tr class="row-odd">
         <td><pre><?php echo $this->out($this->commitResult['stdout']); ?></pre></td>
@@ -24,4 +24,4 @@ if (isset($this->commitResult['stderr']) && strlen($this->commitResult['stderr']
     );
 }
 ?>
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> Back to overview </a>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','');?> <?php echo $this->lang->L_EXPORT_BACKTOOVERVIEW;?> </a>

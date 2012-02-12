@@ -41,6 +41,7 @@ $lang = array(
 'L_ENTRIES_PER_PAGE' => 'Einträge pro Seite',
 'L_ERROR' => 'Fehler',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuchen Sie es noch einmal.',
+'L_ERROR_SAVING_KEY' => 'Leider ist beim Speichern des Schlüssels ein Fehler aufgetreten.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
 'L_ERROR_SAVING_RIGHT' => 'Beim Speichern des Rechts ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',
 'L_ERROR_SAVING_STATUS' => 'Beim Speichern des Status ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',

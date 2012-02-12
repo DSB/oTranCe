@@ -435,7 +435,6 @@ table tr.row-even  a,table tr.row-odd a,table tr.row-highlight a {
 }
 
 table tr.row-highlight {
-    background: #F9F3ED;
     color: #000;
 }
 
@@ -554,7 +553,9 @@ textarea {
 .right {
     text-align: right;
 }
-
+.top {
+    vertical-align:top;
+}
 .middle {
     vertical-align: middle;
 }
@@ -709,3 +710,44 @@ pre.xdebug-var-dump {
     margin-left:24px;
     width:380px;
 }
+
+.progressBarContainer {
+    width:200px;
+    height:14px;
+    border:1px solid #ccc;
+    margin:8px 0 0 0;
+    padding:0;
+}
+
+/* momentary Unused */
+/* Tooltips that are generated from title tag */
+/*
+span.tooltip {
+    cursor:default;
+}
+
+span.tooltip-text {
+    display:none;
+    position:absolute;
+    font-weight:bold;
+    padding:6px;
+    margin: 0;
+    color:#6E9E2D;
+    border:1px solid #6E9E2D;
+    background:#FFF url(pics/bg-buttons.gif) repeat-x;
+
+}
+
+#tooltip {
+    background: #EEEEEE url(pics/bg-buttons.gif) repeat-x;
+    border: 1px solid #6E9E2D;
+    opacity: 0.9;
+    padding: 5px;
+    position: absolute;
+    z-index: 3000;
+}
+#tooltip h3, #tooltip div {
+    margin: 0;
+}
+/* end of momentary Unused */
+

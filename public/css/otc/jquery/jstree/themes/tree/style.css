@@ -7,14 +7,14 @@
 .jstree-tree .jstree-open > ins { background-position:-72px 0; }
 .jstree-tree .jstree-closed > ins { background-position:-54px 0; }
 .jstree-tree .jstree-leaf > ins { background-position:-36px 0; }
-.jstree-tree .jstree-clicked { background:transparent; border:1px solid transparent; padding:0 2px 0 1px; color:#E87B00; font-weight: bold;}
-.jstree-tree .jstree-hovered { background:#EEE; border:1px solid #EEE; padding:0 2px 0 1px; }
+.jstree-tree .jstree-clicked { background:transparent; border:1px solid transparent; padding:0 2px 0 1px; color:#E87B00; font-weight: normal;}
+.jstree-tree .jstree-hovered { background:#EEE; }
 .jstree-tree a .jstree-icon { background-position:-56px -19px; }
 .jstree-tree a .jstree-icon.file { background:url("file.png"); }
 .jstree-tree .jstree-open > a .jstree-icon { background-position:-56px -36px; }
 .jstree-tree a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
 /*.jstree-tree .jstree-open a:hover, .jstree-tree .jstree-last a:hover, .jstree-tree .jstree-closed a:hover, .jstree-tree .jstree-leaf a:hover { border:1px solid #F00; background-color:#FF0;}*/
-.jstree-msd.jstree-focused { background:white; }
+.jstree-tree.jstree-focused { background:white; }
 
 .jstree-tree .jstree-no-dots li,
 .jstree-tree .jstree-no-dots .jstree-leaf > ins { background:transparent; }

@@ -59,13 +59,15 @@ foreach ($this->users as $userId => $user)
         </td>
         <td><?php echo $edit . $user['username'];?></a></td>
         <td>
-            <?php
-                if ($user['active'] == 1) {
-                    echo $this->getIcon('Ok', $this->lang->L_YES, 16);
-                } else {
-                    echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
-                };
-            ?>
+            <div id="img-<?php echo $userId;?>" class="switchUserEditRight">
+                <?php
+                    if ($user['active'] == 1) {
+                        echo $this->getIcon('Ok', $this->lang->L_YES, 16);
+                    } else {
+                        echo $this->getIcon('NotOk', $this->lang->L_NO, 16);
+                    };
+                ?>
+            </div>
         </td>
         <td>
             <?php
@@ -101,6 +103,7 @@ foreach ($this->users as $userId => $user)
     Are you really sure you want to delete this user?<br />
     This will also remove all rights, settings and log entries of this user.
 </div>
+<script type="text/javascript">
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 $('.deleteUser').click(function() {
     var a=this;
@@ -121,6 +124,26 @@ $('.deleteUser').click(function() {
                     }
                   }
     })
+});
+$('.switchUserEditRight').click(function() {
+    var userId = this.id.replace(/img-/, '');
+    $('#img-' + userId).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-user-status' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'userId'    : userId
+        },
+        success:function(data) {
+            $('#img-' + userId).html(data.icon);
+        },
+        error:function(error) {
+            $('#img-' + userId).html(imgError);
+        }
+    });
 });
 <?php
 if (isset($this->userDeleted)) {
@@ -151,4 +174,5 @@ if (isset($this->userDeleted)) {
 
     }
 }
-$this->jQuery()->onLoadCaptureEnd();
+$this->jQuery()->onLoadCaptureEnd(); ?>
+</script>

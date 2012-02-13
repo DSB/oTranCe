@@ -321,6 +321,39 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Activate/deactivate a user, depending on the current status.
+     *
+     * @return void
+     */
+    public function switchUserStatusAction()
+    {
+        $userId = (int) $this->_request->getParam('userId', false);
+        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        if ($userId < 1 || !$this->_userModel->hasRight('editUsers')) {
+            //Missing param or no permission to change status
+            $data = array('icon' => $icon);
+        } else {
+            //get user data
+            $user = $this->_userModel->getUserById($userId);
+            //switch status
+            $user['active'] = ($user['active'] > 0) ? 0 : 1;
+            unset($user['password']);
+            $user['pass1'] = '';
+            $res = $this->_userModel->saveAccount($user);
+            if ($res !== false) {
+                if ($user['active'] > 0) {
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+                } else {
+                    $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
+                }
+            }
+            $data = array('icon' => $icon);
+        }
+        $this->view->data = $data;
+        $this->render('json');
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save
@@ -359,7 +392,6 @@ class AjaxController extends Zend_Controller_Action
             return 0;
         }
     }
-
 
     /**
      * Get the translations of the keys for the fallbackLanguage and save them to aprivate property

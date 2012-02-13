@@ -40,15 +40,15 @@ class Msd_Language
     private $_baseLanguageDir = null;
 
     /**
-     * Constructor gets the configuration params
+     * Constructor loads the selected language of the user
      *
      * @return Msd_Language
      */
     private function __construct ()
     {
-        $config = Msd_Registry::getConfig();
-        $interfaceConfig = $config->getParam('interface');
-        $this->loadLanguage($interfaceConfig['language']);
+        $user              = new Application_Model_User();
+        $interfaceLanguage = $user->loadSetting('interfaceLanguage', 'en');
+        $this->loadLanguage($interfaceLanguage);
     }
 
     /**

@@ -185,7 +185,8 @@ class Msd_Language
             $parts = explode('/', $dir);
             $lang = array_pop($parts);
             $this->loadLanguage($lang);
-            $ret[$lang] = array('locale' => $lang, 'name' => $this->L_LANGUAGE_NAME);
+            $translator = $this->getTranslator();
+            $ret[$lang] = array('locale' => $lang, 'name' => $translator->translate('L_LANGUAGE_NAME'));
         }
         $this->setTranslator($currentTranslator);
         return $ret;

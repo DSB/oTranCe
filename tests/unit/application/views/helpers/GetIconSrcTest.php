@@ -9,7 +9,7 @@ class GetIconSrcTest extends PHPUnit_Framework_TestCase
 {
     public function testGetIconSrcForIconWithoutSize()
     {
-        $expected = '/css/msd/icons/search.gif';
+        $expected = '/css/otc/icons/search.gif';
         $viewHelper = new Msd_View_Helper_GetIconSrc();
         $res = $viewHelper->getIconSrc('view');
         $this->assertEquals(true, is_string($res));
@@ -18,7 +18,7 @@ class GetIconSrcTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconSrcForIconWithSize()
     {
-        $expected = '/css/msd/icons/16x16/Edit.png';
+        $expected = '/css/otc/icons/16x16/Edit.png';
         $viewHelper = new Msd_View_Helper_GetIconSrc();
         $res = $viewHelper->getIconSrc('Edit', 16);
         $this->assertEquals(true, is_string($res));

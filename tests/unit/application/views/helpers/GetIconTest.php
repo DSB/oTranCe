@@ -9,7 +9,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 {
     public function testGetIconEdit()
     {
-        $expected = '<img src="/css/msd/icons/16x16/Edit.png" '
+        $expected = '<img src="/css/otc/icons/16x16/Edit.png" '
             .'alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('Edit', '', 16);
@@ -18,7 +18,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconEditWithTitle()
     {
-        $expected = '<img src="/css/msd/icons/16x16/Edit.png" alt="Titletest" '
+        $expected = '<img src="/css/otc/icons/16x16/Edit.png" alt="Titletest" '
             .'title="Titletest"/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('Edit', 'Titletest', 16);
@@ -27,7 +27,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconInfoSize16()
     {
-        $expected = '<img src="/css/msd/icons/16x16/Info.png" '
+        $expected = '<img src="/css/otc/icons/16x16/Info.png" '
             . 'alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('Info', '', 16);
@@ -36,7 +36,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconInfoSize20()
     {
-        $expected = '<img src="/css/msd/icons/20x20/Info.png" '
+        $expected = '<img src="/css/otc/icons/20x20/Info.png" '
             . 'alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('Info', '', 20);
@@ -54,7 +54,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconWithoutSize()
     {
-        $expected = '<img src="/css/msd/icons/save.png" '
+        $expected = '<img src="/css/otc/icons/save.png" '
             . 'alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('save');

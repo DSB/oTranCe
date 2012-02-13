@@ -195,7 +195,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $keyIds[] = $rawKeyId[0];
         }
         $sql = 'SELECT `id`,  `key`, `template_id` FROM `' . $this->_tableKeys . '` '
-            . 'WHERE `id` IN (' . implode(',', $keyIds) . ')';
+            . 'WHERE `id` IN (' . implode(',', $keyIds) . ') ORDER BY `key` ASC';
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (!is_array($hits)) {
             return array();

@@ -5,8 +5,8 @@ $user = new Application_Model_User();
 <div id="sidebar">
     <div id="version">
         <h2><?php echo $this->projectConfig['name'];?></h2>
-        <a href="<?php echo $this->projectConfig['url'];?>" title="Project Home">
-            <img src="<?php echo $this->baseUrl() . $this->projectConfig['logo']['large']; ?>" alt="Large project logo" />
+        <a href="<?php echo $this->projectConfig['url'];?>" title="<?php echo $this->lang->L_HOME;?>">
+            <img src="<?php echo $this->baseUrl() . $this->projectConfig['logo']['large']; ?>" alt="<?php echo $this->lang->L_PROJECT_LOGO;?>" />
         </a>
     </div>
 
@@ -16,7 +16,7 @@ $user = new Application_Model_User();
                 <?php if ($this->controller == 'index') {
                     echo ' class="active"';
                 };?>
-                ><a href="<?php echo $this->baseUrl();?>/index/index"><?php echo $this->getIcon('Home', $this->lang->L_HOME, 20);?>Home</a>
+                ><a href="<?php echo $this->baseUrl();?>/index/index"><?php echo $this->getIcon('Home', $this->lang->L_HOME, 20);?><?php echo $this->lang->L_HOME;?></a>
             </li>
             <?php
             if ($user->hasRight('editConfig')) {
@@ -25,7 +25,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'settings') {
                         echo ' class="active"';
                     };?>
-                    ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?>Configuration</a>
+                    ><a href="<?php echo $this->baseUrl();?>/settings/index"><?php echo $this->getIcon('Configure', $this->lang->L_HOME, 20);?><?php echo $this->lang->L_CONFIGURATION;?></a>
                 </li>
                 <?php
             }
@@ -35,7 +35,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'entries') {
                         echo ' class="active"';
                     };?>
-                ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?>Entries</a>
+                ><a href="<?php echo $this->baseUrl();?>/entries/index"><?php echo $this->getIcon('Edit', '', 20);?><?php echo $this->lang->L_TRANSLATIONS;?></a>
                 </li>
                 <?php
             }
@@ -45,7 +45,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'downloads') {
                         echo ' class="active"';
                     };?>
-                ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?>Downloads</a>
+                ><a href="<?php echo $this->baseUrl();?>/downloads/"><?php echo $this->getIcon('Download', '', 20);?><?php echo $this->lang->L_DOWNLOADS;?></a>
                 </li>
                 <?php
             }
@@ -55,7 +55,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'browser') {
                         echo ' class="active"';
                     };?>
-                ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?>Browse files</a>
+                ><a href="<?php echo $this->baseUrl();?>/browser/"><?php echo $this->getIcon('Reports', '', 20);?><?php echo $this->lang->L_FILEBROWSER;?></a>
                 </li>
                 <?php
             }
@@ -65,7 +65,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'import') {
                         echo ' class="active"';
                     };?>
-                    ><a href="<?php echo $this->baseUrl();?>/import"><?php echo $this->getIcon('OpenFile', '', 20);?>Import</a>
+                    ><a href="<?php echo $this->baseUrl();?>/import"><?php echo $this->getIcon('OpenFile', '', 20);?><?php echo $this->lang->L_IMPORT;?></a>
                 </li>
                 <?php
             }
@@ -75,7 +75,7 @@ $user = new Application_Model_User();
                         <?php if ($this->controller == 'export') {
                             echo ' class="active"';
                         };?>
-                        ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?>Export</a>
+                        ><a href="<?php echo $this->baseUrl();?>/export"><?php echo $this->getIcon('BackupDatabase', '', 20);?><?php echo $this->lang->L_EXPORT;?></a>
                     </li>
                 <?php
             }
@@ -85,7 +85,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'log') {
                         echo ' class="active"';
                     };?>
-                    ><a href="<?php echo $this->baseUrl();?>/log"><?php echo $this->getIcon('log', '', 20);?>Log</a>
+                    ><a href="<?php echo $this->baseUrl();?>/log"><?php echo $this->getIcon('log', '', 20);?><?php echo $this->lang->L_LOG;?></a>
                 </li>
                 <?php
             }
@@ -95,7 +95,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'statistics') {
                         echo ' class="active"';
                     };?>
-                    ><a href="<?php echo $this->baseUrl();?>/statistics"><?php echo $this->getIcon('Statistics', '', 20);?>Statistics</a>
+                    ><a href="<?php echo $this->baseUrl();?>/statistics"><?php echo $this->getIcon('Statistics', '', 20);?><?php echo $this->lang->L_STATISTICS;?></a>
                 </li>
                 <?php
             }
@@ -105,7 +105,7 @@ $user = new Application_Model_User();
                     <?php if ($this->controller == 'admin') {
                         echo ' class="active"';
                     };?>
-                    ><a href="<?php echo $this->baseUrl();?>/admin"><?php echo $this->getIcon('Admin', '', 20);?>Admin</a>
+                    ><a href="<?php echo $this->baseUrl();?>/admin"><?php echo $this->getIcon('Admin', '', 20);?><?php echo $this->lang->L_ADMIN;?></a>
                 </li>
                 <?php
             }
@@ -117,7 +117,7 @@ $user = new Application_Model_User();
 <div id="logout">
     <div id="loggedin-user"><p>
         <strong><?php echo $this->getUsername(); ?></strong> |
-        <a href="<?php echo $this->baseUrl();?>/index/logout/">Log out</a></p>
+        <a href="<?php echo $this->baseUrl();?>/index/logout/"><?php echo $this->lang->L_LOG_OUT;?></a></p>
     </div>
     <div id="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_LOGGED_IN, 16);?></div>
 </div>

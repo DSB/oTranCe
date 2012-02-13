@@ -1,46 +1,47 @@
-<h2>Admin - Files</h2>
+<h2><?php echo $this->lang->L_ADMIN .' - '. $this->lang->L_FILE_TEMPLATES;?></h2>
 <?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 echo $this->partial('admin/head-navi.phtml');
 if ($this->fileTemplate['id'] == 0) {
-    $subTitle = "Create new file template";
+    $subTitle = $this->lang->L_CREATE_NEW_FILE_TEMPLATE;
 } else {
-    $subTitle = "Edit file template \"{$this->fileTemplate['name']}\"";
+    $subTitle = sprintf($this->lang->L_EDIT_FILE_TEMPLATE_X, $this->fileTemplate['name']);
 } ?>
-<h4><?php echo $this->out($subTitle); ?></h4>
+<h4><?php echo $this->out($subTitle); ?>:</h4>
 <form action="<?php echo $this->baseUrl(); ?>/admin_files/edit/id/<?php echo $this->fileTemplate['id']; ?>/" method="post" enctype="multipart/form-data">
     <table class="bdr more-padding" summary="List of file template settings">
         <tr class="thead">
-            <th colspan="2">File template settings</th>
-            <th>Possible placeholder</th>
+            <th colspan="2"><?php echo $this->lang->L_FILE_TEMPLATE_SETTINGS;?></th>
+            <th><?php echo $this->lang->L_POSSIBLE_PLACEHOLDER;?></th>
         </tr>
-        <tr class="row-odd">
-            <td><label for="tplName">Name</label></td>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="top"><label for="tplFile"><?php echo $this->lang->L_FILENAME;?></label></td>
+            <td><input type="text" name="tplFile" id="tplFile" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/></td>
+            <td class="top">{LOCALE}</td>
+        </tr>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td><label for="tplName"><?php echo $this->lang->L_NAME;?></label></td>
             <td><input type="text" name="tplName" id="tplName" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['name']); ?>"/></td>
-            <td>-</td>
+            <td class="top">-</td>
         </tr>
-        <tr class="row-even">
-            <td>
-                <label for="tplHeader">Header</label>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="top">
+                <label for="tplHeader"><?php echo $this->lang->L_HEADER;?></label>
             </td>
             <td><textarea name="tplHeader" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
-            <td>{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
+            <td class="top">{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
-        <tr class="row-odd">
-            <td><label for="tplContent">Content</label></td>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="top"><label for="tplContent"><?php echo $this->lang->L_GENERATED_CONTENT;?></label></td>
             <td><textarea name="tplContent" id="tplContent" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['content']); ?></textarea></td>
-            <td>{KEY}, {VALUE}</td>
+            <td class="top">{KEY}, {VALUE}</td>
         </tr>
-        <tr class="row-even">
-            <td><label for="tplFooter">Footer</label></td>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="top"><label for="tplFooter"><?php echo $this->lang->L_FOOTER;?></label></td>
             <td><textarea name="tplFooter" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
-            <td>{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
+            <td class="top">{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
-        <tr class="row-odd">
-            <td><label for="tplFile">Filename</label></td>
-            <td><input type="text" name="tplFile" id="tplFile" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/></td>
-            <td>{LOCALE}</td>
-        </tr>
-        <tr class="row-even">
+        <tr class="<?php echo $cycleHelper->next();?>">
             <td>&nbsp;</td>
             <td colspan="2"><button type="submit" class="Formbutton"><?php echo $this->getIcon('save'); ?> Save</button></td>
         </tr>
@@ -52,8 +53,8 @@ if (isset($this->creationResult)) {
     if ($this->creationResult === true) {
         $this->popUpMessage()->addMessage(
             'settingsSaved',
-            'Ok',
-            'Your changes have been saved successfully.',
+            $this->lang->L_OK,
+            $this->lang->L_CHANGES_SAVED_SUCCESSFULLY . '.',
             array(
                  'modal' => true,
                  'height' => 130,
@@ -64,9 +65,9 @@ if (isset($this->creationResult)) {
     } else {
         $this->popUpMessage()->addMessage(
             'settingsSaved',
-            'Error',
-            'The following error occurred while saving your changes.<br /><br/><span class="error">'
-                . $this->creationResult . '</span><br /><br/>Please try again.<br/><br/>',
+            $this->lang->L_ERROR,
+            '<span class="error">' . $this->lang->L_ERROR_SAVING_CHANGE .'<br />'
+                . '</span><br />' . $this->lang->L_TRY_AGAIN,
             array(
                 'modal' => true,
                 'width' => 400,

@@ -1,6 +1,6 @@
 <?php
 $this->controller = $this->request->getControllerName();
-$user = new Application_Model_User();
+$user             = new Application_Model_User();
 ?>
 <div id="sidebar">
     <div id="version">
@@ -116,7 +116,7 @@ $user = new Application_Model_User();
 
 <div id="logout">
     <div id="loggedin-user"><p>
-        <strong><?php echo $this->getUsername(); ?></strong> |
+        <strong><?php echo $this->getUsername();?></strong> |
         <a href="<?php echo $this->baseUrl();?>/index/logout/"><?php echo $this->lang->L_LOG_OUT;?></a></p>
     </div>
     <div id="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_LOGGED_IN, 16);?></div>

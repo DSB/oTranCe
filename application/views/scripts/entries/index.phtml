@@ -1,8 +1,8 @@
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
-$i = $this->offset+1;
-$currentPage = ceil(($this->offset + 1) / $this->recordsPerPage);
-$nrOfPages = ceil($this->rows / $this->recordsPerPage);
+$i            = $this->offset+1;
+$currentPage  = ceil(($this->offset + 1) / $this->recordsPerPage);
+$nrOfPages    = ceil($this->rows / $this->recordsPerPage);
 $entriesModel = new Application_Model_LanguageEntries();
 ?>
 <h2>Edit entries</h2>
@@ -12,7 +12,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             <tr>
                 <td>
                     <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-                    Search in phrases:
+                    <?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:
                 </td>
                 <td>
                     <input
@@ -23,17 +23,17 @@ $entriesModel = new Application_Model_LanguageEntries();
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> Search
+                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                     </button>
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
-                        <?php echo $this->getIcon('delete', '');?> Reset
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                     </button>
                 </td>
             </tr>
             <tr>
-                <td>Search in keys:</td>
+                <td><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
                 <td>
                     <input
                         <?php if (false && $this->getUntranslated > 0) {
@@ -43,18 +43,18 @@ $entriesModel = new Application_Model_LanguageEntries();
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> Search
+                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                     </button>
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
-                        <?php echo $this->getIcon('delete', '');?> Reset
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                     </button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <label for="fileTemplateFilter">Filter by file template:</label>
+                    <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
                 </td>
                 <td>
                     <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
@@ -64,12 +64,12 @@ $entriesModel = new Application_Model_LanguageEntries();
                 <td>&nbsp;</td>
                 <td>
                     <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
-                        <?php echo $this->getIcon('delete', '');?> Reset
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                     </button>
                 </td>
             </tr>
             <tr>
-                <td>Find untranslated for:</td>
+                <td><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
                 <td>
                     <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                         <option value="0">---</option>
@@ -78,12 +78,12 @@ $entriesModel = new Application_Model_LanguageEntries();
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> Search
+                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                     </button>
                 </td>
                 <td>
                     <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
-                        <?php echo $this->getIcon('delete', '');?> Reset
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                     </button>
                 </td>
             </tr>
@@ -93,7 +93,7 @@ $entriesModel = new Application_Model_LanguageEntries();
         <?php
         if ($this->user->hasRight('addVar')) { ?>
              <button type="submit" class="Formbutton" name="addVar" value="addVar">
-                 <?php echo $this->getIcon('plus', '');?> Add new key
+                 <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_NEW_KEY;?>
              </button>
         <br/><br/>
             <?php
@@ -125,7 +125,7 @@ $entriesModel = new Application_Model_LanguageEntries();
 </form>
 <?php
 if (empty($this->showLanguages)) {
-    echo "<div class=\"error\">You are not allowed to edit any language. Please contact the administrator.</div></div>";
+    echo '<div class="error">' . $this->lang->L_YOU_CANNOT_EDIT_ANY_LANGUAGE . '.</div></div>';
     return;
 }
 ?>
@@ -161,12 +161,12 @@ foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="Edit language variable" class="tooltip">';
+    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT_KEY . '">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <?php
             if ($this->user->hasRight('addVar')) {
-                $delete = '<a href="#" title="Delete language variable" class="tooltip" onclick="deleteVar(\''
+                $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
                             . $keyId . '\',\''
                             . $hit['key'] . '\');">';
             ?>
@@ -205,7 +205,7 @@ foreach ($this->hits as $hit)
             $text = isset($hit['languages'][$lang]) ? $hit['languages'][$lang] : '';
             $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
             if (!isset($text) || $text == '') {
-                $text = '<i>untranslated</i>';
+                $text = '<i>' . $this->lang->L_UNTRANSLATED . '</i>';
             }
             if (in_array($lang, $this->languagesEdit)) {
                 echo '<td class="top">'. $edit . $this->getIcon('Edit', '').'</a></td>'
@@ -220,22 +220,21 @@ foreach ($this->hits as $hit)
     $i++;
 }
 if ($this->rows == 0) {
-    $rowCount = 5+count($this->languagesEdit)+count($this->showLanguages);
+    $rowCount = 5 + count($this->languagesEdit) + count($this->showLanguages);
     if ($this->addVar) {
         $rowCount++;
     }
 ?>
     <tr class="row-even">
         <td colspan="<?php echo $rowCount;?>">
-            <br />
-            Nothing found.<br />
-            Select another filter / search value.
+            <br /><?php echo $this->lang->L_NO_HITS;?><br />
+            <?php echo $this->lang->L_SELECT_OTHER_FILTER_CRITERIA;?>.
             <br /><br />
         </td>
     </tr>
 <?php
 }
-    ?>
+?>
 </table>
 <script type="text/javascript">
 <?php $this->jQuery()->onLoadCaptureStart();?>

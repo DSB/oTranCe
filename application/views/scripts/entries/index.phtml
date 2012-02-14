@@ -237,15 +237,16 @@ if ($this->rows == 0) {
 ?>
 </table>
 <script type="text/javascript">
-<?php $this->jQuery()->onLoadCaptureStart();?>
 function deleteVar(id, name)
 {
-    if (confirm('Are you really sure you want to delete the variable \''+name+'\'?\nAll language entries will be lost!')) {
+    var message = '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_KEY_X)?>';
+    var text = message.replace(/{KEY}/g, name);
+    if (confirm(text + '\n<?php echo $this->lang->L_ALL_TRANSLATIONS_WILL_BE_DELETED_TOO;?>!')) {
         setPageInactive();
         self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
     }
 }
-
+<?php $this->jQuery()->onLoadCaptureStart();?>
 $('.inlineEditTrigger').click(function() {
     var id = $(this).attr('for');
     $('#' + id).trigger('click');

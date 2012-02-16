@@ -155,6 +155,7 @@ $lang = array(
 'L_SHOW_UNTRANSLATED_KEYS' => 'Show untranslated keys',
 'L_STATISTICS' => 'Statistics',
 'L_STATUS' => 'Status',
+'L_SUCCESS' => 'Success',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'This will also remove all rights, settings and log entries of this user.',
 'L_TRANSLATIONS' => 'Translations',
 'L_TRY_AGAIN' => 'Please try again.',

@@ -54,7 +54,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
             <?php
         }
         if ($user->hasRight('editVcs')) { ?>
-            <li id="admin_export" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <li id="admin_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $vcsUrl;?>">
                     <?php echo$this->getIcon('BackupDatabase', '', 16);?>
                     VCS

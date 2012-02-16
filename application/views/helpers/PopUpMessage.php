@@ -111,7 +111,7 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
     {
         $messages = array();
         foreach ($this->_messages as $messageInfo) {
-            $html = '<div';
+            $html = '<div style="display:none"';
             foreach ($messageInfo['attribs'] as $attribName => $attribValue) {
                 $html .= ' ' . $attribName . '="' . $attribValue . '"';
             }

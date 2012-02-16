@@ -148,6 +148,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_SHOWIMPORT' => 'Benutzer kann den Menüpunkt "Import" benutzen',
 'L_RIGHT_EXPLAIN_SHOWLOG' => 'Benutzer kann den Menüpunkt "Log" benutzen',
 'L_RIGHT_EXPLAIN_SHOWSTATISTICS' => 'Benutzer kann den Menüpunkt "Statistiken" benutzen',
+'L_SAVE' => 'Speichern',
 'L_SAVING' => 'Speichere',
 'L_SEARCH' => 'Suchen',
 'L_SEARCH_IN_KEYS' => 'Suche in Schlüsseln',

@@ -122,6 +122,7 @@ $lang = array(
 'L_POSSIBLE_PLACEHOLDER' => 'Possible placeholder',
 'L_PROGRESS' => 'Progress',
 'L_PROGRESS_OF_LANGUAGES' => 'Progress of languages',
+'L_PROJECT' => 'Project',
 'L_PROJECT_LOGO' => 'Logo of project',
 'L_REALLY_DELETE_USER' => 'Are you really sure you want to delete this user?',
 'L_RESET' => 'Reset',

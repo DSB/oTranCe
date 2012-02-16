@@ -8,7 +8,7 @@ $inputNamesMap = array(
 ?>
 <h2><?php echo $this->lang->L_ADMIN . ' - ' . $this->lang->L_EDIT_USER;?></h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 if ($userData['id'] == 0) { ?>
     <h4><?php echo $this->lang->L_CREATE_NEW_USER_ACCOUNT;?></h4>
 <?php

@@ -7,7 +7,7 @@ $inputFieldMap = array(
 ?>
 <h2>Admin - Languages</h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 if ($this->languageId == 0) {
     $subTitle = "Create new language";
 } else {

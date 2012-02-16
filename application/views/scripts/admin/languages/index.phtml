@@ -1,5 +1,5 @@
-<h2>Admin - Languages</h2>
-<?php echo $this->partial('admin/head-navi.phtml'); ?>
+<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_LANGUAGES;?></h2>
+<?php echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang)); ?>
 <form action="<?php echo $this->baseUrl();?>/admin_languages/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />

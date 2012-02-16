@@ -1,6 +1,6 @@
 <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_USERS;?></h2>
 <?php
-echo $this->partial('admin/head-navi.phtml');
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 ?>
 <form action="<?php echo $this->baseUrl();?>/admin_users/" method="post" id="myForm">
 <?php

@@ -129,9 +129,11 @@ class Application_Model_User extends Msd_Application_Model
      *
      * Return array[$languageId] = 'user1, user2, user3, ...';
      *
+     * @param bool $implodeList Wether to implode the names per language or retunr an array
+     *
      * @return array
      */
-    public function getTranslatorlist()
+    public function getTranslatorlist($implodeList = true)
     {
         $translatorList = $this->getTranslatorData();
         $ret = array();
@@ -140,11 +142,14 @@ class Application_Model_User extends Msd_Application_Model
                 if (empty($ret[$languageId])) {
                     $ret[$languageId] = array();
                 }
-                $ret[$languageId][] = $translator['userName'];
+                $ret[$languageId][$translator['userId']] = $translator['userName'];
             }
         }
-        foreach ($translatorList as $languageId => $translator) {
-            $ret[$languageId] = implode(', ', $ret[$languageId]);
+
+        if ($implodeList === true) {
+            foreach ($translatorList as $languageId => $translator) {
+                $ret[$languageId] = implode(', ', $ret[$languageId]);
+            }
         }
         return $ret;
     }

@@ -1,39 +1,41 @@
 <?php
 $i = 1;
 ?>
-<h2>Home</h2>
-<h4>Status of language packs:</h4>
+<h2><?php echo $this->lang->L_HOME;?></h2>
+<h4><?php echo $this->lang->L_PROGRESS_OF_LANGUAGES;?>:</h4>
 <table class="bdr small" summary="List of languages and their maintainers">
     <tr class="thead">
         <th>#</th>
-        <th colspan="3">Language</th>
-        <th>Progress</th>
+        <th colspan="3"><?php echo $this->lang->L_LANGUAGE;?></th>
+        <th><?php echo $this->lang->L_PROGRESS;?></th>
         <th><?php echo $this->getIcon('Ok', 'Done', 16);?></th>
         <th><?php echo $this->getIcon('Edit', 'To do', 16);?></th>
-        <th>Done</th>
-        <th>Status</th>
-        <th>User with edit rights</th>
+        <th><?php echo $this->lang->L_DONE;?></th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
+        <th><?php echo $this->lang->L_USERS_WITH_EDIT_RIGHTS;?></th>
     </tr>
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 foreach ($this->status as $languageId => $val)
 {
-    $greenBar = (int) $val['done'] * 2;
-    $redBar = (int) 200-$greenBar;
+    $greenBar         = (int) $val['done'] * 2;
+    $redBar           = (int) 200-$greenBar;
     $untranslatedLink = $this->serverUrl(). $this->baseUrl() . '/entries/index/getUntranslated/' . $languageId;
 ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="right"><?php echo $i;?>.</td>
         <td>
-            <?php echo $this->printFlag($languageId);?>
+            <a href="<?php echo $untranslatedLink;?>" title="<?php echo $this->lang->L_SHOW_UNTRANSLATED_KEYS;?>">
+                <?php echo $this->printFlag($languageId);?>
+            </a>
         </td>
         <td>
-            <a href="<?php echo $untranslatedLink;?>">
+            <a href="<?php echo $untranslatedLink;?>" title="<?php echo $this->lang->L_SHOW_UNTRANSLATED_KEYS;?>">
                 <?php echo $this->languages[$languageId]['locale'];?>
             </a>
         </td>
         <td>
-            <a href="<?php echo $untranslatedLink;?>">
+            <a href="<?php echo $untranslatedLink;?>" title="<?php echo $this->lang->L_SHOW_UNTRANSLATED_KEYS;?>">
                 <?php echo $this->languages[$languageId]['name'];?>
             </a>
         </td>
@@ -58,19 +60,30 @@ foreach ($this->status as $languageId => $val)
         <td class="nowrap">
         <?php
             if ($val['done'] < 90) {
-                echo '<span class="error">Needs work</span>';
+                echo '<span class="error">' . $this->lang->L_NEEDS_WORK . '</span>';
             } elseif ($val['done']<98) {
-                echo '<span class="ok">Ok</span>';
+                echo '<span class="ok">' . $this->lang->L_OK . '</span>';
             } else {
-                echo '<span class="ok">Perfect</span>';
+                echo '<span class="ok">' . $this->lang->L_PERFECT . '!</span>';
             }
         ?>
-
         </td>
         <td><?php
-                if (!empty($this->translators[$languageId])) {
-                    echo $this->escape($this->translators[$languageId]);
+            if (isset($this->translators[$languageId])) {
+                if ($this->user->hasRight('editUsers')) {
+                    $translators = array();
+                    $editUserLink = '<a href="' . $this->serverUrl() . $this->baseUrl() . '/admin_users/edit/id/%d"'
+                        .' title="' . $this->lang->L_EDIT_USER .'">%s</a>';
+                    foreach ($this->translators[$languageId] as $userId => $translator) {
+                        $translators[] = sprintf($editUserLink, $userId, $translator);
+                    };
+                    echo implode(', ', $translators);
+                } else {
+                    if (!empty($this->translators[$languageId])) {
+                        echo $this->escape(implode(', ', $this->translators[$languageId]));
+                    }
                 }
+            }
             ?>
         </td>
     </tr>

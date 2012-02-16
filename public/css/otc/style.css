@@ -102,6 +102,10 @@ img {
     width: 19em;
 }
 
+#sidebar h2 {
+    text-align:center;
+}
+
 #content {
     clear: right;
     width: auto;

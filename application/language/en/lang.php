@@ -99,6 +99,7 @@ $lang = array(
 'L_IMPORT' => 'Import',
 'L_KEY' => 'Key',
 'L_LANGUAGE' => 'Language',
+'L_LANGUAGES' => 'Languages',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'The language has been deleted successfully.<br />All log entries, settings and edit rights of users have been removed too.',
 'L_LANGUAGE_NAME' => 'English',
 'L_LOCALE' => 'Locale',

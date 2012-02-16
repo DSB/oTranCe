@@ -10,7 +10,6 @@
 /**
  * Settings Controller
  *
- * @package         oTranCe
  * @subpackage      Controllers
  */
 class SettingsController extends Msd_Controller_Action
@@ -40,7 +39,7 @@ class SettingsController extends Msd_Controller_Action
         }
     }
 
-    const VCS_SAVE_SUCCESS = 0x00;
+    const VCS_SAVE_SUCCESS   = 0x00;
     const VCS_PASS_NOT_EQUAL = 0x01;
 
     /**
@@ -62,7 +61,7 @@ class SettingsController extends Msd_Controller_Action
                 $saveVcsCredsResult = $this->_saveVcsCredentials();
                 $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
             }
-            $interfaceLanguage = $this->_request->getParam('interfaceLanguage', 'en');
+            $interfaceLanguage = $this->_request->getParam('interfaceLanguage', $this->_userModel->loadSetting('interfaceLanguage'));
             $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
             $this->view->saved = $saved;
         } else {
@@ -77,15 +76,19 @@ class SettingsController extends Msd_Controller_Action
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
+
+        $interfaceLanguage                = $this->_userModel->loadSetting('interfaceLanguage');
         $languageConfig                   = Msd_Language::getInstance();
         $availableLanguages               = $languageConfig->getAvailableLanguages();
         $this->view->selInterfaceLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $availableLanguages,
             'locale',
             '{locale} - {name}',
-            $this->_userModel->loadSetting('interfaceLanguage'),
+            $interfaceLanguage,
             false
         );
+        $languageConfig->loadLanguage($interfaceLanguage);
+
         if (isset($vcsUser)) {
             $this->view->vcsUser = $vcsUser;
         }

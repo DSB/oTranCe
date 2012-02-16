@@ -26,6 +26,12 @@ class Msd_Language
     private static $_instance = NULL;
 
     /**
+     * Holds the current language
+     * @var string
+     */
+    private $_language;
+
+    /**
      * Translator
      *
      * @var Zend_Translate
@@ -47,8 +53,8 @@ class Msd_Language
     private function __construct ()
     {
         $user              = new Application_Model_User();
-        $interfaceLanguage = $user->loadSetting('interfaceLanguage', 'en');
-        $this->loadLanguage($interfaceLanguage);
+        $this->_language = $user->loadSetting('interfaceLanguage', 'en');
+        $this->loadLanguage($this->_language);
     }
 
     /**
@@ -189,6 +195,7 @@ class Msd_Language
             $ret[$lang] = array('locale' => $lang, 'name' => $translator->translate('L_LANGUAGE_NAME'));
         }
         $this->setTranslator($currentTranslator);
+        $this->loadLanguage($this->_language);
         return $ret;
     }
 }

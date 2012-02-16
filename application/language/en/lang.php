@@ -19,6 +19,7 @@ $lang = array(
 'L_ADD_NEW_KEY' => 'Add new key',
 'L_ADD_NEW_LANGUAGE' => 'Add new language',
 'L_ADMIN' => 'Admin',
+'L_ADMIN_SELECT_TAB_EXPLAIN' => 'Select a section to edit by clicking on a tab in the head navigation.',
 'L_ALL_TRANSLATIONS_WILL_BE_DELETED_TOO' => 'All translations of thies key will be deleted too',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => 'All log entries, settings and rights have been removed too.',
 'L_AUTHENTICATE' => 'Login information',

@@ -1,7 +1,7 @@
 <h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
 <h4><?php echo $this->lang->L_EXPORT_COMMIT_FILES_VCS;?></h4>
 <?php if (isset($this->commitResult['stdout']) && strlen($this->commitResult['stdout']) > 0) { ?>
-<table class="bdr more-padding">
+<table class="bdr more-padding" summary="Export result">
     <tr class="thead">
         <th><?php echo $this->lang->L_EXPORT_VCS_OUTPUT;?></th>
     </tr>

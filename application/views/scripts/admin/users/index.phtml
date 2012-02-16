@@ -1,4 +1,4 @@
-<h2>Admin - Users</h2>
+<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_USERS;?></h2>
 <?php
 echo $this->partial('admin/head-navi.phtml');
 ?>
@@ -21,17 +21,17 @@ echo $this->partial('/helper/search-users.phtml', array(
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
-        <th>Id</th>
-        <th>Username</th>
-        <th>Active</th>
-        <th>Can edit</th>
+        <th><?php echo $this->lang->L_ID;?></th>
+        <th><?php echo $this->lang->L_USERNAME;?></th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
+        <th><?php echo $this->lang->L_CAN_EDIT;?></th>
     </tr>
 <?php
 
 $i = 1;
 if ($this->hits == 0) { ?>
     <tr class="row-odd">
-        <td colspan="6" class="error">Sorry, no hits.</td>
+        <td colspan="6" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
     </tr>
 
 <?php
@@ -44,9 +44,9 @@ foreach ($this->users as $userId => $user)
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td>
-            <?php echo $edit . $this->getIcon('Edit', '');?></a>
+            <?php echo $edit . $this->getIcon('Edit', $this->lang->L_EDIT);?></a>
             <?php if ($this->user->hasRight('deleteUsers')) { ?>
-                <a href="#" id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="Delete user">
+                <a href="#" id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="<?php echo $this->lang->L_DELETE_USER;?>">
                     <?php echo $this->getIcon('delete', '');?>
                 </a>
             <?php } ?>
@@ -99,8 +99,8 @@ foreach ($this->users as $userId => $user)
 ?>
 </table>
 <div id="confirmDeleteUser" style="display:none">
-    Are you really sure you want to delete this user?<br />
-    This will also remove all rights, settings and log entries of this user.
+    <?php echo $this->lang->L_REALLY_DELETE_USER;?><br />
+    <?php echo $this->lang->L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES;?>
 </div>
 <script type="text/javascript">
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
@@ -109,16 +109,16 @@ $('.deleteUser').click(function() {
     $('#confirmDeleteUser').dialog({
         autoOpen: true,
         modal: true,
-        title: 'Really delete?',
+        title: '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_TITLE);?>',
         width: 380,
         height: 160,
         buttons : {
-                    "Yes, delete user": function() {
+                    '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_USER);?>': function() {
                         var id = a.id.replace(/deleteUser-/, '');
                         $('#deleteUser').attr('value', id);
                         $('#myForm').submit();
                     },
-                    "Cancel": function() {
+                    '<?php echo $this->lang->L_CANCEL;?>': function() {
                         $(this).dialog("close");
                     }
                   }
@@ -149,8 +149,8 @@ if (isset($this->userDeleted)) {
     if ($this->userDeleted == true) {
         $this->popUpMessage()->addMessage(
             'userDeleted',
-            'Success',
-            'The user has been deleted successfully.<br />All log entries, settings and rights have been removed too.',
+            $this->lang->L_SUCCESS,
+            $this->jsEscape($this->lang->L_USER_DELETED_SUCCESSFULLY) .'<br />' . $this->lang->L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS,
             array(
                 'modal' => true,
                 'height' => 160,
@@ -161,8 +161,8 @@ if (isset($this->userDeleted)) {
     } else {
         $this->popUpMessage()->addMessage(
             'userDeleted',
-            'Error',
-            'There was an error deleting this user.<br />Please try again.',
+            $this->lang->L_ERROR,
+            $this->lang->L_ERROR_DELETING_USER . '<br />' . $this->lang->L_TRY_AGAIN,
             array(
                 'modal' => true,
                 'height' => 140,

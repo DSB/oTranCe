@@ -134,7 +134,7 @@ $lang = array(
 'L_PROJECT' => 'Project',
 'L_PROJECT_LOGO' => 'Logo of project',
 'L_REALLY_DELETE_USER' => 'Are you really sure you want to delete this user?',
-'L_REFERENCE_LANGUAGES' => '',
+'L_REFERENCE_LANGUAGES' => 'Reference languages',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'The selected languages will be shown as a reference when you edit a language variable.
 This should help you to easily translate the current variable.',
 'L_RESET' => 'Reset',

@@ -35,7 +35,11 @@ if (isset($this->entrySaved)) {
                     <td class="top"><?php echo $this->lang->L_KEY;?>:</td>
                     <td>
                         <?php if ($this->user->hasRight('editKey')) { ?>
-                            <span><?php echo $this->getIcon('Edit', $this->lang->L_EDIT_INLINE);?></span>
+                            <span>
+                                <label for="key-<?php echo $this->key['id'];?>" class="inlineEditTrigger">
+                                <?php echo $this->getIcon('Edit', $this->lang->L_EDIT_INLINE);?>
+                                </label>
+                            </span>
                             <span class="inlineEdit"id="key-<?php echo $this->key['id'];?>"><?php echo $this->key['key'];?></span>
                         <?php } else { ?>
                             <?php echo $this->key['key'];?>
@@ -201,6 +205,11 @@ if ($this->user->hasRight('editKey')) { ?>
         size: 'auto',
         form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />'
     });
+    $('.inlineEditTrigger').click(function() {
+        var id = $(this).attr('for');
+        $('#' + id).trigger('click');
+    });
+
 <?php } ?>
 function copyLang(event) {
     var lang = event.target.id;

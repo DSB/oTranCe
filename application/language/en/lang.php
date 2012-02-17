@@ -45,6 +45,7 @@ $lang = array(
 'L_CREATE_NEW_USER_ACCOUNT' => 'Create new user account',
 'L_CREDITS' => 'Credits / Help',
 'L_DELETE' => 'Delete',
+'L_DELETE_CREDENTIALS' => 'Delete credentials',
 'L_DELETE_KEY' => 'Delete key',
 'L_DELETE_LANGUAGE' => 'Delete language',
 'L_DELETE_USER' => 'Delete user',

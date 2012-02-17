@@ -129,7 +129,7 @@ $lang = array(
 'L_PROJECT' => 'Project',
 'L_PROJECT_LOGO' => 'Logo of project',
 'L_REALLY_DELETE_USER' => 'Are you really sure you want to delete this user?',
-'L_REFERENCE_LANGUAGE_EXPLAIN' => 'The selected languages will be shown as a reference when you edit a language variable.
+'L_REFERENCE_LANGUAGES_EXPLAIN' => 'The selected languages will be shown as a reference when you edit a language variable.
 This should help you to easily translate the current variable.',
 'L_RESET' => 'Reset',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add new languages',
@@ -163,7 +163,7 @@ This should help you to easily translate the current variable.',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Select how many entries should be shown per page',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Select the language of this interface',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Select other filter / search criteria',
-'L_SELECT_YOUR_REFERENCE_LANGUAGE' => 'Select your reference language(s)',
+'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Select your reference language(s)',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Show untranslated keys',
 'L_STATISTICS' => 'Statistics',
 'L_STATUS' => 'Status',

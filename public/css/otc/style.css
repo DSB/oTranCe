@@ -127,13 +127,6 @@ img {
     min-width: 100%;
 }
 
-#fullcontent {
-    width: auto;
-    margin: 0px auto;
-    padding: 0px 18px;
-    text-align: center;
-}
-
 #footer {
     clear: both;
     width: auto;
@@ -405,14 +398,10 @@ table.more-padding tr td {
     padding:  4px 8px;
 }
 
-#fullcontent table.bdr, #fullcontent table.xdebug-error {
-    margin: 0px auto;
-}
-
 table td {
     text-align: left;
     vertical-align: middle;
-    padding: 0px 6px;
+    padding: 4px;
 }
 
 /* line height of table on analyze page at import:
@@ -522,7 +511,7 @@ option {
 /* Colors for Formelements */
 input.text,input.small {
     padding: 1px 2px;
-    border: 1px solid #6E9E2D;
+    border: 1px solid #253D04;
     background: #fff;
 }
 
@@ -532,7 +521,7 @@ input.text:disabled {
 
 select {
     padding: 1px;
-    border: 1px solid #7F9DB9;
+    border: 1px solid #253D04;
     background: #FFF;
 }
 
@@ -574,12 +563,6 @@ textarea {
 
 .nodisplay {
     display: none;
-}
-
-/* Installation */
-#fullcontent .bdr td, #fullcontent .xdebug-error td {
-    border: 1px solid #ddd;
-    vertical-align: middle;
 }
 
 #close_button {

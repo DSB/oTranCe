@@ -11,15 +11,7 @@
         <tr class="row-even">
             <td><label for="fileTemplate">Select the file template to assign to:</label></td>
             <td>
-                <select name="fileTemplate" id="fileTemplate" style="width:406px;" class="text">
-                    <?php
-                        foreach ($this->fileTemplates as $fileTemplate) { ?>
-                            <option value="<?php echo $fileTemplate['id'];?>"
-                            <?php if ($fileTemplate['id'] == $this->fileTemplateSelected) echo ' selected="selected"';?>">
-                                <?php echo $fileTemplate['name'];?> (<?php echo $fileTemplate['filename']; ?>)
-                            </option>
-                    <?php } ?>
-                </select>
+                <?php echo $this->printFileTemplateHtml($this->fileTemplateSelected); ?>
             </td>
         </tr>
         <tr class="row-odd">

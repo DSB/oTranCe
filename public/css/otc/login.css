@@ -15,3 +15,21 @@ fieldset {
     margin: 0 0 12px;
     padding: 5px;
 }
+
+#login table.bdr {
+    margin: 0px auto;
+}
+
+#login .bdr td {
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+#login {
+    width: auto;
+    margin: 0px auto;
+    padding: 0px 18px;
+    text-align: center;
+}
+
+

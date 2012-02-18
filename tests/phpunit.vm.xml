@@ -21,7 +21,6 @@
     <filter>
         <whitelist>
             <directory suffix=".php">../application/</directory>
-            <directory suffix=".php">../library/Msd</directory>
             <exclude>
                 <directory suffix=".phtml">../application/</directory>
                 <directory>../application/language</directory>

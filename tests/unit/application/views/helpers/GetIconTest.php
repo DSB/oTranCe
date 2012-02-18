@@ -60,5 +60,14 @@ class GetIconTest extends PHPUnit_Framework_TestCase
         $res = $viewHelper->getIcon('save');
         $this->assertEquals($expected, $res);
     }
+
+    public function testGetIconAddsClass()
+    {
+        $expected = '<img src="/css/otc/icons/save.png" '
+            . 'alt="" title="" class="testClass"/>';
+        $viewHelper = new Msd_View_Helper_GetIcon();
+        $res = $viewHelper->getIcon('save', '', null, 'testClass');
+        $this->assertEquals($expected, $res);
+    }
 }
 

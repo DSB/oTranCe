@@ -61,7 +61,8 @@ class SettingsController extends Msd_Controller_Action
                 $saveVcsCredsResult = $this->_saveVcsCredentials();
                 $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
             }
-            $interfaceLanguage = $this->_request->getParam('interfaceLanguage', $this->_userModel->loadSetting('interfaceLanguage'));
+            $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
+            $interfaceLanguage = $this->_request->getParam('interfaceLanguage', $userInterfaceLanguage);
             $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
             $this->view->saved = $saved;
         } else {

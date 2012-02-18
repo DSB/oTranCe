@@ -128,7 +128,7 @@ if (!empty($this->referenceLanguages)) {
                 <tr class="<?php echo $rowclass;?>">
                     <td>&nbsp;</td>
                     <td colspan="4">
-                        <textarea id="textarea-<?php echo $this->languages[$lang]['id'];?>" class="textarea-edit" rows="2" cols="55"><?php echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));?></textarea>
+                        <textarea readonly="readonly" id="textarea-<?php echo $this->languages[$lang]['id'];?>" class="textarea-edit" rows="2" cols="55"><?php echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));?></textarea>
                     </td>
                 </tr>
                 <tr class="<?php echo $rowclass;?>">

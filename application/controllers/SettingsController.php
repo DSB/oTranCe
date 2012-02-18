@@ -49,11 +49,15 @@ class SettingsController extends Msd_Controller_Action
      */
     public function indexAction()
     {
+        $languagesModel = new Application_Model_Languages();
+        $languageConfig = Msd_Language::getInstance();
+
         if ($this->_request->isPost()) {
-            $languagesSelected = $this->_request->getParam('selLangs', array());
-            $recordsPerPage    = $this->_request->getParam('recordsPerPage', 20);
-            $saved             = $this->saveUserSettings($languagesSelected, $recordsPerPage);
-            $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
+            $languagesSelected     = $this->_request->getParam('selLangs', array());
+            $recordsPerPage        = $this->_request->getParam('recordsPerPage', 20);
+            $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
+            $interfaceLanguage     = $this->_request->getParam('interfaceLanguage', $userInterfaceLanguage);
+            $saved                 = $this->saveUserSettings($languagesSelected, $recordsPerPage, $interfaceLanguage);
 
             $projectConfig = $this->_config->getParam('project');
             if ($projectConfig['vcsActivated'] == 1) {
@@ -61,9 +65,6 @@ class SettingsController extends Msd_Controller_Action
                 $saveVcsCredsResult = $this->_saveVcsCredentials();
                 $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
             }
-            $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
-            $interfaceLanguage = $this->_request->getParam('interfaceLanguage', $userInterfaceLanguage);
-            $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
             $this->view->saved = $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
@@ -71,15 +72,12 @@ class SettingsController extends Msd_Controller_Action
             $vcsUser           = $this->_getVcsUser();
         }
 
-        $languagesModel                   = new Application_Model_Languages();
         $this->view->languages            = $languagesModel->getAllLanguages();
         $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguage();
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $languagesSelected;
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
-
         $interfaceLanguage                = $this->_userModel->loadSetting('interfaceLanguage');
-        $languageConfig                   = Msd_Language::getInstance();
         $availableLanguages               = $languageConfig->getAvailableLanguages();
         $this->view->selInterfaceLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $availableLanguages,
@@ -98,15 +96,18 @@ class SettingsController extends Msd_Controller_Action
     /**
      * Save list of reference languages
      *
-     * @param array $languagesSelected
-     * @param int   $recordsPerPage
+     * @param array  $languagesSelected
+     * @param int    $recordsPerPage
+     * @param string Locale of language
      *
      * @return boolean
      */
-    public function saveUserSettings($languagesSelected, $recordsPerPage)
+    public function saveUserSettings($languagesSelected, $recordsPerPage, $interfaceLanguage)
     {
+        $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
         $res  = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
         $res &= $this->_userModel->saveSetting('referenceLanguage', $languagesSelected);
+        $res &= $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
         return $res;
     }
 
@@ -122,7 +123,7 @@ class SettingsController extends Msd_Controller_Action
     }
 
     /**
-     * Delete the user specific VCS credentials.
+     * Delete user specific VCS credentials.
      *
      * @return void
      */
@@ -133,7 +134,7 @@ class SettingsController extends Msd_Controller_Action
     }
 
     /**
-     * Save the user specific VCS credentials.
+     * Save user specific VCS credentials.
      *
      * @return int
      */
@@ -157,7 +158,7 @@ class SettingsController extends Msd_Controller_Action
     }
 
     /**
-     * Retrives the user specific VCS username.
+     * Get user specific VCS username.
      *
      * @return string|null
      */
@@ -177,7 +178,7 @@ class SettingsController extends Msd_Controller_Action
     }
 
     /**
-     * Iniotialize class for en- and decryption.
+     * Initialize class for en- and decryption.
      *
      * @return void
      */

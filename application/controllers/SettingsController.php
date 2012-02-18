@@ -53,11 +53,10 @@ class SettingsController extends Msd_Controller_Action
         $languageConfig = Msd_Language::getInstance();
 
         if ($this->_request->isPost()) {
-            $languagesSelected     = $this->_request->getParam('selLangs', array());
             $recordsPerPage        = $this->_request->getParam('recordsPerPage', 20);
             $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
             $interfaceLanguage     = $this->_request->getParam('interfaceLanguage', $userInterfaceLanguage);
-            $saved                 = $this->saveUserSettings($languagesSelected, $recordsPerPage, $interfaceLanguage);
+            $saved                 = $this->saveUserSettings($recordsPerPage, $interfaceLanguage);
 
             $projectConfig = $this->_config->getParam('project');
             if ($projectConfig['vcsActivated'] == 1) {
@@ -68,14 +67,12 @@ class SettingsController extends Msd_Controller_Action
             $this->view->saved = $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
-            $languagesSelected = $this->getRefLanguageSettings();
             $vcsUser           = $this->_getVcsUser();
         }
-
         $this->view->languages            = $languagesModel->getAllLanguages();
         $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguage();
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
-        $this->view->refLanguagesSelected = $languagesSelected;
+        $this->view->refLanguagesSelected = $this->getRefLanguageSettings();
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
         $interfaceLanguage                = $this->_userModel->loadSetting('interfaceLanguage');
         $availableLanguages               = $languageConfig->getAvailableLanguages();
@@ -96,17 +93,15 @@ class SettingsController extends Msd_Controller_Action
     /**
      * Save list of reference languages
      *
-     * @param array  $languagesSelected
      * @param int    $recordsPerPage
      * @param string Locale of language
      *
      * @return boolean
      */
-    public function saveUserSettings($languagesSelected, $recordsPerPage, $interfaceLanguage)
+    public function saveUserSettings($recordsPerPage, $interfaceLanguage)
     {
         $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
         $res  = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
-        $res &= $this->_userModel->saveSetting('referenceLanguage', $languagesSelected);
         $res &= $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
         return $res;
     }

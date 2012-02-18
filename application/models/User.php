@@ -12,7 +12,7 @@ class Application_Model_User extends Msd_Application_Model
 
     /**
      * Id of current user
-     * @var
+     * @var int
      */
     private $_userId;
 
@@ -59,15 +59,25 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->_tableUsersettings = $tableConfig['usersettings'];
-        $this->_tableUserrights = $tableConfig['userrights'];
-        $this->_tableLanguages = $tableConfig['languages'];
+        $tableConfig               = $this->_config->getParam('table');
+        $this->_tableUsersettings  = $tableConfig['usersettings'];
+        $this->_tableUserrights    = $tableConfig['userrights'];
+        $this->_tableLanguages     = $tableConfig['languages'];
         $this->_tableUserLanguages = $tableConfig['user_languages'];
-        $this->_tableUsers = $tableConfig['users'];
-        $auth = Zend_Auth::getInstance()->getIdentity();
-        $this->_username = $auth['name'];
-        $this->_userId = $auth['id'];
+        $this->_tableUsers         = $tableConfig['users'];
+        $auth                      = Zend_Auth::getInstance()->getIdentity();
+        $this->_username           = $auth['name'];
+        $this->_userId             = (int) $auth['id'];
+    }
+
+    /**
+     * Get id of user
+     *
+     * @return int
+     */
+    public function getUserId()
+    {
+        return $this->_userId;
     }
 
     /**
@@ -304,6 +314,55 @@ class Application_Model_User extends Msd_Application_Model
             }
         }
         return $ret;
+    }
+
+    /**
+     * Switch a users reference language status.
+     * Returns new status.
+     *
+     * @param int    $userId     Id of user
+     * @param string $languageId Locale of language
+     *
+     * @return bool
+     */
+    public function switchReferenceLanguageStatus($userId, $languageId)
+    {
+        $userId = (int) $userId;
+        $languageId = (string) $languageId;
+        $status = $this->getReferenceLanguageStatus($userId, $languageId);
+        if ($status == true) {
+            $this->deleteReferenceLanguageSettings($languageId, $userId = 0);
+        } else {
+            $sql = 'INSERT INTO `' . $this->_database .'`.`' . $this->_tableUsersettings .'` '
+                    . ' (`user_id`, `setting`, `value`) VALUES ('
+                    . $userId . ', \'referenceLanguage\', ' . $languageId .')';
+            $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        }
+        $status = $this->getReferenceLanguageStatus($userId, $languageId);
+        return $status;
+    }
+
+    /**
+     * Detect if a user has set a langugae as reference language.
+     *
+     * @param int $userId
+     * @param int $languageId
+     *
+     * @return bool
+     */
+    public function getReferenceLanguageStatus($userId, $languageId)
+    {
+        $status = false;
+        $userId = (int) $userId;
+        $languageId = (string) $languageId;
+        $sql = 'SELECT `id` FROM `' . $this->_database .'`.`' . $this->_tableUsersettings .'` '
+                . ' WHERE `user_id` = ' . $userId . ' AND `setting` = \'referenceLanguage\''
+                .' AND `value` = \'' . $languageId .'\'';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        if (isset($res[0]['id'])) {
+            $status = true;
+        }
+        return $status;
     }
 
     /**
@@ -674,17 +733,22 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Delete reference language settings of a language for all users
+     * Delete reference language settings of a language for all or the given user.
      *
      * @param int $languageId Id of language
+     * @param int $userId     Id of a user
      *
      * @return bool
      */
-    public function deleteReferenceLanguageSettings($languageId)
+    public function deleteReferenceLanguageSettings($languageId, $userId = 0)
     {
         $sql = 'DELETE FROM `'.$this->_database.'`.`' . $this->_tableUsersettings . '`'
                 .' WHERE `setting`= \'referenceLanguage\''
                 .' AND `value`=' . intval($languageId);
+        $userId = (int) $userId;
+        if ($userId > 0) {
+            $sql .= ' AND `user_id` = ' . $userId;
+        }
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return (bool) $res;
     }

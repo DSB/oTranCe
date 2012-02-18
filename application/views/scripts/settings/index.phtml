@@ -62,7 +62,7 @@ $projectConfig = $this->config->getParam('project');
 <table class="bdr" summary="List of all languages you can select as a reference">
     <tr class="thead">
         <th>#</th>
-        <th colspan="4"><?php echo $this->lang->L_REFERENCE_LANGUAGES;?></th>
+        <th colspan="3"><?php echo $this->lang->L_REFERENCE_LANGUAGES;?></th>
         <th><?php echo $this->lang->L_STATUS;?></th>
     </tr>
     <?php
@@ -71,43 +71,45 @@ $projectConfig = $this->config->getParam('project');
      * @var Zend_View_Helper_Cycle $cycle
      */
     $cycle = $this->cycle(array('row-even', 'row-odd'));
+    $switchStatusTitle = 'title="'. $this->lang->L_CHANGE_STATUS . '"';
     foreach ($this->languages as $key => $language)
     {
         $id = 'lang_'.$language['id'];
         $langId = $language['id'];
+        if ($langId == $this->fallbackLanguageId) {
+            // fallback language cannot be deactivated - skip
+            continue;
+        }
         $langName = $this->languages[$langId]['name'];
         $langLocale = $this->languages[$langId]['locale'];
         ?>
         <tr class="<?php echo $cycle->next();?>">
             <td class="right"><?php echo $i;?>.</td>
             <td>
-                <label for="<?php echo $id;?>">
+                <label for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
                     <?php echo $this->printFlag($key);?>
                 </label>
             </td>
             <td>
-                <label for="<?php echo $id;?>"><?php echo $langLocale;?></label>
+                <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
+                    <?php echo $langLocale;?>
+                </label>
             </td>
             <td>
-                <label for="<?php echo $id;?>"><?php echo $langName;?></label>
+                <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
+                    <?php echo $langName;?>
+                </label>
             </td>
             <td>
-                <input type="checkbox" class="checkbox" value="<?php echo $language['id']; ?>" name="selLangs[]" id="<?php echo $id;?>"
-                <?php
-                    if (in_array($key, $this->refLanguagesSelected) || $langId == $this->fallbackLanguageId) {
-                        echo ' checked="checked"';
-                    }
-                    if ($langId == $this->fallbackLanguageId) {
-                        echo ' disabled="disabled"';
-                    }
-                ?>/>
-            </td>
-            <td>
-                <?php
-                    if ($langId == $this->fallbackLanguageId) {
-                        echo $this->getIcon('Ok', '', 16);
-                    }
-                ?>&nbsp;
+                <div id="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguage">
+                    <?php
+                        if (in_array($key, $this->refLanguagesSelected)) {
+                            echo $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16);
+                        } else {
+                            echo $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16);
+                        }
+                    ;?>
+                </div>
             </td>
         </tr>
     <?php
@@ -205,3 +207,31 @@ if (isset($this->saved)) {
         );
     }
 };
+$this->jQuery()->onLoadCaptureStart(); ?>
+$('.switchUserReferenceLanguage').click(function() {
+    var languageId = this.id.replace(/img-/, '');
+    $('#img-' + languageId).html(imgAjax);
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-reference-language-status' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'languageId': languageId
+        },
+        success:function(data) {
+            $('#img-' + languageId).html(data.icon);
+        },
+        error:function(error) {
+            $('#img-' + languageId).html(imgError);
+        }
+    });
+});
+$('.switchUserReferenceLanguageLabel').click(function() {
+    var id = $(this).attr('for');
+    $('#' + id).trigger('click');
+});
+
+<?php
+$this->jQuery()->onLoadCaptureEnd();

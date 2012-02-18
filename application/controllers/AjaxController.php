@@ -354,6 +354,29 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Enabe/disable a language as reference language for a user
+     *
+     * @return void
+     */
+    public function switchReferenceLanguageStatusAction()
+    {
+        $userId     = $this->_userModel->getUserId();
+        $languageId = (int) $this->_request->getParam('languageId');
+        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        if ($languageId > 0) {
+            $status = $this->_userModel->switchReferenceLanguageStatus($userId, $languageId);
+            if ($status === true) {
+                $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+            } else {
+                $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
+            }
+        }
+        $data = array('icon' => $icon);
+        $this->view->data = $data;
+        $this->render('json');
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save

@@ -52,10 +52,10 @@ foreach ($this->users as $userId => $user)
             <?php } ?>
         </td>
         <td class="right">
-            <?php echo $this->numberFormat($i);?>.
+            <?php echo $edit . $this->numberFormat($i);?>.</a>
         </td>
         <td class="right">
-            <?php echo $user['id'];?>
+            <?php echo $edit . $user['id'];?></a>
         </td>
         <td><?php echo $edit . $user['username'];?></a></td>
         <td>

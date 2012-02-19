@@ -170,6 +170,7 @@ $lang = array(
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Bitte wählen Sie die Sprache der Bedienoberfläche',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Wählen Sie andere Filter-/Such-Kriterien',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Wählen Sie Ihre Referenzsprache(n)',
+'L_SHORTCUT' => 'Schnellzugriff',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Zeige nicht übersetzte Schlüssel',
 'L_STATISTICS' => 'Statistiken',
 'L_STATUS' => 'Status',

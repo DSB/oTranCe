@@ -5,7 +5,7 @@ $currentPage  = ceil(($this->offset + 1) / $this->recordsPerPage);
 $nrOfPages    = ceil($this->rows / $this->recordsPerPage);
 $entriesModel = new Application_Model_LanguageEntries();
 ?>
-<h2>Edit entries</h2>
+<h2><?php echo $this->lang->L_EDIT_ENTRIES;?></h2>
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
     <table class="bdr morepadding" summary="Filter and find values">
@@ -99,7 +99,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             <?php
         }
             ?>
-        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+        <a href="#" <?php if($this->offset > 0): ?> title="<?php echo $this->lang->L_SHORTCUT;?> ALT+C"
             onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
             accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
             <?php else: ?>
@@ -107,16 +107,17 @@ $entriesModel = new Application_Model_LanguageEntries();
             <?php endif; ?>
         </a>
 
-        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="<?php echo $this->lang->L_SHORTCUT;?> ALT+V"
             onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
             accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
             <?php else: ?>
             class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
-        Page <?php echo $currentPage; ?> of <?php echo $nrOfPages; ?> | Hits: <?php echo $this->numberFormat($this->rows);?>
+        <?php echo sprintf($this->lang->L_PAGE_X_OF_Y, $currentPage, $nrOfPages); ?> |
+        <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->rows);?>
         <span style="padding:0;margin:0;">|
-            Entries per page:
+            <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
             <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                 <?php echo $this->selRecordsPerPage;?>
             </select>
@@ -131,11 +132,7 @@ if (empty($this->showLanguages)) {
 ?>
 <table class="bdr small" summary="List of entries">
     <tr class="thead">
-        <?php
-            if ($this->addVar) {
-                echo '<th>&nbsp;</th>';
-            }
-            ?>
+        <th>&nbsp;</th>
         <th>#</th>
         <th><?php echo $this->lang->L_FILE_TEMPLATE;?></th>
         <?php if ($this->user->hasRight('editKey')) { ?>
@@ -172,7 +169,7 @@ foreach ($this->hits as $hit)
             ?>
             <td class="top nowrap">
                 <?php
-                echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
+                    echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
                     echo $delete;
                 ?>
                 <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>

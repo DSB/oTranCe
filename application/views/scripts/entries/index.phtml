@@ -8,86 +8,86 @@ $entriesModel = new Application_Model_LanguageEntries();
 <h2>Edit entries</h2>
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
-        <table class="bdr morepadding" summary="Filter and find values">
-            <tr>
-                <td>
-                    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-                    <?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:
-                </td>
-                <td>
-                    <input
-                        <?php if (false && $this->getUntranslated > 0) {
-                            echo ' disabled="disabled"';
-                        }?>
-                    type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
-                    </button>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
-                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
-                <td>
-                    <input
-                        <?php if (false && $this->getUntranslated > 0) {
-                            echo ' disabled="disabled"';
-                        }?>
-                    type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
-                    </button>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
-                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
-                </td>
-                <td>
-                    <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
-                        <?php echo $this->selFileTemplate;?>
-                    </select>
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                    <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
-                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
-                <td>
-                    <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
-                        <option value="0">---</option>
-                        <?php echo $this->selLanguage;?>
-                    </select>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-                        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
-                    </button>
-                </td>
-                <td>
-                    <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
-                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
-                    </button>
-                </td>
-            </tr>
-        </table>
+    <table class="bdr morepadding" summary="Filter and find values">
+        <tr>
+            <td>
+                <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+                <?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:
+            </td>
+            <td>
+                <input
+                    <?php if (false && $this->getUntranslated > 0) {
+                        echo ' disabled="disabled"';
+                    }?>
+                type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                    <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
+                </button>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
+                    <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
+            <td>
+                <input
+                    <?php if (false && $this->getUntranslated > 0) {
+                        echo ' disabled="disabled"';
+                    }?>
+                type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                    <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
+                </button>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
+                    <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
+            </td>
+            <td>
+                <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
+                    <?php echo $this->selFileTemplate;?>
+                </select>
+            </td>
+            <td>&nbsp;</td>
+            <td>
+                <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+                    <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
+            <td>
+                <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
+                    <option value="0">---</option>
+                    <?php echo $this->selLanguage;?>
+                </select>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                    <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
+                </button>
+            </td>
+            <td>
+                <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+                    <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                </button>
+            </td>
+        </tr>
+    </table>
 
     <p style="margin:12px 0 0 0">
         <?php
@@ -161,7 +161,7 @@ foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT_KEY . '">';
+    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <?php
@@ -170,8 +170,11 @@ foreach ($this->hits as $hit)
                             . $keyId . '\',\''
                             . $hit['key'] . '\');">';
             ?>
-            <td class="top">
-                <?php echo $delete;?>
+            <td class="top nowrap">
+                <?php
+                echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
+                    echo $delete;
+                ?>
                 <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
                 </a>
             </td>
@@ -187,7 +190,7 @@ foreach ($this->hits as $hit)
         <?php if ($this->user->hasRight('editKey')) { ?>
             <td class="ssmall nowrap top">&nbsp;
                 <?php if ($this->user->hasRight('editKey')) { ?>
-                    <label for="key-<?php echo $hit['id'];?>" class="inlineEditTrigger">
+                    <label for="key-<?php echo $hit['id'];?>" class="inlineEditKeyTrigger">
                         <?php echo $this->getIcon('Edit', $this->lang->L_CLICK_TO_INLINE_EDIT);?>
                     </label>
                 <?php } ?>
@@ -195,7 +198,7 @@ foreach ($this->hits as $hit)
         <?php } ?>
         <td class="ssmall nowrap top">
             <?php if ($this->user->hasRight('editKey')) { ?>
-                <div class="inlineEdit" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
+                <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
             <?php } else { ?>
                 <?php echo $edit . $hit['key'];?></a>
             <?php } ?>
@@ -236,23 +239,36 @@ if ($this->rows == 0) {
 }
 ?>
 </table>
+
+<div id="confirmDeleteVar" style="display:none"></div>
 <script type="text/javascript">
 function deleteVar(id, name)
 {
     var message = '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_KEY_X)?>';
     var text = message.replace(/{KEY}/g, name);
-    if (confirm(text + '\n<?php echo $this->lang->L_ALL_TRANSLATIONS_WILL_BE_DELETED_TOO;?>!')) {
-        setPageInactive();
-        self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
-    }
+    $('#confirmDeleteVar').html(text);
+    $('#confirmDeleteVar').dialog({
+        autoOpen: true,
+        modal: true,
+        title: '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_TITLE);?>',
+        buttons : {
+                    '<?php echo $this->lang->L_OK;?>': function() {
+                        setPageInactive();
+                        self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
+                    },
+                    '<?php echo $this->lang->L_CANCEL;?>': function() {
+                        $(this).dialog("close");
+                    }
+                  }
+    })
 }
 <?php $this->jQuery()->onLoadCaptureStart();?>
-$('.inlineEditTrigger').click(function() {
+$('.inlineEditKeyTrigger').click(function() {
     var id = $(this).attr('for');
     $('#' + id).trigger('click');
 });
 
-$('.inlineEdit').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
+$('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
     saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
     savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
     savebutton_class: 'Formbutton',

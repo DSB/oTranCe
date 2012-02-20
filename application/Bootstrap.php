@@ -1,16 +1,16 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
  * Bootstrap class
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -69,19 +69,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Msd_Registry::setConfig($config);
 
         Msd_Registry::setDynamicConfig($dynamicConfig);
-    }
-
-    /**
-     *
-     * Set Firebug_logger in registry
-     *
-     * @return void
-     */
-    public function _initFirebugLogger()
-    {
-        $writer = new Zend_Log_Writer_Firebug();
-        $logger = new Zend_Log($writer);
-        Zend_Registry::set('logger', $logger);
     }
 
     /**

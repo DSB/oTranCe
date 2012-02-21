@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB, Marco.Steinhäuser
+// DSB, kyoya, Marco.Steinhäuser
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -28,8 +28,10 @@ $lang = array(
 'L_CANCEL' => 'Abbrechen',
 'L_CAN_EDIT' => 'Darf editieren',
 'L_CHANGES_SAVED_SUCCESSFULLY' => 'Ihre Änderungen wurden erfolgreich gespeichert',
+'L_CHANGE_PASSWORD' => 'Passwort ändern',
 'L_CHANGE_RIGHT' => 'Recht ändern',
 'L_CHANGE_STATUS' => 'Ändere Status',
+'L_CHANGE_YOUR_PASSWORD' => 'Ändern Sie das Passwort Ihres Benutzerkontos:',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicken, um hier zu editieren',
 'L_CONFIGURATION' => 'Konfiguration',
 'L_CONFIRM_DELETE_KEY_X' => 'Sind Sie sicher, dass Sie den Schlüssel \'{KEY}\' löschen wollen?',
@@ -118,12 +120,14 @@ $lang = array(
 'L_MENUE_RIGHTS' => 'Menürechte',
 'L_NAME' => 'Name',
 'L_NEEDS_WORK' => 'Benötigt Arbeit',
+'L_NEW_PASSWORD' => 'Neues Passwort',
 'L_NO' => 'Nein',
 'L_NOTHING' => 'Nichts',
 'L_NOTICE' => 'Hinweis',
 'L_NO_FLAG' => 'Keine Flagge vorhanden',
 'L_NO_HITS' => 'Keine Treffer',
 'L_OK' => 'OK',
+'L_OLD_PASSWORD' => 'Altes Passwort',
 'L_OTHER_USERRIGHTS' => 'Andere Benutzerrechte',
 'L_PAGE_X_OF_Y' => 'Seite %d von %d',
 'L_PASSWORD' => 'Passwort',
@@ -161,6 +165,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_SHOWLOG' => 'Benutzer kann den Menüpunkt "Log" benutzen',
 'L_RIGHT_EXPLAIN_SHOWSTATISTICS' => 'Benutzer kann den Menüpunkt "Statistiken" benutzen',
 'L_SAVE' => 'Speichern',
+'L_SAVE_PASSWORD' => 'Passwort speichern',
 'L_SAVE_SETTINGS' => 'Einstellungen speichern',
 'L_SAVING' => 'Speichere',
 'L_SEARCH' => 'Suchen',

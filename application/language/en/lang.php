@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB, Marco.Steinhäuser
+// DSB, kyoya, Marco.Steinhäuser
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -28,8 +28,10 @@ $lang = array(
 'L_CANCEL' => 'Cancel',
 'L_CAN_EDIT' => 'Can edit',
 'L_CHANGES_SAVED_SUCCESSFULLY' => 'Your changes have been saved successfully',
+'L_CHANGE_PASSWORD' => 'Change password',
 'L_CHANGE_RIGHT' => 'Change right',
 'L_CHANGE_STATUS' => 'Change status',
+'L_CHANGE_YOUR_PASSWORD' => 'Change the password of your user-account:',
 'L_CLICK_TO_INLINE_EDIT' => 'Click to edit inline',
 'L_CONFIGURATION' => 'Configuration',
 'L_CONFIRM_DELETE_KEY_X' => 'Are you sure you want to delete the key \'{KEY}\'?',
@@ -119,12 +121,14 @@ $lang = array(
 'L_MENUE_RIGHTS' => 'Menu rights',
 'L_NAME' => 'Name',
 'L_NEEDS_WORK' => 'Needs work',
+'L_NEW_PASSWORD' => 'New password',
 'L_NO' => 'No',
 'L_NOTHING' => 'Nothing',
 'L_NOTICE' => 'Notice',
 'L_NO_FLAG' => 'No flag available',
 'L_NO_HITS' => 'No hits',
 'L_OK' => 'OK',
+'L_OLD_PASSWORD' => 'Old password',
 'L_OTHER_USERRIGHTS' => 'Other user rights',
 'L_PAGE_X_OF_Y' => 'Page %d of %d',
 'L_PASSWORD' => 'Password',
@@ -163,6 +167,7 @@ This should help you to easily translate the current variable.',
 'L_RIGHT_EXPLAIN_SHOWLOG' => 'User can see and use menu item "Log"',
 'L_RIGHT_EXPLAIN_SHOWSTATISTICS' => 'User can see and use menu item "Statistics"',
 'L_SAVE' => 'Save',
+'L_SAVE_PASSWORD' => 'Save password',
 'L_SAVE_SETTINGS' => 'Save settings',
 'L_SAVING' => 'Saving',
 'L_SEARCH' => 'Search',

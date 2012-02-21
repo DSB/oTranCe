@@ -66,6 +66,9 @@ class Msd_Language
      */
     public function loadLanguage($language)
     {
+        if (empty($language)) {
+            $language = 'en';
+        }
         $this->_baseLanguageDir = APPLICATION_PATH . DS . 'language' . DS;
         $file = $this->_baseLanguageDir . $language . DS . 'lang.php';
         $translator = $this->getTranslator();

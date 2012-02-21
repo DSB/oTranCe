@@ -64,6 +64,19 @@ class SettingsController extends Msd_Controller_Action
                 $saveVcsCredsResult = $this->_saveVcsCredentials();
                 $saved              = $saved && ($saveVcsCredsResult == self::VCS_SAVE_SUCCESS);
             }
+
+            $oldPassword = $this->_request->getParam('oldPassword');
+            $newPassword = $this->_request->getParam('newPassword');
+            $newPasswordConfirm = $this->_request->getParam('newPasswordConfirm');
+            if (
+                isset($oldPassword, $newPassword, $newPasswordConfirm)
+                && !empty($oldPassword)
+                && !empty($newPassword)
+                && !empty($newPasswordConfirm)
+            ) {
+                $saved = $saved && $this->_changePassword($oldPassword, $newPassword, $newPasswordConfirm);
+            }
+
             $this->view->saved = $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
@@ -91,6 +104,36 @@ class SettingsController extends Msd_Controller_Action
     }
 
     /**
+     * Helper method for changing the new user password.
+     *
+     * @param string $oldPassword        Old password.
+     * @param string $newPassword        New password.
+     * @param string $newPasswordConfirm Password confirmation.
+     *
+     * @return bool
+     */
+    protected function _changePassword($oldPassword, $newPassword, $newPasswordConfirm)
+    {
+        if ($newPassword != $newPasswordConfirm) {
+            return false;
+        }
+
+        /**
+         * @var Zend_Controller_Request_Http $request
+         */
+        $request = $this->getRequest();
+
+        $result = $this->_userModel->changePassword($oldPassword, $newPassword);
+        $cookie = $request->getCookie('oTranCe_autologin');
+        if ($result && $cookie !== null && !empty($cookie)) {
+            $auth = Zend_Auth::getInstance()->getIdentity();
+            $user = new Msd_User();
+            $user->setLoginCookie($auth['name'], $newPassword);
+        }
+        return $result;
+    }
+
+    /**
      * Save list of reference languages
      *
      * @param int    $recordsPerPage
@@ -103,6 +146,7 @@ class SettingsController extends Msd_Controller_Action
         $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
         $res  = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
         $res &= $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
+
         return $res;
     }
 

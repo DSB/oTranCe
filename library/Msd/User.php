@@ -154,21 +154,34 @@ class Msd_User
             $this->_isLoggedIn = true;
             if ($autoLogin) {
                 Zend_Session::regenerateId();
-                $crypt = new Msd_Crypt('oTranCe');
-                $identity = $crypt->encrypt(
-                    $username . ':' . $password
-                );
-                setcookie(
-                    'oTranCe_autologin',
-                    $identity . ':' . md5($identity),
-                    time() + 365 * 24 * 60 * 60,
-                    '/'
-                );
+                $this->setLoginCookie($username, $password);
             }
             $this->setDefaultConfiguration();
             return self::SUCCESS;
         }
         return self::UNKNOWN_IDENTITY;
+    }
+
+    /**
+     * Sets the cookie for automatic login.
+     *
+     * @param string $username Loginname of the user.
+     * @param string $password Password of the user.
+     *
+     * @return null
+     */
+    public function setLoginCookie($username, $password)
+    {
+        $crypt = new Msd_Crypt('oTranCe');
+        $identity = $crypt->encrypt(
+            $username . ':' . $password
+        );
+        setcookie(
+            'oTranCe_autologin',
+            $identity . ':' . md5($identity),
+            time() + 365 * 24 * 60 * 60,
+            '/'
+        );
     }
 
     /**

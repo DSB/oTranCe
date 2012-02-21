@@ -47,6 +47,38 @@ $projectConfig = $this->config->getParam('project');
     }
     ?>
 </table>
+<br/>
+<br/>
+
+<h4><?php echo $this->lang->L_CHANGE_YOUR_PASSWORD; ?></h4>
+<table class="bdr" summary="Change the password of your user account.">
+    <tr class="thead">
+        <th colspan="2"><?php echo $this->lang->L_CHANGE_PASSWORD; ?></th>
+    </tr>
+    <tr class="row-even">
+        <td><label for="oldPassword"><?php echo $this->lang->L_OLD_PASSWORD; ?>:</label></td>
+        <td><input type="password" name="oldPassword" id="oldPassword" class="text"></td>
+    </tr>
+    <tr class="row-odd">
+        <td><label for="newPassword"><?php echo $this->lang->L_NEW_PASSWORD; ?>:</label></td>
+        <td><input type="password" name="newPassword" id="newPassword" class="text"></td>
+    </tr>
+    <tr class="row-even">
+        <td><label for="newPasswordConfirm"><?php echo $this->lang->L_CONFIRM_PASSWORD; ?>:</label></td>
+        <td><input type="password" name="newPasswordConfirm" id="newPasswordConfirm" class="text"></td>
+    </tr>
+    <tr class="row-odd">
+        <td colspan="2">
+            <div class="confirm-password-explain">
+                (*) <?php echo $this->lang->L_CONFIRM_PASSWORD_EXPLAIN;?>
+            </div>
+        </td>
+    </tr>
+    <tr class="row-even">
+        <td>&nbsp;</td>
+        <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_PASSWORD; ?></button></td>
+    </tr>
+</table>
 
 <br />
 <h4><?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:</h4>

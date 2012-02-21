@@ -24,7 +24,7 @@ class Msd_View_Helper_GetUsername extends Zend_View_Helper_Abstract
      */
     public function getUsername()
     {
-        $auth =Zend_Auth::getInstance()->getIdentity();
+        $auth = Zend_Auth::getInstance()->getIdentity();
         return $auth['name'];
     }
 }

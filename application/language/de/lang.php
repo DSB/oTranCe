@@ -168,6 +168,7 @@ $lang = array(
 'L_SAVE' => 'Speichern',
 'L_SAVE_PASSWORD' => 'Passwort speichern',
 'L_SAVE_SETTINGS' => 'Einstellungen speichern',
+'L_SAVE_TO_CONFIG' => 'Hochgeladenes Logo als Projekt-Logo in der Konfiguration Spechern.',
 'L_SAVING' => 'Speichere',
 'L_SEARCH' => 'Suchen',
 'L_SEARCH_IN_KEYS' => 'Suche in Schlüsseln',

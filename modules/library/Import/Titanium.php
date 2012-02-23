@@ -37,7 +37,11 @@ class Module_Import_Titanium implements Msd_Import_Interface
 
     public function extract($data)
     {
-        $this->_data = simplexml_load_string($data);
+        if (!$this->_data = simplexml_load_string($data)) {
+            // no valid xml file ...
+            // @todo: add global handling for invalid import files in global importer
+            return false;
+        }
         unset($data);
 
         $this->_extractedData = array();
@@ -45,6 +49,9 @@ class Module_Import_Titanium implements Msd_Import_Interface
         foreach ($this->_data->children() as $node) {
 
             $currentKey = (string)$node->attributes()->name;
+            if ($currentKey == '') {
+                continue;
+            }
             $currentValue = (string)$node[0];
             $this->_extractedData[$currentKey] = $currentValue;
 

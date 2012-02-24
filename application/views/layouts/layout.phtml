@@ -16,6 +16,7 @@ $this->headMeta()
     ->appendName('robots', 'noindex,nofollow');
 
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jquery-ui.custom.css');
+$this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/fileuploader.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/style.css');
 $request = Zend_Controller_Front::getInstance()->getRequest();
 if ($request->getActionName() == 'login') {

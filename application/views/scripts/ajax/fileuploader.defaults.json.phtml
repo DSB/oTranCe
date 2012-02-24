@@ -1,0 +1,33 @@
+<?php
+echo json_encode(
+    array(
+        'template' => '<div class="qq-uploader">' .
+            '<div class="qq-upload-drop-area"><span>' . $this->lang->L_DROP_FILE_HINT . '</span></div>' .
+            '<div class="qq-upload-button">' . $this->lang->L_UPLOAD_PROJECT_LOGO . '</div>' .
+            '<ul class="qq-upload-list"></ul>' .
+            '</div>',
+        'fileTemplate' => '<li>' .
+            '<span class="qq-upload-file"></span>' .
+            '<span class="qq-upload-spinner"></span>' .
+            '<span class="qq-upload-size"></span>' .
+            '<a class="qq-upload-cancel" href="#">' . $this->lang->L_CANCEL . '</a>' .
+            '<span class="qq-upload-failed-text">' . $this->lang->L_UPLOAD_FAILED . '</span>' .
+            '</li>',
+        'classes' => array(
+            'button' => 'qq-upload-button',
+            'drop' => 'qq-upload-drop-area',
+            'dropActive' => 'qq-upload-drop-area-active',
+            'list' => 'qq-upload-list',
+
+            'file' => 'qq-upload-file',
+            'spinner' => 'qq-upload-spinner',
+            'size' => 'qq-upload-size',
+            'cancel' => 'qq-upload-cancel',
+
+            // added to list item when upload completes
+            // used in css to hide progress spinner
+            'success' => 'qq-upload-success',
+            'fail' => 'qq-upload-fail'
+        )
+    )
+);

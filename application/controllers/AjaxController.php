@@ -377,6 +377,50 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
+     * Uploads a new project logo.
+     *
+     * @return null
+     */
+    public function uploadProjectLogoAction()
+    {
+        /**
+         * @var Zend_Controller_Request_Http $request
+         */
+        Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
+
+        $request = $this->getRequest();
+        $publicDir = realpath(APPLICATION_PATH . '/../public');
+        $interfaceConfig = $this->_config->getParam('interface');
+        $webPath = '/css/' . $interfaceConfig['theme'] . '/pics';
+        $targetDir = $publicDir . $webPath;
+
+
+        if ($request->isXmlHttpRequest()) {
+            $uploader = new Msd_Upload_Xhr($targetDir);
+        } else {
+            $uploader = new Msd_Upload_Form($targetDir);
+        }
+
+        $result = array(
+            'success' => $uploader->isFileTypeAllowed(array('png', 'jpg', 'jpeg', 'jpe', 'gif'))
+        );
+        $result['success'] = $result['success'] && $uploader->saveFile();
+        if ($result['success']) {
+            $result['newLogo'] = $webPath . '/' . $uploader->getFilename();
+
+            // Save the uploaded image as project logo in config. Uncomment these lines to activate automatic saving.
+            if ((bool) $this->_request->getParam('saveToConfig', false)) {
+                $projectConfig = $this->_config->getParam('project');
+                $projectConfig['logo']['large'] = $result['newLogo'];
+                $this->_config->setParam('project', $projectConfig);
+                $this->_config->save();
+            }
+        }
+
+        $this->_response->setBody(htmlspecialchars(json_encode($result), ENT_NOQUOTES));
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save

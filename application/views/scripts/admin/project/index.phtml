@@ -1,3 +1,6 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/fileuploader.js');
+?>
 <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_PROJECT;?></h2>
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
@@ -25,7 +28,10 @@ $translateToFallback = $this->settings['translateToFallback'];
             <br />(relative to project folder)</td>
             <td>
                 <input type="text" class="text" name="logo[large]" id="logo_large" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
-                <img style="padding:12px;" id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/></td>
+                <img style="padding:12px;" id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/><br/>
+                <input type="checkbox" id="save_to_config" /> <label for="save_to_config"><?php echo $this->lang->L_SAVE_TO_CONFIG; ?></label><br/><br/>
+                <div id="logoUpload"></div>
+            </td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
             <td>
@@ -44,13 +50,12 @@ $translateToFallback = $this->settings['translateToFallback'];
             </td>
             <td>
                 <input type="radio" name="translateToFallback" id="translateToFallback_yes" value="1"
-                    <?php echo $translateToFallback == 1 ? ' checked="checked"' : '';?>>
+                    <?php echo $translateToFallback == 1 ? ' checked="checked"' : '';?>/>
                     <label for="translateToFallback_yes"><?php echo $this->lang->L_YES;?></label>
-                </input>&nbsp;
+                &nbsp;
                 <input type="radio" name="translateToFallback" id="translateToFallback_no" value="0"
-                        <?php echo $translateToFallback == 0 ? ' checked="checked"' : '';?>>
+                        <?php echo $translateToFallback == 0 ? ' checked="checked"' : '';?>/>
                     <label for="translateToFallback_no"><?php echo $this->lang->L_NO;?></label>
-                </input>
             </td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
@@ -66,4 +71,31 @@ function updatePreviewImage(size, url)
         $(this)[0].src = '<?php echo $this->baseUrl();?>' + url;
     });
 }
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+var defaults = <?php echo $this->partial('ajax/fileuploader.defaults.json.phtml', array('lang' => $this->lang)); ?>;
+var options = {
+    action: '<?php echo $this->baseUrl(); ?>/ajax/upload-project-logo',
+    element: $('#logoUpload')[0],
+    allowedExtensions: ['png', 'jpg', 'jpeg', 'jpe', 'gif'],
+
+    onSubmit: function (id, filename) {
+        uploader.setParams({
+            saveToConfig: $('#save_to_config').is(':checked') ? 1 : 0
+        });
+    },
+    onProgress: function (id, filename, loaded, total) {
+        $(id + 'Progress').progressbar('value', (loaded * 100 / total));
+    },
+
+    onComplete:function(id, fileName, responseJSON) {
+        if (responseJSON.success) {
+            $('#logo_large').val(responseJSON.newLogo);
+            $('#large_preview').attr('src', responseJSON.newLogo);
+        }
+    }
+};
+
+$.extend(true, defaults, options);
+var uploader = new qq.FileUploader(defaults);
+<?php $this->jQuery()->onLoadCaptureEnd(); ?>
 </script>

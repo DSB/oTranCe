@@ -40,7 +40,7 @@ foreach ($this->users as $userId => $user)
 {
     $i += $this->offset;
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="Edit user">';
+    $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="<?php echo $this->lang->L_EDIT_USER;?>">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td>
@@ -79,12 +79,23 @@ foreach ($this->users as $userId => $user)
                     <?php
                 } else {
                     foreach ($languageEditRights as $langId) {
+                        if ($this->user->hasRight('editLanguage')) {
+                            $editLang = '<a href="' . $this->baseUrl() . '/admin_languages/edit/id/'.$langId .'" title="' . $this->lang->L_EDIT_LANGUAGE .'">';
+                            $editLangClose = '</a>';
+                        } else {
+                            $editLang = '';
+                            $editLangClose = '';
+                        }
                         if (isset($this->languages[$langId])) { ?>
                             <td>
-                                <?php echo $this->printFlag($langId, 20);?>
+                                <?php echo $editLang . $this->printFlag($langId, 20) . $editLangClose?>
                             </td>
-                            <td><?php echo $this->languages[$langId]['locale'];?></td>
-                            <td><?php echo $this->languages[$langId]['name'];?></td>
+                            <td>
+                                <?php echo $editLang . $this->languages[$langId]['locale'] . $editLangClose;?>
+                            </td>
+                            <td>
+                                <?php echo $editLang . $this->languages[$langId]['name'] . $editLangClose;?>
+                            </td>
                             <?php
                         }
                     }

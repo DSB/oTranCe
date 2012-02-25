@@ -13,29 +13,29 @@ $translateToFallback = $this->settings['translateToFallback'];
 <form action="<?php echo $this->baseUrl(); ?>/admin_project" method="post">
     <table class="bdr more-padding" summary="List of project settings">
         <tr class="thead">
-            <th colspan="2">Project settings</th>
+            <th colspan="2"><?php echo $this->lang->L_PROJECT_SETTINGS;?></th>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="name">Project title:</label></td>
+            <td><label for="name"><?php echo $this->lang->L_PROJECT_NAME;?>:</label></td>
             <td><input type="text" class="text" name="name" id="name" value="<?php echo $this->settings['name']; ?>" size="40"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="url">Project URL:</label></td>
+            <td><label for="url"><?php echo $this->lang->L_PROJECT_URL;?>:</label></td>
             <td><input type="text" class="text" name="url" id="url" value="<?php echo $this->settings['url']; ?>" size="40"/></td>
         </tr>
         <tr class="<?php echo $cycle->next(); ?>">
-            <td><label for="logo_large">Large project logo:</label>
-            <br />(relative to project folder)</td>
+            <td class="top"><label for="logo"><?php echo $this->lang->L_PROJECT_LOGO;?>:</label>
+            <br />(<?php echo $this->lang->L_PROJECT_LOGO_EXPLAIN;?>)</td>
             <td>
-                <input type="text" class="text" name="logo[large]" id="logo_large" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
-                <img style="padding:12px;" id="large_preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="Large logo preview"/><br/>
+                <input type="text" class="text" name="logo[large]" id="logo" value="<?php echo $this->settings['logo']['large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
+                <img style="padding:12px;" id="preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="<?php echo $this->lang->L_PREVIEW;?>"/><br/>
                 <input type="checkbox" id="save_to_config" /> <label for="save_to_config"><?php echo $this->lang->L_SAVE_TO_CONFIG; ?></label><br/><br/>
                 <div id="logoUpload"></div>
             </td>
         </tr>
-        <tr class="<?php echo $cycle->next(); ?>">
+        <tr class="<?php echo $cycle->next(); ?> top">
             <td>
-                Fallback language:
+                <?php echo $this->lang->L_FALLBACK_LANGUAGE;?>:
             </td>
             <td><select name="fallbackLang" id="fallbackLang">
                 <?php foreach ($this->languages as $language) { ?>
@@ -89,8 +89,8 @@ var options = {
 
     onComplete:function(id, fileName, responseJSON) {
         if (responseJSON.success) {
-            $('#logo_large').val(responseJSON.newLogo);
-            $('#large_preview').attr('src', responseJSON.newLogo);
+            $('#logo').val(responseJSON.newLogo);
+            $('#preview').attr('src', '<?php echo $this->baseUrl();?>' + responseJSON.newLogo);
         }
     }
 };

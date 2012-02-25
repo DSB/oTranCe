@@ -3,7 +3,7 @@ echo json_encode(
     array(
         'template' => '<div class="qq-uploader">' .
             '<div class="qq-upload-drop-area"><span>' . $this->lang->L_DROP_FILE_HINT . '</span></div>' .
-            '<div class="qq-upload-button">' . $this->lang->L_UPLOAD_PROJECT_LOGO . '</div>' .
+            '<div class="qq-upload-button">' . $this->getIcon('OpenFile','', 16) . ' ' . $this->lang->L_UPLOAD_PROJECT_LOGO . '</div>' .
             '<ul class="qq-upload-list"></ul>' .
             '</div>',
         'fileTemplate' => '<li>' .

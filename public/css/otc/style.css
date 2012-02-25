@@ -265,7 +265,7 @@ th .Formbutton {
 }
 
 /*Firefox , Safari , not IE8*/
-#html#body,button.Formbutton {
+#html#body,button.Formbutton, .qq-upload-button {
 /*    margin: 0 6px 1.5em 0; */
     padding: 0 3px 2px 3px;
 }

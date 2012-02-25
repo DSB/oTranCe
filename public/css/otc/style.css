@@ -530,6 +530,9 @@ textarea {
     padding: 6px;
 }
 
+.spacer {
+    height: 24px;
+}
 .center {
     margin: 0 auto;
     text-align: center;

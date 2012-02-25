@@ -266,8 +266,7 @@ th .Formbutton {
 
 /*Firefox , Safari , not IE8*/
 #html#body,button.Formbutton, .qq-upload-button {
-/*    margin: 0 6px 1.5em 0; */
-    padding: 0 3px 2px 3px;
+    padding: 0 6px 2px 3px;
 }
 
 /*IE4 , IE5 , IE5.5 , IE6*/
@@ -298,7 +297,7 @@ th .Formbutton {
     padding: 0 5px;
 }
 
-.Formbutton img {
+.Formbutton img, .qq-upload-button img {
     margin: 0 2px 0 2px;
     padding: 0 0 3px 0;
     border: 0;
@@ -306,7 +305,7 @@ th .Formbutton {
     display: inline;
 }
 
-button.Formbutton img {
+button.Formbutton img, .qq-upload-button img {
     padding: 0 0 1px 0;
 }
 

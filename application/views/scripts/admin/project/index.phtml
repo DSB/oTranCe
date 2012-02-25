@@ -67,9 +67,7 @@ $translateToFallback = $this->settings['translateToFallback'];
 <script type="text/javascript">
 function updatePreviewImage(size, url)
 {
-    $('#' + size + '_preview').each(function() {
-        $(this)[0].src = '<?php echo $this->baseUrl();?>' + url;
-    });
+    $('#preview').attr('src', '<?php echo $this->baseUrl();?>' + url);
 }
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 var defaults = <?php echo $this->partial('ajax/fileuploader.defaults.json.phtml', array('lang' => $this->lang)); ?>;

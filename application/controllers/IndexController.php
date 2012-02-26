@@ -68,6 +68,8 @@ class IndexController extends Zend_Controller_Action
 
     /**
      * Logout the user and redirect him to login page
+     *
+     * @return void
      */
     public function logoutAction()
     {

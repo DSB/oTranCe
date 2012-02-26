@@ -130,7 +130,8 @@ class Msd_Language
      *
      * @return string
      */
-    public function translate($key) {
+    public function translate($key)
+    {
         $translated = $this->getTranslator()->_($key);
         if ($translated == $key && substr($key, 0, 2) == 'L_') {
             // no translation found -> remove prefix L_

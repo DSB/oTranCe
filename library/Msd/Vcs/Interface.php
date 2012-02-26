@@ -42,7 +42,7 @@ interface Msd_Vcs_Interface
      *
      * @abstract
      *
-     * @return void
+     * @return array
      */
     public function status();
 

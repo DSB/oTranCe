@@ -105,13 +105,9 @@ class Msd_Language
      */
     public function __get ($property)
     {
-        $translated = $this->getTranslator()->_($property);
-        if ($translated == $property && substr($property, 0, 2) == 'L_') {
-            // no translation found -> remove prefix L_
-            return substr($property, 2);
-        }
-        return $translated;
+        return $this->translate($property);
     }
+
     /**
      * Returns the single instance
      *
@@ -123,6 +119,24 @@ class Msd_Language
             self::$_instance = new self;
         }
         return self::$_instance;
+    }
+
+    /**
+     * Translate a key.
+     *
+     * If key was not found remove the prefix "L_".
+     *
+     * @param string $key The key of the langugae var to translate
+     *
+     * @return string
+     */
+    public function translate($key) {
+        $translated = $this->getTranslator()->_($key);
+        if ($translated == $key && substr($key, 0, 2) == 'L_') {
+            // no translation found -> remove prefix L_
+            return substr($key, 2);
+        }
+        return $translated;
     }
 
     /**

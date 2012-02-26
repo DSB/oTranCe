@@ -101,7 +101,7 @@ class ExportController extends Msd_Controller_Action
             $commitResult = $vcs->commit($files, $commitMessage);
             $this->view->commitResult = $commitResult;
         } else {
-            $this->view->commitResult = array('stdout' => 'Nothing to do.');
+            $this->view->commitResult = array('stdout' => $this->view->lang->translate('L_NOTHING_TO_DO') . '.');
         }
         $log->delete(session_id());
     }
@@ -249,24 +249,6 @@ class ExportController extends Msd_Controller_Action
                 $exportLog->add(session_id(), $exportedFile['filename']);
             }
         }
-    }
-
-    /**
-     * Checks wheter the language exsists and is active.
-     *
-     * @param int $lang
-     *
-     * @return bool
-     */
-    private function _languageExists($lang)
-    {
-        $allLangs = array_keys($this->_languagesModel->getAllLanguages());
-        $langExists = false;
-        if (in_array($lang, $allLangs)) {
-            $langExists = true;
-        }
-
-        return $langExists;
     }
 
     /**

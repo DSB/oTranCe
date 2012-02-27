@@ -120,6 +120,7 @@ class Msd_Export
 
         //Add footers and save file content to physical file
         $exportOk = true;
+        $res = array();
         foreach ($fileContent as $templateId => $langFile) {
             $fileFooter = $this->_replaceLanguageMetaPlaceholder(
                 $this->_fileTemplates[$templateId]['footer'],

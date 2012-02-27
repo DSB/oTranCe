@@ -24,5 +24,12 @@ class CutStringTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $res);
     }
 
+    public function testCutStringCanReturnPart()
+    {
+        $expected='will';
+        $viewHelper = new Msd_View_Helper_CutString();
+        $res = $viewHelper->cutString('I will be cut off', 3, array('saveWords' => true, 'returnPart' => -1));
+        $this->assertEquals($expected, $res);
+    }
 }
 

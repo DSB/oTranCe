@@ -12,7 +12,7 @@ class CutStringTest extends PHPUnit_Framework_TestCase
     {
         $expected='I will';
         $viewHelper = new Msd_View_Helper_CutString();
-        $res = $viewHelper->cutString('I will be cut off', 3);
+        $res = $viewHelper->cutString('I will be cut off', 6);
         $this->assertEquals($expected, $res);
     }
 }

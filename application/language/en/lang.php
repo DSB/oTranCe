@@ -60,6 +60,7 @@ $lang = array(
 'L_DROP_FILE_HINT' => 'Drop project logo here to upload.',
 'L_EDIT' => 'Edit',
 'L_EDIT_ENTRIES' => 'Edit entries',
+'L_EDIT_FILE_TEMPLATE' => 'Edit file template',
 'L_EDIT_FILE_TEMPLATE_X' => 'Edit file template \'%s\'',
 'L_EDIT_INLINE' => 'Edit inline',
 'L_EDIT_KEY' => 'Edit key',

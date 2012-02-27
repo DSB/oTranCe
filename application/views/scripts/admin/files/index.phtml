@@ -3,20 +3,19 @@
 <form action="<?php echo $this->baseUrl();?>/admin_files/" method="post" id="myForm">
     <p style="margin:0;padding:0;">
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-        Filter / Search:
+        <?php echo $this->lang->L_FILTER_SEARCH;?>:
         <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
         <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
-            <?php echo $this->getIcon('search', '', 16);?> Search
+            <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
         </button>
         <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
+            <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
         </button>
         <?php if ($this->user->hasRight('addTemplate')) { ?>
             <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_files/edit/id/0'">
-                <?php echo $this->getIcon('plus', '');?> Add file template
+                <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_FILE_TEMPLATE;?>
             </button>
         <?php } ?>
-        Order list by: <select name="templateOrderBy" onchange="$(this).parents('form')[0].submit();"><?php echo Msd_Html::getHtmlOptions($this->templateOrderFields, $this->selOrderField, false); ?></select>
         <br /><br />
 
         <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
@@ -34,11 +33,14 @@
             class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
-        Entries per page:
+        <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
         <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
             <?php echo $this->selRecordsPerPage;?>
         </select>
-        Hits: <?php echo $this->numberFormat($this->hits);?>
+        <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->hits);?>
+        &nbsp;|&nbsp;
+        <?php echo $this->lang->L_ORDER_LIST_BY;?>: <select name="templateOrderBy" onchange="$(this).parents('form')[0].submit();"><?php echo Msd_Html::getHtmlOptions($this->templateOrderFields, $this->selOrderField, false); ?></select>
+
     </p>
 </form>
 
@@ -46,16 +48,16 @@
         <tr class="thead">
             <th></th>
             <th>#</th>
-            <th>Name</th>
-            <th>Header</th>
-            <th>Language variable</th>
-            <th>Footer</th>
-            <th>File path</th>
+            <th><?php echo $this->lang->L_NAME;?></th>
+            <th><?php echo $this->lang->L_HEADER;?></th>
+            <th><?php echo $this->lang->L_GENERATED_CONTENT;?></th>
+            <th><?php echo $this->lang->L_FOOTER;?></th>
+            <th><?php echo $this->lang->L_FILE_PATH;?></th>
         </tr>
 <?php
 if ($this->hits == 0) { ?>
     <tr class="row-odd">
-        <td colspan="6" class="error">Sorry, no hits.</td>
+        <td colspan="6" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
     </tr>
 
 <?php
@@ -74,25 +76,25 @@ foreach ($this->fileTemplates as $fileTemplate) {
 ?>
         <tr class="<?php echo $cycleHelper->next(); ?>">
             <td class="nowrap">
-                <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->getIcon('Edit', ''); ?></a>
-                <a href="#" title="Delete file template" onclick="showDelConfirm(<?php echo $fileTemplate['id']; ?>);"><?php echo $this->getIcon('delete', ''); ?></a>
+                <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->getIcon('Edit', ''); ?></a>
+                <a href="#" title="<?php echo $this->lang->L_DELETE_FILE_TEMPLATE;?>" onclick="showDelConfirm(<?php echo $fileTemplate['id']; ?>);"><?php echo $this->getIcon('delete', ''); ?></a>
             </td>
             <td><?php echo $counter; ?></td>
             <td>
-                <a href="<?php echo $editUrl; ?>" title="Edit file template"><?php echo $this->out($fileTemplate['name']); ?></a>
+                <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->out($fileTemplate['name']); ?></a>
             </td>
             <td>
                 <pre><?php echo $headerShort; ?></pre>
-                <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete header</a>
-                <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>">Complete file header:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
+                <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_HEADER;?></a>
+                <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_HEADER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
             </td>
             <td>
                 <pre><?php echo $this->out($fileTemplate['content']); ?></pre>
             </td>
             <td>
                 <pre><?php echo $footerShort; ?></pre>
-                <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> Complete footer</a>
-                <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>">Complete file footer:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
+                <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_FOOTER;?></a>
+                <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_FOOTER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
             </td>
             <td><?php echo $this->out($fileTemplate['filename']); ?></td>
         </tr>
@@ -106,7 +108,7 @@ var templateList = <?php echo Zend_Json_Encoder::encode($this->fileTemplates); ?
 function showDelConfirm(tmplId)
 {
     var tempTemplateList = [];
-    tempTemplateList.push({'id':0, 'name':'Delete all phrases'});
+    tempTemplateList.push({'id':0, 'name':'<?php echo $this->jsEscape($this->lang->L_DELETE_FILE_TEMPLATE);?>'});
     var tmplToDelete;
     for (var i in templateList) {
         if (templateList[i].id == tmplId) {
@@ -116,9 +118,9 @@ function showDelConfirm(tmplId)
         tempTemplateList.push(templateList[i]);
     }
     var dialogDiv = $(
-        '<div>Are you sure, that you want delete the file template "'
+        '<div><?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_FILE_TEMPLATE);?>:"'
             + tmplToDelete.name
-            + '"?<br\/><br\/><br\/>Please select a replacement for the deleted file template:<br\/>'
+            + '"?<br\/><br\/><br\/><?php echo $this->jsEscape($this->lang->L_SELECT_REPLACEMENT_TEMPLATE);?>:<br\/>'
             + '<form action="<?php echo $this->baseUrl(); ?>/admin_files/delete/" method="post" id="delTemplateForm">'
             + '<span id="delTmplFormContent"\/><input type="hidden" name="delTemplateId" value="'
             + tmplId + '" \/><\/form><\/div>'
@@ -131,13 +133,13 @@ function showDelConfirm(tmplId)
         'autoOpen':true,
         'modal':true,
         'dialogClass':'info',
-        'title':'Delete file template',
+        'title':'<?php echo $this->jsEscape($this->lang->L_DELETE_FILE_TEMPLATE);?>',
         'minWidth':560,
         'buttons':[{
-            'text':'Yes',
+            'text':'<?php echo $this->lang->L_YES;?>',
             'click':function() { $(this).dialog('close'); $('#delTemplateForm')[0].submit(); }
         }, {
-            'text':"No",
+            'text':"<?php echo $this->lang->L_CANCEL;?>",
             'click':function() { $(this).dialog('close'); }
         }]
     });
@@ -151,7 +153,7 @@ $('.expandButton').click(function(){
     $('#complete-' + tmplType + '-' + tmplId).dialog({
         "dialogClass":"info",
         "buttons":{ "OK": function() { $(this).dialog('close'); } },
-        "title":'Complete ' + tmplType,
+        "title": '<?php echo $this->jsEscape($this->lang->L_COMPLETE_VIEW);?>',
         "minWidth":560,
         "modal":true
     });
@@ -162,8 +164,8 @@ $('.expandButton').click(function(){
     if ($this->deletionResult['delete'] && $this->deletionResult['update']) {
         $this->popUpMessage()->addMessage(
             'deletionSuccess',
-            'Deletion successful',
-            '<span class="success">The file template was successfully deleted.<br/><br/>Template assignments have been updated/deleted.</span>',
+            $this->lang->L_DELETION_SUCCESSFULL,
+            '<span class="success">' . $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY . '.<br/><br/>' . $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED .'.</span>',
             array(
                 'modal' => true,
                 'dialogClass' => 'success',
@@ -172,11 +174,11 @@ $('.expandButton').click(function(){
         );
     } else {
         $deletion = $this->deletionResult['delete'] ?
-            '<span class="success">The file template was successfully deleted.</span>' :
+            '<span class="success">' . $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY .'.</span>' :
             '<span class="error">Can\'t delete the file template.</span>';
         $update = $this->deletionResult['update'] ?
-            '<span class="success">Template assignments have been updated/deleted.</span>' :
-            '<span class="error">Can\'t update template assignments.</span>';
+            '<span class="success">' . $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED . '.</span>' :
+            '<span class="error">' . $this->lang->L_ERROR_UPDATING_FILE_TEMPLATE .'.</span>';
         $this->popUpMessage()->addMessage(
             'deletionErroneous',
             'Deletion successful',

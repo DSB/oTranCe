@@ -10,13 +10,7 @@ class OutTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->view = new Zend_View();
-        $helperPath = APPLICATION_PATH . DIRECTORY_SEPARATOR
-            . 'views' . DIRECTORY_SEPARATOR . 'helpers';
-        $this->view->addHelperPath($helperPath, 'Msd_View_Helper');
-        $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
-        $viewRenderer->setView($this->view);
-        Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
+        $this->view = Zend_Layout::getMvcInstance()->getView();
     }
 
     public function testCanReturnOriginalValue()

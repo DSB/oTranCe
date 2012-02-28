@@ -9,8 +9,7 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 {
     public function testGetIconEdit()
     {
-        $expected = '<img src="/css/otc/icons/16x16/Edit.png" '
-            .'alt="" title=""/>';
+        $expected = '<img src="/css/otc/icons/16x16/Edit.png" alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
         $res = $viewHelper->getIcon('Edit', '', 16);
         $this->assertEquals($expected, $res);

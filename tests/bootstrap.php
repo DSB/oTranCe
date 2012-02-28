@@ -26,7 +26,6 @@ if (!defined('APPLICATION_ENV')) {
 set_include_path(
     implode(
         PATH_SEPARATOR, array(
-            realpath(APPLICATION_PATH . '/../application'),
             realpath(APPLICATION_PATH . '/../library'),
             realpath(APPLICATION_PATH . '/views/helpers'),
             get_include_path()

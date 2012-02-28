@@ -50,7 +50,7 @@ class Msd_View_Helper_CutString extends Zend_View_Helper_Abstract
         if ($options['saveWords']) {
             $wrappedString = wordwrap($string, $cutPos, '<CuTtEd>', true);
             $parts = explode('<CuTtEd>', $wrappedString);
-            $cuttedString = $this->_getCuttedPart($parts, $options['returnPart']);
+            $cuttedString = isset($parts[$options['returnPart']]) ? $parts[$options['returnPart']] : '';
         } else {
             $cuttedString = substr($string, 0, $cutPos);
         }
@@ -60,28 +60,4 @@ class Msd_View_Helper_CutString extends Zend_View_Helper_Abstract
         return $cuttedString;
     }
 
-    /**
-     * Returns the given part(s) from an array.
-     *
-     * @param array $cuttedParts Array with the cut parts.
-     * @param int   $partNumber  Index to return.
-     *                           Hint: Use a negative index to return a glued string, beginning from its positive
-     *                                 position.
-     *
-     * @return string
-     */
-    private function _getCuttedPart($cuttedParts, $partNumber)
-    {
-        if ($partNumber >= 0) {
-            return $cuttedParts[$partNumber];
-        }
-
-        $partCount = count($cuttedParts);
-        $gluedParts = array();
-        $partNumber = ($partNumber * -1);
-        for ($i = $partNumber; $i < $partCount; $i++) {
-            $gluedParts[] = $cuttedParts[$i];
-        }
-        return implode(' ', $gluedParts);
-    }
 }

@@ -18,5 +18,11 @@ class PrintFileTemplateTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('out/admin/{LOCALE}/help_lang.php', $res);
     }
 
+    public function testReturnsDashIfTemplateDoesNotExist()
+    {
+        $this->view = Zend_Layout::getMvcInstance()->getView();
+        $res = $this->view->printFileTemplate(-1);
+        $this->assertEquals('-', $res);
+    }
 }
 

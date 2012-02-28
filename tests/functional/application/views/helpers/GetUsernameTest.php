@@ -1,4 +1,5 @@
 <?php
+require_once 'GetUsername.php';
 /**
  * @group MsdViewHelper
  */

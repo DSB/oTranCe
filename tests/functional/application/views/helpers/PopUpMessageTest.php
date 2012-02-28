@@ -20,8 +20,8 @@ class PopUpMessageTest extends ControllerTestCase
         $this->assertNotRedirect();
         // make sure we see the login error message
         $this->assertQueryCount("//div[@id='login-message']", 1);
-        $msg = "Unknown combination of username and password.";
-        $this->assertQueryContentContains('#login-message', $msg);
+        $view = Zend_Layout::getMvcInstance()->getView();
+        $this->assertQueryContentContains('#login-message', $view->lang->translate('L_LOGIN_INVALID_USER'));
     }
 
 }

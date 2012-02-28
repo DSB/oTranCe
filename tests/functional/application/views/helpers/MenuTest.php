@@ -1,7 +1,4 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
-require_once 'Menu.php';
-
 /**
  * @group MsdViewHelper
  */

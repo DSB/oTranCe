@@ -153,7 +153,7 @@ $projectConfig = $this->config->getParam('project');
 </table>
 
 <?php
-if ($projectConfig['vcsActivated'] > 0) {
+if (!empty($projectConfig['vcsActivated'])) {
     ?>
     <div class="spacer"></div>
     <h4><?php echo $this->lang->L_PERSONAL_CREDENTIALS_VCS;?>:</h4>

@@ -12,7 +12,7 @@ class JsEscapeTest extends PHPUnit_Framework_TestCase
     {
         $expected= 'I\\\'m a message with \\\'quotes\\\' and \"double quotes\" in it.';
         $viewHelper = new Msd_View_Helper_JsEscape();
-        $res = $viewHelper->jsEscape('I\'m a message with \'quotes\' and "double quotes\" in it.');
+        $res = $viewHelper->jsEscape('I\'m a message with \'quotes\' and "double quotes" in it.');
         $this->assertEquals($expected, $res);
     }
 

@@ -8,7 +8,7 @@ require_once 'PrintFileTemplateHtml.php';
 
 class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
 {
-    public function testCanPrintStatusIcon()
+    public function testCanPrintFileTemplatesAsSelectList()
     {
         $this->view = Zend_Layout::getMvcInstance()->getView();
         $expected = '<select class="select" name="fileTemplate" style="width:402px;">'

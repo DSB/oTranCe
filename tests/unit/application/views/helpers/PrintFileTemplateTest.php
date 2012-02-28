@@ -8,7 +8,7 @@ require_once 'PrintFileTemplate.php';
 
 class PrintFileTemplateTest extends PHPUnit_Framework_TestCase
 {
-    public function testCanPrintStatusIcon()
+    public function testCanPrintFileTemplates()
     {
         $this->view = Zend_Layout::getMvcInstance()->getView();
         $res = $this->view->printFileTemplate(1);

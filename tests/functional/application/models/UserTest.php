@@ -41,10 +41,119 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($expected, $translators);
     }
 
-    public function testGetTranslatorsReturnsEmptyArrayForNonExistantLanguage()
+    public function testGetTranslatorsReturnsEmptyArrayForNonExistentLanguage()
     {
         $translators = $this->userModel->getTranslators(9999999);
         $this->assertEquals(array(), $translators);
+    }
+
+    public function testGetTranslatorListCanImplodeList()
+    {
+        $translatorList = $this->userModel->getTranslatorlist(true);
+        $expected = array( 1=> 'Admin, tester', 2=> 'Admin');
+        $this->assertEquals($expected, $translatorList);
+    }
+
+    public function testGetUsers()
+    {
+        // test filter
+        $userList = $this->userModel->getUsers('Ad');
+        $expected = array(1 => array(
+                'id'       => 1,
+                'username' => 'Admin',
+                'password' => '21232f297a57a5a743894a0e4a801fc3',
+                'active'   => 1
+            )
+        );
+        $this->assertEquals($expected, $userList);
+
+        // test pagination
+        $userList = $this->userModel->getUsers('', 1, 1);
+        $expected = array(2 => array(
+                'id'       => '2',
+                'username' => 'tester',
+                'password' => '098f6bcd4621d373cade4e832627b4f6',
+                'active'   => 1
+            )
+        );
+        $this->assertEquals($expected, $userList);
+    }
+
+    public function testGetUserNames()
+    {
+        $userNames = $this->userModel->getUserNames();
+        $expected = array( 1 => 'Admin', 2 => 'tester');
+        $this->assertEquals($expected, $userNames);
+    }
+
+    public function testGetUserById()
+    {
+        //get id 1 = Admin
+        $user = $this->userModel->getUserById(1);
+        $expected = array(
+            'id'       => 1,
+            'username' => 'Admin',
+            'password' => '21232f297a57a5a743894a0e4a801fc3',
+            'active'   => 1
+        );
+        $this->assertEquals($expected, $user);
+
+        // get id 2 = tester
+        $user = $this->userModel->getUserById(2);
+        $expected = array(
+            'id'       => '2',
+            'username' => 'tester',
+            'password' => '098f6bcd4621d373cade4e832627b4f6',
+            'active'   => 1
+        );
+        $this->assertEquals($expected, $user);
+
+        // request invalid user and get default array
+        $user = $this->userModel->getUserById(99999999);
+        $expected = array(
+            'id'       => '0',
+            'username' => '',
+            'password' => '',
+            'active'   => 0
+        );
+        $this->assertEquals($expected, $user);
+    }
+
+    public function testGetUserByName()
+    {
+        $user = $this->userModel->getUserByName('Admin');
+        $expected = array(
+            'id'       => 1,
+            'username' => 'Admin',
+            'password' => '21232f297a57a5a743894a0e4a801fc3',
+            'active'   => 1
+        );
+        $this->assertEquals($expected, $user);
+    }
+
+    public function testGetRowCount()
+    {
+        $users = $this->userModel->getUserNames();
+        $rowCount = $this->userModel->getRowCount();
+        $this->assertEquals(sizeof($users), $rowCount);
+    }
+
+    public function testLoadSetting()
+    {
+        $this->loginUser();
+        $this->userModel = new Application_Model_User();
+        $setting = $this->userModel->loadSetting('interfaceLanguage');
+        $this->assertEquals('de', $setting);
+
+        // test forec returning as array
+        $setting = $this->userModel->loadSetting('interfaceLanguage', '', true);
+        $this->assertEquals(array(0 => 'de'), $setting);
+    }
+
+    public function testGetRefLanguages()
+    {
+        $referenceLanguages = $this->userModel->getRefLanguages();
+        $this->assertEquals(array( 0 => 1), $referenceLanguages);
     }
 
 }

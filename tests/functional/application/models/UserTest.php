@@ -190,6 +190,10 @@ class UserTest extends ControllerTestCase
         $this->userModel->saveSetting('foo', 'bar');
         $setting = $this->userModel->loadSetting('foo');
         $this->assertEquals('bar', $setting);
+
+        // check if true is returned on empty value (nothing to do)
+        $res = $this->userModel->saveSetting('foo', '');
+        $this->assertTrue($res);
     }
 
     /**
@@ -220,4 +224,17 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($deleted);
     }
 
+    public function testSaveLanguageRights()
+    {
+        $languageIds = array(1,2,3,4,5,9999);
+        $saved = $this->userModel->saveLanguageRights(99, $languageIds);
+        $this->assertTrue($saved);
+
+        $saved = $this->userModel->saveLanguageRights(99, '');
+        $this->assertTrue($saved);
+
+        // check that all rights for user 99 have been removed
+        $editRights = $this->userModel->getUserLanguageRights(99);
+        $this->assertEquals(array(), $editRights);
+    }
 }

@@ -183,4 +183,41 @@ class UserTest extends ControllerTestCase
         $this->assertEquals(1, $referenceLanguageStatus);
     }
 
+    public function testSaveSetting()
+    {
+        $this->loginUser('Admin', 'admin');
+        $this->userModel = new Application_Model_User();
+        $this->userModel->saveSetting('foo', 'bar');
+        $setting = $this->userModel->loadSetting('foo');
+        $this->assertEquals('bar', $setting);
+    }
+
+    /**
+     * @depends testSaveSetting
+     */
+    public function testDeleteSetting()
+    {
+        $this->loginUser('Admin', 'admin');
+        $this->userModel = new Application_Model_User();
+        $this->userModel->deleteSetting('foo');
+        $setting = $this->userModel->loadSetting('foo', 'notFound');
+        $this->assertEquals('notFound', $setting);
+    }
+
+    public function testAddUsersEditLanguageRight()
+    {
+        $this->userModel->deleteUsersEditLanguageRight(1, 9999);
+        $saved = $this->userModel->addUsersEditLanguageRight(1, 9999);
+        $this->assertTrue($saved);
+    }
+
+    /**
+     * @depends testAddUsersEditLanguageRight
+     */
+    public function testDeleteUsersEditLanguageRight()
+    {
+        $deleted = $this->userModel->deleteUsersEditLanguageRight(1, 9999);
+        $this->assertTrue($deleted);
+    }
+
 }

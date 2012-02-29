@@ -250,6 +250,14 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($rights['addUser'] == 1);
         $this->assertTrue($rights['createFile'] == 1);
         $this->assertTrue($rights['export'] == 1);
+
+        // check that userId is taken from the logged inuser, if param is missing
+        $this->loginUser(); // logs in test user
+        $this->userModel = new Application_Model_User();
+        $rights = $this->userModel->getUserGlobalRights();
+        $this->assertTrue($rights['admin'] == 0);
+        $this->assertTrue($rights['addVar'] == 0);
+        $this->assertTrue($rights['addTemplate'] == 0);
     }
 
     public function testHasLanguageEditRight()

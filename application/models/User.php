@@ -608,13 +608,14 @@ class Application_Model_User extends Msd_Application_Model
      *
      * @param int    $userId Id of user
      * @param string $right  Name of right
-     * @param string $value  Value to save
+     * @param int    $value  Value to save
      *
      * @return bool
      */
-    public function saveRight($userId, $right, $value = "1")
+    public function saveRight($userId, $right, $value = 1)
     {
         $this->deleteRight($userId, $right, $value);
+        $value = (int) $value;
         $sql = 'INSERT INTO `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
                 .' (`user_id`, `right`, `value`) VALUES ('
                 . intval($userId) . ', '

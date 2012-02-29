@@ -236,6 +236,10 @@ class UserTest extends ControllerTestCase
         // check that all rights for user 99 have been removed
         $editRights = $this->userModel->getUserLanguageRights(99);
         $this->assertEquals(array(), $editRights);
+
+        // check that method returns false on invalid userId
+        $saved = $this->userModel->saveLanguageRights(-1, '');
+        $this->assertFalse($saved);
     }
 
     public function testGetUserGlobalRights()
@@ -271,4 +275,21 @@ class UserTest extends ControllerTestCase
          $this->assertFalse($hasRight);
     }
 
+    public function testSaveRight()
+    {
+        $saved = $this->userModel->saveRight(99, 'foo', 999);
+        $this->assertTrue($saved);
+        $userRights = $this->userModel->getUserRights(99);
+        $this->assertTrue($userRights['foo'] == 999);
+    }
+
+    /**
+     * @depends testSaveRight
+     */
+    public function testDeleteRight()
+    {
+        $this->userModel->deleteRight(99, 'foo');
+        $userRights = $this->userModel->getUserRights(99);
+        $this->assertFalse(isset($userRights['foo']));
+    }
 }

@@ -10,6 +10,7 @@ class Testhelper
      */
     public static function setUp()
     {
+        // create phpunit_test.ini in application/configs folder for tests
         $destinationFile = APPLICATION_PATH . DS . 'configs'. DS .'defaultConfig.ini';
         if (!in_array($destinationFile, self::$_copiedFiles)) {
             self::copyFile('defaultConfig.ini', $destinationFile);
@@ -21,6 +22,7 @@ class Testhelper
      */
     public static function onShutdown()
     {
+        // remove formerly copied fixture files
         foreach (self::$_copiedFiles as $copiedFile) {
             self::removeFile($copiedFile);
         }

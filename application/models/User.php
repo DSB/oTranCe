@@ -444,6 +444,11 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function saveLanguageRights($userId, $languageIds)
     {
+        $userId = (int) $userId;
+        if ($userId < 1) {
+            return false;
+        }
+
         // first remove rights from all other languages
         $sql = 'DELETE FROM `'.$this->_tableUserLanguages . '`'
                     . ' WHERE `user_id` = ' . $userId;
@@ -451,12 +456,9 @@ class Application_Model_User extends Msd_Application_Model
             $sql .= ' AND NOT `language_id` IN (' . implode(',', $languageIds) . ')';
         }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        if ($res === false) {
-            return false;
-        }
 
         // save language edit rights
-        if (!empty($languageIds)) {
+        if (is_array($languageIds) && !empty($languageIds)) {
             $sql = 'REPLACE INTO `'.$this->_tableUserLanguages . '`' . ' (`user_id`,`language_id`) VALUES ';
             foreach ($languageIds as $languageId) {
                 $sql .= sprintf('(%s, %s), ', (int) $userId, (int) $languageId);
@@ -599,27 +601,6 @@ class Application_Model_User extends Msd_Application_Model
                         . ' LIMIT 1';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         return isset($res[0]['user_id']) ? true : false;
-    }
-
-    /**
-     * Check the value of a right for the given user
-     *
-     * @param int    $userId Id of user
-     * @param string $right  The right to get
-     * @param string $value  The value to check
-     *
-     * @return bool|string
-     */
-    public function getRight($userId, $right, $value)
-    {
-        $userId = (int) $userId;
-        $value  = (int) $value;
-        $sql = 'SELECT `value` FROM `'.$this->_database.'`.`' . $this->_tableUserrights . '`'
-                . ' WHERE `user_id`=' . $userId
-                . ' AND `right`=\'' . $this->_dbo->escape($right) . '\''
-                . ' AND `value`=' . $value;
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-        return isset($res[0]) ? $res[0] : false;
     }
 
     /**

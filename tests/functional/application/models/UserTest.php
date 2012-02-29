@@ -237,4 +237,30 @@ class UserTest extends ControllerTestCase
         $editRights = $this->userModel->getUserLanguageRights(99);
         $this->assertEquals(array(), $editRights);
     }
+
+    public function testGetUserGlobalRights()
+    {
+        $rights = $this->userModel->getUserGlobalRights(1);
+        // check some rights (these are not all)
+        $this->assertTrue($rights['editConfig'] == 1);
+        $this->assertTrue($rights['showEntries'] == 1);
+        $this->assertTrue($rights['showDownloads'] == 1);
+        $this->assertTrue($rights['addVar'] == 1);
+        $this->assertTrue($rights['editProject'] == 1);
+        $this->assertTrue($rights['addUser'] == 1);
+        $this->assertTrue($rights['createFile'] == 1);
+        $this->assertTrue($rights['export'] == 1);
+    }
+
+    public function testHasLanguageEditRight()
+    {
+        // positive check
+        $hasRight = $this->userModel->hasLanguageEditRight(1, 1);
+        $this->assertTrue($hasRight);
+
+         // negative check
+         $hasRight = $this->userModel->hasLanguageEditRight(1, 3246345);
+         $this->assertFalse($hasRight);
+    }
+
 }

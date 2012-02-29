@@ -146,8 +146,8 @@ class UserTest extends ControllerTestCase
         $this->assertEquals('de', $setting);
 
         // test force returning as array
-        $setting = $this->userModel->loadSetting('interfaceLanguage', '', true);
-        $this->assertEquals(array(0 => 'de'), $setting);
+        $setting = $this->userModel->loadSetting('recordsPerPage', '', true);
+        $this->assertEquals(array(0 => 10), $setting);
     }
 
     public function testGetRefLanguages()
@@ -156,6 +156,31 @@ class UserTest extends ControllerTestCase
         $this->userModel = new Application_Model_User();
         $referenceLanguages = $this->userModel->getRefLanguages();
         $this->assertEquals(array( 0 => 1), $referenceLanguages);
+    }
+
+   public function testGetReferenceLanguageStatus()
+    {
+        // check for set reference language
+        $referenceLanguageStatus = $this->userModel->getReferenceLanguageStatus(1, 1);
+        $this->assertEquals(1, $referenceLanguageStatus);
+
+        // check for unset reference language
+        $referenceLanguageStatus = $this->userModel->getReferenceLanguageStatus(1, 99999);
+        $this->assertEquals(0, $referenceLanguageStatus);
+    }
+
+    /**
+     * @depends testGetReferenceLanguageStatus
+     */
+    public function testSwitchReferenceLanguageStatus()
+    {
+        $this->userModel->switchReferenceLanguageStatus(1, 1);
+        $referenceLanguageStatus = $this->userModel->getReferenceLanguageStatus(1, 1);
+        $this->assertEquals(0, $referenceLanguageStatus);
+
+        $this->userModel->switchReferenceLanguageStatus(1, 1);
+        $referenceLanguageStatus = $this->userModel->getReferenceLanguageStatus(1, 1);
+        $this->assertEquals(1, $referenceLanguageStatus);
     }
 
 }

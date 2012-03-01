@@ -1,6 +1,7 @@
 <?php
 /**
  * @group Statistics
+ * @group Models
  */
 class StatisticsTest extends ControllerTestCase
 {

@@ -27,13 +27,15 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
     /**
      * Return list of file templates as selectbox or, if there is only one configured, as hidden input.
      *
-     * @param int $selFileTemplateId ID of selected file template
+     * @param int  $selFileTemplateId    ID of selected file template
+     * @param bool $forceReloadTemplates Force reloading the list of templates
      *
      * @return string
      */
-    public function printFileTemplateHtml($selFileTemplateId)
+    public function printFileTemplateHtml($selFileTemplateId, $forceReloadTemplates = false)
     {
-        if (self::$_fileTemplates === null) {
+        if (self::$_fileTemplates === null || $forceReloadTemplates) {
+            self::$_fileTemplates = array();
             $templatesModel = new Application_Model_FileTemplates();
             $fileTemplates = $templatesModel->getFileTemplates();
             foreach ($fileTemplates as $template) {

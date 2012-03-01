@@ -22,8 +22,29 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
             . '<option value="2" selected="selected">out/admin/{LOCALE}/help_lang.php</option></select>';
         $res = $this->view->printFileTemplateHtml(2);
         $this->assertEquals($expected, $res);
-
     }
 
+    public function testCanPrintFileTemplatesAsHiddenField()
+    {
+        $templateModel = new Application_Model_FileTemplates();
+        $tpl           = $templateModel->getFileTemplate(1);
+        $templateModel->deleteFileTemplate(1, 0);
+        $this->view = Zend_Layout::getMvcInstance()->getView();
+        $expected   = '<input type="hidden" name="fileTemplate" value="2" />out/admin/{LOCALE}/help_lang.php';
+        $res        = $this->view->printFileTemplateHtml(1, true);
+        $this->assertEquals($expected, $res);
+
+        $saved = $templateModel->saveFileTemplate(
+            $tpl['id'],
+            $tpl['name'],
+            $tpl['header'],
+            $tpl['content'],
+            $tpl['footer'],
+            $tpl['filename']
+        );
+        // force reloading template list for following tests
+        $this->view->printFileTemplateHtml(1, true);
+        $this->assertTrue($saved);
+    }
 }
 

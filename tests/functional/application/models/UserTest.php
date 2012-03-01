@@ -141,14 +141,14 @@ class UserTest extends ControllerTestCase
 
     public function testLoadSetting()
     {
-        $this->loginUser();
+        $this->loginUser('Admin', 'admin');
         $this->userModel = new Application_Model_User();
-        $setting = $this->userModel->loadSetting('interfaceLanguage');
-        $this->assertEquals('de', $setting);
+        $setting = $this->userModel->loadSetting('referenceLanguage');
+        $this->assertEquals(1, $setting);
 
         // test force returning as array
-        $setting = $this->userModel->loadSetting('recordsPerPage', '', true);
-        $this->assertEquals(array(0 => 10), $setting);
+        $setting = $this->userModel->loadSetting('referenceLanguage', '', true);
+        $this->assertEquals(array(0 => 1), $setting);
     }
 
     public function testGetRefLanguages()

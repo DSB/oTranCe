@@ -127,6 +127,10 @@ class FileTemplatesTest extends ControllerTestCase
         $this->assertTrue(isset($key['id']));
         $this->assertTrue($key !== false);
         $entriesModel->deleteEntryByKeyId($key['id']);
+
+        // try to delete a non existent template id
+        $deleted = $this->model->deleteFileTemplate(127, 0);
+        $this->assertTrue($deleted);
     }
 
 }

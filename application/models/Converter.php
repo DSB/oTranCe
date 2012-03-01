@@ -35,7 +35,7 @@ class Application_Model_Converter extends Msd_Application_Model
             //nothing to convert - return original text immediately without bothering mysql
             return $text;
         }
-
+        $data = '';
         $this->_dbo->selectDb($this->_database);
         $this->_dbo->setConnectionCharset($inputCharset);
         $id = $this->_dbo->escape(Zend_Session::getId());
@@ -52,15 +52,14 @@ class Application_Model_Converter extends Msd_Application_Model
         $sql = 'SELECT `text` FROM `' . $this->_database . '`.`' . $this->_tableConversions. '` '
                 .' WHERE `id`=\'' . $id . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        if (!isset($res[0]['text'])) {
-            return false;
+        if (isset($res[0]['text'])) {
+            $data = $res[0]['text'];
+            $data = stripcslashes($data);
+            // now delete entry from db, we don't need it anymore
+            $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableConversions. '` '
+                    .' WHERE `id`=\'' . $id . '\'';
+            $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
-        $data = $res[0]['text'];
-        $data = stripcslashes($data);
-        // now delete entry from db, we don't need it anymore
-        $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableConversions. '` '
-                .' WHERE `id`=\'' . $id . '\'';
-        $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return $data;
     }
 

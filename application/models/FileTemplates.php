@@ -156,7 +156,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     }
 
     /**
-     * Deletes a file template and assigns the dependent language keys to a ne template id.
+     * Deletes a file template and assigns the dependent language keys to a new template id or deletes them.
      *
      * @param int $templateId  ID of the template to delete.
      * @param int $replacement ID of the new template to assign to the dependent language keys. (0=delete keys)

@@ -68,4 +68,50 @@ class FileTemplatesTest extends ControllerTestCase
         $template = $this->model->getFileTemplate(2);
         $this->assertEquals($this->templates[1], $template);
     }
+
+    public function testGetFileTemplateAssoc()
+    {
+        $templates = $this->model->getFileTemplatesAssoc();
+        $this->assertTrue($templates[1]['id'] == 1);
+        $this->assertTrue($templates[1]['name'] == 'Admin');
+        $this->assertTrue($templates[1]['content'] == "'{KEY}' => '{VALUE}',");
+        $this->assertTrue($templates[1]['footer'] == ');');
+
+        $this->assertTrue($templates[2]['id'] == 2);
+        $this->assertTrue($templates[2]['name'] == 'Admin help');
+        $this->assertTrue($templates[2]['content'] == "'{KEY}' => '{VALUE}',");
+        $this->assertTrue($templates[2]['footer'] == ');');
+        $this->assertFalse(isset($templates[0]));
+        $this->assertFalse(isset($templates[3]));
+    }
+
+    public function testSaveFileTemplate()
+    {
+        $saved = $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
+        $this->assertTrue($saved);
+        $template = $this->model->getFileTemplate(127);
+        $expected = array(
+            'id'       => '127',
+            'name'     => 'test',
+            'header'   => 'header',
+            'content'  => 'content',
+            'footer'   => 'footer',
+            'filename' => 'test.php'
+        );
+        $this->assertEquals($expected, $template);
+    }
+
+    public function testDeleteFileTemplate()
+    {
+        $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
+        $this->model->deleteFileTemplate(127);
+        $template = $this->model->getFileTemplate(127);
+        $this->assertTrue($template['id'] == 0);
+
+        //@TODO add fixture with a key in keys table and check if assignment is changed
+        $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
+        $this->model->deleteFileTemplate(127, 126);
+        $template = $this->model->getFileTemplate(127);
+        $this->assertTrue($template['id'] == 0);
+    }
 }

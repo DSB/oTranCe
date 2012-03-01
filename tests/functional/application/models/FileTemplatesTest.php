@@ -49,6 +49,20 @@ class FileTemplatesTest extends ControllerTestCase
         $this->assertEquals(2, $this->model->getRowCount());
     }
 
+    public function testGetFileTemplateReturnsDefaultValuesOnInvalidId()
+    {
+        $default = array(
+            'id' => 0,
+            'name' => '',
+            'header' => '',
+            'footer' => '',
+            'content' => '',
+            'filename' => ''
+        );
+        $template = $this->model->getFileTemplate(-1);
+        $this->assertEquals($default, $template);
+    }
+
     public function testGetFileTemplate()
     {
         $template = $this->model->getFileTemplate(2);

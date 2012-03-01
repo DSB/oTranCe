@@ -95,10 +95,6 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             'content' => '',
             'filename' => '',
         );
-        // If a new file template is created, return empty db row immediately.
-        if ($templateId == 0) {
-            return $template;
-        }
 
         // Build and execute the SQL statement to get file template db record.
         $sql = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = $templateId LIMIT 1";
@@ -106,7 +102,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
 
         // Check for empty result.
         if (isset($res[0])) {
-            return $res[0];
+            $template = $res[0];
         }
         return $template;
     }

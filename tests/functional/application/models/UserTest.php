@@ -1,5 +1,6 @@
 <?php
 /**
+ * @group Models
  * @group User
  */
 class UserTest extends ControllerTestCase

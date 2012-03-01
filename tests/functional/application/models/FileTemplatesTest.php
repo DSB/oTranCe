@@ -104,14 +104,29 @@ class FileTemplatesTest extends ControllerTestCase
     public function testDeleteFileTemplate()
     {
         $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
+        // add a key to entries table to check if it is deleted afterwards
+        $entriesModel = new Application_Model_LanguageEntries();
+        $entriesModel->saveNewKey('UNIT_TEST', 127);
+
         $this->model->deleteFileTemplate(127);
         $template = $this->model->getFileTemplate(127);
         $this->assertTrue($template['id'] == 0);
+        $key = $entriesModel->getKeyById('UNIT_TEST');
+        $this->assertFalse($key);
 
-        //@TODO add fixture with a key in keys table and check if assignment is changed
         $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
+        // add a key to entries table to check if it is assigned to other template after deleting
+        $entriesModel = new Application_Model_LanguageEntries();
+        $entriesModel->saveNewKey('UNIT_TEST', 127);
+
         $this->model->deleteFileTemplate(127, 126);
         $template = $this->model->getFileTemplate(127);
         $this->assertTrue($template['id'] == 0);
+
+        $key = $entriesModel->getEntryByKey('UNIT_TEST', 126);
+        $this->assertTrue(isset($key['id']));
+        $this->assertTrue($key !== false);
+        $entriesModel->deleteEntryByKeyId($key['id']);
     }
+
 }

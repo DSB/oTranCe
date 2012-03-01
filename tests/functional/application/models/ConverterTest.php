@@ -9,6 +9,11 @@ class ConverterTest extends ControllerTestCase
      */
     protected $model;
 
+    /**
+     * @var string
+     */
+    protected $latin1text;
+
     public function setUp()
     {
         $this->model      = new Application_Model_Converter();

@@ -57,9 +57,6 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
             $values = array_values(self::$_fileTemplates);
             $ret .= '<input type="hidden" name="fileTemplate" value="' . $values[0]['id'] .'" />'
                     . $values[0]['filename'];
-
-        } else {
-            $ret = "xx";
         }
 
         return $ret;

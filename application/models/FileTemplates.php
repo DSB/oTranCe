@@ -215,16 +215,11 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableTranslations}` "
             . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
         $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
-        if ($res === false) {
-            return false;
-        }
+
         // delete all keys assigned to that file template
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableKeys}` "
             . " WHERE `template_id` = " . $templateId;
-        $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
-        if ($res === false) {
-            return false;
-        }
-        return true;
+        $res &= $this->_dbo->query($sql, MSD_DB::SIMPLE);
+        return $res;
     }
 }

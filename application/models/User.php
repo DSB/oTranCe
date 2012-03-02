@@ -671,9 +671,9 @@ class Application_Model_User extends Msd_Application_Model
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         if ($res !== false) {
             $user = $this->getUserByName($userData['username']);
-            return isset($user['id']) ? $user['id'] : false;
+            $res = isset($user['id']) ? $user['id'] : false;
         }
-        return false;
+        return $res;
     }
 
     /**

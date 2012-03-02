@@ -293,4 +293,33 @@ class UserTest extends ControllerTestCase
         $userRights = $this->userModel->getUserRights(99);
         $this->assertFalse(isset($userRights['foo']));
     }
+
+    public function testSaveAccount()
+    {
+        $user = array(
+            'id' => 0,
+            'username' => 'phpUnitTestUser',
+            'pass1' => 'IamKarl',
+            'active'   => 1
+        );
+        $newId = $this->userModel->saveAccount($user);
+        $this->assertTrue($newId !== false);
+        $check = $this->userModel->getUserByName('phpUnitTestUser');
+        $this->assertTrue($user['username'] == $check['username']);
+        $this->assertTrue($user['active'] == $check['active']);
+
+        // check update
+        $user = array(
+            'id' => $newId,
+            'username' => 'phpUnitTestUser2',
+            'pass1'    => 'I have been karl',
+            'active'   => 0
+        );
+        $userId = $this->userModel->saveAccount($user);
+        $this->assertEquals($newId, $userId);
+        $this->assertTrue($user['username'] == 'phpUnitTestUser2');
+        $this->assertTrue($user['active'] == 0);
+        $this->userModel->deleteUserById($newId);
+    }
+
 }

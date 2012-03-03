@@ -358,6 +358,43 @@ class UserTest extends ControllerTestCase
         $this->assertEquals(md5('IwasKarl'), $check['password']);
 
         $this->userModel->deleteUserById($newId);
+
+        // ngetive check - try to change a password with wrong old passwort
+        $changed = $this->userModel->changePassword('IamTotallyWrong', 'IwasKarl');
+        $this->assertFalse($changed);
     }
 
+    public function testDeleteReferenceLanguageSetting()
+    {
+        //log in as tester
+        $this->loginUser();
+        $this->userModel = new Application_Model_User();
+        // save setting
+        $this->userModel->saveSetting('referenceLanguage', 99);
+        $refLang = $this->userModel->loadSetting('referenceLanguage');
+        //check it is saved correctly
+        $this->assertEquals(99, $refLang);
+
+        // delete this setting for user with id 2 = tester
+        $deleted = $this->userModel->deleteReferenceLanguageSettings(99, 2);
+        $this->assertTrue($deleted);
+        // now check it reallly is deleted for this user
+        $refLang = $this->userModel->loadSetting('referenceLanguage');
+        $this->assertEquals('', $refLang);
+    }
+
+    public function testDeleteLanguageRights()
+    {
+        // add edit rigth for fake language 99 for user "tester"
+        $added = $this->userModel->addUsersEditLanguageRight(99, 2);
+        $this->assertTrue($added);
+
+        // delete it
+        $deleted = $this->userModel->deleteUsersEditLanguageRight(2, 99);
+        $this->assertTrue($deleted);
+
+        // make sure language 99 is no longer assigned to user "tester"
+        $editRights = $this->userModel->getUserLanguageRights(2);
+        $this->assertTrue(!in_array(99, $editRights));
+    }
 }

@@ -28,7 +28,6 @@ set_include_path(
     )
 );
 
-
 require_once 'Zend/Application.php';
 require_once 'PHPUnit/Autoload.php';
 require_once 'ControllerTestCase.php';

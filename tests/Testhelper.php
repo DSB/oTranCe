@@ -101,7 +101,7 @@ class Testhelper
      *
      * @return void
      */
-    public function setUpDb()
+    public static function setUpDb()
     {
         $sqlFile = file_get_contents(APPLICATION_PATH .'/../docs/db_schema.sql');
         $queries = explode(";\n", $sqlFile);

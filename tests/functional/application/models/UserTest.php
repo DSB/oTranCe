@@ -389,8 +389,8 @@ class UserTest extends ControllerTestCase
         $added = $this->userModel->addUsersEditLanguageRight(99, 2);
         $this->assertTrue($added);
 
-        // delete it
-        $deleted = $this->userModel->deleteUsersEditLanguageRight(2, 99);
+        // delete language right for language 99 for all users
+        $deleted = $this->userModel->deleteLanguageRights(99);
         $this->assertTrue($deleted);
 
         // make sure language 99 is no longer assigned to user "tester"

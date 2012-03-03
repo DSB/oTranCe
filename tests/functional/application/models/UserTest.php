@@ -1,6 +1,5 @@
 <?php
 /**
- * @group x
  * @group Models
  * @group User
  */

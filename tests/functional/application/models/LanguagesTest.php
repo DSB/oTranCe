@@ -109,5 +109,48 @@ class LanguagesTest extends ControllerTestCase
             )
         );
         $this->assertEquals($expected, $languages);
+
+        // check pagination
+        $languages = $this->model->getAllLanguages('', 1, 1);
+        $expected = array(
+            2 => array(
+                'id'             => 2,
+                'active'         => 1,
+                'locale'         => 'en',
+                'name'           => 'English',
+                'flag_extension' => 'gif',
+                'hasFlag'        => 1
+            )
+        );
+        $this->assertEquals($expected, $languages);
     }
+
+    public function testLocaleExists()
+    {
+        $exists = $this->model->localeExists('de');
+        $this->assertTrue($exists);
+
+        $exists = $this->model->localeExists('IDontExist');
+        $this->assertFalse($exists);
+    }
+
+    public function testDeleteFlag()
+    {
+        $this->model->deleteFlag(2);
+        $language = $this->model->getLanguageById(2);
+        $expected = array(
+            'id'             => 2,
+            'active'         => 1,
+            'locale'         => 'en',
+            'name'           => 'English',
+            'flag_extension' => ''
+        );
+        $this->assertEquals($expected, $language);
+
+        // restore language
+        $saved = $this->model->saveLanguage(2, 1, 'en', 'English', 'gif');
+        $this->assertTrue($saved);
+    }
+
+
 }

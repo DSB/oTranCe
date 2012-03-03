@@ -7,6 +7,8 @@ class Testhelper
 
     /**
      * Prepare tests
+     *
+     * @return void
      */
     public static function setUp()
     {
@@ -15,10 +17,13 @@ class Testhelper
         if (!in_array($destinationFile, self::$_copiedFiles)) {
             self::copyFile('defaultConfig.ini', $destinationFile);
         }
+        self::setUpDb();
     }
 
     /**
      * Rollback actions, made by setUp() method
+     *
+     * @return void
      */
     public static function onShutdown()
     {
@@ -35,6 +40,7 @@ class Testhelper
      * @param string $destination Filename of destination
      * @param bool   $overwrite   Allow an existing file to be overwritten (true) or not (false)
      * @throws Exception
+     *
      * @return void
      */
     public static function copyFile($source, $destination, $overwrite = false)
@@ -72,6 +78,7 @@ class Testhelper
      *
      * @throws Exception
      * @param string $file File to remove
+     *
      * @return void
      */
     public function removeFile($file)
@@ -87,6 +94,22 @@ class Testhelper
             if (!rename($file . '.phpunit', $file)) {
                 throw new Exception('Error: Can\'t rename backup file "' . $file .'"');
             }
+        }
+    }
+
+    /**
+     * Executes docs/db_schema.sql and fills database
+     *
+     * @return void
+     */
+    public function setUpDb()
+    {
+        $sqlFile = file_get_contents(APPLICATION_PATH .'/../docs/db_schema.sql');
+        $queries = explode(";\n", $sqlFile);
+        $db = Msd_Db::getAdapter();
+        $db->selectDb('phpunit_otc');
+        foreach ($queries as $query) {
+            $db->query($query);
         }
     }
 }

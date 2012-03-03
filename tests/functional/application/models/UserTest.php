@@ -1,5 +1,6 @@
 <?php
 /**
+ * @group x
  * @group Models
  * @group User
  */
@@ -143,12 +144,20 @@ class UserTest extends ControllerTestCase
     {
         $this->loginUser('Admin', 'admin');
         $this->userModel = new Application_Model_User();
-        $setting = $this->userModel->loadSetting('referenceLanguage');
-        $this->assertEquals(1, $setting);
+        $referenceLanguages = $this->userModel->loadSetting('referenceLanguage');
+        $expected = array(
+            0 => '1',
+            1 => '3'
+        );
+        $this->assertEquals($expected, $referenceLanguages);
+
+        // check loading of one value
+        $setting = $this->userModel->loadSetting('recordsPerPage');
+        $this->assertEquals(30, $setting);
 
         // test force returning as array
-        $setting = $this->userModel->loadSetting('referenceLanguage', '', true);
-        $this->assertEquals(array(0 => 1), $setting);
+        $setting = $this->userModel->loadSetting('recordsPerPage', '', true);
+        $this->assertEquals(array(0 => 30), $setting);
     }
 
     public function testGetRefLanguages()
@@ -156,7 +165,11 @@ class UserTest extends ControllerTestCase
         $this->loginUser('Admin', 'admin');
         $this->userModel = new Application_Model_User();
         $referenceLanguages = $this->userModel->getRefLanguages();
-        $this->assertEquals(array( 0 => 1), $referenceLanguages);
+        $expected = array(
+            0 => '1',
+            1 => '3'
+        );
+        $this->assertEquals($expected, $referenceLanguages);
     }
 
    public function testGetReferenceLanguageStatus()
@@ -297,9 +310,9 @@ class UserTest extends ControllerTestCase
     public function testSaveAccount()
     {
         $user = array(
-            'id' => 0,
+            'id'       => 0,
             'username' => 'phpUnitTestUser',
-            'pass1' => 'IamKarl',
+            'pass1'    => 'IamKarl',
             'active'   => 1
         );
         $newId = $this->userModel->saveAccount($user);
@@ -319,6 +332,31 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($newId, $userId);
         $this->assertTrue($user['username'] == 'phpUnitTestUser2');
         $this->assertTrue($user['active'] == 0);
+        $this->userModel->deleteUserById($newId);
+    }
+
+    public function testChangePassword()
+    {
+        // create a test account
+        $user = array(
+            'id'       => 0,
+            'username' => 'phpUnitTestUser',
+            'pass1'    => 'IamKarl',
+            'active'   => 1
+        );
+        $newId = $this->userModel->saveAccount($user);
+        $this->assertTrue($newId !== false);
+
+        $this->loginUser('phpUnitTestUser', 'IamKarl');
+        $this->userModel = new Application_Model_User();
+
+        $changed = $this->userModel->changePassword('IamKarl', 'IwasKarl');
+        $this->assertTrue($changed);
+
+        //check that password is changed
+        $check = $this->userModel->getUserByName('phpUnitTestUser');
+        $this->assertEquals(md5('IwasKarl'), $check['password']);
+
         $this->userModel->deleteUserById($newId);
     }
 

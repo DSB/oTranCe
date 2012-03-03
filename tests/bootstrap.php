@@ -33,11 +33,11 @@ require_once 'Zend/Application.php';
 require_once 'PHPUnit/Autoload.php';
 require_once 'ControllerTestCase.php';
 require_once 'Testhelper.php';
-Testhelper::setUp();
 
 $application = new Zend_Application(
     APPLICATION_ENV,
     APPLICATION_PATH . '/configs/application.ini'
 );
 $application->bootstrap();
+Testhelper::setUp();
 clearstatcache();

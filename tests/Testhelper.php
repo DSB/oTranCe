@@ -17,7 +17,6 @@ class Testhelper
         if (!in_array($destinationFile, self::$_copiedFiles)) {
             self::copyFile('defaultConfig.ini', $destinationFile);
         }
-        self::setUpDb();
     }
 
     /**

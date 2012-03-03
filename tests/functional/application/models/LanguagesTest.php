@@ -29,6 +29,14 @@ class LanguagesTest extends ControllerTestCase
         $this->model->setFallbackLanguage(2);
     }
 
+    public function testOptimizeAllTables()
+    {
+        $optimize = $this->model->optimizeAllTables();
+        $this->assertTrue($optimize[0]['Table'] == 'phpunit_otc.languages');
+        $this->assertTrue($optimize[0]['Op'] == 'optimize');
+        $this->assertTrue(strtolower($optimize[0]['Msg_text']) == 'ok');
+    }
+
     public function testGetLanguageIdFromLocale()
     {
         $languageId = $this->model->getLanguageIdFromLocale('de');
@@ -38,11 +46,68 @@ class LanguagesTest extends ControllerTestCase
         $this->assertEquals(2, $languageId);
     }
 
-    public function testOptimizeAllTables()
+    public function testGetLanguageById()
     {
-        $optimize = $this->model->optimizeAllTables();
-        $this->assertTrue($optimize[0]['Table'] == 'phpunit_otc.languages');
-        $this->assertTrue($optimize[0]['Op'] == 'optimize');
-        $this->assertTrue(strtolower($optimize[0]['Msg_text']) == 'ok');
+        $language = $this->model->getLanguageById(2);
+        $expected = array(
+            'id'             => 2,
+            'active'         => 1,
+            'locale'         => 'en',
+            'name'           => 'English',
+            'flag_extension' => 'gif'
+        );
+        $this->assertEquals($expected, $language);
+    }
+
+    public function testGetAllLanguages()
+    {
+        $languages = $this->model->getAllLanguages();
+        $expected = array(
+            1 => array(
+                    'id' => 1,
+                    'active' => 1,
+                    'locale' => 'de',
+                    'name' => 'Deutsch',
+                    'flag_extension' => 'gif',
+                    'hasFlag' => 1
+                ),
+            2 => array(
+                    'id'             => 2,
+                    'active'         => 1,
+                    'locale'         => 'en',
+                    'name'           => 'English',
+                    'flag_extension' => 'gif',
+                    'hasFlag'        => 1
+                )
+        );
+        $this->assertEquals($expected, $languages);
+
+        // check filter
+        $languages = $this->model->getAllLanguages('Deutsch');
+        $expected = array(
+            1 => array(
+                'id'             => 1,
+                'active'         => 1,
+                'locale'         => 'de',
+                'name'           => 'Deutsch',
+                'flag_extension' => 'gif',
+                'hasFlag'        => 1
+            )
+        );
+        $this->assertEquals($expected, $languages);
+
+        // check combination of filter and active
+        $languages = $this->model->getAllLanguages('Arabic', 0, 0, false);
+        $expected = array(
+            3 => array(
+                'id'             => 3,
+                'active'         => 0,
+                'locale'         => 'ar',
+                'name'           => 'Arabic',
+                'flag_extension' => 'gif',
+                'hasFlag'        => 1
+            )
+        );
+        $this->assertEquals($expected, $languages);
     }
 }

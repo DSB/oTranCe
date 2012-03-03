@@ -166,7 +166,6 @@ class UserTest extends ControllerTestCase
         $referenceLanguages = $this->userModel->getRefLanguages();
         $expected = array(
             0 => '1',
-            1 => '3'
         );
         $this->assertEquals($expected, $referenceLanguages);
     }

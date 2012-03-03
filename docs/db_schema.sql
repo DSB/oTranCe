@@ -6,7 +6,7 @@
 -- TABLE|filetemplates|2|5456|2012-03-03 16:48:10|MyISAM
 -- TABLE|history|12|2480|2012-03-03 16:46:05|MyISAM
 -- TABLE|keys|0|1024|2012-03-03 16:24:39|MyISAM
--- TABLE|languages|3|3144|2012-03-03 16:24:39|MyISAM
+-- TABLE|languages|3|3144|2012-03-03 17:49:11|MyISAM
 -- TABLE|translations|0|1024|2012-03-03 16:24:39|MyISAM
 -- TABLE|user_languages|3|2075|2012-03-03 16:52:42|MyISAM
 -- TABLE|userrights|43|3032|2012-03-03 16:49:04|MyISAM
@@ -17,7 +17,7 @@
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2012-03-03 16:52
+-- Dump created: 2012-03-03 17:49
 
 --
 -- Create Table `conversions`
@@ -166,7 +166,7 @@ CREATE TABLE `languages` (
 /*!40000 ALTER TABLE `languages` DISABLE KEYS */;
 INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('1','1','de','Deutsch','gif','0');
 INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('2','1','en','English','gif','1');
-INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('3','1','ar','Arabic','gif','0');
+INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fallback`) VALUES ('3','0','ar','Arabic','gif','0');
 /*!40000 ALTER TABLE `languages` ENABLE KEYS */;
 
 

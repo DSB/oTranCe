@@ -160,6 +160,9 @@ class LanguagesTest extends ControllerTestCase
         $saved = $this->model->saveLanguage(0, 0, 'xx', 'Test-Lang', 'png');
         $this->assertTrue($saved);
 
+        // get last inserted id
+        $languageLastInsertedId = $this->model->getLastInsertedId();
+
         // negative check - try to save again
         $saved = $this->model->saveLanguage(0, 0, 'xx', 'Test-Lang', 'png');
         $expected = "The specified locale 'xx' already exists.";
@@ -167,6 +170,7 @@ class LanguagesTest extends ControllerTestCase
 
         // delete language
         $languageId = $this->model->getLanguageIdFromLocale('xx');
+        $this->assertEquals($languageLastInsertedId, $languageId);
         $this->model->deleteLanguage($languageId);
     }
 

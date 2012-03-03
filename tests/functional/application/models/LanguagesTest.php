@@ -81,6 +81,9 @@ class LanguagesTest extends ControllerTestCase
                 )
         );
         $this->assertEquals($expected, $languages);
+        $rowsFound = $this->model->getRowCount();
+        $this->assertEquals(2, $rowsFound);
+
 
         // check filter
         $languages = $this->model->getAllLanguages('Deutsch');
@@ -152,5 +155,33 @@ class LanguagesTest extends ControllerTestCase
         $this->assertTrue($saved);
     }
 
+    public function testSaveLanguage()
+    {
+        $saved = $this->model->saveLanguage(0, 0, 'xx', 'Test-Lang', 'png');
+        $this->assertTrue($saved);
 
+        // negative check - try to save again
+        $saved = $this->model->saveLanguage(0, 0, 'xx', 'Test-Lang', 'png');
+        $expected = "The specified locale 'xx' already exists.";
+        $this->assertEquals($expected, $saved);
+
+        // delete language
+        $languageId = $this->model->getLanguageIdFromLocale('xx');
+        $this->model->deleteLanguage($languageId);
+    }
+
+    public function testsSaveLanguageStatus()
+    {
+        $saved = $this->model->saveLanguageStatus(3, 1);
+        $this->assertTrue($saved);
+
+        $language = $this->model->getLanguageById(3);
+        $this->assertTrue($language['active'] == 1);
+
+        $saved = $this->model->saveLanguageStatus(3, 0);
+        $this->assertTrue($saved);
+
+        $language = $this->model->getLanguageById(3);
+        $this->assertTrue($language['active'] == 0);
+    }
 }

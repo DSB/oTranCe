@@ -1,13 +1,13 @@
--- Status:11:72:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
+-- Status:11:78:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
 -- TABLE|conversions|0|2048|2012-03-03 16:24:39|MyISAM
 -- TABLE|exportlog|0|2048|2012-03-03 16:24:39|MyISAM
 -- TABLE|filetemplates|2|5456|2012-03-03 16:48:10|MyISAM
--- TABLE|history|12|2480|2012-03-03 16:46:05|MyISAM
--- TABLE|keys|0|1024|2012-03-03 16:24:39|MyISAM
+-- TABLE|history|15|2612|2012-03-03 20:39:17|MyISAM
+-- TABLE|keys|1|3096|2012-03-03 20:39:05|MyISAM
 -- TABLE|languages|3|3144|2012-03-03 17:49:11|MyISAM
--- TABLE|translations|0|1024|2012-03-03 16:24:39|MyISAM
+-- TABLE|translations|2|2112|2012-03-03 20:39:18|MyISAM
 -- TABLE|user_languages|3|2075|2012-03-03 16:52:42|MyISAM
 -- TABLE|userrights|43|3032|2012-03-03 16:49:04|MyISAM
 -- TABLE|users|2|3172|2012-03-03 16:51:05|MyISAM
@@ -17,7 +17,7 @@
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2012-03-03 17:49
+-- Dump created: 2012-03-03 20:48
 
 --
 -- Create Table `conversions`
@@ -99,7 +99,7 @@ CREATE TABLE `history` (
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
@@ -118,6 +118,9 @@ INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('10','2','2012-03-03 16:45:09','0','logged in','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('11','2','2012-03-03 16:46:01','0','logged out','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('12','1','2012-03-03 16:46:05','0','logged in','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('13','1','2012-03-03 20:39:02','1','created','0','-','-');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('14','1','2012-03-03 20:39:16','1','changed','1','-','Test eintrag');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('15','1','2012-03-03 20:39:16','1','changed','2','-','Test records');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
 
@@ -133,13 +136,14 @@ CREATE TABLE `keys` (
   `dt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `tpl_assign` (`template_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `keys`
 --
 
 /*!40000 ALTER TABLE `keys` DISABLE KEYS */;
+INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('1','L_TEST','1','2012-03-03 20:39:02');
 /*!40000 ALTER TABLE `keys` ENABLE KEYS */;
 
 
@@ -188,6 +192,8 @@ CREATE TABLE `translations` (
 --
 
 /*!40000 ALTER TABLE `translations` DISABLE KEYS */;
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Test eintrag','2012-03-03 20:39:16');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('2','1','Test records','2012-03-03 20:39:16');
 /*!40000 ALTER TABLE `translations` ENABLE KEYS */;
 
 
@@ -329,4 +335,3 @@ INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('14','1','
 
 SET FOREIGN_KEY_CHECKS=1;
 -- EOB
-

@@ -12,8 +12,19 @@ class StatisticsTest extends ControllerTestCase
          */
         $this->statisticsModel = new Application_Model_Statistics();
         $statistics = $this->statisticsModel->getUserstatistics();
-        //@TODO create fixture with statistic data for test
-        $this->assertEquals(array(), $statistics);
+        $expected = array(
+            0 => array(
+                    'user_id'     => 1,
+                    'lang_id'     => 1,
+                    'editActions' => 1
+                ),
+            1 => array(
+                    'user_id'     => 1,
+                    'lang_id'     => 2,
+                    'editActions' => 1
+                )
+        );
+        $this->assertEquals($expected, $statistics);
     }
 
 }

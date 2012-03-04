@@ -10,6 +10,11 @@ class HistoryTest extends ControllerTestCase
      */
     protected $model;
 
+    /**
+     * @var \Application_Model_LanguageEntries
+     */
+    protected $entriesModel;
+
     public static function setUpBeforeClass()
     {
         Testhelper::setUpDb('history.sql');
@@ -20,7 +25,7 @@ class HistoryTest extends ControllerTestCase
         // make sure actions in this test are done with the admin user
         $this->loginUser('Admin', 'admin');
         $this->entriesModel = new Application_Model_LanguageEntries();
-        $this->model = new Application_Model_History();
+        $this->model        = new Application_Model_History();
     }
 
     public function testGetEntries()
@@ -127,7 +132,65 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries(0, 50, 0, 1, 'created');
         $this->assertTrue($entries[0]['key'] == 'L_MY_TEST_KEY');
 
+        // clean up
         $this->model->deleteById($entries[0]['id']);
         $languageEntriesModel->deleteEntryByKeyId($entries[0]['key_id']);
+    }
+
+    public function testLogVarDeleted()
+    {
+        $this->model->logVarDeleted('TestDelete');
+        $entries = $this->model->getEntries(0, 50, 0, 1, 'deleted%');
+        $this->assertTrue($entries[0]['action'] == 'deleted \'TestDelete\'');
+        $this->model->deleteById($entries[0]['id']);
+    }
+
+    public function testLogLogOut()
+    {
+        // force logging with actual timestamp
+        $this->model->logLogout();
+        $entries = $this->model->getEntries(0, 50, 0, 1, 'logged out');
+        $this->assertTrue(sizeof($entries) > 0);
+        // latest entry for "log out" mustn't be older than now - 2 seconds
+        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $this->model->deleteById($entries[0]['id']);
+    }
+
+    public function testLogSvnUpdate()
+    {
+        // force logging with actual timestamp
+        $this->model->logSvnUpdate(99);
+        $entries = $this->model->getEntries(0, 50, 99, 0, 'updated SVN');
+        $this->assertTrue(sizeof($entries) > 0);
+        // latest entry for "log out" mustn't be older than now - 2 seconds
+        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $this->model->deleteById($entries[0]['id']);
+    }
+
+   public function testLogSvnUpdateAll()
+    {
+        // force logging with actual timestamp
+        $this->model->logSvnUpdateAll();
+        $entries = $this->model->getEntries(0, 50, 0, 0, 'updated SVN');
+        $this->assertTrue(sizeof($entries) > 0);
+        // latest entry for "log out" mustn't be older than now - 2 seconds
+        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $this->assertTrue($entries[0]['lang_id'] == 0);
+        $this->model->deleteById($entries[0]['id']);
+    }
+
+    public function testDeleteEntriesByUserId()
+    {
+        // look for entries of test user
+        $entries = $this->model->getEntries(0, 50, 0, 2);
+        // we should have 2 entries
+        $this->assertEquals(2, sizeof($entries));
+
+        // delete all entries of test user
+        $this->model->deleteEntriesByUserId(2);
+        // again, get all entries of test user
+        $entries = $this->model->getEntries(0, 50, 0, 2);
+        // now we must get an empty array
+        $this->assertEquals(array(), $entries);
     }
 }

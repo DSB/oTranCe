@@ -8,6 +8,11 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
      */
     protected $_application;
 
+    /**
+     * @var Application_Model_User
+     */
+    protected $userModel;
+
     public function setUp()
     {
         $this->bootstrap = array($this, 'appBootstrap');
@@ -43,6 +48,9 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
                   )
               );
         $this->dispatch('/index/login');
+        //re-init user model
+        $this->userModel = new Application_Model_User();
+
         // after successful login we should be redirected to the index page
         $this->assertResponseCode('302');
         $this->assertRedirectTo('/');

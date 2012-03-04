@@ -626,7 +626,11 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Delete a user right from database
+     * Delete a user right from database.
+     *
+     * Attention! Removing the right from the database doesn't mean that the user does not have that right.
+     * It might be given back through the default right array which is merged with the result of the values
+     * taken from the database. If you need to disallow a right, use saveRight(id, right, 0) instead.
      *
      * @param int    $userId Id of user
      * @param string $right  Name of right

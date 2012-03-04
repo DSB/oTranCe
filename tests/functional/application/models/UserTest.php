@@ -387,15 +387,16 @@ class UserTest extends ControllerTestCase
         $languageModel = new Application_Model_Languages();
         $created = $languageModel->saveLanguage(99, 1, 'xx', 'Test-Language', 'gif');
         $this->assertTrue($created);
-        // add edit rights to admin user
+
+        // add edit rights to user "admin"
         $rightsAdded = $this->userModel->saveLanguageRights(1, array(1, 2, 99));
         $this->assertTrue($rightsAdded);
 
-        // now delete the language
+        // now delete language rights for all users
         $languageId = $languageModel->getLanguageIdFromLocale('xx');
         $this->userModel->deleteLanguageRights($languageId);
 
-        // make sure language 99 is no longer assigned to user "tester"
+        // make sure language 99 is no longer assigned to user "admin"
         $editRights = $this->userModel->getUserLanguageRights(1);
         $this->assertTrue(!in_array($languageId, $editRights));
 

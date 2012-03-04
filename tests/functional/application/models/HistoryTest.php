@@ -55,6 +55,12 @@ class HistoryTest extends ControllerTestCase
         foreach ($entries as $entry) {
             $this->assertTrue(strpos($entry['action'], 'logged') !== false);
         }
+
+        // check row count
+        $rowsFound = $this->model->getRowCount();
+        $this->assertEquals(7, $rowsFound);
+
+
     }
 
     public function testLogChanges()
@@ -91,7 +97,7 @@ class HistoryTest extends ControllerTestCase
         }
 
         // check automatic setting of old value if it isn't present
-        $this->model->logChanges(1, array(), array(1, 'Testeintrag2'));
+        $this->model->logChanges(1, array(), array(1 => 'Testeintrag2'));
         $entries = $this->model->getEntries(0, 50, 0, 1, 'changed');
         $this->assertTrue($entries[0]['oldValue'] == '-');
         $this->assertTrue($entries[0]['newValue'] == 'Testeintrag2');
@@ -100,8 +106,15 @@ class HistoryTest extends ControllerTestCase
         $this->assertTrue($deleted);
     }
 
-    public function testLogNewVarCreated()
+    /**
+     * @depends testLogChanges
+     */
+    public function testGetLatestChange()
     {
+        $latestChange = $this->model->getLatestChange(1);
+        $this->assertEquals('2012-03-03 20:39:16', $latestChange);
 
+        $latestChange = $this->model->getLatestChange(2);
+        $this->assertEquals('2012-03-03 20:40:02', $latestChange);
     }
 }

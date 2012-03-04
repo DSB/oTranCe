@@ -15,21 +15,21 @@ $export = $this->export;
 <?php
 $languagesToUpdate = 0;
 $exportNeeded = false;
-foreach ($this->status as $key => $s)
+foreach ($this->status as $languageId => $s)
 {
-    if ($this->languages[$key]['active'] == 0) {
+    if ($this->languages[$languageId]['active'] == 0) {
         continue;
     }
     $tsDownloadPackage = $export->convertUnixDate($export->getLatestDownloadPackageTimestamp());
-    $tsDatabase        = $this->historyModel->getLatestChange($key);
+    $tsDatabase        = $this->historyModel->getLatestChange($languageId);
 ?>
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
         <td class="right"><?php echo $i;?>.</td>
         <td>
-            <?php echo $this->printFlag($key);?>
+            <?php echo $this->printFlag($languageId);?>
         </td>
-        <td><?php echo $this->languages[$key]['locale'];?></td>
-        <td><?php echo $this->languages[$key]['name'];?></td>
+        <td><?php echo $this->languages[$languageId]['locale'];?></td>
+        <td><?php echo $this->languages[$languageId]['name'];?></td>
         <td class="right"><?php echo $tsDatabase;?></td>
         <td>
             <?php

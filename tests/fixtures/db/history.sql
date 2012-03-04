@@ -27,3 +27,24 @@ INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('16','1','2012-03-04 12:17:16','0','logged in','0','-','-');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
+--
+-- Create Table `translations`
+--
+
+DROP TABLE IF EXISTS `translations`;
+CREATE TABLE `translations` (
+  `lang_id` smallint(5) unsigned NOT NULL,
+  `key_id` smallint(5) unsigned NOT NULL,
+  `text` longtext NOT NULL,
+  `dt` datetime NOT NULL,
+  PRIMARY KEY (`lang_id`,`key_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Data for Table `translations`
+--
+
+/*!40000 ALTER TABLE `translations` DISABLE KEYS */;
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('1','1','Test eintrag','2012-03-03 20:39:16');
+INSERT INTO `translations` (`lang_id`,`key_id`,`text`,`dt`) VALUES ('2','1','Test records','2012-03-03 20:40:02');
+/*!40000 ALTER TABLE `translations` ENABLE KEYS */;

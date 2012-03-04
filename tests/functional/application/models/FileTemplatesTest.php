@@ -25,12 +25,12 @@ class FileTemplatesTest extends ControllerTestCase
         $this->assertTrue($this->templates[0]['id'] == 1);
         $this->assertTrue($this->templates[0]['name'] == 'Admin');
         $this->assertTrue($this->templates[0]['content'] == "'{KEY}' => '{VALUE}',");
-        $this->assertTrue($this->templates[0]['footer'] == ');');
+        $this->assertTrue($this->templates[0]['filename'] == '{LOCALE}/lang.php');
 
         $this->assertTrue($this->templates[1]['id'] == 2);
         $this->assertTrue($this->templates[1]['name'] == 'Admin help');
         $this->assertTrue($this->templates[1]['content'] == "'{KEY}' => '{VALUE}',");
-        $this->assertTrue($this->templates[1]['footer'] == ');');
+        $this->assertTrue($this->templates[1]['filename'] == '{LOCALE}/help_lang.php');
 
         // check param order
         $templates = $this->model->getFileTemplates('filename');
@@ -75,12 +75,12 @@ class FileTemplatesTest extends ControllerTestCase
         $this->assertTrue($templates[1]['id'] == 1);
         $this->assertTrue($templates[1]['name'] == 'Admin');
         $this->assertTrue($templates[1]['content'] == "'{KEY}' => '{VALUE}',");
-        $this->assertTrue($templates[1]['footer'] == ');');
+        $this->assertTrue($templates[1]['filename'] == '{LOCALE}/lang.php');
 
         $this->assertTrue($templates[2]['id'] == 2);
         $this->assertTrue($templates[2]['name'] == 'Admin help');
         $this->assertTrue($templates[2]['content'] == "'{KEY}' => '{VALUE}',");
-        $this->assertTrue($templates[2]['footer'] == ');');
+        $this->assertTrue($templates[2]['filename'] == '{LOCALE}/help_lang.php');
         $this->assertFalse(isset($templates[0]));
         $this->assertFalse(isset($templates[3]));
     }

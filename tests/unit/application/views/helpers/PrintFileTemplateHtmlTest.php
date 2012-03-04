@@ -12,14 +12,14 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
     {
         $this->view = Zend_Layout::getMvcInstance()->getView();
         $expected = '<select class="select" name="fileTemplate" style="width:402px;">'
-                    . '<option value="1" selected="selected">out/admin/{LOCALE}/lang.php</option>'
-                    . '<option value="2">out/admin/{LOCALE}/help_lang.php</option></select>';
+                    . '<option value="1" selected="selected">{LOCALE}/lang.php</option>'
+                    . '<option value="2">{LOCALE}/help_lang.php</option></select>';
         $res = $this->view->printFileTemplateHtml(1);
         $this->assertEquals($expected, $res);
 
         $expected = '<select class="select" name="fileTemplate" style="width:402px;">'
-            . '<option value="1">out/admin/{LOCALE}/lang.php</option>'
-            . '<option value="2" selected="selected">out/admin/{LOCALE}/help_lang.php</option></select>';
+            . '<option value="1">{LOCALE}/lang.php</option>'
+            . '<option value="2" selected="selected">{LOCALE}/help_lang.php</option></select>';
         $res = $this->view->printFileTemplateHtml(2);
         $this->assertEquals($expected, $res);
     }
@@ -30,7 +30,7 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
         $tpl           = $templateModel->getFileTemplate(1);
         $templateModel->deleteFileTemplate(1, 0);
         $this->view = Zend_Layout::getMvcInstance()->getView();
-        $expected   = '<input type="hidden" name="fileTemplate" value="2" />out/admin/{LOCALE}/help_lang.php';
+        $expected   = '<input type="hidden" name="fileTemplate" value="2" />{LOCALE}/help_lang.php';
         $res        = $this->view->printFileTemplateHtml(1, true);
         $this->assertEquals($expected, $res);
 

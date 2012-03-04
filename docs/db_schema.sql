@@ -1,23 +1,23 @@
--- Status:11:78:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
+-- Status:11:71:MP_0:translations:php:1.24.4::5.1.50-community:1:::utf8:EXTINFO
 --
 -- TABLE-INFO
--- TABLE|conversions|0|2048|2012-03-03 16:24:39|MyISAM
--- TABLE|exportlog|0|2048|2012-03-03 16:24:39|MyISAM
--- TABLE|filetemplates|2|5456|2012-03-03 16:48:10|MyISAM
--- TABLE|history|15|2612|2012-03-03 20:39:17|MyISAM
--- TABLE|keys|1|3096|2012-03-03 20:39:05|MyISAM
--- TABLE|languages|3|3144|2012-03-03 17:49:11|MyISAM
--- TABLE|translations|2|2112|2012-03-03 20:39:18|MyISAM
--- TABLE|user_languages|3|2075|2012-03-03 16:52:42|MyISAM
--- TABLE|userrights|43|3032|2012-03-03 16:49:04|MyISAM
--- TABLE|users|2|3172|2012-03-03 16:51:05|MyISAM
--- TABLE|usersettings|7|2264|2012-03-03 16:49:04|MyISAM
+-- TABLE|conversions|0|2048|2012-03-04 12:15:23|MyISAM
+-- TABLE|exportlog|0|2048|2012-03-04 12:15:23|MyISAM
+-- TABLE|filetemplates|2|2440|2012-03-04 12:21:39|MyISAM
+-- TABLE|history|9|2396|2012-03-04 12:21:39|MyISAM
+-- TABLE|keys|1|3096|2012-03-04 12:15:24|MyISAM
+-- TABLE|languages|3|3140|2012-03-04 12:15:24|MyISAM
+-- TABLE|translations|2|2112|2012-03-04 12:15:24|MyISAM
+-- TABLE|user_languages|3|2075|2012-03-04 12:15:24|MyISAM
+-- TABLE|userrights|42|3012|2012-03-04 12:21:39|MyISAM
+-- TABLE|users|2|3172|2012-03-04 12:15:24|MyISAM
+-- TABLE|usersettings|7|2264|2012-03-04 12:15:24|MyISAM
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
--- Dump created: 2012-03-03 21:25
+-- Dump created: 2012-03-04 12:21
 
 --
 -- Create Table `conversions`
@@ -79,8 +79,8 @@ CREATE TABLE `filetemplates` (
 --
 
 /*!40000 ALTER TABLE `filetemplates` DISABLE KEYS */;
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','Admin','<?php\r\n/**\r\n *    This file is part of OXID eShop Community Edition.\r\n *\r\n *    OXID eShop Community Edition is free software: you can redistribute it and/or modify\r\n *    it under the terms of the GNU General Public License as published by\r\n *    the Free Software Foundation, either version 3 of the License, or\r\n *    (at your option) any later version.\r\n *\r\n *    OXID eShop Community Edition is distributed in the hope that it will be useful,\r\n *    but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n *    GNU General Public License for more details.\r\n *\r\n *    You should have received a copy of the GNU General Public License\r\n *    along with OXID eShop Community Edition.  If not, see <http://www.gnu.org/licenses/>.\r\n *\r\n * @link      http://www.oxid-esales.com\r\n * @package   lang\r\n * @copyright (C) OXID eSales AG 2003-2011\r\n * @version OXID eShop CE\r\n * @version   SVN: $Id: lang.php 38692 2011-09-09 08:32:48Z arvydas.vapsva $\r\n */\r\n\r\n/*\r\n * Capitalisation in this document:\r\n * First letter is always capitalized\r\n * All nouns are capitalized\r\n */\r\n$sLangName  = \'{LANG_NAME}\';\r\n\r\n// -------------------------------\r\n// RESOURCE IDENTITFIER = STRING\r\n// -------------------------------\r\n$aLang = array(',');','\'{KEY}\' => \'{VALUE}\',','out/admin/{LOCALE}/lang.php');
-INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','Admin help','<?php\r\n/**\r\n *    This file is part of OXID eShop Community Edition.\r\n *\r\n *    OXID eShop Community Edition is free software: you can redistribute it and/or modify\r\n *    it under the terms of the GNU General Public License as published by\r\n *    the Free Software Foundation, either version 3 of the License, or\r\n *    (at your option) any later version.\r\n *\r\n *    OXID eShop Community Edition is distributed in the hope that it will be useful,\r\n *    but WITHOUT ANY WARRANTY; without even the implied warranty of\r\n *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\r\n *    GNU General Public License for more details.\r\n *\r\n *    You should have received a copy of the GNU General Public License\r\n *    along with OXID eShop Community Edition.  If not, see <http://www.gnu.org/licenses/>.\r\n *\r\n * @link      http://www.oxid-esales.com\r\n * @package   lang\r\n * @copyright (C) OXID eSales AG 2003-2011\r\n * @version OXID eShop CE\r\n * @version   SVN: $Id: help_lang.php 38434 2011-08-25 09:21:54Z juergen.busch $\r\n */\r\n\r\n/**\r\n * In this file, the content for help popups is stored:\r\n *\r\n * Syntax for identifier: HELP_TABNAME_INPUTNAME, e.g. HELP_SHOP_CONFIG_BIDIRECTCROSS.\r\n * !!!The INPUTNAME is same as in lang.php for avoiding even more different Identifiers.!!!\r\n * In some cases, in lang.php GENERAL_ identifiers are used. In this file, always the tab name is used.\r\n *\r\n *\r\n * HTML Tags for markup (same as in online manual):\r\n * <span class=\'navipath_or_inputname\'>...</span> for names of input fields, selectlists and Buttons, e.g. <span class=\'navipath_or_inputname\'>Active</span>\r\n * <span class=\'userinput_or_code\'>...</span> for input in input fields (also options in selectlists) and code\r\n * <span class=\'filename_filepath_or_italic\'>...</span> for filenames, filepaths and other italic stuff\r\n * <span class=\'warning_or_important_hint\'>...</span> for warning and important things\r\n * <ul> and <li> for lists\r\n */\r\n\r\n$aLang =  array(',');','\'{KEY}\' => \'{VALUE}\',','out/admin/{LOCALE}/help_lang.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('1','Admin','<?php\r\n/**\r\n * This file is part of the oTranCe default installation.\r\n * Remove or change this. \r\n */\r\n$lang = array(',');\r\nreturn $lang;','\'{KEY}\' => \'{VALUE}\',','{LOCALE}/lang.php');
+INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`) VALUES ('2','Admin help','<?php\r\n/**\r\n * This file is part of the oTranCe default installation.\r\n * Remove or change this. \r\n */\r\n$lang = array(',');\r\nreturn $lang;','\'{KEY}\' => \'{VALUE}\',','{LOCALE}/help_lang.php');
 /*!40000 ALTER TABLE `filetemplates` ENABLE KEYS */;
 
 
@@ -92,35 +92,29 @@ DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` smallint(5) unsigned NOT NULL,
-  `dt` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `dt` datetime NOT NULL,
   `key_id` smallint(5) unsigned NOT NULL,
   `action` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `lang_id` smallint(5) unsigned NOT NULL,
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Data for Table `history`
 --
 
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('1','1','2012-03-03 16:33:05','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('2','2','2012-03-03 16:33:11','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('3','2','2012-03-03 16:33:26','0','logged out','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('4','2','2012-03-03 16:33:30','0','logged in','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('5','2','2012-03-03 16:33:45','0','logged out','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('6','1','2012-03-03 16:33:49','0','logged in','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('7','1','2012-03-03 16:34:37','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('8','3','2012-03-03 16:34:42','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('9','3','2012-03-03 16:45:04','0','logged out','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('10','2','2012-03-03 16:45:09','0','logged in','0','-','-');
-INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('11','2','2012-03-03 16:46:01','0','logged out','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('12','1','2012-03-03 16:46:05','0','logged in','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('13','1','2012-03-03 20:39:02','1','created','0','-','-');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('14','1','2012-03-03 20:39:16','1','changed','1','-','Test eintrag');
 INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('15','1','2012-03-03 20:39:16','1','changed','2','-','Test records');
+INSERT INTO `history` (`id`,`user_id`,`dt`,`key_id`,`action`,`lang_id`,`oldValue`,`newValue`) VALUES ('16','1','2012-03-04 12:17:16','0','logged in','0','-','-');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 
 
@@ -278,7 +272,6 @@ INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','editKey','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','importEqualVar','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','deleteUsers','1');
 INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('1','deleteLanguage','1');
-INSERT INTO `userrights` (`user_id`,`right`,`value`) VALUES ('3','admin','1');
 /*!40000 ALTER TABLE `userrights` ENABLE KEYS */;
 
 
@@ -335,3 +328,4 @@ INSERT INTO `usersettings` (`id`,`user_id`,`setting`,`value`) VALUES ('14','1','
 
 SET FOREIGN_KEY_CHECKS=1;
 -- EOB
+

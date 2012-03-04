@@ -20,19 +20,19 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries();
 
         $expected = array(
-            'id'       => 1,
-            'user_id'  => 1,
-            'dt'       => '2012-03-03 16:33:05',
+            'id'       => 4,
+            'user_id'  => 2,
+            'dt'       => '2012-03-03 16:33:30',
             'key_id'   => null,
-            'action'   => 'logged out',
+            'action'   => 'logged in',
             'lang_id'  => 0,
             'oldValue' => '-',
             'newValue' => '-',
             'key'      => null
         );
 
-        $this->assertEquals(15, sizeof($entries));
-        $this->assertEquals($expected, $entries[14]);
+        $this->assertEquals(9, sizeof($entries));
+        $this->assertEquals($expected, $entries[8]);
 
         // test user filter
         $entries = $this->model->getEntries(0, 2, 0, 1);
@@ -50,13 +50,13 @@ class HistoryTest extends ControllerTestCase
 
         // test action filter
         $entries = $this->model->getEntries(0, 50, 0, 0, 'logged in');
-        $this->assertEquals(6, sizeof($entries));
+        $this->assertEquals(4, sizeof($entries));
         foreach ($entries as $entry) {
             $this->assertEquals('logged in', $entry['action']);
         }
 
         $entries = $this->model->getEntries(0, 50, 0, 0, '%logged%');
-        $this->assertEquals(12, sizeof($entries));
+        $this->assertEquals(6, sizeof($entries));
         foreach ($entries as $entry) {
             $this->assertTrue(strpos($entry['action'], 'logged') !== false);
         }

@@ -121,10 +121,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $ret[$langId] = array();
             $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
             $ret[$langId]['translated'] = $translated;
+            $percentTranslated = 0;
             if ($totalLanguageVars > 0) {
                 $percentTranslated = (100 * $translated) / $totalLanguageVars;
-            } else {
-                $percentTranslated = 0;
             }
             $ret[$langId]['done'] = round($percentTranslated, 2);
             $ret[$langId]['translators'] = '';
@@ -216,10 +215,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getEntriesByKey($filter, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
     {
-        if ($nrOfRecords < 10) {
-            $nrOfRecords = 10;
-        }
-        $this->_foundRows = null;
         //find key ids
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
                . ' FROM `' . $this->_tableKeys . '` k ';

@@ -19,8 +19,7 @@ class HistoryTest extends ControllerTestCase
     {
         // make sure actions in this test are done with the admin user
         $this->loginUser('Admin', 'admin');
-        $this->userModel = new Application_Model_User();
-
+        $this->entriesModel = new Application_Model_LanguageEntries();
         $this->model = new Application_Model_History();
     }
 
@@ -116,5 +115,19 @@ class HistoryTest extends ControllerTestCase
 
         $latestChange = $this->model->getLatestChange(2);
         $this->assertEquals('2012-03-03 20:40:02', $latestChange);
+    }
+
+    public function testLogNewVarCreated()
+    {
+        $languageEntriesModel = new Application_Model_LanguageEntries();
+        $languageEntriesModel->saveNewKey('L_MY_TEST_KEY', 1);
+        $entry = $languageEntriesModel->getEntryByKey('L_MY_TEST_KEY', 1);
+        $this->model->logNewVarCreated($entry['id']);
+
+        $entries = $this->model->getEntries(0, 50, 0, 1, 'created');
+        $this->assertTrue($entries[0]['key'] == 'L_MY_TEST_KEY');
+
+        $this->model->deleteById($entries[0]['id']);
+        $languageEntriesModel->deleteEntryByKeyId($entries[0]['key_id']);
     }
 }

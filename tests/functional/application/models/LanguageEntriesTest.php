@@ -164,6 +164,16 @@ class LanguageEntriesTest extends ControllerTestCase
 
         $entry = $this->model->getEntryByKey('IDontExist', 1);
         $this->assertFalse($entry);
-
     }
+
+    public function testHasEntryWithKey()
+    {
+        $hasEntry = $this->model->hasEntryWithKey('L_TEST', 1);
+        $this->assertTrue($hasEntry);
+
+        $hasEntry = $this->model->hasEntryWithKey('IDontExist', 1);
+        $this->assertFalse($hasEntry);
+    }
+
+
 }

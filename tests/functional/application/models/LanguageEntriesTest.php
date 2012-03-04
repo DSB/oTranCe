@@ -101,7 +101,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals($expected, $key);
 
         // re-assign
-        $saved = $this->model->assignFileTemplate(1, 99);
+        $saved = $this->model->assignFileTemplate(1, 1);
         $this->assertTrue($saved);
     }
 
@@ -114,7 +114,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $expected = array(
             'id'          => '1',
             'key'         => 'L_TEST_XX',
-            'template_id' => '99',
+            'template_id' => '1',
             'dt'          => '2012-03-03 20:39:02'
         );
         $this->assertEquals($expected, $key);
@@ -123,4 +123,37 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertTrue($updated);
     }
 
+    public function testGetEntryById()
+    {
+        $entry = $this->model->getEntryById(1, 2);
+        $expected = array(2 => 'Test records');
+        $this->assertEquals($expected, $entry);
+
+        $entry = $this->model->getEntryById(1, 1);
+        $expected = array(1 => 'Test eintrag');
+        $this->assertEquals($expected, $entry);
+
+        // get non existent
+        $entry = $this->model->getEntryById(99, 2);
+        $expected = array();
+        $this->assertEquals($expected, $entry);
+    }
+
+    public function testGetEntrisByKeys()
+    {
+        $keys = array('L_TEST');
+        $entry = $this->model->getEntriesByKeys($keys, 1, 1);
+        $expected = array('L_TEST' => 'Test eintrag');
+        $this->assertEquals($expected, $entry);
+
+        $entry = $this->model->getEntriesByKeys($keys, 1, 2);
+        $expected = array('L_TEST' => 'Test records');
+        $this->assertEquals($expected, $entry);
+
+        // check non existent key returns empty string
+        $entry = $this->model->getEntriesByKeys(array('IDontExist'), 1, 1);
+        $expected = array('IDontExist' => '');
+        $this->assertEquals($expected, $entry);
+
+    }
 }

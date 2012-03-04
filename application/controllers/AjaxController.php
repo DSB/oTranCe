@@ -461,7 +461,7 @@ class AjaxController extends Zend_Controller_Action
     }
 
     /**
-     * Get the translations of the keys for the fallbackLanguage and save them to aprivate property
+     * Get the translations of the keys for the fallbackLanguage
      *
      * @param array $keys       The language keys
      * @param int   $templateId Id of the file template

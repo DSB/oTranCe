@@ -328,8 +328,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Return array(lang_id => array (locale => text)
      *
-     * @param int   $id    Id of key
-     * @param array $languageIds Ids of languages to fetch
+     * @param int       $id          Id of key
+     * @param int|array $languageIds Id(s) of languages to fetch
      *
      * @return array
      */
@@ -337,6 +337,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $id = (int) $id;
         $ret = array();
+        if (!is_array($languageIds)) {
+            $languageIds = (array) $languageIds;
+        }
         if ($id == 0 || empty($languageIds)) {
             return $ret;
         }

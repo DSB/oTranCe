@@ -383,16 +383,27 @@ class UserTest extends ControllerTestCase
 
     public function testDeleteLanguageRights()
     {
-        // add edit rigth for fake language 99 for user "tester"
-        $added = $this->userModel->addUsersEditLanguageRight(99, 2);
-        $this->assertTrue($added);
+        // create a new language
+        $languageModel = new Application_Model_Languages();
+        $created = $languageModel->saveLanguage(99, 1, 'xx', 'Test-Language', 'gif');
+        $this->assertTrue($created);
+        // add edit rights to admin user
+        $rightsAdded = $this->userModel->saveLanguageRights(1, array(1, 2, 99));
+        $this->assertTrue($rightsAdded);
 
-        // delete language right for language 99 for all users
-        $deleted = $this->userModel->deleteUsersEditLanguageRight(99, 2);
-        $this->assertTrue($deleted);
+        // now delete the language
+        $languageId = $languageModel->getLanguageIdFromLocale('xx');
+        $this->userModel->deleteLanguageRights($languageId);
 
         // make sure language 99 is no longer assigned to user "tester"
-        $editRights = $this->userModel->getUserLanguageRights(2);
-        $this->assertTrue(!in_array(99, $editRights));
+        $editRights = $this->userModel->getUserLanguageRights(1);
+        $this->assertTrue(!in_array($languageId, $editRights));
+
+        // make sure nobody is assigned to language
+        $translators = $this->userModel->getTranslatorlist();
+        $this->assertFalse(in_array($languageId, array_keys($translators)));
+
+        // remove fake entry from db
+        $languageModel->deleteLanguage($languageId);
     }
 }

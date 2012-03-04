@@ -32,5 +32,14 @@ class PopUpMessageTest extends ControllerTestCase
         $message = (string) $this->view->popUpMessage();
         $this->assertEquals('<div style="display:none" id="testMessageId">test message</div>', $message);
     }
+
+    public function testPopupMessageAutoTranslatesLangKeys()
+    {
+        $this->view = Zend_Layout::getMvcInstance()->getView();
+        $this->view->popUpMessage()->addMessage('testMessageId', 'test title', 'L_TEST');
+        $message = (string) $this->view->popUpMessage();
+        $this->assertEquals('<div style="display:none" id="testMessageId">test message</div>', $message);
+    }
+
 }
 

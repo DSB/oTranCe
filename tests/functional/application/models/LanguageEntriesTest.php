@@ -25,26 +25,21 @@ class LanguageEntriesTest extends ControllerTestCase
     public function testGetAllKeys()
     {
         $keys = $this->model->getAllKeys();
-        $expected = array(
-            1 => array(
-                    'templateId' => 1,
-                    'key'        => 'L_TEST'
-                )
-        );
-        $this->assertEquals($expected, $keys);
+        $this->assertEquals(110, sizeof($keys));
     }
 
 
     public function testGetTranslations()
     {
         $translations = $this->model->getTranslations(1);
-        $this->assertEquals(array(1 => 'Test eintrag'), $translations);
+        $this->assertEquals(110, sizeof($translations));
+        $this->assertEquals('Ersetze NULL durch', $translations[110]);
 
         $translations = $this->model->getTranslations(2);
-        $this->assertEquals(array(1 => 'Test records'), $translations);
+        $this->assertEquals('Replace NULL with', $translations[110]);
 
         // positive false check with non existent language id
-        $translations = $this->model->getTranslations(99);
+        $translations = $this->model->getTranslations(9999);
         $this->assertEquals(array(), $translations);
 
     }
@@ -57,17 +52,18 @@ class LanguageEntriesTest extends ControllerTestCase
         );
 
         $status = $this->model->getStatus($languages);
-        foreach ($status as $stat) {
-            $this->assertEquals(100, $stat['done']);
-        };
+        // language de is at 97.27%
+        $this->assertEquals(97.27, $status[1]['done']);
+        // language en is at 100%
+        $this->assertEquals(100, $status[2]['done']);
     }
 
     public function testsGetEntriesByKey()
     {
-        $entries = $this->model->getEntriesByKey('L_TE');
+        $entries = $this->model->getEntriesByKey('L_CHECK');
         $expected = array(
-            'id'          => 1,
-            'key'         => 'L_TEST',
+            'id'          => 40,
+            'key'         => 'L_CHECK',
             'template_id' => 1
         );
         $this->assertEquals($expected, $entries[0]);
@@ -134,7 +130,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals($expected, $entry);
 
         // get non existent
-        $entry = $this->model->getEntryById(99, 2);
+        $entry = $this->model->getEntryById(99999, 2);
         $expected = array();
         $this->assertEquals($expected, $entry);
     }

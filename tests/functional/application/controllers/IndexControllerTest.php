@@ -4,9 +4,6 @@
  */
 class IndexControllerTest extends ControllerTestCase
 {
-    /**
-     * @outputBuffering enabled
-     */
     public function testLogoutAction()
     {
         $this->loginUser();

@@ -17,7 +17,6 @@ class PopUpMessageTest extends ControllerTestCase
                   )
               );
         $this->dispatch('/index/login');
-        $this->showResponse();
         $this->assertNotRedirect();
         // make sure we see the login error message
         $this->assertQueryCount("//div[@id='login-message']", 1);

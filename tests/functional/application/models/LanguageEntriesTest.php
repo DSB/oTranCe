@@ -139,7 +139,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals($expected, $entry);
     }
 
-    public function testGetEntrisByKeys()
+    public function testGetEntriesByKeys()
     {
         $keys = array('L_TEST');
         $entry = $this->model->getEntriesByKeys($keys, 1, 1);
@@ -154,6 +154,16 @@ class LanguageEntriesTest extends ControllerTestCase
         $entry = $this->model->getEntriesByKeys(array('IDontExist'), 1, 1);
         $expected = array('IDontExist' => '');
         $this->assertEquals($expected, $entry);
+
+    }
+
+    public function testGetEntryByKey()
+    {
+        $entry = $this->model->getEntryByKey('L_TEST', 1);
+        $this->assertEquals(array('id' => 1), $entry);
+
+        $entry = $this->model->getEntryByKey('IDontExist', 1);
+        $this->assertFalse($entry);
 
     }
 }

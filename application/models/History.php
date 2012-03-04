@@ -125,9 +125,6 @@ class Application_Model_History extends Msd_Application_Model
     public function saveChange($keyId, $langId, $oldVal, $newVal, $action = 'changed', $time = false)
     {
         $auth = Zend_Auth::getInstance()->getIdentity();
-        if ($oldVal == '') {
-            $oldVal = '-';
-        }
         if ($time == false) {
             $time = date('Y-m-d H-i-s', time());
         }

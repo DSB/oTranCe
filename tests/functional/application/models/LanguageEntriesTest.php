@@ -72,4 +72,55 @@ class LanguageEntriesTest extends ControllerTestCase
         );
         $this->assertEquals($expected, $entries[0]);
     }
+
+    public function testGetAssignedFileTemplate()
+    {
+        $template = $this->model->getAssignedFileTemplate(1);
+        $expected = array(
+            'id'       => 1,
+            'name'     => 'Admin',
+            'filename' => '{LOCALE}/lang.php'
+        );
+        $this->assertEquals($expected, $template);
+    }
+
+    public function testAssignFileTemplate()
+    {
+        // assign key 1 to template 99
+        $saved = $this->model->assignFileTemplate(1, 99);
+        $this->assertTrue($saved);
+
+        // check
+        $key = $this->model->getKeyById(1);
+        $expected = array(
+            'id'          => '1',
+            'key'         => 'L_TEST',
+            'template_id' => '99',
+            'dt'          => '2012-03-03 20:39:02'
+        );
+        $this->assertEquals($expected, $key);
+
+        // re-assign
+        $saved = $this->model->assignFileTemplate(1, 99);
+        $this->assertTrue($saved);
+    }
+
+    public function testUpdateKeyName()
+    {
+        $updated = $this->model->updateKeyName(1, 'L_TEST_XX');
+        $this->assertTrue($updated);
+        // check
+        $key = $this->model->getKeyById(1);
+        $expected = array(
+            'id'          => '1',
+            'key'         => 'L_TEST_XX',
+            'template_id' => '99',
+            'dt'          => '2012-03-03 20:39:02'
+        );
+        $this->assertEquals($expected, $key);
+        // rollback
+        $updated = $this->model->updateKeyName(1, 'L_TEST');
+        $this->assertTrue($updated);
+    }
+
 }

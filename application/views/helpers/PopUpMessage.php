@@ -83,8 +83,13 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
             $options['position'] = $this->_getDefaultPosition();
         }
         $options['title'] = $translator->_($title);
-        if (substr($message, 0 ,2 == 'L_')) {
-            $message = $translator->_($message);
+        if (!empty($message)) {
+            if (is_array($message)) {
+                $message[0] = $translator->_($message[0]);
+                $message = call_user_func_array('sprintf', $message);
+            } else {
+                $message = $translator->_($message);
+            }
         }
         $this->_messages[$messageId] = array(
             'message' => $message,

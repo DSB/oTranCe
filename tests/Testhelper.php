@@ -99,16 +99,24 @@ class Testhelper
     /**
      * Executes docs/db_schema.sql and fills database
      *
+     * @param string $file SQL-File to execute
+     *
      * @return void
      */
-    public static function setUpDb()
+    public static function setUpDb($file = 'db_schema.sql')
     {
-        $sqlFile = file_get_contents(APPLICATION_PATH .'/../docs/db_schema.sql');
+        if (!is_readable(TEST_PATH .'/fixtures/db/' . $file)) {
+            echo "\nError: couldn\' read fixture file " . $file;
+            die();
+        }
+        $sqlFile = file_get_contents(TEST_PATH .'/fixtures/db/' . $file);
         $queries = explode(";\n", $sqlFile);
         $db = Msd_Db::getAdapter();
         $db->selectDb('phpunit_otc');
         foreach ($queries as $query) {
-            $db->query($query);
+            if (trim($query) > '') {
+                $db->query($query);
+            }
         }
     }
 }

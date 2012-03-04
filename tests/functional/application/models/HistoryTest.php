@@ -10,29 +10,24 @@ class HistoryTest extends ControllerTestCase
      */
     protected $model;
 
+    public static function setUpBeforeClass()
+    {
+        Testhelper::setUpDb('history.sql');
+    }
+
     public function setUp()
     {
+        // make sure actions in this test are done with the admin user
+        $this->loginUser('Admin', 'admin');
+        $this->userModel = new Application_Model_User();
+
         $this->model = new Application_Model_History();
     }
 
     public function testGetEntries()
     {
-        $entries = $this->model->getEntries();
-
-        $expected = array(
-            'id'       => 4,
-            'user_id'  => 2,
-            'dt'       => '2012-03-03 16:33:30',
-            'key_id'   => null,
-            'action'   => 'logged in',
-            'lang_id'  => 0,
-            'oldValue' => '-',
-            'newValue' => '-',
-            'key'      => null
-        );
-
-        $this->assertEquals(9, sizeof($entries));
-        $this->assertEquals($expected, $entries[8]);
+        $entries = $this->model->getEntries(0, 50, 0, 0, 'created');
+        $this->assertTrue(!empty($entries));
 
         // test user filter
         $entries = $this->model->getEntries(0, 2, 0, 1);
@@ -50,13 +45,13 @@ class HistoryTest extends ControllerTestCase
 
         // test action filter
         $entries = $this->model->getEntries(0, 50, 0, 0, 'logged in');
-        $this->assertEquals(4, sizeof($entries));
+        $this->assertEquals(5, sizeof($entries));
         foreach ($entries as $entry) {
             $this->assertEquals('logged in', $entry['action']);
         }
 
         $entries = $this->model->getEntries(0, 50, 0, 0, '%logged%');
-        $this->assertEquals(6, sizeof($entries));
+        $this->assertEquals(7, sizeof($entries));
         foreach ($entries as $entry) {
             $this->assertTrue(strpos($entry['action'], 'logged') !== false);
         }
@@ -64,10 +59,6 @@ class HistoryTest extends ControllerTestCase
 
     public function testLogChanges()
     {
-        // make sure actions are done with the admin user
-        $this->loginUser('Admin', 'admin');
-        $this->userModel = new Application_Model_User();
-
         $oldValues = array(
             1 => 'Test eintrag',
             2 => 'Test record'
@@ -99,6 +90,18 @@ class HistoryTest extends ControllerTestCase
             $this->assertTrue($entry['newValue'] !== 'Test Record');
         }
 
+        // check automatic setting of old value if it isn't present
+        $this->model->logChanges(1, array(), array(1, 'Testeintrag2'));
+        $entries = $this->model->getEntries(0, 50, 0, 1, 'changed');
+        $this->assertTrue($entries[0]['oldValue'] == '-');
+        $this->assertTrue($entries[0]['newValue'] == 'Testeintrag2');
+
+        $deleted = $this->model->deleteById($entries[0]['id']);
+        $this->assertTrue($deleted);
     }
 
+    public function testLogNewVarCreated()
+    {
+
+    }
 }

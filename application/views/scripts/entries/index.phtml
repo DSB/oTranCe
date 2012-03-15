@@ -156,7 +156,7 @@ foreach ($this->hits as $hit)
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
     $editTemplate = $edit;
-    if ($this->user->hasRight('addTemplate')) {
+    if ($this->user->hasRight('editTemplate')) {
         $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
     }
     ?>

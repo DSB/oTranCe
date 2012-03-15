@@ -132,7 +132,10 @@ if (empty($this->showLanguages)) {
 ?>
 <table class="bdr small" summary="List of entries">
     <tr class="thead">
-        <th>&nbsp;</th>
+        <?php
+            if ($this->user->hasRight('addVar')) { ?>
+                <th>&nbsp;</th><?php
+            } ?>
         <th>#</th>
         <th><?php echo $this->lang->L_FILE_TEMPLATE;?></th>
         <?php
@@ -158,25 +161,24 @@ foreach ($this->hits as $hit)
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
     $editTemplate = $edit;
-    if ($this->user->hasRight('editTemplate')) {
+    if ($this->user->hasRight('addTemplate')) {
         $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
     }
+
+    if ($this->user->hasRight('addVar')) {
+        $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
+                    . $keyId . '\',\''
+                    . $hit['key'] . '\');">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <?php
-            if ($this->user->hasRight('addVar')) {
-                $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
-                            . $keyId . '\',\''
-                            . $hit['key'] . '\');">';
+        <td class="top nowrap">
+            <?php
+                echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
+                echo $delete;
             ?>
-            <td class="top nowrap">
-                <?php
-                    echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
-                    echo $delete;
-                ?>
-                <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
-                </a>
-            </td>
+            <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
+            </a>
+        </td>
              <?php
             }
         ?>

@@ -155,6 +155,10 @@ foreach ($this->hits as $hit)
     $keyId = $hit['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
+    $editTemplate = $edit;
+    if ($this->user->hasRight('addTemplate')) {
+        $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
+    }
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <?php
@@ -178,7 +182,7 @@ foreach ($this->hits as $hit)
             <?php echo $this->numberFormat($i);?>.
         </td>
         <td class="ssmall nowrap top">
-            <?php echo $edit . $this->printFileTemplate($hit['template_id']);?></a>
+            <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
         </td>
         <?php if ($this->user->hasRight('editKey')) { ?>
             <td class="ssmall nowrap top">&nbsp;

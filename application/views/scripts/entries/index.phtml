@@ -138,6 +138,8 @@ if (empty($this->showLanguages)) {
         <?php
             if ($this->user->hasRight('editKey')) { ?>
                 <th colspan="2"><?php echo $this->lang->L_KEY;?></th><?php
+            } else { ?>
+                <th><?php echo $this->lang->L_KEY;?></th><?php
             }
             foreach ($this->showLanguages as $lang) { ?>
                 <th colspan="2" class="nowrap">
@@ -184,6 +186,7 @@ foreach ($this->hits as $hit)
         <td class="ssmall nowrap top">
             <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
         </td>
+
         <?php if ($this->user->hasRight('editKey')) { ?>
             <td class="ssmall nowrap top">&nbsp;
                 <?php if ($this->user->hasRight('editKey')) { ?>
@@ -193,6 +196,7 @@ foreach ($this->hits as $hit)
                 <?php } ?>
             </td>
         <?php } ?>
+
         <td class="ssmall nowrap top">
             <?php if ($this->user->hasRight('editKey')) { ?>
             <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>

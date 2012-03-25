@@ -383,14 +383,12 @@ a.ul {
     cursor: help;
 }
 
-.active_db {
-    font-weight: bold;
-    border-bottom: 1px dotted;
-    color: #9AA2B1;
-}
-
 table.bdr,.bdr,table.xdebug-error {
     border: 1px solid #ddd !important;
+}
+
+.v-middle td {
+    vertical-align:middle;
 }
 
 table.more-padding tr td {
@@ -399,12 +397,12 @@ table.more-padding tr td {
 
 table td {
     text-align: left;
-    vertical-align: middle;
+    vertical-align: top;
     padding: 4px;
 }
 
 /* line height of table on analyze page at import:
- fix height for not flickering table when loading ajax-requets*/
+ fix height for not flickering table when loading ajax-request*/
 .importLineHeight {
     height: 26px;
 }

@@ -133,6 +133,11 @@ class LanguageEntriesTest extends ControllerTestCase
         $entry = $this->model->getEntryById(99999, 2);
         $expected = array();
         $this->assertEquals($expected, $entry);
+
+        // check call with invalid params
+        $entry = $this->model->getEntryById(0, 0);
+        $expected = array();
+        $this->assertEquals($expected, $entry);
     }
 
     public function testGetEntriesByKeys()
@@ -149,12 +154,6 @@ class LanguageEntriesTest extends ControllerTestCase
         // check non existent key returns empty string
         $entry = $this->model->getEntriesByKeys(array('IDontExist'), 1, 1);
         $expected = array('IDontExist' => '');
-        $this->assertEquals($expected, $entry);
-
-        // check search in a paricular templaetId
-        $keys = array('L_TEST');
-        $entry = $this->model->getEntriesByKeys($keys, 1, 1, 1);
-        $expected = array('L_TEST' => 'Test eintrag');
         $this->assertEquals($expected, $entry);
     }
 

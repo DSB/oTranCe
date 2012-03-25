@@ -203,5 +203,13 @@ class LanguageEntriesTest extends ControllerTestCase
             $this->assertTrue(in_array($entry['key'], $check));
         }
 
+        // check param $languages with empty array returns an empty array
+        $entries = $this->model->getEntriesByValue(array(), 'löschen', 0, 30);
+        $this->assertEquals(array(), $entries);
+
+        // check for empty result set
+        $entries = $this->model->getEntriesByValue(array(), 'IDOnTExist', 0, 30);
+        $this->assertEquals(array(), $entries);
+
     }
 }

@@ -161,6 +161,10 @@ $lang = array(
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'Die gewählten Sprachen werden als Übersetzungshilfe angezeigt wenn Sie einen Eintrag bearbeiten.',
 'L_REGISTER' => 'Registrieren',
 'L_REGISTER_INFORMATION' => 'Registrierungsinformationen',
+'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Das neue Benutzerkonto wurde erfolgreich registriert.
+
+Ein Administrator wird es demnächst freischalten.',
+'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registrierung erfolgreich',
 'L_RESET' => 'Zurücksetzen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf neue Sprachen hinzufügen',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'Benutzer darf Dateitemplates hinzufügen oder löschen',

@@ -163,6 +163,10 @@ $lang = array(
 This should help you to easily translate the current variable.',
 'L_REGISTER' => 'Register',
 'L_REGISTER_INFORMATION' => 'Registration information',
+'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'The new account has been registered successfully.
+
+An administrator will activate it soon.',
+'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registration successful',
 'L_RESET' => 'Reset',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add new languages',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'User is allowed to add or delete file templates',

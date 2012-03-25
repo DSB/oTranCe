@@ -67,12 +67,11 @@ class IndexController extends Zend_Controller_Action
             $userData['id'] = 0;
             $userData['active'] = 0;
 
-            $validator = new Msd_Validate_UserData($userModel);
-            if ($validator->isValid($userData)) {
+            if ($userModel->validateData($userData)) {
                 $userModel->saveAccount($userData);
                 $this->view->registerSuccess = true;
             } else {
-                $this->view->errors = $validator->getMessages();
+                $this->view->errors = $userModel->getValidateMessages();
             }
         }
     }

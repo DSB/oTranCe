@@ -444,8 +444,7 @@ class AjaxController extends Zend_Controller_Action
                 return 3;
             } else {
                 // Validate the new key.
-                $validator = new Msd_Validate_LanguageKey($this->_entriesModel, $fileTemplate);
-                if (!$validator->isValid($key)) {
+                if (!$this->_entriesModel->validateLanguageKey($key, $fileTemplate)) {
                     return 4;
                 };
                 // user is allowed to add new keys -> create it

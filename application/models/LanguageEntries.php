@@ -47,6 +47,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     private $_foundRows = null;
 
     /**
+     * Sotres the validation messages.
+     *
+     * @var array
+     */
+    private $_validateMessages = array();
+
+    /**
      * Model initialization method.
      *
      * @return void
@@ -622,5 +629,46 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . ' SET `key` = \'' . $this->_dbo->escape($keyName) . '\''
             . ' WHERE `id` = '. $keyId;
         return (bool) $this->_dbo->query($sql, Msd_db::SIMPLE);
+    }
+
+    /**
+     * Validates the given language key.
+     *
+     * @param string $keyName      Name of the language key to validate.
+     * @param int    $fileTemplate ID of the file template.
+     *
+     * @return bool
+     */
+    public function validateLanguageKey($keyName, $fileTemplate)
+    {
+        if (strlen($keyName) < 1) {
+            $this->_validateMessages[] = 'Name is too short.';
+            return false;
+        }
+
+        $pattern = '/^[^A-Z_]*$/';
+        if (!preg_match($pattern, $keyName)) {
+            $this->_validateMessages[] = 'Name contains illegal characters.<br />'
+                       . 'Only "A-Z" and "_" is allowed.';
+            return false;
+        }
+
+        // check if we already have a lang var with that name
+        if ($this->hasEntryWithKey($keyName, $fileTemplate)) {
+            $this->_validateMessages[] = 'A language variable with this name already exists in this file template!';
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Retrieves the validation result messages.
+     *
+     * @return array
+     */
+    public function getValidateMessages()
+    {
+        return $this->_validateMessages;
     }
 }

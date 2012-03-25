@@ -53,6 +53,13 @@ class Application_Model_User extends Msd_Application_Model
     private $_userrights;
 
     /**
+     * Sotres the validation messages.
+     *
+     * @var array
+     */
+    private $_validateMessages = array();
+
+    /**
      * Model initialization method.
      *
      * @return void
@@ -818,4 +825,73 @@ class Application_Model_User extends Msd_Application_Model
         return $defaultRights;
     }
 
+    /**
+     * Validates the user account data.
+     *
+     * @param array $userData Data of the user account.
+     *
+     * @return bool
+     */
+    public function validateData($userData)
+    {
+        $isValid = true;
+
+        if ($userData['id'] == 0) {
+            $notEmptyValidate = new Zend_Validate_NotEmpty();
+            if (!$notEmptyValidate->isValid($userData['pass1'])) {
+                // Original key: pass1
+                $this->_validateMessages['pass1'] = $notEmptyValidate->getMessages();
+                $isValid = false;
+            }
+
+            // check if we already have a user with that name
+            $existingUser = $this->getUserByName($userData['username']);
+            if (!empty($existingUser)) {
+                // Original key: username
+                $this->_validateMessages['username'][] = "A user with the name '" . $userData['username']
+                    . "' already exists!";
+                $isValid = false;
+            }
+        }
+
+        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
+        if (!$strLenValidate->isValid($userData['username'])) {
+            if (!isset($this->_validateMessages['username'])) {
+                $this->_validateMessages['username'] = array();
+            }
+            // Original key: username
+            $this->_validateMessages['username'] = array_merge(
+                $this->_validateMessages['username'],
+                $strLenValidate->getMessages()
+            );
+            $isValid = false;
+        }
+
+        if ($userData['pass1'] > '' || $userData['pass2'] > '') {
+            $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
+            if (!$identicalValidate->isValid($userData['pass2'])) {
+                if (!isset($this->_validateMessages['pass1'])) {
+                    $this->_validateMessages['pass1'] = array();
+                }
+                // Original key: pass1
+                $this->_validateMessages['pass1'] = array_merge(
+                    $this->_validateMessages['pass1'],
+                    $identicalValidate->getMessages()
+                );
+                $isValid = false;
+            }
+        }
+
+        return $isValid;
+    }
+
+    /**
+     * Retrieves the validation messages.
+     *
+     * @return array
+     */
+    public function getValidateMessages()
+    {
+        return $this->_validateMessages;
+    }
 }

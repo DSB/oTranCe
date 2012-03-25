@@ -381,9 +381,8 @@ class EntriesController extends Zend_Controller_Action
             $newVar = trim($this->_request->getParam('var'));
             $this->_dynamicConfig->setParam('entries.fileTemplate', $fileTemplate);
 
-            $validator = new Msd_Validate_LanguageKey($this->_entriesModel, $fileTemplate);
-            if (!$validator->isValid($newVar)) {
-                $error = array_merge($error, $validator->getMessages());
+            if (!$this->_entriesModel->validateLanguageKey($newVar, $fileTemplate)) {
+                $error = array_merge($error, $this->_entriesModel->getValidateMessages());
             }
 
             if (empty($error)) {

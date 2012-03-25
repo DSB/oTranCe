@@ -1,3 +1,4 @@
+<?php $this->jQuery()->addOnLoad("$('#user').focus();"); ?>
 <div id="login">
     <h1>
         <br /><br />Translation-Center: Log in
@@ -21,4 +22,11 @@ echo $this->form;
 </form>
 </div>
 </div>
-<?php $this->jQuery()->addOnLoad("$('#user').focus();"); ?>
+<?php
+$loginInfoFile = APPLICATION_PATH . '/../data/login-info.phtml';
+if (file_exists($loginInfoFile) && is_readable($loginInfoFile)) {
+    $loginInfoFile = realpath($loginInfoFile);
+    $loginInfoDir = dirname($loginInfoFile);
+    $this->addScriptPath($loginInfoDir);
+    echo $this->render(basename($loginInfoFile));
+}

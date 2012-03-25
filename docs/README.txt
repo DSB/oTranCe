@@ -11,7 +11,7 @@ Installing instructions:
 There are two special types of getting access to oTranCe on your webserver.
 
 1. Using and Setting Up a VHOST
-=====================
+===============================
 
 First enable virtual hosts in Apache by setting the value of "NameVirtualHost" to "*:80".
 This is done in the Apache configuration files (default location: /etc/apache2/listen.conf) and looks like:
@@ -41,6 +41,15 @@ In this case you have to add an entry to /etc/hosts file for this VHOST, using
 the name of the "ServerName" configuration var (see above).
 
 E.g.: 191.168.1.2  otrance.local
+
+
+Creating additional information on login page
+=============================================
+
+If you want to display additional information on the login page,
+create a file in '/path/to/data' called 'login-info.phtml'.
+In this file you can place your information.
+Take also a look into the file '/path/to/data/login-info.dist.phtml' for a very simple example.
 
 
 Setting Up an ALIAS

@@ -161,6 +161,8 @@ $lang = array(
 'L_REFERENCE_LANGUAGES' => 'Reference languages',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'The selected languages will be shown as a reference when you edit a language variable.
 This should help you to easily translate the current variable.',
+'L_REGISTER' => 'Register',
+'L_REGISTER_INFORMATION' => 'Registration information',
 'L_RESET' => 'Reset',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add new languages',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'User is allowed to add or delete file templates',

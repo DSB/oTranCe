@@ -162,6 +162,7 @@ $lang = array(
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'Die gewählten Sprachen werden als Übersetzungshilfe angezeigt wenn Sie einen Eintrag bearbeiten.',
 'L_REGISTER' => 'Registrieren',
 'L_REGISTER_INFORMATION' => 'Registrierungsinformationen',
+'L_REGISTER_TITLE' => 'Neues Benutzerkonto registrieren',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Das neue Benutzerkonto wurde erfolgreich registriert.
 
 Ein Administrator wird es demnächst freischalten.',

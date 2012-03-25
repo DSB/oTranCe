@@ -164,6 +164,7 @@ $lang = array(
 This should help you to easily translate the current variable.',
 'L_REGISTER' => 'Register',
 'L_REGISTER_INFORMATION' => 'Registration information',
+'L_REGISTER_TITLE' => 'Register a new account',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'The new account has been registered successfully.
 
 An administrator will activate it soon.',

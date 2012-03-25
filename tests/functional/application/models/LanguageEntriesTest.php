@@ -257,4 +257,23 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals(null, $keyId);
     }
 
+    public function testAssignTranslations()
+    {
+        $languageIds = array(1,2);
+        $entries = array(
+            0 => array('id' => 2, 'key' => 'L_ACTION'),
+            1 => array('id' => 6, 'key' => 'L_ADD'),
+        );
+        $res = $this->model->assignTranslations($languageIds, $entries);
+        $expectedTranslations = array(
+            2 => array(1 => '', 2 => 'Action'),
+            6 => array(1 => 'Hinzufügen', 2 => 'Add'),
+        );
+        $this->assertEquals($res[2]['languages'], $expectedTranslations[2]);
+        $this->assertEquals($res[6]['languages'], $expectedTranslations[6]);
+
+        // check invalid params
+        $res = $this->model->assignTranslations(array(), array());
+        $this->assertEquals(array(), $res);
+    }
 }

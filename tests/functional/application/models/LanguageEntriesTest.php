@@ -234,7 +234,7 @@ class LanguageEntriesTest extends ControllerTestCase
     public function testGetUntranslated()
     {
         // check we get 3 untranslated phrases in total
-        $entries = $this->model->getUntranslated(1);
+        $entries = $this->model->getUntranslated();
         $this->assertEquals(3, sizeof($entries));
 
         // check we find 1 untranslated key with "ACTION" in key name
@@ -245,4 +245,16 @@ class LanguageEntriesTest extends ControllerTestCase
         $entries = $this->model->getUntranslated(1, 'ACTION', 0, 5, 2);
         $this->assertEquals(0, sizeof($entries));
     }
+
+    public function testGetFirstUntranslated()
+    {
+        // check we find the first untranslated key of language 1
+        $keyId = $this->model->getFirstUntranslated(1);
+        $this->assertEquals(2, $keyId);
+
+        // check we get null if all keys are translated (case for language 2)
+        $keyId = $this->model->getFirstUntranslated(2);
+        $this->assertEquals(null, $keyId);
+    }
+
 }

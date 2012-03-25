@@ -6,7 +6,7 @@ Installing instructions:
 - Copy the file application/configs/config.dist.ini to config.ini, in the same folder, and change params to your needs.
 - Create a MySQL database e.g. "translations" using PhpMyAdmin, MySQLDumper or the shell
 - Import the db_schema.sql file (located in this folder) into the database using any of the above mentioned programs)
-(Note: if you changed the table names inconfig.ini you must edit the file and change the table names here too!)
+(Note: if you changed the table names in config.ini you must edit the file and change the table names here too!)
 
 There are two special types of getting access to oTranCe on your webserver.
 

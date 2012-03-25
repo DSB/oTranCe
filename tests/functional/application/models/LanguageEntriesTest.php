@@ -151,6 +151,11 @@ class LanguageEntriesTest extends ControllerTestCase
         $expected = array('IDontExist' => '');
         $this->assertEquals($expected, $entry);
 
+        // check search in a paricular templaetId
+        $keys = array('L_TEST');
+        $entry = $this->model->getEntriesByKeys($keys, 1, 1);
+        $expected = array('L_TEST' => 'Test eintrag');
+        $this->assertEquals($expected, $entry);
     }
 
     public function testGetEntryByKey()

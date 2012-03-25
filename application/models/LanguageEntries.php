@@ -186,7 +186,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql .= ' ORDER BY t.`key_id` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
         $this->_foundRows = $this->_dbo->getRowCount();
-        echo "\n".$sql . " -> ".$this->_foundRows;
         if ($this->_foundRows == 0) {
             return array();
         }

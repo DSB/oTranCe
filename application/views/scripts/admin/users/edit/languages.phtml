@@ -13,8 +13,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     <?php
         foreach ($this->languages as $language) {
             $label = '<label for="lang-' . $language['id']
-                    .'" name="label-' . $language['id']
-                    .'" class="switchLanguageEditRightLabel">';
+                    .' class="switchLanguageEditRightLabel">';
         ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right">
@@ -65,8 +64,8 @@ $('.switchLanguageEditRight').click(function() {
     });
 });
 $('.switchLanguageEditRightLabel').click(function() {
-    var id = $(this).attr('name').replace(/label-/, '');
-    $('#lang-' + id).trigger('click');
+    var id = $(this).attr('for');
+    $('#' + id).trigger('click');
 });
 
 <?php

@@ -30,6 +30,8 @@ class Msd_Validate_LanguageKey extends Zend_Validate_Abstract
     protected $_fileTemplate;
 
     /**
+     * Class constructor
+     *
      * @param Application_Model_LanguageEntries $entriesModel Instance of the entries model.
      * @param int                               $fileTemplate ID of the file template.
      *

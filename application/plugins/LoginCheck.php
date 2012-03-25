@@ -25,14 +25,11 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        $controllerName = $request->getControllerName();
-        if (
-            ($request->getActionName() == 'login' &&
-            $controllerName == 'index') ||
-            $controllerName == 'error'
-        ) {
+        $this->_request = $request;
+        if ($this->_isLoginPage() || $this->_isRegisterPage() || $this->_isErrorPage()) {
             return;
         }
+
         $user = new Msd_User();
         if (!$user->isLoggedIn()) {
             // redirect to login form if user is not logged in
@@ -43,4 +40,33 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
         }
     }
 
+    /**
+     * Returns true, if the login page is requested.
+     *
+     * @return bool
+     */
+    protected function _isLoginPage()
+    {
+        return ($this->_request->getActionName() == 'login' && $this->_request->getControllerName() == 'index');
+    }
+
+    /**
+     * Returns true, if the register page is requested.
+     *
+     * @return bool
+     */
+    protected function _isRegisterPage()
+    {
+        return ($this->_request->getActionName() == 'register' && $this->_request->getControllerName() == 'index');
+    }
+
+    /**
+     * Returns true, if the error page is requested.
+     *
+     * @return bool
+     */
+    protected function _isErrorPage()
+    {
+        return ($this->_request->getControllerName() == 'error');
+    }
 }

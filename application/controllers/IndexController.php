@@ -54,6 +54,29 @@ class IndexController extends Zend_Controller_Action
         $this->view->status      = $entriesModel->getStatus($this->view->languages);
     }
 
+    public function registerAction()
+    {
+        /**
+         * @var Zend_Controller_Request_Http $request
+         */
+        $this->view->isLogin = true;
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $userModel = new Application_Model_User();
+            $userData = $request->getParam('user');
+            $userData['id'] = 0;
+            $userData['active'] = 0;
+
+            $validator = new Msd_Validate_UserData($userModel);
+            if ($validator->isValid($userData)) {
+                $userModel->saveAccount($userData);
+                $this->view->registerSuccess = true;
+            } else {
+                $this->view->errors = $validator->getMessages();
+            }
+        }
+    }
+
     /**
      * Redirect to url
      *

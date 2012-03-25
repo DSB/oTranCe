@@ -19,7 +19,7 @@ $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jque
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/fileuploader.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/style.css');
 $request = Zend_Controller_Front::getInstance()->getRequest();
-if ($request->getActionName() == 'login') {
+if ($request->getControllerName() == 'index' && ($request->getActionName() == 'login' || $request->getActionName() == 'register')) {
     $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/login.css');
 }
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/script.js'));

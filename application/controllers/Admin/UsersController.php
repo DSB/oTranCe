@@ -152,6 +152,7 @@ class Admin_UsersController extends AdminController
     {
         $errors = array();
 
+        // TODO START Replace this code by Msd_Validate_UserData
         if ($userData['id'] == 0) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if (!$notEmptyValidate->isValid($userData['pass1'])) {
@@ -180,6 +181,7 @@ class Admin_UsersController extends AdminController
                 $errors['pass1'] = $identicalValidate->getMessages();
             }
         }
+        // TODO END
 
         $this->view->errors = $errors;
         if (empty($errors)) {

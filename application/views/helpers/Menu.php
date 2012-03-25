@@ -25,9 +25,9 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
     {
         $front = Zend_Controller_Front::getInstance();
         $request = $front->getRequest();
-        if ($request->getActionName() == 'login') {
+        if ($this->view->isLogin) {
             //don't render menu when we show the login form
-            return;
+            return '';
         }
 
         $view = $this->view;

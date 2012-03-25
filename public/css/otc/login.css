@@ -2,9 +2,11 @@ fieldset table {
     margin-left:66px;
     padding:12px;
 }
-
 .text {
     width: 250px;
+}
+.register .text {
+    width: 240px;
 }
 #send {
     margin:6px 0 0 2px;
@@ -17,7 +19,7 @@ fieldset {
 }
 
 #login table.bdr {
-    margin: 0px auto;
+    margin: 0 auto;
 }
 
 #login .bdr td {
@@ -27,9 +29,14 @@ fieldset {
 
 #login {
     width: auto;
-    margin: 0px auto;
-    padding: 0px 18px;
+    margin: 0 auto;
+    padding: 0 18px;
     text-align: center;
 }
 
-
+#login a {
+    color:#6E9E2D;
+}
+#login a:hover {
+    color:#E87B00;
+}

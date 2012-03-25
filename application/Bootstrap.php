@@ -60,7 +60,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initConfiguration()
     {
         $dynamicConfig = new Msd_Config_Dynamic();
-        $configFile = $dynamicConfig->getParam('configFile', 'defaultConfig.ini');
+        $configFile = $dynamicConfig->getParam('configFile', 'config.ini');
         $config = new Msd_Config(
             'Default',
             array('directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs')

@@ -13,9 +13,9 @@ class Testhelper
     public static function setUp()
     {
         // create phpunit_test.ini in application/configs folder for tests
-        $destinationFile = APPLICATION_PATH . DS . 'configs'. DS .'defaultConfig.ini';
+        $destinationFile = APPLICATION_PATH . DS . 'configs'. DS .'config.ini';
         if (!in_array($destinationFile, self::$_copiedFiles)) {
-            self::copyFile('defaultConfig.ini', $destinationFile);
+            self::copyFile('config.ini', $destinationFile);
         }
     }
 

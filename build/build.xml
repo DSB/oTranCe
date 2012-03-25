@@ -29,10 +29,10 @@
                 <include name="modules/**"/>
                 <include name="public/**"/>
                 <include name="data/**"/>
-                <exclude name="application/configs/defaultConfig.ini"/>
+                <exclude name="application/configs/config.ini"/>
             </fileset>
         </copy>
-        <move file="${project.builddir.temp}/application/configs/defaultConfig.dist.ini" tofile="${project.builddir.temp}/application/configs/defaultConfig.ini"/>
+        <move file="${project.builddir.temp}/application/configs/config.dist.ini" tofile="${project.builddir.temp}/application/configs/config.ini"/>
     </target>
 
     <target name="build-dist-packages" depends="prepare-dist-pachaging">

@@ -109,14 +109,14 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testAutosaveIsDisabledByDefault()
     {
         $config = new Msd_Config('Default');
-        $config->load('defaultConfig.ini', array('directories' => APPLICATION_PATH . '/configs/'));
+        $config->load('config.ini', array('directories' => APPLICATION_PATH . '/configs/'));
 
         $this->assertFalse($config->isAutosaveActive());
     }
 
     public function testCanActivateAutosaving()
     {
-        Testhelper::copyFile('defaultConfig.ini', APPLICATION_PATH . '/configs/phpunit_test.ini');
+        Testhelper::copyFile('config.ini', APPLICATION_PATH . '/configs/phpunit_test.ini');
         $config = new Msd_Config('Default', array('directories' => APPLICATION_PATH . '/configs/'));
         $config->load('phpunit_test.ini');
 

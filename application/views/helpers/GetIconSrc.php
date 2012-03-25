@@ -63,7 +63,7 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
     }
 
     /**
-     * Get default values from defaultConfig.ini
+     * Get default values from config.ini
      *
      * @return object
      */

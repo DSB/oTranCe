@@ -208,7 +208,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals(array(), $entries);
 
         // check for empty result set
-        $entries = $this->model->getEntriesByValue(array(), 'IDOnTExist', 0, 30);
+        $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 30);
         $this->assertEquals(array(), $entries);
 
     }

@@ -219,4 +219,15 @@ class LanguageEntriesTest extends ControllerTestCase
         $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 1);
         $this->assertEquals(array(), $entries);
     }
+
+    public function testGetEntriesByKey()
+    {
+        // check that we get 10 translations for template 1
+        $entries = $this->model->getEntriesByKey('', 0, 10, 1);
+        $this->assertEquals(10, sizeof($entries));
+
+        // positive false check - check that we get 0 translations for template 2
+        $entries = $this->model->getEntriesByKey('L_ADD', 0, 10, 2);
+        $this->assertEquals(0, sizeof($entries));
+    }
 }

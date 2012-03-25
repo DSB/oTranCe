@@ -230,4 +230,19 @@ class LanguageEntriesTest extends ControllerTestCase
         $entries = $this->model->getEntriesByKey('L_ADD', 0, 10, 2);
         $this->assertEquals(0, sizeof($entries));
     }
+
+    public function testGetUntranslated()
+    {
+        // check we get 3 untranslated phrases in total
+        $entries = $this->model->getUntranslated(1);
+        $this->assertEquals(3, sizeof($entries));
+
+        // check we find 1 untranslated key with "ACTION" in key name
+        $entries = $this->model->getUntranslated(1, 'ACTION');
+        $this->assertEquals(1, sizeof($entries));
+
+        // check we find no untranslated key with "ACTION" in key name for template 2
+        $entries = $this->model->getUntranslated(1, 'ACTION', 0, 5, 2);
+        $this->assertEquals(0, sizeof($entries));
+    }
 }

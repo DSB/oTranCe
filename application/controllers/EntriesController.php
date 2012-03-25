@@ -380,18 +380,12 @@ class EntriesController extends Zend_Controller_Action
             }
             $newVar = trim($this->_request->getParam('var'));
             $this->_dynamicConfig->setParam('entries.fileTemplate', $fileTemplate);
-            if (strlen($newVar) < 1) {
-                $error[] = 'Name is too short.';
+
+            $validator = new Msd_Validate_LanguageKey($this->_entriesModel, $fileTemplate);
+            if (!$validator->isValid($newVar)) {
+                $error = array_merge($error, $validator->getMessages());
             }
-            $pattern = '/[^A-Z_]/i';
-            if (preg_replace($pattern, '', $newVar) !== $newVar) {
-                $error[] = 'Name contains illegal characters.<br />'
-                           . 'Only "A-Z" and "_" is allowed.';
-            }
-            // check if we already have a lang var with that name
-            if ($this->_entriesModel->hasEntryWithKey($newVar, $fileTemplate)) {
-                $error = array('A language variable with this name already exists in this file template!');
-            }
+
             if (empty($error)) {
                 try {
                     $this->_entriesModel->saveNewKey($newVar, $fileTemplate);

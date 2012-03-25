@@ -443,6 +443,11 @@ class AjaxController extends Zend_Controller_Action
             if (!$this->_userModel->hasRight('addVar')) {
                 return 3;
             } else {
+                // Validate the new key.
+                $validator = new Msd_Validate_LanguageKey($this->_entriesModel, $fileTemplate);
+                if (!$validator->isValid($key)) {
+                    return 4;
+                };
                 // user is allowed to add new keys -> create it
                 $this->_entriesModel->saveNewKey($key, $fileTemplate);
             }

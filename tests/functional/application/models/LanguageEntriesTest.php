@@ -211,5 +211,8 @@ class LanguageEntriesTest extends ControllerTestCase
         $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 30);
         $this->assertEquals(array(), $entries);
 
+        // check that param $nrOfRecords is set to 10 if it is lower (Result can be seen in CodeCoverage)
+        $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 1);
+        $this->assertEquals(array(), $entries);
     }
 }

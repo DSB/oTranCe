@@ -12,31 +12,30 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </tr>
     <?php
         foreach ($this->languages as $language) {
-            $label = '<label for="lang-' . $language['id']
-                    .' class="switchLanguageEditRightLabel">';
-        ?>
-        <tr class="<?php echo $cycleHelper->next();?>">
-            <td class="right">
-                <?php echo $label . $this->numberFormat($i);?>.</label>
-            </td>
-            <td>
-                <?php echo $label . $this->printFlag($language['id']);?></label>
-            </td>
-            <td>
-                <?php echo $label . $language['locale'];?></label>
-            </td>
-            <td><?php echo $label . $language['name'];?></label></td>
-            <td>
-                <div id="lang-<?php echo $language['id'];?>" class="switchLanguageEditRight">
-                    <?php
-                        echo $this->printStatusIcon(
-                            in_array($language['id'], $this->editLanguages),
-                            $this->lang->L_CHANGE_RIGHT
-                        );?>
-                </div>
-            </td>
-        </tr>
-        <?php
+            $label = '<label for="lang-' . $language['id'] .' class="switchLanguageEditRightLabel">';
+            ?>
+            <tr class="<?php echo $cycleHelper->next();?>">
+                <td class="right">
+                    <?php echo $label . $this->numberFormat($i);?>.</label>
+                </td>
+                <td>
+                    <?php echo $label . $this->printFlag($language['id']);?></label>
+                </td>
+                <td>
+                    <?php echo $label . $language['locale'];?></label>
+                </td>
+                <td><?php echo $label . $language['name'];?></label></td>
+                <td>
+                    <div id="lang-<?php echo $language['id'];?>" class="switchLanguageEditRight">
+                        <?php
+                            echo $this->printStatusIcon(
+                                in_array($language['id'], $this->editLanguages),
+                                $this->lang->L_CHANGE_RIGHT
+                            );?>
+                    </div>
+                </td>
+            </tr>
+            <?php
             $i++;
         } ?>
 </table>

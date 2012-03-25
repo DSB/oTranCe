@@ -64,40 +64,46 @@ if ($this->hits == 0) { ?>
 }
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $counter = 0;
+if ($this->user->hasRight('editTemplate')) {
+    $editUrlPattern = $this->baseUrl() . '/admin_files/edit/id/';
+} else {
+    $editUrlPattern = $this->baseUrl() . '/admin_files/view/id/';
+}
 foreach ($this->fileTemplates as $fileTemplate) {
     $cutOptions = array(
         'escapeResult' => true,
     );
     $headerShort = $this->cutString($fileTemplate['header'], 40, $cutOptions);
     $footerShort = $this->cutString($fileTemplate['footer'], 40, $cutOptions);
-
+    $editUrl     = $editUrlPattern . $fileTemplate['id'] . '/';
     $counter++;
-    $editUrl = $this->baseUrl() . '/admin_files/edit/id/' . $fileTemplate['id'] . '/';
 ?>
-        <tr class="<?php echo $cycleHelper->next(); ?>">
-            <td class="nowrap">
-                <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->getIcon('Edit', ''); ?></a>
+    <tr class="<?php echo $cycleHelper->next(); ?>">
+        <td class="nowrap">
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->getIcon('Edit', ''); ?></a>
+            <?php if ($this->user->hasRight('addTemplate')) { ?>
                 <a href="#" title="<?php echo $this->lang->L_DELETE_FILE_TEMPLATE;?>" onclick="showDelConfirm(<?php echo $fileTemplate['id']; ?>);"><?php echo $this->getIcon('delete', ''); ?></a>
-            </td>
-            <td><?php echo $counter; ?></td>
-            <td>
-                <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->out($fileTemplate['name']); ?></a>
-            </td>
-            <td>
-                <pre><?php echo $headerShort; ?></pre>
-                <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_HEADER;?></a>
-                <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_HEADER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
-            </td>
-            <td>
-                <pre><?php echo $this->out($fileTemplate['content']); ?></pre>
-            </td>
-            <td>
-                <pre><?php echo $footerShort; ?></pre>
-                <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_FOOTER;?></a>
-                <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_FOOTER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
-            </td>
-            <td><?php echo $this->out($fileTemplate['filename']); ?></td>
-        </tr>
+            <?php } ?>
+        </td>
+        <td><?php echo $counter; ?></td>
+        <td>
+            <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_FILE_TEMPLATE;?>"><?php echo $this->out($fileTemplate['name']); ?></a>
+        </td>
+        <td>
+            <pre><?php echo $headerShort; ?></pre>
+            <?php if (strlen($headerShort) < strlen($fileTemplate['header'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_HEADER;?></a>
+            <div class="hidden" id="complete-header-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_HEADER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['header']); ?></pre></div><?php } ?>
+        </td>
+        <td>
+            <pre><?php echo $this->out($fileTemplate['content']); ?></pre>
+        </td>
+        <td>
+            <pre><?php echo $footerShort; ?></pre>
+            <?php if (strlen($headerShort) < strlen($fileTemplate['footer'])) { ?><a href="#" class="Formbutton expandButton" id="tmpl-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->getIcon('Info', '', 16); ?> <?php echo $this->lang->L_FOOTER;?></a>
+            <div class="hidden" id="complete-footer-<?php echo $fileTemplate['id']; ?>"><?php echo $this->lang->L_FOOTER;?>:<pre style="border:1px dashed #256777; padding:5px; margin:5px;"><?php echo $this->out($fileTemplate['footer']); ?></pre></div><?php } ?>
+        </td>
+        <td><?php echo $this->out($fileTemplate['filename']); ?></td>
+    </tr>
 <?php
 }
 ?>

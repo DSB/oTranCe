@@ -112,6 +112,10 @@ class Admin_FilesController extends AdminController
      */
     public function deleteAction()
     {
+        if (!$this->_userModel->hasRight('addTemplate')) {
+            $this->_redirect('/');
+        }
+
         if ($this->_request->isPost()) {
             $templatesModel = new Application_Model_FileTemplates();
             $delTemplateId = $this->_request->getParam('delTemplateId', 0);

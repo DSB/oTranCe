@@ -24,7 +24,7 @@ class Admin_ProjectController extends AdminController
     public function init()
     {
         parent::init();
-        if (!$this->_userModel->hasRight('editProject')) {
+        if (!$this->_userModel->hasRight('admTabProject')) {
             $this->_redirect('/');
         }
     }
@@ -41,7 +41,7 @@ class Admin_ProjectController extends AdminController
          */
         $request       = $this->_request;
         $languageModel = new Application_Model_Languages();
-        if ($request->isPost()) {
+        if ($request->isPost() && $this->_userModel->hasRight('editProject')) {
             $projectSettings                        = $this->_config->getParam('project');
             $projectSettings['name']                = $this->_request->getParam('name');
             $projectSettings['url']                 = $this->_request->getParam('url');
@@ -54,5 +54,10 @@ class Admin_ProjectController extends AdminController
         }
         $this->view->settings           = $this->_config->getParam('project');
         $this->view->fallbackLanguageId = $languageModel->getFallbackLanguage();
+
+        // if user does not have edit rights just show the information
+        if (!$this->_userModel->hasRight('editProject')) {
+            $this->_helper->viewRenderer('view');
+        }
     }
 }

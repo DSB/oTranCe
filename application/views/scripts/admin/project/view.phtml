@@ -1,0 +1,47 @@
+<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_PROJECT;?></h2>
+<?php
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
+$cycle = $this->cycle(array('row-odd', 'row-even'));
+$translateToFallback = $this->settings['translateToFallback'];
+?>
+<table class="bdr more-padding" summary="List of project settings">
+    <tr class="thead">
+        <th colspan="2"><?php echo $this->lang->L_PROJECT_SETTINGS;?></th>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?>">
+        <td><?php echo $this->lang->L_PROJECT_NAME;?>:</td>
+        <td><?php echo $this->settings['name']; ?></td>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?>">
+        <td><?php echo $this->lang->L_PROJECT_URL;?>:</td>
+        <td><?php echo $this->settings['url']; ?></td>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?>">
+        <td class="top"><?php echo $this->lang->L_PROJECT_LOGO;?>:</td>
+        <td>
+            <?php echo $this->settings['logo']['large']; ?><br/>
+            <img style="padding:12px;" id="preview" src="<?php echo $this->baseUrl() . $this->settings['logo']['large']; ?>" alt="<?php echo $this->lang->L_PREVIEW;?>"/>
+        </td>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?> top">
+        <td>
+            <?php echo $this->lang->L_FALLBACK_LANGUAGE;?>:
+        </td>
+        <td><?php
+                foreach ($this->languages as $language) {
+                    if ($language['id'] == $this->fallbackLanguageId) {
+                        echo $language['name'] . ' (' . $language['locale'] .')';
+                    }
+                 } ?>
+        </td>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?>">
+        <td>
+            <?php echo $this->lang->L_EXPORT_LANGUAGES;?>:<br />
+            <?php echo $this->lang->L_EXPORT_LANGUAGES_EXPLAIN;?>
+        </td>
+        <td>
+            <?php echo $translateToFallback == 1 ? $this->lang->L_YES : $this->lang->L_NO;?>
+        </td>
+    </tr>
+</table>

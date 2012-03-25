@@ -1,5 +1,5 @@
 <?php
-$user = new Application_Model_User();
+$user         = new Application_Model_User();
 $projectUrl   = $this->url(array('controller'=>'admin_project','action'=>'index'));
 $usersUrl     = $this->url(array('controller'=>'admin_users','action'=>'index'));
 $languagesUrl = $this->url(array('controller'=>'admin_languages','action'=>'index'));
@@ -17,7 +17,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
 <div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         <?php
-        if ($user->hasRight('editProject')) { ?>
+        if ($user->hasRight('admTabProject')) { ?>
             <li id="admin_project" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $projectUrl;?>">
                     <?php echo$this->getIcon('Project', '', 16) . ' ' . $this->lang->L_PROJECT;?>

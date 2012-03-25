@@ -152,7 +152,8 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries(0, 50, 0, 1, 'logged out');
         $this->assertTrue(sizeof($entries) > 0);
         // latest entry for "log out" mustn't be older than now - 2 seconds
-        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $timestamp = Testhelper::mysql2timestamp($entries[0]['dt']);
+        $this->assertTrue($timestamp > time() - 3);
         $this->model->deleteById($entries[0]['id']);
     }
 
@@ -163,7 +164,8 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries(0, 50, 99, 0, 'updated SVN');
         $this->assertTrue(sizeof($entries) > 0);
         // latest entry for "log out" mustn't be older than now - 2 seconds
-        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $timestamp = Testhelper::mysql2timestamp($entries[0]['dt']);
+        $this->assertTrue($timestamp > time() - 2);
         $this->model->deleteById($entries[0]['id']);
     }
 
@@ -174,7 +176,8 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries(0, 50, 0, 0, 'updated SVN');
         $this->assertTrue(sizeof($entries) > 0);
         // latest entry for "log out" mustn't be older than now - 2 seconds
-        $this->assertTrue($entries[0]['dt'] >= date('d.m.Y H:i:s', time() - 2));
+        $timestamp = Testhelper::mysql2timestamp($entries[0]['dt']);
+        $this->assertTrue($timestamp > time() - 2);
         $this->assertTrue($entries[0]['lang_id'] == 0);
         $this->model->deleteById($entries[0]['id']);
     }

@@ -171,5 +171,37 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertFalse($hasEntry);
     }
 
+    public function testGetEntriesByValue()
+    {
+        $entries = $this->model->getEntriesByValue(array(1), 'löschen', 0, 30);
+        $expected = array(
+            0 => array(
+                    'id'          => 25,
+                    'key'         => 'L_AUTODELETE',
+                    'template_id' => 1
+                ),
+            1 => array(
+                    'id'          => 57,
+                    'key'         => 'L_CONFIG_AUTODELETE',
+                    'template_id' => 1
+                ),
+        );
+        $this->assertEquals($expected, $entries);
 
+        // check pagination
+        $entries = $this->model->getEntriesByValue(array(1), 'Soll', 10, 10);
+        $this->assertEquals(6, sizeof($entries));
+        $check = array(
+            'L_CONFIRM_DELETE_FILE',
+            'L_CONFIRM_DELETE_TABLES',
+            'L_CONFIRM_DROP_DATABASES',
+            'L_CONFIRM_RECIPIENT_DELETE',
+            'L_CONFIRM_TRUNCATE_DATABASES',
+            'L_CONFIRM_TRUNCATE_TABLES'
+        );
+        foreach ($entries as $entry) {
+            $this->assertTrue(in_array($entry['key'], $check));
+        }
+
+    }
 }

@@ -119,4 +119,21 @@ class Testhelper
             }
         }
     }
+
+    /**
+     * Convert a MySQL Datetime type into a unix timestamp
+     *
+     * @static
+     * @param string $datetime The MySQl-Datetime
+     *
+     * @return int Unix-Timestamp
+     */
+    public static function mysql2timestamp($datetime)
+    {
+       $val  = explode(' ', $datetime);
+       $date = explode('-', $val[0]);
+       $time = explode(':', $val[1]);
+       return mktime($time[0],$time[1],$time[2],$date[1],$date[2],$date[0]);
+}
+
 }

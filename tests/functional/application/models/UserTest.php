@@ -411,7 +411,8 @@ class UserTest extends ControllerTestCase
     public function testValidateData()
     {
         $translator = Msd_Language::getInstance()->getTranslator();
-        // test case -> User exists
+
+        // test case - username exists
         $userData = array(
             'id' => 0,
             'username' => 'Admin',
@@ -450,5 +451,24 @@ class UserTest extends ControllerTestCase
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The two given tokens do not match';
         $this->assertEquals($expected, $messages['pass1']['notSame']);
+
+        // test case - password is empty
+        $userData['username'] = 'Karl';
+        $userData['pass1']    = '';
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'Value is required and can\'t be empty';
+        $this->assertEquals($expected, $messages['pass1']['isEmpty']);
+
+        // test case - input is valid
+        $userData['username'] = 'Karl';
+        $userData['pass1']    = 'hello';
+        $userData['pass2']    = 'hello';
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertTrue($res);
+        $messages = $this->userModel->getValidateMessages();
+        $this->assertEquals(array(), $messages['username']);
+        $this->assertEquals(array(), $messages['pass1']);
     }
 }

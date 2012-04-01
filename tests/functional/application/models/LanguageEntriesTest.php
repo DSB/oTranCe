@@ -276,4 +276,17 @@ class LanguageEntriesTest extends ControllerTestCase
         $res = $this->model->assignTranslations(array(), array());
         $this->assertEquals(array(), $res);
     }
+
+    public function testSaveEntries()
+    {
+
+    }
+
+    /**
+     * @depends testSaveEntries
+     */
+    public function deleteLanguageEntries()
+    {
+
+    }
 }

@@ -871,7 +871,10 @@ class Application_Model_User extends Msd_Application_Model
                 );
             }
         }
-        $isValid = empty($this->_validateMessages) ? true : false;
+        $isValid = false;
+        if (empty($this->_validateMessages['username']) && empty($this->_validateMessages['pass1'])) {
+            $isValid = true;
+        }
         return $isValid;
     }
 

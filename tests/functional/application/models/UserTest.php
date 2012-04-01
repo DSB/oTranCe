@@ -407,4 +407,48 @@ class UserTest extends ControllerTestCase
         // remove fake entry from db
         $languageModel->deleteLanguage($languageId);
     }
+
+    public function testValidateData()
+    {
+        $translator = Msd_Language::getInstance()->getTranslator();
+        // test case -> User exists
+        $userData = array(
+            'id' => 0,
+            'username' => 'Admin',
+            'pass1' => 'admin',
+            'pass2' => 'admin'
+        );
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'A user with the name "Admin" already exists.';
+        $this->assertEquals($expected, $messages['username'][0]);
+
+        // test case - name too short
+        $userData['username'] = 'A';
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = '\'A\' is less than 2 characters long';
+        $this->assertEquals($expected, $messages['username']['stringLengthTooShort']);
+
+        // test case - name too long
+        $userData['username'] = str_repeat('A', 51);
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = '\'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\' is more than 50 characters long';
+        $this->assertEquals($expected, $messages['username']['stringLengthTooLong']);
+
+        // test case - passwords are unequal
+        $userData['username'] = 'Karl';
+        $userData['pass1']    = 'hello';
+        $userData['pass2']    = 'world';
+
+        $res = $this->userModel->validateData($userData, $translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'The two given tokens do not match';
+        $this->assertEquals($expected, $messages['pass1']['notSame']);
+    }
 }

@@ -835,14 +835,12 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function validateData($userData, Zend_Translate $translator)
     {
-        $isValid = true;
-
+        $this->clearValidateMessages();
         if ($userData['id'] == 0) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if (!$notEmptyValidate->isValid($userData['pass1'])) {
                 // Original key: pass1
                 $this->_validateMessages['pass1'] = $notEmptyValidate->getMessages();
-                $isValid = false;
             }
 
             // check if we already have a user with that name
@@ -851,38 +849,29 @@ class Application_Model_User extends Msd_Application_Model
                 // Original key: username
                 $msg = $translator->_('L_REGISTER_USERNAME_EXISTS');
                 $this->_validateMessages['username'][] = sprintf($msg, $userData['username']);
-                $isValid = false;
             }
         }
 
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (!$strLenValidate->isValid($userData['username'])) {
-            if (!isset($this->_validateMessages['username'])) {
-                $this->_validateMessages['username'] = array();
-            }
             // Original key: username
             $this->_validateMessages['username'] = array_merge(
                 $this->_validateMessages['username'],
                 $strLenValidate->getMessages()
             );
-            $isValid = false;
         }
 
         if ($userData['pass1'] > '' || $userData['pass2'] > '') {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
             if (!$identicalValidate->isValid($userData['pass2'])) {
-                if (!isset($this->_validateMessages['pass1'])) {
-                    $this->_validateMessages['pass1'] = array();
-                }
                 // Original key: pass1
                 $this->_validateMessages['pass1'] = array_merge(
                     $this->_validateMessages['pass1'],
                     $identicalValidate->getMessages()
                 );
-                $isValid = false;
             }
         }
-
+        $isValid = empty($this->_validateMessages) ? true : false;
         return $isValid;
     }
 
@@ -895,4 +884,18 @@ class Application_Model_User extends Msd_Application_Model
     {
         return $this->_validateMessages;
     }
+
+    /**
+     * Clear the validation messages and make sure indexes exist.
+     *
+     * @return void
+     */
+    public function clearValidateMessages()
+    {
+        $this->_validateMessages = array(
+            'username' => array(),
+            'pass1'    => array()
+        );
+    }
+
 }

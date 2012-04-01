@@ -2,13 +2,12 @@
 // set up test environment
 
 // Define path to application directory
-define('DS', DIRECTORY_SEPARATOR);
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . DS . '..' . DS . 'application'));
-defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH . DS . '..' . DS . 'data' . DS . 'export'));
-defined('DOWNLOAD_PATH') || define('DOWNLOAD_PATH', realpath(EXPORT_PATH . DS . '..' . DS . 'downloads'));
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH . '/../data/export'));
+defined('DOWNLOAD_PATH') || define('DOWNLOAD_PATH', realpath(EXPORT_PATH . '/../downloads'));
 
 // Define path to application directory
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . DS . '..' . DS . 'application'));
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 
 // Define path to test directory
 defined('TEST_PATH') || define('TEST_PATH', realpath(dirname(__FILE__) . '/'));

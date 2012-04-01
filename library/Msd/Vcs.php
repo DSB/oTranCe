@@ -37,8 +37,8 @@ class Msd_Vcs
         if (self::$_loader === null) {
             self::$_loader = new Zend_Loader_PluginLoader(
                 array(
-                    'Msd_Vcs_' => implode(DS, array(APPLICATION_PATH, '..', 'library', 'Msd', 'Vcs')),
-                    'Module_Vcs_' => implode(DS, array(APPLICATION_PATH, '..', 'modules', 'library', 'Vcs')),
+                    'Msd_Vcs_' => implode('/', array(APPLICATION_PATH, '..', 'library', 'Msd', 'Vcs')),
+                    'Module_Vcs_' => implode('/', array(APPLICATION_PATH, '..', 'modules', 'library', 'Vcs')),
                 )
             );
         }

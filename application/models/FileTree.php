@@ -91,11 +91,11 @@ class Application_Model_FileTree
                     $tree,
                     $this->_buildSimpleTree(
                         $dir->getPathname(),
-                        $prefix . DS . $dir->getFilename()
+                        $prefix . '/' . $dir->getFilename()
                     )
                 );
             } else {
-                $tree[] = ltrim($prefix . DS . $dir->getFilename(), DS);
+                $tree[] = ltrim($prefix . '/' . $dir->getFilename(), '/');
             }
         }
 

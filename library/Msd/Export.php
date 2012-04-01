@@ -218,7 +218,7 @@ class Msd_Export
      */
     public function _getFileMetaData($languageId, $templateId)
     {
-        $langFilename = EXPORT_PATH . DS . trim(
+        $langFilename = EXPORT_PATH . '/' . trim(
             str_replace(
                 '{LOCALE}',
                 $this->_langInfo[$languageId]['locale'],

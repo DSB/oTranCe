@@ -78,7 +78,7 @@ class ImportController extends Zend_Controller_Action
         }
         $this->_languages = array_uintersect_assoc($allLanguages, $userLanguages, create_function(null, "return 0;"));
         // add module path for analyzers
-        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . DS;
+        $path = realpath(APPLICATION_PATH . '/../modules/library/Import/views') . '/';
         $this->view->addScriptPath($path);
     }
 

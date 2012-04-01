@@ -57,7 +57,7 @@ class DownloadsController extends Zend_Controller_Action
             $this->_getArchiveContentType($filename)
         );
         $this->_response->setHeader('Content-Disposition', 'attachment; filename="' . $filename . '"');
-        readfile(DOWNLOAD_PATH . DS . $filename);
+        readfile(DOWNLOAD_PATH . '/' . $filename);
     }
 
     /**
@@ -91,7 +91,7 @@ class DownloadsController extends Zend_Controller_Action
      */
     private function _getAvailableArchives()
     {
-        $files = glob(DOWNLOAD_PATH . DS . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
+        $files = glob(DOWNLOAD_PATH . '/' . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
         if (is_array($files)) {
             rsort($files);
         }
@@ -100,7 +100,7 @@ class DownloadsController extends Zend_Controller_Action
             return $archives;
         }
         foreach ($files as $file) {
-            $filename = str_replace(DOWNLOAD_PATH . DS, '', $file);
+            $filename = str_replace(DOWNLOAD_PATH . '/', '', $file);
             $fileStats = stat($file);
             $archives[$filename] = array(
                 'creationTime' => $fileStats['ctime'],

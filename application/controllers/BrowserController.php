@@ -56,8 +56,8 @@ class BrowserController extends Zend_Controller_Action
             $filename = ltrim(str_replace(EXPORT_PATH, '', $filename), '/');
             $this->view->filename = $filename;
             $this->view->fileContent = "File doesn't exists, please run export first.";
-            if (file_exists(EXPORT_PATH . DS . $filename)) {
-                $content = file(EXPORT_PATH . DS . $filename);
+            if (file_exists(EXPORT_PATH . '/' . $filename)) {
+                $content = file(EXPORT_PATH . '/' . $filename);
                 $search  = array("\t");
                 $replace = array("    ");
                 $content = str_replace($search, $replace, $content);

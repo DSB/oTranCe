@@ -1,10 +1,10 @@
 <?php
-define('DS', DIRECTORY_SEPARATOR);
+//define('DS', DIRECTORY_SEPARATOR);
 
 // Define path to application directory
-defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . DS . '..' . DS . 'application'));
-defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH . DS . '..' . DS . 'data' . DS . 'export'));
-defined('DOWNLOAD_PATH') || define('DOWNLOAD_PATH', realpath(EXPORT_PATH . DS . '..' . DS . 'downloads'));
+defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
+defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH .  '/../data/export'));
+defined('DOWNLOAD_PATH') || define('DOWNLOAD_PATH', realpath(EXPORT_PATH . '/../downloads'));
 
 // Define application environment
 if (!defined('APPLICATION_ENV')) {
@@ -21,9 +21,9 @@ if (!defined('APPLICATION_ENV')) {
 set_include_path(
     implode(
         PATH_SEPARATOR, array(
-            realpath(APPLICATION_PATH . DS . '..' . DS .'library'),
+            realpath(APPLICATION_PATH . '/../library'),
             APPLICATION_PATH,
-            APPLICATION_PATH . DS . 'models',
+            APPLICATION_PATH . '/models',
             get_include_path()
         )
     )
@@ -35,7 +35,7 @@ require_once 'Zend/Application.php';
 // Create application, bootstrap, and run
 $application = new Zend_Application(
     APPLICATION_ENV,
-    APPLICATION_PATH . DS . 'configs' . DS .'application.ini'
+    APPLICATION_PATH . '/configs/application.ini'
 );
 $application->bootstrap()
             ->run();

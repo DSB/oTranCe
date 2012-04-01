@@ -106,8 +106,8 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
      */
     public function loadFixtureFile($fileName)
     {
-        $fixturePath = realpath(dirname(__FILE__) . DS . 'fixtures');
-        $fullFileName = $fixturePath . DS . $fileName;
+        $fixturePath = realpath(dirname(__FILE__) . '/fixtures');
+        $fullFileName = $fixturePath . '/' . $fileName;
         $content = file_get_contents($fullFileName);
         return $content;
     }

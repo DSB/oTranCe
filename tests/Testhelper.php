@@ -13,7 +13,7 @@ class Testhelper
     public static function setUp()
     {
         // create phpunit_test.ini in application/configs folder for tests
-        $destinationFile = APPLICATION_PATH . DS . 'configs'. DS .'config.ini';
+        $destinationFile = APPLICATION_PATH . '/configs/config.ini';
         if (!in_array($destinationFile, self::$_copiedFiles)) {
             self::copyFile('config.ini', $destinationFile);
         }
@@ -44,8 +44,8 @@ class Testhelper
      */
     public static function copyFile($source, $destination, $overwrite = false)
     {
-        $fixturePath = realpath(dirname(__FILE__) . DS . 'fixtures');
-        $source = realpath($fixturePath . DS . $source);
+        $fixturePath = realpath(dirname(__FILE__) . '/fixtures');
+        $source = realpath($fixturePath . '/' . $source);
         // delete target file if it exists
         if (file_exists($destination)) {
             if ($overwrite) {

@@ -13,7 +13,7 @@ class Application_Model_FileExport extends Msd_Application_Model
     {
         $fileTree = new Application_Model_FileTree(EXPORT_PATH);
         $fileList = $fileTree->getSimpleTree();
-        $filename = DOWNLOAD_PATH . DS . 'language_pack-' . date('Ymd-His');
+        $filename = DOWNLOAD_PATH . '/' . 'language_pack-' . date('Ymd-His');
         $zipArch = Msd_Archive::factory('Zip', $filename, EXPORT_PATH);
         $tarGzArch = Msd_Archive::factory('Tar_Gz', $filename, EXPORT_PATH);
         $tarBzArch = Msd_Archive::factory('Tar_Bz2', $filename, EXPORT_PATH);
@@ -64,7 +64,7 @@ class Application_Model_FileExport extends Msd_Application_Model
         unset($fileKeys[0]); // remove latest file from array for not deleting it
         foreach ($fileKeys as $key) {
             foreach ($fileExtensions as $ext) {
-                $filename = DOWNLOAD_PATH . DS . $files[$key] . '.' .$ext;
+                $filename = DOWNLOAD_PATH . '/' . $files[$key] . '.' .$ext;
                 if (is_readable($filename)) {
                     @unlink($filename);
                 }

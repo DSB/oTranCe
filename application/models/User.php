@@ -828,11 +828,12 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Validates the user account data.
      *
-     * @param array $userData Data of the user account.
+     * @param array          $userData   Data of the user account.
+     * @param Zend_Translate $translator Translator for output messages
      *
      * @return bool
      */
-    public function validateData($userData)
+    public function validateData($userData, Zend_Translate $translator)
     {
         $isValid = true;
 
@@ -848,8 +849,8 @@ class Application_Model_User extends Msd_Application_Model
             $existingUser = $this->getUserByName($userData['username']);
             if (!empty($existingUser)) {
                 // Original key: username
-                $this->_validateMessages['username'][] = "A user with the name '" . $userData['username']
-                    . "' already exists!";
+                $msg = $translator->_('L_REGISTER_USERNAME_EXISTS');
+                $this->_validateMessages['username'][] = sprintf($msg, $userData['username']);
                 $isValid = false;
             }
         }

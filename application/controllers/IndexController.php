@@ -67,7 +67,7 @@ class IndexController extends Zend_Controller_Action
             $userData['id'] = 0;
             $userData['active'] = 0;
 
-            if ($userModel->validateData($userData)) {
+            if ($userModel->validateData($userData, $this->view->lang->getTranslator())) {
                 $userModel->saveAccount($userData);
                 $this->view->registerSuccess = true;
             } else {

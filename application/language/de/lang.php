@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB, kyoya, Marco.Steinhäuser
+// DSB, kyoya, Marco.Steinhäuser, urban
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -163,6 +163,7 @@ $lang = array(
 'L_REGISTER' => 'Registrieren',
 'L_REGISTER_INFORMATION' => 'Registrierungsinformationen',
 'L_REGISTER_TITLE' => 'Neues Benutzerkonto registrieren',
+'L_REGISTER_USERNAME_EXISTS' => 'Es gibt bereits einen Benutzer mit dem Namen "%s".',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Das neue Benutzerkonto wurde erfolgreich registriert.
 
 Ein Administrator wird es demnächst freischalten.',

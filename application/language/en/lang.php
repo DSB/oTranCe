@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB, kyoya, Marco.Steinhäuser
+// DSB, kyoya, Marco.Steinhäuser, urban
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -165,6 +165,7 @@ This should help you to easily translate the current variable.',
 'L_REGISTER' => 'Register',
 'L_REGISTER_INFORMATION' => 'Registration information',
 'L_REGISTER_TITLE' => 'Register a new account',
+'L_REGISTER_USERNAME_EXISTS' => 'A user with the name "%s" already exists.',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'The new account has been registered successfully.
 
 An administrator will activate it soon.',

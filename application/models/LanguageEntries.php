@@ -641,6 +641,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function validateLanguageKey($keyName, $fileTemplate)
     {
+        //TODO Implement a possibility to configure validation rules in admin section
+        // Meanwhile we turn this off because the import of a file has problems with this.
+        /*
         if (strlen($keyName) < 1) {
             $this->_validateMessages[] = 'Name is too short.';
             return false;
@@ -658,7 +661,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $this->_validateMessages[] = 'A language variable with this name already exists in this file template!';
             return false;
         }
-
+        */
         return true;
     }
 

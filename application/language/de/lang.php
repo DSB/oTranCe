@@ -62,6 +62,7 @@ $lang = array(
 'L_DROP_FILE_HINT' => 'Projekt-Logo zum Upload hier hinziehen.',
 'L_EDIT' => 'Bearbeiten',
 'L_EDIT_ENTRIES' => 'Einträge bearbeiten',
+'L_EDIT_ENTRY' => 'Eintrag bearbeiten',
 'L_EDIT_FILE_TEMPLATE' => 'Dateivorlage bearbeiten',
 'L_EDIT_FILE_TEMPLATE_X' => 'Bearbeite Dateivorlage \'%s\'',
 'L_EDIT_INLINE' => 'Hier bearbeiten',

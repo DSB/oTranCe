@@ -183,7 +183,7 @@ class EntriesController extends Zend_Controller_Action
         }
         $this->setLanguages();
         $editLanguages = $this->getEditLanguages();
-        
+
         $getStatus = array();
         foreach ($editLanguages as $languageId) {
             $getStatus[]['id'] = $languageId;

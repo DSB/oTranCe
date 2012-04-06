@@ -1,17 +1,18 @@
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
 $viewData = array(
-    'config'             => $this->config,
-    'referenceLanguages' => $this->referenceLanguages,
-    'languages'          => $this->languages,
-    'languagesEdit'      => $this->languagesEdit,
-    'entry'              => $this->entry,
-    'translatable'       => $this->translatable,
-    'user'               => $this->user,
-    'lang'               => $this->lang,
-    'key'                => $this->key,
-    'langStatus'         => $this->langStatus,
-    'skipKeysOffsets'    => $this->skipKeysOffsets,
+    'config'               => $this->config,
+    'referenceLanguages'   => $this->referenceLanguages,
+    'languages'            => $this->languages,
+    'languagesEdit'        => $this->languagesEdit,
+    'entry'                => $this->entry,
+    'translatable'         => $this->translatable,
+    'user'                 => $this->user,
+    'lang'                 => $this->lang,
+    'key'                  => $this->key,
+    'langStatus'           => $this->langStatus,
+    'skipKeysOffsets'      => $this->skipKeysOffsets,
+    'assignedFileTemplate' => $this->assignedFileTemplate,
 );
 ?>
 <h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>

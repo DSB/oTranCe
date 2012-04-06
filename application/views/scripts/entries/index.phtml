@@ -163,14 +163,15 @@ foreach ($this->hits as $hit)
     $editTemplate = $edit;
     if ($this->user->hasRight('addTemplate')) {
         $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
-    }
+    } ?>
 
+    <tr class="<?php echo $cycleHelper->next();?>">
+
+    <?php
     if ($this->user->hasRight('addVar')) {
         $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
                     . $keyId . '\',\''
-                    . $hit['key'] . '\');">';
-    ?>
-    <tr class="<?php echo $cycleHelper->next();?>">
+                    . $hit['key'] . '\');">'; ?>
         <td class="top nowrap">
             <?php
                 echo $edit . $this->getIcon('Edit') . '</a>&nbsp';

@@ -1,0 +1,111 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$entry = $this->entry;
+?>
+<form action="<?php echo $this->baseUrl();?>/entries/edit" method="post" id="editForm">
+    <table class="bdr more-padding" summary="List of edit boxes">
+        <tr class="thead"><th colspan="2"><?php echo $this->lang->L_EDIT;?>:</th></tr>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="top"><?php echo $this->lang->L_KEY;?>:</td>
+            <td>
+                <?php if ($this->user->hasRight('editKey')) { ?>
+                    <span>
+                        <label for="key-<?php echo $this->key['id'];?>" class="inlineEditTrigger">
+                        <?php echo $this->getIcon('Edit', $this->lang->L_EDIT_INLINE);?>
+                        </label>
+                    </span>
+                    <span class="inlineEdit"id="key-<?php echo $this->key['id'];?>"><?php echo $this->key['key'];?></span>
+                <?php } else { ?>
+                    <?php echo $this->key['key'];?>
+                <?php } ?>
+            </td>
+        </tr>
+
+        <tr class="<?php echo $cycleHelper->next()?>">
+            <td><?php echo $this->lang->L_FILE; ?>:</td>
+            <td><?php
+                if ($this->user->hasRight('addVar')) {
+                    echo $this->printFileTemplateHtml($this->assignedFileTemplate['id']);
+                } else {
+                    if (!empty($this->assignedFileTemplate['name']) && !empty($this->assignedFileTemplate['filename'])) {
+                    echo $this->assignedFileTemplate['name'] . ' (' . $this->assignedFileTemplate['filename'] . ')';
+                } else {
+                    echo "Unassigned";
+                } ?>
+                <?php } ?>
+            </td>
+        </tr>
+        <?php
+        foreach ($this->languagesEdit as $lang) {
+            $rowclass = $cycleHelper->next();
+            if (!isset($this->skipKeysOffsets[$lang['id']])) {
+                $this->skipKeysOffsets[$lang['id']] = 0;
+            }
+            ?>
+            <tr class="<?php echo $rowclass;?>">
+                <td><?php echo $this->printFlag($lang);?></td>
+                <td>
+                    <?php if ($this->langStatus[$lang['id']]['notTranslated'] > 0) { ?>
+                    <span class="floatRight">
+                        <?php
+                        if ($this->skipKeysOffsets[$lang['id']] >= 0) { ?>
+                            <a href="<?php echo $this->baseUrl() . '/entries/get-previous-untranslated-key/languageId/' . $lang['id'];?>" class="Formbutton">
+                                <?php echo $this->getIcon('Back', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
+                            </a><?php
+                        } else { ?>
+                            <button class="Formbutton" disabled="disabled">
+                                <?php echo $this->getIcon('BackDisabled', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
+                            </button><?php
+                        } ?>
+
+                        <?php
+                        if ($this->skipKeysOffsets[$lang['id']] +1 < $this->langStatus[$lang['id']]['notTranslated']) { ?>
+                            <a href="<?php echo $this->baseUrl() . '/entries/get-next-untranslated-key/languageId/' . $lang['id']
+                                . '/entryId/' . $this->key['id'];?>" class="Formbutton">
+                                <?php echo $this->getIcon('Forward', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
+                            </a><?php
+                        } else { ?>
+                            <button class="Formbutton" disabled="disabled">
+                                <?php echo $this->getIcon('ForwardDisabled', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
+                            </button><?php
+                        } ?>
+
+                    </span>
+                    <?php } ?>
+                    <span class="small floatLeft">
+                        <b><?php echo $this->languages[$lang]['name'];?>:</b>
+                        <br />
+                        <?php echo $this->lang->L_PROGRESS . ' ' . $this->langStatus[$lang['id']]['done'];?>%
+                        <?php
+                            if ($this->langStatus[$lang['id']]['notTranslated'] > 0) {
+                                echo $this->lang->L_UNTRANSLATED. ': ' . $this->langStatus[$lang['id']]['notTranslated'];
+                            }
+                          ?>
+                    </span>
+                </td>
+            </tr>
+            <tr class="<?php echo $rowclass;?>">
+                <td>&nbsp;</td>
+                <td>
+                    <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
+                              class="textarea-edit" rows="2" cols="55"><?php
+                                if (isset($entry[$lang])) {
+                                    echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
+                                };?></textarea>
+                    <br /><br />
+                </td>
+            </tr>
+    <?php
+        }
+    ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td>&nbsp;</td>
+            <td>
+                <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
+                <a href="#" class="Formbutton" id="save-button" onclick="$('#editForm').submit()">
+                    <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_SAVE;?>
+                </a>
+            </td>
+        </tr>
+    </table>
+</form>

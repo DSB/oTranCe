@@ -1,179 +1,33 @@
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
-$entry = $this->entry;
-$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$translateConfig = $this->config->getParam('google');
-$apiKey = $translateConfig['apikey'];
+$viewData = array(
+    'config'             => $this->config,
+    'referenceLanguages' => $this->referenceLanguages,
+    'languages'          => $this->languages,
+    'languagesEdit'      => $this->languagesEdit,
+    'entry'              => $this->entry,
+    'translatable'       => $this->translatable,
+    'user'               => $this->user,
+    'lang'               => $this->lang,
+    'key'                => $this->key,
+    'langStatus'         => $this->langStatus,
+    'skipKeysOffsets'    => $this->skipKeysOffsets,
+);
 ?>
-<h2>Edit entry</h2>
+<h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>
 <h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->key['key'];?></h4>
-<?php
-if (isset($this->entrySaved)) {
-            if ($this->entrySaved == true) {
-                echo '<span id="saveMessage" class="ok"> '
-                    .$this->getIcon('Ok','',16)
-                    .'Entry saved successfully.</span>';
-            } else {
-                echo '<span id="saveMessage" class="error"> '.$this->getIcon('Attention','',16)
-                     .' Error saving entry: ' . $this->entrySaved
-                     . '</span>';
-            }
-        }
-        ?>
-    <div style="float:left;margin-right:20px;">
-        <form action="<?php echo $this->baseUrl();?>/entries/edit" method="post">
-<?php
-    $assignTitle = 'Entry is located in file';
-    if ($this->user->hasRight('addVar')) {
-        $assignTitle = 'Assign to file template';
-    }
+<div>
+    <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton">
+        <?php echo $this->getIcon('Back', $this->lang->L_BACK, 16) . ' ' . $this->lang->L_BACK;?>
+    </a>
+</div>
 
-?>
-            <table class="bdr more-padding" summary="List of edit boxes">
-                <tr class="thead"><th colspan="2"><?php echo $this->lang->L_EDIT;?>:</th></tr>
-                <tr class="<?php echo $cycleHelper->next();?>">
-                    <td class="top"><?php echo $this->lang->L_KEY;?>:</td>
-                    <td>
-                        <?php if ($this->user->hasRight('editKey')) { ?>
-                            <span>
-                                <label for="key-<?php echo $this->key['id'];?>" class="inlineEditTrigger">
-                                <?php echo $this->getIcon('Edit', $this->lang->L_EDIT_INLINE);?>
-                                </label>
-                            </span>
-                            <span class="inlineEdit"id="key-<?php echo $this->key['id'];?>"><?php echo $this->key['key'];?></span>
-                        <?php } else { ?>
-                            <?php echo $this->key['key'];?>
-                        <?php } ?>
-                    </td>
-                </tr>
-
-                <tr class="<?php echo $cycleHelper->next()?>">
-                    <td><?php echo $this->lang->L_FILE_TEMPLATE; ?>:</td>
-                    <td><?php if ($this->user->hasRight('addVar')) {
-                            echo $this->printFileTemplateHtml($this->assignedFileTemplate['id']);
-                        ?>
-                        <?php } else { ?>
-                        <?php if (!empty($this->assignedFileTemplate['name']) && !empty($this->assignedFileTemplate['filename'])) {
-                            echo $this->assignedFileTemplate['name'] . ' (' . $this->assignedFileTemplate['filename'] . ')';
-                        } else {
-                            echo "Unassigned";
-                        } ?>
-                        <?php } ?>
-                    </td>
-                </tr>
-<?php
-                foreach ($this->languagesEdit as $lang) {
-                $rowclass = $cycleHelper->next();?>
-                    <tr class="<?php echo $rowclass;?>">
-                        <td><?php echo $this->printFlag($lang);?></td>
-                        <td>
-                            <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span><br />
-                        </td>
-                    </tr>
-                    <tr class="<?php echo $rowclass;?>">
-                        <td>&nbsp;</td>
-                        <td>
-                            <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
-                                      class="textarea-edit" rows="2" cols="55"><?php
-                                        if (isset($entry[$lang])) {
-                                            echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
-                                        };?></textarea>
-                            <br /><br />
-                        </td>
-                    </tr>
-            <?php
-                }
-            ?>
-                <tr class="<?php echo $cycleHelper->next();?>">
-                    <td>&nbsp;</td>
-                    <td>
-                        <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
-                        <input type="submit" class="Formbutton" name="save" value="Save" />
-                        <input type="submit" class="Formbutton" name="saveReturn" value="Save &amp; Return" />
-                        <input type="submit" class="Formbutton" name="saveUntranslated" value="Save &amp; Get Untranslated" />
-                        <input type="submit" class="Formbutton" name="cancel" value="Cancel" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <br /><br />
-    </div>
-<?php
-$cycleHelper->rewind();
-if (!empty($this->referenceLanguages)) {
-?>
-    <div style="float:left">
-        <table class="bdr small" style="margin-bottom: 20px;" summary="Output of reference languages">
-            <tr class="thead"><th colspan="5">Reference languages:</th></tr>
-            <?php
-            $rowclass = $cycleHelper->next();
-            foreach ($this->referenceLanguages as $lang) {
-                $rowclass = $cycleHelper->next();
-                ?>
-                <tr class="<?php echo $rowclass;?>">
-                    <td>
-                        <?php echo $this->printFlag($lang, 20);?>
-                    </td>
-                    <td colspan="4">
-                        <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
-                        <?php
-                            if (!isset($entry[$lang])) {
-                                echo '<i>Untranslated</i></td></tr>';
-                                continue;
-                            }
-                        ?>
-                        <br />
-                    </td>
-                </tr>
-                <tr class="<?php echo $rowclass;?>">
-                    <td>&nbsp;</td>
-                    <td colspan="4">
-                        <textarea readonly="readonly" id="textarea-<?php echo $this->languages[$lang]['id'];?>" class="textarea-edit" rows="2" cols="55"><?php echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));?></textarea>
-                    </td>
-                </tr>
-                <tr class="<?php echo $rowclass;?>">
-                    <td>&nbsp;</td>
-                    <td>Copy to:</td>
-                    <td>
-                        <?php foreach ($this->languagesEdit as $langEdit) { ?>
-                        <a href="#" class="copy">
-                            <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                        </a>
-                        <?php } ?>
-                    </td>
-                    <?php
-                        if ($apiKey > '') {
-                    ?>
-                    <td>Translate into:</td>
-                    <td>
-                        <?php
-                        foreach ($this->languagesEdit as $langEdit) {
-                            if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
-                                if ($lang == $langEdit) {
-                                    continue;
-                                }
-                                ?>
-                                <a href="#" class="translate">
-                                    <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                                </a>
-                                <?php
-                            }
-                        }
-                        ?>
-                    </td>
-                    <?php } else { ?>
-                    <td colspan="2">&nbsp;</td>
-                    <?php } ?>
-                </tr>
-                <tr class="<?php echo $cycleHelper->next();?>"><td colspan="5">&nbsp;</td></tr>
-                <?php
-            }
-            ?>
-        </table>
-    </div>
-<?php
-}
-?>
+<div style="float:left;margin-right:20px;">
+    <?php echo $this->partial('entries/edit/edit-languages.phtml', $viewData); ?>
+</div>
+<div style="float:left">
+    <?php echo $this->partial('entries/edit/reference-languages.phtml', $viewData);?>
+</div>
 <script type="text/javascript">
 <?php $this->jQuery()->onLoadCaptureStart();?>
     $("textarea").autoGrow();
@@ -184,7 +38,7 @@ if (!empty($this->referenceLanguages)) {
         translate(e);
     });
 <?php if (isset($this->entrySaved)) { ?>
-    $('#saveMessage').delay(3000).fadeOut(1400);
+    $('#saveMessage').delay(200).fadeIn(800).delay(2000).fadeOut(800);
 <?php
 }
 if ($this->user->hasRight('editKey')) { ?>
@@ -238,16 +92,19 @@ function translate(event) {
 <?php $this->jQuery()->onLoadCaptureEnd();?>
 </script>
 <?php
-if (isset($this->noUntranslatedFound)) {
-    $this->popUpMessage()->addMessage(
-        'noUntranslatedFound',
-        'Congratulations',
-        'All entries you can maintain are translated.<br>Congratulations and thank you for your work.<br /><br />Best regards, your project team',
-        array(
-            'modal' => true,
-            'height' => 180,
-            'width' => 320,
-            'dialogClass' => 'info',
-        )
-    );
+// show notification bar after saving action
+if (isset($this->entrySaved)) {
+    $notificationClass='ok';
+    if ($this->entrySaved == true) {
+        $notificationContent = $this->getIcon('Ok','',16) . ' ' . $this->lang->L_SAVED_SUCCESSFULLY . '.';
+    } else {
+        $notificationClass='error';
+        $notificationContent = $this->getIcon('Attention','',16) .' ' . $this->lang->L_SAVED_UNSUCCESSFULLY . '!';
+    }
+    ?>
+    <div id="saveMessage" class="notification-bar <?php echo $notificationClass;?>">
+            <?php echo $notificationContent;?>
+    </div>
+    <?php
 }
+?>

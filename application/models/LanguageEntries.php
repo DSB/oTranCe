@@ -109,18 +109,18 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get combined status info of all languages
      *
-     * @param array $languages Array with all active languages.
+     * @param array $languageIds Array with all active languages.
      *
      * @return array
      */
-    public function getStatus($languages)
+    public function getStatus($languageIds)
     {
         $ret = array();
         $totalLanguageVars = $this->getNrOfLanguageVars();
         $translators = $this->getTranslators();
         $pattern = "SELECT count(*) as anzahl FROM `" . $this->_tableTranslations . "` "
                    . " WHERE `lang_id`= %d AND `text` > ''";
-        foreach ($languages as $val) {
+        foreach ($languageIds as $val) {
             $langId = $val['id'];
             $sql = sprintf($pattern, (int)$val['id']);
             $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
@@ -289,20 +289,25 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
-     * Get the key id of the first untranslated variables in given languages
+     * Get the key id of untranslated key in given languages
      *
-     * @param int $languageId ID of languages to search in
+     * @param int $languageId Id of languages to search in
+     * @param int $offset     Skipped entries
      *
      * @return null|int
      */
-    public function getFirstUntranslated($languageId)
+    public function getUntranslatedKey($languageId, $offset = 0)
     {
+        if ($offset < 0) {
+            $offset = 0;
+        }
         $sql = 'SELECT k.`id`, t.`lang_id`, t.`text` FROM `' . $this->_tableKeys . '` k '
                 . ' LEFT JOIN `' . $this->_tableTranslations . '` t'
                 . ' ON t.`key_id` = k.`id`'
                 . ' AND t.`lang_id` = ' . $languageId
                 . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)'
-                . ' ORDER BY k.`key` ASC LIMIT 0, 1';
+                . ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', 1';
+
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (isset($res[0]['id'])) {
             return $res[0]['id'];

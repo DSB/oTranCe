@@ -249,11 +249,11 @@ class LanguageEntriesTest extends ControllerTestCase
     public function testGetFirstUntranslated()
     {
         // check we find the first untranslated key of language 1
-        $keyId = $this->model->getFirstUntranslated(1);
+        $keyId = $this->model->getUntranslatedKey(1);
         $this->assertEquals(2, $keyId);
 
         // check we get null if all keys are translated (case for language 2)
-        $keyId = $this->model->getFirstUntranslated(2);
+        $keyId = $this->model->getUntranslatedKey(2);
         $this->assertEquals(null, $keyId);
     }
 

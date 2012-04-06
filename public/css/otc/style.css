@@ -543,6 +543,9 @@ textarea {
 .floatLeft {
     float:left;
 }
+.floatRight {
+    float:right;
+}
 .right {
     text-align: right;
 }
@@ -552,7 +555,9 @@ textarea {
 .middle {
     vertical-align: middle;
 }
-
+.strong {
+    font-weight:bold;
+}
 .inputsize-middle {
     width: 90px;
 }
@@ -728,4 +733,25 @@ pre.xdebug-var-dump {
 .qq-upload-button {
     padding-top:3px;
     height:21px;
+}
+
+.notification-bar {
+    display:none;
+    position:absolute;
+    opacity:0.95;
+    top:0;
+    left:0;
+    width:100%;
+    line-height:38px;
+    height:38px;
+    text-align:center;
+    font-size:22px;
+    font-weight:normal;
+    color:#333;
+    border-top:1px solid #666;
+    border-bottom:1px solid #666;
+    background-color:#A1E85D;
+}
+.notification-bar.error {
+    background-color:#F9948A;
 }

@@ -179,31 +179,10 @@ class EntriesController extends Zend_Controller_Action
     {
         $id = $this->_request->getParam('id');
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
-            // editing canceled
-            if ($this->_request->getParam('cancel') != null) {
-                $this->_myForward('index');
-                return;
-            }
-            // in all other cases save changes first
             $this->view->entrySaved = $this->_saveEntries();
-            if ($this->view->entrySaved == 1) {
-                // return to entry list
-                if ($this->_request->getParam('saveReturn') !== null) {
-                    $this->_myForward('index');
-                    return;
-                }
-                // Get next untranslated var
-                if ($this->view->entrySaved !== false && $this->_request->getParam('saveUntranslated') != null) {
-                    $nextId = $this->_findNextUntranslated();
-                    if ($nextId !== null) {
-                        $id = $nextId;
-                    } else {
-                        $this->view->noUntranslatedFound = true;
-                    }
-                }
-            }
         }
         $this->setLanguages();
+        $this->view->langStatus = $this->_entriesModel->getStatus($this->getEditLanguages());
         $this->view->key   = $this->_entriesModel->getKeyById($id);
         $this->view->entry = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
         $this->view->user  = $this->_userModel;
@@ -212,148 +191,8 @@ class EntriesController extends Zend_Controller_Action
         $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
         $this->view->translatable         = Msd_Google::getTranslatableLanguages();
-    }
+        $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
 
-    /**
-     * Find next untranslated language variable and return its Id.
-     *
-     * Iterates over all languages the user is allowed to edit.
-     *
-     * @return int|null
-     */
-    private function _findNextUntranslated()
-    {
-        $nextId = null;
-        $langEnriesModel = new Application_Model_LanguageEntries();
-        $languages = $this->getEditLanguages();
-        foreach ($languages as $lang) {
-            $nextId = $langEnriesModel->getFirstUntranslated($lang);
-            if ($nextId !== null) {
-                break;
-            }
-        }
-        return $nextId;
-    }
-    /**
-     * Handle delete action
-     *
-     * @return void
-     */
-    public function deleteAction()
-    {
-        // check, that the user really has delete rights
-        if ($this->_userModel->hasRight('addVar')) {
-            $id = $this->_request->getParam('id');
-            $entry = $this->_entriesModel->getKeyById($id);
-            $res = $this->_entriesModel->deleteEntryByKeyId($id);
-            if ($res) {
-                $historyModel = new Application_Model_History();
-                $historyModel->logVarDeleted($entry['key']);
-            }
-        }
-        $this->_myForward('index');
-    }
-
-    /**
-     * Get post params and set to config which is saved top session
-     *
-     * @return void
-     */
-    private function _getParams()
-    {
-        $filterValues       = trim($this->_request->getParam('filterValues', ''));
-        $filterKeys         = trim($this->_request->getParam('filterKeys', ''));
-        $offset             = (int) $this->_request->getParam('offset', 0);
-        $recordsPerPage     = (int) $this->_request->getParam('recordsPerPage', 0);
-        // will be not 0 if set and set to id of language to search in
-        $getUntranslated    = (int) $this->_request->getParam('getUntranslated', 0);
-        $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
-        $this->_dynamicConfig->setParam('entries.offset', $offset);
-        $this->_dynamicConfig->setParam('entries.filterValues', $filterValues);
-        $this->_dynamicConfig->setParam('entries.filterKeys', $filterKeys);
-        $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
-        $this->_dynamicConfig->setParam('entries.getUntranslated', $getUntranslated);
-        $this->_dynamicConfig->setParam('entries.fileTemplateFilter', $fileTemplateFilter);
-    }
-
-    /**
-     * Set default session values on first page call
-     *
-     * @return void
-     */
-    private function _setSessionParams()
-    {
-        // set defaults on first page call
-        if ($this->_dynamicConfig->getParam('entries.recordsPerPage') == 0) {
-            $this->_dynamicConfig->setParam('entries.offset', 0);
-            $this->_dynamicConfig->setParam('entries.filterValues', '');
-            $this->_dynamicConfig->setParam('entries.filterKeys', '');
-            $recordsPerPage = $this->_userModel->loadSetting('entries.recordsPerPage', 20);
-            $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
-            $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
-            $this->view->addVar = $this->_userModel->hasRight('addVar');
-        }
-    }
-
-    /**
-     * Assign params to view (formerly taken from post or session)
-     *
-     * @return void
-     */
-    private function _assignVars()
-    {
-        $this->view->filterValues    = $this->_dynamicConfig->getParam('entries.filterValues');
-        $this->view->filterKeys      = $this->_dynamicConfig->getParam('entries.filterKeys');
-        $this->view->offset          = $this->_dynamicConfig->getParam('entries.offset');
-        $this->view->recordsPerPage  = $this->_dynamicConfig->getParam('entries.recordsPerPage');
-        $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
-        $this->view->addVar          = $this->_userModel->hasRight('addVar');
-
-    }
-
-    /**
-     * Save and log changes
-     *
-     * @return bool
-     */
-    private function _saveEntries()
-    {
-        $params = $this->getRequest()->getParams();
-        $values = array();
-        foreach ($params as $name => $val) {
-            if (substr($name, 0, 5) == 'edit-') {
-                $values[substr($name, 5)] = trim($val);
-            }
-        }
-        $res = true;
-        if (isset($params['fileTemplate'])) {
-            $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
-        }
-        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
-        return $res;
-    }
-
-    /**
-     * Get list of edit languages
-     *
-     * @return array
-     */
-    public function getEditLanguages()
-    {
-        $userModel = new Application_Model_User();
-        return $userModel->getUserLanguageRights();
-    }
-
-    /**
-     * Get an entry by it's database id
-     *
-     * @param int $id Id of entry record
-     *
-     * @return array
-     */
-    public function getEntryById($id)
-    {
-        return $this->_entriesModel->getEntryById($id, $this->_showLanguages);
     }
 
     /**
@@ -410,6 +249,170 @@ class EntriesController extends Zend_Controller_Action
     }
 
     /**
+     * Find next untranslated key
+     *
+     * @return void
+     */
+    public function getNextUntranslatedKeyAction()
+    {
+        $languageId  = (int)$this->_request->getParam('languageId');
+        $skippedKeys = $this->_getLanguageKeyOffset($languageId);
+        $skippedKeys[$languageId]++;
+        $id = $this->_findNextUntranslated($languageId, $skippedKeys[$languageId]);
+        if ($id === null) {
+            // nothing found - decrease offset and fetch entry we came from
+            $skippedKeys[$languageId]--;
+            $id = $this->_request->getParam('entryId');
+        }
+        $this->_setKeyOffsetAndForwardToEditAction($id, $skippedKeys);
+    }
+
+    /**
+     * Find previous or first untranslated key
+     *
+     * @return void
+     */
+    public function getPreviousUntranslatedKeyAction()
+    {
+        $languageId = (int) $this->_request->getParam('languageId');
+        $skippedKeys = $this->_getLanguageKeyOffset($languageId);
+        $skippedKeys[$languageId]--;
+
+        $id = $this->_findNextUntranslated($languageId, $skippedKeys[$languageId]);
+        if ($id === null) {
+            // nothing found - reset offset and fetch entry we came from
+            $skippedKeys[$languageId] = 0;
+            $id = $this->_request->getParam('entryId');
+        }
+        if ($skippedKeys[$languageId] < 0) {
+            $skippedKeys[$languageId] = 0;
+        }
+        $this->_setKeyOffsetAndForwardToEditAction($id, $skippedKeys);
+    }
+
+    /**
+     * Handle delete action
+     *
+     * @return void
+     */
+    public function deleteAction()
+    {
+        // check, that the user really has delete rights
+        if ($this->_userModel->hasRight('addVar')) {
+            $id = $this->_request->getParam('id');
+            $entry = $this->_entriesModel->getKeyById($id);
+            $res = $this->_entriesModel->deleteEntryByKeyId($id);
+            if ($res) {
+                $historyModel = new Application_Model_History();
+                $historyModel->logVarDeleted($entry['key']);
+            }
+        }
+        $this->_myForward('index');
+    }
+
+    /**
+     * Get post params and set to config which is saved top session
+     *
+     * @return void
+     */
+    private function _getParams()
+    {
+        $filterValues       = trim($this->_request->getParam('filterValues', ''));
+        $filterKeys         = trim($this->_request->getParam('filterKeys', ''));
+        $offset             = (int) $this->_request->getParam('offset', 0);
+        $recordsPerPage     = (int) $this->_request->getParam('recordsPerPage', 0);
+
+        // will be not 0 if set and set to id of language to search in
+        $getUntranslated    = (int) $this->_request->getParam('getUntranslated', 0);
+        $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
+        $this->_dynamicConfig->setParam('entries.offset', $offset);
+        $this->_dynamicConfig->setParam('entries.filterValues', $filterValues);
+        $this->_dynamicConfig->setParam('entries.filterKeys', $filterKeys);
+        $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
+        $this->_dynamicConfig->setParam('entries.getUntranslated', $getUntranslated);
+        $this->_dynamicConfig->setParam('entries.fileTemplateFilter', $fileTemplateFilter);
+    }
+
+    /**
+     * Set default session values on first page call
+     *
+     * @return void
+     */
+    private function _setSessionParams()
+    {
+        // set defaults on first page call
+        if ($this->_dynamicConfig->getParam('entries.recordsPerPage') == 0) {
+            $this->_dynamicConfig->setParam('entries.offset', 0);
+            $this->_dynamicConfig->setParam('entries.filterValues', '');
+            $this->_dynamicConfig->setParam('entries.filterKeys', '');
+            $recordsPerPage = $this->_userModel->loadSetting('entries.recordsPerPage', 20);
+            $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
+            $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
+            $this->view->addVar = $this->_userModel->hasRight('addVar');
+        }
+    }
+
+    /**
+     * Assign params to view (formerly taken from post or session)
+     *
+     * @return void
+     */
+    private function _assignVars()
+    {
+        $this->view->filterValues    = $this->_dynamicConfig->getParam('entries.filterValues');
+        $this->view->filterKeys      = $this->_dynamicConfig->getParam('entries.filterKeys');
+        $this->view->offset          = $this->_dynamicConfig->getParam('entries.offset');
+        $this->view->recordsPerPage  = $this->_dynamicConfig->getParam('entries.recordsPerPage');
+        $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
+        $this->view->addVar          = $this->_userModel->hasRight('addVar');
+    }
+
+    /**
+     * Save and log changes
+     *
+     * @return bool
+     */
+    private function _saveEntries()
+    {
+        $params = $this->getRequest()->getParams();
+        $values = array();
+        foreach ($params as $name => $val) {
+            if (substr($name, 0, 5) == 'edit-') {
+                $values[substr($name, 5)] = trim($val);
+            }
+        }
+        $res = true;
+        if (isset($params['fileTemplate'])) {
+            $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
+        }
+        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
+        return $res;
+    }
+
+    /**
+     * Get list of edit languages
+     *
+     * @return array
+     */
+    public function getEditLanguages()
+    {
+        $userModel = new Application_Model_User();
+        return $userModel->getUserLanguageRights();
+    }
+
+    /**
+     * Get an entry by it's database id
+     *
+     * @param int $id Id of entry record
+     *
+     * @return array
+     */
+    public function getEntryById($id)
+    {
+        return $this->_entriesModel->getEntryById($id, $this->_showLanguages);
+    }
+
+    /**
      * Set forward flag and forward to action
      *
      * @param  string $action
@@ -421,4 +424,53 @@ class EntriesController extends Zend_Controller_Action
         $this->_request->setParam('forwarded', true);
         $this->_forward($action);
     }
+
+    /**
+     * Get the skip keys offsets array and apply standard values if not set.
+     *
+     * @param int $languageId Id of language to get the offset for
+     *
+     * @return array
+     */
+    private function _getLanguageKeyOffset($languageId)
+    {
+        $skippedKeys = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
+        if (!is_array($skippedKeys)) {
+            $skippedKeys = array();
+        }
+        if (!isset($skippedKeys[$languageId])) {
+            $skippedKeys[$languageId] = 0;
+        }
+        return $skippedKeys;
+    }
+
+    /**
+     * Saves the determined entry id and skip key array to session and forwards to the edit action.
+     *
+     * @param int   $id          Id of entry to edit
+     * @param array $skippedKeys Array[langId => offset] holding key offsets per language
+     */
+    private function _setKeyOffsetAndForwardToEditAction($id, $skippedKeys)
+    {
+        $this->_dynamicConfig->setParam('entries.skippedKeys', $skippedKeys);
+        $this->_request->setParam('id', $id);
+        $this->_forward('edit');
+    }
+
+    /**
+     * Find next untranslated language variable and return its Id.
+     *
+     * Iterates over all languages the user is allowed to edit.
+     *
+     * @param int $languageId Language to search in
+     * @param int $offset     Number of keys to skip
+     *
+     * @return int|null
+     */
+    private function _findNextUntranslated($languageId, $offset = 0)
+    {
+        $langEnriesModel = new Application_Model_LanguageEntries();
+        return $langEnriesModel->getUntranslatedKey($languageId, $offset);
+    }
+
 }

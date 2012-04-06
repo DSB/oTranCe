@@ -69,9 +69,6 @@ $projectConfig = $this->config->getParam('project');
     </tr>
     <?php
     $i = 1;
-    /**
-     * @var Zend_View_Helper_Cycle $cycle
-     */
     $cycle = $this->cycle(array('row-even', 'row-odd'));
     $switchStatusTitle = 'title="'. $this->lang->L_CHANGE_STATUS . '"';
     foreach ($this->languages as $key => $language)
@@ -120,8 +117,7 @@ $projectConfig = $this->config->getParam('project');
     ?>
 </table>
 
-<div class="spacer clear"></div>
-
+<div class="spacer"></div>
 <h4><?php echo $this->lang->L_CHANGE_YOUR_PASSWORD; ?></h4>
 <table class="bdr" summary="Change the password of your user account.">
     <tr class="thead">

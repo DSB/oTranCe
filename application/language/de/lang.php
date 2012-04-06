@@ -95,6 +95,7 @@ $lang = array(
 'L_EXPORT_VCSERROR' => 'VCS-Fehler',
 'L_EXPORT_VCS_OUTPUT' => 'VCS-Ausgabe',
 'L_FALLBACK_LANGUAGE' => 'Hauptsprache',
+'L_FILE' => 'Datei',
 'L_FILEBROWSER' => 'Dateibrowser',
 'L_FILENAME' => 'Dateiname',
 'L_FILESIZE' => 'Dateigröße',

@@ -12,7 +12,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </tr>
     <?php
         foreach ($this->languages as $language) {
-            $label = '<label for="lang-' . $language['id'] .' class="switchLanguageEditRightLabel">';
+            $label = '<label for="lang-' . $language['id'] .'" class="switchLanguageEditRightLabel">';
             ?>
             <tr class="<?php echo $cycleHelper->next();?>">
                 <td class="right">

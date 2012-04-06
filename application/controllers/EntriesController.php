@@ -182,7 +182,13 @@ class EntriesController extends Zend_Controller_Action
             $this->view->entrySaved = $this->_saveEntries();
         }
         $this->setLanguages();
-        $this->view->langStatus = $this->_entriesModel->getStatus($this->getEditLanguages());
+        $editLanguages = $this->getEditLanguages();
+        
+        $getStatus = array();
+        foreach ($editLanguages as $languageId) {
+            $getStatus[]['id'] = $languageId;
+        }
+        $this->view->langStatus = $this->_entriesModel->getStatus($getStatus);
         $this->view->key   = $this->_entriesModel->getKeyById($id);
         $this->view->entry = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
         $this->view->user  = $this->_userModel;

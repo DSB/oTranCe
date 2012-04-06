@@ -113,6 +113,8 @@ $lang = array(
 'L_FOLLOWING_ERROR_OCCURED_WHILE_SAVING_CHANGES' => 'The following error occurred while saving your changes',
 'L_FOOTER' => 'Footer',
 'L_GENERATED_CONTENT' => 'Generated content',
+'L_GET_LAST_UNTRANSLATED_KEY' => 'Get last untranslated key',
+'L_GET_NEXT_UNTRANSLATED_KEY' => 'Find next untranslated key',
 'L_GOTO_REGISTER_PAGE' => 'You don\'t have an account yet? You can <a href="%s">register</a> an account here.',
 'L_HEADER' => 'Header',
 'L_HEADER_EXPORT' => 'Export',

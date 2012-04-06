@@ -112,6 +112,8 @@ $lang = array(
 'L_FOLLOWING_ERROR_OCCURED_WHILE_SAVING_CHANGES' => 'Beim Speichern der Änderung trat folgende Fehler trat auf',
 'L_FOOTER' => 'Fußzeilen',
 'L_GENERATED_CONTENT' => 'Generierter Inhalt',
+'L_GET_LAST_UNTRANSLATED_KEY' => 'Finde vorherigen unübersetzten Schlüssel',
+'L_GET_NEXT_UNTRANSLATED_KEY' => 'Finde nächsten unübersetzten Schlüssel',
 'L_GOTO_REGISTER_PAGE' => 'Sie haben noch kein Benutzerkonto? <a href="%s">Registrieren</a> Sie sich hier.',
 'L_HEADER' => 'Kopf',
 'L_HEADER_EXPORT' => 'Export',

@@ -36,20 +36,20 @@ $entry = $this->entry;
             </td>
         </tr>
         <?php
-        foreach ($this->languagesEdit as $lang) {
+        foreach ($this->languagesEdit as $languageId) {
             $rowclass = $cycleHelper->next();
-            if (!isset($this->skipKeysOffsets[$lang['id']])) {
-                $this->skipKeysOffsets[$lang['id']] = 0;
+            if (!isset($this->skipKeysOffsets[$languageId])) {
+                $this->skipKeysOffsets[$languageId] = 0;
             }
             ?>
             <tr class="<?php echo $rowclass;?>">
-                <td><?php echo $this->printFlag($lang);?></td>
+                <td><?php echo $this->printFlag($languageId);?></td>
                 <td>
-                    <?php if ($this->langStatus[$lang['id']]['notTranslated'] > 0) { ?>
+                    <?php if ($this->langStatus[$languageId]['notTranslated'] > 0) { ?>
                     <span class="floatRight">
                         <?php
-                        if ($this->skipKeysOffsets[$lang['id']] >= 0) { ?>
-                            <a href="<?php echo $this->baseUrl() . '/entries/get-previous-untranslated-key/languageId/' . $lang['id'];?>" class="Formbutton">
+                        if ($this->skipKeysOffsets[$languageId] >= 0) { ?>
+                            <a href="<?php echo $this->baseUrl() . '/entries/get-previous-untranslated-key/languageId/' . $languageId;?>" class="Formbutton">
                                 <?php echo $this->getIcon('Back', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
                             </a><?php
                         } else { ?>
@@ -59,8 +59,8 @@ $entry = $this->entry;
                         } ?>
 
                         <?php
-                        if ($this->skipKeysOffsets[$lang['id']] +1 < $this->langStatus[$lang['id']]['notTranslated']) { ?>
-                            <a href="<?php echo $this->baseUrl() . '/entries/get-next-untranslated-key/languageId/' . $lang['id']
+                        if ($this->skipKeysOffsets[$languageId] +1 < $this->langStatus[$languageId]['notTranslated']) { ?>
+                            <a href="<?php echo $this->baseUrl() . '/entries/get-next-untranslated-key/languageId/' . $languageId
                                 . '/entryId/' . $this->key['id'];?>" class="Formbutton">
                                 <?php echo $this->getIcon('Forward', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
                             </a><?php
@@ -73,12 +73,12 @@ $entry = $this->entry;
                     </span>
                     <?php } ?>
                     <span class="small floatLeft">
-                        <b><?php echo $this->languages[$lang]['name'];?>:</b>
+                        <b><?php echo $this->languages[$languageId]['name'];?>:</b>
                         <br />
-                        <?php echo $this->lang->L_PROGRESS . ' ' . $this->langStatus[$lang['id']]['done'];?>%
+                        <?php echo $this->lang->L_PROGRESS . ' ' . $this->langStatus[$languageId]['done'];?>%
                         <?php
-                            if ($this->langStatus[$lang['id']]['notTranslated'] > 0) {
-                                echo $this->lang->L_UNTRANSLATED. ': ' . $this->langStatus[$lang['id']]['notTranslated'];
+                            if ($this->langStatus[$languageId]['notTranslated'] > 0) {
+                                echo $this->lang->L_UNTRANSLATED. ': ' . $this->langStatus[$languageId]['notTranslated'];
                             }
                           ?>
                     </span>
@@ -87,10 +87,10 @@ $entry = $this->entry;
             <tr class="<?php echo $rowclass;?>">
                 <td>&nbsp;</td>
                 <td>
-                    <textarea id="edit-<?php echo $this->languages[$lang]['id'];?>" name="edit-<?php echo $this->languages[$lang]['id'];?>"
+                    <textarea id="edit-<?php echo $this->languages[$languageId]['id'];?>" name="edit-<?php echo $this->languages[$languageId]['id'];?>"
                               class="textarea-edit" rows="2" cols="55"><?php
-                                if (isset($entry[$lang])) {
-                                    echo trim(htmlentities($entry[$lang], ENT_COMPAT, 'utf-8'));
+                                if (isset($entry[$languageId])) {
+                                    echo trim(htmlentities($entry[$languageId], ENT_COMPAT, 'utf-8'));
                                 };?></textarea>
                     <br /><br />
                 </td>

@@ -96,10 +96,8 @@ class Admin_UsersController extends AdminController
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
                         $userId = (int) $result;
-                        $this->view->saveMessage = true;
-                    } else {
-                        $this->view->saveErrorMessage = true;
                     }
+                    $this->view->saved = (bool) $result;
                     $userData = $this->_userModel->getUserById($userId);
                 }
             }

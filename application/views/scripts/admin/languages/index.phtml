@@ -150,35 +150,13 @@ $('.switchLanguageStatus').click(function() {
         }
     });
 });
-
 <?php
-if (isset($this->languageDeleted)) {
-    if ($this->languageDeleted == true) {
-        $this->popUpMessage()->addMessage(
-            'languageDeleted',
-            $this->lang->L_NOTICE,
-            $this->lang->L_LANGUAGE_DELETED_SUCCESSFULLY,
-            array(
-                'modal' => true,
-                'height' => 160,
-                'width' => 340,
-                'dialogClass' => 'info',
-            )
-        );
-    } else {
-        $this->popUpMessage()->addMessage(
-            'languageDeleted',
-            $this->lang->L_ERROR,
-            $this->lang->L_ERROR_DELETING_LANGUAGE,
-            '',
-            array(
-                'modal' => true,
-                'height' => 140,
-                'width' => 340,
-                'dialogClass' => 'info',
-            )
-        );
-
-    }
-}
 $this->jQuery()->onLoadCaptureEnd();
+if (isset($this->languageDeleted)) {
+    $this->showNotification(
+        $this->languageDeleted,
+        $this->lang->L_LANGUAGE_DELETED_SUCCESSFULLY,
+        $this->lang->L_ERROR_DELETING_LANGUAGE,
+        4000
+    );
+}

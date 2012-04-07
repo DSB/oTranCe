@@ -88,34 +88,13 @@ if (!empty($this->errors)) {
     );
 };
 
-if (isset($this->saveMessage) && $this->saveMessage === true) {
-    $this->popUpMessage()->addMessage(
-        'settingsSaved',
-        'Ok',
-        'Your changes have been saved successfully.',
-        array(
-            'modal' => true,
-            'height' => 130,
-            'width' => 340,
-            'dialogClass' => 'info',
-        )
-    );
-};
-
-if (isset($this->saveErrorMessage)) {
-    $this->popUpMessage()->addMessage(
-        'settingsSaved',
-        'Error',
-        'An error occured while saving your changes.<br />Please try again.',
-        array(
-            'modal' => true,
-            'height' => 170,
-            'width' => 340,
-            'dialogClass' => 'info',
-        )
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_SAVED_SUCCESSFULLY . '.',
+        $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
     );
 }
-
 $this->jQuery()->onLoadCaptureStart();
 ?>
 $('.switchRight').click(function() {

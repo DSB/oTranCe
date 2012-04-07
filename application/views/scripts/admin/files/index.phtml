@@ -166,34 +166,25 @@ $('.expandButton').click(function(){
 });
 <?php $this->jQuery()->onLoadCaptureEnd(); ?>
 </script>
-<?php if ($this->deletionResult !== null) {
+<?php
+if ($this->deletionResult !== null) {
     if ($this->deletionResult['delete'] && $this->deletionResult['update']) {
-        $this->popUpMessage()->addMessage(
-            'deletionSuccess',
-            $this->lang->L_DELETION_SUCCESSFULL,
-            '<span class="success">' . $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY . '.<br/><br/>' . $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED .'.</span>',
-            array(
-                'modal' => true,
-                'dialogClass' => 'success',
-                'width' => '350px',
-            )
+        $this->showNotification(
+            true,
+            $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY . '.<br/>'
+                . $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED . '.',
+            '',
+            6000
         );
     } else {
-        $deletion = $this->deletionResult['delete'] ?
-            '<span class="success">' . $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY .'.</span>' :
-            '<span class="error">Can\'t delete the file template.</span>';
-        $update = $this->deletionResult['update'] ?
-            '<span class="success">' . $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED . '.</span>' :
-            '<span class="error">' . $this->lang->L_ERROR_UPDATING_FILE_TEMPLATE .'.</span>';
-        $this->popUpMessage()->addMessage(
-            'deletionErroneous',
-            'Deletion successful',
-            $deletion . '<br/><br/>' . $update,
-            array(
-                'modal' => true,
-                'dialogClass' => 'error',
-                'width' => '350px',
-            )
-        );
+        $message = $this->deletionResult['delete'] ?
+            $this->lang->L_FILE_TEMPLATE_DELETED_SUCCESSFULLY . '.' :
+            $this->lang->L_ERROR_DELETING_FILE_TEMPLATE . '!';
+        $message .= '<br />';
+        $message .= $this->deletionResult['update'] ?
+            $this->lang->L_TEMPLATE_ASSIGNMENTS_UPDATED . '.' :
+            $this->lang->L_ERROR_UPDATING_FILE_TEMPLATE . '!';
+
+        $this->showNotification(false, '', $message, 6000);
     }
 }

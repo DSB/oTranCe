@@ -157,30 +157,10 @@ if ($this->flag == 'notDeleted') {
 }
 
 if (isset($this->creationResult)) {
-    if ($this->creationResult === true) {
-        $this->popUpMessage()->addMessage(
-            'settingsSaved',
-            'Ok',
-            'Your changes have been saved successfully.',
-            array(
-                 'modal' => true,
-                 'height' => 130,
-                 'width' => 400,
-                 'dialogClass' => 'info',
-            )
-        );
-    } else {
-        $this->popUpMessage()->addMessage(
-            'settingsSaved',
-            'Error',
-            'The following error occurred while saving your changes.<br /><br/><span class="error">'
-                . $this->creationResult . '</span><br /><br/>Please try again.<br/><br/>',
-            array(
-                'modal' => true,
-                'width' => 400,
-                'dialogClass' => 'info',
-            )
-        );
-    }
+    $this->showNotification(
+        $this->creationResult,
+        $this->lang->L_SAVED_SUCCESSFULLY . '.',
+        $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
+    );
 }
 

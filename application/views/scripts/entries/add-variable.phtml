@@ -1,27 +1,35 @@
-    <h2>Add entry</h2>
-    <form action="<?php echo $this->baseUrl();?>/entries/add-variable" method="post">
+<h2><?php echo $this->lang->L_ADD_ENTRY;?></h2>
+<form action="<?php echo $this->baseUrl();?>/entries/add-variable" method="post">
     <table class="bdr">
         <tr class="thead">
-            <th colspan="2">Add a new language variable</th>
+            <th colspan="2"><?php echo $this->lang->L_ADD_NEW_KEY;?></th>
         </tr>
         <tr class="row-odd">
-            <td><label for="var">Enter the name of the new language variable:</label></td>
-            <td><input type="text" style="width:400px;" id="var" class="text" name="var" value="<?php echo $this->escape($this->newVar);?>" /></td>
+            <td>
+                <label for="var"><?php echo $this->lang->L_NAME;?>:</label>
+            </td>
+            <td>
+                <input type="text" style="width:400px;" id="var" class="text" name="var" value="<?php echo $this->escape($this->newVar);?>" />
+            </td>
         </tr>
         <tr class="row-even">
-            <td><label for="fileTemplate">Select the file template to assign to:</label></td>
+            <td>
+                <label for="fileTemplate">
+                    <?php echo $this->lang->L_SELECT_ASSIGNED_FILE_TEMPLATE;?>:
+                </label>
+            </td>
             <td>
                 <?php echo $this->printFileTemplateHtml($this->fileTemplateSelected); ?>
             </td>
         </tr>
         <tr class="row-odd">
             <td>&nbsp;</td>
-            <td><button type="submit" class="Formbutton" value="Save" name="save"><?php echo $this->getIcon('save', '');?> Save</button>
-                <button type="submit" class="Formbutton" value="Cancel" name="cancel"><?php echo $this->getIcon('delete', '');?> Cancel</button>
+            <td><button type="submit" class="Formbutton" value="Save" name="save"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE;?></button>
+                <button type="submit" class="Formbutton" value="Cancel" name="cancel"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_CANCEL;?></button>
             </td>
         </tr>
     </table>
-    </form>
+</form>
 <?php
 $this->jQuery()->addOnLoad("$('#var').focus();");
 if (isset($this->error)) {
@@ -37,4 +45,3 @@ if (isset($this->error)) {
         )
     );
 }
-?>

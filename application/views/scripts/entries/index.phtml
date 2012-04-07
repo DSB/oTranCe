@@ -124,12 +124,7 @@ $entriesModel = new Application_Model_LanguageEntries();
         </span>
     </p>
 </form>
-<?php
-if (empty($this->showLanguages)) {
-    echo '<div class="error">' . $this->lang->L_YOU_CANNOT_EDIT_ANY_LANGUAGE . '.</div></div>';
-    return;
-}
-?>
+
 <table class="bdr small" summary="List of entries">
     <tr class="thead">
         <?php
@@ -159,7 +154,10 @@ foreach ($this->hits as $hit)
 {
     $keyId = $hit['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
+    $edit = '<a>';
+    if (sizeof($this->languagesEdit) > 0) {
+        $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
+    }
     $editTemplate = $edit;
     if ($this->user->hasRight('addTemplate')) {
         $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';

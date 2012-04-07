@@ -6,7 +6,7 @@ $entry = $this->entry;
 if (!empty($this->referenceLanguages)) {
 ?>
 <table class="bdr small" style="margin-bottom: 20px;" summary="Output of reference languages">
-    <tr class="thead"><th colspan="5">Reference languages:</th></tr>
+    <tr class="thead"><th colspan="5"><?php echo $this->lang->L_REFERENCE_LANGUAGES;?>:</th></tr>
     <?php
     $rowclass = $cycleHelper->next();
     foreach ($this->referenceLanguages as $lang) {
@@ -19,8 +19,8 @@ if (!empty($this->referenceLanguages)) {
             <td colspan="4">
                 <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
                 <?php
-                    if (!isset($entry[$lang])) {
-                        echo '<i>Untranslated</i></td></tr>';
+                    if (!isset($entry[$lang])) { ?>
+                        <i><?php echo $this->lang->L_UNTRANSLATED;?></i></td></tr><?php
                         continue;
                     }
                 ?>
@@ -35,38 +35,34 @@ if (!empty($this->referenceLanguages)) {
         </tr>
         <tr class="<?php echo $rowclass;?>">
             <td>&nbsp;</td>
-            <td colspan="2">Copy to:&nbsp;
-                <?php foreach ($this->languagesEdit as $langEdit) { ?>
-                <a href="#" class="copy">
-                    <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                </a>
-                <?php } ?>
+            <td colspan="2">
+                <?php echo $this->lang->L_COPY_TO;?>:&nbsp;<?php
+                foreach ($this->languagesEdit as $langEdit) { ?>
+                    <a href="#" class="copy">
+                        <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                    </a><?php
+                } ?>
             </td>
             <?php
             if ($apiKey > '') { ?>
-                <td colspan="2">Translate into: &nbsp;
-                <?php
+                <td colspan="2"><?php echo $this->lang->L_TRANSLATE_TO;?>: &nbsp;<?php
                     foreach ($this->languagesEdit as $langEdit) {
                         if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
                             if ($lang == $langEdit) {
                                 continue;
-                            }
-                            ?>
+                            } ?>
                             <a href="#" class="translate">
                                 <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                            </a>
-                            <?php
+                            </a><?php
                         }
                     }
-                } else { ?>
-                    <td colspan="3">&nbsp;
-                <?php } ?>
-                </td>
+            } else { ?>
+                <td colspan="3">&nbsp;<?php
+            } ?>
+            </td>
         </tr>
-        <tr class="<?php echo $cycleHelper->current();?>" style="line-height:4px;"><td colspan="5"></td></tr>
-        <?php
+        <tr class="<?php echo $cycleHelper->current();?>" style="line-height:4px;"><td colspan="5"></td></tr><?php
     }
     ?>
-</table>
-<?php
+</table><?php
 }

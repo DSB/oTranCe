@@ -16,6 +16,7 @@ $lang = array(
 'L_ACCOUNT_SETTINGS' => 'Account settings',
 'L_ADD' => 'Add',
 'L_ADDED' => 'added',
+'L_ADD_ENTRY' => 'Add a new entry',
 'L_ADD_FILE_TEMPLATE' => 'Add file template',
 'L_ADD_NEW_KEY' => 'Add new key',
 'L_ADD_NEW_LANGUAGE' => 'Add new language',

@@ -32,13 +32,14 @@ class Msd_View_Helper_ShowNotification extends Zend_View_Helper_Abstract
     {
         if ($success === true) {
             $class = 'ok';
-            $content = $this->view->getIcon('Ok', '', 16) . ' ' . $okMessage;
+            $content = $this->view->getIcon('Ok', '', 16) . ' ' . $this->view->jsEscape($okMessage);
         } else {
             $class = 'error';
-            $content = $this->view->getIcon('Attention', '', 16) .' ' . $errorMessage;
+            $content = $this->view->getIcon('Attention', '', 16) .' ' . $this->view->jsEscape($errorMessage);
         }
+
         $this->view->jQuery()->onLoadCaptureStart(); ?>
-        var notify = '<div id="notify" class="notification-bar <?php echo $class;?>"><?php echo $this->view->jsEscape($content);?></div>';
+        var notify = '<div id="notify" class="notification-bar <?php echo $class;?>"><?php echo $content;?></div>';
         $('body').append(notify);
         $('#notify').delay(200).fadeIn(600).delay(<?php echo $duration;?>).fadeOut(600);
         <?php

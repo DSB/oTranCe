@@ -392,7 +392,7 @@ class EntriesController extends Zend_Controller_Action
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
         $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
-        return $res;
+        return (bool) $res;
     }
 
     /**

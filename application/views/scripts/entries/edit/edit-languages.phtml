@@ -99,7 +99,7 @@ $entry = $this->entry;
             <td>
                 <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
                 <?php
-                if ($this->user->hasRight('editVar')) { ?>
+                if ($this->user->hasRight('addVar')) { ?>
                     <a href="#" class="Formbutton" id="save-button" onclick="$('#editForm').submit()">
                         <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_SAVE;?>
                     </a><?php

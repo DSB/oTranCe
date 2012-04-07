@@ -213,31 +213,11 @@ $this->popUpMessage()->addMessage(
     )
 );
 if (isset($this->saved)) {
-    if ($this->saved !== false) {
-        $this->popUpMessage()->addMessage(
-            'settingsSaved',
-            $this->lang->L_SUCCESS,
-            $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
-            array(
-                'modal' => true,
-                'height' => 160,
-                'width' => 260,
-                'dialogClass' => 'info',
-            )
-        );
-    } else {
-        $this->popUpMessage()->addMessage(
-            'settingsNotSaved',
-            $this->lang->L_ERROR,
-            $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN,
-            array(
-                'modal' => true,
-                'height' => 160,
-                'width' => 260,
-                'dialogClass' => 'info',
-            )
-        );
-    }
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
 };
 $this->jQuery()->onLoadCaptureStart(); ?>
 $('.switchUserReferenceLanguage').click(function() {
@@ -264,6 +244,5 @@ $('.switchUserReferenceLanguageLabel').click(function() {
     var id = $(this).attr('for');
     $('#' + id).trigger('click');
 });
-
 <?php
 $this->jQuery()->onLoadCaptureEnd();

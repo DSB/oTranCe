@@ -168,7 +168,7 @@ class SettingsController extends Msd_Controller_Action
      */
     public function deleteCredentialsAction()
     {
-        $this->_userModel->deleteSetting('vcsCredentials');
+        $this->view->saved = $this->_userModel->deleteSetting('vcsCredentials');
         $this->_forward('index');
     }
 

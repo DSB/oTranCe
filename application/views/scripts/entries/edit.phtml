@@ -39,7 +39,6 @@ $viewData = array(
         translate(e);
     });
 <?php if (isset($this->entrySaved)) { ?>
-    $('#saveMessage').delay(200).fadeIn(800).delay(2000).fadeOut(800);
 <?php
 }
 if ($this->user->hasRight('editKey')) { ?>
@@ -90,22 +89,17 @@ function translate(event) {
         }
     });
 }
-<?php $this->jQuery()->onLoadCaptureEnd();?>
-</script>
 <?php
-// show notification bar after saving action
+$this->jQuery()->onLoadCaptureEnd();
 if (isset($this->entrySaved)) {
-    $notificationClass='ok';
-    if ($this->entrySaved == true) {
-        $notificationContent = $this->getIcon('Ok','',16) . ' ' . $this->lang->L_SAVED_SUCCESSFULLY . '.';
-    } else {
-        $notificationClass='error';
-        $notificationContent = $this->getIcon('Attention','',16) .' ' . $this->lang->L_SAVED_UNSUCCESSFULLY . '!';
-    }
-    ?>
-    <div id="saveMessage" class="notification-bar <?php echo $notificationClass;?>">
-            <?php echo $notificationContent;?>
-    </div>
-    <?php
+    $this->showNotification(
+        $this->entrySaved,
+        $this->lang->L_SAVED_SUCCESSFULLY . '.',
+        $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
+    );
 }
 ?>
+</script>
+
+
+

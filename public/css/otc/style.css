@@ -743,7 +743,7 @@ pre.xdebug-var-dump {
     left:0;
     width:100%;
     line-height:38px;
-    height:38px;
+    min-height:38px;
     text-align:center;
     font-size:22px;
     font-weight:normal;

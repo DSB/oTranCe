@@ -155,33 +155,14 @@ $('.switchUserEditRight').click(function() {
     });
 });
 <?php
-if (isset($this->userDeleted)) {
-    if ($this->userDeleted == true) {
-        $this->popUpMessage()->addMessage(
-            'userDeleted',
-            $this->lang->L_SUCCESS,
-            $this->jsEscape($this->lang->L_USER_DELETED_SUCCESSFULLY) .'<br />' . $this->lang->L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS,
-            array(
-                'modal' => true,
-                'height' => 160,
-                'width' => 340,
-                'dialogClass' => 'info',
-            )
-        );
-    } else {
-        $this->popUpMessage()->addMessage(
-            'userDeleted',
-            $this->lang->L_ERROR,
-            $this->lang->L_ERROR_DELETING_USER . '<br />' . $this->lang->L_TRY_AGAIN,
-            array(
-                'modal' => true,
-                'height' => 140,
-                'width' => 340,
-                'dialogClass' => 'info',
-            )
-        );
-
-    }
-}
 $this->jQuery()->onLoadCaptureEnd(); ?>
 </script>
+<?php
+if (isset($this->userDeleted)) {
+    $this->showNotification(
+        $this->userDeleted,
+        $this->lang->L_USER_DELETED_SUCCESSFULLY . '<br />'. $this->lang->L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS,
+        $this->lang->L_ERROR_DELETING_USER . '<br />' . $this->lang->L_TRY_AGAIN,
+        6000
+    );
+}

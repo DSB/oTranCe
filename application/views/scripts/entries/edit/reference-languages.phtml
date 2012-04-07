@@ -19,7 +19,7 @@ if (!empty($this->referenceLanguages)) {
             <td colspan="4">
                 <span class="small"><?php echo $this->languages[$lang]['name'];?>:</span>
                 <?php
-                    if (!isset($entry[$lang])) { ?>
+                    if (!isset($entry[$lang]) || trim($entry[$lang]) == '') { ?>
                         <i><?php echo $this->lang->L_UNTRANSLATED;?></i></td></tr><?php
                         continue;
                     }

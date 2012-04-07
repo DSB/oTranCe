@@ -10,26 +10,26 @@ $projectConfig = $this->config->getParam('project');
             <th colspan="2"><?php echo $this->lang->L_VCS;?></th>
         </tr>
         <tr class="row-odd">
-            <td>Project uses a version control system:</td>
+            <td><?php echo $this->lang->L_PROJECT_USES_VCS;?>:</td>
             <td>
                 <input type="radio" name="vcsActivated" id="vcs_active_yes" value="1"
                     <?php if ($projectConfig['vcsActivated'] == 1) { ?>
                         checked="checked"
                     <?php } ?>
                 />
-                <label for="vcs_active_yes"> Yes</label>
+                <label for="vcs_active_yes"> <?php echo $this->lang->L_YES;?></label>
                 &nbsp;&nbsp;
                 <input type="radio" name="vcsActivated" id="vcs_active_no" value="0"
                     <?php if ($projectConfig['vcsActivated'] == 0) { ?>
                         checked="checked"
                     <?php } ?>
                 />
-                <label for="vcs_active_no"> No</label>
+                <label for="vcs_active_no"> <?php echo $this->lang->L_NO;?></label>
             </td>
         </tr>
 
         <tr class="row-odd">
-            <td><label for="vcsAdapter">Current VCS adapter:</label></td>
+            <td><label for="vcsAdapter"><?php echo $this->lang->L_CURRENT_VCS_ADAPTER;?>:</label></td>
             <td>
                 <select name="vcsAdapter" id="vcsAdapter" onchange="$('#exportConfigForm').submit();">
                 <?php foreach ($this->vcsAvailAdapter as $vcsAdapter) {
@@ -41,16 +41,13 @@ $projectConfig = $this->config->getParam('project');
             </td>
         </tr>
         <tr class="row-even">
-            <td><label for="vcsCommitMessage">Commit message:</label></td>
+            <td><label for="vcsCommitMessage"><?php echo $this->lang->L_COMMIT_MESSAGE;?>:</label></td>
             <td><input type="text" class="text width300" name="vcsCommitMessage" id="vcsCommitMessage" value="<?php echo $this->vcsConfig['commitMessage']; ?>" /></td>
         </tr>
         <tr class="thead">
-            <th colspan="2">VCS adapter options</th>
+            <th colspan="2"><?php echo $this->lang->L_VCS_ADAPTER_OPTIONS;?></th>
         </tr>
         <?php
-        /**
-         * @var $cycle Zend_View_Helper_Cycle
-         */
         $cycle = $this->cycle(array('row-even', 'row-odd'));
         foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
             if (isset($this->vcsConfig['options'][$optionName])) {

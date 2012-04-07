@@ -88,7 +88,6 @@ $entriesModel = new Application_Model_LanguageEntries();
             </td>
         </tr>
     </table>
-
     <p style="margin:12px 0 0 0">
         <?php
         if ($this->user->hasRight('addVar')) { ?>
@@ -98,24 +97,16 @@ $entriesModel = new Application_Model_LanguageEntries();
         <br/><br/>
             <?php
         }
-            ?>
-        <a href="#" <?php if($this->offset > 0): ?> title="<?php echo $this->lang->L_SHORTCUT;?> ALT+C"
-            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
-            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
-            <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
-            <?php endif; ?>
-        </a>
-
-        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="<?php echo $this->lang->L_SHORTCUT;?> ALT+V"
-            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
-            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
-            <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
-            <?php endif; ?>
-        </a>
-        <?php echo sprintf($this->lang->L_PAGE_X_OF_Y, $currentPage, $nrOfPages); ?> |
-        <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->rows);?>
+        echo $this->partial('entries/index/browse-bar.phtml', array(
+                'user'              => $this->user,
+                'lang'              => $this->lang,
+                'offset'            => $this->offset,
+                'recordsPerPage'    => $this->recordsPerPage,
+                'selRecordsPerPage' => $this->selRecordsPerPage,
+                'rows'              => $this->rows,
+            )
+        );
+        ?>
         <span style="padding:0;margin:0;">|
             <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
             <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
@@ -123,7 +114,6 @@ $entriesModel = new Application_Model_LanguageEntries();
             </select>
         </span>
     </p>
-</form>
 
 <table class="bdr small" summary="List of entries">
     <tr class="thead">
@@ -149,87 +139,87 @@ $entriesModel = new Application_Model_LanguageEntries();
             }
         ?>
     </tr>
-<?php
-foreach ($this->hits as $hit)
-{
-    $keyId = $hit['id'];
-    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-    $edit = '<a>';
-    if (sizeof($this->languagesEdit) > 0) {
-        $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
-    }
-    $editTemplate = $edit;
-    if ($this->user->hasRight('addTemplate')) {
-        $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
-    } ?>
-
-    <tr class="<?php echo $cycleHelper->next();?>">
-
     <?php
-    if ($this->user->hasRight('addVar')) {
-        $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
-                    . $keyId . '\',\''
-                    . $hit['key'] . '\');">'; ?>
-        <td class="top nowrap">
-            <?php
-                echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
-                echo $delete;
-            ?>
-            <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
-            </a>
-        </td>
-             <?php
-            }
-        ?>
-        <td class="right top">
-            <?php echo $this->numberFormat($i);?>.
-        </td>
-        <td class="ssmall nowrap top">
-            <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
-        </td>
+    foreach ($this->hits as $hit)
+    {
+        $keyId = $hit['id'];
+        $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+        $edit = '<a>';
+        if (sizeof($this->languagesEdit) > 0) {
+            $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
+        }
+        $editTemplate = $edit;
+        if ($this->user->hasRight('addTemplate')) {
+            $editTemplate = '<a href="'.$this->baseUrl().'/admin_files/edit/id/'. $hit['template_id'] .'" title="' . $this->lang->L_EDIT . '">';
+        } ?>
 
-        <?php if ($this->user->hasRight('editKey')) { ?>
-            <td class="ssmall nowrap top">&nbsp;
+        <tr class="<?php echo $cycleHelper->next();?>">
+
+        <?php
+        if ($this->user->hasRight('addVar')) {
+            $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
+                        . $keyId . '\',\''
+                        . $hit['key'] . '\');">'; ?>
+            <td class="top nowrap">
+                <?php
+                    echo $edit . $this->getIcon('Edit') . '</a>&nbsp';
+                    echo $delete;
+                ?>
+                <img src="<?php echo $this->getIconSrc('delete');?>" style="padding-top:2px;" alt="" height="10" width="10"/>
+                </a>
+            </td>
+                 <?php
+                }
+            ?>
+            <td class="right top">
+                <?php echo $this->numberFormat($i);?>.
+            </td>
+            <td class="ssmall nowrap top">
+                <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
+            </td>
+
+            <?php if ($this->user->hasRight('editKey')) { ?>
+                <td class="ssmall nowrap top">&nbsp;
+                    <?php if ($this->user->hasRight('editKey')) { ?>
+                        <label for="key-<?php echo $hit['id'];?>" class="inlineEditKeyTrigger">
+                            <?php echo $this->getIcon('Edit', $this->lang->L_CLICK_TO_INLINE_EDIT);?>
+                        </label>
+                    <?php } ?>
+                </td>
+            <?php } ?>
+
+            <td class="ssmall nowrap top">
                 <?php if ($this->user->hasRight('editKey')) { ?>
-                    <label for="key-<?php echo $hit['id'];?>" class="inlineEditKeyTrigger">
-                        <?php echo $this->getIcon('Edit', $this->lang->L_CLICK_TO_INLINE_EDIT);?>
-                    </label>
+                <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
+                <?php } else { ?>
+                    <?php echo $edit . $hit['key'];?></a>
                 <?php } ?>
             </td>
-        <?php } ?>
-
-        <td class="ssmall nowrap top">
-            <?php if ($this->user->hasRight('editKey')) { ?>
-            <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
-            <?php } else { ?>
-                <?php echo $edit . $hit['key'];?></a>
-            <?php } ?>
-        </td>
-        <?php
-        foreach ($this->showLanguages as $lang) {
-            $text = isset($hit['languages'][$lang]) ? $hit['languages'][$lang] : '';
-            $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
-            if (!isset($text) || $text == '') {
-                $text = '<i>' . $this->lang->L_UNTRANSLATED . '</i>';
+            <?php
+            foreach ($this->showLanguages as $lang) {
+                $text = isset($hit['languages'][$lang]) ? $hit['languages'][$lang] : '';
+                $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
+                if (!isset($text) || $text == '') {
+                    $text = '<i>' . $this->lang->L_UNTRANSLATED . '</i>';
+                }
+                if (in_array($lang, $this->languagesEdit)) {
+                    echo '<td class="top">'. $edit . $this->getIcon('Edit', '').'</a></td>'
+                        .'<td class="top">'. $edit. $text . '</a></td>';
+                } else {
+                    echo '<td colspan="2" class="top">'. $text .'</td>';
+                }
             }
-            if (in_array($lang, $this->languagesEdit)) {
-                echo '<td class="top">'. $edit . $this->getIcon('Edit', '').'</a></td>'
-                    .'<td class="top">'. $edit. $text . '</a></td>';
-            } else {
-                echo '<td colspan="2" class="top">'. $text .'</td>';
-            }
-        }
-        ?>
-    </tr>
-<?php
+            ?>
+        </tr>
+    <?php
     $i++;
-}
-if ($this->rows == 0) {
-    $rowCount = 5 + count($this->languagesEdit) + count($this->showLanguages);
-    if ($this->addVar) {
-        $rowCount++;
     }
-?>
+    if ($this->rows == 0) {
+        $rowCount = 5 + count($this->languagesEdit) + count($this->showLanguages);
+        if ($this->addVar) {
+            $rowCount++;
+        }
+    ?>
     <tr class="row-even">
         <td colspan="<?php echo $rowCount;?>">
             <br /><?php echo $this->lang->L_NO_HITS;?><br />
@@ -241,6 +231,22 @@ if ($this->rows == 0) {
 }
 ?>
 </table>
+
+<p style="margin:12px 0 0 0">
+<?php
+    echo $this->partial('entries/index/browse-bar.phtml', array(
+            'user'              => $this->user,
+            'lang'              => $this->lang,
+            'offset'            => $this->offset,
+            'recordsPerPage'    => $this->recordsPerPage,
+            'selRecordsPerPage' => $this->selRecordsPerPage,
+            'rows'              => $this->rows,
+        )
+    );
+?>
+</p>
+</form>
+
 
 <div id="confirmDeleteVar" style="display:none"></div>
 <script type="text/javascript">
@@ -292,4 +298,3 @@ if (isset($this->keyDeleted)) {
         $this->lang->L_ERROR_DELETING_KEY . '!'
     );
 }
-

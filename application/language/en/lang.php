@@ -74,6 +74,7 @@ $lang = array(
 'L_ENTER_VCS_EXPLAIN' => 'Enter at least the username of your personal VCS credentials.',
 'L_ENTRIES_PER_PAGE' => 'Entries per page',
 'L_ERROR' => 'Error',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Error deleting file template',
 'L_ERROR_DELETING_LANGUAGE' => 'There was an error deleting this language.<br />Please try again.',
 'L_ERROR_DELETING_USER' => 'There was an error deleting this user.',
 'L_ERROR_SAVING_CHANGE' => 'An error occured while saving your change',

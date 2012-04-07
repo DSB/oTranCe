@@ -74,6 +74,7 @@ $lang = array(
 'L_ENTER_VCS_EXPLAIN' => 'Bitte geben Sie Ihren Benutzernamen ein.',
 'L_ENTRIES_PER_PAGE' => 'Einträge pro Seite',
 'L_ERROR' => 'Fehler',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuchen Sie es noch einmal.',
 'L_ERROR_DELETING_USER' => 'Beim Löschen des Benutzers ist ein Fehler aufgetreten.',
 'L_ERROR_SAVING_CHANGE' => 'Leider ist beim Speichern der Änderung ein Fehler aufgetreten',

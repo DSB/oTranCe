@@ -74,11 +74,11 @@ class Msd_Config
      * Saves the configuration for the next request.
      * The filename is used for static storage.
      *
-     * @return void
+     * @return bool
      */
     public function save()
     {
-        $this->_ioHandler->save($this->_config);
+        return $this->_ioHandler->save($this->_config);
     }
 
     /**

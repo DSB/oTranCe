@@ -65,9 +65,17 @@ $projectConfig = $this->config->getParam('project');
         ?>
         <tr class="<?php echo $cycle->next(); ?>">
             <td>&nbsp;</td>
-            <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> Save</button></td>
+            <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?></button></td>
         </tr>
     </table>
 
 </form>
-<?php $this->jQuery()->addOnLoad('$("textarea").autoGrow();'); ?>
+<?php
+$this->jQuery()->addOnLoad('$("textarea").autoGrow();');
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+}

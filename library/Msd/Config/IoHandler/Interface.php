@@ -33,7 +33,7 @@ interface Msd_Config_IoHandler_Interface
      *
      * @param array $config
      *
-     * @return void
+     * @return bool
      */
     public function save($config);
 }

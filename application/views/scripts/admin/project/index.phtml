@@ -95,5 +95,13 @@ var options = {
 
 $.extend(true, defaults, options);
 var uploader = new qq.FileUploader(defaults);
-<?php $this->jQuery()->onLoadCaptureEnd(); ?>
+<?php $this->jQuery()->onLoadCaptureEnd();
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+}
+?>
 </script>

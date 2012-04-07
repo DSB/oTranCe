@@ -73,7 +73,7 @@ class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
             // Put configuration into session.
             $this->_sessionNamespace->config = $config;
         }
-        
+
         return $config;
     }
 
@@ -82,7 +82,7 @@ class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
      *
      * @param array  $config Configuration to save.
      *
-     * @return void
+     * @return bool
      */
     public function save($config)
     {
@@ -94,7 +94,7 @@ class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
 
         // Save config to .ini file
         $this->_iniConfig->setIniData($config);
-        $this->_iniConfig->saveFile($this->_configFilename);
+        return $this->_iniConfig->saveFile($this->_configFilename);
     }
 
     /**

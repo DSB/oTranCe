@@ -82,7 +82,7 @@ class Msd_Ini
      *
      * @param string $filename Name of file to save
      *
-     * @return void
+     * @return bool
      */
     public function saveFile($filename = null)
     {
@@ -94,7 +94,8 @@ class Msd_Ini
                 'You must specify a filename to save the INI!'
             );
         }
-        file_put_contents($filename, (string) $this);
+        $res = file_put_contents($filename, (string) $this);
+        return $res === false ? false : true;
     }
 
     /**

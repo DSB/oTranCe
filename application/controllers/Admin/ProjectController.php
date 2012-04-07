@@ -50,7 +50,7 @@ class Admin_ProjectController extends AdminController
             $this->_config->setParam('project', $projectSettings);
             $languageModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
 
-            $this->_config->save();
+            $this->view->saved = $this->_config->save();
         }
         $this->view->settings           = $this->_config->getParam('project');
         $this->view->fallbackLanguageId = $languageModel->getFallbackLanguage();

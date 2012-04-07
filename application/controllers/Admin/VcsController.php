@@ -67,7 +67,7 @@ class Admin_VcsController extends AdminController
         $projectConfig                 = $this->_config->getParam('project');
         $projectConfig['vcsActivated'] = (int) $this->_request->getParam('vcsActivated', 0);
         $this->_config->setParam('project', $projectConfig);
-        $this->_config->save();
+        $this->view->saved = $this->_config->save();
     }
 
 }

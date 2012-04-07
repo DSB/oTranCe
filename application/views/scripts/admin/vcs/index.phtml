@@ -3,11 +3,11 @@
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 $projectConfig = $this->config->getParam('project');
 ?>
-<h4>General Version Control Settings:</h4>
+<h4><?php echo $this->lang->L_VCS_SETTINGS;?>:</h4>
 <form action="" method="post" id="exportConfigForm">
     <table class="bdr more-padding" summary="Set fallback language">
         <tr class="thead">
-            <th colspan="2">Version Control System (VCS)</th>
+            <th colspan="2"><?php echo $this->lang->L_VCS;?></th>
         </tr>
         <tr class="row-odd">
             <td>Project uses a version control system:</td>

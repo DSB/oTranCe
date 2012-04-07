@@ -21,6 +21,12 @@ $viewData = array(
     <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton">
         <?php echo $this->getIcon('Back', $this->lang->L_BACK, 16) . ' ' . $this->lang->L_BACK;?>
     </a>
+    <?php
+    if ($this->user->hasRight('addVar')) { ?>
+         <a href="<?php echo $this->baseUrl();?>/entries/add-variable" class="Formbutton">
+             <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_NEW_KEY;?>
+         </a><?php
+    } ?>
 </div>
 
 <div style="float:left;margin-right:20px;">
@@ -30,7 +36,8 @@ $viewData = array(
     <?php echo $this->partial('entries/edit/reference-languages.phtml', $viewData);?>
 </div>
 <script type="text/javascript">
-<?php $this->jQuery()->onLoadCaptureStart();?>
+<?php
+$this->jQuery()->onLoadCaptureStart();?>
     $("textarea").autoGrow();
     $('.copy').click(function (e) {
         copyLang(e);
@@ -38,9 +45,7 @@ $viewData = array(
     $('.translate').click(function (e) {
         translate(e);
     });
-<?php if (isset($this->entrySaved)) { ?>
 <?php
-}
 if ($this->user->hasRight('editKey')) { ?>
     $('.inlineEdit').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
         saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',

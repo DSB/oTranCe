@@ -99,6 +99,8 @@ class ExportController extends Msd_Controller_Action
                 $commitMessage = $vcsConfig['commitMessage'];
             }
             $commitResult = $vcs->commit($files, $commitMessage);
+            $historyModel = new Application_Model_History();
+            $historyModel->logSvnUpdateAll();
             $this->view->commitResult = $commitResult;
         } else {
             $this->view->commitResult = array('stdout' => $this->view->lang->translate('L_NOTHING_TO_DO') . '.');

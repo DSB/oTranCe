@@ -284,3 +284,12 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
 });
 <?php $this->jQuery()->onLoadCaptureEnd();?>
 </script>
+<?php
+if (isset($this->keyDeleted)) {
+    $this->showNotification(
+        !$this->keyDeleted,
+        $this->lang->L_KEY_DELETED_SUCCESSFULLY . '.',
+        $this->lang->L_ERROR_DELETING_KEY . '!'
+    );
+}
+

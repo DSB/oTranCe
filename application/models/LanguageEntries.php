@@ -520,7 +520,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
                . ' WHERE `id` = ' . $keyId;
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return $res;
+        return (bool) $res;
     }
 
     /**

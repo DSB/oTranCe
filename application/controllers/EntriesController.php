@@ -308,6 +308,7 @@ class EntriesController extends Zend_Controller_Action
             $id = $this->_request->getParam('id');
             $entry = $this->_entriesModel->getKeyById($id);
             $res = $this->_entriesModel->deleteEntryByKeyId($id);
+            $this->view->keyDeleted = $res;
             if ($res) {
                 $historyModel = new Application_Model_History();
                 $historyModel->logVarDeleted($entry['key']);

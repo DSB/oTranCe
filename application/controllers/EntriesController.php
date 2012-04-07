@@ -157,10 +157,8 @@ class EntriesController extends Zend_Controller_Action
         $this->view->languagesEdit = $this->_languagesEdit;
         $userModel = new Application_Model_User();
 
-        // get reference languages and make sure that the fallback language is at top
-        $this->_referenceLanguages      = array(0 => $this->_languagesModel->getFallbackLanguage());
-        $this->_referenceLanguages      = array_merge($this->_referenceLanguages, $userModel->getRefLanguages());
-        $this->_referenceLanguages      = array_unique($this->_referenceLanguages);
+        // set reference languages
+        $this->_referenceLanguages      = $userModel->getRefLanguages();
         $this->view->referenceLanguages = $this->_referenceLanguages;
 
         // build show language array for index page
@@ -189,16 +187,15 @@ class EntriesController extends Zend_Controller_Action
             $getStatus[]['id'] = $languageId;
         }
         $this->view->langStatus = $this->_entriesModel->getStatus($getStatus);
-        $this->view->key   = $this->_entriesModel->getKeyById($id);
-        $this->view->entry = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
-        $this->view->user  = $this->_userModel;
+        $this->view->key        = $this->_entriesModel->getKeyById($id);
+        $this->view->entry      = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
+        $this->view->user       = $this->_userModel;
 
         $templatesModel = new Application_Model_FileTemplates();
         $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
         $this->view->translatable         = Msd_Google::getTranslatableLanguages();
         $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
-
     }
 
     /**

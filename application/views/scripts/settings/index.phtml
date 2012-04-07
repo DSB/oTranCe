@@ -75,10 +75,6 @@ $projectConfig = $this->config->getParam('project');
     {
         $id = 'lang_'.$language['id'];
         $langId = $language['id'];
-        if ($langId == $this->fallbackLanguageId) {
-            // fallback language cannot be deactivated - skip
-            continue;
-        }
         $langName = $this->languages[$langId]['name'];
         $langLocale = $this->languages[$langId]['locale'];
         ?>

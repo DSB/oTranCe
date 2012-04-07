@@ -312,7 +312,7 @@ class Application_Model_User extends Msd_Application_Model
             FROM `{$this->_database}`.`{$this->_tableUsersettings}` us
             LEFT JOIN`{$this->_database}`.`{$this->_tableLanguages}` l ON l.`id` = us.`value`
             WHERE us.`user_id` = '{$this->_userId}' AND us.`setting` = 'referenceLanguage' AND l.`active` = 1
-            ORDER BY us.`value` ASC";
+            ORDER BY l.`locale` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         if (is_array($res)) {

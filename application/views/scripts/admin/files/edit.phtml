@@ -50,29 +50,9 @@ if ($this->fileTemplate['id'] == 0) {
 <?php
 $this->jQuery()->addOnLoad('$("textarea").autoGrow();');
 if (isset($this->creationResult)) {
-    if ($this->creationResult === true) {
-        $this->popUpMessage()->addMessage(
-            'settingsSaved',
-            $this->lang->L_OK,
-            $this->lang->L_CHANGES_SAVED_SUCCESSFULLY . '.',
-            array(
-                 'modal' => true,
-                 'height' => 130,
-                 'width' => 400,
-                 'dialogClass' => 'info',
-            )
-        );
-    } else {
-        $this->popUpMessage()->addMessage(
-            'settingsSaved',
-            $this->lang->L_ERROR,
-            '<span class="error">' . $this->lang->L_ERROR_SAVING_CHANGE .'<br />'
-                . '</span><br />' . $this->lang->L_TRY_AGAIN,
-            array(
-                'modal' => true,
-                'width' => 400,
-                'dialogClass' => 'info',
-            )
-        );
-    }
+    $this->showNotification(
+        $this->creationResult,
+        $this->lang->L_CHANGES_SAVED_SUCCESSFULLY . '.',
+        $this->lang->L_ERROR_SAVING_CHANGE
+    );
 }

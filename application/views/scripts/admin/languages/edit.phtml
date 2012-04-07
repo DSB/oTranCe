@@ -1,17 +1,17 @@
 <?php
 $inputFieldMap = array(
-    'langName' => 'Language name',
+    'langName'   => 'Language name',
     'langLocale' => 'Language locale',
-    'langFlag' => 'Language flag',
+    'langFlag'   => 'Language flag',
 );
 ?>
 <h2>Admin - Languages</h2>
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 if ($this->languageId == 0) {
-    $subTitle = "Create new language";
+    $subTitle = $this->lang->L_ADD_NEW_LANGUAGE;
 } else {
-    $subTitle = "Edit language \"{$this->langName} ({$this->langLocale})\"";
+    $subTitle = $this->lang->L_EDIT_LANGUAGE . "\"{$this->langName} ({$this->langLocale})\"";
 }
 ?>
 <div>
@@ -26,13 +26,13 @@ if ($this->languageId == 0) {
 <form action="<?php echo $this->baseUrl(); ?>/admin_languages/edit/id/<?php echo $this->languageId; ?>/" method="post" enctype="multipart/form-data" id="myForm">
     <table class="bdr more-padding" summary="List of language settings">
         <tr class="thead">
-           <th colspan="2">Language settings</th>
+           <th colspan="2"><?php echo $this->lang->L_LANGUAGE_SETTINGS;?></th>
         </tr>
         <tr class="row-odd">
-            <td>Language is active:</td>
+            <td><?php echo $this->lang->L_IS_ACTIVE;?>:</td>
             <td>
                 <input type="radio" name="langActive" id="langActiveYes" value="1"<?php echo (!isset($this->langActive) || $this->langActive) ? ' checked="checked"' : ''; ?>/>
-                <label for="langActiveYes"> Yes</label>
+                <label for="langActiveYes"> <?php echo $this->lang->L_YES;?></label>
                 &nbsp;&nbsp;
                 <input type="radio" name="langActive" id="langActiveNo" value="0"<?php echo (isset($this->langActive) && !$this->langActive) ? ' checked="checked"' : ''; ?>
                     <?php
@@ -41,11 +41,11 @@ if ($this->languageId == 0) {
                     }
                     ?>
                 />
-                <label for="langActiveNo"> No</label>
+                <label for="langActiveNo"> <?php echo $this->lang->L_NO;?></label>
             </td>
         </tr>
         <tr class="row-even">
-            <td><label for="langLocale">Language locale (e.g. en, de):</label></td>
+            <td><label for="langLocale"><?php echo $this->lang->L_LOCALE;?>:</label></td>
             <td><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
                 if (array_key_exists('langLocale', $this->inputErrors)) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span>
@@ -53,7 +53,7 @@ if ($this->languageId == 0) {
             </td>
         </tr>
         <tr class="row-odd">
-            <td><label for="langName">Language name (e.g. English, Deutsch):</label></td>
+            <td><label for="langName"><?php echo $this->lang->L_NAME_OF_LANGUAGE;?>:</label></td>
             <td><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
                 if (array_key_exists('langName', $this->inputErrors)) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span>
@@ -62,14 +62,14 @@ if ($this->languageId == 0) {
         </tr>
         <tr class="row-even">
             <td>
-                <label for="langFlag">Language flag:</label><br /><br />
+                <label for="langFlag"><?php echo $this->lang->L_FLAG;?>:</label><br /><br />
                 <?php echo $this->printFlag($this->languageId);?>
 
             </td>
             <td>
                 <input type="file" class="text" name="langFlag" id="langFlag" /><br/>
                 <?php if ($this->flagExtension > '') { ?>
-                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> Delete flag</button>
+                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
                     <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
                         <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
                     <?php }
@@ -79,7 +79,7 @@ if ($this->languageId == 0) {
         <tr class="row-odd">
             <td><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
             <td>
-                <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> Save</button>
+                <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE;?></button>
             </td>
         </tr>
     </table>
@@ -118,8 +118,8 @@ if (!empty($this->inputErrors)) {
     $this->popUpMessage()->addMessage(
         'settingsNotSaved',
         'Error',
-        'Error validating your inputs:<br /><br />' . $fieldErrors
-            . '<br /><br />Please correct your input.',
+        $this->lang->L_ERROR_VALIDATING_INPUTS . ':<br /><br />' . $fieldErrors
+            . '<br /><br />' . $this->lang->L_PLEASE_CORRECT_INPUT .'.',
         array(
             'modal' => true,
             'width' => 400,
@@ -128,31 +128,12 @@ if (!empty($this->inputErrors)) {
     );
 }
 
-if ($this->flag == 'deleted') {
-    $this->popUpMessage()->addMessage(
-        'settingsSaved',
-        'Ok',
-        'The image of the flag has been deleted successfully.',
-        array(
-             'modal' => true,
-             'height' => 130,
-             'width' => 400,
-             'dialogClass' => 'info',
-        )
-    );
-}
-
-if ($this->flag == 'notDeleted') {
-    $this->popUpMessage()->addMessage(
-        'settingsSaved',
-        'Ok',
-        'Can\'t delete the image file of the flag.',
-        array(
-             'modal' => true,
-             'height' => 130,
-             'width' => 400,
-             'dialogClass' => 'info',
-        )
+if (in_array($this->flag, array('deleted', 'notDeleted'))) {
+    $result = $this->flag == 'deleted';
+    $this->showNotification(
+        $result,
+        $this->lang->L_FLAG_DELETED_SUCCESSFULLY . '.',
+        $this->lang->L_ERROR_DELETING_FLAG . '!'
     );
 }
 

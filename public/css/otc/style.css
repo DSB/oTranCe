@@ -128,14 +128,14 @@ img {
 }
 
 #footer {
-    clear: both;
-    width: auto;
-    margin: 0 auto;
-    text-align: center;
-}
-
-#footer h4 {
-    margin: 0;
+    position:fixed;
+    width:100%;
+    bottom:0;
+    text-align:right;
+    min-height:12px;
+    border-top:1px solid #EEE;
+    background:#DADADA;
+    font-size: 10px;
 }
 
 /*******/ /*Menu*/ /*******/

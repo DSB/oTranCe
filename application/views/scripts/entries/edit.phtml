@@ -1,5 +1,4 @@
 <?php
-$this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
 $viewData = array(
     'config'               => $this->config,
     'referenceLanguages'   => $this->referenceLanguages,
@@ -45,56 +44,37 @@ $this->jQuery()->onLoadCaptureStart();?>
     $('.translate').click(function (e) {
         translate(e);
     });
-<?php
-if ($this->user->hasRight('editKey')) { ?>
-    $('.inlineEdit').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
-        saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
-        savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
-        savebutton_class: 'Formbutton',
-        cancelbutton_text: '<?php echo $this->lang->L_CANCEL;?>',
-        cancelbutton_class: 'Formbutton',
-        mouseover_class: 'inlineEditMouseOver',
-        editfield_class: 'inlineEditField',
-        size: 'auto',
-        form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
-        save_on_enter: false
-    });
-    $('.inlineEditTrigger').click(function() {
-        var id = $(this).attr('for');
-        $('#' + id).trigger('click');
-    });
 
-<?php } ?>
-function copyLang(event) {
-    var lang = event.target.id;
-    lang = lang.substr(5);
-    lang = lang.split('-');
-    $('#edit-'+lang[1]).val($('#textarea-'+lang[0]).val());
-    $('#edit-'+lang[1]).focus();
-}
+    function copyLang(event) {
+        var lang = event.target.id;
+        lang = lang.substr(5);
+        lang = lang.split('-');
+        $('#edit-'+lang[1]).val($('#textarea-'+lang[0]).val());
+        $('#edit-'+lang[1]).focus();
+    }
 
-function translate(event) {
-    var lang = event.target.id;
-    lang = lang.substr(10);
-    lang = lang.split('-');
-    var sourceLang = lang[0];
-    var targetLang = lang[1];
-    setPageInactive();
-    $.ajax({
-        url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
-        dataType : 'HTML',
-        success: function(response) {
-            $('#edit-'+lang[1]).val(response.trim());
-            $('#edit-'+lang[1]).focus();
-            setPageActive();
-        },
-        error: function() {
-            $('#edit-'+lang[1]).val('Error: ' + response);
-            $('#edit-'+lang[1]).focus();
-            setPageActive();
-        }
-    });
-}
+    function translate(event) {
+        var lang = event.target.id;
+        lang = lang.substr(10);
+        lang = lang.split('-');
+        var sourceLang = lang[0];
+        var targetLang = lang[1];
+        setPageInactive();
+        $.ajax({
+            url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
+            dataType : 'HTML',
+            success: function(response) {
+                $('#edit-'+lang[1]).val(response.trim());
+                $('#edit-'+lang[1]).focus();
+                setPageActive();
+            },
+            error: function() {
+                $('#edit-'+lang[1]).val('Error: ' + response);
+                $('#edit-'+lang[1]).focus();
+                setPageActive();
+            }
+        });
+    }
 <?php
 $this->jQuery()->onLoadCaptureEnd();
 if (isset($this->entrySaved)) {
@@ -103,6 +83,9 @@ if (isset($this->entrySaved)) {
         $this->lang->L_SAVED_SUCCESSFULLY . '.',
         $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
     );
+}
+if (isset($this->keyExistsError)) {
+    $this->showNotification(false, '', $this->keyExistsError);
 }
 ?>
 </script>

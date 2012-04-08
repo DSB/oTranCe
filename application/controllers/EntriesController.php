@@ -108,17 +108,17 @@ class EntriesController extends Zend_Controller_Action
                 Msd_Html::getHtmlOptionsFromAssocArray($fileTemplates, 'id', 'filename', $fileTemplateFilter);
 
         if ($this->view->getUntranslated == 0) {
-            if ($this->view->filterKeys > '' || $this->view->fileTemplateFilter > 0) {
-                $this->view->hits = $this->_entriesModel->getEntriesByKey(
-                    $this->view->filterKeys,
+            if ($this->view->filterValues > '') {
+                $this->view->hits = $this->_entriesModel->getEntriesByValue(
+                    $this->view->showLanguages,
+                    $this->view->filterValues,
                     $this->view->offset,
                     $this->view->recordsPerPage,
                     $this->view->fileTemplateFilter
                 );
             } else {
-                $this->view->hits = $this->_entriesModel->getEntriesByValue(
-                    $this->view->showLanguages,
-                    $this->view->filterValues,
+                $this->view->hits = $this->_entriesModel->getEntriesByKey(
+                    $this->view->filterKeys,
                     $this->view->offset,
                     $this->view->recordsPerPage,
                     $this->view->fileTemplateFilter
@@ -137,7 +137,6 @@ class EntriesController extends Zend_Controller_Action
         }
 
         $this->view->rows = $this->_entriesModel->getRowCount();
-
         $this->view->hits = $this->_entriesModel->assignTranslations(
             $this->view->showLanguages,
             $this->view->hits
@@ -177,7 +176,22 @@ class EntriesController extends Zend_Controller_Action
     {
         $id = $this->_request->getParam('id');
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
-            $this->view->entrySaved = $this->_saveEntries();
+            $saveEntry = true;
+            // check if the file template has changed
+            $entry           = $this->_entriesModel->getKeyById($id);
+            $newFileTemplate = (int) $this->_request->getParam('fileTemplate');
+            if ((int) $entry['template_id'] !== $newFileTemplate) {
+                // template changed - look up if there already is a key with that name
+                if (!$this->_entriesModel->validateLanguageKey($entry['key'], $newFileTemplate)) {
+                    $this->view->keyExistsError = implode('<br>', $this->_entriesModel->getValidateMessages());
+                    $this->_request->setParam('fileTemplate', $entry['template_id']);
+                    $saveEntry = false;
+                }
+            }
+
+            if ($saveEntry === true) {
+                $this->view->entrySaved = $this->_saveEntries();
+            }
         }
         $this->setLanguages();
         $editLanguages = $this->getEditLanguages();
@@ -188,7 +202,7 @@ class EntriesController extends Zend_Controller_Action
         }
         $this->view->langStatus = $this->_entriesModel->getStatus($getStatus);
         $this->view->key        = $this->_entriesModel->getKeyById($id);
-        $this->view->entry      = $this->_entriesModel->getEntryById($id, $this->_showLanguages);
+        $this->view->entry      = $this->_entriesModel->getTranslationsByKeyId($id, $this->_showLanguages);
         $this->view->user       = $this->_userModel;
 
         $templatesModel = new Application_Model_FileTemplates();
@@ -413,7 +427,7 @@ class EntriesController extends Zend_Controller_Action
      */
     public function getEntryById($id)
     {
-        return $this->_entriesModel->getEntryById($id, $this->_showLanguages);
+        return $this->_entriesModel->getTranslationsByKeyId($id, $this->_showLanguages);
     }
 
     /**

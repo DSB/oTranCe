@@ -180,18 +180,24 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             return array();
         }
 
-        if ($nrOfRecords < 10) {
-            $nrOfRecords = 10;
-        }
-        $this->_foundRows = null;
         //find key ids
-        $sql = 'SELECT k.`id`, k.`key`, k.`template_id` FROM `' . $this->_tableTranslations . '` t '
-                . ' JOIN `' . $this->_tableKeys .'` k ON k.`id` = t.`key_id`';
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT t.`key_id` FROM `' . $this->_tableTranslations . '` t ';
         if ($filter > '') {
             $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND '
                 . 't.`lang_id` IN (' . implode(",", $languages) . ')';
         }
-        $sql .= ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $sql .= ' ORDER BY t.`key_id` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
+        $this->_foundRows = $this->getRowCount();
+        if ($this->_foundRows == 0) {
+            return array();
+        }
+        $keyIds = array();
+        foreach ($rawKeyIds as $rawKeyId) {
+            $keyIds[] = $rawKeyId[0];
+        }
+        $sql = 'SELECT `id`,  `key`, `template_id` FROM `' . $this->_tableKeys . '` '
+            . 'WHERE `id` IN (' . implode(',', $keyIds) . ') ORDER BY `key` ASC';
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return is_array($hits) ? $hits : array();
     }
@@ -403,6 +409,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if (empty($languageIds) || empty($entries)) {
             return array();
         }
+
         $result = array();
         $keyIds = array();
         foreach ($entries as $entry) {
@@ -413,7 +420,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         $sql = 'SELECT `key_id`, `lang_id`, `text` FROM `' . $this->_tableTranslations . '` WHERE '
             . '`key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN (' . implode(',', $languageIds) . ')';
-
         $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         foreach ($translations as $translation) {

@@ -114,6 +114,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             </select>
         </span>
     </p>
+</form>
 
 <table class="bdr small" summary="List of entries">
     <tr class="thead">
@@ -245,8 +246,6 @@ $entriesModel = new Application_Model_LanguageEntries();
     );
 ?>
 </p>
-</form>
-
 
 <div id="confirmDeleteVar" style="display:none"></div>
 <script type="text/javascript">
@@ -277,6 +276,7 @@ $('.inlineEditKeyTrigger').click(function() {
 });
 
 $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
+    save_on_enter: false,
     saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
     savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
     savebutton_class: 'Formbutton',
@@ -286,7 +286,6 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
     editfield_class: 'inlineEditField',
     size: 'auto',
     form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />'
-
 });
 <?php $this->jQuery()->onLoadCaptureEnd();?>
 </script>

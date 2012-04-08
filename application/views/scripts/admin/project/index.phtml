@@ -1,7 +1,9 @@
 <?php
 $this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/fileuploader.js');
 ?>
-<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_PROJECT;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_PROJECT;?></h2>
+</div>
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 /**

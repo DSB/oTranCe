@@ -1,4 +1,6 @@
-<h2>Log</h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_LOG;?></h2>
+</div>
 <form action="<?php echo $this->baseUrl();?>/log/index" method="post" id="myForm" onsubmit="setPageInactive();">
     <p style="margin:0;padding:0;">
     <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />

@@ -5,7 +5,9 @@ $inputFieldMap = array(
     'langFlag'   => 'Language flag',
 );
 ?>
-<h2>Admin - Languages</h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN . ' - ' . $this->lang->L_EDIT_LANGUAGE;?></h2>
+</div>
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 if ($this->languageId == 0) {

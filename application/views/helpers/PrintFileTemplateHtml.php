@@ -44,7 +44,7 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
         }
         $ret = '';
         if (sizeof(self::$_fileTemplates) > 1) {
-            $ret .= '<select class="select" name="fileTemplate" style="width:402px;">';
+            $ret .= '<select class="select" name="fileTemplate">';
             foreach (self::$_fileTemplates as $fileTemplate) {
                 $ret .= '<option value="' . $fileTemplate['id'] . '"';
                 if ($selFileTemplateId == $fileTemplate['id']) {

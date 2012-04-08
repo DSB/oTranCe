@@ -2,8 +2,10 @@
 $i = 1;
 $projectConfig = $this->config->getParam('project');
 ?>
+<div id="headline">
+    <h2><?php echo $this->lang->L_CONFIGURATION;?></h2>
+</div>
 <form action="<?php echo $this->baseUrl();?>/settings/index" method="post">
-<h2><?php echo $this->lang->L_CONFIGURATION;?></h2>
 <h4><?php echo $this->lang->L_INTERFACE_LANGUAGE;?>:</h4>
 <p>
     <?php echo $this->lang->L_SELECT_LANGUAGE_OF_INTERFACE;?>:

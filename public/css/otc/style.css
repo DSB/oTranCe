@@ -44,13 +44,9 @@ h2 {
     border-bottom: 1px solid #c7c7c7;
 }
 
-#version a h2 {
-    padding:1px 0 12px 0;
-    border:0;
-    margin:0;
-}
 #version a img {
-    padding: 0 0 12px 0;
+    padding: 0 0 12px 0px;
+    margin-top:-2px;
 }
 
 h4 {
@@ -80,37 +76,65 @@ img {
     display: inline;
 }
 
+
+
 #container {
     float:left;
     min-width:100%;
-    width:auto;
-    padding-bottom:10px;
-    border-top:5px solid #6E9E2D;
-    background:#fff url(pics/bg-body.gif) repeat-x 0 0;
 }
 
 #header {
+    min-width:100%;
+    height:50px;
     width: auto;
-    margin: 0 auto;
-    padding: 0 18px;
-    text-align: center;
+    position:fixed;
+    border-top:5px solid #6E9E2D;
+    background:transparent url(pics/bg-body.gif) repeat-x 0 0;
+}
+
+#headline {
+    position:fixed;
+    top:0px;
+    z-index:600;
+}
+#headline h2, #sidebar h2 {
+    min-width:100%;
+    padding-top:4px;
+    height:32px;
+    padding-bottom:12px;
+    border-top:5px solid #6E9E2D;
+    border-bottom:none;
+    background:transparent url(pics/bg-body.gif) repeat-x 0 0;
+    z-index:700;
 }
 
 #sidebar {
+    top:0;
+    width:180px;
     float: left;
-    min-width: 190px;
-    width: 19em;
+    min-height:100%;
+    position:fixed;
+    z-index:10;
+    background-color:#FFF;
 }
-
 #sidebar h2 {
+    padding-top:4px;
     text-align:center;
+    margin:0;
 }
 
 #content {
+    position:relative;
     clear: right;
     width: auto;
-    margin-left: 19em;
-    padding: 0 18px;
+    margin-left: 17em;
+    padding: 0 26px;
+    z-index:1;
+    top:53px;
+}
+
+#content h2 {
+    position:fixed;
 }
 
 * html #content {
@@ -138,6 +162,7 @@ img {
     padding-top:2px;
     vertical-align:middle;
     opacity:0.87;
+    z-index:900;
 }
 #footer p {
     margin:0 8px 0 0;
@@ -338,10 +363,7 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover, .qq-upload-bu
     font-size: 1.1em;
     color: #4E5665;
     text-align: center;
-}
-
-#version a:hover {
-    color: #4E5665;
+    background:transparent;
 }
 
 #menu {
@@ -469,15 +491,15 @@ input.Formtext {
     width: auto;
     margin: 2px 6px 0 0;
     padding: 1px 2px;
-    border: 1px solid #ddd;
+    border: 1px solid #DDD;
     overflow: hidden;
     cursor: text;
 }
 
 .textarea-edit {
-    width: 400px;
+    width: 100px;
     background: #FFF;
-    border: 1px solid #ddd;
+    border: 1px solid #DDD;
     overflow: auto;
     font: 12px/ 1.2 "Courier New", Courier, monospace;
 }
@@ -514,7 +536,7 @@ option {
 /* Colors for Formelements */
 input.text,input.small {
     padding: 1px 2px;
-    border: 1px solid #253D04;
+    border: 1px solid #DDD;
     background: #fff;
 }
 
@@ -524,7 +546,7 @@ input.text:disabled {
 
 select {
     padding: 1px;
-    border: 1px solid #253D04;
+    border: 1px solid #DDD;
     background: #FFF;
 }
 
@@ -535,7 +557,8 @@ textarea {
 }
 
 .spacer {
-    height: 24px;
+    clear:both;
+    height:34px;
 }
 .center {
     margin: 0 auto;
@@ -590,12 +613,13 @@ textarea {
     width: 88%;
 }
 #logout {
-    position: absolute;
+    position:fixed;
     top: 10px;
     right: 20px;
     height: 20px;
     width:300px;
     vertical-align: middle;
+    z-index:40;
 }
 #icon {
     position: relative;
@@ -662,7 +686,7 @@ label {
 
 #importInfo {
     position: fixed;
-    top:38px;
+    top:54px;
     right:18px;
     width:200px;
     height:182px;
@@ -757,6 +781,7 @@ pre.xdebug-var-dump {
     border-top:1px solid #666;
     border-bottom:1px solid #666;
     background-color:#A1E85D;
+    z-index:2000;
 }
 .notification-bar.error {
     background-color:#F9948A;

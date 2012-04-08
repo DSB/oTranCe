@@ -1,4 +1,6 @@
-<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_VCS;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_VCS;?></h2>
+</div>
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 $projectConfig = $this->config->getParam('project');

@@ -1,4 +1,6 @@
-<h2><?php echo $this->lang->L_ADMIN .' - '. $this->lang->L_FILE_TEMPLATES;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN .' - '. $this->lang->L_FILE_TEMPLATES;?></h2>
+</div>
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));

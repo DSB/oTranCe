@@ -5,7 +5,9 @@ $currentPage  = ceil(($this->offset + 1) / $this->recordsPerPage);
 $nrOfPages    = ceil($this->rows / $this->recordsPerPage);
 $entriesModel = new Application_Model_LanguageEntries();
 ?>
-<h2><?php echo $this->lang->L_EDIT_ENTRIES;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_EDIT_ENTRIES;?></h2>
+</div>
 
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
     <table class="bdr morepadding" summary="Filter and find values">
@@ -147,7 +149,7 @@ $entriesModel = new Application_Model_LanguageEntries();
         $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
         $edit = '<a>';
         if (sizeof($this->languagesEdit) > 0) {
-            $edit = '<a href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
+            $edit = '<a name="lang-' . $lang. '" href="'.$this->baseUrl().'/entries/edit/id/'.$keyId .'" title="' . $this->lang->L_EDIT . '">';
         }
         $editTemplate = $edit;
         if ($this->user->hasRight('addTemplate')) {
@@ -203,9 +205,16 @@ $entriesModel = new Application_Model_LanguageEntries();
                 if (!isset($text) || $text == '') {
                     $text = '<i>' . $this->lang->L_UNTRANSLATED . '</i>';
                 }
-                if (in_array($lang, $this->languagesEdit)) {
-                    echo '<td class="top">'. $edit . $this->getIcon('Edit', '').'</a></td>'
-                        .'<td class="top">'. $edit. $text . '</a></td>';
+                if (in_array($lang, $this->languagesEdit)) { ?>
+                    <td class="top">
+                        <label for="key-<?php echo $hit['id'] . '-' . $lang;?>" class="inlineEditValue">
+                            <?php echo $this->getIcon('Edit', '');?>
+                        </label>
+                    </td>
+                    <td class="top">
+                        <?php echo $edit. $text;?></a>
+                    </td>
+                    <?php
                 } else {
                     echo '<td colspan="2" class="top">'. $text .'</td>';
                 }
@@ -274,6 +283,12 @@ var yOffset = 0; // trace the page's y-offset for showing error notifications in
 $('.inlineEditKeyTrigger').click(function(e) {
     var id = $(this).attr('for');
     $('#' + id).trigger('click');
+    yOffset = e.pageY;
+});
+
+$('.inlineEditValue').click(function(e) {
+    var id = $(this).attr('for');
+    alert(id);
     yOffset = e.pageY;
 });
 

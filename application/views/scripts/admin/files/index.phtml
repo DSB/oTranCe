@@ -1,4 +1,6 @@
-<h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_FILE_TEMPLATES;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_FILE_TEMPLATES;?></h2>
+</div>
 <?php echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang)); ?>
 <form action="<?php echo $this->baseUrl();?>/admin_files/" method="post" id="myForm">
     <p style="margin:0;padding:0;">

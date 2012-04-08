@@ -16,7 +16,9 @@ $viewData = array(
     'keyExistsError'       => $this->keyExistsError,
 );
 ?>
-<h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>
+<div id="headline">
+    <h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>
+</div>
 <h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->key['key'];?></h4>
 <div>
     <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton">

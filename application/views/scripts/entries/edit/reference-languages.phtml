@@ -64,5 +64,47 @@ if (!empty($this->referenceLanguages)) {
         <tr class="<?php echo $cycleHelper->current();?>" style="line-height:4px;"><td colspan="5"></td></tr><?php
     }
     ?>
-</table><?php
+</table>
+<script type="text/javascript">
+<?php
 }
+$this->jQuery()->onLoadCaptureStart();?>
+$('.copy').click(function (e) {
+    copyLang(e);
+});
+$('.translate').click(function (e) {
+    translate(e);
+});
+
+function copyLang(event) {
+    var lang = event.target.id;
+    lang = lang.substr(5);
+    lang = lang.split('-');
+    $('#edit-'+lang[1]).val($('#textarea-'+lang[0]).val());
+    $('#edit-'+lang[1]).focus();
+}
+
+function translate(event) {
+    var lang = event.target.id;
+    lang = lang.substr(10);
+    lang = lang.split('-');
+    var sourceLang = lang[0];
+    var targetLang = lang[1];
+    setPageInactive();
+    $.ajax({
+        url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
+        dataType : 'HTML',
+        success: function(response) {
+            $('#edit-'+lang[1]).val(response.trim());
+            $('#edit-'+lang[1]).focus();
+            setPageActive();
+        },
+        error: function() {
+            $('#edit-'+lang[1]).val('Error: ' + response);
+            $('#edit-'+lang[1]).focus();
+            setPageActive();
+        }
+    });
+}
+<?php $this->jQuery()->onLoadCaptureEnd();?>
+</script>

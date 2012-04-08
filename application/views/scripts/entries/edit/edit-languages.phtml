@@ -98,3 +98,15 @@ $entry = $this->entry;
         </tr>
     </table>
 </form>
+
+<?php
+if (isset($this->entrySaved)) {
+    $this->showNotification(
+        $this->entrySaved,
+        $this->lang->L_SAVED_SUCCESSFULLY . '.',
+        $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
+    );
+}
+if (isset($this->keyExistsError)) {
+    $this->showNotification(false, '', $this->keyExistsError);
+}

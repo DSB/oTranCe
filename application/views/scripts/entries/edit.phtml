@@ -5,6 +5,7 @@ $viewData = array(
     'languages'            => $this->languages,
     'languagesEdit'        => $this->languagesEdit,
     'entry'                => $this->entry,
+    'entrySaved'           => $this->entrySaved,
     'translatable'         => $this->translatable,
     'user'                 => $this->user,
     'lang'                 => $this->lang,
@@ -12,6 +13,7 @@ $viewData = array(
     'langStatus'           => $this->langStatus,
     'skipKeysOffsets'      => $this->skipKeysOffsets,
     'assignedFileTemplate' => $this->assignedFileTemplate,
+    'keyExistsError'       => $this->keyExistsError,
 );
 ?>
 <h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>
@@ -34,61 +36,6 @@ $viewData = array(
 <div style="float:left">
     <?php echo $this->partial('entries/edit/reference-languages.phtml', $viewData);?>
 </div>
-<script type="text/javascript">
-<?php
-$this->jQuery()->onLoadCaptureStart();?>
+<?php $this->jQuery()->onLoadCaptureStart();?>
     $("textarea").autoGrow();
-    $('.copy').click(function (e) {
-        copyLang(e);
-    });
-    $('.translate').click(function (e) {
-        translate(e);
-    });
-
-    function copyLang(event) {
-        var lang = event.target.id;
-        lang = lang.substr(5);
-        lang = lang.split('-');
-        $('#edit-'+lang[1]).val($('#textarea-'+lang[0]).val());
-        $('#edit-'+lang[1]).focus();
-    }
-
-    function translate(event) {
-        var lang = event.target.id;
-        lang = lang.substr(10);
-        lang = lang.split('-');
-        var sourceLang = lang[0];
-        var targetLang = lang[1];
-        setPageInactive();
-        $.ajax({
-            url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
-            dataType : 'HTML',
-            success: function(response) {
-                $('#edit-'+lang[1]).val(response.trim());
-                $('#edit-'+lang[1]).focus();
-                setPageActive();
-            },
-            error: function() {
-                $('#edit-'+lang[1]).val('Error: ' + response);
-                $('#edit-'+lang[1]).focus();
-                setPageActive();
-            }
-        });
-    }
-<?php
-$this->jQuery()->onLoadCaptureEnd();
-if (isset($this->entrySaved)) {
-    $this->showNotification(
-        $this->entrySaved,
-        $this->lang->L_SAVED_SUCCESSFULLY . '.',
-        $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
-    );
-}
-if (isset($this->keyExistsError)) {
-    $this->showNotification(false, '', $this->keyExistsError);
-}
-?>
-</script>
-
-
-
+<?php $this->jQuery()->onLoadCaptureEnd();

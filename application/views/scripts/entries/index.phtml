@@ -270,9 +270,15 @@ function deleteVar(id, name)
     })
 }
 <?php $this->jQuery()->onLoadCaptureStart();?>
-$('.inlineEditKeyTrigger').click(function() {
+var yOffset = 0; // trace the page's y-offset for showing error notifications in the visible area
+$('.inlineEditKeyTrigger').click(function(e) {
     var id = $(this).attr('for');
     $('#' + id).trigger('click');
+    yOffset = e.pageY;
+});
+
+$('.inlineEditKey').click(function(e) {
+    yOffset = e.pageY;
 });
 
 $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
@@ -285,14 +291,21 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
     mouseover_class: 'inlineEditMouseOver',
     editfield_class: 'inlineEditField',
     size: 'auto',
-    form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />'
+    form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
+    on_error: function(msg) {
+        var notify = '<div id="notifyKey" class="notification-bar error"><?php echo $this->getIcon('Attention', '', 16);?> ' + msg + '</div>';
+        $('body').append(notify);
+        //move div to the clicked area, so user can see it if page is scrolled down
+        $('#notifyKey').css('top', yOffset -20);
+        $('#notifyKey').delay(200).fadeIn(600).delay(2500).fadeOut(600);
+    }
 });
 <?php $this->jQuery()->onLoadCaptureEnd();?>
 </script>
 <?php
 if (isset($this->keyDeleted)) {
     $this->showNotification(
-        !$this->keyDeleted,
+        $this->keyDeleted,
         $this->lang->L_KEY_DELETED_SUCCESSFULLY . '.',
         $this->lang->L_ERROR_DELETING_KEY . '!'
     );

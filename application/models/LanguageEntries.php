@@ -646,14 +646,18 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function validateLanguageKey($keyName, $fileTemplate)
     {
-        //TODO Implement a possibility to configure validation rules in admin section
-        // Meanwhile we turn this off because the import of a file has problems with this.
-        /*
+        $this->_validateMessages = array();
+        $translator = Msd_Language::getInstance()->getTranslator();
+
+        // check for min-length of 1 character
         if (strlen($keyName) < 1) {
-            $this->_validateMessages[] = 'Name is too short.';
+            $this->_validateMessages[] = $translator->_('L_VALIDATE_ERROR_NAME_TOO_SHORT');
             return false;
         }
 
+        //TODO Implement a possibility to configure validation rules in admin section and implement it here
+        // Meanwhile we turn this off because the import of a file has problems with this.
+        /*
         $pattern = '/^[^A-Z_]*$/';
         if (!preg_match($pattern, $keyName)) {
             $this->_validateMessages[] = 'Name contains illegal characters.<br />'
@@ -661,9 +665,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             return false;
         }
         */
+
         // check if we already have a lang var with that name
         if ($this->hasEntryWithKey($keyName, $fileTemplate)) {
-            $translator = Msd_Language::getInstance()->getTranslator();
             $this->_validateMessages[] = sprintf($translator->_('L_VALIDATE_ERROR_KEY_EXISTS'), $keyName);
             return false;
         }

@@ -133,7 +133,7 @@ img {
     bottom:0;
     text-align:right;
     min-height:12px;
-    border-top:1px solid #EEE;
+    border-top:1px solid #6E9E2D; /*#EEE;*/
     background:#DADADA;
     font-size: 10px;
 }

@@ -296,24 +296,33 @@ class AjaxController extends Zend_Controller_Action
         $keyId     = (int)    substr($this->_request->getParam('id'), 4);
         $keyName   = (string) $this->_request->getParam('new_value');
         $ret       = array('is_error' => false);
-        $errorText = '';
+        $errors    = array();
 
         //check rights
         if (!$this->_userModel->hasRight('editKey') || $keyId == 0) {
-            $errorText = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
+            $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
         } else {
-            //save
-            if (!$this->_entriesModel->updateKeyName($keyId, $keyName)) {
-                $errorText = $this->view->lang->L_ERROR_SAVING_KEY;
+            // we need to get the assigned file template for validating the keys name
+            $entry = $this->_entriesModel->getKeyById($keyId);
+            if (!$this->_entriesModel->validateLanguageKey($keyName, $entry['template_id'])) {
+                $errors = array_merge($errors, $this->_entriesModel->getValidateMessages());
+            }
+
+            if (empty($errors)) {
+                //everything is ok -> save
+                $saved = $this->_entriesModel->updateKeyName($keyId, $keyName);
+                if ($saved === false) {
+                    $errors[] = $this->view->lang->L_ERROR_SAVING_KEY;
+                }
             }
         }
 
-        // re-read the saved key name
-        $newKey = $this->_entriesModel->getKeyById($keyId);
+        // re-read the saved key name to get the real value from the database
+        $newKey      = $this->_entriesModel->getKeyById($keyId);
         $ret['html'] = $newKey['key'];
-        if ($errorText > '') {
+        if (!empty($errors)) {
             $ret['is_error']   = true;
-            $ret['error_text'] = $errorText;
+            $ret['error_text'] = implode('<br />', $errors);
         }
 
         $this->view->data = $ret;

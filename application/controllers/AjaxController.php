@@ -261,7 +261,8 @@ class AjaxController extends Zend_Controller_Action
     {
         $languageId = (int) $this->_request->getParam('languageId', 0);
         $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
-        if ($languageId < 1 || !$this->_userModel->hasRight('editLanguage')) {
+        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        if ($languageId < 1 || $languageId = $fallbackLanguageId || !$this->_userModel->hasRight('editLanguage')) {
             //Missing param or no permission to change status
             $data = array('icon' => $icon);
         } else {

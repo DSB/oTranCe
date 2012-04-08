@@ -48,7 +48,8 @@ class Admin_LanguagesController extends AdminController
             $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage'),
             false
         );
-        $this->view->hits = $this->_languagesModel->getRowCount();
+        $this->view->hits               = $this->_languagesModel->getRowCount();
+        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
     }
 
     /**

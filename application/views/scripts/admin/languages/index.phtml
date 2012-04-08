@@ -92,7 +92,11 @@ foreach ($this->languages as $language) {
             </a>
         </td>
         <td>
-            <div id="lang-<?php echo $language['id'];?>" class="switchLanguageStatus">
+            <div id="lang-<?php echo $language['id'];?>"
+                <?php if ($this->fallbackLanguageId != $language['id']) { ?>
+                    class="switchLanguageStatus"
+                <?php } ?>
+                >
                 <?php echo $language['active'] ? $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16) : $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16); ?>
             </div>
         </td>

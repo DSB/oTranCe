@@ -132,7 +132,7 @@ class Msd_Export
             //Suppress warnings, if we can't change the file permissions.
             @chmod($langFile['filename'], 0664);
             $res[$templateId]['size']     = $size;
-            $res[$templateId]['filename'] = str_replace(EXPORT_PATH . DS, '', $langFile['filename']);
+            $res[$templateId]['filename'] = str_replace(EXPORT_PATH . '/', '', $langFile['filename']);
         }
         $res['exportOk'] = (count($res) > 0) && $exportOk;
         return $res;

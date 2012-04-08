@@ -184,6 +184,12 @@ class Application_Model_Languages extends Msd_Application_Model
     {
         $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `is_fallback` = 1";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if (empty($res)) {
+            // fallback if no fallback language is set, fetch first found active language
+            $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `active` = 1 LIMIT 1";
+            $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        }
+
         return (isset($res[0]['id'])) ? $res[0]['id'] : false;
     }
 

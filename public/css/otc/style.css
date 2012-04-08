@@ -81,12 +81,12 @@ img {
 }
 
 #container {
-    float: left;
-    min-width: 100%;
-    width: auto;
-    padding-bottom: 10px;
-    border-top: 5px solid #6E9E2D;
-    background: #fff url(pics/bg-body.gif) repeat-x 0 0;
+    float:left;
+    min-width:100%;
+    width:auto;
+    padding-bottom:10px;
+    border-top:5px solid #6E9E2D;
+    background:#fff url(pics/bg-body.gif) repeat-x 0 0;
 }
 
 #header {
@@ -132,12 +132,18 @@ img {
     width:100%;
     bottom:0;
     text-align:right;
-    min-height:12px;
-    border-top:1px solid #6E9E2D; /*#EEE;*/
+    min-height:17px;
+    border-top:1px solid #6E9E2D;
     background:#DADADA;
-    font-size: 10px;
+    padding-top:2px;
+    vertical-align:middle;
+    opacity:0.87;
 }
-
+#footer p {
+    margin:0 8px 0 0;
+    padding:0;
+    font-size:10px;
+}
 /*******/ /*Menu*/ /*******/
 ul.menu {
     margin: 0;

@@ -88,7 +88,7 @@ class AjaxController extends Zend_Controller_Action
         $keyId            = $this->_request->getParam('key');
         $sourceLang       = $this->_request->getParam('source');
         $targetLang       = $this->_request->getParam('target');
-        $entry            = $this->_entriesModel->getEntryById($keyId, array($sourceLang));
+        $entry            = $this->_entriesModel->getTranslationsByKeyId($keyId, array($sourceLang));
         $this->view->data = $this->_getTranslation(
             $entry[$sourceLang],
             $this->_languages[$sourceLang]['locale'],

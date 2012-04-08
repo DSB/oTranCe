@@ -121,21 +121,21 @@ class LanguageEntriesTest extends ControllerTestCase
 
     public function testGetEntryById()
     {
-        $entry = $this->model->getEntryById(1, 2);
+        $entry = $this->model->getTranslationsByKeyId(1, 2);
         $expected = array(2 => 'Test records');
         $this->assertEquals($expected, $entry);
 
-        $entry = $this->model->getEntryById(1, 1);
+        $entry = $this->model->getTranslationsByKeyId(1, 1);
         $expected = array(1 => 'Test eintrag');
         $this->assertEquals($expected, $entry);
 
         // get non existent
-        $entry = $this->model->getEntryById(99999, 2);
+        $entry = $this->model->getTranslationsByKeyId(99999, 2);
         $expected = array();
         $this->assertEquals($expected, $entry);
 
         // check call with invalid params
-        $entry = $this->model->getEntryById(0, 0);
+        $entry = $this->model->getTranslationsByKeyId(0, 0);
         $expected = array();
         $this->assertEquals($expected, $entry);
     }

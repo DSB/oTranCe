@@ -56,7 +56,8 @@ if ($this->user->hasRight('editKey')) { ?>
         mouseover_class: 'inlineEditMouseOver',
         editfield_class: 'inlineEditField',
         size: 'auto',
-        form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />'
+        form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
+        save_on_enter: false
     });
     $('.inlineEditTrigger').click(function() {
         var id = $(this).attr('for');

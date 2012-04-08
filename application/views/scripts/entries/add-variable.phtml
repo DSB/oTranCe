@@ -33,15 +33,5 @@
 <?php
 $this->jQuery()->addOnLoad("$('#var').focus();");
 if (isset($this->error)) {
-    $this->popUpMessage()->addMessage(
-        'error',
-        'Error',
-        $this->error,
-        array(
-            'modal' => true,
-            'height' => 160,
-            'width' => 300,
-            'dialogClass' => 'error',
-        )
-    );
+    $this->showNotification(false, '', $this->error);
 }

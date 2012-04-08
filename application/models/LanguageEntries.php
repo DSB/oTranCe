@@ -660,13 +660,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
                        . 'Only "A-Z" and "_" is allowed.';
             return false;
         }
-
+        */
         // check if we already have a lang var with that name
         if ($this->hasEntryWithKey($keyName, $fileTemplate)) {
-            $this->_validateMessages[] = 'A language variable with this name already exists in this file template!';
+            $translator = Msd_Language::getInstance()->getTranslator();
+            $this->_validateMessages[] = sprintf($translator->_('L_VALIDATE_ERROR_KEY_EXISTS'), $keyName);
             return false;
         }
-        */
+
         return true;
     }
 

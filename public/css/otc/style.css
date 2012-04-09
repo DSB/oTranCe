@@ -94,10 +94,11 @@ img {
 
 #headline {
     position:fixed;
-    top:0px;
+    top:0;
     z-index:600;
 }
 #headline h2, #sidebar h2 {
+    top:0;
     min-width:100%;
     padding-top:4px;
     height:32px;

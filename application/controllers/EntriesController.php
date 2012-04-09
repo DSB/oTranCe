@@ -388,7 +388,7 @@ class EntriesController extends Zend_Controller_Action
     /**
      * Save and log changes
      *
-     * @return bool
+     * @return bool|string
      */
     private function _saveEntries()
     {
@@ -404,7 +404,7 @@ class EntriesController extends Zend_Controller_Action
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
         $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
-        return (bool) $res;
+        return $res;
     }
 
     /**

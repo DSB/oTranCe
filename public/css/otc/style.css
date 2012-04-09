@@ -109,6 +109,12 @@ img {
     z-index:700;
 }
 
+#headline h2 {
+    zoom: 1;
+    filter: alpha(opacity=95);
+    opacity: 0.95;
+}
+
 #sidebar {
     top:0;
     width:180px;
@@ -498,15 +504,20 @@ input.Formtext {
 }
 
 .textarea-edit {
-    width: 100px;
+    width: 90px;
     background: #FFF;
     border: 1px solid #DDD;
     overflow: auto;
     font: 12px/ 1.2 "Courier New", Courier, monospace;
 }
 
-#content textarea.hta_content {
-    border: 0;
+.textarea-inlineedit {
+    width: 280px;
+    background: #FFF;
+    border: 1px solid #DDD;
+    overflow: auto;
+    font: 12px/ 1.2 "Courier New", Courier, monospace;
+    margin-bottom:12px;
 }
 
 input.radio,input.checkbox {
@@ -768,7 +779,7 @@ pre.xdebug-var-dump {
 
 .notification-bar {
     display:none;
-    position:absolute;
+    position:fixed;
     opacity:0.95;
     top:0;
     left:0;
@@ -786,4 +797,5 @@ pre.xdebug-var-dump {
 }
 .notification-bar.error {
     background-color:#F9948A;
+    z-index:2000;
 }

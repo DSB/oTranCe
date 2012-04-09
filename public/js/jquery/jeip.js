@@ -23,6 +23,12 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 // version: 0.1.2
 
+/**
+ * Additional changes by DSB in 2012-04:
+ * - after_save is also called if an error happens
+ * - added event handler on_cancel to fetch cancel actions from outside
+ */
+
 (function( $ ) {
 	$.fn.eip = function( save_url, options ) {
 		// Defaults
@@ -239,6 +245,10 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 			$( self ).removeClass( opt.mouseover_class );
 			$( self ).fadeIn( "fast" );
+            if( opt.on_cancel != false) {
+                opt.on_cancel( self );
+            }
+
 		};
 
 		var _saveEdit = function( self, orig_option_value ) {
@@ -255,6 +265,9 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 				$( self ).removeClass( opt.mouseover_class );
 				$( self ).fadeIn( "fast" );
+                if( opt.on_cancel != false) {
+                    opt.on_cancel( self );
+                }
 
 				return true;
 			}
@@ -309,7 +322,7 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 					$( self ).addClass( opt.mouseover_class );
 					$( self ).fadeIn( "fast" );
 
-					if( opt.after_save != false ) {
+					if( opt.after_save != false && data.is_error !== true) {
 						opt.after_save( self );
 					}
 

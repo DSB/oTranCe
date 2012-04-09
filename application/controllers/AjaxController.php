@@ -294,7 +294,7 @@ class AjaxController extends Zend_Controller_Action
      */
     public function saveKeyNameAction()
     {
-        $keyId     = (int)    substr($this->_request->getParam('id'), 4);
+        $keyId     = (int) substr($this->_request->getParam('id'), 4);
         $keyName   = (string) $this->_request->getParam('new_value');
         $ret       = array('is_error' => false);
         $errors    = array();
@@ -321,6 +321,47 @@ class AjaxController extends Zend_Controller_Action
         // re-read the saved key name to get the real value from the database
         $newKey      = $this->_entriesModel->getKeyById($keyId);
         $ret['html'] = $newKey['key'];
+        if (!empty($errors)) {
+            $ret['is_error']   = true;
+            $ret['error_text'] = implode('<br />', $errors);
+        }
+
+        $this->view->data = $ret;
+        $this->render('json');
+    }
+
+    /**
+     * Save a translation (used at inline editing)
+     *
+     * @return void
+     */
+    public function saveTranslationAction()
+    {
+        $param       = (string) $this->_request->getParam('id', '');
+        $params      = explode('-', $param);
+        $keyId       = !empty($params[1]) ? $params[1] : 0;
+        $languageId  = !empty($params[2]) ? $params[2] : 0;
+        $translation = (string) $this->_request->getParam('new_value');
+        $ret         = array('is_error' => false);
+        $errors      = array();
+
+        //check rights
+        $editLanguages = $this->_userModel->getUserLanguageRights();
+        if (!$this->_userModel->hasRight('editLanguage') || !in_array($languageId, $editLanguages)
+            || $keyId == 0 || $languageId == 0)
+        {
+            $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
+        } else {
+            $data = array($languageId => $translation);
+            $saved = $this->_entriesModel->saveEntries($keyId, $data);
+            if ($saved !== true) {
+                $errors[] = $this->view->lang->L_ERROR_SAVING_CHANGE;
+            }
+        }
+
+        // re-read the saved translation to get the real value from the database
+        $translations = $this->_entriesModel->getTranslationsByKeyId($keyId, $languageId);
+        $ret['html'] = htmlspecialchars($translations[$languageId], ENT_COMPAT, 'UTF-8');
         if (!empty($errors)) {
             $ret['is_error']   = true;
             $ret['error_text'] = implode('<br />', $errors);

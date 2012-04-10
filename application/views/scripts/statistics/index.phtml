@@ -9,34 +9,35 @@
         <th colspan="3"><?php echo $this->lang->L_LANGUAGE;?></th>
         <th><?php echo $this->lang->L_EDITED;?></th>
     </tr>
-
-<?php
-$i = 0;
-$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$lastUser = '';
-if (empty($this->userStatistics)) {
-    echo '<tr class="row-odd"><td colspan="7"><div class="error"><?php echo $this->lang->L_NO_HITS;?>.</div></td></tr>';
-}
-foreach ($this->userStatistics as $user) {
-    if ($lastUser != $user['user_id']) {
-        $userChanged = true;
-        $i++;
-    } else {
-        $userChanged = false;
+    <?php
+    $i = 0;
+    $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+    $lastUser = '';
+    if (empty($this->userStatistics)) { ?>
+        <tr class="row-odd">
+            <td colspan="7">
+                <div class="error"><?php echo $this->lang->L_NO_HITS;?>.</div>
+            </td>
+        </tr><?php
     }
-?>
-    <tr class="<?php echo $cycleHelper->next();?>">
-        <td class="right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
-        <td>&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
-        <td>
-            <?php echo $this->printFlag($user['lang_id'], 16);?>
-        </td>
-        <td><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
-        <td><?php echo $this->languages[$user['lang_id']]['name'];?></td>
-        <td class="right"><?php echo $this->numberFormat($user['editActions']);?></td>
-    </tr>
-<?php
-    $lastUser = $user['user_id'];
-}
-?>
+    foreach ($this->userStatistics as $user) {
+        if ($lastUser != $user['user_id']) {
+            $userChanged = true;
+            $i++;
+        } else {
+            $userChanged = false;
+        } ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
+            <td>&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
+            <td>
+                <?php echo $this->printFlag($user['lang_id'], 16);?>
+            </td>
+            <td><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
+            <td><?php echo $this->languages[$user['lang_id']]['name'];?></td>
+            <td class="right"><?php echo $this->numberFormat($user['editActions']);?></td>
+        </tr>
+        <?php
+        $lastUser = $user['user_id'];
+    } ?>
 </table>

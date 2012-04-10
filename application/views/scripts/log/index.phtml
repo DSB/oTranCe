@@ -2,50 +2,66 @@
     <h2><?php echo $this->lang->L_LOG;?></h2>
 </div>
 <form action="<?php echo $this->baseUrl();?>/log/index" method="post" id="myForm" onsubmit="setPageInactive();">
-    <p style="margin:0;padding:0;">
-    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+    <table class="bdr more-padding" summary="Filter options">
+            <tr>
+                <td class="vmiddle"><?php echo $this->lang->L_FILTER_BY_LANGUAGE;?>:</td>
+                <td>
+                    <select class="select" name="filterLanguage" id="filterLanguage" onchange="resetOffset();$('#myForm').submit();">
+                        <?php echo $this->selectFilterLanguage;?>
+                    </select>
+                    <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
+                </td>
+                <td class="vmiddle">
+                    <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="vmiddle"><?php echo $this->lang->L_FILTER_BY_USER;?>:</td>
+                <td>
+                    <select class="select" name="filterUser" id="filterUser" onchange="resetOffset();$('#myForm').submit();">
+                        <?php echo $this->selectFilterUser;?>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td class="vmiddle"><?php echo $this->lang->L_FILTER_BY_ACTION;?>:</td>
+                <td>
+                    <select class="select" name="filterAction" id="filterAction" onchange="resetOffset();$('#myForm').submit();">
+                        <?php echo $this->selectFilterAction;?>
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" class="Formbutton" onclick="$('#filterAction').val('');resetOffset();">
+                        <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <div class="top-margin">
+            <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+                onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
+                accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+                <?php else: ?>
+                class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+                <?php endif; ?>
+            </a>
 
-        Filter by language:
-        <select name="filterLanguage" id="filterLanguage" onchange="resetOffset();$('#myForm').submit();">
-            <?php echo $this->selectFilterLanguage;?>
-        </select>
-        <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-        &nbsp;Filter by user:
-        <select name="filterUser" id="filterUser" onchange="resetOffset();$('#myForm').submit();">
-            <?php echo $this->selectFilterUser;?>
-        </select>
-        <button type="submit" class="Formbutton" onclick="$('#filterUser').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-
-        &nbsp;Filter by action:
-        <select name="filterAction" id="filterAction" onchange="resetOffset();$('#myForm').submit();">
-            <?php echo $this->selectFilterAction;?>
-        </select>
-        <button type="submit" class="Formbutton" onclick="$('#filterAction').val('');resetOffset();">
-            <?php echo $this->getIcon('delete', '');?> Reset
-        </button>
-
-        <br /><br />
-        <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
-            onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
-            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
-            <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
-            <?php endif; ?>
-        </a>
-
-        <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
-            onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
-            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
-            <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
-            <?php endif; ?>
-        </a>
-        Hits: <?php echo $this->numberFormat($this->rows);?>
-    </p>
+            <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+                onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
+                accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+                <?php else: ?>
+                class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+                <?php endif; ?>
+            </a>
+            <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->rows);?>
+        </div>
 </form>
 
 <table class="bdr small" summary="List of log entries">
@@ -54,20 +70,20 @@
         <th>&nbsp;</th>
 <?php } ?>
         <th>#</th>
-        <th>Date / Time</th>
-        <th>User</th>
-        <th>Action</th>
-        <th>Language</th>
-        <th>Key</th>
-        <th>New Value</th>
-        <th>Old Value</th>
+        <th><?php echo $this->lang->L_DATETIME;?></th>
+        <th><?php echo $this->lang->L_USER;?></th>
+        <th><?php echo $this->lang->L_ACTION;?></th>
+        <th><?php echo $this->lang->L_LANGUAGE;?></th>
+        <th><?php echo $this->lang->L_KEY;?></th>
+        <th><?php echo $this->lang->L_NEW_VALUE;?></th>
+        <th><?php echo $this->lang->L_OLD_VALUE;?></th>
     </tr>
 <?php
 $i = $i = $this->offset+1;
     if (sizeof($this->logEntries) == 0) {
         ?>
         <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
-            <td colspan="8" class="error">Sorry, no Hits</td>
+            <td colspan="8" class="error"><?php echo $this->lang->L_NO_HITS;?></td>
         </tr>
 
         <?php
@@ -78,11 +94,11 @@ foreach ($this->logEntries as $entry)
     <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
         <?php
             if ($this->canDelete) {
-                $delete = '<a href="#" title="Delete log entry" onclick="deleteLogEntry(\''
+                $delete = '<a href="#" title="' . $this->lang->L_DELETE_LOG_ENTRY . '" onclick="deleteLogEntry(\''
                             . $entry['id'] . '\');">';
                 echo '<td>' . $delete;
                 echo '<img src="' . $this->getIconSrc('delete') . '" style="padding-top:2px;" alt="" '
-                    .'title="Delete this log entry" height="10" width="10"/> ';
+                    .'title="' . $this->lang->L_DELETE_LOG_ENTRY . '" height="10" width="10"/> ';
                 echo '</a></td>';
             }
         ?>
@@ -119,7 +135,7 @@ foreach ($this->logEntries as $entry)
 <script type="text/javascript">
 function deleteLogEntry(id)
 {
-    if (confirm('Are you really sure you want to delete this log entry?')) {
+    if (confirm('<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_LOG_ENTRY);?>')) {
         $('#myForm').attr('action', '<?php echo $this->baseUrl();?>/log/delete/id/' + id);
         setPageInactive();
         $('#myForm').submit();

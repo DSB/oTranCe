@@ -12,7 +12,7 @@ $entriesModel = new Application_Model_LanguageEntries();
 <form action="<?php echo $this->baseUrl();?>/entries/index" method="post" id="myForm">
     <table class="bdr morepadding" summary="Filter and find values">
         <tr>
-            <td>
+            <td class="vmiddle">
                 <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
                 <?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:
             </td>
@@ -35,7 +35,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             </td>
         </tr>
         <tr>
-            <td><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
+            <td class="vmiddle"><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
             <td>
                 <input
                     <?php if (false && $this->getUntranslated > 0) {
@@ -55,7 +55,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="vmiddle">
                 <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
             </td>
             <td>
@@ -71,7 +71,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             </td>
         </tr>
         <tr>
-            <td><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
+            <td class="vmiddle"><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
             <td>
                 <select class="select" id="getUntranslated" name="getUntranslated" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
                     <option value="0">---</option>
@@ -90,7 +90,7 @@ $entriesModel = new Application_Model_LanguageEntries();
             </td>
         </tr>
     </table>
-    <p style="margin:12px 0 0 0">
+    <div class="top-margin">
         <?php
         if ($this->user->hasRight('addVar')) { ?>
              <button type="submit" class="Formbutton" name="addVar" value="addVar">
@@ -115,7 +115,7 @@ $entriesModel = new Application_Model_LanguageEntries();
                 <?php echo $this->selRecordsPerPage;?>
             </select>
         </span>
-    </p>
+    </div>
 </form>
 
 <table class="bdr small" summary="List of entries">

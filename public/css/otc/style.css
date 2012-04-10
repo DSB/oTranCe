@@ -294,7 +294,7 @@ th .Formbutton {
 }
 /*Firefox , Safari , not IE8*/
 #html#body,a.Formbutton {
-    margin: 0 6px 1.5em 0;
+    margin: 0 6px 12px 0;
 }
 
 /*IE7*/
@@ -422,10 +422,6 @@ table.bdr,.bdr,table.xdebug-error {
     border: 1px solid #ddd !important;
 }
 
-.v-middle td {
-    vertical-align:middle;
-}
-
 table.more-padding tr td {
     padding:  4px 8px;
 }
@@ -531,6 +527,10 @@ input.radio,input.checkbox {
 
 .noleftmargin {
     margin-left: 0 !important;
+}
+
+.top-margin {
+    margin-top:12px;
 }
 
 /* options in select lists */
@@ -755,8 +755,14 @@ pre.xdebug-var-dump {
     width:200px;
     height:14px;
     border:1px solid #ccc;
-    margin:8px 0 0 0;
+    margin:0;
     padding:0;
+}
+
+.progressBarPercentage {
+    position:relative;
+    top:-14px;
+    left:-6px;
 }
 
 /** Styling of inline edit fields */

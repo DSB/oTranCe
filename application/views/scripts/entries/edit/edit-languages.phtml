@@ -102,7 +102,7 @@ $entry = $this->entry;
 <?php
 if (isset($this->entrySaved)) {
     $this->showNotification(
-        $this->entrySaved,
+        $this->entrySaved == 1 || $this->entrySaved === true,
         $this->lang->L_SAVED_SUCCESSFULLY . '.',
         $this->lang->L_SAVED_UNSUCCESSFULLY . '!'
     );

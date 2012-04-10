@@ -14,6 +14,7 @@
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',
+'L_ACTIVITIES' => 'Activities',
 'L_ADD' => 'Add',
 'L_ADDED' => 'added',
 'L_ADD_ENTRY' => 'Add a new entry',
@@ -67,6 +68,7 @@ $lang = array(
 'L_DOWNLOADS' => 'Downloads',
 'L_DROP_FILE_HINT' => 'Drop project logo here to upload.',
 'L_EDIT' => 'Edit',
+'L_EDITED' => 'Edited',
 'L_EDIT_ENTRIES' => 'Edit entries',
 'L_EDIT_ENTRY' => 'Edit entry',
 'L_EDIT_FILE_TEMPLATE' => 'Edit file template',

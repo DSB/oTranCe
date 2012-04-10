@@ -39,13 +39,13 @@ $projectConfig = $this->config->getParam('project');
         $langLocale = $this->languages[$langId]['locale'];
     ?>
         <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
-            <td class="right"><?php echo $i;?>.</td>
+            <td class="right vmiddle"><?php echo $i;?>.</td>
             <td>
                 <?php echo $this->printFlag($langId);?>
             </td>
-            <td><?php echo $langLocale;?></td>
-            <td><?php echo $langName;?></td>
-            <td>
+            <td class="vmiddle"><?php echo $langLocale;?></td>
+            <td class="vmiddle"><?php echo $langName;?></td>
+            <td class="vmiddle">
                 <?php
                     if ($langId == $this->fallbackLanguageId) {
                         echo $this->getIcon('Ok', '', 16);
@@ -81,23 +81,23 @@ $projectConfig = $this->config->getParam('project');
         $langLocale = $this->languages[$langId]['locale'];
         ?>
         <tr class="<?php echo $cycle->next();?>">
-            <td class="right"><?php echo $i;?>.</td>
+            <td class="right vmiddle"><?php echo $i;?>.</td>
             <td>
                 <label for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
                     <?php echo $this->printFlag($key);?>
                 </label>
             </td>
-            <td>
+            <td class="vmiddle">
                 <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
                     <?php echo $langLocale;?>
                 </label>
             </td>
-            <td>
+            <td class="vmiddle">
                 <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
                     <?php echo $langName;?>
                 </label>
             </td>
-            <td>
+            <td class="vmiddle">
                 <div id="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguage">
                     <?php
                         if (in_array($key, $this->refLanguagesSelected)) {

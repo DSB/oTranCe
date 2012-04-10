@@ -422,6 +422,11 @@ table.bdr,.bdr,table.xdebug-error {
     border: 1px solid #ddd !important;
 }
 
+/* flag images in table.bdr td */
+.bdr tr td img {
+    margin-top:4px;
+}
+
 table.more-padding tr td {
     padding:  4px 8px;
 }

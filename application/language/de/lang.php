@@ -14,6 +14,7 @@
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen Benutzerkonto',
+'L_ACTION' => 'Aktion',
 'L_ACTIVITIES' => 'Aktivitäten',
 'L_ADD' => 'Hinzufügen',
 'L_ADDED' => 'hinzugefügt',
@@ -63,6 +64,7 @@ $lang = array(
 'L_DELETE_FLAG' => 'Flagge löschen',
 'L_DELETE_KEY' => 'Schlüssel löschen',
 'L_DELETE_LANGUAGE' => 'Sprache löschen',
+'L_DELETE_LOG_ENTRY' => 'Log-Eintrag entfernen',
 'L_DELETE_USER' => 'Benutzer löschen',
 'L_DELETION_SUCCESSFULL' => 'Löschung erfolgreich',
 'L_DESCRIPTION' => 'Beschreibung',

@@ -1,13 +1,13 @@
 <div id="headline">
-    <h2>Statistics</h2>
+    <h2><?php echo $this->lang->L_STATISTICS;?></h2>
 </div>
-<h4>Activities:</h4>
+<h4><?php echo $this->lang->L_ACTIVITIES;?>:</h4>
 <table class="bdr small" summary="Activity statistics of users">
     <tr class="thead">
         <th>#</th>
-        <th>User</th>
-        <th colspan="3">Language</th>
-        <th>Edit actions</th>
+        <th><?php echo $this->lang->L_USER;?></th>
+        <th colspan="3"><?php echo $this->lang->L_LANGUAGE;?></th>
+        <th><?php echo $this->lang->L_EDITED;?></th>
     </tr>
 
 <?php
@@ -15,7 +15,7 @@ $i = 0;
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $lastUser = '';
 if (empty($this->userStatistics)) {
-    echo '<tr class="row-odd"><td colspan="7"><div class="error">Sorry, no activities yet.</div></td></tr>';
+    echo '<tr class="row-odd"><td colspan="7"><div class="error"><?php echo $this->lang->L_NO_HITS;?>.</div></td></tr>';
 }
 foreach ($this->userStatistics as $user) {
     if ($lastUser != $user['user_id']) {

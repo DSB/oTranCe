@@ -358,7 +358,7 @@ function removeTrigger(obj) {
 
 /* Add/remove optical inline edit class when hovering edit icons */
 $('.inlineEditValueTrigger, .inlineEditKeyTrigger').hover(function(e) {
-    $('#' + $(this).attr('for')).addClass('inlineEditMouseOver');
+        $('#' + $(this).attr('for')).addClass('inlineEditMouseOver');
     },
     function() {
         $('#' + $(this).attr('for')).removeClass('inlineEditMouseOver');

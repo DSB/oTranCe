@@ -347,7 +347,7 @@ class AjaxController extends Zend_Controller_Action
 
         //check rights
         $editLanguages = $this->_userModel->getUserLanguageRights();
-        if (!$this->_userModel->hasRight('editLanguage') || !in_array($languageId, $editLanguages)
+        if (!in_array($languageId, $editLanguages)
             || $keyId == 0 || $languageId == 0) {
             $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
         } else {

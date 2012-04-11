@@ -11,13 +11,13 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
     public function testCanPrintFileTemplatesAsSelectList()
     {
         $this->view = Zend_Layout::getMvcInstance()->getView();
-        $expected = '<select class="select" name="fileTemplate" style="width:402px;">'
+        $expected = '<select class="select" name="fileTemplate">'
                     . '<option value="1" selected="selected">{LOCALE}/lang.php</option>'
                     . '<option value="2">{LOCALE}/help_lang.php</option></select>';
         $res = $this->view->printFileTemplateHtml(1);
         $this->assertEquals($expected, $res);
 
-        $expected = '<select class="select" name="fileTemplate" style="width:402px;">'
+        $expected = '<select class="select" name="fileTemplate">'
             . '<option value="1">{LOCALE}/lang.php</option>'
             . '<option value="2" selected="selected">{LOCALE}/help_lang.php</option></select>';
         $res = $this->view->printFileTemplateHtml(2);

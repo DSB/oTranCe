@@ -8,8 +8,9 @@ class StatisticsControllerTest extends ControllerTestCase
     {
         $this->loginUser();
         $this->dispatch('/statistics');
-        $this->assertQueryContentContains('h2', 'Statistics');
-        $this->assertQueryContentContains('th', 'Edit actions');
+        $this->assertQueryContentContains('h2', $this->_translator->_('L_STATISTICS'));
+        $this->assertQueryContentContains('h4', $this->_translator->_('L_ACTIVITIES'));
+        $this->assertQueryContentContains('th', $this->_translator->_('L_EDITED'));
     }
 
     public function testIndexActionRedirectsIfUserIsNotAllowedToAccess()

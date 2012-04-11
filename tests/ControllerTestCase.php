@@ -18,6 +18,7 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
         $_SERVER['SERVER_NAME'] = 'localhost';
+        $this->_translator = Msd_Language::getInstance()->getTranslator();
     }
 
     public function appBootstrap()

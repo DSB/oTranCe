@@ -77,7 +77,7 @@ class SettingsController extends Msd_Controller_Action
                 $saved = $saved && $this->_changePassword($oldPassword, $newPassword, $newPasswordConfirm);
             }
 
-            $this->view->saved = $saved;
+            $this->view->saved = (bool) $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
             $vcsUser           = $this->_getVcsUser();

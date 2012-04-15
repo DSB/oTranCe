@@ -37,8 +37,9 @@ class Msd_Action_Helper_AssignConfigAndLanguage
             return;
         }
         $view = $this->getView();
-        $view->config = Msd_Registry::getConfig();
-        $view->lang = Msd_Language::getInstance();
+        $view->config        = Msd_Registry::getConfig();
+        $view->dynamicConfig = Msd_Registry::getDynamicConfig();
+        $view->lang          = Msd_Language::getInstance();
     }
 
     /**

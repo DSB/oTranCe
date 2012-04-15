@@ -1,9 +1,6 @@
 <?php
-$config          = Msd_Registry::getConfig();
-$dynamicConfig   = Msd_Registry::getDynamicConfig();
-$lang            = Msd_Language::getInstance();
-$interfaceConfig = $config->getParam('interface');
-$projectConfig   = $config->getParam('project');
+$projectConfig   = $this->config->getParam('project');
+$interfaceConfig = $this->config->getParam('interface');
 $theme           = $interfaceConfig['theme'];
 $language        = $interfaceConfig['language'];
 $this->headMeta()
@@ -32,9 +29,8 @@ $this->jQuery()->setVersion('1.7.1');
 $this->jQuery()->setUiVersion('1.8.5');
 $this->jQuery()->uiEnable();
 
-$menu     = $this->menu();
 $messages = (string) $this->popUpMessage();
-if ($dynamicConfig->getParam('optimizeTables') == true) {
+if ($this->dynamicConfig->getParam('optimizeTables') == true) {
     $this->partial('/helper/optimize-tables.phtml');
 }
 $this->jQuery()->onLoadCaptureStart();
@@ -63,7 +59,7 @@ $this->jQuery()->onLoadCaptureEnd();
     <div id="container">
         <?php
             echo $messages;
-            echo $menu;
+            echo $this->menu();
             if (!$this->isLogin) { ?>
                 <div id="content"><?php
             }
@@ -73,10 +69,10 @@ $this->jQuery()->onLoadCaptureEnd();
             }
         ?>
     </div>
-    <div id="page-loader"><?php echo $this->getIcon('ajax-loader'); ?></div>
+    <div id="page-loader"><?php echo $this->getIcon('ajax-loader');?></div>
     <?php
-        if ($dynamicConfig->getParam('optimizeTables') == true) {
-            $dynamicConfig->setParam('optimizeTables', false);
+        if ($this->dynamicConfig->getParam('optimizeTables') == true) {
+            $this->dynamicConfig->setParam('optimizeTables', false);
         ?>
         <div id="optimizationError" style="display:none">
             <?php echo $this->lang->L_ERROR_OPTIMIZING_TABLES;?><br /><br />

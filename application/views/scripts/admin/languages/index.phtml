@@ -56,7 +56,7 @@
 <?php
 if ($this->hits == 0) { ?>
     <tr class="row-odd">
-        <td colspan="6" class="error">Sorry, no hits.</td>
+        <td colspan="6" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
     </tr>
 
 <?php
@@ -68,7 +68,7 @@ foreach ($this->languages as $language) {
     $editUrl = $this->baseUrl() . '/admin_languages/edit/id/' . $language['id'] . '/';
 ?>
     <tr class="<?php echo $cycleHelper->next(); ?>">
-        <td>
+        <td class="vmiddle">
             <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
                 <?php echo $this->getIcon('Edit', ''); ?>
             </a>
@@ -78,22 +78,22 @@ foreach ($this->languages as $language) {
                 </a>
             <?php } ?>
         </td>
-        <td class="right">
+        <td class="right vmiddle">
             <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
                 <?php echo $i++; ?>.
             </a>
         </td>
-        <td>
+        <td class="vmiddle">
             <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
                 <?php echo $language['locale']; ?>
             </a>
         </td>
-        <td>
+        <td class="vmiddle">
             <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
                 <?php echo $language['name']; ?>
             </a>
         </td>
-        <td>
+        <td class="vmiddle">
             <div id="lang-<?php echo $language['id'];?>"
                 <?php if ($this->fallbackLanguageId != $language['id']) { ?>
                     class="switchLanguageStatus"
@@ -102,7 +102,7 @@ foreach ($this->languages as $language) {
                 <?php echo $language['active'] ? $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16) : $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16); ?>
             </div>
         </td>
-        <td>
+        <td class="vmiddle">
             <a href="<?php echo $editUrl; ?>" title="<?php echo $this->lang->L_EDIT_LANGUAGE;?>">
                 <?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('NotOk', $this->L_NO_FLAG, 16); ?>
             </a>

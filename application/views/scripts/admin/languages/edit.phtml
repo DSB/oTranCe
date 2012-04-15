@@ -31,8 +31,8 @@ if ($this->languageId == 0) {
            <th colspan="2"><?php echo $this->lang->L_LANGUAGE_SETTINGS;?></th>
         </tr>
         <tr class="row-odd">
-            <td><?php echo $this->lang->L_IS_ACTIVE;?>:</td>
-            <td>
+            <td class="vmiddle"><?php echo $this->lang->L_IS_ACTIVE;?>:</td>
+            <td class="vmiddle">
                 <input type="radio" name="langActive" id="langActiveYes" value="1"<?php echo (!isset($this->langActive) || $this->langActive) ? ' checked="checked"' : ''; ?>/>
                 <label for="langActiveYes"> <?php echo $this->lang->L_YES;?></label>
                 &nbsp;&nbsp;
@@ -47,15 +47,15 @@ if ($this->languageId == 0) {
             </td>
         </tr>
         <tr class="row-even">
-            <td><label for="langLocale"><?php echo $this->lang->L_LOCALE;?>:</label></td>
-            <td><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
+            <td class="vmiddle"><label for="langLocale"><?php echo $this->lang->L_LOCALE;?>:</label></td>
+            <td class="vmiddle"><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
                 if (array_key_exists('langLocale', $this->inputErrors)) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span>
                 <?php }?>
             </td>
         </tr>
         <tr class="row-odd">
-            <td><label for="langName"><?php echo $this->lang->L_NAME_OF_LANGUAGE;?>:</label></td>
+            <td class="vmiddle"><label for="langName"><?php echo $this->lang->L_NAME_OF_LANGUAGE;?>:</label></td>
             <td><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
                 if (array_key_exists('langName', $this->inputErrors)) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span>
@@ -63,13 +63,12 @@ if ($this->languageId == 0) {
             </td>
         </tr>
         <tr class="row-even">
-            <td>
+            <td class="vmiddle">
                 <label for="langFlag"><?php echo $this->lang->L_FLAG;?>:</label><br /><br />
-                <?php echo $this->printFlag($this->languageId);?>
-
             </td>
-            <td>
-                <input type="file" class="text" name="langFlag" id="langFlag" /><br/>
+            <td class="vmiddle">
+                <?php echo $this->printFlag($this->languageId);?>
+                <input type="file" class="text" name="langFlag" id="langFlag" />
                 <?php if ($this->flagExtension > '') { ?>
                     <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
                     <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
@@ -80,7 +79,7 @@ if ($this->languageId == 0) {
         </tr>
         <tr class="row-odd">
             <td><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
-            <td>
+            <td class="vmiddle">
                 <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE;?></button>
             </td>
         </tr>

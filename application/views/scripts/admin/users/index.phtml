@@ -44,7 +44,7 @@ foreach ($this->users as $userId => $user)
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="' . $this->lang->L_EDIT_USER . '">';
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
-        <td>
+        <td class="vmiddle">
             <?php echo $edit . $this->getIcon('Edit', $this->lang->L_EDIT);?></a>
             <?php if ($this->user->hasRight('deleteUsers')) { ?>
                 <a href="#" id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="<?php echo $this->lang->L_DELETE_USER;?>">
@@ -52,14 +52,14 @@ foreach ($this->users as $userId => $user)
                 </a>
             <?php } ?>
         </td>
-        <td class="right">
+        <td class="right vmiddle">
             <?php echo $edit . $this->numberFormat($i);?>.</a>
         </td>
-        <td class="right">
+        <td class="right vmiddle">
             <?php echo $edit . $user['id'];?></a>
         </td>
-        <td><?php echo $edit . $user['username'];?></a></td>
-        <td>
+        <td class="vmiddle"><?php echo $edit . $user['username'];?></a></td>
+        <td class="vmiddle">
             <div id="img-<?php echo $userId;?>" class="switchUserEditRight">
                 <?php
                     if ($user['active'] == 1) {
@@ -70,7 +70,7 @@ foreach ($this->users as $userId => $user)
                 ?>
             </div>
         </td>
-        <td>
+        <td class="vmiddle">
             <?php $languageEditRights = $this->userModel->getUserLanguageRights($userId, false);?>
             <table summary="Flags of edit languages">
             <tr>
@@ -88,13 +88,13 @@ foreach ($this->users as $userId => $user)
                             $editLangClose = '';
                         }
                         if (isset($this->languages[$langId])) { ?>
-                            <td>
+                            <td class="vmiddle">
                                 <?php echo $editLang . $this->printFlag($langId, 20) . $editLangClose?>
                             </td>
-                            <td>
+                            <td class="vmiddle">
                                 <?php echo $editLang . $this->languages[$langId]['locale'] . $editLangClose;?>
                             </td>
-                            <td>
+                            <td class="vmiddle">
                                 <?php echo $editLang . $this->languages[$langId]['name'] . $editLangClose;?>
                             </td>
                             <?php

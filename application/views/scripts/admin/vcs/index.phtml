@@ -4,6 +4,7 @@
 <?php
 echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 $projectConfig = $this->config->getParam('project');
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 ?>
 <h4><?php echo $this->lang->L_VCS_SETTINGS;?>:</h4>
 <form action="" method="post" id="exportConfigForm">
@@ -11,7 +12,7 @@ $projectConfig = $this->config->getParam('project');
         <tr class="thead">
             <th colspan="2"><?php echo $this->lang->L_VCS;?></th>
         </tr>
-        <tr class="row-odd">
+        <tr class="<?php echo $cycleHelper->next();?>">
             <td><?php echo $this->lang->L_PROJECT_USES_VCS;?>:</td>
             <td>
                 <input type="radio" name="vcsActivated" id="vcs_active_yes" value="1"
@@ -30,7 +31,7 @@ $projectConfig = $this->config->getParam('project');
             </td>
         </tr>
 
-        <tr class="row-odd">
+        <tr class="<?php echo $cycleHelper->next();?>">
             <td><label for="vcsAdapter"><?php echo $this->lang->L_CURRENT_VCS_ADAPTER;?>:</label></td>
             <td>
                 <select name="vcsAdapter" id="vcsAdapter" onchange="$('#exportConfigForm').submit();">
@@ -42,7 +43,7 @@ $projectConfig = $this->config->getParam('project');
                 </select>
             </td>
         </tr>
-        <tr class="row-even">
+        <tr class="<?php echo $cycleHelper->next();?>">
             <td><label for="vcsCommitMessage"><?php echo $this->lang->L_COMMIT_MESSAGE;?>:</label></td>
             <td><input type="text" class="text width300" name="vcsCommitMessage" id="vcsCommitMessage" value="<?php echo $this->vcsConfig['commitMessage']; ?>" /></td>
         </tr>
@@ -50,7 +51,6 @@ $projectConfig = $this->config->getParam('project');
             <th colspan="2"><?php echo $this->lang->L_VCS_ADAPTER_OPTIONS;?></th>
         </tr>
         <?php
-        $cycle = $this->cycle(array('row-even', 'row-odd'));
         foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
             if (isset($this->vcsConfig['options'][$optionName])) {
                 $optionValue = $this->vcsConfig['options'][$optionName];
@@ -58,14 +58,14 @@ $projectConfig = $this->config->getParam('project');
                 $optionValue = '';
             }
             ?>
-            <tr class="<?php echo $cycle->next(); ?>">
+            <tr class="<?php echo $cycleHelper->next(); ?>">
                 <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
                 <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
             </tr>
             <?php
         }
         ?>
-        <tr class="<?php echo $cycle->next(); ?>">
+        <tr class="<?php echo $cycleHelper->next(); ?>">
             <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton" name="saveButton"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?></button></td>
         </tr>

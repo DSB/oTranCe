@@ -15,17 +15,17 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             $label = '<label for="lang-' . $language['id'] .'" class="switchLanguageEditRightLabel">';
             ?>
             <tr class="<?php echo $cycleHelper->next();?>">
-                <td class="right">
+                <td class="right vmiddle">
                     <?php echo $label . $this->numberFormat($i);?>.</label>
                 </td>
-                <td>
+                <td class="vmiddle">
                     <?php echo $label . $this->printFlag($language['id']);?></label>
                 </td>
-                <td>
+                <td class="vmiddle">
                     <?php echo $label . $language['locale'];?></label>
                 </td>
-                <td><?php echo $label . $language['name'];?></label></td>
-                <td>
+                <td class="vmiddle"><?php echo $label . $language['name'];?></label></td>
+                <td class="vmiddle">
                     <div id="lang-<?php echo $language['id'];?>" class="switchLanguageEditRight">
                         <?php
                             echo $this->printStatusIcon(

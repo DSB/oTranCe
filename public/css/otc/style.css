@@ -705,7 +705,7 @@ label {
     position: fixed;
     top:54px;
     right:18px;
-    width:200px;
+    width:auto;
     height:182px;
     background-color:#ffff00;
     border:1px solid #CCC;

@@ -1,21 +1,21 @@
 <div id="headline">
-    <h2>Analyzing data:</h2>
+    <h2><?php echo $this->lang->L_START_ANALYZE;?>:</h2>
 </div>
 <p>
-    Found <?php echo $this->numberFormat(sizeof($this->extractedData));?> language keys.
-    <br />Start import by clicking the "Import to database" button.
+    <?php echo sprintf($this->lang->L_FOUND_X_KEYS, $this->numberFormat(sizeof($this->extractedData)));?>
+    <br /><?php echo $this->lang->L_START_IMPORT_BY_CLICKING_BUTTON;?>
     <br /><br />
     <button type="button" class="Formbutton" id="importButton">
-    <?php echo $this->getIcon('save', 'Save to database');?> Import to database
+    <?php echo $this->getIcon('save', $this->lang->L_IMPORT_TO_DATABASE);?> <?php echo $this->lang->L_IMPORT_TO_DATABASE;?>
     </button>
 </p>
 
 <table class="bdr more-padding" summary="Extracted key-value pairs">
 <tr class="thead">
-    <th>Action</th>
+    <th><?php echo $this->lang->L_ACTION;?></th>
     <th class="right">#</th>
-    <th>Key</th>
-    <th>Value</th>
+    <th><?php echo $this->lang->L_KEY;?></th>
+    <th><?php echo $this->lang->L_VALUE;?></th>
 </tr>
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
@@ -35,34 +35,34 @@ foreach ($this->extractedData as $key => $val) { ?>
 ?>
 </table>
 <div id="importInfo">
-    <span class="headline">Import status:</span>
+    <span class="headline"><?php echo $this->lang->L_IMPORT_STATUS;?>:</span>
     <table style="width:100%" class="small" summary="Import status">
         <tr>
-            <td>Keys total:</td>
+            <td><?php echo $this->lang->L_KEYS_TOTAL;?>:</td>
             <td class="right"><?php echo sizeof($this->extractedData)?></td>
         </tr>
         <tr>
-            <td>Keys processed:</td>
+            <td><?php echo $this->lang->L_KEYS_PROCESSED;?>:</td>
             <td class="right"><span id="processed">0</span></td>
         </tr>
         <tr>
-            <td>Keys to import:</td>
+            <td><?php echo $this->lang->L_KEYS_TO_IMPORT;?>:</td>
             <td class="right"><span id="toImport"><?php echo sizeof($this->extractedData)?></span></td>
         </tr>
         <tr>
-            <td>Saved:</td>
+            <td><?php echo $this->lang->L_SAVED_SUCCESSFULLY;?>:</td>
             <td class="right"><span id="savedSuccessfully">0</span></td>
         </tr>
         <tr>
-            <td>Skipped:</td>
+            <td><?php echo $this->lang->L_SKIPPED;?>:</td>
             <td class="right"><span id="skipped">0</span></td>
         </tr>
         <tr>
-            <td>Errors:</td>
+            <td><?php echo $this->lang->L_ERRORS;?>:</td>
             <td class="right"><span id="errors">0</span></td>
         </tr>
         <tr>
-            <td>Done:</td>
+            <td><?php echo $this->lang->L_DONE;?>:</td>
             <td class="right"><span id="done">-</span></td>
         </tr>
     </table>
@@ -83,11 +83,11 @@ $('#importButton').click(function () {
 //<![CDATA[
 var importValues = new Array();
 var imgLoader = '<?php echo $this->getIcon('ajax-loader','');?>';
-var imgOk = '<?php echo $this->getIcon('Ok', 'Saved successfully', 16);?>';
-var imgError = '<?php echo $this->getIcon('Attention', 'An error occured', 16);?>';
-var imgNoEditRight = '<?php echo $this->getIcon('NotOk', 'You are not allowed to edit this language!', 16);?>';
-var imgNoAddRight = '<?php echo $this->getIcon('NotOk', 'You are not allowed to add new keys!', 16);?>';
-var imgSameContentAsFallbackLanguage = '<?php echo $this->getIcon('Attention', 'The content is the same as in the fallback language. Not imported!', 16);?>';
+var imgOk = '<?php echo $this->getIcon('Ok', $this->lang->L_SAVED_SUCCESSFULLY, 16);?>';
+var imgError = '<?php echo $this->getIcon('Attention', $this->lang->L_ERROR_SAVING_KEY, 16);?>';
+var imgNoEditRight = '<?php echo $this->getIcon('NotOk', $this->lang->L_YOU_ARE_NOT_ALLOWED_TO_EDIT_THIS_LANGUAGE, 16);?>';
+var imgNoAddRight = '<?php echo $this->getIcon('NotOk', $this->lang->L_YOU_ARE_NOT_ALLOWED_TO_ADD_NEW_KEYS, 16);?>';
+var imgSameContentAsFallbackLanguage = '<?php echo $this->getIcon('Attention', $this->lang->L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE, 16);?>';
 var keysToProcess = new Array();
 var requestUrl = '<?php echo $this->baseUrl();?>/ajax/import.key/';
 
@@ -188,20 +188,20 @@ setPageActive();
 $this->jQuery()->onLoadCaptureStart();
 $this->popUpMessage()->addMessage(
     'importDone',
-    'Finished',
-    'Congratulations.<br />The importer has processed all entries.',
+    $this->lang->L_DONE,
+    $this->lang->L_IMPORT_DONE,
     array(
         'modal' => true,
         'height' => 140,
-        'width' => 320,
+        'width' => 440,
         'dialogClass' => 'info',
         'autoOpen' => false,
         'buttons' => array(
-                        'Entries' => 'function() {
+                        'L_EDIT_ENTRIES' => 'function() {
                                     $(this).dialog("close");
                                     window.location.href="'. $this->serverUrl() . $this->baseUrl().'/entries/index";
                                 }',
-                        'Import another file' => 'function() {
+                        'L_IMPORT_ANOTHER_FILE' => 'function() {
                             $(this).dialog("close");
                             window.location.href="'. $this->serverUrl() . $this->baseUrl().'/import/index";
                         }'
@@ -211,8 +211,8 @@ $this->popUpMessage()->addMessage(
 
 $this->popUpMessage()->addMessage(
     'requestError',
-    'Fatal error!',
-    'Oops - there was a fatal error with the ajax request!<br />Please retry.',
+    $this->lang->L_ERROR,
+    $this->lang->L_ERROR_AJAX,
     array(
         'modal' => true,
         'height' => 450,
@@ -220,7 +220,7 @@ $this->popUpMessage()->addMessage(
         'dialogClass' => 'error',
         'autoOpen' => false,
         'buttons' => array(
-                        'Retry' => 'function() {
+                        'L_RETRY' => 'function() {
                                     $(this).dialog("close");
                                     doImport();
                                 }'

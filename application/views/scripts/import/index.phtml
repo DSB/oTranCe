@@ -87,7 +87,7 @@ $('#showImporterInfo').click(function () {
 });
 $("textarea").autoGrow();
 <?php
-if (!isset($this->conversionError)) {
+if (isset($this->conversionError)) {
     $this->popUpMessage()->addMessage(
         'conversionError',
         'Error',

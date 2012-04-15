@@ -14,9 +14,9 @@ foreach ($this->languages as $lang) {
         </tr>
     <?php foreach ($lang['files'] as $exportedFile) { ?>
         <tr class="<?php echo $cycle->next();?>">
-             <td><?php echo $exportedFile['filename']; ?></td>
-             <td><?php echo ($exportedFile['size'] !== false) ? $this->getIcon('Ok', '', 16) : $this->getIcon('Attention', '', 16); ?></td>
-             <td><?php echo $this->byteOutput($exportedFile['size']); ?></td>
+             <td class="vmiddle"><?php echo $exportedFile['filename']; ?></td>
+             <td class="vmiddle"><?php echo ($exportedFile['size'] !== false) ? $this->getIcon('Ok', '', 16) : $this->getIcon('Attention', '', 16); ?></td>
+             <td class="vmiddle"><?php echo $this->byteOutput($exportedFile['size']); ?></td>
          </tr>
     <?php
         }
@@ -27,10 +27,10 @@ foreach ($this->languages as $lang) {
 if ($this->exportOk) {
     $projectConfig = $this->config->getParam('project', 0);
     if ($projectConfig['vcsActivated'] > 0) { ?>
-        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16).''.$this->lang->L_EXPORT_COMMITTOVCS;?> </a>
+        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
         <?php
     }
 }
 ?>
 <br />
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','').''.$this->lang->L_BACK_TO_OVERVIEW;?> </a>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','') . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>

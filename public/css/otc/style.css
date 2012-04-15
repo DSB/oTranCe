@@ -422,8 +422,8 @@ table.bdr,.bdr,table.xdebug-error {
     border: 1px solid #ddd !important;
 }
 
-/* flag images in table.bdr td */
-.bdr tr td img {
+/* flag images in tables */
+img.flag {
     margin-top:4px;
 }
 

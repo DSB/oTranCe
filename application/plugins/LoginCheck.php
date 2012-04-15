@@ -1,9 +1,9 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Plugins
  * @version         SVN: $Rev$
  * @author          $Author$
@@ -11,13 +11,13 @@
 /**
  * Check log in of user and redirect to log in form if user is not logged in.
  *
- * @package         MySQLDumper_Plugins
+ * @package         oTranCe_Plugins
  * @subpackage      LoginCheck
  */
 class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
 {
     /**
-     * Method will be executed befor the dispatch process starts.
+     * Method will be executed before the dispatch process starts.
      *
      * @param Zend_Controller_Request_Abstract $request
      *

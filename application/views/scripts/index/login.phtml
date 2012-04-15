@@ -1,7 +1,7 @@
 <?php $this->jQuery()->addOnLoad("$('#user').focus();"); ?>
 <div id="login">
     <h1>
-        <br /><br />Translation-Center: Log in
+        <br /><br />Translation-Center: <?php echo $this->lang->L_LOGIN;?>
     </h1>
         <br /><br />
     <div style="width:500px;margin: auto auto; vertical-align:middle;
@@ -16,11 +16,9 @@
             true
         ); ?>
         " method="post" enctype="multipart/formdata">
-<?php
-echo $this->form;
-?>
-</form>
-        <?php printf($this->lang->L_GOTO_REGISTER_PAGE, $this->baseUrl() . '/index/register'); ?>
+    <?php echo $this->form; ?>
+    </form>
+    <?php printf($this->lang->L_GOTO_REGISTER_PAGE, $this->baseUrl() . '/index/register'); ?>
 </div>
 </div>
 <?php

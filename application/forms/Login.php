@@ -1,9 +1,9 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Login
  * @version         SVN: $Rev$
  * @author          $Author$
@@ -11,7 +11,7 @@
 /**
  * Create login form
  *
- * @package         MySQLDumper
+ * @package         oTranCe
  * @subpackage      Login
  */
 class Application_Form_Login extends Zend_Form

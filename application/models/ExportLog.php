@@ -1,12 +1,20 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Stefan
- * Date: 07.08.11
- * Time: 13:43
- * To change this template use File | Settings | File Templates.
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ * @version         SVN: $
+ * @author          $Author: $
  */
 
+/**
+ * Export-Log model
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ */
 class Application_Model_ExportLog extends Msd_Application_Model
 {
     /**

@@ -1,14 +1,16 @@
 <?php
 /**
- * This file is part of oTranCe http://www.oTranCe.de
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
  *
  * @package         oTranCe
- * @subpackage      Controllers
- * @version         SVN: $Rev$
+ * @subpackage      Models
+ * @version         SVN: $
  * @author          $Author$
  */
+
 /**
- * Import Controller
+ * Language entries model
  *
  * @package         oTranCe
  * @subpackage      Models

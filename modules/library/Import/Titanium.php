@@ -15,7 +15,6 @@
  * @package         oTranCe
  * @subpackage      Importer
  */
-
 class Module_Import_Titanium implements Msd_Import_Interface
 {
 
@@ -23,11 +22,6 @@ class Module_Import_Titanium implements Msd_Import_Interface
      * @var object
      */
     private $_data;
-
-    /**
-     * @var array
-     */
-    private $_lines;
 
     /**
      * Will hold detected and extracted data

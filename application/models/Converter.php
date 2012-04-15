@@ -1,6 +1,19 @@
 <?php
 /**
- * Helper to class which uses MySQL to convert strings to UTF-8
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ * @version         SVN: $
+ * @author          $Author$
+ */
+
+/**
+ * Converter model
+ *
+ * @package         oTranCe
+ * @subpackage      Models
  */
 class Application_Model_Converter extends Msd_Application_Model
 {

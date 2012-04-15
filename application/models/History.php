@@ -1,7 +1,21 @@
 <?php
 /**
- * Model to manage history entries.
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ * @version         SVN: $
+ * @author          $Author$
  */
+
+/**
+ * History model
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ */
+
 class Application_Model_History extends Msd_Application_Model
 {
     /**

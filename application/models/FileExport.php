@@ -1,6 +1,19 @@
 <?php
 /**
- * Model to manage file operations on language files
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ * @version         SVN: $
+ * @author          $Author$
+ */
+
+/**
+ * File model
+ *
+ * @package         oTranCe
+ * @subpackage      Models
  */
 class Application_Model_FileExport extends Msd_Application_Model
 {

@@ -1,6 +1,19 @@
 <?php
 /**
- * Model to manage languages.
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Models
+ * @version         SVN: $
+ * @author          $Author$
+ */
+
+/**
+ * Languages model
+ *
+ * @package         oTranCe
+ * @subpackage      Models
  */
 class Application_Model_Languages extends Msd_Application_Model
 {

@@ -56,7 +56,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Bestätigung der Löschung der Zugangsdaten zum VCS',
 'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen bleibt das alte Kennwort bestehen.',
-'L_CONVERT_DATA_FROM' => 'Konvertiere Zeichen von',
+'L_CONVERT_CHARS_FROM' => 'Konvertiere Zeichen von',
 'L_COPY_TO' => 'Kopiere nach',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Erstellen einer neuen Dateivorlage',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Neues Benutzerkonto anlegen',

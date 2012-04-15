@@ -117,7 +117,7 @@ abstract class Msd_Db
      * Create database adapter
      *
      * @param array   $options    Connection options
-     * @param boolean $forceMysql Whether to force the use of MySQL
+     * @param bool $forceMysql Whether to force the use of MySQL
      *
      * @return Msd_Db_MysqlCommon
      */
@@ -214,7 +214,7 @@ abstract class Msd_Db
      *
      * @param string  $query   The query to execute
      * @param int     $kind    Type of result set
-     * @param boolean $getRows Whether to fetch all rows and return them
+     * @param bool $getRows Whether to fetch all rows and return them
      *
      * @return boolean|array|mysqli_result
      */

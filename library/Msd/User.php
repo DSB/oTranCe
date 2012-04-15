@@ -138,7 +138,7 @@ class Msd_User
      *
      * @param string  $username  Identity for login process.
      * @param string  $password  Credentials for login procress.
-     * @param boolean $autoLogin Set cookie for automatic login?
+     * @param bool $autoLogin Set cookie for automatic login?
      *
      * @return int
      */

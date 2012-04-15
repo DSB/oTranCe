@@ -25,7 +25,7 @@ class Msd_View_Helper_Out extends Zend_View_Helper_Abstract
      * Conditionally surround value with a HTML tag.
      *
      * @param string  $value      The value that may be converted
-     * @param boolean $outputNull Whether to convert NULL values to string NULL
+     * @param bool $outputNull Whether to convert NULL values to string NULL
      * @param string  $decorator  Decorate output with this HTML-Tag
      *
      * @return string HTML-Text ready to print to screen

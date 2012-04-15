@@ -123,7 +123,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      *
      * @param string  $database Database to select
      *
-     * @return boolean True on success
+     * @return bool True on success
      */
     public function selectDb($database)
     {
@@ -145,7 +145,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      *
      * @param string  $query   The query to execute
      * @param int     $kind    Type of result set
-     * @param boolean $getRows Wether to fetch all rows and return them
+     * @param bool $getRows Wether to fetch all rows and return them
      *
      * @return mysqli_result|array|bool
      */

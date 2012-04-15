@@ -24,7 +24,7 @@ class Msd_Html
      * Used for escaping strings in JS-alerts and config-files.
      *
      * @param string  $string        String to escape
-     * @param boolean $escapeSlashes Escape slashes and double quotes
+     * @param bool $escapeSlashes Escape slashes and double quotes
      *
      * @return string Escaped string
      */
@@ -43,7 +43,7 @@ class Msd_Html
      *
      * @param array   $array     Array['name'] = $val
      * @param string  $selected  Selected key
-     * @param boolean $selectAll Show option to select all
+     * @param bool $selectAll Show option to select all
      *
      * @return string Html option string
      */
@@ -90,7 +90,7 @@ class Msd_Html
      * @param string  $key       The key index of array
      * @param string  $value     The value index of array
      * @param string  $selected  Selected key
-     * @param boolean $selectAll Show option to select all
+     * @param bool $selectAll Show option to select all
      *
      * @return string Html option string
      */

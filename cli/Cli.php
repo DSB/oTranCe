@@ -1,6 +1,19 @@
 <?php
 /**
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Cli
+ * @version         SVN: $
+ * @author          $Author$
+ */
+
+/**
  * Cli wrapper for calls via bash or cronjob
+ *
+ * @package         oTranCe
+ * @subpackage      Cli
  */
 class Cli
 {

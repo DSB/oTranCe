@@ -10,6 +10,7 @@
 /**
  * Settings Controller
  *
+ * @package         oTranCe
  * @subpackage      Controllers
  */
 class SettingsController extends Msd_Controller_Action

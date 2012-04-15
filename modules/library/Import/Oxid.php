@@ -1,6 +1,19 @@
 <?php
 /**
- * Importer class for OXID language files.
+ * This file is part of oTranCe released under the GNU GPL 3 license
+ * http://www.oTranCe.de
+ *
+ * @package         oTranCe
+ * @subpackage      Importer
+ * @version         SVN: $
+ * @author          $Author: $
+ */
+
+/**
+ * Importer for OXID language files.
+ *
+ * @package         oTranCe
+ * @subpackage      Importer
  */
 class Module_Import_Oxid extends Msd_Import_PhpArray
 {

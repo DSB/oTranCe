@@ -28,7 +28,7 @@
               --report-file=${logdir}/checkstyle.xml
               --standard=${repodir}/tests/oTranCe_CodingStandard.xml
               --extensions=php
-              --ignore=*/lang.php,*/library/Zend/*,*/library/ZendX/*,*/tests/*
+              --ignore=*/lang.php,*/library/*,*/tests/*
               ./
    "/>
   </exec>

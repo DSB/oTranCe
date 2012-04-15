@@ -1,5 +1,5 @@
 <div id="headline">
-    <h2>Language Pack downloads</h2>
+    <h2><?php echo $this->lang->L_DOWNLOAD_OF_LANGUAGE_PACKS;?></h2>
 </div>
 <div class="downloads">
 <?php if (count($this->archives) > 0) {
@@ -15,11 +15,11 @@
             }
 ?>
     <br/>
-    <h4>Created at <?php echo date('d.m.Y', $archiveMeta['creationTime']); ?> on <?php echo date('H:i:s', $archiveMeta['creationTime']); ?></h4>
+    <h4><?php echo sprintf($this->lang->L_CREATED_ON_X_AT_Y, date('d.m.Y', $archiveMeta['creationTime']), date('H:i', $archiveMeta['creationTime'])); ?></h4>
     <table class="bdr more-padding" summary="Downloadable language packs.">
         <tr class="thead">
-            <th colspan="2">Filename</th>
-            <th colspan="2">File size</th>
+            <th colspan="2"><?php echo $this->lang->L_FILENAME;?></th>
+            <th colspan="2"><?php echo $this->lang->L_FILESIZE;?></th>
         </tr>
 <?php
         }
@@ -28,7 +28,7 @@
             <td><?php echo $this->getIcon('Archive', '', 16); ?></td>
             <td><?php echo $this->out($archiveName); ?></td>
             <td><?php echo $this->byteOutput($archiveMeta['fileSize']);?></td>
-            <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton"><?php echo $this->getIcon('Download', '', 16); ?> Download</a></td>
+            <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton"><?php echo $this->getIcon('Download', $this->lang->L_DOWNLOAD, 16); ?> <?php echo $this->lang->L_DOWNLOAD;?></a></td>
         </tr>
 <?php
         $oldCTime = $archiveMeta['creationTime'];
@@ -37,6 +37,6 @@
 ?>
     </table>
 <?php } else { ?>
-    <div class="success">No downloads available. Run export first.</div>
+    <div class="success"><?php echo $this->L_NO_DOWNLOAD_AVAILABLE;?></div>
 <?php } ?>
 </div>

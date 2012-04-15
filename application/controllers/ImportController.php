@@ -193,9 +193,9 @@ class ImportController extends Zend_Controller_Action
         );
         $this->_dynamicConfig->setParam('selectedCharset', $selectedCharset);
         $this->_dbo = Msd_Db::getAdapter();
-        $charactersets = $this->_dbo->getCharsets();
+        $characterSets = $this->_dbo->getCharsets();
         $this->view->selCharset = Msd_Html::getHtmlOptionsFromAssocArray(
-            $charactersets,
+            $characterSets,
             'Charset',
             "{Charset} -\t {Description}",
             $selectedCharset,

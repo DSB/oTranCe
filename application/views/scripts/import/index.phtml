@@ -1,12 +1,12 @@
 <div id="headline">
-    <h2>Import language data</h2>
+    <h2><?php echo $this->lang->L_IMPORT;?></h2>
 </div>
-<h4>Import settings:</h4>
+<h4><?php echo $this->lang->L_IMPORT_SETTINGS;?>:</h4>
 <form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm"
     onsubmit="setPageInactive()">
 <table class="bdr more-padding small" summary=""  style="margin-bottom:8px;">
     <tr class="row-even">
-        <td>Data is for language:</td>
+        <td class="vmiddle"><?php echo $this->lang->L_TARGET_LANGUAGE;?>:</td>
         <td>
             <select name="selectedLanguage" id="selectedLanguage" onchange="$('#myForm').submit()">
                 <?php echo $this->selLanguage;?>
@@ -14,7 +14,7 @@
         </td>
     </tr>
     <tr class="row-odd">
-        <td>Extracted data is for file:</td>
+        <td class="vmiddle"><?php echo $this->lang->L_TARGET_FILE;?>:</td>
         <td>
             <select name="selectedFileTemplate" id="selectedFileTemplate">
                 <?php echo $this->selFileTemplate;?>
@@ -22,7 +22,7 @@
         </td>
     </tr>
     <tr class="row-even">
-        <td>Use analyzer:</td>
+        <td class="vmiddle"><?php echo $this->lang->L_USE_ANALYZER;?>:</td>
         <td>
             <select name="selectedAnalyzer" id="selectedAnalyzer" onchange="$('#myForm').submit()">
                 <?php echo $this->selAnalyzer;?></select>
@@ -35,13 +35,11 @@
     </tr>
 
     <tr class="row-odd">
-        <td>
-            Upload a file:
-        </td>
+        <td class="vmiddle"><?php echo $this->lang->L_UPLOAD_FILE;?>:</td>
         <td>
             <input type="file" class="text" name="fileUploaded" id="fileUploaded" />
             <button type="submit" class="Formbutton">
-            <?php echo $this->getIcon('OpenFile', '', 16);?> Upload file
+            <?php echo $this->getIcon('OpenFile', '', 16);?> <?php echo $this->lang->L_UPLOAD_FILE;?>
             </button>
         </td>
 
@@ -55,17 +53,11 @@
 </div>
 <?php
 if ($this->importData > '') { ?>
-    <h4>Check characters!</h4>
-    <p>
-    If you discover "weird" looking characters you can try to convert them.<br />
-    Selected a character set in the select box and hit the button "Convert data from".
-    You can try different character sets until the text is ok.
-    Each conversion is taken from the originally uploaded file.<br />
-    If everything looks good, start to analyze the data.
-    </p>
+    <h4><?php echo $this->lang->L_CHECK_CHARS;?></h4>
+    <p><?php echo $this->lang->L_CHECK_CHARS_EXPLAIN;?></p>
     <p>
         <button class="Formbutton" type="submit" name="convert">
-        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> Convert data from:
+        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
         </button>
         <select name="selectedCharset" id="selectedCharset">
             <?php echo $this->selCharset;?>
@@ -73,10 +65,10 @@ if ($this->importData > '') { ?>
     </p>
     <?php
 } ?>
-<h4>Data to analyze:</h4>
+<h4><?php echo $this->lang->L_DATA_TO_ANALYZE;?>:</h4>
 <p>
     <button class="Formbutton" type="submit" name="analyze">
-    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    <?php echo $this->getIcon('Ok', $this->lang->L_START_ANALYZE, 16);?> <?php echo $this->lang->L_START_ANALYZE;?>
     </button>
 </p>
 
@@ -85,7 +77,7 @@ if ($this->importData > '') { ?>
     <br /><br />
 
     <button class="Formbutton" type="submit" name="analyze">
-    <?php echo $this->getIcon('Ok', 'Start analyzing data', 16);?> Start analyzing
+    <?php echo $this->getIcon('Ok', $this->lang->L_START_ANALYZE, 16);?> <?php echo $this->lang->L_START_ANALYZE;?>
     </button>
 </p>
 </form>
@@ -95,11 +87,11 @@ $('#showImporterInfo').click(function () {
 });
 $("textarea").autoGrow();
 <?php
-if (isset($this->conversionError)) {
+if (!isset($this->conversionError)) {
     $this->popUpMessage()->addMessage(
         'conversionError',
         'Error',
-        'Sorry, data couldn\'t be interpreted as ' . $this->targetCharset .'.',
+        $this->jsEscape(sprintf($this->lang->L_ERROR_CONVERTING, $this->targetCharset)),
         array(
             'modal' => true,
             'height' => 160,

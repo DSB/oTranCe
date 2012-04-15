@@ -26,8 +26,9 @@ class Msd_View_Helper_JsEscape extends Zend_View_Helper_Abstract
      */
     public function jsEscape($text)
     {
-        $text = str_replace('"', '\"', $text);
-        $text = str_replace("'", "\'", $text);
+        $search  = array('"', "'", "\r", "\n");
+        $replace = array('\"', "\'", '', '<br />');
+        $text    = str_replace($search, $replace, $text);
         return $text;
     }
 

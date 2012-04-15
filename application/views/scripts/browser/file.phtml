@@ -1,6 +1,6 @@
 <table class="bdr" style="width:100%">
     <tr class="thead">
-        <th colspan="2">Content of file <?php echo $this->filename; ?></th>
+        <th colspan="2"><?php echo sprintf($this->lang->L_FILECONTENT, $this->filename);?></th>
     </tr>
 <?php
     if (is_array($this->fileContent)) {

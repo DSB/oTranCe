@@ -3,16 +3,16 @@ $interfaceConfig = $this->config->getParam('interface');
 $theme = $interfaceConfig['theme'];
 ?>
 <div id="headline">
-    <h2>Browse exported files</h2>
+    <h2><?php echo $this->lang->L_VIEW_EXPORTED_FILES;?></h2>
 </div>
 <div id="treeBrowser">
     <table class="bdr" summary="Tree of files you can browse">
         <tr class="thead">
-            <th colspan="2">Select a file:</th>
+            <th colspan="2"><?php echo $this->lang->L_SELECT_FILE;?>:</th>
         </tr>
         <tr>
             <td id="fileTree" class="bdr"></td>
-            <td id="fileContent" class="nowrap top"><p><b>Select a file</b></p></td>
+            <td id="fileContent" class="nowrap top"><p><b><?php echo $this->lang->L_SELECT_FILE;?></b></p></td>
         </tr>
     </table>
 </div>
@@ -60,7 +60,7 @@ function loadFileContent(filename)
             setPageActive();
         },
         error:function(error) {
-            $('#fileContent').html('Error with ajax request!');
+            $('#fileContent').html('<?php echo $this->jsEscape($this->lang->L_ERROR_AJAX);?>');
             setPageActive();
         }
     });

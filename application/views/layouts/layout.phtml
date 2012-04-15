@@ -79,7 +79,7 @@ $this->jQuery()->onLoadCaptureEnd();
             $dynamicConfig->setParam('optimizeTables', false);
         ?>
         <div id="optimizationError" style="display:none">
-            Error while executing optimization of database tables:<br /><br />
+            <?php echo $this->lang->L_ERROR_OPTIMIZING_TABLES;?><br /><br />
             <span id="optimizeErrors"></span>
         </div>
     <?php } ?>

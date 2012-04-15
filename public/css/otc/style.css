@@ -24,6 +24,7 @@ body {
     left: 50%;
     top: 50%;
     display:none;
+    z-index:6600;
 }
 .hidden {
     display:none;

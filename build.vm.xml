@@ -97,4 +97,14 @@
         -i language/,Zend/,ZendX/,*.phtml,tests/,index.php,flag.php,Debug.php,bootstrap.php,work/" />
   </exec>
  </target>
+
+<target name="docblox">
+    <exec executable="docblox">
+        <arg line="project:run -d ${repodir}
+            -t ${builddir}/api
+            -i tests/*,library/*,build/*,data/*,docs/*,
+            --template zend" />
+    </exec>
+</target>
+
 </project>

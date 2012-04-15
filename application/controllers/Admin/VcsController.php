@@ -4,7 +4,7 @@ require_once 'AdminController.php';
  * This file is part of oTranCe http://www.oTranCe.de
  *
  * @package         oTranCe
- * @subpackage      Controllers
+ * @subpackage      Controllers_Admin
  * @version         SVN: $Rev$
  * @author          $Author$
  */
@@ -12,7 +12,7 @@ require_once 'AdminController.php';
  * Admin/Vcs Controller
  *
  * @package         oTranCe
- * @subpackage      Controllers
+ * @subpackage      Controllers_Admin
  */
 class Admin_VcsController extends AdminController
 {

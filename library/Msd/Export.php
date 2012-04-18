@@ -187,7 +187,11 @@ class Msd_Export
             $val = isset($translations[$key]) ? trim($translations[$key]) : '';
             //If we have no value, fill the var with the value of the fallback language.
             if ($val == '' && (int) $this->_config['translateToFallback'] == 1) {
-                $val = $this->_fallbackLanguageTranslations[$key];
+                if (isset($this->_fallbackLanguageTranslations[$key])) {
+                    $val = $this->_fallbackLanguageTranslations[$key];
+                } else {
+                    $val = '';
+                }
             }
 
             //escape value depending on the delimiter

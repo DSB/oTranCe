@@ -189,8 +189,6 @@ class Msd_Export
             if ($val == '' && (int) $this->_config['translateToFallback'] == 1) {
                 if (isset($this->_fallbackLanguageTranslations[$key])) {
                     $val = $this->_fallbackLanguageTranslations[$key];
-                } else {
-                    $val = '';
                 }
             }
 

@@ -66,7 +66,8 @@ class FileTemplatesTest extends ControllerTestCase
     public function testGetFileTemplate()
     {
         $template = $this->model->getFileTemplate(2);
-        $this->assertEquals($this->templates[1], $template);
+        $this->assertEquals(2, $template['id']);
+        $this->assertEquals('Admin help', $template['name']);
     }
 
     public function testGetFileTemplateAssoc()

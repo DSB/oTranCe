@@ -31,7 +31,7 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
         $templateModel->deleteFileTemplate(1, 0);
         $this->view = Zend_Layout::getMvcInstance()->getView();
         $expected   = '<input type="hidden" name="fileTemplate" value="2" />{LOCALE}/help_lang.php';
-        $res        = $this->view->printFileTemplateHtml(1, true);
+        $res        = $this->view->printFileTemplateHtml(1);
         $this->assertEquals($expected, $res);
 
         $saved = $templateModel->saveFileTemplate(

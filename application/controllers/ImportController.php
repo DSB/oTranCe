@@ -160,21 +160,12 @@ class ImportController extends Zend_Controller_Action
      */
     private function _setSelectedFileTemplate()
     {
-        $selectedLanguage = $this->_dynamicConfig->getParam('selectedLanguage');
-        $selectedFileTemplate = (int)$this->_request->getParam(
+        $selectedFileTemplate = (int) $this->_request->getParam(
             'selectedFileTemplate',
             $this->_dynamicConfig->getParam('importFileTemplate')
         );
         $this->_dynamicConfig->setParam('importFileTemplate', $selectedFileTemplate);
-
-        $fileTemplates = array();
-        $files = $this->_fileTemplatesModel->getFileTemplates('name');
-
-        foreach ($files as $file) {
-            $filename = str_replace('{LOCALE}', $this->_languages[$selectedLanguage]['locale'], $file['filename']);
-            $fileTemplates[$file['id']] = $filename;
-        }
-        $this->view->selFileTemplate = Msd_Html::getHtmlOptions($fileTemplates, $selectedFileTemplate, false);
+        $this->view->selectedFileTemplate = $selectedFileTemplate;
     }
 
     /**

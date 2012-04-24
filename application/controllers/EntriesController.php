@@ -102,10 +102,6 @@ class EntriesController extends Zend_Controller_Action
         // assign file template filter
         $fileTemplateFilter             = $this->_dynamicConfig->getParam('entries.fileTemplateFilter');
         $this->view->fileTemplateFilter = $fileTemplateFilter;
-        $fileTemplatesModel             = new Application_Model_FileTemplates();
-        $fileTemplates                  = $fileTemplatesModel->getFileTemplates('name');
-        $this->view->selFileTemplate =
-                Msd_Html::getHtmlOptionsFromAssocArray($fileTemplates, 'id', 'filename', $fileTemplateFilter);
 
         if ($this->view->getUntranslated == 0) {
             if ($this->view->filterValues > '') {

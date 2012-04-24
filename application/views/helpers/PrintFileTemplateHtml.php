@@ -22,43 +22,145 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      *
      * @var array
      */
-    private static $_fileTemplates;
+    private $_fileTemplates;
+
+    /**
+     * Holds the defaults for the HTML attributes of the "select" element.
+     *
+     * @var array
+     */
+    protected static $_defaultSelectHtmlAttributes = array(
+        'class' => 'select',
+        'name' => 'fileTemplate',
+    );
+
+    /**
+     * Holds the defaults for the HTML attributes of the hidden "input" element.
+     *
+     * @var array
+     */
+    protected static $_defaultHiddenHtmlAttributes = array(
+        'name' => 'fileTemplate',
+        'type' => 'hidden',
+    );
 
     /**
      * Return list of file templates as selectbox or, if there is only one configured, as hidden input.
      *
-     * @param int  $selFileTemplateId    ID of selected file template
-     * @param bool $forceReloadTemplates Force reloading the list of templates
+     * @param int   $selFileTemplateId ID of selected file template
+     * @param array $htmlAttributes    HTML attributes for the "select" element.
+     * @param bool  $replaceLocale     Replace the locale placeholder with currently selected language.
      *
      * @return string
      */
-    public function printFileTemplateHtml($selFileTemplateId, $forceReloadTemplates = false)
+    public function printFileTemplateHtml($selFileTemplateId, $htmlAttributes = array(), $replaceLocale = false)
     {
-        if (self::$_fileTemplates === null || $forceReloadTemplates) {
-            self::$_fileTemplates = array();
-            $templatesModel = new Application_Model_FileTemplates();
-            $fileTemplates = $templatesModel->getFileTemplates();
-            foreach ($fileTemplates as $template) {
-                self::$_fileTemplates[$template['id']] = $template;
-            }
-        }
-        $ret = '';
-        if (sizeof(self::$_fileTemplates) > 1) {
-            $ret .= '<select class="select" name="fileTemplate">';
-            foreach (self::$_fileTemplates as $fileTemplate) {
-                $ret .= '<option value="' . $fileTemplate['id'] . '"';
-                if ($selFileTemplateId == $fileTemplate['id']) {
-                    $ret .= ' selected="selected"';
-                }
-                $ret .= '>' . $fileTemplate['filename'] . '</option>';
-            }
-            $ret .= '</select>';
-        } elseif (sizeof(self::$_fileTemplates) == 1) {
-            $values = array_values(self::$_fileTemplates);
-            $ret .= '<input type="hidden" name="fileTemplate" value="' . $values[0]['id'] .'" />'
-                    . $values[0]['filename'];
+        $this->_loadFileTemplates($replaceLocale);
+
+        $html = '';
+        if (count($this->_fileTemplates) > 1) {
+            $html = $this->_buildSelectHtml($htmlAttributes, $selFileTemplateId);
+        } elseif (count($this->_fileTemplates) == 1) {
+            $html = $this->_buildHiddenHtml($htmlAttributes);
         }
 
-        return $ret;
+        return $html;
+    }
+
+    /**
+     * Builds the HTML code for a hidden input field.
+     *
+     * @param array $htmlAttributes HTML element attributes as key-value pair.
+     *
+     * @return string
+     */
+    protected function _buildHiddenHtml($htmlAttributes)
+    {
+        $fileTemplate = reset($this->_fileTemplates);
+        $htmlAttributes = array_merge(self::$_defaultHiddenHtmlAttributes, $htmlAttributes);
+        $htmlAttributes['value'] = $fileTemplate['id'];
+        $html = '<input';
+        $html = $this->_addHtmlAttributes($html, $htmlAttributes);
+        $html .= '/> ' . $fileTemplate['filename'];
+        return $html;
+    }
+
+    /**
+     * Builds the HTML code for a hidden input field.
+     *
+     * @param array $htmlAttributes    HTML element attributes as key-value pair.
+     * @param int   $selFileTemplateId ID of selected file template.
+     *
+     * @return string
+     */
+    protected function _buildSelectHtml($htmlAttributes, $selFileTemplateId)
+    {
+        $htmlAttributes = array_merge(self::$_defaultSelectHtmlAttributes, $htmlAttributes);
+        $html = '<select';
+        $html = $this->_addHtmlAttributes($html, $htmlAttributes);
+        $html .= ">";
+        $html = $this->_addOptions($html, $selFileTemplateId);
+        $html .= '</select>';
+        return $html;
+    }
+
+    /**
+     * Loads the file templates from database.
+     *
+     * @param bool $replaceLocale Replace the locale placeholder with the currently selected language.
+     *
+     * @return void
+     */
+    protected function _loadFileTemplates($replaceLocale)
+    {
+        if ($this->_fileTemplates === null) {
+            $this->_fileTemplates = array();
+            $templatesModel = new Application_Model_FileTemplates();
+            $fileTemplates = $templatesModel->getFileTemplates();
+            $selectedLanguage = Msd_Registry::getDynamicConfig()->getParam('selectedLanguage');
+            $languageModel = new Application_Model_Languages();
+            $language = $languageModel->getLanguageById((int) $selectedLanguage);
+            foreach ($fileTemplates as $template) {
+                if ($replaceLocale && $selectedLanguage !== null) {
+                    $template['filename'] = str_replace('{LOCALE}', $language['locale'], $template['filename']);
+                }
+                $this->_fileTemplates[$template['id']] = $template;
+            }
+        }
+    }
+
+    /**
+     * Adds the HTML attributes to HTML code.
+     *
+     * @param string $html           Existing HTML code.
+     * @param array  $htmlAttributes HTML element attributes as key-value pair.
+     *
+     * @return string
+     */
+    protected function _addHtmlAttributes($html, $htmlAttributes)
+    {
+        foreach ($htmlAttributes as $name => $value) {
+            $html .= ' ' . $name . '="' . $value . '"';
+        }
+        return $html;
+    }
+
+    /**
+     * Adds the select-options the HTML code.
+     *
+     * @param string $html              Existing HTML code.
+     * @param array  $selFileTemplateId ID of the selected file template.
+     * @return string
+     */
+    protected function _addOptions($html, $selFileTemplateId)
+    {
+        foreach ($this->_fileTemplates as $fileTemplate) {
+            $html .= '<option value="' . $fileTemplate['id'] . '"';
+            if ($selFileTemplateId == $fileTemplate['id']) {
+                $html .= ' selected="selected"';
+            }
+            $html .= '>' . $fileTemplate['filename'] . '</option>';
+        }
+        return $html;
     }
 }

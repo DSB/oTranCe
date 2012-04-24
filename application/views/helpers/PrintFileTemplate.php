@@ -22,7 +22,7 @@ class Msd_View_Helper_PrintFileTemplate extends Zend_View_Helper_Abstract
      *
      * @var array
      */
-    private static $_fileTemplates;
+    private $_fileTemplates;
 
     /**
      * Print name (and id) of a file template
@@ -33,17 +33,17 @@ class Msd_View_Helper_PrintFileTemplate extends Zend_View_Helper_Abstract
      */
     public function printFileTemplate($fileTemplateId)
     {
-        if (self::$_fileTemplates === null) {
+        if ($this->_fileTemplates === null) {
             $templatesModel = new Application_Model_FileTemplates();
             $fileTemplates = $templatesModel->getFileTemplates();
             foreach ($fileTemplates as $template) {
-                self::$_fileTemplates[$template['id']] = $template;
+                $this->_fileTemplates[$template['id']] = $template;
             }
         }
         $ret = '';
 
-        if (isset(self::$_fileTemplates[$fileTemplateId])) {
-            $ret .= self::$_fileTemplates[$fileTemplateId]['filename'];
+        if (isset($this->_fileTemplates[$fileTemplateId])) {
+            $ret .= $this->_fileTemplates[$fileTemplateId]['filename'];
         } else {
             $ret = '-';
         }

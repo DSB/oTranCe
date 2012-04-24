@@ -16,9 +16,14 @@
     <tr class="row-odd">
         <td class="vmiddle"><?php echo $this->lang->L_TARGET_FILE;?>:</td>
         <td>
-            <select name="selectedFileTemplate" id="selectedFileTemplate">
-                <?php echo $this->selFileTemplate;?>
-            </select>
+            <?php echo $this->printFileTemplateHtml(
+            $this->selectedFileTemplate,
+            array(
+                'name' => 'selectedFileTemplate',
+                'id' => 'selectedFileTemplate',
+            ),
+            true
+        ); ?>
         </td>
     </tr>
     <tr class="row-even">

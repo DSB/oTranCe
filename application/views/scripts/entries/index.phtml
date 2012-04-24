@@ -59,9 +59,14 @@ $entriesModel = new Application_Model_LanguageEntries();
                 <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
             </td>
             <td>
-                <select class="select" name="fileTemplateFilter" id="fileTemplateFilter" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
-                    <?php echo $this->selFileTemplate;?>
-                </select>
+                <?php echo $this->printFileTemplateHtml(
+                    $this->fileTemplateFilter,
+                    array(
+                        'name' => 'fileTemplateFilter',
+                        'id' => 'fileTemplateFilter',
+                        'onchnage' => "setPageInactive();resetOffset();$('#myForm').submit();",
+                    )
+                ); ?>
             </td>
             <td>&nbsp;</td>
             <td>

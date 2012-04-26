@@ -3,14 +3,14 @@
  * This file is part of oTranCe released under the GNU/GPL 2 license
  * http://www.otrance.org
  *
- * @package         oTranCe
+ * @package         OTranCe
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
  * Bootstrap class
  *
- * @package         oTranCe
+ * @package         OTranCe
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {

@@ -7,7 +7,7 @@
         $highlightedCode = highlight_string(implode("", $this->fileContent), true);
             ?>
         <tr class="row-odd">
-            <td class="code right"><?php echo (implode("<br/>", range(1, count($this->fileContent)))); ?></td>
+            <td class="code right"><code><?php echo (implode("<br/>", range(1, count($this->fileContent)))); ?></code</td>
             <td class="code nowrap"><?php echo str_replace("\t", '&nbsp;&nbsp;&nbsp;&nbsp;', $highlightedCode); ?></td>
         </tr>
 <?php

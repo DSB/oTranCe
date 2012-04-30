@@ -31,7 +31,7 @@ $this->jQuery()->uiEnable();
 
 $messages = (string) $this->popUpMessage();
 if ($this->dynamicConfig->getParam('optimizeTables') == true) {
-    $this->partial('/helper/optimize-tables.phtml');
+    $this->partial('/helper/optimize-tables.phtml', array('lang' => $this->lang));
 }
 $this->jQuery()->onLoadCaptureStart();
 ?>

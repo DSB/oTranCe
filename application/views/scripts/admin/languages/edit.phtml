@@ -13,7 +13,7 @@ echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 if ($this->languageId == 0) {
     $subTitle = $this->lang->L_ADD_NEW_LANGUAGE;
 } else {
-    $subTitle = $this->lang->L_EDIT_LANGUAGE . "\"{$this->langName} ({$this->langLocale})\"";
+    $subTitle = $this->lang->L_EDIT_LANGUAGE . " \"{$this->langName} ({$this->langLocale})\"";
 }
 ?>
 <div>
@@ -118,7 +118,7 @@ if (!empty($this->inputErrors)) {
     $fieldErrors .= '</table>';
     $this->popUpMessage()->addMessage(
         'settingsNotSaved',
-        'Error',
+        $this->lang->L_ERROR,
         $this->lang->L_ERROR_VALIDATING_INPUTS . ':<br /><br />' . $fieldErrors
             . '<br /><br />' . $this->lang->L_PLEASE_CORRECT_INPUT .'.',
         array(

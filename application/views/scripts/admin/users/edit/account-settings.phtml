@@ -9,14 +9,14 @@
                 checked="checked"
             <?php } ?>
         />
-        <label for="user_active_yes"> Yes</label>
+        <label for="user_active_yes"> <?php echo $this->lang->L_YES;?></label>
         &nbsp;&nbsp;
         <input type="radio" name="active" id="user_active_no" value="0"
             <?php if ($this->userData['active'] == 0) { ?>
                 checked="checked"
             <?php } ?>
         />
-        <label for="user_active_no"> No</label>
+        <label for="user_active_no"> <?php echo $this->lang->L_NO;?></label>
     </td>
 </tr>
 

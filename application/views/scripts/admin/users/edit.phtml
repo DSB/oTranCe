@@ -78,13 +78,12 @@ if (!empty($this->errors)) {
     $inputErrors .= '</table>';
     $this->popUpMessage()->addMessage(
         'settingsNotSaved',
-        'Error',
-        'Error validating your inputs:<br /><br /><span class="error">' . $inputErrors
-            .'</span><br />Please correct your input.',
+        $this->lang->L_ERROR,
+        $this->lang->L_ERROR_VALIDATING_INPUTS . ':<br /><br />' . $inputErrors
+            . '<br /><br />' . $this->lang->L_PLEASE_CORRECT_INPUT .'.',
         array(
             'modal' => true,
-            'height' => 240,
-            'width' => 420,
+            'width' => 400,
             'dialogClass' => 'info',
         )
     );

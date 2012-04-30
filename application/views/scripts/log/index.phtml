@@ -45,7 +45,7 @@
             </tr>
         </table>
         <div class="top-margin">
-            <a href="#" <?php if($this->offset > 0): ?> title="Shortcut ALT+C"
+            <a href="#" <?php if($this->offset > 0): ?> title="<?php echo $this->lang->L_PREVIOUS_PAGE;?> (<?php echo $this->lang->L_SHORTCUT;?> ALT+C)"
                 onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
                 accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
                 <?php else: ?>
@@ -53,7 +53,7 @@
                 <?php endif; ?>
             </a>
 
-            <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="Shortcut ALT+V"
+            <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->rows): ?> title="<?php echo $this->lang->L_NEXT_PAGE;?> (<?php echo $this->lang->L_SHORTCUT;?> ALT+V)"
                 onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
                 accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
                 <?php else: ?>

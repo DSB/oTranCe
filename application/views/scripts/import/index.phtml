@@ -62,7 +62,7 @@ if ($this->importData > '') { ?>
     <p><?php echo $this->lang->L_CHECK_CHARS_EXPLAIN;?></p>
     <p>
         <button class="Formbutton" type="submit" name="convert">
-        <?php echo $this->getIcon('Ok', 'Convert data', 16);?> <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
+        <?php echo $this->getIcon('Ok', $this->lang->L_CONVERT_CHARS_FROM, 16);?> <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
         </button>
         <select name="selectedCharset" id="selectedCharset">
             <?php echo $this->selCharset;?>
@@ -95,7 +95,7 @@ $("textarea").autoGrow();
 if (isset($this->conversionError)) {
     $this->popUpMessage()->addMessage(
         'conversionError',
-        'Error',
+        $this->lang->L_ERROR,
         $this->jsEscape(sprintf($this->lang->L_ERROR_CONVERTING, $this->targetCharset)),
         array(
             'modal' => true,

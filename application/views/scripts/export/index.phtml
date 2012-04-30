@@ -37,9 +37,9 @@ foreach ($this->status as $languageId => $s)
             <?php
                 if ($tsDownloadPackage < $tsDatabase) {
                     $exportNeeded = true;
-                    echo $this->getIcon('NotOk', 'Not up to date', 16);
+                    echo $this->getIcon('NotOk', $this->lang->L_NOT_UPTODATE, 16);
                 } else {
-                    echo $this->getIcon('Ok', 'Up to date', 16);
+                    echo $this->getIcon('Ok', $this->lang->L_UPTODATE, 16);
                 }
             ?>
         </td>

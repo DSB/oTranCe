@@ -7,6 +7,7 @@ echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 <form action="<?php echo $this->baseUrl();?>/admin_users/" method="post" id="myForm">
 <?php
 echo $this->partial('/helper/search-users.phtml', array(
+        'lang'              => $this->lang,
         'user'              => $this->user,
         'filterUser'        => $this->filterUser,
         'hits'              => $this->hits,

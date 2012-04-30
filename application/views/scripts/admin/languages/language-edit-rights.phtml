@@ -3,12 +3,12 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $i = $this->offset +1;
 ?>
 <div>&nbsp;</div>
-<h4>Edit rights:</h4>
+<h4><?php echo $this->lang->L_EDIT_RIGHTS;?>:</h4>
 <?php
 echo $this->partial('/helper/search-users.phtml', array(
         'user'              => $this->user,
         'hits'              => $this->hits,
-        'offset'            => $this->offset,
+        'lang'              => $this->lang,
         'recordsPerPage'    => $this->recordsPerPage,
         'selRecordsPerPage' => $this->selRecordsPerPage,
         'filterUser'        => $this->filterUser,

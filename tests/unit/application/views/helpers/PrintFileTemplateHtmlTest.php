@@ -28,10 +28,10 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
     {
         $templateModel = new Application_Model_FileTemplates();
         $tpl           = $templateModel->getFileTemplate(1);
-        $templateModel->deleteFileTemplate(1, 0);
+        $templateModel->deleteFileTemplate(1);
         $this->view = Zend_Layout::getMvcInstance()->getView();
-        $expected   = '<input type="hidden" name="fileTemplate" value="2" />{LOCALE}/help_lang.php';
-        $res        = $this->view->printFileTemplateHtml(1);
+        $expected   = '<input name="fileTemplate" type="hidden" value="2"/> {LOCALE}/help_lang.php';
+        $res        = $this->view->printFileTemplateHtml(1, array(), false, false, true);
         $this->assertEquals($expected, $res);
 
         $saved = $templateModel->saveFileTemplate(
@@ -43,7 +43,7 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
             $tpl['filename']
         );
         // force reloading template list for following tests
-        $this->view->printFileTemplateHtml(1, true);
+        $this->view->printFileTemplateHtml(1);
         $this->assertTrue($saved);
     }
 }

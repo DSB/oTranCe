@@ -51,6 +51,7 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      * @param array $htmlAttributes    HTML attributes for the "select" element.
      * @param bool  $replaceLocale     Replace the locale placeholder with currently selected language.
      * @param bool  $hasNoneOption     Whether to show a "none" select option
+     * @param bool  $forceReloading    Force reloading of the file template list
      *
      * @return string
      */
@@ -58,10 +59,11 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
         $selFileTemplateId,
         $htmlAttributes = array(),
         $replaceLocale = false,
-        $hasNoneOption = false
+        $hasNoneOption = false,
+        $forceReloading = false
     )
     {
-        $this->_loadFileTemplates($replaceLocale);
+        $this->_loadFileTemplates($replaceLocale, $forceReloading);
 
         $html = '';
         if (count($this->_fileTemplates) > 1) {
@@ -109,13 +111,14 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
     /**
      * Loads the file templates from database.
      *
-     * @param bool $replaceLocale Replace the locale placeholder with the currently selected language.
+     * @param bool $replaceLocale  Replace the locale placeholder with the currently selected language.
+     * @param bool $forceReloading Force reloading of file template list
      *
      * @return void
      */
-    protected function _loadFileTemplates($replaceLocale)
+    protected function _loadFileTemplates($replaceLocale, $forceReloading = false)
     {
-        if ($this->_fileTemplates === null) {
+        if ($this->_fileTemplates === null || $forceReloading) {
             $this->_fileTemplates = array();
             $templatesModel = new Application_Model_FileTemplates();
             $fileTemplates = $templatesModel->getFileTemplates();

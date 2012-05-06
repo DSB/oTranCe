@@ -24,7 +24,7 @@ class Msd_View_Helper_ShowNotification extends Zend_View_Helper_Abstract
      * @param bool   $success      Whether the save action was successful
      * @param string $okMessage    Message to show in case success is true
      * @param string $errorMessage Message to show in case success is false
-     * @param int    $duration     Time to show the mnessage in milliseconds
+     * @param int    $duration     Time to show the message in milliseconds
      *
      * @return void
      */

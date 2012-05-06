@@ -40,12 +40,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 ?>
             </td>
             <td>
-                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                <button type="submit" class="Formbutton" id="buttonFilterValuesSearch" value="Search" onclick="resetOffset();">
                     <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                 </button>
             </td>
             <td>
-                <button type="submit" class="Formbutton" onclick="$('#filterValues').val('');resetOffset();">
+                <button type="submit" class="Formbutton" id="buttonFilterValuesReset" onclick="$('#filterValues').val('');resetOffset();">
                     <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                 </button>
             </td>
@@ -60,12 +60,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
             </td>
             <td>
-                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                <button type="submit" class="Formbutton" id="buttonFilterKeysSearch" value="Search" onclick="resetOffset();">
                     <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                 </button>
             </td>
             <td>
-                <button type="submit" class="Formbutton" onclick="$('#filterKeys').val('');resetOffset();">
+                <button type="submit" class="Formbutton" id="buttonFilterKeysReset" onclick="$('#filterKeys').val('');resetOffset();">
                     <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                 </button>
             </td>
@@ -82,7 +82,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                     </td>
                     <td>&nbsp;</td>
                     <td>
-                        <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+                        <button type="submit" class="Formbutton" id="buttonFileTemplateReset" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
                             <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                         </button>
                     </td>
@@ -399,6 +399,25 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
     after_save: function() {
         showOkMsg();
     }
+});
+
+var disabledElements = [
+    'filterValues', 'buttonFilterValuesSearch', 'buttonFilterValuesReset',
+    'filterKeys', 'buttonFilterKeysSearch', 'buttonFilterKeysReset',
+    'fileTemplateFilter', 'buttonFileTemplateReset'
+];
+/* if "get untranslated filter" is used -> disable other inputs */
+if ($('#getUntranslated option:selected').val() > 0) {
+    $.each(disabledElements, function(){
+        $('#' + this).attr('disabled', true);
+    });
+};
+
+// re-enable form inputs on submit for not losing provided inputs */
+$('#myForm').on('submit', function() {
+    $.each(disabledElements, function(){
+        $('#' + this).attr('disabled', false);
+    });
 });
 <?php $this->jQuery()->onLoadCaptureEnd();?>
 /* ]]> */

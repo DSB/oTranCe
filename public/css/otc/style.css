@@ -367,6 +367,10 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover, .qq-upload-bu
     cursor: default;
 }
 
+.Formbutton:disabled img {
+    opacity: 0.5;
+}
+
 #version {
     font-size: 1.1em;
     color: #4E5665;

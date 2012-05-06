@@ -31,7 +31,7 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      */
     protected static $_defaultSelectHtmlAttributes = array(
         'class' => 'select',
-        'name' => 'fileTemplate',
+        'name'  => 'fileTemplate',
     );
 
     /**
@@ -50,16 +50,22 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      * @param int   $selFileTemplateId ID of selected file template
      * @param array $htmlAttributes    HTML attributes for the "select" element.
      * @param bool  $replaceLocale     Replace the locale placeholder with currently selected language.
+     * @param bool  $hasNoneOption     Whether to show a "none" select option
      *
      * @return string
      */
-    public function printFileTemplateHtml($selFileTemplateId, $htmlAttributes = array(), $replaceLocale = false)
+    public function printFileTemplateHtml(
+        $selFileTemplateId,
+        $htmlAttributes = array(),
+        $replaceLocale = false,
+        $hasNoneOption = false
+    )
     {
         $this->_loadFileTemplates($replaceLocale);
 
         $html = '';
         if (count($this->_fileTemplates) > 1) {
-            $html = $this->_buildSelectHtml($htmlAttributes, $selFileTemplateId);
+            $html = $this->_buildSelectHtml($htmlAttributes, $selFileTemplateId, $hasNoneOption);
         } elseif (count($this->_fileTemplates) == 1) {
             $html = $this->_buildHiddenHtml($htmlAttributes);
         }
@@ -79,9 +85,7 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
         $fileTemplate = reset($this->_fileTemplates);
         $htmlAttributes = array_merge(self::$_defaultHiddenHtmlAttributes, $htmlAttributes);
         $htmlAttributes['value'] = $fileTemplate['id'];
-        $html = '<input';
-        $html = $this->_addHtmlAttributes($html, $htmlAttributes);
-        $html .= '/> ' . $fileTemplate['filename'];
+        $html = $this->_addHtmlAttributes('<input', $htmlAttributes) . '/> ' . $fileTemplate['filename'];
         return $html;
     }
 
@@ -90,17 +94,15 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      *
      * @param array $htmlAttributes    HTML element attributes as key-value pair.
      * @param int   $selFileTemplateId ID of selected file template.
+     * @param bool  $hasNoneOption     Whether a "none" option should be added
      *
      * @return string
      */
-    protected function _buildSelectHtml($htmlAttributes, $selFileTemplateId)
+    protected function _buildSelectHtml($htmlAttributes, $selFileTemplateId, $hasNoneOption)
     {
         $htmlAttributes = array_merge(self::$_defaultSelectHtmlAttributes, $htmlAttributes);
-        $html = '<select';
-        $html = $this->_addHtmlAttributes($html, $htmlAttributes);
-        $html .= ">";
-        $html = $this->_addOptions($html, $selFileTemplateId);
-        $html .= '</select>';
+        $html = $this->_addHtmlAttributes('<select', $htmlAttributes) . '>';
+        $html = $this->_addOptions($html, $selFileTemplateId, $hasNoneOption) . '</select>';
         return $html;
     }
 
@@ -149,11 +151,23 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      * Adds the select-options the HTML code.
      *
      * @param string $html              Existing HTML code.
-     * @param array  $selFileTemplateId ID of the selected file template.
+     * @param int    $selFileTemplateId ID of the selected file template.
+     * @param bool   $hasNoneOption  Whether to add the selection "none"
+     *
      * @return string
      */
-    protected function _addOptions($html, $selFileTemplateId)
+    protected function _addOptions($html, $selFileTemplateId, $hasNoneOption)
     {
+        if ($hasNoneOption) {
+            $noneOption = array(
+                0 => array(
+                    'id' => 0,
+                    'filename' => '---'
+                )
+            );
+            $this->_fileTemplates = array_merge($noneOption, $this->_fileTemplates);
+        }
+
         foreach ($this->_fileTemplates as $fileTemplate) {
             $html .= '<option value="' . $fileTemplate['id'] . '"';
             if ($selFileTemplateId == $fileTemplate['id']) {

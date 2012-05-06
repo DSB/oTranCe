@@ -4,6 +4,16 @@ $i            = $this->offset+1;
 $currentPage  = ceil(($this->offset + 1) / $this->recordsPerPage);
 $nrOfPages    = ceil($this->rows / $this->recordsPerPage);
 $entriesModel = new Application_Model_LanguageEntries();
+$fileTemplateHelper = $this->printFileTemplateHtml(
+    $this->fileTemplateFilter,
+    array(
+        'name'     => 'fileTemplateFilter',
+        'id'       => 'fileTemplateFilter',
+        'onchange' => "setPageInactive();resetOffset();$('#myForm').submit();",
+    ),
+    false,
+    true
+);
 ?>
 <div id="headline">
     <h2><?php echo $this->lang->L_EDIT_ENTRIES;?></h2>
@@ -22,6 +32,12 @@ $entriesModel = new Application_Model_LanguageEntries();
                         echo ' disabled="disabled"';
                     }?>
                 type="text" class="text" id="filterValues" name="filterValues" value="<?php echo $this->escape($this->filterValues);?>" onchange="resetOffset()"/>
+                <?php
+                    // we have one file template - add value as hidden input
+                    if (substr($fileTemplateHelper, 0, 7) == '<option') {
+                        echo $fileTemplateHelper;
+                    };
+                ?>
             </td>
             <td>
                 <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
@@ -54,27 +70,24 @@ $entriesModel = new Application_Model_LanguageEntries();
                 </button>
             </td>
         </tr>
-        <tr>
-            <td class="vmiddle">
-                <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
-            </td>
-            <td>
-                <?php echo $this->printFileTemplateHtml(
-                    $this->fileTemplateFilter,
-                    array(
-                        'name' => 'fileTemplateFilter',
-                        'id' => 'fileTemplateFilter',
-                        'onchange' => "setPageInactive();resetOffset();$('#myForm').submit();",
-                    )
-                ); ?>
-            </td>
-            <td>&nbsp;</td>
-            <td>
-                <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
-                    <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
-                </button>
-            </td>
-        </tr>
+        <?php
+            // we have more than 1 file template - echo select list
+            if (substr($fileTemplateHelper, 0, 7) == '<select') { ?>
+                <tr>
+                    <td class="vmiddle">
+                        <label for="fileTemplateFilter"><?php echo $this->lang->L_FILTER_BY_FILE_TEMPLATE;?>:</label>
+                    </td>
+                    <td>
+                        <?php echo $fileTemplateHelper; ?>
+                    </td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button type="submit" class="Formbutton" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+                            <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
+                        </button>
+                    </td>
+                </tr>
+            <?php } ?>
         <tr>
             <td class="vmiddle"><?php echo $this->lang->L_FIND_UNTRANSLATED;?>:</td>
             <td>

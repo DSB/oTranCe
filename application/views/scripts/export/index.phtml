@@ -17,8 +17,7 @@ $export = $this->export;
 <?php
 $languagesToUpdate = 0;
 $exportNeeded = false;
-foreach ($this->status as $languageId => $s)
-{
+foreach ($this->status as $languageId => $s) {
     if ($this->languages[$languageId]['active'] == 0) {
         continue;
     }
@@ -55,7 +54,10 @@ if ($exportNeeded) {
 ?>
     <p class="error"><?php echo $this->lang->L_EXPORT_UPDATE_NEEDED;?></p>
 <?php } else { ?>
-<p class="ok"><?php echo $this->lang->L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE;?></p>
+    <p class="ok"><?php echo $this->lang->L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE;?></p>
+        <?php if ($this->vcsActivated) { ?>
+    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/>
+        <?php } ?>
 <?php } ?>
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton">
     <?php echo $this->getIcon('save', '') . ' ' . $this->lang->L_EXPORT_BUILD_DOWNLOAD_PACKAGE;?>

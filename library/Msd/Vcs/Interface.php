@@ -54,7 +54,7 @@ interface Msd_Vcs_Interface
      * @param array  $filenames
      * @param string $comment
      *
-     * @return void
+     * @return array
      */
     public function commit($filenames, $comment = null);
 

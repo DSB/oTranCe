@@ -76,6 +76,8 @@ class ExportController extends Msd_Controller_Action
         $this->view->status = $this->_languageEntriesModel->getStatus($this->view->languages);
         $this->view->historyModel = $this->_historyModel;
         $this->view->export = $this->_export;
+        $log = new Application_Model_ExportLog();
+        $this->view->vcsActivated = (bool) ($this->_projectConfig['vcsActivated'] && ($log->getExportsCount() > 0));
 
     }
 

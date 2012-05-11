@@ -65,4 +65,16 @@ class Application_Model_ExportLog extends Msd_Application_Model
             Msd_Db::SIMPLE
         );
     }
+
+    /**
+     * Retrives the number of exports.
+     *
+     * @return int
+     */
+    public function getExportsCount()
+    {
+        $result = $this->_dbo->query('SELECT COUNT(*) FROM `exportlog`', Msd_Db::SIMPLE);
+        $row = $result->fetch_row();
+        return (int) $row[0];
+    }
 }

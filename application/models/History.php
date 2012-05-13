@@ -46,15 +46,15 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Get entries from history table
      *
-     * @param int        $offset
-     * @param int        $nr
-     * @param int        $filterLanguage
-     * @param string|int $filterUser
-     * @param string|int $filterAction
+     * @param int        $offset         Records to bypass
+     * @param int        $nr             Number of records to return
+     * @param int        $filterLanguage Id of language to filter
+     * @param int        $filterUser     Id of user to filter
+     * @param string     $filterAction   Action to filter
      *
      * @return array
      */
-    public function getEntries($offset = 0, $nr = 50, $filterLanguage = 0, $filterUser = 0, $filterAction = 0)
+    public function getEntries($offset = 0, $nr = 50, $filterLanguage = 0, $filterUser = 0, $filterAction = '')
     {
         $sql = 'SELECT SQL_CALC_FOUND_ROWS h.*, k.`id` as `key_id`, k.`key` FROM `'.$this->_tableHistory .'` h ';
         $sql .= ' LEFT JOIN `' . $this->_tableKeys.'` k ON h.`key_id` = k.`id`';
@@ -65,7 +65,7 @@ class Application_Model_History extends Msd_Application_Model
         if ($filterUser > 0) {
             $sql .= ' AND `user_id`=\'' . $filterUser .'\'';
         }
-        if (!is_numeric($filterAction)) {
+        if ($filterAction > '') {
             if (strpos($filterAction, '%') !== false) {
                 $sql .= ' AND `action` LIKE \'' . $filterAction .'\'';
             } else {
@@ -105,7 +105,8 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Log creation of a new language variable
      *
-     * @param  string $name
+     * @param string $name Name of key that was created
+     *
      * @return void
      */
     public function logNewVarCreated($name)
@@ -116,7 +117,8 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Log deletion of a language variable
      *
-     * @param  string $key
+     * @param string $key Name of key that was deleted
+     *
      * @return void
      */
     public function logVarDeleted($key)
@@ -127,12 +129,12 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Save change to history table in database
      *
-     * @param string $keyId   The key to save, 0 if not referring to a key
-     * @param string $langId Language
-     * @param string $oldVal
-     * @param string $newVal
-     * @param string $action
-     * @param bool   $time    If false, set current timte
+     * @param string      $keyId  The key to save, 0 if not referring to a key
+     * @param string      $langId Id of language
+     * @param string      $oldVal The old translation
+     * @param string      $newVal The new translation
+     * @param string      $action The performed action
+     * @param bool|string $time   If false, set current time automatically
      *
      * @return void
      */

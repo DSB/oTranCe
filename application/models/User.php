@@ -286,7 +286,7 @@ class Application_Model_User extends Msd_Application_Model
      *
      * @param string $name       Name of setting to read
      * @param mixed  $default    Default value if no value is found in db
-     * @param bool   $forceArray
+     * @param bool   $forceArray Force returning as array
      *
      * @return mixed
      */
@@ -365,8 +365,8 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Detect if a user has set a langugae as reference language.
      *
-     * @param int $userId
-     * @param int $languageId
+     * @param int $userId     Id of user
+     * @param int $languageId Id of language
      *
      * @return bool
      */
@@ -388,8 +388,8 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Save user settings to db
      *
-     * @param  string       $name   The setting to save to db
-     * @param  string|array $values The value to save to db
+     * @param string       $name   The setting to save to db
+     * @param string|array $values The value to save to db
      *
      * @return boolean
      */
@@ -508,7 +508,7 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Get user rights
      *
-     * @param int    $userId Id of user, if not set use the current user
+     * @param int $userId Id of user, if not set use the current user
      *
      * @return array
      */

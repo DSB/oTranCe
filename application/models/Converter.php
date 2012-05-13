@@ -38,7 +38,7 @@ class Application_Model_Converter extends Msd_Application_Model
      * Convert data to UTF-8 using MySQL
      *
      * @param string $inputCharset The current character set of the string
-     * @param string $text
+     * @param string $text         The text to convert
      *
      * @return bool|string UTF-8 encoded string
      */

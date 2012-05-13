@@ -21,11 +21,11 @@ class Msd_View_Helper_GetIcon  extends Zend_View_Helper_Abstract
     /**
      * Get html-img-tag for icon image
      *
-     * @throws Msd_Exception
      * @param string $name  Icon name
      * @param string $title HTML Title-Tag
      * @param int    $size  Size -> refers to a subfolder to be used
      * @param string $class CSS-Class
+     * @throws Msd_Exception
      *
      * @return string
      */

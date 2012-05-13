@@ -113,9 +113,9 @@ class ExportController extends Msd_Controller_Action
     /**
      * Builds the file list for VCS commit.
      *
-     * @param array $statusResult    Array with status infos
-     * @param array $files           Filelist
-     * @param Msd_Vcs_Interface $vcs VCS-Adapter to use
+     * @param array             $statusResult Array with status infos
+     * @param array             $files        Filelist
+     * @param Msd_Vcs_Interface $vcs          VCS-Adapter to use
      *
      * @return array
      */

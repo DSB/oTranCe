@@ -205,7 +205,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     /**
      * Delete all translations and all keys assigned to the given file template
      *
-     * @param int $templateId
+     * @param int $templateId Id of template
      *
      * @return bool
      */

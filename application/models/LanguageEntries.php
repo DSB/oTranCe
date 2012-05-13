@@ -92,7 +92,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get all language vars of a language and return as ass. array
      *
-     * @param int   $languageId Id of language to fetch
+     * @param int $languageId Id of language to fetch
      *
      * @return array
      */
@@ -169,24 +169,24 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Search for term in translations table.
      *
-     * @param string $languages
-     * @param string $filter
-     * @param int    $offset
-     * @param int    $nrOfRecords
+     * @param string $languageIds  Ids of languages to search in
+     * @param string $searchphrase Text to find
+     * @param int    $offset       Number of records to skip
+     * @param int    $nrOfRecords  Number of hits to return
      *
      * @return array
      */
-    public function getEntriesByValue($languages, $filter, $offset = 0, $nrOfRecords = 30)
+    public function getEntriesByValue($languageIds, $searchphrase, $offset = 0, $nrOfRecords = 30)
     {
-        if (empty($languages)) {
+        if (empty($languageIds)) {
             return array();
         }
 
         //find key ids
         $sql = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT t.`key_id` FROM `' . $this->_tableTranslations . '` t ';
-        if ($filter > '') {
-            $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($filter) . '%\' AND '
-                . 't.`lang_id` IN (' . implode(",", $languages) . ')';
+        if ($searchphrase > '') {
+            $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\' AND '
+                . 't.`lang_id` IN (' . implode(",", $languageIds) . ')';
         }
         $sql .= ' ORDER BY t.`key_id` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
@@ -210,21 +210,21 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Search for term in keys table.
      *
-     * @param string $filter
-     * @param int    $offset
-     * @param int    $nrOfRecords
-     * @param int    $fileTemplateId
+     * @param string $searchphrase   Text to search for
+     * @param int    $offset         Number of records to skip
+     * @param int    $nrOfRecords    Number of hits to return
+     * @param int    $fileTemplateId If set, only search in this template
      *
      * @return array
      */
-    public function getEntriesByKey($filter, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
+    public function getEntriesByKey($searchphrase, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
     {
         //find key ids
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
                . ' FROM `' . $this->_tableKeys . '` k ';
         $where = array();
-        if ($filter > '') {
-            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
+        if ($searchphrase > '') {
+            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';
         }
         if ($fileTemplateId > 0) {
             $where[] .= 'k.`template_id` = ' . $this->_dbo->escape($fileTemplateId);
@@ -241,15 +241,15 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get key ids of untranslated variables for given language
      *
-     * @param int    $languageId ID of language
-     * @param string $filter     Filter for key
-     * @param int    $offset
-     * @param int    $nrOfRecords
-     * @param int    $templateId
+     * @param int    $languageId   If set, only search in this language
+     * @param string $searchphrase Phrase to search
+     * @param int    $offset       Number of records to skip
+     * @param int    $nrOfRecords  Number of hits to return
+     * @param int    $templateId   If set, only search in this template
      *
      * @return array
      */
-    public function getUntranslated($languageId = 0, $filter = '', $offset = 0, $nrOfRecords = 30, $templateId = 0)
+    public function getUntranslated($languageId = 0, $searchphrase = '', $offset = 0, $nrOfRecords = 30, $templateId = 0)
     {
         $this->_foundRows = null;
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
@@ -260,8 +260,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         $where = array();
 
-        if ($filter > '' ) {
-            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($filter) . '%\'';
+        if ($searchphrase > '' ) {
+            $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';
         }
 
         if ($templateId > 0) {
@@ -404,8 +404,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Add translations for the given languages to the entries.
      *
-     * @param array $languageIds
-     * @param array $entries
+     * @param array $languageIds Ids of languages
+     * @param array $entries     Entries to add
      *
      * @return array
      */
@@ -527,8 +527,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Save values to database.
      *
-     * @param int   $keyId
-     * @param array $newValues
+     * @param int   $keyId     Id of key
+     * @param array $newValues Translations
      *
      * @return bool|string
      */
@@ -622,10 +622,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
-     * Update the name of a key
+     * Update the name of a key.
      *
-     * @param int    $keyId
-     * @param string $keyName
+     * @param int    $keyId   Key-Id to update
+     * @param string $keyName New key name
      *
      * @return bool
      */

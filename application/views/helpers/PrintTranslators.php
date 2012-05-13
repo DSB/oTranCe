@@ -27,7 +27,7 @@ class Msd_View_Helper_PrintTranslators extends Zend_View_Helper_Abstract
     /**
      * Print name/s of user_id's
      *
-     * @param int|array $userIds
+     * @param int|array $userIds Id list of users
      *
      * @return string
      */

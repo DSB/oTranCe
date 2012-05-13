@@ -18,6 +18,8 @@ class Application_Form_Login extends Zend_Form
 {
     /**
      * Init form and add all elements
+     *
+     * @return void
      */
     public function init()
     {

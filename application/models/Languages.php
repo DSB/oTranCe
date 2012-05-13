@@ -86,16 +86,16 @@ class Application_Model_Languages extends Msd_Application_Model
     /**
      * Saves the state of a language
      *
-     * @param int  $id    Internal id of the language
-     * @param int $status State of the language
+     * @param int $languageId Id of the language
+     * @param int $status     State of the language
      *
      * @return bool
      */
-    public function saveLanguageStatus($id, $status)
+    public function saveLanguageStatus($languageId, $status)
     {
-        $id     = (int) $id;
+        $languageId     = (int) $languageId;
         $status = (int) $status;
-        $sql    = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $id;
+        $sql    = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $languageId;
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 

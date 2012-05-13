@@ -113,7 +113,7 @@ class LogController extends Msd_Controller_Action
     /**
      * Delete an entry of the history
      *
-     * @return
+     * @return void
      */
     public function deleteAction()
     {

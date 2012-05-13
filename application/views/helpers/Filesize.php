@@ -24,7 +24,7 @@ class Msd_View_Helper_Filesize extends Zend_View_Helper_Abstract
     /**
      * Set the current view instance.
      *
-     * @param Zend_View_Interface $view
+     * @param Zend_View_Interface $view The current view instance
      *
      * @return void
      */

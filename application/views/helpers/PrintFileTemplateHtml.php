@@ -155,7 +155,7 @@ class Msd_View_Helper_PrintFileTemplateHtml extends Zend_View_Helper_Abstract
      *
      * @param string $html              Existing HTML code.
      * @param int    $selFileTemplateId ID of the selected file template.
-     * @param bool   $hasNoneOption  Whether to add the selection "none"
+     * @param bool   $hasNoneOption     Whether to add the selection "none"
      *
      * @return string
      */

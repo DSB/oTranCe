@@ -54,7 +54,9 @@ class Cli
     }
 
     /**
-     * @return Msd_Vcs_Interface
+     * Get vcs adapter instance
+     *
+     * @return Msd_Vcs_Interface VCS-Adapter instance
      */
     private function _getVcsInstance()
     {

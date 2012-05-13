@@ -19,7 +19,7 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
     /**
      * Method will be executed before the dispatch process starts.
      *
-     * @param Zend_Controller_Request_Abstract $request
+     * @param Zend_Controller_Request_Abstract $request The request object
      *
      * @return void
      */

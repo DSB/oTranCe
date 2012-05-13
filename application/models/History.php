@@ -82,9 +82,9 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Compare old with new values and log changes
      *
-     * @param  string $keyId
-     * @param  array $oldValues
-     * @param  array $newValues
+     * @param string $keyId    Id of key
+     * @param array $oldValues Old translation
+     * @param array $newValues New translation
      *
      * @return void
      */
@@ -160,7 +160,8 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Delete entry by id
      *
-     * @param int $id
+     * @param int $id Id of history entry
+     *
      * @return boolean
      */
     public function deleteById($id)
@@ -172,7 +173,8 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Get latest edit change of the given language
      *
-     * @param string $langId
+     * @param string $langId Id of language
+     *
      * @return string
      */
     public function getLatestChange($langId)

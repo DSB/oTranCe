@@ -20,9 +20,9 @@ class Msd_View_Helper_ByteOutput extends Zend_View_Helper_Abstract
     /**
      * Humanize byte output
      *
-     * @param int $bytes     Bytes to represent
-     * @param int $precision Precision to use
-     * @param bool $useHtml  Whether to add HTML spans of css class "explain"
+     * @param int  $bytes     Bytes to represent
+     * @param int  $precision Precision to use
+     * @param bool $useHtml   Whether to add HTML spans of css class "explain"
      *
      * @return string|float
      */

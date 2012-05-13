@@ -25,6 +25,7 @@ class Msd_View_Helper_GetIcon  extends Zend_View_Helper_Abstract
      * @param string $title HTML Title-Tag
      * @param int    $size  Size -> refers to a subfolder to be used
      * @param string $class CSS-Class
+     *
      * @throws Msd_Exception
      *
      * @return string

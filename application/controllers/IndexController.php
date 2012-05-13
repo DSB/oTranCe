@@ -54,6 +54,11 @@ class IndexController extends Zend_Controller_Action
         $this->view->status      = $entriesModel->getStatus($this->view->languages);
     }
 
+    /**
+     * Register a user
+     *
+     * @return void
+     */
     public function registerAction()
     {
         /**
@@ -79,7 +84,7 @@ class IndexController extends Zend_Controller_Action
     /**
      * Redirect to url
      *
-     * @param array $url
+     * @param array $url Target Url
      *
      * @return void
      */

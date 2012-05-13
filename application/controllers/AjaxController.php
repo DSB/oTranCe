@@ -536,9 +536,9 @@ class AjaxController extends Zend_Controller_Action
     /**
      * Get a Google translation
      *
-     * @param  string $text
-     * @param  string $sourceLang
-     * @param  string $targetLang
+     * @param string $text       The text to translate
+     * @param string $sourceLang Source locale
+     * @param string $targetLang Target locale
      *
      * @return string
      */
@@ -569,7 +569,7 @@ class AjaxController extends Zend_Controller_Action
     /**
      * Convert lang code like vi_VN into Googles code vn
      *
-     * @param  string $code
+     * @param string $code Locale
      *
      * @return string
      */

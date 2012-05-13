@@ -429,7 +429,7 @@ class EntriesController extends Zend_Controller_Action
     /**
      * Set forward flag and forward to action
      *
-     * @param  string $action
+     * @param string $action Target action
      *
      * @return void
      */
@@ -463,6 +463,8 @@ class EntriesController extends Zend_Controller_Action
      *
      * @param int   $id          Id of entry to edit
      * @param array $skippedKeys Array[langId => offset] holding key offsets per language
+     *
+     * @return void
      */
     private function _setKeyOffsetAndForwardToEditAction($id, $skippedKeys)
     {

@@ -137,8 +137,8 @@ class SettingsController extends Msd_Controller_Action
     /**
      * Save list of reference languages
      *
-     * @param int    $recordsPerPage
-     * @param string Locale of language
+     * @param int    $recordsPerPage    Records per Page
+     * @param string $interfaceLanguage Locale of the interface's language
      *
      * @return boolean
      */

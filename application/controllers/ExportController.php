@@ -113,9 +113,9 @@ class ExportController extends Msd_Controller_Action
     /**
      * Builds the file list for VCS commit.
      *
-     * @param array $statusResult
-     * @param array $files
-     * @param Msd_Vcs_Interface $vcs
+     * @param array $statusResult    Array with status infos
+     * @param array $files           Filelist
+     * @param Msd_Vcs_Interface $vcs VCS-Adapter to use
      *
      * @return array
      */
@@ -145,6 +145,8 @@ class ExportController extends Msd_Controller_Action
     }
 
     /**
+     * Return vcs adapter instance depending on the project's settings
+     *
      * @return Msd_Vcs_Interface
      */
     private function _getVcsInstance()
@@ -173,7 +175,7 @@ class ExportController extends Msd_Controller_Action
     /**
      * Adds an etry to the export log.
      *
-     * @param array $exportedFiles
+     * @param array $exportedFiles List of exported files
      *
      * @return void
      */

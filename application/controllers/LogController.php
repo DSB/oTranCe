@@ -41,6 +41,8 @@ class LogController extends Msd_Controller_Action
 
     /**
      * Init
+     *
+     * @return void
      */
      public function init()
      {

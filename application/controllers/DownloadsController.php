@@ -63,7 +63,7 @@ class DownloadsController extends Zend_Controller_Action
     /**
      * Retrives the content type of an archive.
      *
-     * @param string $filename
+     * @param string $filename Name of file
      *
      * @return string
      */

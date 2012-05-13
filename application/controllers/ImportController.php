@@ -111,7 +111,7 @@ class ImportController extends Zend_Controller_Action
                 $this->_dynamicConfig->getParam('importOriginalData')
             );
             if ($res === false) {
-                $res = $data;
+                $res = '';
                 $this->view->conversionError = true;
                 $this->view->targetCharset = $this->_dynamicConfig->getParam('selectedCharset');
             }

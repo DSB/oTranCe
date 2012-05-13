@@ -193,7 +193,7 @@ class Admin_UsersController extends AdminController
      *
      * @param array $userData Array containing username, pass1, active and id
      *
-     * @return bool|id Return user id on succes or false on error
+     * @return bool|int Return user id on succes or false on error
      */
     public function _saveAccountSettings($userData)
     {

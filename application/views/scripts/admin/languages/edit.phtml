@@ -18,7 +18,7 @@ if ($this->languageId == 0) {
 ?>
 <div>
 <?php if ($this->user->hasRight('addLanguage')) {?>
-    <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
+    <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
         <?php echo $this->getIcon('plus', '') . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
     </button>
     <br /><br />
@@ -70,7 +70,7 @@ if ($this->languageId == 0) {
                 <?php echo $this->printFlag($this->languageId);?>
                 <input type="file" class="text" name="langFlag" id="langFlag" />
                 <?php if ($this->flagExtension > '') { ?>
-                    <button type="button" class="Formbutton" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
+                    <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
                     <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
                         <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
                     <?php }
@@ -78,9 +78,12 @@ if ($this->languageId == 0) {
             </td>
         </tr>
         <tr class="row-odd">
-            <td><input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/></td>
+            <td>
+                <input type="hidden" name="flagExt" value="<?php echo $this->flagExtension; ?>"/>
+                <input type="hidden" name="id" value="<?php echo $this->languageId; ?>"/>
+            </td>
             <td class="vmiddle">
-                <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE;?></button>
+                <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE;?></button>
             </td>
         </tr>
     </table>

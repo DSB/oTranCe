@@ -1,0 +1,24 @@
+<?php if ($this->controller != 'settings') { ?>
+<div id="switchLanguageBox">
+    <form method="post" id="formSwitchLanguage" action="<?php echo $this->url(
+        array(
+             'controller' => $this->controller,
+             'action'     => $this->request->getActionName()
+        ),
+        null,
+        true
+    );?>">
+    <p>
+    <select id="switchLanguage" name="switchLanguage">
+        <?php foreach ($this->availableGuiLanguages as $lang) { ?>
+        <option value="<?php echo $lang['locale'];?>" class="<?php echo $lang['locale'];?>"
+            <?php if ($lang['locale'] == $this->lang->getActiveLanguage()) {
+            echo ' selected="selected"';
+        } ?>
+            ><?php echo $this->jsEscape($lang['name']);?></option>
+        <?php } ?>
+    </select>
+    </p>
+    </form>
+</div>
+<?php } ?>

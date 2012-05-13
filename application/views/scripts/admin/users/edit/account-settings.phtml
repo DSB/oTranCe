@@ -4,6 +4,7 @@
 <tr class="row-odd">
     <td><?php echo $this->lang->L_USERACCOUNT_IS_ACTIVE;?>:</td>
     <td>
+        <input type="hidden" name="id" value="<?php echo (int) $this->userData['id'];?>" />
         <input type="radio" name="active" id="user_active_yes" value="1"
             <?php if ($this->userData['active'] == 1) { ?>
                 checked="checked"

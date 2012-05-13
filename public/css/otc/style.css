@@ -637,17 +637,21 @@ textarea {
 #logout {
     position:fixed;
     top: 10px;
-    right: 20px;
+    right: 4px;
     height: 20px;
-    width:300px;
+    min-width:156px;
     vertical-align: middle;
     z-index:40;
 }
-#icon {
+#logout p {
+    float:left;
+}
+#logout .icon {
     position: relative;
-    float:right;
+    float:left;
     padding:3px 2px 0 0;
     margin:0;
+    width:20px;
 }
 #loggedin-user {
     position:relative;
@@ -814,4 +818,19 @@ pre.xdebug-var-dump {
 .notification-bar.error {
     background-color:#F9948A;
     z-index:2000;
+}
+/* font size of head tabs on admin page */
+#headnavi ul li a {
+    font-size:12px;
+}
+
+#switchLanguageBox {
+    position:fixed;
+    top:10px;
+    right:186px;
+    z-index: 445;
+}
+
+#switchLanguage {
+    width:200px;
 }

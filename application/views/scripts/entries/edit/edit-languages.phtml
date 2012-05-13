@@ -37,22 +37,22 @@ $entry = $this->entry;
                         <span class="floatRight">
                             <?php
                             if ($this->skipKeysOffsets[$languageId] >= 0) { ?>
-                                <a href="<?php echo $this->baseUrl() . '/entries/get-previous-untranslated-key/languageId/' . $languageId;?>" class="Formbutton">
+                                <a href="<?php echo $this->baseUrl() . '/entries/get-previous-untranslated-key/languageId/' . $languageId;?>" class="Formbutton ui-corner-all">
                                     <?php echo $this->getIcon('Back', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
                                 </a><?php
                             } else { ?>
-                                <button class="Formbutton" disabled="disabled">
+                                <button class="Formbutton ui-corner-all" disabled="disabled">
                                     <?php echo $this->getIcon('BackDisabled', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
                                 </button><?php
                             }
 
                             if ($this->skipKeysOffsets[$languageId] +1 < $this->langStatus[$languageId]['notTranslated']) { ?>
                                 <a href="<?php echo $this->baseUrl() . '/entries/get-next-untranslated-key/languageId/' . $languageId
-                                    . '/entryId/' . $this->key['id'];?>" class="Formbutton">
+                                    . '/entryId/' . $this->key['id'];?>" class="Formbutton ui-corner-all">
                                     <?php echo $this->getIcon('Forward', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
                                 </a><?php
                             } else { ?>
-                                <button class="Formbutton" disabled="disabled">
+                                <button class="Formbutton ui-corner-all" disabled="disabled">
                                     <?php echo $this->getIcon('ForwardDisabled', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
                                 </button><?php
                             } ?>
@@ -90,7 +90,7 @@ $entry = $this->entry;
                 <input type="hidden" name="id" value="<?php echo $this->key['id'];?>" />
                 <?php
                 if (count($this->languagesEdit) > 0) { ?>
-                    <a href="#" class="Formbutton" id="save-button" onclick="$('#editForm').submit()">
+                    <a href="#" class="Formbutton ui-corner-all" id="save-button" onclick="$('#editForm').submit()">
                         <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_SAVE;?>
                     </a><?php
                 } ?>

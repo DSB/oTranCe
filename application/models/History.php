@@ -195,7 +195,7 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Log action login failed
      *
-     * @param $user Name of user that tried to log in
+     * @param string $user Name of user that tried to log in
      *
      * @return void
      */

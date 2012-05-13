@@ -22,7 +22,7 @@ foreach ($this->exportedFiles as $exportedFile) {
     if ($projectConfig['vcsActivated'] > 0) { ?>
         <tr class="<?php echo $cycle->next();?>">
             <td colspan="3">
-                <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16).''.$this->lang->L_EXPORT_COMMITTOVCS;?> </a>
+                <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16).''.$this->lang->L_EXPORT_COMMITTOVCS;?> </a>
             </td>
         </tr>
     <?php
@@ -30,4 +30,4 @@ foreach ($this->exportedFiles as $exportedFile) {
 }
 ?>
 </table><br/>
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','').''.$this->lang->L_BACK_TO_OVERVIEW;?> </a>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('ArrowLeft','').''.$this->lang->L_BACK_TO_OVERVIEW;?> </a>

@@ -21,7 +21,7 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
      *
      * @param Zend_Controller_Request_Abstract $request
      *
-     * @return
+     * @return void
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {

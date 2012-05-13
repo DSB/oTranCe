@@ -30,7 +30,7 @@ class LogController extends Msd_Controller_Action
 
     /**
      * Languages model
-     * @var Application_Model_LanguagesEntries
+     * @var Application_Model_LanguageEntries
      */
     private $_entriesModel;
 

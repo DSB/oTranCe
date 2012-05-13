@@ -40,7 +40,7 @@ class Application_Model_Converter extends Msd_Application_Model
      * @param string $inputCharset The current character set of the string
      * @param string $text
      *
-     * @return false|string UTF-8 encoded string
+     * @return bool|string UTF-8 encoded string
      */
     public function convertData($inputCharset, $text)
     {

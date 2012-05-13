@@ -12,7 +12,7 @@ $projectConfig = $this->config->getParam('project');
     <select name="interfaceLanguage">
         <?php echo $this->selInterfaceLanguage;?>
     </select>
-    <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
+    <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
 </p>
 
 <h4><?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:</h4>
@@ -21,7 +21,7 @@ $projectConfig = $this->config->getParam('project');
     <select name="recordsPerPage">
         <?php echo $this->selRecordsPerPage;?>
     </select>
-    <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
+    <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
 </p>
 
 <h4><?php echo $this->lang->L_YOU_ARE_ALLOWED_TO_EDIT_FOLLOWING_LANGUAGES;?>:</h4>
@@ -142,7 +142,7 @@ $projectConfig = $this->config->getParam('project');
     </tr>
     <tr class="row-even">
         <td>&nbsp;</td>
-        <td><button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_PASSWORD; ?></button></td>
+        <td><button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_PASSWORD; ?></button></td>
     </tr>
 </table>
 
@@ -179,7 +179,7 @@ if (!empty($projectConfig['vcsActivated'])) {
         <tr class="row-even">
             <td></td>
             <td>
-                <button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton">
+                <button type="button" onclick="$('#confirmVCDeletion').dialog('open');" class="Formbutton ui-corner-all">
                     <?php echo $this->getIcon('delete', ''); ?> <?php echo $this->lang->L_DELETE_CREDENTIALS;?>
                 </button>
             </td>
@@ -188,7 +188,7 @@ if (!empty($projectConfig['vcsActivated'])) {
 <?php } ?>
 <div class="spacer"></div>
 <p>
-    <button type="submit" class="Formbutton"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
+    <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
 </p>
 </form>
 <div class="spacer"></div>

@@ -191,7 +191,7 @@ class Application_Model_Languages extends Msd_Application_Model
     /**
      * Retrieves the current fallback language.
      *
-     * @return int|false
+     * @return int|bool
      */
     public function getFallbackLanguage()
     {
@@ -264,7 +264,7 @@ class Application_Model_Languages extends Msd_Application_Model
     /**
      * Get last inserted language id
      *
-     * @return false|int
+     * @return bool|int
      */
     public function getLastInsertedId()
     {

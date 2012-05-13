@@ -21,12 +21,12 @@ $viewData = array(
 </div>
 <h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->key['key'];?></h4>
 <div>
-    <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton">
+    <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton ui-corner-all">
         <?php echo $this->getIcon('Back', $this->lang->L_BACK_TO_OVERVIEW, 16) . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?>
     </a>
     <?php
     if ($this->user->hasRight('addVar')) { ?>
-         <a href="<?php echo $this->baseUrl();?>/entries/add-variable" class="Formbutton">
+         <a href="<?php echo $this->baseUrl();?>/entries/add-variable" class="Formbutton ui-corner-all">
              <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_NEW_KEY;?>
          </a><?php
     } ?>

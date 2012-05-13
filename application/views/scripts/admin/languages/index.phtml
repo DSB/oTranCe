@@ -7,14 +7,14 @@
         <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
             <?php echo $this->lang->L_FILTER_SEARCH;?>:
         <input type="text" class="text" id="filterLanguage" name="filterLanguage" value="<?php echo $this->escape($this->filterLanguage);?>" />
-        <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+        <button type="submit" class="Formbutton ui-corner-all" value="Search" onclick="resetOffset();">
             <?php echo $this->getIcon('search', $this->lang->L_SEARCH, 16);?> <?php echo $this->lang->L_SEARCH;?>
         </button>
-        <button type="submit" class="Formbutton" onclick="$('#filterLanguage').val('');resetOffset();">
+        <button type="submit" class="Formbutton ui-corner-all" onclick="$('#filterLanguage').val('');resetOffset();">
             <?php echo $this->getIcon('delete', $this->lang->L_RESET);?> <?php echo $this->lang->L_RESET;?>
         </button>
         <?php if ($this->user->hasRight('addLanguage')) {?>
-            <button type="button" class="Formbutton" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
+            <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_languages/edit/id/0'">
                 <?php echo $this->getIcon('plus', $this->lang->L_ADD_NEW_LANGUAGE) . ' ' . $this->lang->L_ADD_NEW_LANGUAGE;?>
             </button>
         <?php } ?>
@@ -22,17 +22,17 @@
 
         <a href="#" <?php if($this->offset > 0): ?> title="<?php echo $this->lang->L_PREVIOUS_PAGE;?> (<?php echo $this->lang->L_SHORTCUT;?> ALT+C)"
             onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
-            accesskey="c" class="Formbutton"><?php echo $this->getIcon('Back', '', 16);?>
+            accesskey="c" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Back', '', 16);?>
             <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+            class="Formbutton ui-corner-all"><?php echo $this->getIcon('BackDisabled', '', 16);?>
             <?php endif; ?>
         </a>
 
         <a href="#" <?php if($this->offset + $this->recordsPerPage < $this->hits): ?> title="<?php echo $this->lang->L_NEXT_PAGE;?> (<?php echo $this->lang->L_SHORTCUT;?> ALT+V)"
             onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
-            accesskey="v" class="Formbutton"><?php echo $this->getIcon('Forward', '', 16);?>
+            accesskey="v" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Forward', '', 16);?>
             <?php else: ?>
-            class="Formbutton"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+            class="Formbutton ui-corner-all"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
             <?php endif; ?>
         </a>
         <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:

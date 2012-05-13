@@ -521,7 +521,7 @@ class AjaxController extends Zend_Controller_Action
      * @param int   $templateId Id of the file template
      * @param int   $languageId Id of the language
      *
-     * @return array|false
+     * @return array|bool
      */
     private function _getFallbackLanguageData($keys, $templateId, $languageId)
     {

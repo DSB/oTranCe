@@ -89,6 +89,8 @@ class Msd_Language
     /**
      * No cloning for singleton
      *
+     * @throws Msd_Exception
+     *
      * @return void
      */
     public function __clone()
@@ -215,5 +217,15 @@ class Msd_Language
         $this->setTranslator($currentTranslator);
         $this->loadLanguage($this->_language);
         return $ret;
+    }
+
+    /**
+     * Get the locale of the currently loaded language
+     *
+     * @return string
+     */
+    public function getActiveLanguage()
+    {
+        return $this->_language;
     }
 }

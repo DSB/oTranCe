@@ -23,19 +23,22 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
      */
     public function menu()
     {
-        $front = Zend_Controller_Front::getInstance();
+        $front   = Zend_Controller_Front::getInstance();
         $request = $front->getRequest();
         if ($this->view->isLogin) {
             //don't render menu when we show the login form
             return '';
         }
 
-        $view = $this->view;
-        $view->request = $request;
-        $view->config = Msd_Registry::getConfig();
+        $view                = $this->view;
+        $dynamicConfig = Msd_Registry::getDynamicConfig();
+        $view->availableGuiLanguages = $dynamicConfig->getParam('availableGuiLanguages', array());
+        $view->request       = $request;
+        $view->controller    = $request->getControllerName();
+        $view->config        = Msd_Registry::getConfig();
         $view->projectConfig = $view->config->getParam('project');
-        $menu = $view->render('index/menu.phtml');
-        return $menu;
+        $view->user          = new Application_Model_User();
+        return $view->render('index/menu.phtml');
     }
 
 }

@@ -1,6 +1,8 @@
 <?php
 $projectConfig   = $this->config->getParam('project');
 $interfaceConfig = $this->config->getParam('interface');
+$dynamicConfig   = Msd_Registry::getDynamicConfig();
+$guiLanguages    = $dynamicConfig->getParam('availableGuiLanguages');
 $theme           = $interfaceConfig['theme'];
 $language        = $interfaceConfig['language'];
 $this->headMeta()
@@ -15,6 +17,7 @@ $this->headMeta()
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jquery-ui.custom.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/fileuploader.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/style.css');
+$this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jquery.ui.selectmenu.css');
 $request = Zend_Controller_Front::getInstance()->getRequest();
 if ($request->getControllerName() == 'index' && ($request->getActionName() == 'login' || $request->getActionName() == 'register')) {
     $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/login.css');
@@ -22,6 +25,7 @@ if ($request->getControllerName() == 'index' && ($request->getActionName() == 'l
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/script.js'));
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/autogrow.js'));
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jquery.tmpl.min.js'));
+$this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jquery.ui.selectmenu.js'));
 
 $this->jQuery()->setLocalPath($this->baseUrl() . '/js/jquery/jquery.min.js');
 $this->jQuery()->setUiLocalPath($this->baseUrl() . '/js/jquery/jquery-ui.min.js');
@@ -35,6 +39,26 @@ if ($this->dynamicConfig->getParam('optimizeTables') == true) {
 }
 $this->jQuery()->onLoadCaptureStart();
 ?>
+$('select').selectmenu({
+    style:'dropdown'
+});
+$('#switchLanguage').selectmenu({
+    style:'dropdown',
+    width: 'auto',
+    icons: [
+    <?php foreach ($guiLanguages as $lang) { ?>
+        {find: '.<?php echo $lang['locale'];?>'},
+    <?php } ?>
+    ],
+    change: function() {
+        $('#formSwitchLanguage').hide();
+        // preserve inputs from other forms
+        $('form:not(#formSwitchLanguage) :input').each(function() {
+            $('#formSwitchLanguage').append(this);
+        });
+        $('#formSwitchLanguage').submit();
+    }
+});
 var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
 var imgError = '<?php echo $this->getIcon('Attention', $this->lang->L_ERROR, 16);?>';
 <?php
@@ -49,9 +73,15 @@ $this->jQuery()->onLoadCaptureEnd();
     <?php
         echo (string) $this->jQuery();
         echo $this->headMeta() . "\n";
-        echo $this->headScript() . "\n";
-    ?>
-    <style type="text/css">body {direction: ltr;}</style>
+        echo $this->headScript() . "\n";?>
+    <style type="text/css">
+    <?php foreach ($guiLanguages as $lang) { ?>
+        body .<?php echo $lang['locale'];?> .ui-selectmenu-item-icon {
+            background-image:url("<?php echo $this->serverUrl() . $this->baseUrl();?>/images/flags/<?php echo $lang['locale'];?>.gif");
+        }
+    <?php } ?>
+        body {direction: ltr;}
+    </style>
 </head>
 
 <body>
@@ -59,7 +89,7 @@ $this->jQuery()->onLoadCaptureEnd();
     <div id="container">
         <?php
             echo $messages;
-            echo $this->menu();
+            echo $this->menu($guiLanguages);
             if (!$this->isLogin) { ?>
                 <div id="content"><?php
             }

@@ -40,12 +40,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 ?>
             </td>
             <td>
-                <button type="submit" class="Formbutton" id="buttonFilterValuesSearch" value="Search" onclick="resetOffset();">
+                <button type="submit" class="Formbutton ui-corner-all" id="buttonFilterValuesSearch" value="Search" onclick="resetOffset();">
                     <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                 </button>
             </td>
             <td>
-                <button type="submit" class="Formbutton" id="buttonFilterValuesReset" onclick="$('#filterValues').val('');resetOffset();">
+                <button type="submit" class="Formbutton ui-corner-all" id="buttonFilterValuesReset" onclick="$('#filterValues').val('');resetOffset();">
                     <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                 </button>
             </td>
@@ -60,12 +60,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 type="text" class="text" id="filterKeys" name="filterKeys" value="<?php echo $this->escape($this->filterKeys);?>" onchange="resetOffset()"/>
             </td>
             <td>
-                <button type="submit" class="Formbutton" id="buttonFilterKeysSearch" value="Search" onclick="resetOffset();">
+                <button type="submit" class="Formbutton ui-corner-all" id="buttonFilterKeysSearch" value="Search" onclick="resetOffset();">
                     <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                 </button>
             </td>
             <td>
-                <button type="submit" class="Formbutton" id="buttonFilterKeysReset" onclick="$('#filterKeys').val('');resetOffset();">
+                <button type="submit" class="Formbutton ui-corner-all" id="buttonFilterKeysReset" onclick="$('#filterKeys').val('');resetOffset();">
                     <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                 </button>
             </td>
@@ -82,7 +82,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                     </td>
                     <td>&nbsp;</td>
                     <td>
-                        <button type="submit" class="Formbutton" id="buttonFileTemplateReset" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
+                        <button type="submit" class="Formbutton ui-corner-all" id="buttonFileTemplateReset" onclick="resetOffset();$('#fileTemplateFilter option[value=\'0\']').attr('selected', true);">
                             <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                         </button>
                     </td>
@@ -97,12 +97,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 </select>
             </td>
             <td>
-                <button type="submit" class="Formbutton" value="Search" onclick="resetOffset();">
+                <button type="submit" class="Formbutton ui-corner-all" value="Search" onclick="resetOffset();">
                     <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
                 </button>
             </td>
             <td>
-                <button type="submit" class="Formbutton" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
+                <button type="submit" class="Formbutton ui-corner-all" onclick="resetOffset();$('#getUntranslated option[value=\'0\']').attr('selected', true);">
                     <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>
                 </button>
             </td>
@@ -111,7 +111,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
     <div class="top-margin">
         <?php
         if ($this->user->hasRight('addVar')) { ?>
-             <button type="submit" class="Formbutton" name="addVar" value="addVar">
+             <button type="submit" class="Formbutton ui-corner-all" name="addVar" value="addVar">
                  <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_NEW_KEY;?>
              </button>
         <br/><br/>

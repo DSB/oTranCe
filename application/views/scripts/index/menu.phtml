@@ -1,7 +1,3 @@
-<?php
-$this->controller = $this->request->getControllerName();
-$user             = new Application_Model_User();
-?>
 <div id="sidebar">
     <h2><?php echo $this->projectConfig['name'];?></h2>
     <div id="version">
@@ -21,7 +17,7 @@ $user             = new Application_Model_User();
                 ><a href="<?php echo $this->baseUrl();?>/index/index"><?php echo $this->getIcon('Home', $this->lang->L_HOME, 20);?><?php echo $this->lang->L_HOME;?></a>
             </li>
             <?php
-            if ($user->hasRight('editConfig')) {
+            if ($this->user->hasRight('editConfig')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'settings') {
@@ -31,7 +27,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showEntries')) {
+            if ($this->user->hasRight('showEntries')) {
              ?>
                 <li
                     <?php if ($this->controller == 'entries') {
@@ -41,7 +37,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showDownloads')) {
+            if ($this->user->hasRight('showDownloads')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'downloads') {
@@ -51,7 +47,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showBrowseFiles')) {
+            if ($this->user->hasRight('showBrowseFiles')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'browser') {
@@ -61,7 +57,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showImport')) {
+            if ($this->user->hasRight('showImport')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'import') {
@@ -71,7 +67,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showExport')) {
+            if ($this->user->hasRight('showExport')) {
                 ?>
                     <li
                         <?php if ($this->controller == 'export') {
@@ -81,7 +77,7 @@ $user             = new Application_Model_User();
                     </li>
                 <?php
             }
-            if ($user->hasRight('showLog')) {
+            if ($this->user->hasRight('showLog')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'log') {
@@ -91,7 +87,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('showStatistics')) {
+            if ($this->user->hasRight('showStatistics')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'statistics') {
@@ -101,7 +97,7 @@ $user             = new Application_Model_User();
                 </li>
                 <?php
             }
-            if ($user->hasRight('admin')) {
+            if ($this->user->hasRight('admin')) {
                 ?>
                 <li
                     <?php if ($this->controller == 'admin') {
@@ -116,10 +112,23 @@ $user             = new Application_Model_User();
     </div>
 </div>
 
+<?php
+if ($this->controller != 'settings') {
+    echo $this->partial(
+        'helper/switch-language-box.phtml',
+        array(
+            'lang'                  => $this->lang,
+            'controller'            => $this->controller,
+            'request'               => $this->request,
+            'availableGuiLanguages' => $this->availableGuiLanguages,
+        )
+    );
+}
+?>
 <div id="logout">
-    <div id="loggedin-user"><p>
+    <p class="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_LOGGED_IN, 16);?></p>
+    <p id="loggedin-user">
         <strong><?php echo $this->getUsername();?></strong> |
-        <a href="<?php echo $this->baseUrl();?>/index/logout/"><?php echo $this->lang->L_LOG_OUT;?></a></p>
-    </div>
-    <div id="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_LOGGED_IN, 16);?></div>
+        <a href="<?php echo $this->baseUrl();?>/index/logout/"><?php echo $this->lang->L_LOG_OUT;?></a>
+    </p>
 </div>

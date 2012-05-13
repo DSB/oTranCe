@@ -27,10 +27,10 @@ foreach ($this->languages as $lang) {
 if ($this->exportOk) {
     $projectConfig = $this->config->getParam('project', 0);
     if ($projectConfig['vcsActivated'] > 0) { ?>
-        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
+        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
         <?php
     }
 }
 ?>
 <br />
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton"><?php echo $this->getIcon('ArrowLeft','') . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('ArrowLeft','') . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>

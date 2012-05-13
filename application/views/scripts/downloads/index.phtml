@@ -11,7 +11,7 @@
     foreach ($this->archives as $archiveName => $archiveMeta) {
         if ($oldCTime != $archiveMeta['creationTime']) {
             if ($oldCTime !== null) {
-                echo "    </table>\n    <br/>\n";
+                echo "</table>\n    <br/>\n";
             }
 ?>
     <br/>
@@ -28,7 +28,7 @@
             <td><?php echo $this->getIcon('Archive', '', 16); ?></td>
             <td><?php echo $this->out($archiveName); ?></td>
             <td><?php echo $this->byteOutput($archiveMeta['fileSize']);?></td>
-            <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton"><?php echo $this->getIcon('Download', $this->lang->L_DOWNLOAD, 16); ?> <?php echo $this->lang->L_DOWNLOAD;?></a></td>
+            <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', $this->lang->L_DOWNLOAD, 16); ?> <?php echo $this->lang->L_DOWNLOAD;?></a></td>
         </tr>
 <?php
         $oldCTime = $archiveMeta['creationTime'];

@@ -44,7 +44,7 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
     /**
      * returns the instance of this view helper.
      *
-     * @return Zend_View_Helper_PopUpMessage
+     * @return Msd_View_Helper_PopUpMessage
      */
     public function popUpMessage()
     {

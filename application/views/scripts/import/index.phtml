@@ -43,7 +43,7 @@
         <td class="vmiddle"><?php echo $this->lang->L_UPLOAD_FILE;?>:</td>
         <td>
             <input type="file" class="text" name="fileUploaded" id="fileUploaded" />
-            <button type="submit" class="Formbutton">
+            <button type="submit" class="Formbutton ui-corner-all">
             <?php echo $this->getIcon('OpenFile', '', 16);?> <?php echo $this->lang->L_UPLOAD_FILE;?>
             </button>
         </td>
@@ -61,7 +61,7 @@ if ($this->importData > '') { ?>
     <h4><?php echo $this->lang->L_CHECK_CHARS;?></h4>
     <p><?php echo $this->lang->L_CHECK_CHARS_EXPLAIN;?></p>
     <p>
-        <button class="Formbutton" type="submit" name="convert">
+        <button class="Formbutton ui-corner-all" type="submit" name="convert">
         <?php echo $this->getIcon('Ok', $this->lang->L_CONVERT_CHARS_FROM, 16);?> <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
         </button>
         <select name="selectedCharset" id="selectedCharset">
@@ -72,7 +72,7 @@ if ($this->importData > '') { ?>
 } ?>
 <h4><?php echo $this->lang->L_DATA_TO_ANALYZE;?>:</h4>
 <p>
-    <button class="Formbutton" type="submit" name="analyze">
+    <button class="Formbutton ui-corner-all" type="submit" name="analyze">
     <?php echo $this->getIcon('Ok', $this->lang->L_START_ANALYZE, 16);?> <?php echo $this->lang->L_START_ANALYZE;?>
     </button>
 </p>
@@ -81,7 +81,7 @@ if ($this->importData > '') { ?>
     <textarea name="importData" id="importData" cols="120" rows="1"><?php echo $this->importData;?></textarea>
     <br /><br />
 
-    <button class="Formbutton" type="submit" name="analyze">
+    <button class="Formbutton ui-corner-all" type="submit" name="analyze">
     <?php echo $this->getIcon('Ok', $this->lang->L_START_ANALYZE, 16);?> <?php echo $this->lang->L_START_ANALYZE;?>
     </button>
 </p>

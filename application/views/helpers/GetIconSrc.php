@@ -21,8 +21,9 @@ class Msd_View_Helper_GetIconSrc  extends Zend_View_Helper_Abstract
     /**
      * Get path of an image
      *
-     * @param string $name
-     * @param int    $size
+     * @throws Msd_Exception
+     * @param string $name Name of icon
+     * @param int    $size Size of icon -> refers to s asubfolder to be used
      *
      * @return string
      */

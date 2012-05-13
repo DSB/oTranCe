@@ -77,7 +77,7 @@ class Admin_UsersController extends AdminController
                 'pass2'    => '',
                 'active'   => 0
             );
-        } elseif (!$this->_request->isPost()) {
+        } else {
             // get user data from database
             $userData = $this->_userModel->getUserById($userId);
         }

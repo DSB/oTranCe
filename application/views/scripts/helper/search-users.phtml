@@ -34,7 +34,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
         <?php endif; ?>
     </a>
     <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
-    <select name="recordsPerPage" onchange="setPageInactive();;resetOffset();$('#myForm').submit();">
+    <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
         <?php echo $this->selRecordsPerPage;?>
     </select>
     <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->hits);?>

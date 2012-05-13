@@ -249,7 +249,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * @return array
      */
-    public function getUntranslated($languageId = 0, $searchphrase = '', $offset = 0, $nrOfRecords = 30, $templateId = 0)
+    public function getUntranslated(
+        $languageId = 0,
+        $searchphrase = '',
+        $offset = 0,
+        $nrOfRecords = 30,
+        $templateId = 0
+    )
     {
         $this->_foundRows = null;
         $sql = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'

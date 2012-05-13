@@ -423,8 +423,8 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Delete a users language edit rights of the given language
      *
-     * @param  int $userId     The id of the user
-     * @param  int $languageId The id of the language
+     * @param int $userId     The id of the user
+     * @param int $languageId The id of the language
      *
      * @return boolean
      */
@@ -440,8 +440,8 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Delete a users language edit rights of the given language
      *
-     * @param  int $userId     The id of the user
-     * @param  int $languageId The id of the language
+     * @param int $userId     The id of the user
+     * @param int $languageId The id of the language
      *
      * @return boolean
      */
@@ -457,8 +457,8 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Save language edit rights of a user db
      *
-     * @param  int   $userId      The id of the user
-     * @param  array $languageIds Array of language ids
+     * @param int   $userId      The id of the user
+     * @param array $languageIds Array of language ids
      *
      * @return boolean
      */

@@ -46,11 +46,11 @@ class Application_Model_History extends Msd_Application_Model
     /**
      * Get entries from history table
      *
-     * @param int        $offset         Records to bypass
-     * @param int        $nr             Number of records to return
-     * @param int        $filterLanguage Id of language to filter
-     * @param int        $filterUser     Id of user to filter
-     * @param string     $filterAction   Action to filter
+     * @param int    $offset         Records to bypass
+     * @param int    $nr             Number of records to return
+     * @param int    $filterLanguage Id of language to filter
+     * @param int    $filterUser     Id of user to filter
+     * @param string $filterAction   Action to filter
      *
      * @return array
      */

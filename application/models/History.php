@@ -83,8 +83,8 @@ class Application_Model_History extends Msd_Application_Model
      * Compare old with new values and log changes
      *
      * @param string $keyId     Id of key
-     * @param array  $oldValues Old translation
-     * @param array  $newValues New translation
+     * @param array  $oldValues Old translations
+     * @param array  $newValues New translations
      *
      * @return void
      */

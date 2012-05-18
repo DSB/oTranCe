@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// HolgerGremminger
+// DSB, HolgerGremminger
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => '',
@@ -174,7 +174,7 @@ $lang = array(
 'L_LANGUAGE' => '',
 'L_LANGUAGES' => '',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => '',
-'L_LANGUAGE_NAME' => '',
+'L_LANGUAGE_NAME' => 'Svenska',
 'L_LANGUAGE_SETTINGS' => '',
 'L_LOCALE' => '',
 'L_LOG' => '',

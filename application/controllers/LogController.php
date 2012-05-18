@@ -83,6 +83,7 @@ class LogController extends Msd_Controller_Action
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
         $filterAction = $this->_request->getParam('filterAction', '');
+
         $actions = array(
             'changed' => 'changed',
             'deleted %' => 'deleted',

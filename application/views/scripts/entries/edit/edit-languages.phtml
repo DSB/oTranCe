@@ -93,10 +93,11 @@ $entry = $this->entry;
                     <a href="#" class="Formbutton ui-corner-all" id="save-button" onclick="$('#editForm').submit()">
                         <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_SAVE;?>
                     </a><?php
+                    $this->jQuery()->onLoadCaptureStart();?>
+                        $('#edit-<?php echo $this->languagesEdit[0]['id'];?>').focus();<?php
+                    $this->jQuery()->onLoadCaptureEnd();
                 }
-                $this->jQuery()->onLoadCaptureStart();?>
-                    $('#edit-<?php echo $this->languagesEdit[0]['id'];?>').focus();
-                <?php $this->jQuery()->onLoadCaptureEnd();?>
+                ?>
             </td>
         </tr>
     </table>

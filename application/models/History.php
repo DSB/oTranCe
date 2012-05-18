@@ -65,7 +65,7 @@ class Application_Model_History extends Msd_Application_Model
         if ($filterUser > 0) {
             $sql .= ' AND `user_id`=\'' . $filterUser .'\'';
         }
-        if ($filterAction > '') {
+        if ($filterAction != '0' && $filterAction > '') {
             if (strpos($filterAction, '%') !== false) {
                 $sql .= ' AND `action` LIKE \'' . $filterAction .'\'';
             } else {

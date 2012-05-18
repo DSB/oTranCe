@@ -48,12 +48,18 @@ class Msd_Language
     /**
      * Constructor loads the selected language of the user
      *
+     * @param string $language Iso-Code of language to load
+     *
      * @return Msd_Language
      */
-    private function __construct ()
+    private function __construct ($language = '')
     {
-        $user              = new Application_Model_User();
-        $this->_language = $user->loadSetting('interfaceLanguage', 'en');
+        if ($language == '') {
+            $user = new Application_Model_User();
+            $this->_language = $user->loadSetting('interfaceLanguage', 'en');
+        } else {
+            $this->_language = $language;
+        }
         $this->loadLanguage($this->_language);
     }
 
@@ -113,12 +119,14 @@ class Msd_Language
     /**
      * Returns the single instance
      *
+     * @param string $language Iso-Code of language to load
+     *
      * @return Msd_Language
      */
-    public static function getInstance ()
+    public static function getInstance ($language = '')
     {
         if (NULL == self::$_instance) {
-            self::$_instance = new self;
+            self::$_instance = new self($language);
         }
         return self::$_instance;
     }

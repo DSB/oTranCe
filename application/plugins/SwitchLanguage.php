@@ -25,24 +25,6 @@ class Application_Plugin_SwitchLanguage extends Zend_Controller_Plugin_Abstract
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        $this->_setGuiLanguages();
-        $switchToLanguage = $request->getParam('switchLanguage', false);
-        if ($switchToLanguage !== false) {
-            $this->_userModel = new Application_Model_User();
-            $this->_userModel->saveSetting('interfaceLanguage', $switchToLanguage);
-            $lang = Msd_Language::getInstance();
-            $lang->loadLanguage($switchToLanguage);
-        }
-    }
-
-    /**
-     * Checks if the list of available gui languages are available in the registry.
-     * If not, load them and save them to the session (for caching reasons).
-     *
-     *@return void
-     */
-    private function _setGuiLanguages()
-    {
         $dynamicConfig         = Msd_Registry::getDynamicConfig();
         $availableGuiLanguages = $dynamicConfig->getParam('availableGuiLanguages', array());
         if (empty($availableGuiLanguages)) {
@@ -50,5 +32,10 @@ class Application_Plugin_SwitchLanguage extends Zend_Controller_Plugin_Abstract
             $availableGuiLanguages = $lang->getAvailableLanguages();
             $dynamicConfig->setParam('availableGuiLanguages', $availableGuiLanguages);
         }
+        $switchToLanguage = $request->getParam('switchLanguage', false);
+        if ($switchToLanguage !== false && array_key_exists($switchToLanguage, $availableGuiLanguages)) {
+            $dynamicConfig->setParam('interfaceLanguage', $switchToLanguage);
+        }
     }
+
 }

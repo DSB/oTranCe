@@ -50,14 +50,18 @@ class SettingsController extends Msd_Controller_Action
      */
     public function indexAction()
     {
-        $languagesModel = new Application_Model_Languages();
-        $languageConfig = Msd_Language::getInstance();
+        $languagesModel        = new Application_Model_Languages();
+        $interfaceLanguage = $this->_dynamicConfig->getParam('interfaceLanguage', false);
+        $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
+        $languageConfig = Msd_Language::getInstance($interfaceLanguage);
 
         if ($this->_request->isPost()) {
             $recordsPerPage        = $this->_request->getParam('recordsPerPage', 20);
+            $interfaceLanguage     = $this->_request->getParam('interfaceLanguage', $interfaceLanguage);
+            $this->_dynamicConfig->setParam('interfaceLanguage', $interfaceLanguage);
+            $saved = $this->saveUserSettings($recordsPerPage, $interfaceLanguage);
             $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
-            $interfaceLanguage     = $this->_request->getParam('interfaceLanguage', $userInterfaceLanguage);
-            $saved                 = $this->saveUserSettings($recordsPerPage, $interfaceLanguage);
+            $languageConfig->loadLanguage($interfaceLanguage);
 
             $projectConfig = $this->_config->getParam('project');
             if ($projectConfig['vcsActivated'] == 1) {
@@ -77,7 +81,6 @@ class SettingsController extends Msd_Controller_Action
             ) {
                 $saved = $saved && $this->_changePassword($oldPassword, $newPassword, $newPasswordConfirm);
             }
-
             $this->view->saved = (bool) $saved;
         } else {
             $recordsPerPage    = $this->_userModel->loadSetting('recordsPerPage', 10);
@@ -88,17 +91,19 @@ class SettingsController extends Msd_Controller_Action
         $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
         $this->view->refLanguagesSelected = $this->getRefLanguageSettings();
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
-        $interfaceLanguage                = $this->_userModel->loadSetting('interfaceLanguage');
+
         $availableLanguages               = $languageConfig->getAvailableLanguages();
         $this->view->selInterfaceLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $availableLanguages,
             'locale',
             '{locale} - {name}',
-            $interfaceLanguage,
+            $userInterfaceLanguage,
             false
         );
-        $languageConfig->loadLanguage($interfaceLanguage);
 
+        $languageConfig->loadLanguage($interfaceLanguage);
+        $this->view->lang = $languageConfig;
+        echo $interfaceLanguage;
         if (isset($vcsUser)) {
             $this->view->vcsUser = $vcsUser;
         }

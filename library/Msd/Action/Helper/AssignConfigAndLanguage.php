@@ -36,10 +36,11 @@ class Msd_Action_Helper_AssignConfigAndLanguage
         if ($controllerName == 'install') {
             return;
         }
-        $view = $this->getView();
+        $view                = $this->getView();
         $view->config        = Msd_Registry::getConfig();
         $view->dynamicConfig = Msd_Registry::getDynamicConfig();
-        $view->lang          = Msd_Language::getInstance();
+        $guiLanguage         = $view->dynamicConfig->getParam('interfaceLanguage', 'en');
+        $view->lang          = Msd_Language::getInstance($guiLanguage);
     }
 
     /**

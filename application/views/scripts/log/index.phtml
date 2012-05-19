@@ -1,3 +1,7 @@
+<?php
+$currentPage  = ceil(($this->offset + 1) / $this->recordsPerPage);
+$nrOfPages    = ceil($this->rows / $this->recordsPerPage);
+?>
 <div id="headline">
     <h2><?php echo $this->lang->L_LOG;?></h2>
 </div>
@@ -60,7 +64,15 @@
                 class="Formbutton ui-corner-all"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
                 <?php endif; ?>
             </a>
+            <?php echo sprintf($this->lang->L_PAGE_X_OF_Y, $currentPage, $nrOfPages); ?> |
             <?php echo $this->lang->L_HITS;?>: <?php echo $this->numberFormat($this->rows);?>
+            <span style="padding:0;margin:0;">|
+                <?php echo $this->lang->L_ENTRIES_PER_PAGE;?>:
+            <select name="recordsPerPage" onchange="setPageInactive();resetOffset();$('#myForm').submit();">
+                <?php echo $this->selRecordsPerPage;?>
+            </select>
+        </span>
+
         </div>
 </form>
 

@@ -63,10 +63,15 @@ class LogController extends Msd_Controller_Action
      */
     public function indexAction()
     {
-        $recordsPerPage = $this->_dynamicConfig->getParam('recordsPerPage');
-        if ($recordsPerPage < 10) {
-            $recordsPerPage = 20;
+        $recordsPerPage = (int) $this->_request->getParam(
+            'recordsPerPage',
+            $this->_dynamicConfig->getParam('log.recordsPerPage', 0)
+        );
+        if ($recordsPerPage == 0) {
+            $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage');
         }
+        $this->_dynamicConfig->setParam('log.recordsPerPage', $recordsPerPage);
+
         $filterLanguage = $this->_request->getParam('filterLanguage', '');
         $languages      = $this->_languagesModel->getAllLanguages();
         asort($languages);
@@ -104,11 +109,12 @@ class LogController extends Msd_Controller_Action
             $filterUser,
             $filterAction
         );
-        $this->view->offset         = $offset;
-        $this->view->recordsPerPage = $recordsPerPage;
-        $this->view->languages      = $languages;
-        $this->view->rows           = $this->_historyModel->getRowCount();
-        $this->view->canDelete      = $this->_userModel->hasRight('addVar');
+        $this->view->offset            = $offset;
+        $this->view->recordsPerPage    = $recordsPerPage;
+        $this->view->languages         = $languages;
+        $this->view->rows              = $this->_historyModel->getRowCount();
+        $this->view->canDelete         = $this->_userModel->hasRight('addVar');
+        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
     }
 
     /**

@@ -309,6 +309,7 @@ $lang = array(
 'L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY' => 'Uw instellingen zijn succesvol opgeslaan.',
 'L_YOU_ARE_ALLOWED_TO_EDIT_FOLLOWING_LANGUAGES' => 'U mag volgende talen veranderen',
 'L_YOU_ARE_NOT_ALLOWED_TO_ADD_NEW_KEYS' => 'U bent niet bevoegd nieuwe sleutels toetevoegen!',
+'L_YOU_ARE_NOT_ALLOWED_TO_CHANGE_THIS_RIGHT' => 'You are not allowed to change this right.',
 'L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS' => 'U heeft de vereiste bevoegdheid voor deze actie niet',
 'L_YOU_ARE_NOT_ALLOWED_TO_EDIT_THIS_LANGUAGE' => 'U heeft geen bevoegdheid, om deze taal te veranderen!',
 'L_YOU_CANNOT_EDIT_ANY_LANGUAGE' => 'U heeft geen bevoegdheden om talen te veranderen. Contacteer een administrator aub.',

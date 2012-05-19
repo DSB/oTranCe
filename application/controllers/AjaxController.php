@@ -314,6 +314,9 @@ class AjaxController extends Zend_Controller_Action
                 $saved = $this->_entriesModel->updateKeyName($keyId, $keyName);
                 if ($saved === false) {
                     $errors[] = $this->view->lang->L_ERROR_SAVING_KEY;
+                } else {
+                    $historyModel = new Application_Model_History();
+                    $historyModel->logVarNameChanged($keyId, $entry['key'], $keyName);
                 }
             }
         }

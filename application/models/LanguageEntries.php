@@ -640,7 +640,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql = 'UPDATE `'. $this->_database . '`.`' . $this->_tableKeys . '`'
             . ' SET `key` = \'' . $this->_dbo->escape($keyName) . '\''
             . ' WHERE `id` = '. $keyId;
-        return (bool) $this->_dbo->query($sql, Msd_db::SIMPLE);
+        $res = $this->_dbo->query($sql, Msd_db::SIMPLE);
+        if ($res !== false) {
+            // update timestamp of translations to make them being exported
+            $sql = 'UPDATE `'. $this->_database . '`.`' . $this->_tableTranslations . '`'
+                   . ' SET `dt` = NOW() WHERE `key_id` = '. $keyId;
+            $res &= $this->_dbo->query($sql, Msd_db::SIMPLE);
+        }
+        return (bool) $res;
     }
 
     /**

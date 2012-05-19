@@ -115,6 +115,20 @@ class Application_Model_History extends Msd_Application_Model
     }
 
     /**
+     * Log creation of a new language variable
+     *
+     * @param int    $keyId   Id of key that was changed
+     * @param string $oldName Old key name
+     * @param string $newName New key name
+     *
+     * @return void
+     */
+    public function logVarNameChanged($keyId, $oldName, $newName)
+    {
+        $this->saveChange($keyId, 0, $oldName, $newName, 'changed');
+    }
+
+    /**
      * Log deletion of a language variable
      *
      * @param string $key Name of key that was deleted

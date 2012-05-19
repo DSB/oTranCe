@@ -97,31 +97,52 @@ if (isset($this->saved)) {
     );
 }
 $this->jQuery()->onLoadCaptureStart();
-?>
-$('.switchRight').click(function() {
-    var id = this.id;
-    $(this).html(imgAjax);
-    $.ajax({
-        type: 'POST',
-        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-right' ,
-        dataType: 'json',
-        async : true,
-        cache: false,
-        data:{
-            'right' : this.id,
-            'userId': <?php echo $this->userData['id'];?>
-        },
-        success:function(data) {
-            $('#' + id).html(data.icon);
-        },
-        error:function(error) {
-            $('#' + id).html(imgError);
-        }
+if ($this->user->hasRight('addUser')) { ?>
+    $('.switchRight').click(function() {
+        var id = this.id;
+        $(this).html(imgAjax);
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/switch-right' ,
+            dataType: 'json',
+            async : true,
+            cache: false,
+            data:{
+                'right' : this.id,
+                'userId': <?php echo $this->userData['id'];?>
+            },
+            success:function(data) {
+                $('#' + id).html(data.icon);
+            },
+            error:function(error) {
+                $('#' + id).html(imgError);
+            }
+        });
     });
-});
-$('.switchRightLabel').click(function() {
-    var id = this.id.replace(/label-/, '');
-    $('#' + id).trigger('click');
-});
+    $('.switchRightLabel').click(function() {
+        var id = this.id.replace(/label-/, '');
+        $('#' + id).trigger('click');
+    });<?php
+} else {
+    // user doesn't have the right to edit user rights
+    $this->popUpMessage()->addMessage(
+        'notAllowed',
+        $this->lang->L_ERROR,
+        $this->lang->L_YOU_ARE_NOT_ALLOWED_TO_CHANGE_THIS_RIGHT,
+        array(
+            'modal' => true,
+            'autoOpen' => false,
+            'width' => 250,
+            'dialogClass' => 'info',
+        )
+    ); ?>
+    $('.switchRight').click(function() {
+        $('#notAllowed').dialog("open");
+    });
+    $('.switchRightLabel').click(function() {
+        $('#notAllowed').dialog("open");
+    });
+
 <?php
+}
 $this->jQuery()->onLoadCaptureEnd();

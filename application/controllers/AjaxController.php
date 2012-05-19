@@ -200,9 +200,9 @@ class AjaxController extends Zend_Controller_Action
 
             if ($res == true) {
                 if ($languageEditRight == false) {
-                    $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
+                    $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_RIGHT, 16);
                 } else {
-                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
                 }
             } else {
                 $icon = $this->view->getIcon('Attention', $this->view->lang->L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT, 16);
@@ -222,7 +222,7 @@ class AjaxController extends Zend_Controller_Action
     {
         $right  = (string) $this->_request->getParam('right', '');
         $userId = (int) $this->_request->getParam('userId', 0);
-        $icon   = $this->view->getIcon('NotOk', $this->view->lang->L_NO, 16);
+        $icon   = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_RIGHT, 16);
         if ($userId < 1 || $right == '' || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change edit right
             $data = array('error' => 'Invalid arguments', 'icon' => $icon);
@@ -236,7 +236,7 @@ class AjaxController extends Zend_Controller_Action
                 //add right
                 $res = $this->_userModel->saveRight($userId, $right, 1);
                 if ($res == true) {
-                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_YES, 16);
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
                 };
             }
 

@@ -2,41 +2,38 @@
     <h2><?php echo $this->lang->L_DOWNLOAD_OF_LANGUAGE_PACKS;?></h2>
 </div>
 <div class="downloads">
-<?php if (count($this->archives) > 0) {
+<?php
+if (count($this->archives) > 0) {
     /**
      * @var Zend_View_Helper_Cycle $cycle
      */
     $cycle = $this->cycle(array('row-odd'. 'row-even'));
     $oldCTime = null;
     foreach ($this->archives as $archiveName => $archiveMeta) {
-        if ($oldCTime != $archiveMeta['creationTime']) {
+        if ($oldCTime != date('d.m.Y H:i', $archiveMeta['creationTime'])) {
             if ($oldCTime !== null) {
                 echo "</table>\n    <br/>\n";
-            }
-?>
-    <br/>
-    <h4><?php echo sprintf($this->lang->L_CREATED_ON_X_AT_Y, date('d.m.Y', $archiveMeta['creationTime']), date('H:i', $archiveMeta['creationTime'])); ?></h4>
-    <table class="bdr more-padding" summary="Downloadable language packs.">
-        <tr class="thead">
-            <th colspan="2"><?php echo $this->lang->L_FILENAME;?></th>
-            <th colspan="2"><?php echo $this->lang->L_FILESIZE;?></th>
-        </tr>
-<?php
-        }
-?>
+            } ?>
+            <br/>
+            <h4><?php echo sprintf($this->lang->L_CREATED_ON_X_AT_Y, date('d.m.Y', $archiveMeta['creationTime']), date('H:i', $archiveMeta['creationTime'])); ?></h4>
+            <table class="bdr more-padding" summary="Downloadable language packs.">
+                <tr class="thead">
+                    <th colspan="2"><?php echo $this->lang->L_FILENAME;?></th>
+                    <th colspan="2"><?php echo $this->lang->L_FILESIZE;?></th>
+                </tr><?php
+        } ?>
+
         <tr>
             <td><?php echo $this->getIcon('Archive', '', 16); ?></td>
             <td><?php echo $this->out($archiveName); ?></td>
             <td><?php echo $this->byteOutput($archiveMeta['fileSize']);?></td>
             <td><a href="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/downloads/download/file/<?php echo urlencode($archiveName); ?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', $this->lang->L_DOWNLOAD, 16); ?> <?php echo $this->lang->L_DOWNLOAD;?></a></td>
-        </tr>
-<?php
-        $oldCTime = $archiveMeta['creationTime'];
+        </tr><?php
+        $oldCTime = date('d.m.Y H:i', $archiveMeta['creationTime']);
         $cycle->next();
-    }
-?>
-    </table>
-<?php } else { ?>
-    <div class="error"><?php echo $this->lang->L_NO_DOWNLOAD_AVAILABLE;?></div>
-<?php } ?>
+    } ?>
+            </table><?php
+} else { ?>
+    <div class="error"><?php echo $this->lang->L_NO_DOWNLOAD_AVAILABLE;?></div><?php
+} ?>
 </div>

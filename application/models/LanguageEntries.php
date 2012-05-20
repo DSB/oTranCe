@@ -544,7 +544,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $oldValues = $this->getTranslationsByKeyId($keyId, array_keys($newValues), true);
         // remove unchanged languages
         foreach ($oldValues as $langId => $oldValue) {
-            if ($newValues[$langId] == $oldValue) {
+            if ($newValues[$langId] == trim($oldValue)) {
                 unset($newValues[$langId]);
             }
         }

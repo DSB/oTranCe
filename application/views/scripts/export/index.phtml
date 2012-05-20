@@ -56,7 +56,7 @@ if ($exportNeeded) {
 <?php } else { ?>
     <p class="ok"><?php echo $this->lang->L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE;?></p>
         <?php if ($this->vcsActivated) { ?>
-    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/>
+    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/>
         <?php } ?>
 <?php } ?>
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton ui-corner-all">

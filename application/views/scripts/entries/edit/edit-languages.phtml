@@ -41,9 +41,9 @@ $entry = $this->entry;
                                     <?php echo $this->getIcon('Back', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
                                 </a><?php
                             } else { ?>
-                                <button class="Formbutton ui-corner-all" disabled="disabled">
+                                <a href="#" class="Formbutton ui-corner-all" disabled="disabled">
                                     <?php echo $this->getIcon('BackDisabled', $this->lang->L_GET_PREVIOUS_UNTRANSLATED_KEY, 16);?>
-                                </button><?php
+                                </a><?php
                             }
 
                             if ($this->skipKeysOffsets[$languageId] +1 < $this->langStatus[$languageId]['notTranslated']) { ?>
@@ -52,9 +52,9 @@ $entry = $this->entry;
                                     <?php echo $this->getIcon('Forward', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
                                 </a><?php
                             } else { ?>
-                                <button class="Formbutton ui-corner-all" disabled="disabled">
+                                <a href="#" class="Formbutton ui-corner-all" disabled="disabled">
                                     <?php echo $this->getIcon('ForwardDisabled', $this->lang->L_GET_NEXT_UNTRANSLATED_KEY, 16);?>
-                                </button><?php
+                                </a><?php
                             } ?>
                         </span><?php
                     } ?>
@@ -65,7 +65,11 @@ $entry = $this->entry;
                         <?php echo $this->lang->L_PROGRESS . ' ' . $this->langStatus[$languageId]['done'];?>%
                         <?php
                             if ($this->langStatus[$languageId]['notTranslated'] > 0) {
-                                echo $this->lang->L_UNTRANSLATED. ': ' . $this->langStatus[$languageId]['notTranslated'];
+                                echo $this->lang->L_UNTRANSLATED. ': ';
+                                if (!isset($entry[$languageId]) || $entry[$languageId] == '') {
+                                    echo ($this->skipKeysOffsets[$languageId] + 1) .'/';
+                                }
+                                echo $this->langStatus[$languageId]['notTranslated'];
                             }
                           ?>
                     </span>
@@ -92,10 +96,10 @@ $entry = $this->entry;
                 if (count($this->languagesEdit) > 0) { ?>
                     <a href="#" class="Formbutton ui-corner-all" id="save-button" onclick="$('#editForm').submit()">
                         <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_SAVE;?>
-                    </a><?php
-                    $this->jQuery()->onLoadCaptureStart();?>
-                        $('#edit-<?php echo $this->languagesEdit[0]['id'];?>').focus();<?php
-                    $this->jQuery()->onLoadCaptureEnd();
+                    </a>
+                    <button type="submit" class="Formbutton ui-corner-all" id="saveGetUntranslated" name="saveGetUntranslated">
+                        <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_GET_NEXT_UNTRANSLATED_KEY;?>
+                    </button><?php
                 }
                 ?>
             </td>
@@ -114,4 +118,11 @@ if (isset($this->entrySaved)) {
 if (isset($this->keyExistsError)) {
     $this->showNotification(false, '', $this->keyExistsError);
 }
+
+if ($this->setFocusToLanguage === false) {
+    $this->setFocusToLanguage = $this->languagesEdit[0]['id'];
+}
+$this->jQuery()->onLoadCaptureStart();?>
+    $('#edit-<?php echo $this->setFocusToLanguage;?>').focus();
+<?php $this->jQuery()->onLoadCaptureEnd();
 

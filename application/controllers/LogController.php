@@ -83,8 +83,8 @@ class LogController extends Msd_Controller_Action
             true
         );
 
-        $filterUser = $this->_request->getParam('filterUser', '');
-        $users      = $this->_userModel->getUserNames();
+        $filterUser                   = $this->_request->getParam('filterUser', '');
+        $users                        = $this->_userModel->getUserNames();
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
         $filterAction = $this->_request->getParam('filterAction', '');

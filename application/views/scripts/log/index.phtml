@@ -136,8 +136,8 @@ foreach ($this->logEntries as $entry)
             }
             ;?>
         </td>
-        <td><?php echo $this->out($entry['newValue']);?></td>
-        <td><?php echo $this->out($entry['oldValue']);?></td>
+        <td><?php echo $this->out($entry['newValue'], false, '', true);?></td>
+        <td><?php echo $this->out($entry['oldValue'], false, '', true);?></td>
     </tr>
 <?php
     $i++;

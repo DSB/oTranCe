@@ -27,10 +27,11 @@ class Msd_View_Helper_Out extends Zend_View_Helper_Abstract
      * @param string $value      The value that may be converted
      * @param bool   $outputNull Whether to convert NULL values to string NULL
      * @param string $decorator  Decorate output with this HTML-Tag
+     * @param bool   $showDash   Whether to show a dash on empty value
      *
      * @return string HTML-Text ready to print to screen
      */
-    public function out($value, $outputNull = false, $decorator = '')
+    public function out($value, $outputNull = false, $decorator = '', $showDash = false)
     {
         $ret = $this->view->escape($value);
         if ($outputNull === true && is_null($value)) {
@@ -38,6 +39,9 @@ class Msd_View_Helper_Out extends Zend_View_Helper_Abstract
         }
         if ($decorator > '') {
             $ret = sprintf('<%s>'.$ret.'</%1$s>', $decorator);
+        }
+        if ($showDash && trim($value) == '') {
+            $ret = '-';
         }
         return $ret;
     }

@@ -170,11 +170,11 @@ class EntriesController extends Zend_Controller_Action
      */
     public function editAction()
     {
-        $id = $this->_request->getParam('id');
+        $keyId = $this->_request->getParam('id');
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
             $saveEntry = true;
             // check if the file template has changed
-            $entry           = $this->_entriesModel->getKeyById($id);
+            $entry           = $this->_entriesModel->getKeyById($keyId);
             $newFileTemplate = (int) $this->_request->getParam('fileTemplate');
             if ((int) $entry['template_id'] !== $newFileTemplate) {
                 // template changed - look up if there already is a key with that name
@@ -186,26 +186,78 @@ class EntriesController extends Zend_Controller_Action
             }
 
             if ($saveEntry === true) {
-                $this->view->entrySaved = $this->_saveEntries();
+                $saved                  = $this->_saveEntries();
+                $this->view->entrySaved = $saved;
+
+                if ($saved && $this->_request->getParam('saveGetUntranslated', null) !== null) {
+                    // user pressed button "get next untranslated" and no error occuired while saving
+                    $nextKeyId = $this->_findNextUntranslatedKey();
+                    if ($nextKeyId !== false) {
+                        $keyId = $nextKeyId;
+                    }
+                }
             }
         }
         $this->setLanguages();
-        $editLanguages = $this->_userModel->getUserLanguageRights();
+        $this->view->langStatus = $this->_getLanguagesStatus();
+        $this->view->key        = $this->_entriesModel->getKeyById($keyId);
+        $this->view->entry      = $this->_entriesModel->getTranslationsByKeyId($keyId, $this->_showLanguages);
+        $this->view->user       = $this->_userModel;
 
+        $templatesModel                   = new Application_Model_FileTemplates();
+        $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
+        $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($keyId);
+        $this->view->translatable         = Msd_Google::getTranslatableLanguages();
+        $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
+    }
+
+
+    /**
+     * Find the next untranslated key. Iterates over all languages the user can edit.
+     *
+     * @return bool|int
+     */
+    private function _findNextUntranslatedKey()
+    {
+        $nextKeyId = null;
+        $langStatus = $this->_getLanguagesStatus();
+        $skippedKeys = $this->_getLanguageKeyOffset();
+        foreach ($langStatus as $languageId => $data) {
+            if ($data['notTranslated'] > 0) {
+                if ($skippedKeys[$languageId] > $data['notTranslated']-1) {
+                    $skippedKeys[$languageId] = $data['notTranslated']-1;
+                }
+                // check for next key including the "skipped" offset
+                $nextKeyId = $this->_findNextUntranslated($languageId, $skippedKeys[$languageId]);
+                if ($nextKeyId === null) {
+                    // nothing found - try with resetting the offset to 0
+                    $nextKeyId = $this->_findNextUntranslated($languageId, 0);
+                    $skippedKeys[$languageId] = 0;
+                }
+                if ($nextKeyId !== null) {
+                    $this->view->setFocusToLanguage = $languageId;
+                    break;
+                }
+            }
+        }
+        // save corrected offsets
+        $this->_dynamicConfig->setParam('entries.skippedKeys', $skippedKeys);
+        return $nextKeyId === null ? false : $nextKeyId;
+    }
+
+    /**
+     * Get status info for languages the user is allowed to edit including the number of untranslated keys.
+     *
+     * @return array
+     */
+    private function _getLanguagesStatus()
+    {
+        $editLanguages = $this->_userModel->getUserLanguageRights();
         $getStatus = array();
         foreach ($editLanguages as $languageId) {
             $getStatus[]['id'] = $languageId;
         }
-        $this->view->langStatus = $this->_entriesModel->getStatus($getStatus);
-        $this->view->key        = $this->_entriesModel->getKeyById($id);
-        $this->view->entry      = $this->_entriesModel->getTranslationsByKeyId($id, $this->_showLanguages);
-        $this->view->user       = $this->_userModel;
-
-        $templatesModel = new Application_Model_FileTemplates();
-        $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
-        $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($id);
-        $this->view->translatable         = Msd_Google::getTranslatableLanguages();
-        $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
+        return $this->_entriesModel->getStatus($getStatus);
     }
 
     /**
@@ -402,6 +454,18 @@ class EntriesController extends Zend_Controller_Action
         if (isset($params['fileTemplate'])) {
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
+
+        // correct skipKeyOffsets per language if an untranslated value has been translated
+        /*
+        $oldValues   = $this->_entriesModel->getTranslationsByKeyId($params['id'], array_keys($values), true);
+        $skippedKeys = $this->_getLanguageKeyOffset();
+        foreach ($oldValues as $langId => $oldValue) {
+            if (trim($oldValue) == '' && trim($values[$langId]) > '' && $skippedKeys[$langId] > 0) {
+                $skippedKeys[$langId]--;
+            }
+        }
+        $this->_dynamicConfig->setParam('entries.skippedKeys', $skippedKeys);
+         */
         $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
         return $res;
     }
@@ -444,17 +508,14 @@ class EntriesController extends Zend_Controller_Action
     /**
      * Get the skip keys offsets array and apply standard values if not set.
      *
-     * @param int $languageId Id of language to get the offset for
+     * @param int|null $languageId Id of language to get the offset for
      *
      * @return array
      */
-    private function _getLanguageKeyOffset($languageId)
+    private function _getLanguageKeyOffset($languageId = null)
     {
         $skippedKeys = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
-        if (!is_array($skippedKeys)) {
-            $skippedKeys = array();
-        }
-        if (!isset($skippedKeys[$languageId])) {
+        if ($languageId !== null && !isset($skippedKeys[$languageId])) {
             $skippedKeys[$languageId] = 0;
         }
         return $skippedKeys;

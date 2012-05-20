@@ -41,10 +41,10 @@ class Msd_Action_Helper_AssignConfigAndLanguage
         $view->dynamicConfig = Msd_Registry::getDynamicConfig();
         $guiLanguage         = $view->dynamicConfig->getParam('interfaceLanguage', null);
         if ($guiLanguage === null) {
-            $userModel = new Application_Model_User();
+            $userModel   = new Application_Model_User();
             $guiLanguage = $userModel->loadSetting('interfaceLanguage', 'en');
         }
-        $view->lang          = Msd_Language::getInstance($guiLanguage);
+        $view->lang = Msd_Language::getInstance($guiLanguage);
     }
 
     /**

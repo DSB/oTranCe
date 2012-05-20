@@ -221,8 +221,8 @@ class EntriesController extends Zend_Controller_Action
     {
         $nextKeyId = null;
         $langStatus = $this->_getLanguagesStatus();
-        $skippedKeys = $this->_getLanguageKeyOffset();
         foreach ($langStatus as $languageId => $data) {
+            $skippedKeys = $this->_getLanguageKeyOffset($languageId);
             if ($data['notTranslated'] > 0) {
                 if ($skippedKeys[$languageId] > $data['notTranslated']-1) {
                     $skippedKeys[$languageId] = $data['notTranslated']-1;

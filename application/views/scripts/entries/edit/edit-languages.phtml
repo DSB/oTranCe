@@ -119,10 +119,11 @@ if (isset($this->keyExistsError)) {
     $this->showNotification(false, '', $this->keyExistsError);
 }
 
-if ($this->setFocusToLanguage === false) {
-    $this->setFocusToLanguage = $this->languagesEdit[0]['id'];
+if (count($this->languagesEdit) > 0) {
+    if ($this->setFocusToLanguage === false) {
+        $this->setFocusToLanguage = $this->languagesEdit[0]['id'];
+    }
+    $this->jQuery()->onLoadCaptureStart();?>
+    $('#edit-<?php echo $this->setFocusToLanguage;?>').focus();<?php
+    $this->jQuery()->onLoadCaptureEnd();
 }
-$this->jQuery()->onLoadCaptureStart();?>
-    $('#edit-<?php echo $this->setFocusToLanguage;?>').focus();
-<?php $this->jQuery()->onLoadCaptureEnd();
-

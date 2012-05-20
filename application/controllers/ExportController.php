@@ -214,11 +214,11 @@ class ExportController extends Msd_Controller_Action
             $exportOk = $exportOk && $exportResult['exportOk'];
             unset($exportResult['exportOk']);
             $this->_writeExportLog($exportResult);
-            $fileExportModel = new Application_Model_FileExport();
-            $fileExportModel->buildArchives();
             $languages[$i]['files'] = $exportResult;
             $i++;
         }
+        $fileExportModel = new Application_Model_FileExport();
+        $fileExportModel->buildArchives();
         $this->view->exportOk = $exportOk;
         $this->view->languages = $languages;
     }

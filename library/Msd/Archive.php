@@ -30,6 +30,7 @@ class Msd_Archive
      * @param string $archiveAdapter  Name of the archive adapter
      * @param string $baseArchiveName Path- and filename of the resulting archive, without extension.
      * @param string $workingDir      Working directory for the archive adapter.
+     * @throws Msd_Archive_Exception
      *
      * @return Msd_Archive_Abstract
      */

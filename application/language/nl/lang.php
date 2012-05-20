@@ -256,6 +256,7 @@ $lang = array(
 'L_SAVE' => 'Opslaan',
 'L_SAVED_SUCCESSFULLY' => 'Opslaan succesvol',
 'L_SAVED_UNSUCCESSFULLY' => 'Fout tijdens het opslaan',
+'L_SAVE_GET_NEXT_UNTRANSLATED' => 'Save & forward to next untranslated key',
 'L_SAVE_PASSWORD' => 'Wachtwoord opslaan',
 'L_SAVE_SETTINGS' => 'Instellingen opslaan',
 'L_SAVE_TO_CONFIG' => 'Beeld als logo gebruiken',

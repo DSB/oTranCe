@@ -68,7 +68,7 @@ class LogController extends Msd_Controller_Action
             $this->_dynamicConfig->getParam('log.recordsPerPage', 0)
         );
         if ($recordsPerPage == 0) {
-            $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage');
+            $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage', 20);
         }
         $this->_dynamicConfig->setParam('log.recordsPerPage', $recordsPerPage);
 

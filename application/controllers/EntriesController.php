@@ -69,7 +69,6 @@ class EntriesController extends Zend_Controller_Action
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
         $this->_config = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();
-        $this->_setSessionParams();
     }
 
     /**
@@ -79,16 +78,19 @@ class EntriesController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->_getParams();
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
             if ($this->_request->getParam('addVar') !== null) {
                 $this->_forward('add-variable');
             }
-        } else {
-            $this->_setSessionParams();
         }
+        $this->_initParams();
         $this->_assignVars();
-        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
+        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(
+            10,
+            200,
+            10,
+            $this->_dynamicConfig->getParam('entries.recordsPerPage')
+        );
         $this->setLanguages();
         $filterLanguageArray = $this->_languagesModel->getAllLanguages();
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
@@ -98,7 +100,6 @@ class EntriesController extends Zend_Controller_Action
             $this->_dynamicConfig->getParam('entries.getUntranslated'),
             false
         );
-
         // assign file template filter
         $fileTemplateFilter             = $this->_dynamicConfig->getParam('entries.fileTemplateFilter');
         $this->view->fileTemplateFilter = $fileTemplateFilter;
@@ -148,12 +149,11 @@ class EntriesController extends Zend_Controller_Action
     public function setLanguages()
     {
         $this->view->languages     = $this->_languagesModel->getAllLanguages();
-        $this->_languagesEdit      = $this->getEditLanguages();
+        $this->_languagesEdit      = $this->_userModel->getUserLanguageRights();
         $this->view->languagesEdit = $this->_languagesEdit;
-        $userModel = new Application_Model_User();
 
         // set reference languages
-        $this->_referenceLanguages      = $userModel->getRefLanguages();
+        $this->_referenceLanguages      = $this->_userModel->getRefLanguages();
         $this->view->referenceLanguages = $this->_referenceLanguages;
 
         // build show language array for index page
@@ -190,7 +190,7 @@ class EntriesController extends Zend_Controller_Action
             }
         }
         $this->setLanguages();
-        $editLanguages = $this->getEditLanguages();
+        $editLanguages = $this->_userModel->getUserLanguageRights();
 
         $getStatus = array();
         foreach ($editLanguages as $languageId) {
@@ -312,9 +312,9 @@ class EntriesController extends Zend_Controller_Action
     {
         // check, that the user really has delete rights
         if ($this->_userModel->hasRight('addVar')) {
-            $id = $this->_request->getParam('id');
-            $entry = $this->_entriesModel->getKeyById($id);
-            $res = $this->_entriesModel->deleteEntryByKeyId($id);
+            $id                     = $this->_request->getParam('id');
+            $entry                  = $this->_entriesModel->getKeyById($id);
+            $res                    = $this->_entriesModel->deleteEntryByKeyId($id);
             $this->view->keyDeleted = $res;
             if ($res) {
                 $historyModel = new Application_Model_History();
@@ -325,45 +325,49 @@ class EntriesController extends Zend_Controller_Action
     }
 
     /**
-     * Get post params and set to config which is saved top session
+     * Init form params.
+     * Makes sure that form params are defined and saved to dynamic Config.
      *
      * @return void
      */
-    private function _getParams()
+    private function _initParams()
     {
-        $filterValues       = trim($this->_request->getParam('filterValues', ''));
-        $filterKeys         = trim($this->_request->getParam('filterKeys', ''));
-        $offset             = (int) $this->_request->getParam('offset', 0);
-        $recordsPerPage     = (int) $this->_request->getParam('recordsPerPage', 0);
-
-        // will be not 0 if set and set to id of language to search in
-        $getUntranslated    = (int) $this->_request->getParam('getUntranslated', 0);
-        $fileTemplateFilter = (int) $this->_request->getParam('fileTemplateFilter', 0);
-        $this->_dynamicConfig->setParam('entries.offset', $offset);
-        $this->_dynamicConfig->setParam('entries.filterValues', $filterValues);
-        $this->_dynamicConfig->setParam('entries.filterKeys', $filterKeys);
-        $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
-        $this->_dynamicConfig->setParam('entries.getUntranslated', $getUntranslated);
-        $this->_dynamicConfig->setParam('entries.fileTemplateFilter', $fileTemplateFilter);
+        $params = array(
+            'filterValues'       => false,
+            'filterKeys'         => false,
+            'offset'             => true,
+            'recordsPerPage'     => true,
+            'getUntranslated'    => true,
+            'fileTemplateFilter' => false
+        );
+        foreach ($params as $name => $mode) {
+            $this->_mergeParam($name, $mode);
+        }
     }
 
     /**
-     * Set default session values on first page call
+     * Get value from POST/GET then fallback to dynamicConfig then fallback to user setting.
      *
-     * @return void
+     * @param string $name    Name of parameter to get
+     * @param bool   $numeric True if value needs to be an integer
+     *
+     * @return int|mixed
      */
-    private function _setSessionParams()
+    private function _mergeParam($name, $numeric = false)
     {
-        // set defaults on first page call
-        if ($this->_dynamicConfig->getParam('entries.recordsPerPage') == 0) {
-            $this->_dynamicConfig->setParam('entries.offset', 0);
-            $this->_dynamicConfig->setParam('entries.filterValues', '');
-            $this->_dynamicConfig->setParam('entries.filterKeys', '');
-            $recordsPerPage = $this->_userModel->loadSetting('entries.recordsPerPage', 20);
-            $this->_dynamicConfig->setParam('entries.recordsPerPage', $recordsPerPage);
-            $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
-            $this->view->addVar = $this->_userModel->hasRight('addVar');
+        $value = $this->_request->getParam($name, null);
+        if ($value === null) {
+            $value = $this->_dynamicConfig->getParam('entries.' . $name, null);
+            if ($value === null) {
+                $value = $this->_userModel->loadSetting($name, '');
+            }
+        };
+
+        if ($numeric !== false) {
+            $value = (int) $value;
         }
+        // save to session
+        $this->_dynamicConfig->setParam('entries.' . $name, $value);
     }
 
     /**
@@ -378,7 +382,6 @@ class EntriesController extends Zend_Controller_Action
         $this->view->offset          = $this->_dynamicConfig->getParam('entries.offset');
         $this->view->recordsPerPage  = $this->_dynamicConfig->getParam('entries.recordsPerPage');
         $this->view->getUntranslated = $this->_dynamicConfig->getParam('entries.getUntranslated');
-        $this->view->addVar          = $this->_userModel->hasRight('addVar');
     }
 
     /**
@@ -410,8 +413,7 @@ class EntriesController extends Zend_Controller_Action
      */
     public function getEditLanguages()
     {
-        $userModel = new Application_Model_User();
-        return $userModel->getUserLanguageRights();
+        return $this->_userModel->getUserLanguageRights();
     }
 
     /**

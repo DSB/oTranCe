@@ -244,21 +244,20 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
     <?php
     $i++;
     }
+    // no hits found
     if ($this->rows == 0) {
         $rowCount = 5 + count($this->languagesEdit) + count($this->showLanguages);
-        if ($this->addVar) {
+        if ($this->user->hasRight('addVar')) {
             $rowCount++;
-        }
-    ?>
-    <tr class="row-even">
-        <td colspan="<?php echo $rowCount;?>">
-            <br /><?php echo $this->lang->L_NO_HITS;?><br />
-            <?php echo $this->lang->L_SELECT_OTHER_FILTER_CRITERIA;?>.
-            <br /><br />
-        </td>
-    </tr>
-<?php
-}
+        } ?>
+        <tr class="row-odd">
+            <td colspan="<?php echo $rowCount;?>">
+                <br /><?php echo $this->lang->L_NO_HITS;?><br />
+                <?php echo $this->lang->L_SELECT_OTHER_FILTER_CRITERIA;?>.
+                <br /><br />
+            </td>
+        </tr><?php
+    }
 ?>
 </table>
 

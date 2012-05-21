@@ -1,0 +1,836 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+html {
+    text-align: left;
+    overflow: auto;
+    height: 101%;
+}
+
+body {
+    min-width: 782px;
+    min-height: 100%;
+    font-size: 62.5%;
+    font-family: Verdana, Helvetica, Sans-Serif;
+    font-weight: normal;
+    color:#253D04;
+    text-align: left;
+}
+#page-loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display:none;
+    z-index:6600;
+}
+.hidden {
+    display:none;
+}
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.4em;
+    font-weight: normal;
+    color: #425D1C;
+}
+
+h2 {
+    margin-bottom: 0.92em;
+    padding: 4px 0 3px 0;
+    font-size: 2.2em;
+    font-weight: normal;
+    color: #425D1C;
+    border-bottom: 1px solid #c7c7c7;
+}
+
+#version a img {
+    padding: 0 0 12px 0px;
+    margin-top:-2px;
+}
+
+h4 {
+    margin-bottom: 0.8em;
+    font-size: 1.5em;
+    color: #425D1C;
+}
+
+p {
+    margin-bottom: 1.5em;
+    padding-left: 4px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+}
+
+a {
+    color: #253D04;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #e87b00;
+    text-decoration: none;
+}
+
+img {
+    display: inline;
+}
+
+
+
+#container {
+    float:left;
+    min-width:100%;
+}
+
+#header {
+    min-width:100%;
+    height:50px;
+    width: auto;
+    position:fixed;
+    border-top:5px solid #6E9E2D;
+    background:transparent url(pics/bg-body.gif) repeat-x 0 0;
+}
+
+#headline {
+    position:fixed;
+    top:0;
+    z-index:600;
+}
+#headline h2, #sidebar h2 {
+    top:0;
+    min-width:100%;
+    padding-top:4px;
+    height:32px;
+    padding-bottom:12px;
+    border-top:5px solid #6E9E2D;
+    border-bottom:none;
+    background:transparent url(pics/bg-body.gif) repeat-x 0 0;
+    z-index:700;
+}
+
+#headline h2 {
+    zoom: 1;
+    filter: alpha(opacity=95);
+    opacity: 0.95;
+}
+
+#sidebar {
+    top:0;
+    width:180px;
+    float: left;
+    min-height:100%;
+    position:fixed;
+    z-index:10;
+    background-color:#FFF;
+}
+#sidebar h2 {
+    padding-top:4px;
+    text-align:center;
+    margin:0;
+}
+
+#content {
+    position:relative;
+    clear: right;
+    width: auto;
+    margin-left: 17em;
+    padding: 0 26px;
+    z-index:1;
+    top:53px;
+}
+
+#content h2 {
+    position:fixed;
+}
+
+* html #content {
+    float: left;
+    margin-left: 0;
+}
+
+*+html #content {
+    float: left;
+    margin-left: 0;
+}
+
+*+html #content h2 {
+    min-width: 100%;
+}
+
+#footer {
+    position:fixed;
+    width:100%;
+    bottom:0;
+    text-align:right;
+    min-height:17px;
+    border-top:1px solid #6E9E2D;
+    background:#DADADA;
+    padding-top:2px;
+    vertical-align:middle;
+    opacity:0.87;
+    z-index:900;
+}
+#footer p {
+    margin:0 8px 0 0;
+    padding:0;
+    font-size:10px;
+}
+/*******/ /*Menu*/ /*******/
+ul.menu {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    list-style: none;
+}
+
+ul.menu li {
+    border-bottom: 1px solid #ddd;
+}
+
+ul.menu a {
+    padding: 0.35em 0.85em;
+    font-size: 1.2em;
+    line-height: 2.0em;
+    outline: none;
+    display: block;
+}
+
+ul.menu img { padding:2px 8px 0 0;float:left;}
+#tabs ul li a img { padding:0 6px 0 0;float:left;}
+
+ul.menu a:hover {
+    background: #eee;
+}
+
+ul.menu li.active {
+    border-bottom: 1px solid #6E9E2D;
+}
+
+ul.menu li.active a,ul.menu li.active a:hover {
+    font-weight: bold;
+    color: #e87b00;
+    background: transparent;
+}
+
+/******/ /*Lists*/ /******/
+ul {
+    margin-bottom: 1.5em;
+    padding-left: 18px;
+    font-size: 1.2em;
+    line-height: 1.5em;
+    list-style-type: none;
+}
+
+/************/ /*Formbuttons*/ /************/
+a.Formbutton {
+    display: inline-block;
+    width: auto;
+    height: 16px;
+    margin: 0 6px 20px 0;
+    padding: 3px 6px;
+    font: 13px verdana, arial, sans-serif;
+    color: #e87b00;
+    border: 1px solid #ddd;
+    background: url(pics/bg-buttons.gif) repeat-x;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+button.Formbutton, .qq-upload-button {
+    width: auto;
+    height: 24px;
+    /* margin: 0 6px 20px 0; */
+    padding: 0 6px;
+    font: 13px verdana, arial, sans-serif;
+    color: #e87b00;
+    border: 1px solid #ddd;
+    background: url(pics/bg-buttons.gif) repeat-x;
+    vertical-align: top;
+    overflow: visible;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+input.Formbutton {
+    width: auto;
+    height: 24px;
+    margin: 0 6px 20px 0;
+    padding: 0 6px;
+    font: 13px verdana, arial, sans-serif;
+    color: #e87b00;
+    border: 1px solid #ddd;
+    background: url(pics/bg-buttons.gif) repeat-x;
+    vertical-align: top;
+    overflow: visible;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+ul.Formbutton {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+    list-style: none;
+}
+
+ul.Formbutton li {
+    display: inline;
+}
+
+select.Formbutton {
+    width: auto;
+    margin: 0 6px 0 0;
+}
+
+td .Formbutton {
+    margin: 0 6px 0 0;
+}
+td a {
+    font-size:11px;
+}
+th .Formbutton {
+    margin: 6px;
+}
+/*Firefox , Safari , not IE8*/
+#html#body,a.Formbutton {
+    margin: 0 6px 12px 0;
+}
+
+/*IE7*/
+*+html a.Formbutton {
+    margin: 0 6px 20px 0;
+}
+
+/*Firefox , Safari , not IE8*/
+#html#body,button.Formbutton, .qq-upload-button {
+    padding: 0 6px 2px 3px;
+}
+
+/*IE4 , IE5 , IE5.5 , IE6*/
+* html button.Formbutton {
+    padding: 0 5px;
+}
+
+/*IE7*/
+*+html button.Formbutton {
+    margin: 0 6px 20px 0;
+    padding: 0 5px;
+}
+
+/*Firefox , Safari , not IE8*/
+#html#body,input.Formbutton {
+    margin: 0 6px 1.5em 0;
+    padding: 0 3px 2px 3px;
+}
+
+/*IE4 , IE5 , IE5.5 , IE6*/
+* html input.Formbutton {
+    padding: 0 5px;
+}
+
+/*IE7*/
+*+html input.Formbutton {
+    margin: 0 6px 20px 0;
+    padding: 0 5px;
+}
+
+.Formbutton img, .qq-upload-button img {
+    margin: 0 2px 0 2px;
+    padding: 0 0 3px 0;
+    border: 0;
+    vertical-align: middle;
+    display: inline;
+}
+
+button.Formbutton img, .qq-upload-button img {
+    padding: 0 0 1px 0;
+}
+
+/*IE4 , IE5 , IE5.5 , IE6*/
+* html .Formbutton img {
+    padding: 0;
+}
+
+/*IE7*/
+*+html .Formbutton img {
+    padding: 0;
+}
+
+a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover, .qq-upload-button-hover {
+    color: #6E9E2D !important;
+}
+
+.Formbutton:disabled {
+    color: #888 !important;
+    cursor: default;
+}
+
+.Formbutton:disabled img {
+    opacity: 0.5;
+}
+
+#version {
+    font-size: 1.1em;
+    color: #4E5665;
+    text-align: center;
+    background:transparent;
+}
+
+#menu {
+    margin: 1px 0 23px 0;
+}
+
+a.ul {
+    text-decoration: underline;
+}
+
+.small {
+    font-size: 11px !important;
+}
+
+.ssmall {
+    font-size: 10px !important;
+}
+
+.vmiddle {
+    vertical-align: middle;
+}
+.success {
+    color: green;
+    font-weight: bold;
+}
+
+.error {
+    color: #E87B00;
+    font-weight: bold;
+}
+.ok {
+    color: green;
+    font-weight: bold;
+}
+
+.inputError {
+    border: 2px solid #E87B00 !important;
+}
+.explain {
+    text-decoration: none;
+    border-bottom: 1px dotted;
+}
+
+.explain:hover {
+    cursor: help;
+}
+
+table.bdr,.bdr,table.xdebug-error {
+    border: 1px solid #ddd !important;
+}
+
+/* flag images in tables */
+img.flag {
+    margin-top:4px;
+}
+
+table.more-padding tr td {
+    padding:  4px 8px;
+}
+
+table td {
+    text-align: left;
+    vertical-align: top;
+    padding: 4px;
+}
+
+/* line height of table on analyze page at import:
+ fix height for not flickering table when loading ajax-request*/
+.importLineHeight {
+    height: 26px;
+}
+
+table th {
+    padding: 4px 6px;
+}
+
+/*Tabellen */
+table tr.row-even {
+    background: #FFF;
+}
+
+table tr.row-odd {
+    background: #F6FAF4;
+}
+
+table tr.row-even  a,table tr.row-odd a,table tr.row-highlight a {
+    margin: 0 3px 0 0;
+}
+
+table tr.row-highlight {
+    color: #000;
+}
+
+table tr.row-highlight a:hover {
+    color: #E87B00;
+}
+
+table td.treffer {
+    background: #000;
+}
+
+table.border {
+    border: 1px solid #738C88;
+}
+
+table tr.thead th,table tr.thead td, table.xdebug-error tr th {
+    background: url(pics/bg-buttons.gif) repeat-x;
+    border: 1px solid #ddd;
+    color: #425D1C;
+    vertical-align:middle;
+}
+
+#fileTree {
+    vertical-align: top;
+}
+
+td a.Formbutton,td button.Formbutton,td input.Formbutton, .qq-upload-button {
+    float: none;
+    margin: 0 6px 0 0;
+    display: inline-block;
+}
+
+input.Formtext {
+    background: url(pics/bg-buttons.gif) repeat-x;
+    float: left;
+    width: auto;
+    margin: 2px 6px 0 0;
+    padding: 1px 2px;
+    border: 1px solid #DDD;
+    overflow: hidden;
+    cursor: text;
+}
+
+.textarea-edit {
+    width: 90px;
+    background: #FFF;
+    border: 1px solid #DDD;
+    overflow: auto;
+    font: 12px/ 1.2 "Courier New", Courier, monospace;
+}
+
+.textarea-inlineedit {
+    width: 280px;
+    background: #FFF;
+    border: 1px solid #DDD;
+    overflow: auto;
+    font: 12px/ 1.2 "Courier New", Courier, monospace;
+    margin-bottom:12px;
+}
+
+input.radio,input.checkbox {
+    background-color: transparent;
+}
+
+/* margins and paddings for input elements */
+.radio,.checkbox,.text,.select,.margin {
+    margin: 2px 4px 2px 4px;
+}
+
+.noleftmargin {
+    margin-left: 0 !important;
+}
+
+.top-margin {
+    margin-top:12px;
+}
+
+/* options in select lists */
+option {
+    padding: 0 6px 0 6px;
+    border-bottom: 1px solid #eee;
+}
+
+/* save button at left site in configuration screen */
+.save-button {
+    float: left;
+    padding-top: 12px;
+}
+
+/* Colors for Formelements */
+input.text,input.small {
+    padding: 1px 2px;
+    border: 1px solid #DDD;
+    background: #fff;
+}
+
+input.text:disabled {
+    border-color: #cccccc;
+}
+
+select {
+    padding: 1px;
+    border: 1px solid #DDD;
+    background: #FFF;
+}
+
+textarea {
+    background: #EEE;
+    border: 1px solid #CCC;
+    padding: 6px;
+}
+
+.spacer {
+    clear:both;
+    height:34px;
+}
+.center {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.floatLeft {
+    float:left;
+}
+.floatRight {
+    float:right;
+}
+.right {
+    text-align: right;
+}
+.top {
+    vertical-align:top;
+}
+.middle {
+    vertical-align: middle;
+}
+.strong {
+    font-weight:bold;
+}
+.inputsize-middle {
+    width: 90px;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.nodisplay {
+    display: none;
+}
+
+#close_button {
+    position: absolute;
+    width: 100px;
+    left: 230px;
+    bottom: 4px;
+}
+
+.paginationPages {
+    float: right;
+    font-size: 13px;
+    margin-top: 3px;
+    width: 88%;
+}
+#logout {
+    position:fixed;
+    top: 10px;
+    right: 4px;
+    height: 20px;
+    min-width:156px;
+    vertical-align: middle;
+    z-index:40;
+}
+#logout p {
+    float:left;
+}
+#logout .icon {
+    position: relative;
+    float:left;
+    padding:3px 2px 0 0;
+    margin:0;
+    width:20px;
+}
+#loggedin-user {
+    position:relative;
+    top:2px;
+    padding: 0;
+    margin: 0;
+    float:right;
+}
+
+/* used for invisble elements */
+.invisible {
+    display:none;
+}
+
+.greenBar {
+    height:14px;
+    background:#4FD352;
+    float:left;
+}
+.redBar {
+    height:14px;
+    background:#DA2410;
+    float:left;
+}
+
+label {
+    cursor: pointer;
+}
+.width300 {
+    width:300px;
+}
+
+#importData {
+    font: 11px/ 1.2 "Courier New", Courier, monospace;
+}
+.code {
+    font: 11px/ 1.2 "Courier New", Courier, monospace;
+}
+/** File browser styles **/
+#treeBrowser {
+    float:left;
+    margin-right:20px;
+}
+#treeBrowser table {
+    height:500px;
+    width:250px;
+}
+#treeBrowser .thead th {
+    height:14px;
+}
+#fileContent {
+    vertical-align: top;
+    float:left;
+}
+.clear {
+    clear:both;
+}
+
+#importInfo {
+    position: fixed;
+    top:54px;
+    right:18px;
+    width:auto;
+    height:182px;
+    background-color:#ffff00;
+    border:1px solid #CCC;
+    /*opacity:0.8;*/
+    padding:4px;
+}
+
+#importInfo .headline {
+    font-size: 1.5em;
+    font-weight:bold;
+    color: #6E9E2D;
+}
+pre {
+    color: #000;
+    font-size:11px;
+}
+
+pre.xdebug-var-dump {
+    font-size: 1.4em;
+    padding:5px;
+    border: 1px solid #DDDDDD;
+    background:url("pics/bg-buttons.gif") repeat-x scroll 0 0 #FFFFFF;
+    margin:20px;
+    border-radius:4px;
+}
+#large_preview {
+    display:block;
+    text-align:center;
+    line-height:15px;
+}
+
+.flag {
+    border:1px solid #6E9E2D;
+}
+
+.switchRight,
+.switchLanguageEditRight,
+.switchLanguageStatus,
+.switchUserEditRight,
+.switchUserEditRightLabel,
+.switchUserReferenceLanguage
+ {
+    cursor: pointer;
+}
+
+.confirm-password-explain {
+    margin-left:24px;
+    width:380px;
+}
+
+.progressBarContainer {
+    width:200px;
+    height:14px;
+    border:1px solid #ccc;
+    margin:0;
+    padding:0;
+}
+
+.progressBarPercentage {
+    position:relative;
+    top:-14px;
+    left:-6px;
+}
+
+/** Styling of inline edit fields */
+.inlineEdit {
+    cursor: pointer;
+    border:1px solid transparent;
+}
+.inlineEditField {
+    border: 1px solid #6E9E2D;
+    margin:0 0 6px 0;
+    width:300px;
+}
+.inlineEditMouseOver {
+    border: 1px solid #6E9E2D;
+}
+.qq-upload-button {
+    padding-top:3px;
+    height:21px;
+}
+
+.notification-bar {
+    display:none;
+    position:fixed;
+    opacity:0.95;
+    top:0;
+    left:0;
+    width:100%;
+    line-height:38px;
+    min-height:38px;
+    text-align:center;
+    font-size:22px;
+    font-weight:normal;
+    color:#333;
+    border-top:1px solid #666;
+    border-bottom:1px solid #666;
+    background-color:#A1E85D;
+    z-index:2000;
+}
+.notification-bar.error {
+    background-color:#F9948A;
+    z-index:2000;
+}
+/* font size of head tabs on admin page */
+#headnavi ul li a {
+    font-size:12px;
+}
+
+#switchLanguageBox {
+    position:fixed;
+    top:10px;
+    right:186px;
+    z-index: 445;
+}
+
+#switchLanguage {
+    width:200px;
+}

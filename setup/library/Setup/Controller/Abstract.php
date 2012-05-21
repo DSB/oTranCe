@@ -23,6 +23,13 @@ abstract class Setup_Controller_Abstract
     protected $_config;
 
     /**
+     * Instance of the view object.
+     *
+     * @var \Setup_View
+     */
+    protected $_view;
+
+    /**
      * Initializes the controller.
      *
      * @param Setup_Http_Request  $request  Request object.
@@ -113,5 +120,27 @@ abstract class Setup_Controller_Abstract
     public function getConfig()
     {
         return $this->_config;
+    }
+
+    /**
+     * Sets a the instance of the view object.
+     *
+     * @param \Setup_View $view Instance of the view object.
+     *
+     * @return void
+     */
+    public function setView($view)
+    {
+        $this->_view = $view;
+    }
+
+    /**
+     * Retrieves the view instance.
+     *
+     * @return \Setup_View
+     */
+    public function getView()
+    {
+        return $this->_view;
     }
 }

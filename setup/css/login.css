@@ -1,0 +1,42 @@
+fieldset table {
+    margin-left:66px;
+    padding:12px;
+}
+.text {
+    width: 250px;
+}
+.register .text {
+    width: 240px;
+}
+#send {
+    margin:6px 0 0 2px;
+}
+fieldset {
+    border: 1px solid #DDDDDD;
+    color: #256777;
+    margin: 0 0 12px;
+    padding: 5px;
+}
+
+#login table.bdr {
+    margin: 0 auto;
+}
+
+#login .bdr td {
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+#login {
+    width: auto;
+    margin: 0 auto;
+    padding: 0 18px;
+    text-align: center;
+}
+
+#login a {
+    color:#6E9E2D;
+}
+#login a:hover {
+    color:#E87B00;
+}

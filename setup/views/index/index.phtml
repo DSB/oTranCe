@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+    <title>oTranCe - Online Translation Center</title>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link type="text/css" rel="stylesheet" href="css/login.css"/>
+    <style type="text/css">
+        #login .bdr td {
+            border:none;
+        }
+    </style>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        var icons = {
+            "0":"images/Apply.png",
+            "1":"images/Exception.png",
+            "2":"images/Remove.png"
+        };
+
+        $(document).ready(function(){
+            $('#requireCheck').bind('submit', function() {
+                $.ajax({
+                    url:$(this).prop('action'),
+                    type:$(this).prop('method'),
+                    success:function(result) {
+                        var v;
+                        for (var k in result) {
+                            v = result[k];
+                            $('#si' + k).prop('src', icons[v.status]);
+                            $('#r' + k).html(v.value);
+                        }
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="header"></div>
+    <div id="container">
+        <form id="requireCheck" action="index.php?controller=setup&action=checkRequirements" method="post" onsubmit="return false;">
+            <div id="login">
+                <h1><br/><br/>oTranCe - Setup</h1>
+                <br/>
+                <br/>
+                <button type="submit" class="Formbutton">Requirements check</button>
+                <br/>
+                <br/>
+                <table class="bdr small">
+                    <tr class="thead">
+                        <th>Requirement</th>
+                        <th>Expected</th>
+                        <th></th>
+                        <th colspan="2">Status</th>
+                    </tr>
+<?php
+    $index = 0;
+    foreach ($this->requirements as $reqId => $require) {
+?>
+                    <tr class="<?php echo (($index % 2) == 0) ? 'row-even' : 'row-odd'; ?>">
+                        <td class="vmiddle"><?php echo $require['title']; ?> <?php echo $require['required'] ? '*' : ''; ?></td>
+                        <td class="vmiddle"><?php echo $require['expected']; ?></td>
+                        <td class="vmiddle">=&gt;</td>
+                        <td class="vmiddle" id="r<?php echo $reqId; ?>" style="width:110px;"></td>
+                        <td class="vmiddle"><img src="images/Help.png" alt="" id="si<?php echo $reqId; ?>"/></td>
+                    </tr>
+<?php
+        $index++;
+    }
+?>
+                </table>
+                * These requirements must be met.
+            </div>
+        </form>
+    </div>
+    <div class="spacer"></div>
+    <div class="spacer"></div>
+    <div id="footer">
+        <p>
+            oTranCe ist eine freie Online-Übersetzungsplattform &middot;
+            <a href="http://oTranCe.de/en/">oTranCe Homepage</a> &middot;
+            <a href="http://oTranCe.de/en/team/">Das Entwickler-Team</a> &middot;
+            <a href="http://oTranCe.de/en/project/donate/">Spenden</a>&nbsp;
+        </p>
+    </div>
+</body>
+</html>

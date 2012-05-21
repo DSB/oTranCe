@@ -108,6 +108,10 @@ class Setup_Application
      */
     public function run()
     {
+        /**
+         * @var Setup_Controller_Abstract $controllerInstance
+         */
+
         $request = $this->getRequest();
         $controller = $request->getController();
 
@@ -142,10 +146,19 @@ class Setup_Application
             );
         }
 
+        $view = new Setup_View($this->getControllerDir() . '/../views');
+        $controllerInstance->setView($view);
+
         ob_start();
         $controllerInstance->$actionName();
         $controllerOutput = ob_get_clean();
         $this->_response->prependBody($controllerOutput);
+
+        $body = $this->_response->getBody();
+        if (empty($body)) {
+            $output = $view->render($this->_request->getController() . '/' . $this->_request->getAction() . '.phtml');
+            $this->_response->setBody($output);
+        }
 
         $this->_response->sendResponse();
     }

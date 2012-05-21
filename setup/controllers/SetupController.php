@@ -128,7 +128,7 @@ class SetupController extends Setup_Controller_Abstract
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $setupInfo = json_decode(curl_exec($curlHandle), true);
 
-        $tempFilename = tempnam('/tmp', 'otc');
+        $tempFilename = tempnam(sys_get_temp_dir(), 'otc');
         $tempFile = fopen($tempFilename, 'w+');
 
         $log[] = "Downloading: {$setupInfo['package']}";

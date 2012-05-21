@@ -17,4 +17,3 @@ $loader = new Setup_Loader();
 
 $application = new Setup_Application(APPLICATION_PATH . '/configs/setup.ini');
 $application->run();
-var_dump($application->getRequest());

@@ -2,22 +2,40 @@
 class Setup_Application
 {
     /**
+     * Application configuration.
+     *
      * @var array
      */
-    protected $config;
+    protected $_config;
 
     /**
+     * Instance of the request object.
+     *
      * @var Setup_Http_Request
      */
-    protected $request;
+    protected $_request;
 
     /**
+     * Instance of the response object.
+     *
      * @var Setup_Http_Response
      */
-    protected $response;
+    protected $_response;
 
-    protected $controllerDir = 'controllers/';
+    /**
+     * Path to the controller directory.
+     *
+     * @var string
+     */
+    protected $_controllerDir = 'controllers/';
 
+    /**
+     * Initializes instance of the application.
+     *
+     * @param string|array $config Filename or array of the application configuration.
+     *
+     * @return Setup_Application
+     */
     public function __construct($config)
     {
         if (is_string($config) && file_exists($config)) {
@@ -31,10 +49,15 @@ class Setup_Application
         $this->init();
     }
 
+    /**
+     * Initializes the application.
+     *
+     * @return void
+     */
     public function init()
     {
-        if (isset($this->config['application']['controllerDir'])) {
-            $sanatizedControllerDir = rtrim($this->config['application']['controllerDir'], '/\\') . '/';
+        if (isset($this->_config['application']['controllerDir'])) {
+            $sanatizedControllerDir = rtrim($this->_config['application']['controllerDir'], '/\\') . '/';
             $this->setControllerDir($sanatizedControllerDir);
         }
 
@@ -42,11 +65,15 @@ class Setup_Application
         $this->initResponse();
     }
 
+    /**
+     * Initializes the request object.
+     *
+     * @return void
+     */
     protected function initRequest()
     {
         $controllerKey = null;
         $actionKey = null;
-        $order = null;
         $config = $this->getConfig();
 
         if (isset($config['request']['controllerKey'])) {
@@ -57,20 +84,28 @@ class Setup_Application
             $actionKey = $config['request']['actionKey'];
         }
 
-        if (isset($config['request']['order'])) {
-            $order = $config['request']['order'];
-        }
-
-        $request = new Setup_Http_Request($controllerKey, $actionKey, $order);
+        $request = new Setup_Http_Request($controllerKey, $actionKey);
         $this->setRequest($request);
     }
 
+    /**
+     * Initializes response object.
+     *
+     * @return void
+     */
     protected function initResponse()
     {
         $response = new Setup_Http_Response();
         $this->setResponse($response);
     }
 
+    /**
+     * Loads the controller and executes the action.
+     *
+     * @throws Setup_Application_Exception
+     *
+     * @return void
+     */
     public function run()
     {
         $request = $this->getRequest();
@@ -91,7 +126,7 @@ class Setup_Application
             throw new Setup_Application_Exception("Unknown controller '$controllerName' in '$controllerFilename'!");
         }
 
-        $controllerInstance = new $controllerName($this->request, $this->response);
+        $controllerInstance = new $controllerName($this->_request, $this->_response, $this->_config['setup']);
         if (!$controllerInstance instanceof Setup_Controller_Abstract) {
             require_once 'Setup/Application/Exception.php';
             throw new Setup_Application_Exception(
@@ -107,58 +142,99 @@ class Setup_Application
             );
         }
 
+        ob_start();
         $controllerInstance->$actionName();
-    }
+        $controllerOutput = ob_get_clean();
+        $this->_response->prependBody($controllerOutput);
 
-    public function setConfig($config)
-    {
-        $this->config = (array)$config;
-    }
-
-    public function getConfig()
-    {
-        return $this->config;
+        $this->_response->sendResponse();
     }
 
     /**
-     * @param \Setup_Http_Request $request
+     * Sets the application configuration.
+     *
+     * @param array $config Application configuration.
+     *
+     * @return void
+     */
+    public function setConfig($config)
+    {
+        $this->_config = (array) $config;
+    }
+
+    /**
+     * Retrieves the application configuration.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return $this->_config;
+    }
+
+    /**
+     * Sets the instance of the request object.
+     *
+     * @param \Setup_Http_Request $request Instance of the request object.
+     *
+     * @return void
      */
     public function setRequest($request)
     {
-        $this->request = $request;
+        $this->_request = $request;
     }
 
     /**
+     * Retrieves the instance of the request object.
+     *
      * @return Setup_Http_Request
      */
     public function getRequest()
     {
-        return $this->request;
-    }
-
-    public function setControllerDir($controllerDir)
-    {
-        $this->controllerDir = $controllerDir;
-    }
-
-    public function getControllerDir()
-    {
-        return $this->controllerDir;
+        return $this->_request;
     }
 
     /**
-     * @param \Setup_Http_Response $response
+     * Retrieves the path for the controller directory.
+     *
+     * @param string $controllerDir Path to the controller directory.
+     *
+     * @return void
+     */
+    public function setControllerDir($controllerDir)
+    {
+        $this->_controllerDir = $controllerDir;
+    }
+
+    /**
+     * Sets the path for the controller directory.
+     *
+     * @return string
+     */
+    public function getControllerDir()
+    {
+        return $this->_controllerDir;
+    }
+
+    /**
+     * Sets the instance of the response object.
+     *
+     * @param \Setup_Http_Response $response Instance of the response object.
+     *
+     * @return void
      */
     public function setResponse($response)
     {
-        $this->response = $response;
+        $this->_response = $response;
     }
 
     /**
+     * Retrieves the instance of the response object.
+     *
      * @return \Setup_Http_Response
      */
     public function getResponse()
     {
-        return $this->response;
+        return $this->_response;
     }
 }

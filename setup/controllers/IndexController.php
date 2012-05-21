@@ -1,8 +1,13 @@
 <?php
 class IndexController extends Setup_Controller_Abstract
 {
+    /**
+     * Example controller action.
+     *
+     * @return void
+     */
     public function indexAction()
     {
-        echo "juhu";
+        $this->_response->setBody("huhu");
     }
 }

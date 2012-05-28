@@ -22,20 +22,17 @@ class RegisterController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->isLogin = true;
-        $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
-        $default = array(
-            'id' => 0,
-            'active' => 0,
+        $default  = array(
+            'id'       => 0,
+            'active'   => 0,
             'username' => '',
-            'pass1' => '',
-            'pass2' => '',
-            'active' => 0
+            'pass1'    => '',
+            'pass2'    => '',
         );
         $userData = $this->_request->getParam('user', $default);
         if (!empty($userData['username'])) {
-            $userModel = new Application_Model_User();
-            $userData['id'] = 0;
+            $userModel          = new Application_Model_User();
+            $userData['id']     = 0;
             $userData['active'] = 0;
 
             if ($userModel->validateData($userData, $this->view->lang->getTranslator())) {
@@ -45,7 +42,9 @@ class RegisterController extends Zend_Controller_Action
                 $this->view->errors = $userModel->getValidateMessages();
             }
         }
-        $this->view->request = $this->_request;
-        $this->view->user = $userData;
+        $this->view->isLogin               = true;
+        $this->view->request               = $this->_request;
+        $this->view->user                  = $userData;
+        $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
     }
 }

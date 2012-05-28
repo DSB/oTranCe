@@ -45,13 +45,18 @@ class IndexController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $languagesModel          = new Application_Model_Languages();
-        $entriesModel            = new Application_Model_LanguageEntries();
-        $userModel               = new Application_Model_User();
-        $this->view->user        = $userModel;
-        $this->view->languages   = $languagesModel->getAllLanguages();
-        $this->view->translators = $userModel->getTranslatorList(false);
-        $this->view->status      = $entriesModel->getStatus($this->view->languages);
+        $languagesModel = new Application_Model_Languages();
+        $entriesModel   = new Application_Model_LanguageEntries();
+        $userModel      = new Application_Model_User();
+        $languages      = $languagesModel->getAllLanguages();
+        $this->view->assign(
+            array(
+                 'user'        => $userModel,
+                 'languages'   => $languages,
+                 'translators' => $userModel->getTranslatorList(false),
+                 'status'      => $entriesModel->getStatus($languages)
+            )
+        );
     }
 
     /**
@@ -81,8 +86,8 @@ class IndexController extends Zend_Controller_Action
         setcookie('oTranCe_autologin', null, null, '/');
         $this->_doRedirect(
             array(
-                'controller' => 'index',
-                'action' => 'login',
+                 'controller' => 'index',
+                 'action'     => 'login',
             )
         );
     }
@@ -94,33 +99,36 @@ class IndexController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-        // Set view parameter for layout to disable left menu.
-        $this->view->isLogin               = true;
-        $form                              = new Application_Form_Login();
-        $loginResult                       = false;
-        $this->view->request               = $this->_request;
-        $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
-
+        $form = new Application_Form_Login();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
+            $loginResult  = false;
             $historyModel = new Application_Model_History();
-            $user = new Msd_User();
-            $postData = $this->_request->getParams();
+            $user         = new Msd_User();
+            $postData     = $this->_request->getParams();
             if ($form->isValid($postData)) {
-                $autoLogin = ($postData['autologin'] == 1) ? true : false;
+                $autoLogin   = ($postData['autologin'] == 1) ? true : false;
                 $loginResult = $user->login(
                     $postData['user'],
                     $postData['pass'],
                     $autoLogin
                 );
-                $this->view->messages = $user->getAuthMessages();
+                $this->view->assign('messages', $user->getAuthMessages());
                 if ($loginResult === Msd_User::SUCCESS) {
-                        $historyModel->logLoginSuccess();
-                        $this->_doRedirect(
-                            array(
-                                 'controller' => 'index',
-                                 'action' => 'index',
-                            )
-                        );
+                    $historyModel->logLoginSuccess();
+
+                    // load user setting for the interface language
+                    $userModel   = new Application_Model_User();
+                    $guiLanguage = $userModel->loadSetting('interfaceLanguage', null);
+                    if ($guiLanguage !== null) {
+                        $this->view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
+                    }
+
+                    $this->_doRedirect(
+                        array(
+                             'controller' => 'index',
+                             'action'     => 'index',
+                        )
+                    );
                 } else {
                     $loginResult = false;
                 }
@@ -133,13 +141,19 @@ class IndexController extends Zend_Controller_Action
                     'L_LOGIN',
                     'L_LOGIN_INVALID_USER',
                     array(
-                        'modal' => true,
-                        'dialogClass' => 'error'
+                         'modal'       => true,
+                         'dialogClass' => 'error'
                     )
                 );
             }
         }
-        $this->view->form = $form;
+        $this->view->assign(
+            array(
+                 'isLogin'               => true,
+                 'form'                  => $form,
+                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
+                 'request'               => $this->_request
+            )
+        );
     }
-
 }

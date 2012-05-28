@@ -19,7 +19,8 @@ $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/fileuploade
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/style.css');
 $this->jQuery()->addStylesheet($this->baseUrl().'/css/' . $theme . '/jquery/jquery.ui.selectmenu.css');
 $request = Zend_Controller_Front::getInstance()->getRequest();
-if ($request->getControllerName() == 'index' && ($request->getActionName() == 'login' || $request->getActionName() == 'register')) {
+$controllerName = $request->getControllerName();
+if (($controllerName == 'index' && $request->getActionName() == 'login') || $controllerName == 'register') {
     $this->jQuery()->addStylesheet($this->themeBaseUrl().'/login.css');
 }
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/script.js'));

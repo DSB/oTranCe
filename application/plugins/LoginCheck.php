@@ -57,7 +57,8 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
      */
     protected function _isRegisterPage()
     {
-        return ($this->_request->getActionName() == 'register' && $this->_request->getControllerName() == 'index');
+        $controllerName = $this->_request->getControllerName();
+        return (in_array($controllerName, array('register', 'index')));
     }
 
     /**

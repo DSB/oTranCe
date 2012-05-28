@@ -57,6 +57,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen, bleibt das alte Kennwort bestehen.',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Der Inhalt ist derselbe wie in der Hauptsprache und wurde nicht importiert!',
+'L_CONVERT' => 'Konvertiere',
 'L_CONVERT_CHARS_FROM' => 'Konvertiere Zeichen von',
 'L_COPY_TO' => 'Kopiere nach',
 'L_CREATED_ON_X_AT_Y' => 'Erstellt am %s um %s Uhr.',

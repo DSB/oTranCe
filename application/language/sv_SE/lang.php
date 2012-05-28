@@ -57,6 +57,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_CONFIRM_PASSWORD' => 'Bekräfta lösenordet',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Mata in lösenordet om du vill ändra det. Om fältet lämnas tomt så bibehålls det gamla lösenordet.',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Samma innehåll som i huvudspråket, har ej importerats!',
+'L_CONVERT' => 'Convert',
 'L_CONVERT_CHARS_FROM' => 'Konvertera tecken från',
 'L_COPY_TO' => 'Kopiera till',
 'L_CREATED_ON_X_AT_Y' => 'Skapat den %s klockan %s.',

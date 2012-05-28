@@ -55,6 +55,7 @@ $lang = array(
 'L_CONFIRM_PASSWORD' => 'Wachtwoord bevestigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Als u het wachtwoord wijzigen wilt, voer deze hier in. Als u dit veld leeg laat blijft het out wachtwoord onveranderd.',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'De inhoud is dezelfde als in de hoofdtaal en is niet importeerd worden!',
+'L_CONVERT' => 'Convert',
 'L_CONVERT_CHARS_FROM' => 'Converter token van',
 'L_COPY_TO' => 'Kopiëre naar',
 'L_CREATED_ON_X_AT_Y' => 'Aangemaakt op %s om %s uur.',

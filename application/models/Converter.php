@@ -40,6 +40,8 @@ class Application_Model_Converter extends Msd_Application_Model
      * @param string $inputCharset The current character set of the string
      * @param string $text         The text to convert
      *
+     * @throws Exception
+     *
      * @return bool|string UTF-8 encoded string
      */
     public function convertData($inputCharset, $text)
@@ -48,16 +50,19 @@ class Application_Model_Converter extends Msd_Application_Model
             //nothing to convert - return original text immediately without bothering mysql
             return $text;
         }
-        $data = '';
+        $data = $text;
         $this->_dbo->selectDb($this->_database);
         $this->_dbo->setConnectionCharset($inputCharset);
-        $id = $this->_dbo->escape(Zend_Session::getId());
+        $id   = $this->_dbo->escape(Zend_Session::getId());
         $text = $this->_dbo->escape($text);
-        $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
+        $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
                 . ' (`id`, `text`) VALUES (? , ?)';
         $stmt = $this->_dbo->prepare($sql);
         $stmt->bind_param('ss', $id, $text);
         $stmt->execute();
+        if ((int) $stmt->errno !== 0) {
+            throw new Exception($stmt->error . ' ' . $stmt->errno);
+        }
         $stmt->close();
 
         // re-read the value in utf-8

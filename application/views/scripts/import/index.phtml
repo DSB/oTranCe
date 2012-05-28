@@ -61,12 +61,13 @@ if ($this->importData > '') { ?>
     <h4><?php echo $this->lang->L_CHECK_CHARS;?></h4>
     <p><?php echo $this->lang->L_CHECK_CHARS_EXPLAIN;?></p>
     <p>
-        <button class="Formbutton ui-corner-all" type="submit" name="convert">
-        <?php echo $this->getIcon('Ok', $this->lang->L_CONVERT_CHARS_FROM, 16);?> <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
-        </button>
+        <?php echo $this->lang->L_CONVERT_CHARS_FROM;?>:
         <select name="selectedCharset" id="selectedCharset">
             <?php echo $this->selCharset;?>
         </select>
+        <button class="Formbutton ui-corner-all" type="submit" name="convert">
+            <?php echo $this->lang->L_CONVERT;?>
+        </button>
     </p>
     <?php
 } ?>
@@ -96,7 +97,7 @@ if (isset($this->conversionError)) {
     $this->popUpMessage()->addMessage(
         'conversionError',
         $this->lang->L_ERROR,
-        $this->jsEscape(sprintf($this->lang->L_ERROR_CONVERTING, $this->targetCharset)),
+        sprintf($this->lang->L_ERROR_CONVERTING, $this->targetCharset),
         array(
             'modal' => true,
             'height' => 160,

@@ -105,24 +105,38 @@ class ImportController extends Zend_Controller_Action
         }
 
         if (isset($params['convert'])) {
-            $entriesModel = new Application_Model_Converter();
-            $res = $entriesModel->convertData(
-                $this->_dynamicConfig->getParam('selectedCharset'),
-                $this->_dynamicConfig->getParam('importOriginalData')
-            );
-            if ($res === false) {
-                $res = '';
-                $this->view->conversionError = true;
-                $this->view->targetCharset = $this->_dynamicConfig->getParam('selectedCharset');
-            }
-            $this->_dynamicConfig->setParam('importConvertedData', $res);
-            $this->view->importData = $res;
+            $this->_convertTextInput();
         }
         if (isset($params['analyze'])) {
             $this->_dynamicConfig->setParam('importConvertedData', $this->view->importData);
             $this->_forward('analyze');
             return;
         }
+    }
+
+    /**
+     * Converts the text from given cahrset to utf-8.
+     *
+     * @return void
+     */
+    protected function _convertTextInput() {
+        $entriesModel = new Application_Model_Converter();
+        try {
+            $res = $entriesModel->convertData(
+                $this->_dynamicConfig->getParam('selectedCharset'),
+                $this->_dynamicConfig->getParam('importOriginalData')
+            );
+        } catch (Exception $e) {
+            // we show the user our own error message instead of the mysql error
+            // $this->view->convertError = $e->getMessage();
+            $this->view->conversionError = true;
+            $this->view->targetCharset   = $this->_dynamicConfig->getParam('selectedCharset');
+            // re-assign unconverted data
+            $this->view->importData      = $this->_dynamicConfig->getParam('importOriginalData');
+            return;
+        }
+        $this->_dynamicConfig->setParam('importConvertedData', $res);
+        $this->view->importData = $res;
     }
 
     /**

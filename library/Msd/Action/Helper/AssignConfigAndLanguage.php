@@ -16,8 +16,7 @@
  * @package         MySQLDumper
  * @subpackage      Action_Helper
  */
-class Msd_Action_Helper_AssignConfigAndLanguage
-    extends Zend_Controller_Action_Helper_Abstract
+class Msd_Action_Helper_AssignConfigAndLanguage extends Zend_Controller_Action_Helper_Abstract
 {
     /**
      * Actual Zend_View_Interface instance
@@ -43,6 +42,7 @@ class Msd_Action_Helper_AssignConfigAndLanguage
         if ($guiLanguage === null) {
             $userModel   = new Application_Model_User();
             $guiLanguage = $userModel->loadSetting('interfaceLanguage', 'en');
+            $view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
         }
         $view->lang = Msd_Language::getInstance($guiLanguage);
     }

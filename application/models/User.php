@@ -852,8 +852,8 @@ class Application_Model_User extends Msd_Application_Model
         if ($userData['id'] == 0) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if (!$notEmptyValidate->isValid($userData['pass1'])) {
-                // Original key: pass1
-                $this->_validateMessages['pass1'] = $notEmptyValidate->getMessages();
+                $messages = $this->_translateZendMessageIds($notEmptyValidate->getMessages());
+                $this->_validateMessages['pass1'] = $messages;
             }
 
             // check if we already have a user with that name
@@ -867,20 +867,20 @@ class Application_Model_User extends Msd_Application_Model
 
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (!$strLenValidate->isValid($userData['username'])) {
-            // Original key: username
+            $messages = $this->_translateZendMessageIds($strLenValidate->getMessages());
             $this->_validateMessages['username'] = array_merge(
                 $this->_validateMessages['username'],
-                $strLenValidate->getMessages()
+                $messages
             );
         }
 
         if ($userData['pass1'] > '' || $userData['pass2'] > '') {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
             if (!$identicalValidate->isValid($userData['pass2'])) {
-                // Original key: pass1
+                $messages = $this->_translateZendMessageIds($identicalValidate->getMessages());
                 $this->_validateMessages['pass1'] = array_merge(
                     $this->_validateMessages['pass1'],
-                    $identicalValidate->getMessages()
+                    $messages
                 );
             }
         }
@@ -889,6 +889,23 @@ class Application_Model_User extends Msd_Application_Model
             $isValid = true;
         }
         return $isValid;
+    }
+
+    /**
+     * Translate Zend message ids into our own ones.
+     *
+     * @param array $messages Zend messages
+     *
+     * @return array
+     */
+    protected function _translateZendMessageIds($messages)
+    {
+        $ret = array();
+        $translator = Msd_Language::getInstance();
+        foreach (array_keys($messages) as $messageId) {
+            $ret[]= $translator->translateZendId($messageId);
+        }
+        return $ret;
     }
 
     /**

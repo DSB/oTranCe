@@ -1,4 +1,14 @@
-<?php $this->jQuery()->addOnLoad("$('#user').focus();"); ?>
+<?php $this->jQuery()->addOnLoad("$('#user').focus();");
+echo $this->partial(
+    'helper/switch-language-box.phtml',
+    array(
+         'lang'                  => $this->lang,
+         'controller'            => 'index',
+         'request'               => $this->request,
+         'availableGuiLanguages' => $this->availableGuiLanguages,
+    )
+);
+?>
 <div id="login">
     <h1>
         <br /><br />Translation-Center: <?php echo $this->lang->L_LOGIN;?>

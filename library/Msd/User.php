@@ -150,6 +150,7 @@ class Msd_User
         $auth = Zend_Auth::getInstance();
         $authResult = $auth->authenticate($authAdapter);
         $this->_authMessages = $authResult->getMessages();
+        $this->_isLoggedIn = false;
         if ($authResult->isValid()) {
             $this->_isLoggedIn = true;
             if ($autoLogin) {

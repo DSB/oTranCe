@@ -30,15 +30,12 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
             return '';
         }
 
-        $view                = $this->view;
-        $dynamicConfig = Msd_Registry::getDynamicConfig();
-        $view->availableGuiLanguages = $dynamicConfig->getParam('availableGuiLanguages', array());
-        $view->request       = $request;
-        $view->controller    = $request->getControllerName();
-        $view->config        = Msd_Registry::getConfig();
-        $view->projectConfig = $view->config->getParam('project');
-        $view->user          = new Application_Model_User();
+        $view                        = $this->view;
+        $view->availableGuiLanguages = $view->dynamicConfig->getParam('availableGuiLanguages', array());
+        $view->request               = $request;
+        $view->controller            = $request->getControllerName();
+        $view->projectConfig         = $view->config->getParam('project');
+        $view->user                  = new Application_Model_User();
         return $view->render('index/menu.phtml');
     }
-
 }

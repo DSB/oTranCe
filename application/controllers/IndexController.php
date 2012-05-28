@@ -94,11 +94,14 @@ class IndexController extends Zend_Controller_Action
      */
     public function loginAction()
     {
-        // Set view parameter for layout to say "Hey it's the login page".
-        $this->view->isLogin = true;
-        $form                = new Application_Form_Login();
-        $loginResult         = false;
-        if ($this->_request->isPost()) {
+        // Set view parameter for layout to disable left menu.
+        $this->view->isLogin               = true;
+        $form                              = new Application_Form_Login();
+        $loginResult                       = false;
+        $this->view->request               = $this->_request;
+        $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
+
+        if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $historyModel = new Application_Model_History();
             $user = new Msd_User();
             $postData = $this->_request->getParams();

@@ -23,10 +23,18 @@ class RegisterController extends Zend_Controller_Action
     public function indexAction()
     {
         $this->view->isLogin = true;
-        $request = $this->getRequest();
-        if ($request->isPost()) {
+        $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
+        $default = array(
+            'id' => 0,
+            'active' => 0,
+            'username' => '',
+            'pass1' => '',
+            'pass2' => '',
+            'active' => 0
+        );
+        $userData = $this->_request->getParam('user', $default);
+        if (!empty($userData['username'])) {
             $userModel = new Application_Model_User();
-            $userData = $request->getParam('user');
             $userData['id'] = 0;
             $userData['active'] = 0;
 
@@ -37,5 +45,7 @@ class RegisterController extends Zend_Controller_Action
                 $this->view->errors = $userModel->getValidateMessages();
             }
         }
+        $this->view->request = $this->_request;
+        $this->view->user = $userData;
     }
 }

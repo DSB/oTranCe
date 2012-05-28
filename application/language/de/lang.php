@@ -354,6 +354,9 @@ Ein Administrator wird es demnächst freischalten.',
 'L_ZEND_ID_MISSING_TOKEN' => 'Es gibt keinen Token, der geprüft werden kann.',
 'L_ZEND_ID_NOT_DIGITS' => 'Es sind zur Ziffern erlaubt.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Falsches Format: String, integer, float, boolean oder ein Array wird erwartet.',
-'L_ZEND_ID_NOT_SAME' => 'Beide angegebene Tokens passen nicht.',
+'L_ZEND_ID_NOT_SAME' => 'Die beiden angegebenen Werte sind nicht gleich.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist zu ungültig.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
 );
 return $lang;

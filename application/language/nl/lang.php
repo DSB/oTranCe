@@ -349,5 +349,8 @@ $lang = array(
 'L_ZEND_ID_NOT_DIGITS' => 'Er zijn alleen maar cijfers toegelaten.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Foute formaat: String, integer, float, boolean en array is verwacht.',
 'L_ZEND_ID_NOT_SAME' => 'Beide aangegeven tokens komen niet uit.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
 );
 return $lang;

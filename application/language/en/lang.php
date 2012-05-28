@@ -356,6 +356,9 @@ An administrator will activate it soon.',
 'L_ZEND_ID_MISSING_TOKEN' => 'No token was provided to match against.',
 'L_ZEND_ID_NOT_DIGITS' => 'Only digits are allowed.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Invalid type given. String, integer, float, boolean or array expected.',
-'L_ZEND_ID_NOT_SAME' => 'The two given tokens do not match.',
+'L_ZEND_ID_NOT_SAME' => 'The two given values are not equal.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
 );
 return $lang;

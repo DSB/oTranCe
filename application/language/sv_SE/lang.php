@@ -353,5 +353,8 @@ En administratör kommer att se över kontot och godkänna det.',
 'L_ZEND_ID_NOT_DIGITS' => 'Endast siffror är tillåtna.',
 'L_ZEND_ID_NOT_EMPTY_INVALID' => 'Fel format: använd string, integer, float, boolean eller en array',
 'L_ZEND_ID_NOT_SAME' => 'Bägge angivna token passar ej.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
 );
 return $lang;

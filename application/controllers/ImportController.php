@@ -119,7 +119,8 @@ class ImportController extends Zend_Controller_Action
      *
      * @return void
      */
-    protected function _convertTextInput() {
+    protected function _convertTextInput()
+    {
         $entriesModel = new Application_Model_Converter();
         try {
             $res = $entriesModel->convertData(

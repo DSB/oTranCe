@@ -30,7 +30,7 @@ class RegisterController extends Zend_Controller_Action
             'pass2'    => '',
         );
         $userData = $this->_request->getParam('user', $default);
-        if (!empty($userData['username'])) {
+        if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $userModel          = new Application_Model_User();
             $userData['id']     = 0;
             $userData['active'] = 0;

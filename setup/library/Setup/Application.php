@@ -112,6 +112,8 @@ class Setup_Application
          * @var Setup_Controller_Abstract $controllerInstance
          */
 
+        session_start();
+
         $request = $this->getRequest();
         $controller = $request->getController();
 

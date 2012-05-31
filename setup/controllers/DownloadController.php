@@ -27,6 +27,9 @@ class DownloadController extends Setup_Controller_Abstract
 
         $zip = new ZipArchive();
         if ($zip->open($tempFilename) === true) {
+            if (!file_exists($this->_config['extractDir'])) {
+                mkdir($this->_config['extractDir'], 0775, true);
+            }
             $extractDir = realpath($this->_config['extractDir']);
             $extractMessage = "Extracting to: $extractDir ";
             $extractMessage .= $zip->extractTo($extractDir) ? 'OK' : 'failed';

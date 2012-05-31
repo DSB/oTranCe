@@ -11,69 +11,127 @@
         }
     </style>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
     <script type="text/javascript">
         var icons = {
-            "0":"images/Apply.png",
-            "1":"images/Exception.png",
-            "2":"images/Remove.png"
+            "0":"images/20x20/Apply.png",
+            "1":"images/20x20/Exception.png",
+            "2":"images/20x20/Remove.png"
         };
+        var currentStep = 0;
 
-        $(document).ready(function(){
-            $('#requireCheck').bind('submit', function() {
-                $.ajax({
-                    url:$(this).prop('action'),
-                    type:$(this).prop('method'),
-                    success:function(result) {
-                        var v;
-                        for (var k in result) {
-                            v = result[k];
-                            $('#si' + k).prop('src', icons[v.status]);
-                            $('#r' + k).html(v.value);
+        var steps = {
+            "1":function() {
+                function runCheck() {
+                    var $form = $('#requireCheck');
+                    $.ajax({
+                        url:$form.prop('action'),
+                        type:$form.prop('method'),
+                        success:function(result) {
+                            var v;
+                            var passed = true;
+                            for (var k in result) {
+                                v = result[k];
+                                passed = passed && v.passed;
+                                $('#si' + k).prop('src', icons[v.status]);
+                                $('#r' + k).html(v.value);
+                            }
+                            if (passed) {
+                                $('#steps .step1 .status').removeClass('active').addClass('done');
+                                $('#nextStepButton').show();
+                            } else {
+                                $('#steps .step1 .status').removeClass('active').addClass('error');
+                            }
                         }
+                    });
+                }
+
+                var toggleVar = 1;
+                var rowClasses = ['row-even', 'row-odd'];
+                $.ajax({
+                    "url":"index.php?controller=requirements&action=fetchInfo",
+                    "type":"POST",
+                    "success":function(result) {
+                        $('#requireRow').tmpl(result, {
+                            "getRowClass":function() {
+                                toggleVar++;
+                                return rowClasses[toggleVar % rowClasses.length];
+                            }
+                        }).appendTo('#requireCheck table');
+                        runCheck();
                     }
                 });
+            },
+            "2":function() {
+            },
+            "3":function() {
+
+            },
+            "4":function() {
+
+            }
+        };
+
+        function nextStep()
+        {
+            $('#step' + currentStep).hide();
+            currentStep++;
+            $('#step' + currentStep).show();
+            $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
+            $('#nextStepButton').hide();
+            steps[currentStep]();
+        }
+
+        $(document).ready(function(){
+            $('#nextStepButton').bind('click', function() {
+                nextStep();
                 return false;
             });
+            nextStep();
         });
+    </script>
+    <script type="text/x-jquery-tmpl" id="requireRow">
+        <tr class="${$item.getRowClass()}">
+            <td class="vmiddle">${title} {{if required}}*{{/if}}</td>
+            <td class="vmiddle">${expected}</td>
+            <td class="vmiddle">=&gt;</td>
+            <td class="vmiddle" id="r${reqKey}" style="width:110px;"></td>
+            <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="si${reqKey}"/></td>
+        </tr>
     </script>
 </head>
 <body>
     <div id="header"></div>
     <div id="container">
-        <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post" onsubmit="return false;">
-            <div id="login">
-                <h1><br/><br/>oTranCe - Setup</h1>
-                <br/>
-                <br/>
-                <button type="submit" class="Formbutton">Requirements check</button>
-                <br/>
-                <br/>
-                <table class="bdr small">
-                    <tr class="thead">
-                        <th>Requirement</th>
-                        <th>Expected</th>
-                        <th></th>
-                        <th colspan="2">Status</th>
-                    </tr>
-<?php
-    $index = 0;
-    foreach ($this->requirements as $reqId => $require) {
-?>
-                    <tr class="<?php echo (($index % 2) == 0) ? 'row-even' : 'row-odd'; ?>">
-                        <td class="vmiddle"><?php echo $require['title']; ?> <?php echo $require['required'] ? '*' : ''; ?></td>
-                        <td class="vmiddle"><?php echo $require['expected']; ?></td>
-                        <td class="vmiddle">=&gt;</td>
-                        <td class="vmiddle" id="r<?php echo $reqId; ?>" style="width:110px;"></td>
-                        <td class="vmiddle"><img src="images/Help.png" alt="" id="si<?php echo $reqId; ?>"/></td>
-                    </tr>
-<?php
-        $index++;
-    }
-?>
-                </table>
-                * These requirements must be met.
+        <div id="login">
+            <h1>oTranCe - Setup</h1>
+            <ul id="steps">
+                <li class="step step1"><span class="status active"></span> Requirements check</li>
+                <li class="step step2"><span class="status pending"></span> Download &amp; extract</li>
+                <li class="step step3"><span class="status pending"></span> MySQL connection</li>
+                <li class="step step4"><span class="status pending"></span> oTranCe settings</li>
+                <li class="clear"></li>
+            </ul>
+            <div class="clear"></div>
+            <div id="step1">
+                <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/20x20/Forward.png" alt=""/></a>
+                <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post" onsubmit="return false;">
+                    <h2>Requirements check</h2>
+                    <table class="bdr small">
+                        <tr class="thead">
+                            <th>Requirement</th>
+                            <th>Expected</th>
+                            <th></th>
+                            <th colspan="2">Status</th>
+                        </tr>
+                    </table>
+                    * These requirements must be met.
+                </form>
             </div>
-        </form>
+            <div id="step2"></div>
+            <div id="step3"></div>
+            <div id="step4"></div>
+        </div>
     </div>
     <div class="spacer"></div>
     <div class="spacer"></div>

@@ -1,14 +1,46 @@
 <?php
 class RequirementsController extends Setup_Controller_Abstract
 {
+    /**
+     * Status code for a passed required test.
+     *
+     * @const int
+     */
     const REQUIREMENT_OK = 0;
+
+    /**
+     * Status code for a failed non-required test.
+     *
+     * @const int
+     */
     const REQUIREMENT_WARNING = 1;
+
+    /**
+     * Status code for a failed required test.
+     *
+     * @const int
+     */
     const REQUIREMENT_ERROR = 2;
 
+    /**
+     * Results of the requiments checks.
+     *
+     * @var array
+     */
     protected $_requirements = array();
 
+    /**
+     * Array with loaded extensions.
+     *
+     * @var array
+     */
     protected $_loadedExtensions;
 
+    /**
+     * Array with disabled functions.
+     *
+     * @var array
+     */
     protected $_disabledFunctions;
 
     /**
@@ -26,7 +58,11 @@ class RequirementsController extends Setup_Controller_Abstract
             $status = $status ? self::REQUIREMENT_OK : self::REQUIREMENT_ERROR;
         }
 
-        $this->_requirements[$requirement] = array('status' => $status, 'value' => $value);
+        $this->_requirements[$requirement] = array(
+            'status' => $status,
+            'value' => $value,
+            'passed' => ($status != self::REQUIREMENT_ERROR),
+        );
     }
 
     /**
@@ -87,6 +123,26 @@ class RequirementsController extends Setup_Controller_Abstract
     }
 
     /**
+     * Action for retrieving update information.
+     *
+     * @return void
+     */
+    public function fetchInfoAction()
+    {
+        $curlHandle = curl_init($this->_config['url']);
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        $rawResponse = curl_exec($curlHandle);
+        $setupInfo = json_decode($rawResponse, true);
+        $_SESSION['setupInfo'] = $setupInfo;
+        $jsonArray = array();
+        foreach ($setupInfo['requirements'] as $requireKey => $requirement) {
+            $requirement['reqKey'] = $requireKey;
+            $jsonArray[] = $requirement;
+        }
+        $this->_response->setBodyJson($jsonArray);
+    }
+
+    /**
      * Action for checking the requirements.
      *
      * @return void
@@ -96,21 +152,41 @@ class RequirementsController extends Setup_Controller_Abstract
         $this->_disabledFunctions = explode(',', ini_get('disable_functions'));
         $this->_loadedExtensions = get_loaded_extensions();
 
-        $this->_addCheckResult('php_version', (version_compare(PHP_VERSION, '5.2.10') >= 0), PHP_VERSION);
+        $setupInfo = $_SESSION['setupInfo']['requirements'];
+
         $this->_addCheckResult(
-            'SAPI',
-            (PHP_SAPI == 'isapi') ? self::REQUIREMENT_WARNING : self::REQUIREMENT_OK,
-            PHP_SAPI
+            'php_version',
+            (version_compare(PHP_VERSION, $setupInfo['php_version']['value']) >= 0),
+            PHP_VERSION
         );
-        $this->_checkExtension('curl');
-        $this->_checkExtension('zip');
-        $this->_checkExtension('mysqli');
-        $this->_checkExtension('mcrypt');
-        $this->_checkExtension('tokenizer');
-        $this->_checkExtension('xmlreader', false);
-        $this->_checkExtension('zlib');
-        $this->_checkFunction('proc_open');
-        $this->_checkClass('ZipArchive');
+
+        unset($setupInfo['php_version']);
+
+        if (isset($setupInfo['sapi'])) {
+            $result = self::REQUIREMENT_OK;
+            if ((PHP_SAPI == $setupInfo['sapi']['value'])) {
+                $result = self::REQUIREMENT_WARNING;
+                if ($setupInfo['sapi']['required']) {
+                    $result = self::REQUIREMENT_ERROR;
+                }
+            }
+            $this->_addCheckResult('sapi', $result, PHP_SAPI);
+            unset($setupInfo['sapi']);
+        }
+
+        foreach ($setupInfo as $requireKey => $requirement) {
+            if ($requirement['type'] == 'extension') {
+                $this->_checkExtension($requireKey, $requirement['required']);
+            }
+
+            if ($requirement['type'] == 'function') {
+                $this->_checkFunction($requireKey, $requirement['required']);
+            }
+
+            if ($requirement['type'] == 'class') {
+                $this->_checkClass($requireKey, $requirement['required']);
+            }
+        }
 
         $this->_response->setBodyJson($this->_requirements);
     }

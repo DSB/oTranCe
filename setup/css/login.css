@@ -40,3 +40,58 @@ fieldset {
 #login a:hover {
     color:#E87B00;
 }
+#login h1 {
+    margin:60px 0 20px;
+}
+.Formbutton {
+    margin-bottom:20px;
+}
+#steps .step {
+    float:left;
+    background: url("pics/bg-buttons.gif") repeat-x scroll 0 0 transparent;
+    border:1px solid #DDDDDD;
+    color:#425D1C;
+    vertical-align: middle;
+    padding:4px 6px;
+    margin:2px;
+    width:150px;
+}
+#steps .step .status {
+    display:block;
+    width:16px;
+    height:16px;
+    float:left;
+    background-repeat:no-repeat;
+}
+ul#steps {
+    width:672px;
+    padding:0;
+    margin:0 auto 20px;
+}
+ul#steps li {
+    text-align:left;
+}
+.step .status.pending {
+    background-image: url(../images/16x16/NotOk.png);
+}
+.step .status.active {
+    background-image: url(../images/16x16/ajax-loader.gif);
+}
+.step .status.done {
+    background-image: url(../images/16x16/Apply.png);
+}
+.step .status.error {
+    background-image: url(../images/16x16/Exception.png);
+}
+h2 {
+    border-bottom:none;
+    border-top:1px solid #C7C7C7;
+    font-size:2em;
+}
+#step2, #step3, #step4 {
+    display:none;
+}
+#nextStepButton {
+    padding-left:20px;
+    display:none;
+}

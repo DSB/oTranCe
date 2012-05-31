@@ -63,6 +63,32 @@
                 });
             },
             "2":function() {
+                function downloadExtract()
+                {
+                    $.ajax({
+                        "url":"index.php?controller=download&action=download",
+                        "type":"POST",
+                        "success":function(result) {
+                            $('#downStatus').prop('src', icons[result.download ? 0 : 1]);
+                            $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
+                            if (result.download && result.extract) {
+                                $('#steps .step2 .status').removeClass('active').addClass('done');
+                                $('#nextStepButton').insertBefore('#step2 h2').show();
+                            } else {
+                                $('#steps .step2 .status').removeClass('active').addClass('error');
+                            }
+                        }
+                    });
+                }
+                $.ajax({
+                    "url":"index.php?controller=download&action=package",
+                    "type":"POST",
+                    "success":function(result) {
+                        $('#package').html(result.download);
+                        $('#extractDir').html(result.extract);
+                        downloadExtract();
+                    }
+                });
             },
             "3":function() {
 
@@ -128,7 +154,23 @@
                     * These requirements must be met.
                 </form>
             </div>
-            <div id="step2"></div>
+            <div id="step2">
+                <h2>Download &amp; extract</h2>
+                <table class="bdr small">
+                    <tr class="thead">
+                        <th>Action</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Downloading <span id="package"></span>:</td>
+                        <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="downStatus"/></td>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Extracting <span id="extractDir"></span>:</td>
+                        <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="extractStatus"/></td>
+                    </tr>
+                </table>
+            </div>
             <div id="step3"></div>
             <div id="step4"></div>
         </div>

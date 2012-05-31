@@ -1,28 +1,38 @@
 <?php
 class DownloadController extends Setup_Controller_Abstract
 {
+    public function packageAction()
+    {
+        if (!file_exists($this->_config['extractDir'])) {
+            mkdir($this->_config['extractDir'], 0775, true);
+        }
+        $extractDir = realpath($this->_config['extractDir']);
+        $setupInfo = $_SESSION['setupInfo'];
+        $this->_response->setBodyJson(
+            array(
+                'download' => $setupInfo['package'],
+                'extract' => $extractDir,
+            )
+        );
+    }
     /**
      * Controller action for downloading the OTC package.
      *
      * @return void
      */
-    public function packageAction()
+    public function downloadAction()
     {
         $log = array();
-        $log[] = "Fetching setup information from: {$this->_config['url']}";
-        $curlHandle = curl_init($this->_config['url']);
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        $setupInfo = json_decode(curl_exec($curlHandle), true);
+        $setupInfo = $_SESSION['setupInfo'];
 
         $tempFilename = tempnam(sys_get_temp_dir(), 'otc');
         $tempFile = fopen($tempFilename, 'w+');
 
-        $log[] = "Downloading: {$setupInfo['package']}";
+        $curlHandle = curl_init($setupInfo['package']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, false);
-        curl_setopt($curlHandle, CURLOPT_URL, $setupInfo['package']);
         curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
         curl_setopt($curlHandle, CURLOPT_FILE, $tempFile);
-        curl_exec($curlHandle);
+        $log['download'] = curl_exec($curlHandle);
         fclose($tempFile);
 
         $zip = new ZipArchive();
@@ -31,9 +41,7 @@ class DownloadController extends Setup_Controller_Abstract
                 mkdir($this->_config['extractDir'], 0775, true);
             }
             $extractDir = realpath($this->_config['extractDir']);
-            $extractMessage = "Extracting to: $extractDir ";
-            $extractMessage .= $zip->extractTo($extractDir) ? 'OK' : 'failed';
-            $log[] = $extractMessage;
+            $log['extract'] = $zip->extractTo($extractDir);
             $zip->close();
         }
 

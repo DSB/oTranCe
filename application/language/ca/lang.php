@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// caos30
+// caos30, DSB
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -132,7 +132,7 @@ Please retry.',
 'L_FILE' => 'File',
 'L_FILEBROWSER' => 'File browser',
 'L_FILECONTENT' => 'Content of file %s',
-'L_FILENAME' => 'File name',
+'L_FILENAME' => 'Catalan',
 'L_FILESIZE' => 'File size',
 'L_FILE_PATH' => 'File path',
 'L_FILE_TEMPLATE' => 'File template',

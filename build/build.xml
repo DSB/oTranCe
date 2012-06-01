@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="oTranCe" default="build-all" basedir="../">
 
-    <property file="${project.basedir}/build/build.properties"/>
+    <property file="${basedir}/build/build.properties"/>
 
     <fileset id="dist-files" dir="${project.builddir.temp}" defaultexcludes="true">
         <include name="application/**"/>
@@ -9,6 +9,8 @@
         <include name="modules/**"/>
         <include name="public/**"/>
         <include name="data/**"/>
+        <include name="cli/**"/>
+        <include name="docs/**"/>
     </fileset>
 
     <target name="prepare">
@@ -21,7 +23,7 @@
         <delete dir="${project.builddir.temp}"/>
     </target>
 
-    <target name="prepare-dist-pachaging">
+    <target name="prepare-dist-packaging">
         <copy todir="${project.builddir.temp}">
             <fileset dir="${project.basedir}" defaultexcludes="true">
                 <include name="application/**"/>
@@ -29,44 +31,49 @@
                 <include name="modules/**"/>
                 <include name="public/**"/>
                 <include name="data/**"/>
+                <include name="cli/**"/>
+                <include name="docs/**"/>
                 <exclude name="application/configs/config.ini"/>
             </fileset>
         </copy>
         <move file="${project.builddir.temp}/application/configs/config.dist.ini" tofile="${project.builddir.temp}/application/configs/config.ini"/>
     </target>
 
-    <target name="build-dist-packages" depends="prepare-dist-pachaging">
-        <if>
-            <istrue value="${dist.archives.zip}"/>
-            <then>
-                <echo message="Creating ZIP-Archive for distribution."/>
-                <delete file="${dist.archives.basename}.zip"/>
-                <zip destfile="${dist.archives.basename}.zip" includeemptydirs="true">
-                    <fileset refid="dist-files"/>
-                </zip>
-            </then>
-        </if>
-        <if>
-            <istrue value="${dist.archives.tarGz}"/>
-            <then>
-                <delete file="${dist.archives.basename}.tar.gz"/>
-                <echo message="Creating GZipped-TAR-Archive for distribution."/>
-                <tar destFile="${dist.archives.basename}.tar.gz" compression="gzip" includeemptydirs="true">
-                    <fileset refid="dist-files"/>
-                </tar>
-            </then>
-        </if>
-        <if>
-            <istrue value="${dist.archives.tarBz2}"/>
-            <then>
-                <echo message="Creating BZipped-TAR-Archive for distribution."/>
-                <delete file="${dist.archives.basename}.tar.bz2"/>
-                <tar destFile="${dist.archives.basename}.tar.bz2" compression="bzip2" includeemptydirs="true">
-                    <fileset refid="dist-files"/>
-                </tar>
-            </then>
-        </if>
+    <target name="build-zip" depends="prepare-dist-packaging" if="dist.archives.zip">
+        <echo message="Creating ZIP-Archive for distribution."/>
+        <delete file="${dist.archives.basename}.zip"/>
+        <zip destfile="${dist.archives.basename}.zip">
+            <fileset refid="dist-files"/>
+        </zip>
     </target>
+
+    <target name="build-tarGz" depends="prepare-dist-packaging" if="dist.archives.tarGz">
+        <delete file="${dist.archives.basename}.tar.gz"/>
+        <echo message="Creating GZipped-TAR-Archive for distribution."/>
+        <tar destFile="${dist.archives.basename}.tar.gz" compression="gzip">
+            <fileset refid="dist-files"/>
+        </tar>
+    </target>
+
+    <target name="build-tarBz2" depends="prepare-dist-packaging" if="dist.archives.tarBz2">
+        <echo message="Creating BZipped-TAR-Archive for distribution."/>
+        <delete file="${dist.archives.basename}.tar.bz2"/>
+        <tar destFile="${dist.archives.basename}.tar.bz2" compression="bzip2">
+            <fileset refid="dist-files"/>
+        </tar>
+    </target>
+
+    <target name="build-setup" depends="prepare">
+        <echo message="Creating setup ZIP-Archive."/>
+        <delete file="${dist.archives.basename}-setup.zip"/>
+        <zip destfile="${dist.archives.basename}-setup.zip">
+            <fileset dir="${basedir}" defaultexcludes="true">
+                <include name="setup/**"/>
+                <exclude name="setup/temp/**"/>
+            </fileset>
+        </zip>
+    </target>
+<!--
     <target name="run-tests">
         <phpunit printsummary="true" bootstrap="${project.testsdir}/bootstrap.php" haltonerror="true" haltonfailure="true" haltonincomplete="true" haltonskipped="true">
             <batchtest>
@@ -76,6 +83,7 @@
             </batchtest>
         </phpunit>
     </target>
+-->
 
-    <target name="build-all" depends="prepare,run-tests,build-dist-packages,cleanup"/>
+    <target name="build-all" depends="prepare,build-zip,build-setup,cleanup"/>
 </project>

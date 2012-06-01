@@ -37,10 +37,11 @@
                                 $('#r' + k).html(v.value);
                             }
                             if (passed) {
-                                $('#steps .step1 .status').removeClass('active').addClass('done');
+                                $('#steps .step1 .status').removeClass('active error done pending').addClass('done');
                                 $('#nextStepButton').show();
                             } else {
-                                $('#steps .step1 .status').removeClass('active').addClass('error');
+                                $('#steps .step1 .status').removeClass('active error done pending').addClass('error');
+                                $('#nextStepButton').hide();
                             }
                         }
                     });
@@ -72,10 +73,11 @@
                             $('#downStatus').prop('src', icons[result.download ? 0 : 1]);
                             $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
                             if (result.download && result.extract) {
-                                $('#steps .step2 .status').removeClass('active').addClass('done');
+                                $('#steps .step2 .status').removeClass('active error done pending').addClass('done');
                                 $('#nextStepButton').insertBefore('#step2 h2').show();
                             } else {
-                                $('#steps .step2 .status').removeClass('active').addClass('error');
+                                $('#steps .step2 .status').removeClass('active error done pending').addClass('error');
+                                $('#nextStepButton').hide();
                             }
                         }
                     });
@@ -91,10 +93,55 @@
                 });
             },
             "3":function() {
-
+                $('#mysqlSettings').bind('submit', function() {
+                    $.ajax({
+                        "url":$(this).prop('action'),
+                        "type":$(this).prop('method'),
+                        "data":$(this).serializeArray(),
+                        "success":function(result) {
+                            if (result.connect) {
+                                $('#steps .step3 .status').removeClass('active error done pending').addClass('done');
+                                $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
+                                $('#nextStepButton').insertBefore('#step3 h2').show();
+                            } else {
+                                $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
+                                $('#mysqlNotify').removeClass('ok error').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
+                                $('#nextStepButton').hide();
+                            }
+                        }
+                    });
+                });
             },
             "4":function() {
-
+                $.ajax({
+                    "url":"index.php?controller=mysql&action=createTables",
+                    "type":"POST",
+                    "success":function(result) {
+                        if (result.success) {
+                            $('#steps .step4 .status').removeClass('active error done pending').addClass('done');
+                            $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
+                            $('#nextStepButton').insertBefore('#step4 h2').show();
+                        } else {
+                            $('#steps .step4 .status').removeClass('active error done pending').addClass('error');
+                            var message = 'Error while creating tables.<br/>' + result.number + ': ' + result.message;
+                            message += '<br/>Line ' + result.line + ': ' + result.query;
+                            $('#mysqlNotify').removeClass('ok error').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                            $('#nextStepButton').hide();
+                        }
+                    }
+                });
+            },
+            "5":function() {
+                $('#projectSettings').bind('submit', function() {
+                    $.ajax({
+                        "url":$(this).prop('action'),
+                        "type":$(this).prop('method'),
+                        "data":$(this).serializeArray(),
+                        "success":function(result) {
+                            console.debug(result);
+                        }
+                    });
+                });
             }
         };
 
@@ -135,7 +182,8 @@
                 <li class="step step1"><span class="status active"></span> Requirements check</li>
                 <li class="step step2"><span class="status pending"></span> Download &amp; extract</li>
                 <li class="step step3"><span class="status pending"></span> MySQL connection</li>
-                <li class="step step4"><span class="status pending"></span> oTranCe settings</li>
+                <li class="step step4"><span class="status pending"></span> Database tables</li>
+                <li class="step step5"><span class="status pending"></span> Project settings</li>
                 <li class="clear"></li>
             </ul>
             <div class="clear"></div>
@@ -171,8 +219,72 @@
                     </tr>
                 </table>
             </div>
-            <div id="step3"></div>
-            <div id="step4"></div>
+            <div id="step3">
+                <h2>MySQL settings</h2>
+                <form id="mysqlSettings" action="index.php?controller=mysql&action=check" method="post" onsubmit="return false;">
+                    <table class="bdr small">
+                        <tr>
+                            <th><label for="dbHost">Server host:</label></th>
+                            <td><input type="text" class="text" name="mysql[host]" id="dbHost" value="localhost"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="dbPort">Server port:</label></th>
+                            <td><input type="text" class="text" name="mysql[port]" id="dbPort" maxlength="5" size="5" value="3306"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="dbSocket">Server socket:</label></th>
+                            <td><input type="text" class="text" name="mysql[socket]" id="dbSocket"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="dbUser">Server user:</label></th>
+                            <td><input type="text" class="text" name="mysql[user]" id="dbUser"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="dbPass">Server password:</label></th>
+                            <td><input type="password" class="text" name="mysql[pass]" id="dbPass"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="dbName">Server database:</label></th>
+                            <td><input type="text" class="text" name="mysql[db]" id="dbName" value="otrance"/></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="mysqlNotify" class="notification-bar"></div>
+            </div>
+            <div id="step4">
+                <h2>Creating database tables</h2>
+            </div>
+            <div id="step5">
+                <h2>Project settings</h2>
+                <form id="projectSettings" action="index.php?controller=project&action=save" method="post" onsubmit="return false;">
+                    <table class="bdr small">
+                        <tr>
+                            <th><label for="projectName">Project name:</label></th>
+                            <td><input type="text" class="text" name="project[name]" id="projectName"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="projectUrl">Project URL:</label></th>
+                            <td><input type="text" class="text" name="project[url]" id="projectUrl"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="adminLogin">Admin login:</label></th>
+                            <td><input type="text" class="text" name="admin[login]" id="adminLogin"/></td>
+                        </tr>
+                        <tr>
+                            <th><label for="adminPass">Admin password:</label></th>
+                            <td><input type="text" class="text" name="admin[pass]" id="adminPass"/></td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
         </div>
     </div>
     <div class="spacer"></div>

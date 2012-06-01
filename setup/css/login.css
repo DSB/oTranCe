@@ -64,7 +64,7 @@ fieldset {
     background-repeat:no-repeat;
 }
 ul#steps {
-    width:672px;
+    width:840px;
     padding:0;
     margin:0 auto 20px;
 }
@@ -88,7 +88,7 @@ h2 {
     border-top:1px solid #C7C7C7;
     font-size:2em;
 }
-#step2, #step3, #step4 {
+#step2, #step3, #step4, #step5 {
     display:none;
 }
 #nextStepButton {

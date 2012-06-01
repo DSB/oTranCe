@@ -39,9 +39,10 @@ class ProjectController extends Setup_Controller_Abstract
             $mysql['socket']
         );
 
+        $createAdmin = true;
         $stmt = $mysqli->prepare('INSERT INTO `users` (`username`, `password`, `active`) VALUES (?, MD5(?), 1)');
         $stmt->bind_param("ss", $adminInfo['login'], $adminInfo['pass']);
-        $stmt->execute();
+        $createAdmin = $createAdmin && $stmt->execute();
 
         $stmt->close();
 
@@ -72,20 +73,28 @@ class ProjectController extends Setup_Controller_Abstract
             ($userId, 'showImport', 1),
             ($userId, 'showLog', 1),
             ($userId, 'showStatistics', 1)";
-        $mysqli->query($rightsSql);
+        $createAdmin = $createAdmin && $mysqli->query($rightsSql);
 
         include_once $this->_config['extractDir'] . '/library/Msd/Exception.php';
         include_once $this->_config['extractDir'] . '/library/Msd/Ini.php';
 
+        $saveConfig = true;
         $ini = new Msd_Ini();
         $ini->setIniData($configIni);
-        $ini->saveFile($this->_config['extractDir'] . '/application/configs/config.ini');
+        $saveConfig = $saveConfig && $ini->saveFile($this->_config['extractDir'] . '/application/configs/config.ini');
 
-        copy(
+        $saveConfig = $saveConfig && copy(
             $this->_config['extractDir'] . '/public/.htaccess.dist',
             $this->_config['extractDir'] . '/public/.htaccess'
         );
 
-        $this->_response->setBodyJson($configIni);
+        $saveConfig = $saveConfig && (file_put_contents(APPLICATION_PATH . '/.htaccess', 'Deny From All') !== false);
+
+        $this->_response->setBodyJson(
+            array(
+                'createAdmin' => $createAdmin,
+                'saveConfig' => $saveConfig,
+            )
+        );
     }
 }

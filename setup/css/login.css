@@ -95,3 +95,6 @@ h2 {
     padding-left:20px;
     display:none;
 }
+#setupFinished {
+    display:none;
+}

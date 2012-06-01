@@ -138,7 +138,9 @@
                         "type":$(this).prop('method'),
                         "data":$(this).serializeArray(),
                         "success":function(result) {
-                            console.debug(result);
+                            if (result.createAdmin && result.saveConfig) {
+                                $('#setupFinished').show();
+                            }
                         }
                     });
                 });
@@ -260,6 +262,10 @@
             </div>
             <div id="step5">
                 <h2>Project settings</h2>
+                <div id="setupFinished">
+                    <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
+                    <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/20x20/Forward.png" alt=""/></a>
+                </div>
                 <form id="projectSettings" action="index.php?controller=project&action=save" method="post" onsubmit="return false;">
                     <table class="bdr small">
                         <tr>
@@ -276,7 +282,7 @@
                         </tr>
                         <tr>
                             <th><label for="adminPass">Admin password:</label></th>
-                            <td><input type="text" class="text" name="admin[pass]" id="adminPass"/></td>
+                            <td><input type="password" class="text" name="admin[pass]" id="adminPass"/></td>
                         </tr>
                         <tr>
                             <th></th>

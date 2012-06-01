@@ -112,7 +112,8 @@
     </div>
 </div>
 
-<?php
+<div id="logout">
+    <?php
 if ($this->controller != 'settings') {
     echo $this->partial(
         'helper/switch-language-box.phtml',
@@ -125,7 +126,6 @@ if ($this->controller != 'settings') {
     );
 }
 ?>
-<div id="logout">
     <p class="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_LOGGED_IN, 16);?></p>
     <p id="loggedin-user">
         <strong><?php echo $this->getUsername();?></strong> |

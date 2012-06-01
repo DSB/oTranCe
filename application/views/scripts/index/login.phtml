@@ -1,4 +1,6 @@
-<?php $this->jQuery()->addOnLoad("$('#user').focus();");
+<?php $this->jQuery()->addOnLoad("$('#user').focus();");?>
+<div id="logout">
+<?php
 echo $this->partial(
     'helper/switch-language-box.phtml',
     array(
@@ -9,6 +11,7 @@ echo $this->partial(
     )
 );
 ?>
+</div>
 <div id="login">
     <h1>
         <br /><br />Translation-Center: <?php echo $this->lang->L_LOGIN;?>

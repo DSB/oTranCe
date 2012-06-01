@@ -261,7 +261,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
 ?>
 </table>
 
-<p style="margin:12px 0 0 0">
+<div class="top-margin">
 <?php
     echo $this->partial('entries/index/browse-bar.phtml', array(
             'user'              => $this->user,
@@ -273,7 +273,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
         )
     );
 ?>
-</p>
+</div>
 
 <div id="confirmDeleteVar" style="display:none"></div>
 <script type="text/javascript">

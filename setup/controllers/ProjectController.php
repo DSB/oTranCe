@@ -81,6 +81,11 @@ class ProjectController extends Setup_Controller_Abstract
         $ini->setIniData($configIni);
         $ini->saveFile($this->_config['extractDir'] . '/application/configs/config.ini');
 
+        copy(
+            $this->_config['extractDir'] . '/public/.htaccess.dist',
+            $this->_config['extractDir'] . '/public/.htaccess'
+        );
+
         $this->_response->setBodyJson($configIni);
     }
 }

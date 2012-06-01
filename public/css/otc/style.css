@@ -825,9 +825,9 @@ pre.xdebug-var-dump {
 }
 
 #switchLanguageBox {
-    position:fixed;
-    top:10px;
-    right:186px;
+    position:relative;
+    right:10px;
+    float:left;
     z-index: 445;
 }
 

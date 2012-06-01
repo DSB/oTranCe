@@ -11,7 +11,7 @@
 .ui-selectmenu-menu li.ui-state-disabled a, .ui-state-disabled { cursor: default; }
 .ui-selectmenu-menu li.ui-selectmenu-hasIcon a,
 .ui-selectmenu-hasIcon .ui-selectmenu-status { padding-left:30px; position: relative; margin-left: 6px; }
-.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left: 0; }
+.ui-selectmenu-menu li .ui-icon, .ui-selectmenu-status .ui-icon { position: absolute; top: 1em; margin-top: -8px; left:0; }
 .ui-selectmenu-status { line-height: 1.4em;}
 .ui-selectmenu-menu li span,.ui-selectmenu-status span { display:block; margin-bottom: .2em; }
 .ui-selectmenu-menu li .ui-selectmenu-item-header { font-weight: normal; }
@@ -31,6 +31,6 @@
     background-clip: border-box;
     background-color: transparent;
     background-repeat: no-repeat;
-    background-size: 25px 15px;
-    width:20px;
+    background-size: 25px;
+    width:30px;
 }

@@ -89,7 +89,7 @@ class EntriesController extends Zend_Controller_Action
             10,
             200,
             10,
-            $this->_dynamicConfig->getParam('entries.recordsPerPage')
+            $this->_dynamicConfig->getParam('entries.recordsPerPage', 10)
         );
         $this->setLanguages();
         $filterLanguageArray = $this->_languagesModel->getAllLanguages();
@@ -384,16 +384,18 @@ class EntriesController extends Zend_Controller_Action
      */
     private function _initParams()
     {
+        // 'name' => array(numeric true|false, default-value)
         $params = array(
-            'filterValues'       => false,
-            'filterKeys'         => false,
-            'offset'             => true,
-            'recordsPerPage'     => true,
-            'getUntranslated'    => true,
-            'fileTemplateFilter' => false
+            'filterValues'       => array(false, ''),
+            'filterKeys'         => array(false, ''),
+            'offset'             => array(true, 0),
+            'recordsPerPage'     => array(true, 10),
+            'getUntranslated'    => array(true, 0),
+            'fileTemplateFilter' => array(false, '')
         );
-        foreach ($params as $name => $mode) {
-            $this->_mergeParam($name, $mode);
+        foreach ($params as $name => $values) {
+            list($mode, $default) = $values;
+            $this->_mergeParam($name, $mode, $default);
         }
     }
 
@@ -405,13 +407,13 @@ class EntriesController extends Zend_Controller_Action
      *
      * @return int|mixed
      */
-    private function _mergeParam($name, $numeric = false)
+    private function _mergeParam($name, $numeric = false, $default)
     {
         $value = $this->_request->getParam($name, null);
         if ($value === null) {
             $value = $this->_dynamicConfig->getParam('entries.' . $name, null);
             if ($value === null) {
-                $value = $this->_userModel->loadSetting($name, '');
+                $value = $this->_userModel->loadSetting($name, $default);
             }
         };
 

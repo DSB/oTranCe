@@ -430,16 +430,16 @@ class UserTest extends ControllerTestCase
         $res = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
-        $expected = '\'A\' is less than 2 characters long';
-        $this->assertEquals($expected, $messages['username']['stringLengthTooShort']);
+        $expected = 'The provided input is too short.';
+        $this->assertTrue(in_array($expected, $messages['username']));
 
         // test case - name too long
-        $userData['username'] = str_repeat('A', 51);
+        $userData['username'] = str_repeat('A', 151);
         $res = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
-        $expected = '\'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\' is more than 50 characters long';
-        $this->assertEquals($expected, $messages['username']['stringLengthTooLong']);
+        $expected = 'The provided input is too long.';
+        $this->assertTrue(in_array($expected, $messages['username']));
 
         // test case - passwords are unequal
         $userData['username'] = 'Karl';
@@ -449,8 +449,8 @@ class UserTest extends ControllerTestCase
         $res = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
-        $expected = 'The two given tokens do not match';
-        $this->assertEquals($expected, $messages['pass1']['notSame']);
+        $expected = 'The two given values are not equal.';
+        $this->assertTrue(in_array($expected, $messages['pass1']));
 
         // test case - password is empty
         $userData['username'] = 'Karl';
@@ -458,8 +458,8 @@ class UserTest extends ControllerTestCase
         $res = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
-        $expected = 'Value is required and can\'t be empty';
-        $this->assertEquals($expected, $messages['pass1']['isEmpty']);
+        $expected = 'Value is required and can\'t be empty.';
+        $this->assertTrue(in_array($expected, $messages['pass1']));
 
         // test case - input is valid
         $userData['username'] = 'Karl';

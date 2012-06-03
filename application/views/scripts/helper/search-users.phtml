@@ -6,7 +6,7 @@ $addUserUrl = $this->baseUrl() . '/admin_users/edit/id/0';
     <?php echo $this->lang->L_FILTER_SEARCH;?>:
     <input type="text" class="text" id="filterUser" name="filterUser" value="<?php echo $this->escape($this->filterUser);?>" />
     <button type="submit" class="Formbutton ui-corner-all" value="Search" onclick="resetOffset();">
-        <?php echo $this->getIcon('search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
+        <?php echo $this->getIcon('Search', '', 16);?> <?php echo $this->lang->L_SEARCH;?>
     </button>
     <button type="submit" class="Formbutton ui-corner-all" onclick="$('#filterUser').val('');resetOffset();">
         <?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_RESET;?>

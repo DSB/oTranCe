@@ -138,6 +138,40 @@ class RequirementsController extends Setup_Controller_Abstract
     }
 
     /**
+     * Checks the given filename for write capability.
+     *
+     * @param string $id       ID for the check.
+     * @param string $filename Filename to check.
+     * @param bool   $required This check is required to continue.
+     *
+     * @return void
+     */
+    protected function _checkWritable($id, $filename, $required = true)
+    {
+        clearstatcache();
+        if (!file_exists($filename)) {
+            mkdir($filename, 0777, true);
+        }
+
+        clearstatcache();
+        $checkResult = file_exists($filename);
+        if (!is_writable($filename)) {
+            chmod($filename, 0777);
+        }
+
+        clearstatcache();
+        $checkResult = $checkResult && is_writable($filename);
+        $status = self::REQUIREMENT_OK;
+        $value = 'writable';
+        if (!$checkResult) {
+            $status = $required ? self::REQUIREMENT_ERROR : self::REQUIREMENT_WARNING;
+            $value = 'not writable';
+        }
+
+        $this->_addCheckResult($id, $status, $value);
+    }
+
+    /**
      * Action for retrieving update information.
      *
      * @return void
@@ -200,6 +234,10 @@ class RequirementsController extends Setup_Controller_Abstract
 
             if ($requirement['type'] == 'class') {
                 $this->_checkClass($requireKey, $requirement['required']);
+            }
+
+            if ($requirement['type'] == 'writable') {
+                $this->_checkWritable($requireKey, $requirement['value'], $requirement['required']);
             }
         }
 

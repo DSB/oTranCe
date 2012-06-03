@@ -38,7 +38,7 @@
                             }
                             if (passed) {
                                 $('#steps .step1 .status').removeClass('active error done pending').addClass('done');
-                                $('#nextStepButton').show();
+                                $('#nextStepButton').css('display', 'inline-block').focus();
                             } else {
                                 $('#steps .step1 .status').removeClass('active error done pending').addClass('error');
                                 $('#nextStepButton').hide();
@@ -74,7 +74,7 @@
                             $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
                             if (result.download && result.extract) {
                                 $('#steps .step2 .status').removeClass('active error done pending').addClass('done');
-                                $('#nextStepButton').insertBefore('#step2 h2').show();
+                                $('#nextStepButton').insertBefore('#step2 h2').css('display', 'inline-block').focus();
                             } else {
                                 $('#steps .step2 .status').removeClass('active error done pending').addClass('error');
                                 $('#nextStepButton').hide();
@@ -93,6 +93,7 @@
                 });
             },
             "3":function() {
+                $('#dbHost').focus();
                 $('#mysqlSettings').bind('submit', function() {
                     $.ajax({
                         "url":$(this).prop('action'),
@@ -102,7 +103,7 @@
                             if (result.connect) {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('done');
                                 $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
-                                $('#nextStepButton').insertBefore('#step3 h2').show();
+                                $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
                             } else {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
                                 $('#mysqlNotify').removeClass('ok error').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
@@ -120,7 +121,7 @@
                         if (result.success) {
                             $('#steps .step4 .status').removeClass('active error done pending').addClass('done');
                             $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
-                            $('#nextStepButton').insertBefore('#step4 h2').show();
+                            $('#nextStepButton').insertBefore('#step4 h2').css('display', 'inline-block').focus();
                         } else {
                             $('#steps .step4 .status').removeClass('active error done pending').addClass('error');
                             var message = 'Error while creating tables.<br/>' + result.number + ': ' + result.message;
@@ -132,17 +133,27 @@
                 });
             },
             "5":function() {
+                $('#projectName').focus();
                 $('#projectSettings').bind('submit', function() {
-                    $.ajax({
-                        "url":$(this).prop('action'),
-                        "type":$(this).prop('method'),
-                        "data":$(this).serializeArray(),
-                        "success":function(result) {
-                            if (result.createAdmin && result.saveConfig) {
-                                $('#setupFinished').show();
+                    if ($('#adminPass').val() == $('#adminPass2').val()) {
+                        $.ajax({
+                            "url":$(this).prop('action'),
+                            "type":$(this).prop('method'),
+                            "data":$(this).serializeArray(),
+                            "success":function(result) {
+                                if (result.createAdmin && result.saveConfig) {
+                                    $('#steps .step5 .status').removeClass('active error done pending').addClass('done');
+                                    $('#setupFinished').show();
+                                    $('#setupFinished a.Formbutton').focus();
+                                    $('#step' + currentStep).hide();
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        var message = "Admin password must be equal with it's confirmation.";
+                        $('#mysqlNotify').removeClass('ok error').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                    }
+                    return false;
                 });
             }
         };
@@ -212,11 +223,11 @@
                         <th>Status</th>
                     </tr>
                     <tr>
-                        <td class="vmiddle">Downloading <span id="package"></span>:</td>
+                        <td class="vmiddle">Downloading <span id="package"></span></td>
                         <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="downStatus"/></td>
                     </tr>
                     <tr>
-                        <td class="vmiddle">Extracting <span id="extractDir"></span>:</td>
+                        <td class="vmiddle">Extracting to <span id="extractDir"></span></td>
                         <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="extractStatus"/></td>
                     </tr>
                 </table>
@@ -255,17 +266,12 @@
                         </tr>
                     </table>
                 </form>
-                <div id="mysqlNotify" class="notification-bar"></div>
             </div>
             <div id="step4">
                 <h2>Creating database tables</h2>
             </div>
             <div id="step5">
                 <h2>Project settings</h2>
-                <div id="setupFinished">
-                    <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
-                    <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/20x20/Forward.png" alt=""/></a>
-                </div>
                 <form id="projectSettings" action="index.php?controller=project&action=save" method="post" onsubmit="return false;">
                     <table class="bdr small">
                         <tr>
@@ -285,12 +291,22 @@
                             <td><input type="password" class="text" name="admin[pass]" id="adminPass"/></td>
                         </tr>
                         <tr>
+                            <th><label for="adminPass2">... confirm:</label></th>
+                            <td><input type="password" class="text" name="admin[pass2]" id="adminPass2"/></td>
+                        </tr>
+                        <tr>
                             <th></th>
                             <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
                         </tr>
                     </table>
                 </form>
             </div>
+            <div id="setupFinished">
+                <h2>Setup finished</h2>
+                <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
+                <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/20x20/Forward.png" alt=""/></a>
+            </div>
+            <div id="mysqlNotify" class="notification-bar"></div>
         </div>
     </div>
     <div class="spacer"></div>

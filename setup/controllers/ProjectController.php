@@ -1,6 +1,28 @@
 <?php
+/**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Controller to manage project settings.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ */
 class ProjectController extends Setup_Controller_Abstract
 {
+    /**
+     * Generates a new key for the cookie encryption.
+     *
+     * @param int $length Length of the key.
+     *
+     * @return string
+     */
     protected function _generateEncryptionKey($length = 32)
     {
         $pool = array_merge(
@@ -18,6 +40,11 @@ class ProjectController extends Setup_Controller_Abstract
         return $key;
     }
 
+    /**
+     * Controller action for saving the whole configuration and creating the administrator user.
+     *
+     * @return void
+     */
     public function saveAction()
     {
         $projectInfo = $this->_request->getParam('project');

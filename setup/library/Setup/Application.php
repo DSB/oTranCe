@@ -1,4 +1,19 @@
 <?php
+/**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Setup application class for managing resquests and responses.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ */
 class Setup_Application
 {
     /**

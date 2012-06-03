@@ -1,6 +1,26 @@
 <?php
+/**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Controller for downloading the latest oTranCe release.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive
+ */
 class DownloadController extends Setup_Controller_Abstract
 {
+    /**
+     * Controller action to retrieve the information about the download package.
+     *
+     * @return void
+     */
     public function packageAction()
     {
         if (!file_exists($this->_config['extractDir'])) {
@@ -16,7 +36,7 @@ class DownloadController extends Setup_Controller_Abstract
         );
     }
     /**
-     * Controller action for downloading the OTC package.
+     * Controller action for downloading and extracting the OTC package.
      *
      * @return void
      */

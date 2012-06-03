@@ -103,7 +103,6 @@ class SettingsController extends Msd_Controller_Action
 
         $languageConfig->loadLanguage($interfaceLanguage);
         $this->view->lang = $languageConfig;
-        echo $interfaceLanguage;
         if (isset($vcsUser)) {
             $this->view->vcsUser = $vcsUser;
         }

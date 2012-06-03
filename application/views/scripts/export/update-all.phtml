@@ -1,8 +1,15 @@
 <div id="headline">
     <h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
 </div>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Back','', 16) . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>
 <?php
-$exportError = false;
+if ($this->exportOk) {
+    $projectConfig = $this->config->getParam('project', 0);
+    if ($projectConfig['vcsActivated'] > 0) { ?>
+    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
+    <?php
+    }
+}
 foreach ($this->languages as $lang) {
     $cycle = $this->cycle(array('row-even', 'row-odd'));
     ?>
@@ -23,14 +30,15 @@ foreach ($this->languages as $lang) {
     ?>
     </table>
 <?php
-}
+} ?>
+<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Back','', 16) . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>
+<?php
 if ($this->exportOk) {
     $projectConfig = $this->config->getParam('project', 0);
     if ($projectConfig['vcsActivated'] > 0) { ?>
-        <br/><a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
-        <?php
+    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
+    <?php
     }
 }
 ?>
-<br />
-<a href="<?php echo $this->baseUrl();?>/export/index/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('ArrowLeft','') . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?> </a>
+<div class="spacer"></div>

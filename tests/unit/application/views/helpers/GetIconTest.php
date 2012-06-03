@@ -35,10 +35,10 @@ class GetIconTest extends PHPUnit_Framework_TestCase
 
     public function testGetIconInfoSize20()
     {
-        $expected = '<img src="/css/otc/icons/20x20/Info.png" '
+        $expected = '<img src="/css/otc/icons/20x20/Admin.png" '
             . 'alt="" title=""/>';
         $viewHelper = new Msd_View_Helper_GetIcon();
-        $res = $viewHelper->getIcon('Info', '', 20);
+        $res = $viewHelper->getIcon('Admin', '', 20);
         $this->assertEquals($expected, $res);
     }
 

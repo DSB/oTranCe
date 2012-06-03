@@ -64,7 +64,7 @@ class Application_Form_Login extends Zend_Form
             'button',
             'send',
             array(
-                'class' => 'Formbutton',
+                'class' => 'Formbutton ui-corner-all',
                 'label' => '',
                 'value' => $translator->_('L_LOGIN'),
                 'decorators' => array('Default'),

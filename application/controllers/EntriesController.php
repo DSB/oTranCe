@@ -404,10 +404,11 @@ class EntriesController extends Zend_Controller_Action
      *
      * @param string $name    Name of parameter to get
      * @param bool   $numeric True if value needs to be an integer
+     * @param string $default The default value if setting can't be get
      *
      * @return int|mixed
      */
-    private function _mergeParam($name, $numeric = false, $default)
+    private function _mergeParam($name, $numeric = false, $default = '')
     {
         $value = $this->_request->getParam($name, null);
         if ($value === null) {

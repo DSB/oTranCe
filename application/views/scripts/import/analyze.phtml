@@ -116,21 +116,23 @@ function doImport() {
                 'fileTemplate':<?php echo $this->fileTemplate;?>,
                 'keys': keysToProcess
             },
+            dataType: 'json',
             'success':function(data) {
-                try {
-                    var result = $.parseJSON(data);
-                    $.each(result, function () {
+                if (data.length > 0) {
+                    lastKey = '';
+                    $.each(data, function () {
                         setState(this.key,this.result);
+                        lastKey = this.key;
                     });
-                    scrollToId(result[(result.length -1)].key);
+                    scrollToId(lastKey);
                     calcDone();
                     doImport();
-                } catch(error) {
+                } else {
                     showError(data);
                 }
             },
             error:function(error) {
-                showError(error);
+                showError(error.responseText);
             }
         });
     } else {

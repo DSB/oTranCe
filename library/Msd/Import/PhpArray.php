@@ -241,11 +241,11 @@ class Msd_Import_PhpArray implements Msd_Import_Interface
     /**
      * Get rendered info view
      *
-     * @param Zend_View $view View instance
+     * @param Zend_View_Interface $view View instance
      *
      * @return string
      */
-    public function getInfo(Zend_View $view)
+    public function getInfo(Zend_View_Interface $view)
     {
         //$viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         //$view = $viewRenderer->view;

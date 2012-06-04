@@ -55,7 +55,7 @@ class Module_Import_Titanium implements Msd_Import_Interface
     }
 
 
-    public function getInfo(Zend_View $view)
+    public function getInfo(Zend_View_Interface $view)
     {
         return $view->render('titanium.phtml');
     }

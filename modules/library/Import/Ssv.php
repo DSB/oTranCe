@@ -26,11 +26,11 @@ class Module_Import_Ssv extends Module_Import_Csv
     /**
      * Get rendered info view
      *
-     * @param Zend_View $view View instance
+     * @param Zend_View_Interface $view View instance
      *
      * @return string
      */
-    public function getInfo(Zend_View $view)
+    public function getInfo(Zend_View_Interface $view)
     {
         return $view->render('ssv.phtml');
     }

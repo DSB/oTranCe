@@ -119,6 +119,7 @@ class AjaxController extends Zend_Controller_Action
         $fallbackData = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
         $overallResult = true;
         foreach ($keys as $key) {
+            $key = substr($key,4);
             $saveKey = true;
             if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
                 // value is the same as in the fallback language

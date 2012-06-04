@@ -23,7 +23,7 @@ $i=1;
 foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?> small">
         <td class="importLineHeight">
-            <span id="<?php echo $key;?>" class="import"></span>
+            <span id="OtC-<?php echo $key;?>" class="import"></span>
         </td>
         <td class="right"><?php echo $this->numberFormat($i);?>.</td>
         <td><?php echo $this->out($key);?></td>
@@ -119,12 +119,12 @@ function doImport() {
             'dataType':'json',
             'success':function(data) {
                 if (data.length > 0) {
-                    lastKey = '';
+                    var lastKey = '';
                     $.each(data, function () {
-                        setState(this.key,this.result);
+                        setState('OtC-' + this.key,this.result);
                         lastKey = this.key;
                     });
-                    scrollToId(lastKey);
+                    scrollToId('OtC-' + lastKey);
                     calcDone();
                     doImport();
                 } else {
@@ -170,6 +170,7 @@ function setState(id, state) {
             increase('errors');
             break;
     }
+
     $('#' + id).html(content);
     decrease('toImport');
     increase('processed');

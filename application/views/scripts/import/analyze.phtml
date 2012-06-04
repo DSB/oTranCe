@@ -116,7 +116,7 @@ function doImport() {
                 'fileTemplate':<?php echo $this->fileTemplate;?>,
                 'keys': keysToProcess
             },
-            dataType: 'json',
+            'dataType':'json',
             'success':function(data) {
                 if (data.length > 0) {
                     lastKey = '';

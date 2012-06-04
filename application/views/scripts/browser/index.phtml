@@ -55,6 +55,7 @@ function loadFileContent(filename)
         'data':{
             'filename':filename
         },
+        'dataType':'html',
         success:function(data) {
             $('#fileContent').html(data);
             setPageActive();

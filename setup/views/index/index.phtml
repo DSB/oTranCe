@@ -14,9 +14,9 @@
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
     <script type="text/javascript">
         var icons = {
-            "0":"images/20x20/Apply.png",
-            "1":"images/20x20/Exception.png",
-            "2":"images/20x20/Remove.png"
+            "0":"images/16x16/Apply.png",
+            "1":"images/16x16/Exception.png",
+            "2":"images/16x16/NotOk.png"
         };
         var currentStep = 0;
 
@@ -182,7 +182,7 @@
             <td class="vmiddle">${expected}</td>
             <td class="vmiddle">=&gt;</td>
             <td class="vmiddle" id="r${reqKey}" style="width:110px;"></td>
-            <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="si${reqKey}"/></td>
+            <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="si${reqKey}"/></td>
         </tr>
     </script>
 </head>
@@ -201,7 +201,7 @@
             </ul>
             <div class="clear"></div>
             <div id="step1">
-                <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/20x20/Forward.png" alt=""/></a>
+                <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
                 <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post" onsubmit="return false;">
                     <h2>Requirements check</h2>
                     <table class="bdr small">
@@ -224,11 +224,11 @@
                     </tr>
                     <tr>
                         <td class="vmiddle">Downloading <span id="package"></span></td>
-                        <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="downStatus"/></td>
+                        <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="downStatus"/></td>
                     </tr>
                     <tr>
                         <td class="vmiddle">Extracting to <span id="extractDir"></span></td>
-                        <td class="vmiddle"><img src="images/20x20/Help.png" alt="" id="extractStatus"/></td>
+                        <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="extractStatus"/></td>
                     </tr>
                 </table>
             </div>
@@ -304,7 +304,7 @@
             <div id="setupFinished">
                 <h2>Setup finished</h2>
                 <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
-                <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/20x20/Forward.png" alt=""/></a>
+                <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
             </div>
             <div id="mysqlNotify" class="notification-bar"></div>
         </div>

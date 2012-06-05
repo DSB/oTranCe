@@ -329,10 +329,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getRowCount()
     {
-        if ($this->_foundRows === null) {
-            $this->_foundRows = $this->_dbo->getRowCount();
-        }
-        return $this->_foundRows;
+        return $this->_dbo->getRowCount();
     }
 
     /**

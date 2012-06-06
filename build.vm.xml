@@ -1,4 +1,5 @@
 <project name="oTranCe" default="build" basedir="/home/jenkins/otc">
+
 <property name="repodir" value="${basedir}/svn" />
 <property name="builddir" value="${basedir}/build" />
 <property name="logdir" value="${basedir}/build/logs" />

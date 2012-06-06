@@ -418,9 +418,9 @@ var disabledElements = [
 /* if "get untranslated filter" is used -> disable other inputs */
 if ($('#getUntranslated option:selected').val() > 0) {
     $.each(disabledElements, function(){
-        var elem = $('#' + this);
-        elem.css('opacity', 0.4);
-        $('#' + this).attr('disabled', true);
+        var domElement = $('#' + this);
+        domElement.css('opacity', 0.4);
+        domElement.attr('disabled', true);
     });
 }
 

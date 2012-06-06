@@ -24,7 +24,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
         <tr>
             <td class="vmiddle">
                 <input type="hidden" id="offset" name="offset" value="<?php echo $this->offset;?>" />
-                <?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:
+                <span id="searchInTranslations"><?php echo $this->lang->L_SEARCH_IN_TRANSLATIONS;?>:</span>
             </td>
             <td>
                 <input
@@ -51,7 +51,9 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
             </td>
         </tr>
         <tr>
-            <td class="vmiddle"><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</td>
+            <td class="vmiddle">
+                <span id="searchInKeys"><?php echo $this->lang->L_SEARCH_IN_KEYS;?>:</span>
+            </td>
             <td>
                 <input
                     <?php if (false && $this->getUntranslated > 0) {
@@ -133,6 +135,10 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 <?php echo $this->selRecordsPerPage;?>
             </select>
         </span>
+        <?php if ((int) $this->fileTemplateFilter > 0) { ?>
+            <br /><span><?php echo $this->lang->L_FILE_TEMPLATE . ': ' . $this->printFileTemplate($this->fileTemplateFilter);?></span>
+            <br /><br /><?php
+        }?>
     </div>
 </form>
 
@@ -143,8 +149,10 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                 <th>&nbsp;</th><?php
             } ?>
         <th>#</th>
-        <th><?php echo $this->lang->L_FILE_TEMPLATE;?></th>
         <?php
+            if ($this->fileTemplateFilter == "0") { ?>
+                <th><?php echo $this->lang->L_FILE_TEMPLATE;?></th><?php
+            }
             if ($this->user->hasRight('editKey')) { ?>
                 <th colspan="2"><?php echo $this->lang->L_KEY;?></th><?php
             } else { ?>
@@ -195,11 +203,12 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
             <td class="right top">
                 <?php echo $this->numberFormat($i);?>.
             </td>
-            <td class="ssmall nowrap top">
-                <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
-            </td>
-
-            <?php if ($this->user->hasRight('editKey')) { ?>
+            <?php if ($this->fileTemplateFilter == "0") { ?>
+                <td class="ssmall nowrap top">
+                    <?php echo $editTemplate . $this->printFileTemplate($hit['template_id']);?></a>
+                </td><?php
+            }
+            if ($this->user->hasRight('editKey')) { ?>
                 <td class="ssmall nowrap top">&nbsp;
                     <?php if ($this->user->hasRight('editKey')) { ?>
                         <label for="key-<?php echo $hit['id'];?>" class="inlineEditKeyTrigger">
@@ -402,12 +411,15 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
 });
 
 var disabledElements = [
+    'searchInTranslations', 'searchInKeys',
     'filterValues', 'buttonFilterValuesSearch', 'buttonFilterValuesReset',
     'filterKeys', 'buttonFilterKeysSearch', 'buttonFilterKeysReset'
 ];
 /* if "get untranslated filter" is used -> disable other inputs */
 if ($('#getUntranslated option:selected').val() > 0) {
     $.each(disabledElements, function(){
+        var elem = $('#' + this);
+        elem.css('opacity', 0.4);
         $('#' + this).attr('disabled', true);
     });
 }

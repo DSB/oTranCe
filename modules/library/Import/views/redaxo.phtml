@@ -1,0 +1,29 @@
+<?php
+$code = <<<CODE
+TEST_KEY1 = TEST_VALUE1
+TEST_KEY2 = TEST_VALUE2
+CODE
+?>
+<h4>CSV importer information:</h4>
+<table class="bdr more-padding small" summary="">
+<tr class="row-even">
+    <td>Author:</td>
+    <td>
+        jdlx
+    </td>
+</tr>
+
+<tr class="row-odd">
+    <td>Description:</td>
+    <td>
+        This importer is intended to import Redaxo lang files.
+    </td>
+</tr>
+<tr class="row-even">
+    <td>Structure that can be detected:</td>
+    <td>
+        <pre><?php echo $this->out($code);?></pre>
+    </td>
+</tr>
+
+</table>

@@ -1,6 +1,18 @@
 <?php
 /**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive_Tar
+ * @version         SVN: $Rev: 2186 $
+ * @author          $Author: dsb $
+ */
+/**
  * Class for .tar.gz. archive creation.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Archive_Tar
  */
 class Msd_Archive_Tar_Gz extends Msd_Archive_Abstract
 {

@@ -1,12 +1,19 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Darky
- * Date: 20.08.11
- * Time: 14:59
- * To change this template use File | Settings | File Templates.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Registry
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
  */
- 
+/**
+ * Abstract decorator for form elements of Msd_Form
+ *
+ * @package         MySQLDumper
+ * @subpackage      Registry
+ */
 class Msd_Registry extends Zend_Registry
 {
     /**

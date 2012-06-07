@@ -1,6 +1,18 @@
 <?php
 /**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config
+ * @version         SVN: $Rev: 1518 $
+ * @author          $Author: dsb $
+ */
+/**
  * Class for dynamic (session lifetime) configuration settings.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config
  */
 class Msd_Config_Dynamic
 {
@@ -28,7 +40,7 @@ class Msd_Config_Dynamic
      *
      * @param string $name    Name of the parameter.
      * @param mixed  $default Default value to return, if param isn't set.
-     * 
+     *
      * @return mixed
      */
     public function getParam($name, $default = null)
@@ -45,7 +57,7 @@ class Msd_Config_Dynamic
      *
      * @param string $name  Name of the parameter.
      * @param mixed  $value Value for the parameter.
-     * 
+     *
      * @return void
      */
     public function setParam($name, $value)

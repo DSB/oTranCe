@@ -4,7 +4,7 @@
  * http://www.mysqldumper.net
  *
  * @package         MySQLDumper
- * @subpackage      Auth_adapter
+ * @subpackage      Auth_Adapter
  * @version         SVN: $Rev$
  * @author          $Author$
  */
@@ -12,7 +12,7 @@
  * Adapter to use Zend_Auth with INI files.
  *
  * @package         MySQLDumper
- * @subpackage      Auth_adapter
+ * @subpackage      Auth_Adapter
  */
 class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
 {

@@ -1,6 +1,18 @@
 <?php
 /**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config_IoHandler
+ * @version         SVN: $Rev: 1518 $
+ * @author          $Author: dsb $
+ */
+/**
  * Interface for configuration IO-Handler.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config_IoHandler
  */
 interface Msd_Config_IoHandler_Interface
 {

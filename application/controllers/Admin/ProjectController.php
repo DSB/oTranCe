@@ -45,6 +45,7 @@ class Admin_ProjectController extends AdminController
             $projectSettings                        = $this->_config->getParam('project');
             $projectSettings['name']                = $this->_request->getParam('name');
             $projectSettings['url']                 = $this->_request->getParam('url');
+            $projectSettings['email']               = $this->_request->getParam('email');
             $projectSettings['logo']                = $this->_request->getParam('logo');
             $projectSettings['translateToFallback'] = $this->_request->getParam('translateToFallback', 0);
             $this->_config->setParam('project', $projectSettings);

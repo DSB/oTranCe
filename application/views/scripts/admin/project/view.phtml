@@ -19,6 +19,10 @@ $translateToFallback = $this->settings['translateToFallback'];
         <td><?php echo $this->settings['url']; ?></td>
     </tr>
     <tr class="<?php echo $cycle->next(); ?>">
+        <td><?php echo $this->lang->L_CONTACT_EMAIL;?>:</td>
+        <td><?php echo $this->settings['email']; ?></td>
+    </tr>
+    <tr class="<?php echo $cycle->next(); ?>">
         <td class="top"><?php echo $this->lang->L_PROJECT_LOGO;?>:</td>
         <td>
             <?php echo $this->settings['logo']['large']; ?><br/>

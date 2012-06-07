@@ -53,7 +53,12 @@ class Admin_ProjectController extends AdminController
 
             $this->view->saved = $this->_config->save();
         }
-        $this->view->settings           = $this->_config->getParam('project');
+        $projectSettings = $this->_config->getParam('project');
+        // fallback for older installations
+        if (empty($this->projectSettings['email'])) {
+            $this->projectSettings['email'] = '';
+        }
+        $this->view->settings           = $projectSettings;
         $this->view->fallbackLanguageId = $languageModel->getFallbackLanguage();
 
         // if user does not have edit rights just show the information

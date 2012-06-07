@@ -226,6 +226,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_PROJECT_URL' => 'Projektets adress',
 'L_PROJECT_USES_VCS' => 'Projektet använder VCS',
 'L_REALLY_DELETE_USER' => 'Vill du verkligen radera denna användare?',
+'L_REAL_NAME' => 'Your real name',
 'L_REFERENCE_LANGUAGES' => 'Referensspråk',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'De valda språken används som översättningsreferens när en datapost bearbetas.',
 'L_REGISTER' => 'Registrera',

@@ -229,6 +229,7 @@ The importer has processed all entries.',
 'L_PROJECT_URL' => 'Project URL',
 'L_PROJECT_USES_VCS' => 'The project uses VCS',
 'L_REALLY_DELETE_USER' => 'Are you really sure you want to delete this user?',
+'L_REAL_NAME' => 'Your real name',
 'L_REFERENCE_LANGUAGES' => 'Reference languages',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'The selected languages will be shown as a reference when you edit a language variable.
 This should help you to easily translate the current variable.',

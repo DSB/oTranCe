@@ -224,6 +224,7 @@ $lang = array(
 'L_PROJECT_URL' => 'Adres v/h project',
 'L_PROJECT_USES_VCS' => 'Het project gebruikt VCS',
 'L_REALLY_DELETE_USER' => 'Wilt u de gebruiker echt verwijderen?',
+'L_REAL_NAME' => 'Your real name',
 'L_REFERENCE_LANGUAGES' => 'Referentietaal',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'De gekozen talen worden als hulp voor de vertaling getoond, als u een record wijzigt.',
 'L_REGISTER' => 'Aanmaken',

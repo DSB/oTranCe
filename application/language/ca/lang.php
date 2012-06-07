@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// caos30, DSB
+// caos30
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -56,6 +56,7 @@ If everything looks good, start to analyze the data.',
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Confirm deletion of VCS credentials',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
+'L_CONTACT_EMAIL' => 'General contact e-mail adress',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'The content is the same as in the fallback language and was not imported!',
 'L_CONVERT' => 'Convert',
 'L_CONVERT_CHARS_FROM' => 'Convert characters from',

@@ -71,9 +71,9 @@ if (!empty($this->errors)) {
     foreach ($this->errors as $inputName => $inputError) {
         if (array_key_exists($inputName, $inputNamesMap)) {
             $inputName = $inputNamesMap[$inputName];
-        }
         $inputErrors .= '<tr><td class="error">' . $inputName . ':</td><td class="error">'
             . implode('<br/>', $inputError) . '</td></tr>';
+        }
     }
     $inputErrors .= '</table>';
     $this->popUpMessage()->addMessage(

@@ -87,18 +87,25 @@ class Admin_UsersController extends AdminController
             $userData = array(
                 'id'       => $params['id'],
                 'username' => $params['username'],
-                'pass1'    => $params['pass1'],
-                'pass2'    => $params['pass2'],
+                'realName' => $params['realName'],
+                'email'    => $params['email'],
                 'active'   => $params['active']
             );
             if (isset($params['saveAccount'])) {
-                if ($this->_validateAccountSettings($userData)) {
+                $translator = Msd_Language::getInstance()->getTranslator();
+                if ($params['pass1'] > '') {
+                    $userData['pass1'] = $params['pass1'];
+                    $userData['pass2'] = $params['pass2'];
+                }
+                if ($this->_userModel->validateData($userData, $translator)) {
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
                         $userId = (int) $result;
                     }
                     $this->view->saved = (bool) $result;
                     $userData = $this->_userModel->getUserById($userId);
+                } else {
+                    $this->view->errors = $this->_userModel->getValidateMessages();
                 }
             }
         }

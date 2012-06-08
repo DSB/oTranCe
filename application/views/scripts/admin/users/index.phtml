@@ -25,6 +25,7 @@ echo $this->partial('/helper/search-users.phtml', array(
         <th>#</th>
         <th><?php echo $this->lang->L_ID;?></th>
         <th><?php echo $this->lang->L_USERNAME;?></th>
+        <th><?php echo $this->lang->L_NAME;?></th>
         <th><?php echo $this->lang->L_STATUS;?></th>
         <th><?php echo $this->lang->L_CAN_EDIT;?></th>
     </tr>
@@ -60,6 +61,7 @@ foreach ($this->users as $userId => $user)
             <?php echo $edit . $user['id'];?></a>
         </td>
         <td class="vmiddle"><?php echo $edit . $user['username'];?></a></td>
+        <td class="vmiddle"><?php echo $edit . $user['realName'];?></a></td>
         <td class="vmiddle">
             <div id="img-<?php echo $userId;?>" class="switchUserEditRight">
                 <?php

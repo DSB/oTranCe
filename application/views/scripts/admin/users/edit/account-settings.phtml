@@ -29,6 +29,22 @@
     </td>
 </tr>
 
+<tr class="row-even">
+    <td><?php echo $this->lang->L_NAME;?>:</td>
+    <td>
+        <input type="text" class="text" name="realName" id="realName" value="<?php echo $this->out($this->userData['realName']);?>"/><br/>
+        <?php if (isset($this->errors['realName'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['realName']); ?></span><?php } ?>
+    </td>
+</tr>
+
+<tr class="row-even">
+    <td><?php echo $this->lang->L_EMAIL;?>:</td>
+    <td>
+        <input type="text" class="text" name="email" id="email" value="<?php echo $this->out($this->userData['email']);?>"/><br/>
+        <?php if (isset($this->errors['email'])) {?><span class="error"><?php echo implode('<br/>', $this->errors['email']); ?></span><?php } ?>
+    </td>
+</tr>
+
 <tr class="row-odd">
     <td><?php echo $this->lang->L_PASSWORD;?> (*):</td>
     <td>
@@ -51,3 +67,4 @@
         </div>
     </td>
 </tr>
+

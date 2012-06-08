@@ -56,7 +56,7 @@ class Application_Form_Login extends Zend_Form
             'autologin',
             array(
                 'class' => 'checkbox',
-                'label' => $translator->_('L_LOGIN_AUTOLOGIN'),
+                'label' => '<label for="autologin">' . $translator->_('L_LOGIN_AUTOLOGIN') . '</label>',
                 'decorators' => array('Default'),
             )
         );

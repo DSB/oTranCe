@@ -14,7 +14,7 @@ echo $this->partial(
 <div id="login" class="register">
     <h1><br/><br/><?php echo $this->lang->L_REGISTER_TITLE; ?></h1>
     <br /><br />
-    <div style="width:500px;margin: auto auto; vertical-align:middle; background: url(<?php echo $this->themeBaseUrl(); ?>/pics/User.png) no-repeat 5% 36%;">
+    <div style="width:600px;margin: auto auto; vertical-align:middle; background: url(<?php echo $this->themeBaseUrl(); ?>/pics/User.png) no-repeat 2% 6%;">
         <form action="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/register/index/" method="post" enctype="multipart/formdata">
             <fieldset>
                 <legend><?php echo $this->lang->L_REGISTER_INFORMATION; ?></legend>
@@ -30,6 +30,7 @@ echo $this->partial(
                             <td class="error"><?php echo implode('<br/>', $this->errors['username']);?></td>
                         </tr>
                     <?php } ?>
+
                     <tr>
                         <td><label for="user_pass1"><?php echo $this->lang->L_PASSWORD;?>:</label></td>
                         <td><input type="password" class="text" name="user[pass1]" id="user_pass1"/></td>
@@ -44,9 +45,66 @@ echo $this->partial(
                         <td><label for="user_pass2"><?php echo $this->lang->L_CONFIRM_PASSWORD;?>:</label></td>
                         <td><input type="password" class="text" name="user[pass2]" id="user_pass2"/></td>
                     </tr>
+
+                    <tr>
+                        <td><label for="user_realname"><?php echo $this->lang->L_REAL_NAME;?>:</label></td>
+                        <td>
+                            <input type="text" class="text" name="user[realName]" id="user_realname"
+                                value="<?php echo $this->escape($this->user['realName']);?>"/>
+                        </td>
+                    </tr>
+                    <?php if (isset($this->errors['realName'])) { ?>
+                    <tr>
+                        <td></td>
+                        <td class="error"><?php echo implode('<br/>', $this->errors['realName']);?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <tr>
+                        <td><label for="user_email"><?php echo $this->lang->L_EMAIL;?>:</label></td>
+                        <td>
+                            <input type="text" class="text" name="user[email]" id="user_email"
+                                   value="<?php echo $this->out($this->user['email']);?>"/>
+                        </td>
+                    </tr>
+                    <?php if (isset($this->errors['email'])) { ?>
+                    <tr>
+                        <td></td>
+                        <td class="error"><?php echo implode('<br/>', $this->errors['email']);?></td>
+                    </tr>
+                    <?php } ?>
+
+                    <tr>
+                        <td><?php echo $this->lang->L_SELECT_LANG_TO_MAINTAIN;?>:</td>
+                        <td>
+                            <?php
+                                echo $this->partial(
+                                   'register/languages/select-languages.phtml',
+                                     array(
+                                        'lang'      => $this->lang,
+                                        'languages' => $this->editLanguages,
+                                        'user'      => $this->user
+                                     )
+                                 );
+                            ?>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="user_newLanguage"><?php echo $this->lang->L_LANGUAGE_OTHER;?>:</label></td>
+                        <td>
+                            <input type="text" class="text" name="user[newLanguage]" id="user_newLanguage"
+                                   value="<?php echo $this->escape($this->user['newLanguage']);?>" />
+                        </td>
+                    </tr>
+
+
                     <tr>
                         <td>&nbsp;</td>
-                        <td><button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_REGISTER; ?></button></td>
+                        <td>
+                            <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_REGISTER; ?></button>
+                            <a href="<?php echo $this->serverUrl() . $this->baseUrl();?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('delete'); ?> <?php echo $this->lang->L_CANCEL; ?></a>
+                        </td>
                     </tr>
                 </table>
             </fieldset>

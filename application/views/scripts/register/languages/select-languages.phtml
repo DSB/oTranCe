@@ -1,0 +1,40 @@
+<?php
+$i = 1;
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+<table class="bdr small" style="float:left;margin-left:4px;" summary="List of editable languages">
+    <tr class="thead">
+        <th class="right">#</th>
+        <th colspan="4">
+            <div class="floatLeft"><?php echo $this->lang->L_LANGUAGE;?></div>
+        </th>
+    </tr>
+    <?php
+    foreach ($this->languages as $language) {
+        $label = '<label for="user[lang][' . $language['id'] .']">';
+        ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="right vmiddle">
+                <?php echo $label . $this->numberFormat($i);?>.</label>
+            </td>
+            <td class="vmiddle">
+                    <?php echo $label . $this->printFlag($language['id']);?></label>
+            </td>
+            <td class="vmiddle">
+                    <?php echo $label . $language['locale'];?></label>
+            </td>
+            <td class="vmiddle"><?php echo $label . $language['name'];?></label></td>
+            <td class="vmiddle">
+                <input type="checkbox" name="user[lang][<?php echo $language['id'];?>]" id="user[lang][<?php echo $language['id'];?>]"
+                    <?php
+                        if (isset($this->user['lang'][$language['id']])) {
+                            echo ' checked="checked"';
+                        }
+                    ?>
+                    />
+            </td>
+        </tr>
+        <?php
+        $i++;
+    } ?>
+</table>

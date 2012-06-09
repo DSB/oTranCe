@@ -11,7 +11,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     </tr>
     <?php
     foreach ($this->languages as $language) {
-        $label = '<label for="user[lang][' . $language['id'] .']">';
+        $label = '<label for="lang-' . $language['id'] .'">';
         ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right vmiddle">
@@ -25,7 +25,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             </td>
             <td class="vmiddle"><?php echo $label . $language['name'];?></label></td>
             <td class="vmiddle">
-                <input type="checkbox" name="user[lang][<?php echo $language['id'];?>]" id="user[lang][<?php echo $language['id'];?>]"
+                <input type="checkbox" name="user[lang][<?php echo $language['id'];?>]" id="lang-<?php echo $language['id'];?>"
                     <?php
                         if (isset($this->user['lang'][$language['id']])) {
                             echo ' checked="checked"';

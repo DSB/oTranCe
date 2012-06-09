@@ -75,10 +75,10 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
 
         if (null === $value) {
             $value = $this->getName();
-        }
 
-        if (null !== ($translator = $this->getTranslator())) {
-            return $translator->translate($value);
+            if (null !== ($translator = $this->getTranslator())) {
+                return $translator->translate($value);
+            }
         }
 
         return $value;
@@ -108,7 +108,7 @@ class Zend_Form_Element_Submit extends Zend_Form_Element_Xhtml
      *
      * Uses only 'Submit' and 'DtDdWrapper' decorators by default.
      *
-     * @return void
+     * @return Zend_Form_Element_Submit
      */
     public function loadDefaultDecorators()
     {

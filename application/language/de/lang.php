@@ -237,6 +237,8 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Ein neuer Benutzer hat sich bei %s registriert.',
 'L_REGISTER_TITLE' => 'Neues Benutzerkonto registrieren',
 'L_REGISTER_USERNAME_EXISTS' => 'Es gibt bereits einen Benutzer mit dem Namen "%s".',
+'L_REGISTER_USER_WANTS_TO_MAINTAIN' => 'Der Benutzer möchte folgende Sprachen pflegen',
+'L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE' => 'Der Benutzer möchte eine neue Sprache pflegen, die noch angelegt werden muss',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Das neue Benutzerkonto wurde erfolgreich registriert.
 
 Ein Administrator wird es demnächst freischalten.',

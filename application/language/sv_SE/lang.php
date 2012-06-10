@@ -235,6 +235,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_REGISTER_NEW_USER_REGISTERED' => 'A new user registered at %s.',
 'L_REGISTER_TITLE' => 'Registrera nytt användarkonto',
 'L_REGISTER_USERNAME_EXISTS' => 'Det finsn redan en användar med namnet "%s".',
+'L_REGISTER_USER_WANTS_TO_MAINTAIN' => 'The user wants to maintain the following languages',
+'L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE' => 'The user wants to maintain a new language that has to be added first',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Det nya användarkontot har registrerats.
 
 En administratör kommer att se över kontot och godkänna det.',

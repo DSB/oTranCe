@@ -677,10 +677,16 @@ class Application_Model_User extends Msd_Application_Model
     {
         if ($userData['id'] != 0) {
             $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-                   . ' SET `username` = \'' . $this->_dbo->escape($userData['username']) . '\','
-                   . ' `realName` = \'' . $this->_dbo->escape($userData['realName']) . '\','
-                   . ' `email` = \'' . $this->_dbo->escape($userData['email']) . '\','
-                   . ' `active`=' . intval($userData['active']);
+                   . ' SET `username` = \'' . $this->_dbo->escape($userData['username']) . '\'';
+            if (isset($userData['realName'])) {
+                   $sql .= ', `realName` = \'' . $this->_dbo->escape($userData['realName']) . '\'';
+            }
+            if (isset($userData['email'])) {
+                   $sql .= ', `email` = \'' . $this->_dbo->escape($userData['email']) . '\'';
+            }
+            if (isset($userData['active'])) {
+                   $sql .= ' `active`=' . intval($userData['active']);
+            }
             if ($userData['pass1'] > '') {
                 $sql .= ', `password`=MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\')';
             }

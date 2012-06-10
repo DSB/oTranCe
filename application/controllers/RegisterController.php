@@ -42,7 +42,6 @@ class RegisterController extends Zend_Controller_Action
 
             if ($userModel->validateData($userData, $this->view->lang->getTranslator())) {
                 $newUserId = $userModel->saveAccount($userData);
-                $newUserId = 66;
                 if ($newUserId) {
                     $this->view->registerSuccess = true;
                     if (!empty($userData['lang'])) {

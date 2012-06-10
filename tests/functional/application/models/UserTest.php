@@ -30,10 +30,10 @@ class UserTest extends ControllerTestCase
     public function testCanGetTranslatorsOfALanguage()
     {
         $this->userModel = new Application_Model_User();
-        $translators = $this->userModel->getTranslators(1);
+        $translators     = $this->userModel->getTranslators(1);
         // we expect an array(languageId => array(userId1, userId2))
         // admin (1) and tester(2) do have edit rights for id 1 (Deutsch)
-        $expected = array(1 => array(1,2));
+        $expected = array(1 => array(1, 2));
         $this->assertEquals($expected, $translators);
 
         $translators = $this->userModel->getTranslators(2);
@@ -51,7 +51,7 @@ class UserTest extends ControllerTestCase
     public function testGetTranslatorListCanImplodeList()
     {
         $translatorList = $this->userModel->getTranslatorlist(true);
-        $expected = array( 1=> 'Admin, tester', 2=> 'Admin');
+        $expected       = array(1=> 'Admin, tester', 2=> 'Admin');
         $this->assertEquals($expected, $translatorList);
     }
 
@@ -60,22 +60,22 @@ class UserTest extends ControllerTestCase
         // test filter
         $userList = $this->userModel->getUsers('Ad');
         $expected = array(1 => array(
-                'id'       => 1,
-                'username' => 'Admin',
-                'password' => '21232f297a57a5a743894a0e4a801fc3',
-                'active'   => 1
-            )
+            'id'       => 1,
+            'username' => 'Admin',
+            'password' => '21232f297a57a5a743894a0e4a801fc3',
+            'active'   => 1
+        )
         );
         $this->assertEquals($expected, $userList);
 
         // test pagination
         $userList = $this->userModel->getUsers('', 1, 1);
         $expected = array(2 => array(
-                'id'       => '2',
-                'username' => 'tester',
-                'password' => '098f6bcd4621d373cade4e832627b4f6',
-                'active'   => 1
-            )
+            'id'       => '2',
+            'username' => 'tester',
+            'password' => '098f6bcd4621d373cade4e832627b4f6',
+            'active'   => 1
+        )
         );
         $this->assertEquals($expected, $userList);
     }
@@ -83,14 +83,14 @@ class UserTest extends ControllerTestCase
     public function testGetUserNames()
     {
         $userNames = $this->userModel->getUserNames();
-        $expected = array( 1 => 'Admin', 2 => 'tester');
+        $expected  = array(1 => 'Admin', 2 => 'tester');
         $this->assertEquals($expected, $userNames);
     }
 
     public function testGetUserById()
     {
         //get id 1 = Admin
-        $user = $this->userModel->getUserById(1);
+        $user     = $this->userModel->getUserById(1);
         $expected = array(
             'id'       => 1,
             'username' => 'Admin',
@@ -100,7 +100,7 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($expected, $user);
 
         // get id 2 = tester
-        $user = $this->userModel->getUserById(2);
+        $user     = $this->userModel->getUserById(2);
         $expected = array(
             'id'       => '2',
             'username' => 'tester',
@@ -110,7 +110,7 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($expected, $user);
 
         // request invalid user and get default array
-        $user = $this->userModel->getUserById(99999999);
+        $user     = $this->userModel->getUserById(99999999);
         $expected = array(
             'id'       => '0',
             'username' => '',
@@ -122,7 +122,7 @@ class UserTest extends ControllerTestCase
 
     public function testGetUserByName()
     {
-        $user = $this->userModel->getUserByName('Admin');
+        $user     = $this->userModel->getUserByName('Admin');
         $expected = array(
             'id'       => 1,
             'username' => 'Admin',
@@ -134,7 +134,7 @@ class UserTest extends ControllerTestCase
 
     public function testGetRowCount()
     {
-        $users = $this->userModel->getUserNames();
+        $users    = $this->userModel->getUserNames();
         $rowCount = $this->userModel->getRowCount();
         $this->assertEquals(sizeof($users), $rowCount);
     }
@@ -142,9 +142,9 @@ class UserTest extends ControllerTestCase
     public function testLoadSetting()
     {
         $this->loginUser('Admin', 'admin');
-        $this->userModel = new Application_Model_User();
+        $this->userModel    = new Application_Model_User();
         $referenceLanguages = $this->userModel->loadSetting('referenceLanguage');
-        $expected = array(
+        $expected           = array(
             0 => '1',
             1 => '3'
         );
@@ -162,15 +162,15 @@ class UserTest extends ControllerTestCase
     public function testGetRefLanguages()
     {
         $this->loginUser('Admin', 'admin');
-        $this->userModel = new Application_Model_User();
+        $this->userModel    = new Application_Model_User();
         $referenceLanguages = $this->userModel->getRefLanguages();
-        $expected = array(
+        $expected           = array(
             0 => '1',
         );
         $this->assertEquals($expected, $referenceLanguages);
     }
 
-   public function testGetReferenceLanguageStatus()
+    public function testGetReferenceLanguageStatus()
     {
         // check for set reference language
         $referenceLanguageStatus = $this->userModel->getReferenceLanguageStatus(1, 1);
@@ -238,8 +238,8 @@ class UserTest extends ControllerTestCase
 
     public function testSaveLanguageRights()
     {
-        $languageIds = array(1,2,3,4,5,9999);
-        $saved = $this->userModel->saveLanguageRights(99, $languageIds);
+        $languageIds = array(1, 2, 3, 4, 5, 9999);
+        $saved       = $this->userModel->saveLanguageRights(99, $languageIds);
         $this->assertTrue($saved);
 
         $saved = $this->userModel->saveLanguageRights(99, '');
@@ -270,7 +270,7 @@ class UserTest extends ControllerTestCase
         // check that userId is taken from the logged inuser, if param is missing
         $this->loginUser(); // logs in test user
         $this->userModel = new Application_Model_User();
-        $rights = $this->userModel->getUserGlobalRights();
+        $rights          = $this->userModel->getUserGlobalRights();
         $this->assertTrue($rights['admin'] == 0);
         $this->assertTrue($rights['addVar'] == 0);
         $this->assertTrue($rights['addTemplate'] == 0);
@@ -282,9 +282,9 @@ class UserTest extends ControllerTestCase
         $hasRight = $this->userModel->hasLanguageEditRight(1, 1);
         $this->assertTrue($hasRight);
 
-         // negative check
-         $hasRight = $this->userModel->hasLanguageEditRight(1, 3246345);
-         $this->assertFalse($hasRight);
+        // negative check
+        $hasRight = $this->userModel->hasLanguageEditRight(1, 3246345);
+        $this->assertFalse($hasRight);
     }
 
     public function testSaveRight()
@@ -307,7 +307,7 @@ class UserTest extends ControllerTestCase
 
     public function testSaveAccount()
     {
-        $user = array(
+        $user  = array(
             'id'       => 0,
             'username' => 'phpUnitTestUser',
             'pass1'    => 'IamKarl',
@@ -323,14 +323,16 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($user['realName'] == $check['realName']);
 
         // check update
-        $user = array(
-            'id' => $newId,
-            'username' => 'phpUnitTestUser2',
-            'pass1'    => 'I have been karl',
-            'active'   => 0,
-            'realName' => 'Now I am Kurt'
+        $user        = array(
+            'id'          => $newId,
+            'username'    => 'phpUnitTestUser2',
+            'pass1'       => 'I have been karl',
+            'active'      => 0,
+            'realName'    => 'Now I am Kurt',
+            'email'       => 'karl@example.org',
+            'newLanguage' => ''
         );
-        $userId = $this->userModel->saveAccount($user);
+        $userId      = $this->userModel->saveAccount($user);
         $changedUser = $this->userModel->getUserById($userId);
         $this->assertEquals($newId, $userId);
         $this->assertTrue($changedUser['username'] == $user['username']);
@@ -342,11 +344,14 @@ class UserTest extends ControllerTestCase
     public function testChangePassword()
     {
         // create a test account
-        $user = array(
-            'id'       => 0,
-            'username' => 'phpUnitTestUser',
-            'pass1'    => 'IamKarl',
-            'active'   => 1
+        $user  = array(
+            'id'          => 0,
+            'username'    => 'phpUnitTestUser',
+            'pass1'       => 'IamKarl',
+            'active'      => 1,
+            'realName'    => 'Karl Tester',
+            'newLanguage' => '',
+            'email'       => 'karl@example.org'
         );
         $newId = $this->userModel->saveAccount($user);
         $this->assertTrue($newId !== false);
@@ -391,7 +396,7 @@ class UserTest extends ControllerTestCase
     {
         // create a new language
         $languageModel = new Application_Model_Languages();
-        $created = $languageModel->saveLanguage(99, 1, 'xx', 'Test-Language', 'gif');
+        $created       = $languageModel->saveLanguage(99, 1, 'xx', 'Test-Language', 'gif');
         $this->assertTrue($created);
 
         // add edit rights to user "admin"
@@ -420,12 +425,15 @@ class UserTest extends ControllerTestCase
 
         // test case - username exists
         $userData = array(
-            'id' => 0,
-            'username' => 'Admin',
-            'pass1' => 'admin',
-            'pass2' => 'admin'
+            'id'          => 0,
+            'username'    => 'Admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'Administrator',
+            'email'       => 'admin@example.org',
+            'newLanguage' => ''
         );
-        $res = $this->userModel->validateData($userData, $translator);
+        $res      = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'A user with the name "Admin" already exists.';
@@ -433,7 +441,7 @@ class UserTest extends ControllerTestCase
 
         // test case - name too short
         $userData['username'] = 'A';
-        $res = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too short.';
@@ -441,7 +449,7 @@ class UserTest extends ControllerTestCase
 
         // test case - name too long
         $userData['username'] = str_repeat('A', 151);
-        $res = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too long.';
@@ -461,7 +469,7 @@ class UserTest extends ControllerTestCase
         // test case - password is empty
         $userData['username'] = 'Karl';
         $userData['pass1']    = '';
-        $res = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'Value is required and can\'t be empty.';
@@ -471,7 +479,7 @@ class UserTest extends ControllerTestCase
         $userData['username'] = 'Karl';
         $userData['pass1']    = 'hello';
         $userData['pass2']    = 'hello';
-        $res = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $translator);
         $this->assertTrue($res);
         $messages = $this->userModel->getValidateMessages();
         $this->assertEquals(array(), $messages['username']);

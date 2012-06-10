@@ -65,8 +65,9 @@ class Module_Import_Csv implements Msd_Import_Interface
         $this->_extractedData = array();
 
         $this->_lines = explode("\n", $this->_data);
+        $lines_count  = count($this->_lines);
 
-        for ($i = 0; $i < count($this->_lines); $i++) {
+        for ($i = 0; $i < $lines_count; $i++) {
             $currentLine = explode($this->_separator, $this->_lines[$i], 2);
 
             $currentKey = trim($currentLine[0]);

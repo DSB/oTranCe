@@ -1,0 +1,26 @@
+<?php
+echo sprintf($this->lang->L_REGISTER_NEW_USER_REGISTERED, $this->project['name']);
+?>
+<br /><br />
+<?php echo $this->lang->L_USERNAME;?>: <?php echo $this->user['username'];?><br />
+<?php echo $this->lang->L_NAME;?>: <?php echo $this->user['realName'];?><br />
+<?php echo $this->lang->L_EMAIL;?>: <a href="mailto:<?php echo $this->user['email'];?>"><?php echo $this->user['email']?></a><br />
+<br />
+<?php
+if (!empty($this->user['lang'])) {
+    echo $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN .': <br>';
+    $languageIds = array_keys($this->user['lang']);
+    foreach ($languageIds as $languageId) {
+        echo $this->languages[$languageId]['name'] .' (' . $this->languages[$languageId]['locale'] .')<br />';
+    }
+}
+
+if (trim($this->user['newLanguage']) > '') {
+    echo $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE . ': ' . $this->user['newLanguage'];
+}
+?>
+<br /><br/>
+<a href="<?php echo $this->serverUrl() . $this->baseUrl() . '/admin_users/edit/id/' . $this->user['id'];?>">
+<?php echo $this->lang->L_CLICK_TO_EDIT_USER_ACCOUNT;?>
+</a>
+

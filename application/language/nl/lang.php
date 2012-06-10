@@ -40,6 +40,7 @@ $lang = array(
 'L_CHANGE_YOUR_PASSWORD' => 'Wijzig het wachtwoord van uw account:',
 'L_CHECK_CHARS' => 'Karakterset toetsen!',
 'L_CHECK_CHARS_EXPLAIN' => 'Als u wanordelijke teken ziet, kunt u de bestand in een andere tekenset converteren.<br />Kies een tekenset en klik op de knop "Converteer teken van" aub. U kunt deze actie opnieuw beginnen tot de output goed uitkomt. Bij ieder convertering wordt de origineel bestand als basis gebruikt.<br />Als de output goed uitkomt, kunt u de import met de knop "Begin analyse" beginnen.',
+'L_CLICK_TO_EDIT_USER_ACCOUNT' => '',
 'L_CLICK_TO_INLINE_EDIT' => 'Klik hier om te wijzigen',
 'L_COMMIT_MESSAGE' => 'Commit-bericht',
 'L_COMPLETE_VIEW' => 'Volledige aanzicht',

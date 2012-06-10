@@ -42,6 +42,7 @@ $lang = array(
 'L_CHECK_CHARS_EXPLAIN' => 'Om du hittar kryptiska tecken så kan du konvertera filen med en annan teckensats.<br />
 Välj teckensats och klicka på knappen "Konvertera tecken från". Upprepa denna procedur tills resultatet är korrekt. Vid varje konvertering används originalfilen som laddats upp som bas.<br />
 När resultatet är korrekt kan du starta importen med knappen "Starta analysen".',
+'L_CLICK_TO_EDIT_USER_ACCOUNT' => '',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicka för att ändra här',
 'L_COMMIT_MESSAGE' => 'Commit-meddelande',
 'L_COMPLETE_VIEW' => 'Fullständig visning',

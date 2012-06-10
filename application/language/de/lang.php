@@ -42,6 +42,7 @@ $lang = array(
 'L_CHECK_CHARS_EXPLAIN' => 'Wenn Sie "wirre" Zeichen entdecken, können Sie die Datei in einen anderen Zeichensatz konvertieren.<br />
 Wählen Sie dazu einen Zeichensatz und klicken Sie auf den Button "Konvertiere Zeichen von". Sie können den Vorgang wiederholen bis die Ausgabe stimmt. Bei jeder Konvertierung wird die originale, hochgeladene Datei als Basis benutzt.<br />
 Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Analyse" einleiten.',
+'L_CLICK_TO_EDIT_USER_ACCOUNT' => '',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicken, um hier zu editieren',
 'L_COMMIT_MESSAGE' => 'Commit-Nachricht',
 'L_COMPLETE_VIEW' => 'Vollständige Ansicht',

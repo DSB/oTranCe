@@ -13,6 +13,7 @@ if (!empty($this->user['lang'])) {
     foreach ($languageIds as $languageId) {
         echo $this->languages[$languageId]['name'] .' (' . $this->languages[$languageId]['locale'] .')<br />';
     }
+    echo '<br />';
 }
 
 if (trim($this->user['newLanguage']) > '') {

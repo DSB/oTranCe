@@ -91,7 +91,8 @@ class Application_Model_Mail extends Msd_Application_Model
         $mail->setBodyHtml($htmlBody)
             ->setBodyText($plainTextBody)
             ->setFrom($projectConfig['email'], $projectConfig['name'])
-            ->addTo($userData['email'], $userData['realName']);
+            ->addTo($projectConfig['email'], $projectConfig['name'])
+            ->setReplyTo($userData['email'], $userData['realName']);
         $translator = $this->_view->lang->getTranslator();
         $subject    = $translator->translate('L_REGISTER_MAIL_SUBJECT');
         $mail->setSubject(sprintf($subject, $projectConfig['name'], $userData['username']));

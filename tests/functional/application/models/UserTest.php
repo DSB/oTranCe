@@ -308,12 +308,13 @@ class UserTest extends ControllerTestCase
     public function testSaveAccount()
     {
         $user  = array(
-            'id'       => 0,
-            'username' => 'phpUnitTestUser',
-            'pass1'    => 'IamKarl',
-            'active'   => 1,
-            'realName' => 'Karl Tester',
-
+            'id'          => 0,
+            'username'    => 'phpUnitTestUser',
+            'pass1'       => 'IamKarl',
+            'active'      => 1,
+            'realName'    => 'Karl Tester',
+            'email'       => 'karl@example.org',
+            'newLanguage' => ''
         );
         $newId = $this->userModel->saveAccount($user);
         $this->assertTrue($newId !== false);
@@ -321,6 +322,7 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($user['username'] == $check['username']);
         $this->assertTrue($user['active'] == $check['active']);
         $this->assertTrue($user['realName'] == $check['realName']);
+        $this->assertTrue($user['email'] == $check['email']);
 
         // check update
         $user        = array(
@@ -329,7 +331,7 @@ class UserTest extends ControllerTestCase
             'pass1'       => 'I have been karl',
             'active'      => 0,
             'realName'    => 'Now I am Kurt',
-            'email'       => 'karl@example.org',
+            'email'       => 'karl2@example.org',
             'newLanguage' => ''
         );
         $userId      = $this->userModel->saveAccount($user);
@@ -337,6 +339,7 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($newId, $userId);
         $this->assertTrue($changedUser['username'] == $user['username']);
         $this->assertTrue($changedUser['realName'] == $user['realName']);
+        $this->assertTrue($changedUser['email'] == $user['email']);
         $this->assertTrue($changedUser['active'] == $user['active']);
         $this->userModel->deleteUserById($newId);
     }

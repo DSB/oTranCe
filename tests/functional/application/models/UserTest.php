@@ -74,10 +74,13 @@ class UserTest extends ControllerTestCase
         // test pagination
         $userList = $this->userModel->getUsers('', 1, 1);
         $expected = array(2 => array(
-            'id'       => '2',
-            'username' => 'tester',
-            'password' => '098f6bcd4621d373cade4e832627b4f6',
-            'active'   => 1
+            'id'          => '2',
+            'username'    => 'tester',
+            'password'    => '098f6bcd4621d373cade4e832627b4f6',
+            'active'      => '1',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         )
         );
         $this->assertEquals($expected, $userList);
@@ -108,20 +111,23 @@ class UserTest extends ControllerTestCase
         // get id 2 = tester
         $user     = $this->userModel->getUserById(2);
         $expected = array(
-            'id'       => '2',
-            'username' => 'tester',
-            'password' => '098f6bcd4621d373cade4e832627b4f6',
-            'active'   => 1
+            'id'          => '2',
+            'username'    => 'tester',
+            'password'    => '098f6bcd4621d373cade4e832627b4f6',
+            'active'      => '1',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         );
         $this->assertEquals($expected, $user);
 
         // request invalid user and get default array
         $user     = $this->userModel->getUserById(99999999);
         $expected = array(
-            'id'       => '0',
-            'username' => '',
-            'password' => '',
-            'active'   => '0',
+            'id'          => '0',
+            'username'    => '',
+            'password'    => '',
+            'active'      => '0',
             'realName'    => '',
             'email'       => '',
             'newLanguage' => ''
@@ -133,10 +139,10 @@ class UserTest extends ControllerTestCase
     {
         $user     = $this->userModel->getUserByName('Admin');
         $expected = array(
-            'id'       => '1',
-            'username' => 'Admin',
-            'password' => '21232f297a57a5a743894a0e4a801fc3',
-            'active'   => '1',
+            'id'          => '1',
+            'username'    => 'Admin',
+            'password'    => '21232f297a57a5a743894a0e4a801fc3',
+            'active'      => '1',
             'realName'    => '',
             'email'       => '',
             'newLanguage' => ''

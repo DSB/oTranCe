@@ -42,7 +42,7 @@ $lang = array(
 'L_CHECK_CHARS_EXPLAIN' => 'If you discover "weird" looking characters you can try to convert them.<br />
 Select a character set in the select box and hit the button "Convert data from". You can try different character sets until the text is ok. Each conversion is taken from the originally uploaded file.<br />
 If everything looks good, start to analyze the data.',
-'L_CLICK_TO_EDIT_USER_ACCOUNT' => '',
+'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click here to edit the user account',
 'L_CLICK_TO_INLINE_EDIT' => 'Click to edit inline',
 'L_COMMIT_MESSAGE' => 'Commit message',
 'L_COMPLETE_VIEW' => 'Complete view',

@@ -1,9 +1,20 @@
 <?php
 /**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Vcs
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
  * Factory class for Version Control System support.
  *
- * @throws Msd_Vcs_Exception
-  */
+ * @throws          Msd_Vcs_Exception
+ * @package         MySQLDumper
+ * @subpackage      Vcs
+ */
 class Msd_Vcs
 {
     /**

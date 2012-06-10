@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup_Http
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
  * Class for managing HTTP responses.
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup_Http
  */
 class Setup_Http_Response
 {

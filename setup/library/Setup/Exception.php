@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
  * Exception class for setup errors.
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup
  */
 class Setup_Exception extends Exception
 {

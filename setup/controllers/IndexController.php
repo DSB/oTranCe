@@ -1,18 +1,18 @@
 <?php
 /**
- * This file is part of MySQLDumper released under the GNU/GPL 2 license
- * http://www.mysqldumper.net
+ * This file is part of oTranCe released under the GNU/GPL 2 license
+ * http://www.otrance.org
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup_Controllers
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
  * Setup entry controller.
  *
- * @package         MySQLDumper
- * @subpackage      Archive
+ * @package         oTranCe
+ * @subpackage      Setup_Controllers
  */
 class IndexController extends Setup_Controller_Abstract
 {

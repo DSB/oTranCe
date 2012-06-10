@@ -231,6 +231,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'De valda språken används som översättningsreferens när en datapost bearbetas.',
 'L_REGISTER' => 'Registrera',
 'L_REGISTER_INFORMATION' => 'Registreringsinformation',
+'L_REGISTER_MAIL_SUBJECT' => '%s - new user %s',
+'L_REGISTER_NEW_USER_REGISTERED' => 'A new user registered at %s.',
 'L_REGISTER_TITLE' => 'Registrera nytt användarkonto',
 'L_REGISTER_USERNAME_EXISTS' => 'Det finsn redan en användar med namnet "%s".',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Det nya användarkontot har registrerats.

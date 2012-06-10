@@ -247,10 +247,13 @@ class Application_Model_User extends Msd_Application_Model
             return $res[0];
         }
         $defaults = array(
-            'id'       => 0,
+            'id'       => '0',
             'username' => '',
             'password' => '',
-            'active'   => 0,
+            'active'   => '0',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         );
         return $defaults;
     }

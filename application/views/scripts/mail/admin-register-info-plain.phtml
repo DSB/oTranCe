@@ -1,12 +1,12 @@
 <?php echo sprintf($this->lang->L_REGISTER_NEW_USER_REGISTERED, $this->project['name']);?>
 
-<?php echo $this->lang->L_USERNAME;?>: <?php echo $this->user['username'];?><br />
-<?php echo $this->lang->L_NAME;?>: <?php echo $this->user['realName'];?><br />
-<?php echo $this->lang->L_EMAIL;?>: <a href="mailto:<?php echo $this->user['email'];?>"><?php echo $this->user['email']?></a><br />
+<?php echo $this->lang->L_USERNAME;?>: <?php echo $this->user['username'];?>
+<?php echo $this->lang->L_NAME;?>: <?php echo $this->user['realName'];?>
+<?php echo $this->lang->L_EMAIL;?>: <?php echo $this->user['email'];?>
 
 <?php
 if (!empty($this->user['lang'])) {
-    echo $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN .':' . "\n";
+    echo $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN .':' . "\n\n";
     $languageIds = array_keys($this->user['lang']);
     foreach ($languageIds as $languageId) {
         echo $this->languages[$languageId]['name'] .' (' . $this->languages[$languageId]['locale'] .')' . "\n";
@@ -14,11 +14,10 @@ if (!empty($this->user['lang'])) {
 }
 
 if (trim($this->user['newLanguage']) > '') {
-    echo "\n\n" . $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE . ': ' . $this->user['newLanguage'];
+    echo "\n\n" . $this->lang->L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE . ": \n\n" . $this->user['newLanguage'];
 }
 ?>
 
-<a href="<?php echo $this->serverUrl() . $this->baseUrl() . '/admin_users/edit/id/' . $this->user['id'];?>">
-<?php echo $this->lang->L_CLICK_TO_EDIT_USER_ACCOUNT;?>
-</a>
+<?php echo $this->lang->L_CLICK_TO_EDIT_USER_ACCOUNT;?>: <?php echo $this->serverUrl() . $this->baseUrl() . '/admin_users/edit/id/' . $this->user['id'];?>
+
 

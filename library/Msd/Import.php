@@ -1,6 +1,18 @@
 <?php
 /**
- * Importer factory
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Import
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
+ * Impoerter factory: handles different import methods.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Importer
  */
 class Msd_Import
 {

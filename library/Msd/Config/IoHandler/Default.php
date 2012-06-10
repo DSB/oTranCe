@@ -1,5 +1,19 @@
 <?php
-
+/**
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config_IoHandler
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
+ * Class to handle input/output for configuration params.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config_IoHandler
+ */
 class Msd_Config_IoHandler_Default implements Msd_Config_IoHandler_Interface
 {
     /**

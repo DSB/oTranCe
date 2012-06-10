@@ -1,6 +1,18 @@
 <?php
 /**
- * Gollge translator support class.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Google
+ * @version         SVN: $Rev$
+ * @author          $Author$
+ */
+/**
+ * Class to handle Google language mappings.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Google
  */
 class Msd_Google
 {

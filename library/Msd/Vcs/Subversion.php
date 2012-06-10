@@ -1,6 +1,18 @@
 <?php
 /**
- * Class for Subversion support.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Vcs
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
+ * VCS subversion support class
+ *
+ * @package         MySQLDumper
+ * @subpackage      Vcs
  */
 class Msd_Vcs_Subversion implements Msd_Vcs_Interface
 {

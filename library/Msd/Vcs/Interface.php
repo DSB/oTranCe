@@ -1,6 +1,18 @@
 <?php
 /**
- * Interface definition for VCS support classes.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Vcs
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
+ * Interface definition for VCS support.
+ *
+ * @package         MySQLDumper
+ * @subpackage      Vcs
  */
 interface Msd_Vcs_Interface
 {

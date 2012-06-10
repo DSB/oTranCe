@@ -1,12 +1,19 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: Darky
- * Date: 20.08.11
- * Time: 16:20
- * To change this template use File | Settings | File Templates.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Import
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
  */
- 
+/**
+ * Exception class
+ *
+ * @package         MySQLDumper
+ * @subpackage      Import
+ */
 class Msd_Import_Exception extends Msd_Exception
 {
 }

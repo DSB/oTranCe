@@ -1,9 +1,20 @@
 <?php
 /**
- * Class to manage configuration.
+ * This file is part of MySQLDumper released under the GNU/GPL 2 license
+ * http://www.mysqldumper.net
+ *
+ * @package         MySQLDumper
+ * @subpackage      Config
+ * @version         SVN: $Rev: 1465 $
+ * @author          $Author: kyoya $
+ */
+/**
+ * Class to handle the configuration
  *
  * @throws Msd_Config_Exception
-  */
+ * @package         MySQLDumper
+ * @subpackage      Config
+ */
 class Msd_Config
 {
     /**

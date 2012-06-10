@@ -685,7 +685,7 @@ class Application_Model_User extends Msd_Application_Model
                    $sql .= ', `email` = \'' . $this->_dbo->escape($userData['email']) . '\'';
             }
             if (isset($userData['active'])) {
-                   $sql .= ' `active`=' . intval($userData['active']);
+                   $sql .= ', `active`=' . intval($userData['active']);
             }
             if ($userData['pass1'] > '') {
                 $sql .= ', `password`=MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\')';

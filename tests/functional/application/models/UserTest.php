@@ -60,10 +60,13 @@ class UserTest extends ControllerTestCase
         // test filter
         $userList = $this->userModel->getUsers('Ad');
         $expected = array(1 => array(
-            'id'       => 1,
-            'username' => 'Admin',
-            'password' => '21232f297a57a5a743894a0e4a801fc3',
-            'active'   => 1
+            'id'          => '1',
+            'username'    => 'Admin',
+            'password'    => '21232f297a57a5a743894a0e4a801fc3',
+            'active'      => '1',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         )
         );
         $this->assertEquals($expected, $userList);
@@ -92,10 +95,13 @@ class UserTest extends ControllerTestCase
         //get id 1 = Admin
         $user     = $this->userModel->getUserById(1);
         $expected = array(
-            'id'       => 1,
-            'username' => 'Admin',
-            'password' => '21232f297a57a5a743894a0e4a801fc3',
-            'active'   => 1
+            'id'          => '1',
+            'username'    => 'Admin',
+            'password'    => '21232f297a57a5a743894a0e4a801fc3',
+            'active'      => '1',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         );
         $this->assertEquals($expected, $user);
 
@@ -115,7 +121,10 @@ class UserTest extends ControllerTestCase
             'id'       => '0',
             'username' => '',
             'password' => '',
-            'active'   => 0
+            'active'   => '0',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         );
         $this->assertEquals($expected, $user);
     }
@@ -124,10 +133,13 @@ class UserTest extends ControllerTestCase
     {
         $user     = $this->userModel->getUserByName('Admin');
         $expected = array(
-            'id'       => 1,
+            'id'       => '1',
             'username' => 'Admin',
             'password' => '21232f297a57a5a743894a0e4a801fc3',
-            'active'   => 1
+            'active'   => '1',
+            'realName'    => '',
+            'email'       => '',
+            'newLanguage' => ''
         );
         $this->assertEquals($expected, $user);
     }

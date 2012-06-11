@@ -8,6 +8,7 @@ REPO_DIR="/srv/www/otc/"
 SETUP_DIR="/srv/www/otc_setup"
 TEMP_DIR="/tmp/otc"
 OTC_PACKAGE="/srv/www/update.otrance.org/files/otrance-1.0.0.zip"
+HTTPD_USER="kyoya:www"
 
 if [ -f setup.conf ]; then
 	. setup.conf
@@ -50,7 +51,7 @@ sudo mkdir public
 checkResult
 
 echo -n "Changing Owner ..."
-sudo chown -R kyoya:www public
+sudo chown -R $HTTPD_USER public
 checkResult
 
 echo -n "Changing permissions ..."

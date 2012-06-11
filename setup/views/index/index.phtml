@@ -102,11 +102,30 @@
                         "success":function(result) {
                             if (result.connect) {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('done');
-                                $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
-                                $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
+                                if (result.dbExists) {
+                                    $('#mysqlNotify')
+                                        .removeClass('ok error warning')
+                                        .addClass('ok')
+                                        .html('MySQL connection successfully established.')
+                                        .fadeIn(500)
+                                        .delay(2500)
+                                        .fadeOut(500, function() {
+                                            $(this)
+                                                .removeClass('ok error warning')
+                                                .addClass('warning')
+                                                .html(result.message)
+                                                .fadeIn(500)
+                                                .delay(7500)
+                                                .fadeOut(500);
+                                        });
+                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
+                                } else if (result.dbCreate) {
+                                    $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
+                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
+                                }
                             } else {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
-                                $('#mysqlNotify').removeClass('ok error').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
+                                $('#mysqlNotify').removeClass('ok error warning').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
                                 $('#nextStepButton').hide();
                             }
                         }
@@ -120,13 +139,13 @@
                     "success":function(result) {
                         if (result.success) {
                             $('#steps .step4 .status').removeClass('active error done pending').addClass('done');
-                            $('#mysqlNotify').removeClass('ok error').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
+                            $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
                             $('#nextStepButton').insertBefore('#step4 h2').css('display', 'inline-block').focus();
                         } else {
                             $('#steps .step4 .status').removeClass('active error done pending').addClass('error');
                             var message = 'Error while creating tables.<br/>' + result.number + ': ' + result.message;
                             message += '<br/>Line ' + result.line + ': ' + result.query;
-                            $('#mysqlNotify').removeClass('ok error').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                            $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
                             $('#nextStepButton').hide();
                         }
                     }
@@ -151,7 +170,7 @@
                         });
                     } else {
                         var message = "Admin password must be equal with it's confirmation.";
-                        $('#mysqlNotify').removeClass('ok error').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                        $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
                     }
                     return false;
                 });

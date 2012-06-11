@@ -102,3 +102,6 @@ h2 {
 #setupFinished {
     display:none;
 }
+.notification-bar.warning {
+    background-color:#ffff00;
+}

@@ -5,12 +5,14 @@
     <title>oTranCe - Online Translation Center</title>
     <link type="text/css" rel="stylesheet" href="css/style.css"/>
     <link type="text/css" rel="stylesheet" href="css/login.css"/>
+    <link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.21.custom.css"/>
     <style type="text/css">
         #login .bdr td {
             border:none;
         }
     </style>
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
     <script type="text/javascript">
         var icons = {
@@ -20,7 +22,24 @@
         };
         var currentStep = 0;
 
+        var rowClasses = ['row-even', 'row-odd'];
+
+        var $pbar;
+
         var steps = {
+            propLength:false,
+            length:function() {
+                if (!this.propLength) {
+                    var stepCount = 0;
+                    for (var n in this) {
+                        if (!isNaN(n)) {
+                            stepCount++;
+                        }
+                    }
+                    this.propLength = stepCount;
+                }
+                return this.propLength;
+            },
             "1":function() {
                 function runCheck() {
                     var $form = $('#requireCheck');
@@ -48,18 +67,22 @@
                 }
 
                 var toggleVar = 1;
-                var rowClasses = ['row-even', 'row-odd'];
                 $.ajax({
                     "url":"index.php?controller=requirements&action=fetchInfo",
                     "type":"POST",
                     "success":function(result) {
-                        $('#requireRow').tmpl(result, {
-                            "getRowClass":function() {
-                                toggleVar++;
-                                return rowClasses[toggleVar % rowClasses.length];
-                            }
-                        }).appendTo('#requireCheck table');
-                        runCheck();
+                        if (result.error) {
+                            $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(result.error).fadeIn(500).delay(5000).fadeOut(500);
+                        } else {
+                            $('#requireRow').tmpl(result. requirements, {
+                                "getRowClass":function() {
+                                    toggleVar++;
+                                    return rowClasses[toggleVar % rowClasses.length];
+                                }
+                            }).appendTo('#requireCheck table');
+                            $('#version').html(result.version);
+                            runCheck();
+                        }
                     }
                 });
             },
@@ -123,6 +146,17 @@
                                     $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
                                     $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
                                 }
+
+                                var toggleVar = 0;
+
+                                var $renderedQueryRows = $('#queryRow').tmpl(result.queries, {
+                                    "getRowClass":function() {
+                                        toggleVar++;
+                                        return rowClasses[toggleVar % rowClasses.length];
+                                    }
+                                });
+                                $renderedQueryRows.appendTo('#queriesTable');
+
                             } else {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
                                 $('#mysqlNotify').removeClass('ok error warning').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
@@ -143,10 +177,20 @@
                             $('#nextStepButton').insertBefore('#step4 h2').css('display', 'inline-block').focus();
                         } else {
                             $('#steps .step4 .status').removeClass('active error done pending').addClass('error');
-                            var message = 'Error while creating tables.<br/>' + result.number + ': ' + result.message;
-                            message += '<br/>Line ' + result.line + ': ' + result.query;
+                            var message = 'Error while creating tables.';
                             $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
                             $('#nextStepButton').hide();
+                        }
+
+                        var iconIndex;
+                        var item;
+                        for (var queryId in result.queryResults) {
+                            item = result.queryResults[queryId];
+                            iconIndex = item.success ? 0 : 1;
+                            $('#qi' + queryId).prop({
+                                "src":icons[iconIndex],
+                                "title":item.message
+                            });
                         }
                     }
                 });
@@ -180,6 +224,7 @@
         function nextStep()
         {
             $('#step' + currentStep).hide();
+            $('#pbar').progressbar('value', (currentStep / steps.length()) * 100);
             currentStep++;
             $('#step' + currentStep).show();
             $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
@@ -188,12 +233,19 @@
         }
 
         $(document).ready(function(){
+            $pbar = $('#pbar').progressbar({});
             $('#nextStepButton').bind('click', function() {
                 nextStep();
                 return false;
             });
             nextStep();
         });
+    </script>
+    <script type="text/x-jquery-tmpl" id="queryRow">
+        <tr class="${$item.getRowClass()}">
+            <td class="vmiddle">${title}</td>
+            <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="qi${id}"/></td>
+        </tr>
     </script>
     <script type="text/x-jquery-tmpl" id="requireRow">
         <tr class="${$item.getRowClass()}">
@@ -209,15 +261,18 @@
     <div id="header"></div>
     <div id="container">
         <div id="login">
-            <h1>oTranCe - Setup</h1>
+            <h1>oTranCe <span id="version"></span> - Setup</h1>
             <ul id="steps">
-                <li class="step step1"><span class="status active"></span> Requirements check</li>
-                <li class="step step2"><span class="status pending"></span> Download &amp; extract</li>
-                <li class="step step3"><span class="status pending"></span> MySQL connection</li>
-                <li class="step step4"><span class="status pending"></span> Database tables</li>
-                <li class="step step5"><span class="status pending"></span> Project settings</li>
-                <li class="clear"></li>
+                <li class="step step1"><span class="status active">&nbsp;</span> Requirements check</li>
+                <li class="step step2"><span class="status pending">&nbsp;</span> Download &amp; extract</li>
+                <li class="step step3"><span class="status pending">&nbsp;</span> MySQL connection</li>
+                <li class="step step4"><span class="status pending">&nbsp;</span> Database tables</li>
+                <li class="step step5"><span class="status pending">&nbsp;</span> Project settings</li>
+                <li class="clear">&nbsp;</li>
             </ul>
+            <div class="pbarContainer">
+                <div id="pbar"></div>
+            </div>
             <div class="clear"></div>
             <div id="step1">
                 <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
@@ -253,7 +308,7 @@
             </div>
             <div id="step3">
                 <h2>MySQL settings</h2>
-                <form id="mysqlSettings" action="index.php?controller=mysql&action=check" method="post" onsubmit="return false;">
+                <form id="mysqlSettings" action="index.php?controller=mysql&amp;action=check" method="post" onsubmit="return false;">
                     <table class="bdr small">
                         <tr>
                             <th><label for="dbHost">Server host:</label></th>
@@ -280,6 +335,10 @@
                             <td><input type="text" class="text" name="mysql[db]" id="dbName" value="otrance"/></td>
                         </tr>
                         <tr>
+                            <th><label for="prefix">Prefix for tables:</label></th>
+                            <td><input type="text" class="text" name="mysql[prefix]" id="prefix" value="otc_"/></td>
+                        </tr>
+                        <tr>
                             <th></th>
                             <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
                         </tr>
@@ -288,10 +347,16 @@
             </div>
             <div id="step4">
                 <h2>Creating database tables</h2>
+                <table id="queriesTable" class="bdr small">
+                    <tr>
+                        <th>Action</th>
+                        <th>Result</th>
+                    </tr>
+                </table>
             </div>
             <div id="step5">
                 <h2>Project settings</h2>
-                <form id="projectSettings" action="index.php?controller=project&action=save" method="post" onsubmit="return false;">
+                <form id="projectSettings" action="index.php?controller=project&amp;action=save" method="post" onsubmit="return false;">
                     <table class="bdr small">
                         <tr>
                             <th><label for="projectName">Project name:</label></th>

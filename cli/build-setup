@@ -11,28 +11,28 @@ OTC_PACKAGE="/srv/www/update.otrance.org/files/otrance-1.0.0.zip"
 HTTPD_USER="kyoya:www"
 
 if [ -f setup.conf ]; then
-	. setup.conf
+    . setup.conf
 fi
 
 checkResult() {
-	if [ $? -eq 0 ]; then
-		echo -ne "\033[1;32m OK"
-	else
-		echo -ne "\033[1;31m failed"
-	fi
-	echo -e "\033[0m"
+    if [ $? -eq 0 ]; then
+        echo -ne "\033[1;32m OK"
+    else
+        echo -ne "\033[1;31m failed"
+    fi
+    echo -e "\033[0m"
 }
 
 if [ -n "$MYSQL_HOST" ]; then
-	MYSQL_HOST="-h$MYSQL_HOST"
+    MYSQL_HOST="-h$MYSQL_HOST"
 fi
 
 if [ -n "$MYSQL_USER" ]; then
-	MYSQL_USER="-u$MYSQL_USER"
+    MYSQL_USER="-u$MYSQL_USER"
 fi
 
 if [ -n "$MYSQL_PASS" ]; then
-	MYSQL_PASS="-p$MYSQL_PASS"
+    MYSQL_PASS="-p$MYSQL_PASS"
 fi
 
 echo -n "Removing DB tables from $MYSQL_DB ..."
@@ -59,9 +59,9 @@ sudo chmod -R ug+rwX public
 checkResult
 
 if [ -d "$TEMP_DIR" ]; then
-	echo -n "Creating temporary directory $TEMP_DIR ..."
-	mkdir -p "$TEMP_DIR"
-	checkResult
+    echo -n "Creating temporary directory $TEMP_DIR ..."
+    mkdir -p "$TEMP_DIR"
+    checkResult
 fi
 
 echo -n "Exporting OTC to $TEMP_DIR ..."

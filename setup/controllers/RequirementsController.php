@@ -182,13 +182,39 @@ class RequirementsController extends Setup_Controller_Abstract
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $rawResponse = curl_exec($curlHandle);
         $setupInfo = json_decode($rawResponse, true);
+
+        if ($setupInfo === null) {
+            $this->_response->setBodyJson(
+                array(
+                    'error' => "Can't fetch package information.<br/>The update server sends an invalid response.",
+                )
+            );
+
+            return;
+        }
+
+        if (isset($setupInfo['error'])) {
+            $this->_response->setBodyJson(
+                array(
+                    'error' => "Can't fetch package information.<br/>Server message: " . $setupInfo['error'],
+                )
+            );
+
+            return;
+        }
+
         $_SESSION['setupInfo'] = $setupInfo;
         $jsonArray = array();
         foreach ($setupInfo['requirements'] as $requireKey => $requirement) {
             $requirement['reqKey'] = $requireKey;
             $jsonArray[] = $requirement;
         }
-        $this->_response->setBodyJson($jsonArray);
+        $this->_response->setBodyJson(
+            array(
+                'version' => $setupInfo['version'],
+                'requirements' => $jsonArray,
+            )
+        );
     }
 
     /**

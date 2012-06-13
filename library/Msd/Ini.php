@@ -31,6 +31,13 @@ class Msd_Ini
     private $_iniFilename = null;
 
     /**
+     * Determines the escaping of the output.
+     *
+     * @var bool
+     */
+    private $_escapeIniOutput = true;
+
+    /**
      * Class constructor
      *
      * @param array|string $options Configuration or filename of INI to load
@@ -60,6 +67,8 @@ class Msd_Ini
      *
      * @param string $filename Name of file to load
      *
+     * @throws Msd_Exception
+     *
      * @return void
      */
     public function loadFile($filename = null)
@@ -81,6 +90,8 @@ class Msd_Ini
      * Save to INI file.
      *
      * @param string $filename Name of file to save
+     *
+     * @throws Msd_Exception
      *
      * @return bool
      */
@@ -123,12 +134,16 @@ class Msd_Ini
                     $resultString .= $this->_arrayToIniString($value, $level, $key);
                 }
             } else {
-                $newValue = str_replace(
-                    array('\\', '"'),
-                    array('\\\\', '\\"'),
-                    $value
-                );
-                $resultString .= ltrim("$prefix.$key", '.') . " = \"$newValue\"\n";
+                $newValue = $value;
+                if ($this->_escapeIniOutput) {
+                    $newValue = "\"" . str_replace(
+                        array('\\', '"'),
+                        array('\\\\', '\\"'),
+                        $value
+                    ) . "\"";
+                }
+
+                $resultString .= ltrim("$prefix.$key", '.') . " = $newValue\n";
             }
         }
 
@@ -186,7 +201,11 @@ class Msd_Ini
     }
 
     /**
-     * @param array $iniData
+     * Sets the INI data.
+     *
+     * @param array $iniData New INI data.
+     *
+     * @return void
      */
     public function setIniData($iniData)
     {
@@ -194,10 +213,54 @@ class Msd_Ini
     }
 
     /**
+     * Gets the parsed INI data.
+     *
      * @return array
      */
     public function getIniData()
     {
         return $this->_iniData;
+    }
+
+    /**
+     * Disables the escaping of the output for the INI file.
+     *
+     * @return void
+     */
+    public function disableEscaping()
+    {
+        $this->setEscapeIniOutput(false);
+    }
+
+    /**
+     * Enables the escaping of the output for the INI file.
+     *
+     * @return void
+     */
+    public function enableEscaping()
+    {
+        $this->setEscapeIniOutput(true);
+    }
+
+    /**
+     * En-/Disables the escaping of the output for the INI file.
+     *
+     * @param boolean $escapeIniOutput TRUE - Escaping enabled (default), FALSE - Escaping disabled
+     *
+     * @return void
+     */
+    public function setEscapeIniOutput($escapeIniOutput)
+    {
+        $this->_escapeIniOutput = $escapeIniOutput;
+    }
+
+    /**
+     * Retrieves escaping status of the output for the INI file.
+     *
+     * @return boolean
+     */
+    public function getEscapeIniOutput()
+    {
+        return $this->_escapeIniOutput;
     }
 }

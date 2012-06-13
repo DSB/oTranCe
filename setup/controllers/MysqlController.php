@@ -56,6 +56,15 @@ class MysqlController extends Setup_Controller_Abstract
         $stmt->fetch();
         $stmt->free_result();
 
+        $queries = array();
+
+        foreach ($_SESSION['setupInfo']['sql-queries'] as $queryId => $queryInfo) {
+            $queries[] = array(
+                'id'    => $queryId,
+                'title' => $queryInfo['title'],
+            );
+        }
+
         if ($row > 0) {
             $this->_response->setBodyJson(
                 array(
@@ -63,6 +72,7 @@ class MysqlController extends Setup_Controller_Abstract
                     'dbExists' => true,
                     'message' => 'The database ' . $mysql['db']
                         . ' already exists.<br/>If you continue, all data in the selected database is lost.',
+                    'queries' => $queries,
                 )
             );
 
@@ -79,6 +89,7 @@ class MysqlController extends Setup_Controller_Abstract
                 'dbExists' => false,
                 'dbCreate' => $success,
                 'message' => $mysqli->error,
+                'queries' => $queries,
             )
         );
     }
@@ -101,10 +112,11 @@ class MysqlController extends Setup_Controller_Abstract
         );
 
         $mysqli->query('SET NAMES utf8');
+        $tableSearch = $mysql['prefix'] . '%';
 
         $stmt = $mysqli->stmt_init();
-        $stmt->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = ?');
-        $stmt->bind_param("s", $mysql['db']);
+        $stmt->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME LIKE ?');
+        $stmt->bind_param("ss", $mysql['db'], $tableSearch);
         $stmt->execute();
         $stmt->bind_result($row);
 
@@ -116,25 +128,25 @@ class MysqlController extends Setup_Controller_Abstract
 
         $mysqli->query('DROP TABLE `' . implode('`, `', $tables) . '`');
 
-        $setupSqlFile = file_get_contents($this->_config['extractDir'] . '/docs/setup.sql');
-        $sqlQueries = explode(";\n", $setupSqlFile);
+        $sqlQueries = $_SESSION['setupInfo']['sql-queries'];
         $result = array(
             'success' => true,
         );
 
-        foreach ($sqlQueries as $lineNo => $sqlQuery) {
-            if (empty($sqlQuery)) {
-                continue;
-            }
-            $result['success'] = $result['success'] && $mysqli->query($sqlQuery);
-            if (!$result['success']) {
-                $result['message'] = $mysqli->error;
-                $result['number'] = $mysqli->errno;
-                $result['line'] = $lineNo + 1;
-                $result['query'] = $sqlQuery;
-                break;
-            }
+        $queryResults = array();
+
+        foreach ($sqlQueries as $queryId => $queryInfo) {
+            $realQuery = str_replace('{PREFIX}', $mysql['prefix'], $queryInfo['query']);
+            $result['queries'][] = $realQuery;
+            $queryResult = $mysqli->query($realQuery);
+            $result['success'] = $result['success'] && $queryResult;
+            $queryResults[$queryId] = array(
+                'success' => $queryResult,
+                'message' => $mysqli->error,
+            );
         }
+
+        $result['queryResults'] = $queryResults;
 
         $this->_response->setBodyJson($result);
     }

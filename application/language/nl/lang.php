@@ -307,6 +307,7 @@ $lang = array(
 'L_USERS' => 'Gebruiker',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Gebruiker met bevoegdheid tot wijzigen',
 'L_USER_DELETED_SUCCESSFULLY' => 'De gebruiker is succesvol verwijderd.',
+'L_USER_PROFILE' => 'User profile',
 'L_USE_ANALYZER' => 'Gebruik import',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'In dit bestandsvoorbeeld bestaat de sleutel \'%s\' al.',
 'L_VALIDATE_ERROR_NAME_TOO_SHORT' => 'De naam van de sleutel is te kort.',

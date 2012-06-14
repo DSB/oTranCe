@@ -153,6 +153,7 @@ $lang = array(
 'L_FOOTER_HOMEPAGE' => 'oTranCe webpagina',
 'L_FOOTER_TEAM' => 'Het ontwikkelaar team',
 'L_FOUND_X_KEYS' => 'Er zijn %s sleutel gevonden.',
+'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Gegenereerd inhoud',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Zoek de volgende niet vertaald sleutel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Zoek de vorige niet vertaald sleutel',

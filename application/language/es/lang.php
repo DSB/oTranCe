@@ -153,6 +153,7 @@ $lang = array(
 'L_FOOTER_HOMEPAGE' => 'Portada de oTrance',
 'L_FOOTER_TEAM' => 'El equipo de desarrollo',
 'L_FOUND_X_KEYS' => 'Found %s keys.',
+'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Generated content',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Find next untranslated key',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Get last untranslated key',

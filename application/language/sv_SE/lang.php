@@ -155,6 +155,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_FOOTER_HOMEPAGE' => 'oTranCe hemsida',
 'L_FOOTER_TEAM' => 'Utvecklingsteamet',
 'L_FOUND_X_KEYS' => '%s nycklar hittades.',
+'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Genererat innehåll',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Hitta nästa oöversatta nyckel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Hitta föregående oöversatta nyckel',

@@ -13,7 +13,7 @@
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
-'L_ACCOUNT_SETTINGS' => 'Einstellungen Benutzerkonto',
+'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',
 'L_ACTION' => 'Aktion',
 'L_ACTIVITIES' => 'Aktivitäten',
 'L_ADD' => 'Hinzufügen',

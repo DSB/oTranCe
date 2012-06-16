@@ -24,7 +24,10 @@
 
         var rowClasses = ['row-even', 'row-odd'];
 
-        var $pbar;
+
+        var pbarDownload;
+        var downloadSize;
+        var downloadDone = false;
 
         var steps = {
             propLength:false,
@@ -102,16 +105,46 @@
                                 $('#steps .step2 .status').removeClass('active error done pending').addClass('error');
                                 $('#nextStepButton').hide();
                             }
+                            downloadDone = true;
                         }
                     });
                 }
+
+                function formatFilesize(bytes)
+                {
+                    var filesizeLength = bytes.toString ? bytes.toString().length : (new String(bytes)).length;
+                    var units = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+                    var factor = Math.floor((filesizeLength - 1) / 3);
+                    return (bytes / Math.pow(1024, factor)).toFixed(2) + ' ' + units[factor];
+                }
+
+                function refreshProgress() {
+                    $.ajax({
+                        "url":"index.php?controller=download&action=fetchDownloaded",
+                        "type":"get",
+                        "success":function (result) {
+                            if (result.percent) {
+                                $('#downloadProgress').progressbar('value', result.percent);
+                            }
+                            if (!downloadDone) {
+                                window.setTimeout(refreshProgress, 500);
+                            } else {
+                                $('#downloadProgress').parent().parent().hide();
+                            }
+                        }
+                });
+                }
+
+                $('#downloadProgress').progressbar({});
                 $.ajax({
                     "url":"index.php?controller=download&action=package",
                     "type":"POST",
                     "success":function(result) {
-                        $('#package').html(result.download);
+                        downloadSize = result.downloadSize;
+                        $('#package').html(result.download + '<br/>Download size: ' + formatFilesize(result.downloadSize));
                         $('#extractDir').html(result.extract);
                         downloadExtract();
+                        refreshProgress();
                     }
                 });
             },
@@ -125,25 +158,18 @@
                         "success":function(result) {
                             if (result.connect) {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('done');
+                                $('#mysqlConnectResult').remove();
+                                $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status success">MySQL connection successfully established.<\/td><\/tr>');
                                 if (result.dbExists) {
+                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
                                     $('#mysqlNotify')
                                         .removeClass('ok error warning')
-                                        .addClass('ok')
-                                        .html('MySQL connection successfully established.')
+                                        .addClass('warning')
+                                        .html(result.message)
                                         .fadeIn(500)
-                                        .delay(2500)
-                                        .fadeOut(500, function() {
-                                            $(this)
-                                                .removeClass('ok error warning')
-                                                .addClass('warning')
-                                                .html(result.message)
-                                                .fadeIn(500)
-                                                .delay(7500)
-                                                .fadeOut(500);
-                                        });
-                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
+                                        .delay(5000)
+                                        .fadeOut(500);
                                 } else if (result.dbCreate) {
-                                    $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL connection successfully established.').fadeIn(500).delay(2500).fadeOut(500);
                                     $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
                                 }
 
@@ -159,7 +185,8 @@
 
                             } else {
                                 $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
-                                $('#mysqlNotify').removeClass('ok error warning').addClass('error').html('MySQL connection error!<br/>' + result.number + ': ' + result.message).fadeIn(500).delay(5000).fadeOut(500);
+                                $('#mysqlConnectResult').remove();
+                                $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL connection error!<br/>' + result.number + ': ' + result.message + '<\/td><\/tr>');
                                 $('#nextStepButton').hide();
                             }
                         }
@@ -224,7 +251,6 @@
         function nextStep()
         {
             $('#step' + currentStep).hide();
-            $('#pbar').progressbar('value', (currentStep / steps.length()) * 100);
             currentStep++;
             $('#step' + currentStep).show();
             $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
@@ -233,7 +259,6 @@
         }
 
         $(document).ready(function(){
-            $pbar = $('#pbar').progressbar({});
             $('#nextStepButton').bind('click', function() {
                 nextStep();
                 return false;
@@ -270,9 +295,6 @@
                 <li class="step step5"><span class="status pending">&nbsp;</span> Project settings</li>
                 <li class="clear">&nbsp;</li>
             </ul>
-            <div class="pbarContainer">
-                <div id="pbar"></div>
-            </div>
             <div class="clear"></div>
             <div id="step1">
                 <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
@@ -299,6 +321,9 @@
                     <tr>
                         <td class="vmiddle">Downloading <span id="package"></span></td>
                         <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="downStatus"/></td>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle" colspan="2"><div id="downloadProgress"></div></td>
                     </tr>
                     <tr>
                         <td class="vmiddle">Extracting to <span id="extractDir"></span></td>

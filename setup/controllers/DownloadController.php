@@ -31,10 +31,38 @@ class DownloadController extends Setup_Controller_Abstract
         $this->_response->setBodyJson(
             array(
                 'download' => $setupInfo['package'],
+                'downloadSize' => $setupInfo['filesize'],
                 'extract' => $extractDir,
             )
         );
+        $tempFilename = tempnam(sys_get_temp_dir(), 'otc');
+        $_SESSION['tempFilename'] = $tempFilename;
     }
+
+    /**
+     * Fetches the number of downloaded bytes of the download package package.
+     *
+     * @return void
+     */
+    public function fetchDownloadedAction()
+    {
+        clearstatcache();
+        $setupInfo = $_SESSION['setupInfo'];
+        $result = array();
+
+        if (isset($_SESSION['tempFilename'])) {
+            $tempFilename = $_SESSION['tempFilename'];
+            session_write_close();
+            if (file_exists($tempFilename)) {
+                $filesize = round(filesize($tempFilename), 0);
+                $result['bytes'] = $filesize;
+                $result['percent'] = ($filesize * 100) / $setupInfo['filesize'];
+            }
+        }
+
+        $this->_response->setBodyJson($result);
+    }
+
     /**
      * Controller action for downloading and extracting the OTC package.
      *
@@ -45,9 +73,10 @@ class DownloadController extends Setup_Controller_Abstract
         $log = array();
         $setupInfo = $_SESSION['setupInfo'];
 
-        $tempFilename = tempnam(sys_get_temp_dir(), 'otc');
+        $tempFilename = $_SESSION['tempFilename'];
         $tempFile = fopen($tempFilename, 'w+');
 
+        session_write_close();
         $curlHandle = curl_init($setupInfo['package']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);

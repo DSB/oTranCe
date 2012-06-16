@@ -112,8 +112,12 @@ h2 {
 .pbarContainer {
     text-align: center;
 }
-#pbar {
-    width:840px;
-    margin:0 auto 20px;
-    height:10px;
+.status {
+    font-weight:bold;
+}
+.status.success {
+    color:#080;
+}
+.status.error {
+    color:#F00;
 }

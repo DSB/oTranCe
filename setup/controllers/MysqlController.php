@@ -71,7 +71,7 @@ class MysqlController extends Setup_Controller_Abstract
                     'connect' => true,
                     'dbExists' => true,
                     'message' => 'The database ' . $mysql['db']
-                        . ' already exists.<br/>If you continue, all data in the selected database is lost.',
+                        . ' already exists.<br/>If you continue, all tables with the given prefix will be overwritten.',
                     'queries' => $queries,
                 )
             );

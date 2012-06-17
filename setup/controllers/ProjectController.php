@@ -25,7 +25,7 @@ class ProjectController extends Setup_Controller_Abstract
      */
     protected function _generateEncryptionKey($length = 32)
     {
-        $pool = array_merge(
+        $pool     = array_merge(
             range(0, 9),
             range('a', 'z'),
             range('A', 'Z')
@@ -48,12 +48,15 @@ class ProjectController extends Setup_Controller_Abstract
     public function saveAction()
     {
         $createAdmin = $this->_writeDbData();
-        $saveConfig = $this->_writeIniFile();
+        $saveConfig = false;
+        if ($createAdmin !== false) {
+            $saveConfig = $this->_writeIniFile();
+        }
 
         $this->_response->setBodyJson(
             array(
-                'createAdmin' => $createAdmin,
-                'saveConfig' => $saveConfig,
+                 'createAdmin' => $createAdmin,
+                 'saveConfig'  => $saveConfig,
             )
         );
     }
@@ -66,13 +69,13 @@ class ProjectController extends Setup_Controller_Abstract
     protected function _writeIniFile()
     {
         $projectInfo = $this->_request->getParam('project');
-        $mysql = $_SESSION['mysql'];
+        $mysql       = $_SESSION['mysql'];
         $tablePrefix = $mysql['prefix'];
 
-        $configIni = parse_ini_file($this->_config['extractDir'] . '/application/configs/config.dist.ini', true);
-        $configIni['dbuser'] = $mysql;
-        $configIni['project']['name'] = $projectInfo['name'];
-        $configIni['project']['url'] = $projectInfo['url'];
+        $configIni                             = parse_ini_file($this->_config['extractDir'] . '/application/configs/config.dist.ini', true);
+        $configIni['dbuser']                   = $mysql;
+        $configIni['project']['name']          = $projectInfo['name'];
+        $configIni['project']['url']           = $projectInfo['url'];
         $configIni['project']['encryptionKey'] = $this->_generateEncryptionKey();
 
         foreach ($_SESSION['setupInfo']['sql-queries'] as $queryInfo) {
@@ -87,7 +90,7 @@ class ProjectController extends Setup_Controller_Abstract
         include_once $this->_config['extractDir'] . '/library/Msd/Ini.php';
 
         $saveConfig = true;
-        $ini = new Msd_Ini();
+        $ini        = new Msd_Ini();
         $ini->setIniData($configIni);
         $ini->disableEscaping();
         $saveConfig = $saveConfig && $ini->saveFile($this->_config['extractDir'] . '/application/configs/config.ini');
@@ -108,8 +111,8 @@ class ProjectController extends Setup_Controller_Abstract
      */
     protected function _writeDbData()
     {
-        $adminInfo = $this->_request->getParam('admin');
-        $mysql = $_SESSION['mysql'];
+        $adminInfo   = $this->_request->getParam('admin');
+        $mysql       = $_SESSION['mysql'];
         $tablePrefix = $mysql['prefix'];
 
         $mysqli = new mysqli(
@@ -122,9 +125,10 @@ class ProjectController extends Setup_Controller_Abstract
         );
 
         $createAdmin = true;
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare("INSERT INTO `{$tablePrefix}users` (`username`, `password`, `active`, `realName`, `email`)
-                VALUES (?, MD5(?), 1, ?, ?)");
+        $stmt        = $mysqli->stmt_init();
+        $sql         = "INSERT INTO `{$tablePrefix}users` (`username`, `password`, `active`, `realName`, `email`,
+                        `newLanguage`) VALUES (?, MD5(?), 1, ?, ?, '')";
+        $stmt->prepare($sql);
         $stmt->bind_param(
             "ssss",
             $adminInfo['login'],
@@ -136,9 +140,8 @@ class ProjectController extends Setup_Controller_Abstract
 
         $stmt->close();
 
-
         $userId = $mysqli->insert_id;
-        $stmt = $mysqli->stmt_init();
+        $stmt   = $mysqli->stmt_init();
         $stmt->prepare("INSERT INTO `{$tablePrefix}userrights` (`user_id`, `right`, `value`) VALUES (?, ?, ?)");
 
         foreach ($_SESSION['setupInfo']['adminRights'] as $right => $value) {

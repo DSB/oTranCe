@@ -10,7 +10,7 @@
 /**
  * Bootstrap class
  *
- * @package         OTranCe
+ * @package         oTranCe
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {

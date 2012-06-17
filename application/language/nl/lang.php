@@ -317,6 +317,7 @@ $lang = array(
 'L_VCS_ADAPTER_OPTIONS' => 'Instellingen VCS-adapter',
 'L_VCS_CREDENTIALS' => 'VCS-toegangsgegevens',
 'L_VCS_SETTINGS' => 'Instellingen versie-systeem',
+'L_VERSION' => 'Version:',
 'L_VIEW_EXPORTED_FILES' => 'Toon geëxporteerd bestand',
 'L_YES' => 'Ja',
 'L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY' => 'Uw instellingen zijn succesvol opgeslaan.',

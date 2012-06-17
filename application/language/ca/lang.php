@@ -317,6 +317,7 @@ $lang = array(
 'L_VCS_ADAPTER_OPTIONS' => 'VCS adapter options',
 'L_VCS_CREDENTIALS' => 'VCS Credentials',
 'L_VCS_SETTINGS' => 'Version control system settings',
+'L_VERSION' => 'Version:',
 'L_VIEW_EXPORTED_FILES' => 'Browse exported files',
 'L_YES' => 'Yes',
 'L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY' => 'Your settings have been saved successfully.',

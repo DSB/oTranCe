@@ -184,9 +184,14 @@ class RequirementsController extends Setup_Controller_Abstract
         $setupInfo = json_decode($rawResponse, true);
 
         if ($setupInfo === null) {
+            $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+            $message = "The update server sends an invalid response.";
+            if ($httpCode != 200) {
+                $message = "Server response HTTP code: $httpCode";
+            }
             $this->_response->setBodyJson(
                 array(
-                    'error' => "Can't fetch package information.<br/>The update server sends an invalid response.",
+                    'error' => "Can't fetch package information.<br/>$message",
                 )
             );
 

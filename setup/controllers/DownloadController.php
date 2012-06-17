@@ -70,7 +70,10 @@ class DownloadController extends Setup_Controller_Abstract
      */
     public function downloadAction()
     {
-        $log = array();
+        $log = array(
+            'download' => false,
+            'extract'  => false,
+        );
         $setupInfo = $_SESSION['setupInfo'];
 
         $tempFilename = $_SESSION['tempFilename'];
@@ -80,21 +83,33 @@ class DownloadController extends Setup_Controller_Abstract
         $curlHandle = curl_init($setupInfo['package']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curlHandle, CURLOPT_FILE, $tempFile);
         $log['download'] = curl_exec($curlHandle);
+        if (!$log['download']) {
+            $log['downloadMessage'] = "Can't download oTranCe package.";
+        }
         fclose($tempFile);
 
-        $zip = new ZipArchive();
-        if ($zip->open($tempFilename) === true) {
-            if (!file_exists($this->_config['extractDir'])) {
-                mkdir($this->_config['extractDir'], 0775, true);
-            }
-            $extractDir = realpath($this->_config['extractDir']);
-            $log['extract'] = $zip->extractTo($extractDir);
-            $zip->close();
+        $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+        if ($httpCode != 200) {
+            $log['download'] = false;
+            $log['downloadMessage'] = "Can't download oTranCe package.<br/>Server response HTTP code: $httpCode";
         }
 
-        unlink($tempFilename);
+        if ($log['download']) {
+            $zip = new ZipArchive();
+            if ($zip->open($tempFilename) === true) {
+                if (!file_exists($this->_config['extractDir'])) {
+                    mkdir($this->_config['extractDir'], 0775, true);
+                }
+                $extractDir = realpath($this->_config['extractDir']);
+                $log['extract'] = $zip->extractTo($extractDir);
+                $zip->close();
+            }
+
+            unlink($tempFilename);
+        }
 
         $this->_response->setBodyJson($log);
     }

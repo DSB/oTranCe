@@ -103,8 +103,16 @@
                                 $('#nextStepButton').insertBefore('#step2 h2').css('display', 'inline-block').focus();
                             } else {
                                 $('#steps .step2 .status').removeClass('active error done pending').addClass('error');
+                                $('#mysqlNotify')
+                                    .removeClass('ok error warning')
+                                    .addClass('error')
+                                    .html(result.downloadMessage)
+                                    .fadeIn(500)
+                                    .delay(5000)
+                                    .fadeOut(500);
                                 $('#nextStepButton').hide();
                             }
+                            $('#downloadProgress').parent().parent().hide();
                             downloadDone = true;
                         }
                     });
@@ -128,8 +136,6 @@
                             }
                             if (!downloadDone) {
                                 window.setTimeout(refreshProgress, 500);
-                            } else {
-                                $('#downloadProgress').parent().parent().hide();
                             }
                         }
                 });

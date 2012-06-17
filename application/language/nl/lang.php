@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev: $
- * @author        $Author: $
+ * @version       $Rev$
+ * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
 // Jan.Twachtmann

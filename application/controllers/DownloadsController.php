@@ -4,8 +4,8 @@
  *
  * @package         oTranCe
  * @subpackage      Controllers
- * @version         SVN: $Rev: 1569 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Download Controller

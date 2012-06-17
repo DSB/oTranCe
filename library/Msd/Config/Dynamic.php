@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Config
- * @version         SVN: $Rev: 1518 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class for dynamic (session lifetime) configuration settings.

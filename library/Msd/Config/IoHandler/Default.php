@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Config_IoHandler
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class to handle input/output for configuration params.

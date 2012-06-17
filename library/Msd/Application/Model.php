@@ -6,7 +6,7 @@
  * @package         MySQLDumper
  * @subpackage      Application_Model
  * @version         SVN: $
- * @author          $Author: $
+ * @author          $Author$
  */
 /**
  * Abstract Application Model class

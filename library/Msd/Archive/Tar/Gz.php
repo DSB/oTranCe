@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive_Tar
- * @version         SVN: $Rev: 2186 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class for .tar.gz. archive creation.

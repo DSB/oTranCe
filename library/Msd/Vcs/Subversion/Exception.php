@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Vcs_Subversion
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * VCS\Subversion exception class

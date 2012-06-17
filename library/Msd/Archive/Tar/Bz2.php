@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive_Tar
- * @version         SVN: $Rev: $
- * @author          $Author: $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class to create .tar.bz2 archives.

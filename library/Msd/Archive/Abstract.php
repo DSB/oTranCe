@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive
- * @version         SVN: $Rev: 2186 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Abstract class for archive creator classes.

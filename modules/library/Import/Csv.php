@@ -6,7 +6,7 @@
  * @package         oTranCe
  * @subpackage      Importer
  * @version         SVN: $
- * @author          $Author: $
+ * @author          $Author$
  */
 
 /**

@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Users
- * @version         SVN: $Rev: 1854 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class for controlling file uploads via form.

@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive
- * @version         SVN: $Rev: 780 $
- * @author          $Author: DSB $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Archive factory

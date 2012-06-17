@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Registry
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Abstract decorator for form elements of Msd_Form

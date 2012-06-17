@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive
- * @version         SVN: $Rev: 1518 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Exception class for archive factory.

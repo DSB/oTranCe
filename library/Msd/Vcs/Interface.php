@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Vcs
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Interface definition for VCS support.

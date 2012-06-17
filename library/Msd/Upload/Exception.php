@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Exception
- * @version         SVN: $Rev: 1291 $
- * @author          $Author: dsb $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Class for all upload related exceptions.

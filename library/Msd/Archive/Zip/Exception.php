@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Archive_Zip
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Archive\Zip Exception class

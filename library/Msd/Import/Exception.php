@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      Import
- * @version         SVN: $Rev: 1465 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Exception class

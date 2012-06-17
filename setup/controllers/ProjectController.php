@@ -47,8 +47,25 @@ class ProjectController extends Setup_Controller_Abstract
      */
     public function saveAction()
     {
+        $createAdmin = $this->_writeDbData();
+        $saveConfig = $this->_writeIniFile();
+
+        $this->_response->setBodyJson(
+            array(
+                'createAdmin' => $createAdmin,
+                'saveConfig' => $saveConfig,
+            )
+        );
+    }
+
+    /**
+     * Writes the configuration to the INI file.
+     *
+     * @return bool
+     */
+    protected function _writeIniFile()
+    {
         $projectInfo = $this->_request->getParam('project');
-        $adminInfo = $this->_request->getParam('admin');
         $mysql = $_SESSION['mysql'];
         $tablePrefix = $mysql['prefix'];
 
@@ -66,34 +83,6 @@ class ProjectController extends Setup_Controller_Abstract
             $configIni['table'][$queryInfo['tableName']] = $tablePrefix . $queryInfo['tableName'];
         }
 
-        $mysqli = new mysqli(
-            $mysql['host'],
-            $mysql['user'],
-            $mysql['pass'],
-            $mysql['db'],
-            $mysql['port'],
-            $mysql['socket']
-        );
-
-        $createAdmin = true;
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare("INSERT INTO `{$tablePrefix}users` (`username`, `password`, `active`) VALUES (?, MD5(?), 1)");
-        $stmt->bind_param("ss", $adminInfo['login'], $adminInfo['pass']);
-        $createAdmin = $createAdmin && $stmt->execute();
-
-        $stmt->close();
-
-
-        $userId = $mysqli->insert_id;
-        $stmt = $mysqli->stmt_init();
-        $stmt->prepare("INSERT INTO `{$tablePrefix}userrights` (`user_id`, `right`, `value`) VALUES (?, ?, ?)");
-
-        foreach ($_SESSION['setupInfo']['adminRights'] as $right => $value) {
-            $createAdmin = $createAdmin && $stmt->bind_param("iss", $userId, $right, $value);
-            $stmt->execute();
-            $stmt->free_result();
-        }
-
         include_once $this->_config['extractDir'] . '/library/Msd/Exception.php';
         include_once $this->_config['extractDir'] . '/library/Msd/Ini.php';
 
@@ -109,12 +98,66 @@ class ProjectController extends Setup_Controller_Abstract
         );
 
         $saveConfig = $saveConfig && (file_put_contents(APPLICATION_PATH . '/.htaccess', 'Deny From All') !== false);
+        return $saveConfig;
+    }
 
-        $this->_response->setBodyJson(
-            array(
-                'createAdmin' => $createAdmin,
-                'saveConfig' => $saveConfig,
-            )
+    /**
+     * Executes MySQL queries for creating admin user and initial language.
+     *
+     * @return bool
+     */
+    protected function _writeDbData()
+    {
+        $adminInfo = $this->_request->getParam('admin');
+        $mysql = $_SESSION['mysql'];
+        $tablePrefix = $mysql['prefix'];
+
+        $mysqli = new mysqli(
+            $mysql['host'],
+            $mysql['user'],
+            $mysql['pass'],
+            $mysql['db'],
+            $mysql['port'],
+            $mysql['socket']
         );
+
+        $createAdmin = true;
+        $stmt = $mysqli->stmt_init();
+        $stmt->prepare("INSERT INTO `{$tablePrefix}users` (`username`, `password`, `active`, `realName`, `email`)
+                VALUES (?, MD5(?), 1, ?, ?)");
+        $stmt->bind_param(
+            "ssss",
+            $adminInfo['login'],
+            $adminInfo['pass'],
+            $adminInfo['realName'],
+            $adminInfo['email']
+        );
+        $createAdmin = $createAdmin && $stmt->execute();
+
+        $stmt->close();
+
+
+        $userId = $mysqli->insert_id;
+        $stmt = $mysqli->stmt_init();
+        $stmt->prepare("INSERT INTO `{$tablePrefix}userrights` (`user_id`, `right`, `value`) VALUES (?, ?, ?)");
+
+        foreach ($_SESSION['setupInfo']['adminRights'] as $right => $value) {
+            $stmt->bind_param("iss", $userId, $right, $value);
+            $createAdmin = $createAdmin && $stmt->execute();
+            $stmt->free_result();
+        }
+
+        $stmt->close();
+
+        $mysqli->query(
+            "INSERT INTO `{$tablePrefix}languages` (`active`, `locale`, `name`, `flag_extension`, `is_fallback`)
+                VALUES (1, 'en', 'English', 'gif', 1)"
+        );
+        $languageId = $mysqli->insert_id;
+
+        $mysqli->query(
+            "INSERT INTO `{$tablePrefix}user_languages` (`user_id`, `language_id`) VALUES ($userId, $languageId)"
+        );
+        return $createAdmin;
     }
 }

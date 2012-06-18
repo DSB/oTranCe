@@ -40,8 +40,9 @@ class Msd_Action_Helper_AssignConfigAndLanguage extends Zend_Controller_Action_H
         $view->dynamicConfig = Msd_Registry::getDynamicConfig();
         $guiLanguage         = $view->dynamicConfig->getParam('interfaceLanguage', null);
         if ($guiLanguage === null) {
-            $userModel   = new Application_Model_User();
-            $guiLanguage = $userModel->loadSetting('interfaceLanguage', 'en');
+            $interfaceConfig = $view->config->getParam('interface');
+            $userModel       = new Application_Model_User();
+            $guiLanguage     = $userModel->loadSetting('interfaceLanguage', $interfaceConfig['language']);
             $view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
         }
         $view->lang = Msd_Language::getInstance($guiLanguage);
@@ -55,7 +56,7 @@ class Msd_Action_Helper_AssignConfigAndLanguage extends Zend_Controller_Action_H
     public function getView()
     {
         if ($this->_view === null) {
-            $controller = $this->getActionController();
+            $controller  = $this->getActionController();
             $this->_view = $controller->view;
         }
         return $this->_view;

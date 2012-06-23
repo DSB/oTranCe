@@ -24,11 +24,11 @@ class Msd_Module_Loader implements Zend_Loader_Autoloader_Interface
     /**
      * Class constructor
      *
-     * @param array $prefxiesToPaths
+     * @param array $prefixesToPaths
      */
-    public function __construct($prefxiesToPaths = array())
+    public function __construct($prefixesToPaths = array())
     {
-        $this->_pluginLoader = new Zend_Loader_PluginLoader($prefxiesToPaths);
+        $this->_pluginLoader = new Zend_Loader_PluginLoader($prefixesToPaths);
     }
 
     /**

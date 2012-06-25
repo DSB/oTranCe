@@ -89,7 +89,7 @@ class Admin_VcsController extends AdminController
     }
 
     /**
-     * Save user specific VCS credentials.
+     * Save general project VCS credentials.
      *
      * @return int
      */

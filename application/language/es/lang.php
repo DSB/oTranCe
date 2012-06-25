@@ -225,6 +225,7 @@ $lang = array(
 'L_PROJECT_SETTINGS' => 'Preferencias del proyecto',
 'L_PROJECT_URL' => 'URL del proyecto',
 'L_PROJECT_USES_VCS' => 'El proyecto usa VCS',
+'L_PROVIDED_PASSWORD_IS_WRONG' => 'The provided password is wrong.',
 'L_REALLY_DELETE_USER' => '¿Está completamente seguro de que desea eliminar a este usuario?',
 'L_REAL_NAME' => 'Su nombre real',
 'L_REFERENCE_LANGUAGES' => 'Idiomas para usar como referencia',

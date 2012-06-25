@@ -1,21 +1,24 @@
 <?php
-require_once 'AdminController.php';
+require_once 'SettingsController.php';
 /**
  * This file is part of oTranCe http://www.oTranCe.de
  *
  * @package         oTranCe
- * @subpackage      Controllers_Admin
+ * @subpackage      Controllers_Settings
  * @version         SVN: $Rev$
  * @author          $Author$
  */
 /**
- * Admin/Vcs Controller
+ * Settings Controller
  *
  * @package         oTranCe
- * @subpackage      Controllers_Admin
+ * @subpackage      Controllers_Settings
  */
-class Admin_VcsController extends AdminController
+class Settings_VcsController extends SettingsController
 {
+    const VCS_SAVE_SUCCESS   = 0x00;
+    const VCS_PASS_NOT_EQUAL = 0x01;
+
     /**
      * Instance of Msd_Crypt
      *
@@ -24,57 +27,17 @@ class Admin_VcsController extends AdminController
     protected $_crypt = null;
 
     /**
-     * Init
-     *
-     * @return void
-     */
-    public function init()
-    {
-        parent::init();
-        if (!$this->_userModel->hasRight('editVcs')) {
-            $this->_redirect('/');
-        }
-    }
-
-    /**
-     * Index action
+     * Process index action
      *
      * @return void
      */
     public function indexAction()
     {
-        $vcsConf = $this->_config->getParam('vcs');
         if ($this->_request->isPost()) {
-            if ($this->_request->getParam('saveButton') !== null) {
-                $this->_saveVcsConfig();
-                $vcsConf = $this->_config->getParam('vcs');
-            } else {
-                $vcsConf['adapter'] = $this->_request->getParam('vcsAdapter');
-            }
+            $saved             = $this->_saveVcsCredentials();
+            $this->view->saved = ($saved == Settings_VcsController::VCS_SAVE_SUCCESS) ? true : false;
         }
-        $this->view->vcsAdapterParams = Msd_Vcs::getAdapterOptions($vcsConf['adapter']);
-        $this->view->vcsConfig        = $vcsConf;
-        $this->view->vcsAvailAdapter  = Msd_Vcs::getAvailableAdapter();
-    }
-
-    /**
-     * Saves the config for VCS.
-     *
-     * @return void
-     */
-    private function _saveVcsConfig()
-    {
-        $vcsConfig = array(
-            'adapter'       => $this->_request->getParam('vcsAdapter'),
-            'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
-            'options'       => $this->_request->getParam('vcsOptions'),
-        );
-        $this->_config->setParam('vcs', $vcsConfig);
-
-        $projectConfig                 = $this->_config->getParam('project');
-        $projectConfig['vcsActivated'] = (int) $this->_request->getParam('vcsActivated', 0);
-        $this->_config->setParam('project', $projectConfig);
-        $this->view->saved = $this->_config->save();
+        $this->view->vcsUser = $this->_getVcsUser();
     }
 
     /**

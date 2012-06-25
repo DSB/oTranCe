@@ -1,0 +1,43 @@
+<?php
+$user         = new Application_Model_User();
+$generalUrl   = $this->url(array('controller'=>'settings','action'=>'index'));
+$profileUrl   = $this->url(array('controller'=>'settings_profile','action'=>'index'));
+$languagesUrl = $this->url(array('controller'=>'settings_languages','action'=>'index'));
+$vcsUrl       = $this->url(array('controller'=>'settings_vcs','action'=>'index'));
+
+// get action name to set the active item in TabBar
+$controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
+// format action name and escape possible dot in action name
+$controllerName = str_replace('.', '\\\.', $controllerName);
+
+$this->jQuery()->onLoadCaptureStart(); ?>
+    $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");<?php
+$this->jQuery()->onLoadCaptureEnd(); ?>
+
+<div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li id="settings" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $generalUrl;?>">
+                <?php echo$this->getIcon('Info', '', 16) . ' ' . $this->lang->L_GENERAL;?>
+            </a>
+        </li>
+        <li id="settings_languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $languagesUrl;?>">
+                <?php echo$this->getIcon('Document', '', 16) . ' ' . $this->lang->L_LANGUAGES;?>
+            </a>
+        </li>
+        <li id="settings_profile" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <a href="<?php echo $profileUrl;?>">
+                <?php echo$this->getIcon('Key', '', 16) . ' ' . $this->lang->L_USER_PROFILE;?>
+            </a>
+        </li>
+        <?php if ($this->vcsActivated) { ?>
+            <li id="settings_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $vcsUrl;?>">
+                    <?php echo$this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_VCS;?>
+                </a>
+            </li>
+        <?php } ?>
+    </ul>
+</div>
+

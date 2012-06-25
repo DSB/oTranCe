@@ -1,0 +1,130 @@
+<div id="headline">
+    <h2><?php echo $this->lang->L_CONFIGURATION . ' - ' . $this->lang->L_LANGUAGES;?></h2>
+</div>
+<?php
+$i = 1;
+echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vcsActivated' => $this->vcsActivated));
+?>
+<form action="<?php echo $this->baseUrl();?>/settings_languages/index" method="post">
+    <h4><?php echo $this->lang->L_YOU_ARE_ALLOWED_TO_EDIT_FOLLOWING_LANGUAGES;?>:</h4>
+    <table class="bdr small" summary="List of languages you are allowed to edit">
+        <tr class="thead">
+            <th>#</th>
+            <th colspan="3"><?php echo $this->lang->L_LANGUAGES;?></th>
+            <th><?php echo $this->lang->L_FALLBACK_LANGUAGE;?></th>
+        </tr>
+        <?php
+        foreach ($this->editLanguages as $lang) {
+            $langId   = $lang;
+            $langName = $this->languages[$langId]['name'];
+            ?>
+            <tr class="<?php echo $this->cycle(array('row-even', 'row-odd'))->next();?>">
+                <td class="right vmiddle"><?php echo $i;?>.</td>
+                <td>
+                    <?php echo $this->printFlag($langId);?>
+                </td>
+                <td class="vmiddle"><?php echo $this->languages[$langId]['locale'];?></td>
+                <td class="vmiddle"><?php echo $langName;?></td>
+                <td class="vmiddle">
+                    <?php
+                    if ($langId == $this->fallbackLanguageId) {
+                        echo $this->getIcon('Ok', '', 16);
+                    }
+                    ?>
+                    &nbsp;
+                </td>
+            </tr>
+            <?php
+            $i++;
+        }
+        ?>
+    </table>
+
+    <div class="spacer"></div>
+    <h4><?php echo $this->lang->L_SELECT_YOUR_REFERENCE_LANGUAGES;?>:</h4>
+
+    <p><?php echo $this->lang->L_REFERENCE_LANGUAGES_EXPLAIN;?></p>
+    <table class="bdr" summary="List of all languages you can select as a reference">
+        <tr class="thead">
+            <th>#</th>
+            <th colspan="3"><?php echo $this->lang->L_REFERENCE_LANGUAGES;?></th>
+            <th><?php echo $this->lang->L_STATUS;?></th>
+        </tr>
+        <?php
+        $i                 = 1;
+        $cycle             = $this->cycle(array('row-even', 'row-odd'));
+        $switchStatusTitle = 'title="' . $this->lang->L_CHANGE_STATUS . '"';
+        foreach ($this->languages as $key => $language) {
+            $id       = 'lang_' . $language['id'];
+            $langId   = $language['id'];
+            $langName = $this->languages[$langId]['name'];
+            ?>
+            <tr class="<?php echo $cycle->next();?>">
+                <td class="right vmiddle"><?php echo $i;?>.</td>
+                <td>
+                    <label for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
+                        <?php echo $this->printFlag($key);?>
+                    </label>
+                </td>
+                <td class="vmiddle">
+                    <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>"
+                                                            class="switchUserReferenceLanguageLabel">
+                        <?php echo $this->languages[$langId]['locale'];?>
+                    </label>
+                </td>
+                <td class="vmiddle">
+                    <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>"
+                                                            class="switchUserReferenceLanguageLabel">
+                        <?php echo $langName;?>
+                    </label>
+                </td>
+                <td class="vmiddle">
+                    <div id="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguage">
+                        <?php
+                        if (in_array($key, $this->refLanguagesSelected)) {
+                            echo $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16);
+                        } else {
+                            echo $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16);
+                        }
+                        ;?>
+                    </div>
+                </td>
+            </tr>
+            <?php
+            $i++;
+        }
+        ?>
+    </table>
+</form>
+<div class="spacer"></div>
+<script type="text/javascript">
+    <?php $this->jQuery()->onLoadCaptureStart(); ?>
+    $('.switchUserReferenceLanguage').click(function () {
+        var languageId = this.id.replace(/img-/, '');
+        $('#img-' + languageId).html(imgAjax);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo $this->serverUrl() . $this->baseUrl(); ?>/ajax/switch-reference-language-status',
+            dataType:'json',
+            async:true,
+            cache:false,
+            data:{
+                'languageId':languageId
+            },
+            success:function (data) {
+                $('#img-' + languageId).html(data.icon);
+            },
+            error:function (error) {
+                $('#img-' + languageId).html(imgError);
+            }
+        });
+    });
+    $('.switchUserReferenceLanguageLabel').click(function () {
+        var id = $(this).attr('for');
+        $('#' + id).trigger('click');
+    });
+    <?php
+    $this->jQuery()->onLoadCaptureEnd();
+    ?>
+</script>
+

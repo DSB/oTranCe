@@ -1,0 +1,77 @@
+<div id="headline">
+    <h2><?php echo $this->lang->L_CONFIGURATION . ' - ' . $this->lang->L_VCS;?></h2>
+</div>
+<?php echo $this->partial('settings/head-navi.phtml', array('lang'         => $this->lang,
+                                                            'vcsActivated' => $this->vcsActivated
+                                                      )); ?>
+<form action="<?php echo $this->baseUrl();?>/settings_vcs/index" method="post">
+    <h4><?php echo $this->lang->L_PERSONAL_CREDENTIALS_VCS;?>:</h4>
+
+    <p><?php echo $this->lang->L_ENTER_VCS_EXPLAIN;?></p>
+    <table class="bdr" summary="Credentials for VCS access.">
+        <tr class="thead">
+            <th colspan="2"><?php echo $this->lang->L_VCS_CREDENTIALS;?></th>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="vcsUser"><?php echo $this->lang->L_USERNAME;?>:</label></td>
+            <td>
+                <input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/>
+            </td>
+        </tr>
+        <tr class="row-even">
+            <td><label for="vcsPass">
+                <?php echo $this->lang->L_PASSWORD;?>:<br/>
+                                                     (* <?php echo $this->lang->L_CONFIRM_PASSWORD_EXPLAIN;?>)
+            </label></td>
+            <td><input type="password" class="text" name="vcsPass" id="vcsPass" autocomplete="off"/></td>
+        </tr>
+        <tr class="row-odd">
+            <td><label for="vcsPass2">
+                <?php echo $this->lang->L_CONFIRM_PASSWORD;?>:<br/>
+            </label>
+            </td>
+            <td><input type="password" class="text" name="vcsPass2" id="vcsPass2" autocomplete="off"/></td>
+        </tr>
+        <tr class="row-even">
+            <td></td>
+            <td>
+                <button type="button" onclick="$('#confirmVCDeletion').dialog('open');"
+                        class="Formbutton ui-corner-all">
+                    <?php echo $this->getIcon('delete', ''); ?> <?php echo $this->lang->L_DELETE_CREDENTIALS;?>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div class="spacer"></div>
+    <p>
+        <button type="submit"
+                class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
+    </p>
+</form>
+<div class="spacer"></div>
+<?php
+$this->popUpMessage()->addMessage(
+    'confirmVCDeletion',
+    $this->lang->L_CONFIRM_DELETE_VCS_CREDENTIALS,
+    $this->lang->L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS,
+    array(
+         'modal'       => true,
+         'height'      => 180,
+         'width'       => 320,
+         'dialogClass' => 'info',
+         'autoOpen'    => false,
+         'buttons'     => array(
+             'L_YES' => 'function() { window.location.href="' . $this->baseUrl() . '/settings_vcs/delete-credentials/"; $(this).dialog("close"); }',
+             'L_NO'  => 'function() { $(this).dialog("close"); }',
+         ),
+    )
+);
+
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+};
+

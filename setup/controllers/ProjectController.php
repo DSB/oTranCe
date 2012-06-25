@@ -72,7 +72,9 @@ class ProjectController extends Setup_Controller_Abstract
         $mysql       = $_SESSION['mysql'];
         $tablePrefix = $mysql['prefix'];
 
-        $configIni                             = parse_ini_file($this->_config['extractDir'] . '/application/configs/config.dist.ini', true);
+        $configIni                             = parse_ini_file(
+            $this->_config['extractDir'] . '/application/configs/config.dist.ini', true
+        );
         $configIni['dbuser']                   = $mysql;
         $configIni['project']['name']          = $projectInfo['name'];
         $configIni['project']['url']           = $projectInfo['url'];
@@ -140,8 +142,9 @@ class ProjectController extends Setup_Controller_Abstract
 
         $stmt->close();
 
-        $userId = $mysqli->insert_id;
-        $stmt   = $mysqli->stmt_init();
+        $insertId = 'insert_id';
+        $userId   = $mysqli->$insertId;
+        $stmt     = $mysqli->stmt_init();
         $stmt->prepare("INSERT INTO `{$tablePrefix}userrights` (`user_id`, `right`, `value`) VALUES (?, ?, ?)");
 
         foreach ($_SESSION['setupInfo']['adminRights'] as $right => $value) {
@@ -156,7 +159,7 @@ class ProjectController extends Setup_Controller_Abstract
             "INSERT INTO `{$tablePrefix}languages` (`active`, `locale`, `name`, `flag_extension`, `is_fallback`)
                 VALUES (1, 'en', 'English', 'gif', 1)"
         );
-        $languageId = $mysqli->insert_id;
+        $languageId = $mysqli->$insertId;
 
         $mysqli->query(
             "INSERT INTO `{$tablePrefix}user_languages` (`user_id`, `language_id`) VALUES ($userId, $languageId)"

@@ -854,9 +854,9 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Validates the user account data.
      *
-     * @param array          $userData            Data of the user account.
-     * @param Zend_Translate $translator          Translator for output messages
-     * @param bool           $onlyCheckPasswords  Check all fields. If set to no only the password is checked.
+     * @param array          $userData           Data of the user account.
+     * @param Zend_Translate $translator         Translator for output messages
+     * @param bool           $onlyCheckPasswords Check all fields. If set to no only the password is checked.
      *
      * @return bool
      */

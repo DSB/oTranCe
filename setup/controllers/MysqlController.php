@@ -34,13 +34,15 @@ class MysqlController extends Setup_Controller_Abstract
             $mysql['port'],
             $mysql['socket']
         );
-        $success = ($mysqli->connect_error === null);
+        $connectError   = 'connect_error';
+        $connectErrorNr = 'connect_errno';
+        $success        = ($mysqli->$connectError === null);
         if (!$success) {
             $this->_response->setBodyJson(
                 array(
                     'connect' => $success,
-                    'message' => $mysqli->connect_error,
-                    'number'  => $mysqli->connect_errno,
+                    'message' => $mysqli->$connectError,
+                    'number'  => $mysqli->$connectErrorNr,
                 )
             );
             return;

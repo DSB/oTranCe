@@ -11,6 +11,7 @@
             border:none;
         }
     </style>
+    <?php if ($this->readyToInstall) { ?>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
@@ -59,11 +60,9 @@
                                 $('#r' + k).html(v.value);
                             }
                             if (passed) {
-                                $('#steps .step1 .status').removeClass('active error done pending').addClass('done');
-                                $('#nextStepButton').css('display', 'inline-block').focus();
+                                stepSuccess();
                             } else {
-                                $('#steps .step1 .status').removeClass('active error done pending').addClass('error');
-                                $('#nextStepButton').hide();
+                                stepError();
                             }
                         }
                     });
@@ -98,11 +97,12 @@
                         "success":function(result) {
                             $('#downStatus').prop('src', icons[result.download ? 0 : 1]);
                             $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
+                            $('#downloadProgress').parent().parent().hide();
+                            downloadDone = true;
                             if (result.download && result.extract) {
-                                $('#steps .step2 .status').removeClass('active error done pending').addClass('done');
-                                $('#nextStepButton').insertBefore('#step2 h2').css('display', 'inline-block').focus();
+                                stepSuccess();
                             } else {
-                                $('#steps .step2 .status').removeClass('active error done pending').addClass('error');
+                                stepError();
                                 $('#mysqlNotify')
                                     .removeClass('ok error warning')
                                     .addClass('error')
@@ -110,10 +110,7 @@
                                     .fadeIn(500)
                                     .delay(5000)
                                     .fadeOut(500);
-                                $('#nextStepButton').hide();
                             }
-                            $('#downloadProgress').parent().parent().hide();
-                            downloadDone = true;
                         }
                     });
                 }
@@ -163,11 +160,9 @@
                         "data":$(this).serializeArray(),
                         "success":function(result) {
                             if (result.connect) {
-                                $('#steps .step3 .status').removeClass('active error done pending').addClass('done');
                                 $('#mysqlConnectResult').remove();
                                 $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status success">MySQL connection successfully established.<\/td><\/tr>');
                                 if (result.dbExists) {
-                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
                                     $('#mysqlNotify')
                                         .removeClass('ok error warning')
                                         .addClass('warning')
@@ -175,8 +170,13 @@
                                         .fadeIn(500)
                                         .delay(5000)
                                         .fadeOut(500);
-                                } else if (result.dbCreate) {
-                                    $('#nextStepButton').insertBefore('#step3 h2').css('display', 'inline-block').focus();
+                                }
+
+                                if (result.connect && !result.dbExists && !result.dbCreate) {
+                                    stepError();
+                                    $('#mysqlConnectResult').remove();
+                                    $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL Error: ' + result.message + '<\/td><\/tr>');
+                                    return;
                                 }
 
                                 var toggleVar = 0;
@@ -188,12 +188,11 @@
                                     }
                                 });
                                 $renderedQueryRows.appendTo('#queriesTable');
-
+                                stepSuccess();
                             } else {
-                                $('#steps .step3 .status').removeClass('active error done pending').addClass('error');
+                                stepError();
                                 $('#mysqlConnectResult').remove();
                                 $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL connection error!<br/>' + result.number + ': ' + result.message + '<\/td><\/tr>');
-                                $('#nextStepButton').hide();
                             }
                         }
                     });
@@ -205,14 +204,12 @@
                     "type":"POST",
                     "success":function(result) {
                         if (result.success) {
-                            $('#steps .step4 .status').removeClass('active error done pending').addClass('done');
                             $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
-                            $('#nextStepButton').insertBefore('#step4 h2').css('display', 'inline-block').focus();
+                            stepSuccess();
                         } else {
-                            $('#steps .step4 .status').removeClass('active error done pending').addClass('error');
+                            stepError();
                             var message = 'Error while creating tables.';
                             $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
-                            $('#nextStepButton').hide();
                         }
 
                         var iconIndex;
@@ -264,6 +261,19 @@
             steps[currentStep]();
         }
 
+        function stepSuccess()
+        {
+            $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('done');
+            //$('#nextStepButton').appendTo('#step' + currentStep).css('display', 'inline-block').focus();
+            window.setTimeout(nextStep, 1000);
+        }
+
+        function stepError()
+        {
+            $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('error');
+            $('#nextStepButton').hide();
+        }
+
         $(document).ready(function(){
             $('#nextStepButton').bind('click', function() {
                 nextStep();
@@ -287,6 +297,7 @@
             <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="si${reqKey}"/></td>
         </tr>
     </script>
+    <?php } /* end of if-statement: Ready-To-Install */ ?>
 </head>
 <body>
     <div id="header"></div>
@@ -294,7 +305,7 @@
         <div id="login">
             <h1>oTranCe <span id="version"></span> - Setup</h1>
             <ul id="steps">
-                <li class="step step1"><span class="status active">&nbsp;</span> Requirements check</li>
+                <li class="step step1"><span class="status <?php echo $this->readyToInstall ? 'active' : 'error'; ?>">&nbsp;</span> Requirements check</li>
                 <li class="step step2"><span class="status pending">&nbsp;</span> Download &amp; extract</li>
                 <li class="step step3"><span class="status pending">&nbsp;</span> MySQL connection</li>
                 <li class="step step4"><span class="status pending">&nbsp;</span> Database tables</li>
@@ -304,8 +315,53 @@
             <div class="clear"></div>
             <div id="step1">
                 <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
+                <h2>Requirements check</h2>
+                <table class="bdr small">
+                    <tr class="thead">
+                        <th>Basic Requirement</th>
+                        <th>Expected</th>
+                        <th></th>
+                        <th colspan="2">Status</th>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">PHP Version (for Setup)</td>
+                        <td class="vmiddle">5.2.10</td>
+                        <td class="vmiddle">=&gt;</td>
+                        <td class="vmiddle"><?php echo $this->phpVersion; ?></td>
+                        <td class="vmiddle">
+                            <img src="images/16x16/<?php echo $this->phpVersionOk ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">JSON extension</td>
+                        <td class="vmiddle">installed</td>
+                        <td class="vmiddle">=&gt;</td>
+                        <td class="vmiddle"><?php echo $this->hasJsonExtension ? 'installed' : 'missing'; ?></td>
+                        <td class="vmiddle">
+                            <img src="images/16x16/<?php echo $this->hasJsonExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">cURL extension</td>
+                        <td class="vmiddle">installed</td>
+                        <td class="vmiddle">=&gt;</td>
+                        <td class="vmiddle"><?php echo $this->hasCurlExtension ? 'installed' : 'missing'; ?></td>
+                        <td class="vmiddle">
+                            <img src="images/16x16/<?php echo $this->hasCurlExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="vmiddle">Installation Root <em><?php echo $this->installationRoot; ?></em></td>
+                        <td class="vmiddle">writable</td>
+                        <td class="vmiddle">=&gt;</td>
+                        <td class="vmiddle"><?php echo $this->rootIsWritable ? 'writable' : 'not writable'; ?></td>
+                        <td class="vmiddle">
+                            <img src="images/16x16/<?php echo $this->rootIsWritable ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                        </td>
+                    </tr>
+                </table><div class="spacer"></div>
+    <?php if ($this->readyToInstall) { ?>
                 <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post" onsubmit="return false;">
-                    <h2>Requirements check</h2>
                     <table class="bdr small">
                         <tr class="thead">
                             <th>Requirement</th>
@@ -430,6 +486,10 @@
                 <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
             </div>
             <div id="mysqlNotify" class="notification-bar"></div>
+    <?php } /* end of if-statement: Ready-To-Install */ ?>
+            <noscript>
+                <div class="error">You have to enable JavaScript, to use this Setup and the oTranCe application.</div>
+            </noscript>
         </div>
     </div>
     <div class="spacer"></div>

@@ -73,7 +73,8 @@ class ProjectController extends Setup_Controller_Abstract
         $tablePrefix = $mysql['prefix'];
 
         $configIni                             = parse_ini_file(
-            $this->_config['extractDir'] . '/application/configs/config.dist.ini', true
+            $this->_config['extractDir'] . '/application/configs/config.dist.ini',
+            true
         );
         $configIni['dbuser']                   = $mysql;
         $configIni['project']['name']          = $projectInfo['name'];

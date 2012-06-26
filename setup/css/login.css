@@ -99,6 +99,7 @@ h2 {
     display:none;
 }
 #nextStepButton, #setupFinished a.Formbutton {
+    margin-top:20px;
     padding-left:20px;
     font-weight:bold;
 }

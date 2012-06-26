@@ -42,7 +42,7 @@ abstract class Setup_Controller_Abstract
      *
      * @var \Setup_View
      */
-    protected $_view;
+    protected $view;
 
     /**
      * Initializes the controller.
@@ -146,7 +146,7 @@ abstract class Setup_Controller_Abstract
      */
     public function setView($view)
     {
-        $this->_view = $view;
+        $this->view = $view;
     }
 
     /**
@@ -156,6 +156,6 @@ abstract class Setup_Controller_Abstract
      */
     public function getView()
     {
-        return $this->_view;
+        return $this->view;
     }
 }

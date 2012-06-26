@@ -131,6 +131,11 @@ class EntriesController extends Zend_Controller_Action
                         $this->view->recordsPerPage,
                         $this->view->fileTemplateFilter
                     );
+            // if filtered language is not in edit or reference languages add it to the output
+            if (!in_array($languageId, $this->view->showLanguages)) {
+                $this->view->showLanguages[] = $languageId;
+                sort($this->view->showLanguages);
+            }
         }
 
         $this->view->rows = $this->_entriesModel->getRowCount();

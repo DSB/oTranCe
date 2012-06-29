@@ -27,15 +27,15 @@ class DownloadController extends Setup_Controller_Abstract
             mkdir($this->_config['extractDir'], 0775, true);
         }
         $extractDir = realpath($this->_config['extractDir']);
-        $setupInfo = $_SESSION['setupInfo'];
+        $setupInfo  = $_SESSION['setupInfo'];
         $this->_response->setBodyJson(
             array(
-                'download' => $setupInfo['package'],
+                'download'     => $setupInfo['package'],
                 'downloadSize' => $setupInfo['filesize'],
-                'extract' => $extractDir,
+                'extract'      => $extractDir,
             )
         );
-        $tempFilename = tempnam(sys_get_temp_dir(), 'otc');
+        $tempFilename             = tempnam(sys_get_temp_dir(), 'otc');
         $_SESSION['tempFilename'] = $tempFilename;
     }
 
@@ -48,14 +48,14 @@ class DownloadController extends Setup_Controller_Abstract
     {
         clearstatcache();
         $setupInfo = $_SESSION['setupInfo'];
-        $result = array();
+        $result    = array();
 
         if (isset($_SESSION['tempFilename'])) {
             $tempFilename = $_SESSION['tempFilename'];
             session_write_close();
             if (file_exists($tempFilename)) {
-                $filesize = round(filesize($tempFilename), 0);
-                $result['bytes'] = $filesize;
+                $filesize          = round(filesize($tempFilename), 0);
+                $result['bytes']   = $filesize;
                 $result['percent'] = ($filesize * 100) / $setupInfo['filesize'];
             }
         }
@@ -70,14 +70,11 @@ class DownloadController extends Setup_Controller_Abstract
      */
     public function downloadAction()
     {
-        $log = array(
-            'download' => false,
-            'extract'  => false,
-        );
+        $log = array('download' => false);
         $setupInfo = $_SESSION['setupInfo'];
 
         $tempFilename = $_SESSION['tempFilename'];
-        $tempFile = fopen($tempFilename, 'w+');
+        $tempFile     = fopen($tempFilename, 'w+');
 
         session_write_close();
         $curlHandle = curl_init($setupInfo['package']);
@@ -93,23 +90,33 @@ class DownloadController extends Setup_Controller_Abstract
 
         $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
         if ($httpCode != 200) {
-            $log['download'] = false;
+            $log['download']        = false;
             $log['downloadMessage'] = "Can't download oTranCe package.<br/>Server response HTTP code: $httpCode";
         }
 
-        if ($log['download']) {
-            $zip = new ZipArchive();
-            if ($zip->open($tempFilename) === true) {
-                if (!file_exists($this->_config['extractDir'])) {
-                    mkdir($this->_config['extractDir'], 0775, true);
-                }
-                $extractDir = realpath($this->_config['extractDir']);
-                $log['extract'] = $zip->extractTo($extractDir);
-                $zip->close();
-            }
+        $log['filename'] = $tempFilename;
+        $this->_response->setBodyJson($log);
+    }
 
-            unlink($tempFilename);
+    /**
+     * Controller action for extracting the downloaded OTC package.
+     *
+     * @return void
+     */
+    public function extractAction()
+    {
+        $log = array('extract' => false);
+        $tempFilename = $_SESSION['tempFilename'];
+        $zip = new ZipArchive();
+        if ($zip->open($tempFilename) === true) {
+            if (!file_exists($this->_config['extractDir'])) {
+                mkdir($this->_config['extractDir'], 0775, true);
+            }
+            $extractDir     = realpath($this->_config['extractDir']);
+            $log['extract'] = $zip->extractTo($extractDir);
+            $zip->close();
         }
+        unlink($tempFilename);
 
         $this->_response->setBodyJson($log);
     }

@@ -54,7 +54,6 @@ fieldset {
     vertical-align: middle;
     padding:4px 6px;
     margin:2px;
-    width:150px;
 }
 #steps .step .status {
     display:block;

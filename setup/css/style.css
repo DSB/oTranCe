@@ -834,3 +834,8 @@ pre.xdebug-var-dump {
 #switchLanguage {
     width:200px;
 }
+
+#nextStepContainer {
+    padding:12px;
+    height:18px;
+}

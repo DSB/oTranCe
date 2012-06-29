@@ -102,8 +102,19 @@ var steps = {
                             "type":"POST",
                             "success":function (result) {
                                 $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
-                                stepSuccess();
-                            }
+                                if (result.extract == true) {
+                                    stepSuccess();
+                                } else {
+                                    stepError();
+                                    $('#mysqlNotify')
+                                        .removeClass('ok error warning')
+                                        .addClass('error')
+                                        .html('Error extracting download package! Please retry by refreshing the site or watch your server\'s error log.')
+                                        .fadeIn(500);
+                                }
+                    }
+
+                }
                         });
                     } else {
                         stepError();

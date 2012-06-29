@@ -1,286 +1,279 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-    <meta content="text/html; charset=utf-8"/>
-    <title>oTranCe - Online Translation Center</title>
-    <link type="text/css" rel="stylesheet" href="css/style.css"/>
-    <link type="text/css" rel="stylesheet" href="css/login.css"/>
-    <link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.21.custom.css"/>
-    <style type="text/css">
-        #login .bdr td {
-            border:none;
-        }
-    </style>
-    <?php if ($this->readyToInstall) { ?>
+<meta content="text/html; charset=utf-8"/>
+<title>oTranCe - Online Translation Center</title>
+<link type="text/css" rel="stylesheet" href="css/style.css"/>
+<link type="text/css" rel="stylesheet" href="css/login.css"/>
+<link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.21.custom.css"/>
+<style type="text/css">
+    #login .bdr td {
+        border: none;
+    }
+</style>
+<?php
+if ($this->readyToInstall) {
+?>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/jquery-ui-1.8.21.custom.min.js"></script>
     <script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
     <script type="text/javascript">
-        var icons = {
-            "0":"images/16x16/Apply.png",
-            "1":"images/16x16/Exception.png",
-            "2":"images/16x16/NotOk.png"
-        };
-        var currentStep = 0;
+    var icons = {
+        "0":"images/16x16/Apply.png",
+        "1":"images/16x16/Exception.png",
+        "2":"images/16x16/NotOk.png"
+    };
+    var currentStep = 0;
+    var rowClasses = ['row-even', 'row-odd'];
+    var pbarDownload;
+    var downloadSize;
+    var downloadDone = false;
 
-        var rowClasses = ['row-even', 'row-odd'];
-
-
-        var pbarDownload;
-        var downloadSize;
-        var downloadDone = false;
-
-        var steps = {
-            propLength:false,
-            length:function() {
-                if (!this.propLength) {
-                    var stepCount = 0;
-                    for (var n in this) {
-                        if (!isNaN(n)) {
-                            stepCount++;
-                        }
+    var steps = {
+        propLength:false,
+        length:function () {
+            if (!this.propLength) {
+                var stepCount = 0;
+                for (var n in this) {
+                    if (!isNaN(n)) {
+                        stepCount++;
                     }
-                    this.propLength = stepCount;
                 }
-                return this.propLength;
-            },
-            "1":function() {
-                function runCheck() {
-                    var $form = $('#requireCheck');
-                    $.ajax({
-                        url:$form.prop('action'),
-                        type:$form.prop('method'),
-                        success:function(result) {
-                            var v;
-                            var passed = true;
-                            for (var k in result) {
-                                v = result[k];
-                                passed = passed && v.passed;
-                                $('#si' + k).prop('src', icons[v.status]);
-                                $('#r' + k).html(v.value);
-                            }
-                            if (passed) {
-                                stepSuccess();
-                            } else {
-                                stepError();
-                            }
-                        }
-                    });
-                }
-
-                var toggleVar = 1;
+                this.propLength = stepCount;
+            }
+            return this.propLength;
+        },
+        "1":function () {
+            function runCheck() {
+                var $form = $('#requireCheck');
                 $.ajax({
-                    "url":"index.php?controller=requirements&action=fetchInfo",
-                    "type":"POST",
-                    "success":function(result) {
-                        if (result.error) {
-                            $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(result.error).fadeIn(500).delay(5000).fadeOut(500);
+                    url:$form.prop('action'),
+                    type:$form.prop('method'),
+                    success:function (result) {
+                        var v;
+                        var passed = true;
+                        for (var k in result) {
+                            v = result[k];
+                            passed = passed && v.passed;
+                            $('#si' + k).prop('src', icons[v.status]);
+                            $('#r' + k).html(v.value);
+                        }
+                        if (passed) {
+                            stepSuccess();
                         } else {
-                            $('#requireRow').tmpl(result. requirements, {
-                                "getRowClass":function() {
-                                    toggleVar++;
-                                    return rowClasses[toggleVar % rowClasses.length];
-                                }
-                            }).appendTo('#requireCheck table');
-                            $('#version').html(result.version);
-                            runCheck();
+                            stepError();
                         }
                     }
                 });
-            },
-            "2":function() {
-                function downloadExtract()
-                {
-                    $.ajax({
-                        "url":"index.php?controller=download&action=download",
-                        "type":"POST",
-                        "success":function(result) {
-                            $('#downStatus').prop('src', icons[result.download ? 0 : 1]);
-                            $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
-                            $('#downloadProgress').parent().parent().hide();
-                            downloadDone = true;
-                            if (result.download && result.extract) {
-                                stepSuccess();
-                            } else {
-                                stepError();
+            }
+
+            var toggleVar = 1;
+            $.ajax({
+                "url":"index.php?controller=requirements&action=fetchInfo",
+                "type":"POST",
+                "success":function (result) {
+                    if (result.error) {
+                        $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(result.error).fadeIn(500).delay(5000).fadeOut(500);
+                    } else {
+                        $('#requireRow').tmpl(result.requirements, {
+                            "getRowClass":function () {
+                                toggleVar++;
+                                return rowClasses[toggleVar % rowClasses.length];
+                            }
+                        }).appendTo('#requireCheck table');
+                        $('#version').html(result.version);
+                        runCheck();
+                    }
+                }
+            });
+        },
+        "2":function () {
+            function downloadExtract() {
+                $.ajax({
+                    "url":"index.php?controller=download&action=download",
+                    "type":"POST",
+                    "success":function (result) {
+                        $('#downStatus').prop('src', icons[result.download ? 0 : 1]);
+                        $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
+                        $('#downloadProgress').parent().parent().hide();
+                        downloadDone = true;
+                        if (result.download && result.extract) {
+                            stepSuccess();
+                        } else {
+                            stepError();
+                            $('#mysqlNotify')
+                                .removeClass('ok error warning')
+                                .addClass('error')
+                                .html(result.downloadMessage)
+                                .fadeIn(500)
+                                .delay(5000)
+                                .fadeOut(500);
+                        }
+                    }
+                });
+            }
+
+            function formatFilesize(bytes) {
+                var filesizeLength = bytes.toString ? bytes.toString().length : (new String(bytes)).length;
+                var units = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
+                var factor = Math.floor((filesizeLength - 1) / 3);
+                return (bytes / Math.pow(1024, factor)).toFixed(2) + ' ' + units[factor];
+            }
+
+            function refreshProgress() {
+                $.ajax({
+                    "url":"index.php?controller=download&action=fetchDownloaded",
+                    "type":"get",
+                    "success":function (result) {
+                        if (result.percent) {
+                            $('#downloadProgress').progressbar('value', result.percent);
+                        }
+                        if (!downloadDone) {
+                            window.setTimeout(refreshProgress, 500);
+                        }
+                    }
+                });
+            }
+
+            $('#downloadProgress').progressbar({});
+            $.ajax({
+                "url":"index.php?controller=download&action=package",
+                "type":"POST",
+                "success":function (result) {
+                    downloadSize = result.downloadSize;
+                    $('#package').html(result.download + '<br/>Download size: ' + formatFilesize(result.downloadSize));
+                    $('#extractDir').html(result.extract);
+                    downloadExtract();
+                    refreshProgress();
+                }
+            });
+        },
+        "3":function () {
+            $('#dbHost').focus();
+            $('#mysqlSettings').bind('submit', function () {
+                $.ajax({
+                    "url":$(this).prop('action'),
+                    "type":$(this).prop('method'),
+                    "data":$(this).serializeArray(),
+                    "success":function (result) {
+                        if (result.connect) {
+                            $('#mysqlConnectResult').remove();
+                            $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status success">MySQL connection successfully established.<\/td><\/tr>');
+                            if (result.dbExists) {
                                 $('#mysqlNotify')
                                     .removeClass('ok error warning')
-                                    .addClass('error')
-                                    .html(result.downloadMessage)
+                                    .addClass('warning')
+                                    .html(result.message)
                                     .fadeIn(500)
                                     .delay(5000)
                                     .fadeOut(500);
                             }
-                        }
-                    });
-                }
 
-                function formatFilesize(bytes)
-                {
-                    var filesizeLength = bytes.toString ? bytes.toString().length : (new String(bytes)).length;
-                    var units = ['Bytes', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];
-                    var factor = Math.floor((filesizeLength - 1) / 3);
-                    return (bytes / Math.pow(1024, factor)).toFixed(2) + ' ' + units[factor];
-                }
-
-                function refreshProgress() {
-                    $.ajax({
-                        "url":"index.php?controller=download&action=fetchDownloaded",
-                        "type":"get",
-                        "success":function (result) {
-                            if (result.percent) {
-                                $('#downloadProgress').progressbar('value', result.percent);
+                            if (result.connect && !result.dbExists && !result.dbCreate) {
+                                stepError();
+                                $('#mysqlConnectResult').remove();
+                                $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL Error: ' + result.message + '<\/td><\/tr>');
+                                return;
                             }
-                            if (!downloadDone) {
-                                window.setTimeout(refreshProgress, 500);
-                            }
-                        }
-                });
-                }
 
-                $('#downloadProgress').progressbar({});
-                $.ajax({
-                    "url":"index.php?controller=download&action=package",
-                    "type":"POST",
-                    "success":function(result) {
-                        downloadSize = result.downloadSize;
-                        $('#package').html(result.download + '<br/>Download size: ' + formatFilesize(result.downloadSize));
-                        $('#extractDir').html(result.extract);
-                        downloadExtract();
-                        refreshProgress();
+                            var toggleVar = 0;
+
+                            var $renderedQueryRows = $('#queryRow').tmpl(result.queries, {
+                                "getRowClass":function () {
+                                    toggleVar++;
+                                    return rowClasses[toggleVar % rowClasses.length];
+                                }
+                            });
+                            $renderedQueryRows.appendTo('#queriesTable');
+                            stepSuccess();
+                        } else {
+                            stepError();
+                            $('#mysqlConnectResult').remove();
+                            $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL connection error!<br/>' + result.number + ': ' + result.message + '<\/td><\/tr>');
+                        }
                     }
                 });
-            },
-            "3":function() {
-                $('#dbHost').focus();
-                $('#mysqlSettings').bind('submit', function() {
+            });
+        },
+        "4":function () {
+            $.ajax({
+                "url":"index.php?controller=mysql&action=createTables",
+                "type":"POST",
+                "success":function (result) {
+                    if (result.success) {
+                        $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
+                        stepSuccess();
+                    } else {
+                        stepError();
+                        var message = 'Error while creating tables.';
+                        $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                    }
+
+                    var iconIndex;
+                    var item;
+                    for (var queryId in result.queryResults) {
+                        item = result.queryResults[queryId];
+                        iconIndex = item.success ? 0 : 1;
+                        $('#qi' + queryId).prop({
+                            "src":icons[iconIndex],
+                            "title":item.message
+                        });
+                    }
+                }
+            });
+        },
+        "5":function () {
+            $('#projectName').focus();
+            $('#projectSettings').bind('submit', function () {
+                if ($('#adminPass').val() == $('#adminPass2').val()) {
                     $.ajax({
                         "url":$(this).prop('action'),
                         "type":$(this).prop('method'),
                         "data":$(this).serializeArray(),
-                        "success":function(result) {
-                            if (result.connect) {
-                                $('#mysqlConnectResult').remove();
-                                $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status success">MySQL connection successfully established.<\/td><\/tr>');
-                                if (result.dbExists) {
-                                    $('#mysqlNotify')
-                                        .removeClass('ok error warning')
-                                        .addClass('warning')
-                                        .html(result.message)
-                                        .fadeIn(500)
-                                        .delay(5000)
-                                        .fadeOut(500);
-                                }
-
-                                if (result.connect && !result.dbExists && !result.dbCreate) {
-                                    stepError();
-                                    $('#mysqlConnectResult').remove();
-                                    $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL Error: ' + result.message + '<\/td><\/tr>');
-                                    return;
-                                }
-
-                                var toggleVar = 0;
-
-                                var $renderedQueryRows = $('#queryRow').tmpl(result.queries, {
-                                    "getRowClass":function() {
-                                        toggleVar++;
-                                        return rowClasses[toggleVar % rowClasses.length];
-                                    }
-                                });
-                                $renderedQueryRows.appendTo('#queriesTable');
-                                stepSuccess();
-                            } else {
-                                stepError();
-                                $('#mysqlConnectResult').remove();
-                                $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status error">MySQL connection error!<br/>' + result.number + ': ' + result.message + '<\/td><\/tr>');
+                        "success":function (result) {
+                            if (result.createAdmin && result.saveConfig) {
+                                $('#steps .step5 .status').removeClass('active error done pending').addClass('done');
+                                $('#setupFinished').show();
+                                $('#setupFinished a.Formbutton').focus();
+                                $('#step' + currentStep).hide();
                             }
                         }
                     });
-                });
-            },
-            "4":function() {
-                $.ajax({
-                    "url":"index.php?controller=mysql&action=createTables",
-                    "type":"POST",
-                    "success":function(result) {
-                        if (result.success) {
-                            $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
-                            stepSuccess();
-                        } else {
-                            stepError();
-                            var message = 'Error while creating tables.';
-                            $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
-                        }
-
-                        var iconIndex;
-                        var item;
-                        for (var queryId in result.queryResults) {
-                            item = result.queryResults[queryId];
-                            iconIndex = item.success ? 0 : 1;
-                            $('#qi' + queryId).prop({
-                                "src":icons[iconIndex],
-                                "title":item.message
-                            });
-                        }
-                    }
-                });
-            },
-            "5":function() {
-                $('#projectName').focus();
-                $('#projectSettings').bind('submit', function() {
-                    if ($('#adminPass').val() == $('#adminPass2').val()) {
-                        $.ajax({
-                            "url":$(this).prop('action'),
-                            "type":$(this).prop('method'),
-                            "data":$(this).serializeArray(),
-                            "success":function(result) {
-                                if (result.createAdmin && result.saveConfig) {
-                                    $('#steps .step5 .status').removeClass('active error done pending').addClass('done');
-                                    $('#setupFinished').show();
-                                    $('#setupFinished a.Formbutton').focus();
-                                    $('#step' + currentStep).hide();
-                                }
-                            }
-                        });
-                    } else {
-                        var message = "Admin password must be equal with it's confirmation.";
-                        $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
-                    }
-                    return false;
-                });
-            }
-        };
-
-        function nextStep()
-        {
-            $('#step' + currentStep).hide();
-            currentStep++;
-            $('#step' + currentStep).show();
-            $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
-            $('#nextStepButton').hide();
-            steps[currentStep]();
-        }
-
-        function stepSuccess()
-        {
-            $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('done');
-            //$('#nextStepButton').appendTo('#step' + currentStep).css('display', 'inline-block').focus();
-            window.setTimeout(nextStep, 1000);
-        }
-
-        function stepError()
-        {
-            $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('error');
-            $('#nextStepButton').hide();
-        }
-
-        $(document).ready(function(){
-            $('#nextStepButton').bind('click', function() {
-                nextStep();
+                } else {
+                    var message = "Admin password must be equal with it's confirmation.";
+                    $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+                }
                 return false;
             });
+        }
+    };
+
+    function nextStep() {
+        $('#step' + currentStep).hide();
+        currentStep++;
+        $('#step' + currentStep).show();
+        $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
+        $('#nextStepButton').hide();
+        steps[currentStep]();
+    }
+
+    function stepSuccess() {
+        $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('done');
+        window.setTimeout(nextStep, 1000);
+    }
+
+    function stepError() {
+        $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('error');
+        $('#nextStepButton').hide();
+    }
+
+    $(document).ready(function () {
+        $('#nextStepButton').bind('click', function () {
             nextStep();
+            return false;
         });
+        nextStep();
+    });
     </script>
     <script type="text/x-jquery-tmpl" id="queryRow">
         <tr class="${$item.getRowClass()}">
@@ -297,81 +290,89 @@
             <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="si${reqKey}"/></td>
         </tr>
     </script>
-    <?php } /* end of if-statement: Ready-To-Install */ ?>
+<?php
+} /* end of if-statement: Ready-To-Install */
+?>
 </head>
 <body>
-    <div id="header"></div>
-    <div id="container">
-        <div id="login">
-            <h1>oTranCe <span id="version"></span> - Setup</h1>
-            <ul id="steps">
-                <li class="step step1"><span class="status <?php echo $this->readyToInstall ? 'active' : 'error'; ?>">&nbsp;</span> Requirements check</li>
-                <li class="step step2"><span class="status pending">&nbsp;</span> Download &amp; extract</li>
-                <li class="step step3"><span class="status pending">&nbsp;</span> MySQL connection</li>
-                <li class="step step4"><span class="status pending">&nbsp;</span> Database tables</li>
-                <li class="step step5"><span class="status pending">&nbsp;</span> Project settings</li>
-                <li class="clear">&nbsp;</li>
-            </ul>
-            <div class="clear"></div>
-            <div id="step1">
-                <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
-                <h2>Requirements check</h2>
-                <table class="bdr small">
-                    <tr class="thead">
-                        <th>Basic Requirement</th>
-                        <th>Expected</th>
-                        <th></th>
-                        <th colspan="2">Status</th>
-                    </tr>
-                    <tr>
-                        <td class="vmiddle">PHP Version (for Setup)</td>
-                        <td class="vmiddle">5.2.10</td>
-                        <td class="vmiddle">=&gt;</td>
-                        <td class="vmiddle"><?php echo $this->phpVersion; ?></td>
-                        <td class="vmiddle">
-                            <img src="images/16x16/<?php echo $this->phpVersionOk ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="vmiddle">JSON extension</td>
-                        <td class="vmiddle">installed</td>
-                        <td class="vmiddle">=&gt;</td>
-                        <td class="vmiddle"><?php echo $this->hasJsonExtension ? 'installed' : 'missing'; ?></td>
-                        <td class="vmiddle">
-                            <img src="images/16x16/<?php echo $this->hasJsonExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="vmiddle">cURL extension</td>
-                        <td class="vmiddle">installed</td>
-                        <td class="vmiddle">=&gt;</td>
-                        <td class="vmiddle"><?php echo $this->hasCurlExtension ? 'installed' : 'missing'; ?></td>
-                        <td class="vmiddle">
-                            <img src="images/16x16/<?php echo $this->hasCurlExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="vmiddle">Installation Root <em><?php echo $this->installationRoot; ?></em></td>
-                        <td class="vmiddle">writable</td>
-                        <td class="vmiddle">=&gt;</td>
-                        <td class="vmiddle"><?php echo $this->rootIsWritable ? 'writable' : 'not writable'; ?></td>
-                        <td class="vmiddle">
-                            <img src="images/16x16/<?php echo $this->rootIsWritable ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
-                        </td>
-                    </tr>
-                </table><div class="spacer"></div>
-    <?php if ($this->readyToInstall) { ?>
-                <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post" onsubmit="return false;">
-                    <table class="bdr small">
-                        <tr class="thead">
-                            <th>Requirement</th>
-                            <th>Expected</th>
-                            <th></th>
-                            <th colspan="2">Status</th>
-                        </tr>
-                    </table>
-                    * These requirements must be met.
-                </form>
+<div id="header"></div>
+<div id="container">
+    <div id="login">
+        <h1>oTranCe <span id="version"></span> - Setup</h1>
+        <ul id="steps">
+            <li class="step step1"><span
+                class="status <?php echo $this->readyToInstall ? 'active' : 'error'; ?>">&nbsp;</span> Requirements
+                check
+            </li>
+            <li class="step step2"><span class="status pending">&nbsp;</span> Download &amp; extract</li>
+            <li class="step step3"><span class="status pending">&nbsp;</span> MySQL connection</li>
+            <li class="step step4"><span class="status pending">&nbsp;</span> Database tables</li>
+            <li class="step step5"><span class="status pending">&nbsp;</span> Project settings</li>
+            <li class="clear">&nbsp;</li>
+        </ul>
+        <div class="clear"></div>
+    <div id="step1">
+        <a href="#" id="nextStepButton" class="Formbutton">Next step <img src="images/16x16/Forward.png" alt=""/></a>
+
+        <h2>Requirements check</h2>
+        <table class="bdr small">
+            <tr class="thead">
+                <th>Basic Requirement</th>
+                <th>Expected</th>
+                <th></th>
+                <th colspan="2">Status</th>
+            </tr>
+            <tr>
+                <td class="vmiddle">PHP Version (for Setup)</td>
+                <td class="vmiddle">5.2.10</td>
+                <td class="vmiddle">=&gt;</td>
+                <td class="vmiddle"><?php echo $this->phpVersion; ?></td>
+                <td class="vmiddle">
+                    <img src="images/16x16/<?php echo $this->phpVersionOk ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="vmiddle">JSON extension</td>
+                <td class="vmiddle">installed</td>
+                <td class="vmiddle">=&gt;</td>
+                <td class="vmiddle"><?php echo $this->hasJsonExtension ? 'installed' : 'missing'; ?></td>
+                <td class="vmiddle">
+                    <img src="images/16x16/<?php echo $this->hasJsonExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="vmiddle">cURL extension</td>
+                <td class="vmiddle">installed</td>
+                <td class="vmiddle">=&gt;</td>
+                <td class="vmiddle"><?php echo $this->hasCurlExtension ? 'installed' : 'missing'; ?></td>
+                <td class="vmiddle">
+                    <img src="images/16x16/<?php echo $this->hasCurlExtension ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                </td>
+            </tr>
+            <tr>
+                <td class="vmiddle">Installation Root <em><?php echo $this->installationRoot; ?></em></td>
+                <td class="vmiddle">writable</td>
+                <td class="vmiddle">=&gt;</td>
+                <td class="vmiddle"><?php echo $this->rootIsWritable ? 'writable' : 'not writable'; ?></td>
+                <td class="vmiddle">
+                    <img src="images/16x16/<?php echo $this->rootIsWritable ? 'Apply.png' : 'NotOk.png'; ?>" alt=""/>
+                </td>
+            </tr>
+        </table>
+        <div class="spacer"></div>
+        <?php if ($this->readyToInstall) { ?>
+        <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post"
+              onsubmit="return false;">
+            <table class="bdr small">
+                <tr class="thead">
+                    <th>Requirement</th>
+                    <th>Expected</th>
+                    <th></th>
+                    <th colspan="2">Status</th>
+                </tr>
+            </table>
+            * These requirements must be met.
+        </form>
             </div>
             <div id="step2">
                 <h2>Download &amp; extract</h2>
@@ -385,7 +386,9 @@
                         <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="downStatus"/></td>
                     </tr>
                     <tr>
-                        <td class="vmiddle" colspan="2"><div id="downloadProgress"></div></td>
+                        <td class="vmiddle" colspan="2">
+                            <div id="downloadProgress"></div>
+                        </td>
                     </tr>
                     <tr>
                         <td class="vmiddle">Extracting to <span id="extractDir"></span></td>
@@ -393,114 +396,126 @@
                     </tr>
                 </table>
             </div>
-            <div id="step3">
-                <h2>MySQL settings</h2>
-                <form id="mysqlSettings" action="index.php?controller=mysql&amp;action=check" method="post" onsubmit="return false;">
-                    <table class="bdr small">
-                        <tr>
-                            <th><label for="dbHost">Server host:</label></th>
-                            <td><input type="text" class="text" name="mysql[host]" id="dbHost" value="localhost"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="dbPort">Server port:</label></th>
-                            <td><input type="text" class="text" name="mysql[port]" id="dbPort" maxlength="5" size="5" value="3306"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="dbSocket">Server socket:</label></th>
-                            <td><input type="text" class="text" name="mysql[socket]" id="dbSocket"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="dbUser">Server user:</label></th>
-                            <td><input type="text" class="text" name="mysql[user]" id="dbUser"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="dbPass">Server password:</label></th>
-                            <td><input type="password" class="text" name="mysql[pass]" id="dbPass"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="dbName">Server database:</label></th>
-                            <td><input type="text" class="text" name="mysql[db]" id="dbName" value="otrance"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="prefix">Prefix for tables:</label></th>
-                            <td><input type="text" class="text" name="mysql[prefix]" id="prefix" value="otc_"/></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-            <div id="step4">
-                <h2>Creating database tables</h2>
-                <table id="queriesTable" class="bdr small">
+        <div id="step3">
+            <h2>MySQL settings</h2>
+
+            <form id="mysqlSettings" action="index.php?controller=mysql&amp;action=check" method="post"
+                  onsubmit="return false;">
+                <table class="bdr small">
                     <tr>
-                        <th>Action</th>
-                        <th>Result</th>
+                        <th><label for="dbHost">Server host:</label></th>
+                        <td><input type="text" class="text" name="mysql[host]" id="dbHost" value="localhost"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dbPort">Server port:</label></th>
+                        <td><input type="text" class="text" name="mysql[port]" id="dbPort" maxlength="5" size="5"
+                                   value="3306"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dbSocket">Server socket:</label></th>
+                        <td><input type="text" class="text" name="mysql[socket]" id="dbSocket"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dbUser">Server user:</label></th>
+                        <td><input type="text" class="text" name="mysql[user]" id="dbUser"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dbPass">Server password:</label></th>
+                        <td><input type="password" class="text" name="mysql[pass]" id="dbPass"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="dbName">Server database:</label></th>
+                        <td><input type="text" class="text" name="mysql[db]" id="dbName" value="otrance"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="prefix">Prefix for tables:</label></th>
+                        <td><input type="text" class="text" name="mysql[prefix]" id="prefix" value="otc_"/></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save
+                            </button>
+                        </td>
                     </tr>
                 </table>
-            </div>
-            <div id="step5">
-                <h2>Project settings</h2>
-                <form id="projectSettings" action="index.php?controller=project&amp;action=save" method="post" onsubmit="return false;">
-                    <table class="bdr small">
-                        <tr>
-                            <th><label for="projectName">Project name:</label></th>
-                            <td><input type="text" class="text" name="project[name]" id="projectName"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="projectUrl">Project URL:</label></th>
-                            <td><input type="text" class="text" name="project[url]" id="projectUrl"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="adminLogin">Admin login:</label></th>
-                            <td><input type="text" class="text" name="admin[login]" id="adminLogin"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="adminRealName">Admin real name:</label></th>
-                            <td><input type="text" class="text" name="admin[realName]" id="adminRealName"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="adminEMail">Admin E-Mail:</label></th>
-                            <td><input type="text" class="text" name="admin[email]" id="adminEMail"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="adminPass">Admin password:</label></th>
-                            <td><input type="password" class="text" name="admin[pass]" id="adminPass"/></td>
-                        </tr>
-                        <tr>
-                            <th><label for="adminPass2">... confirm:</label></th>
-                            <td><input type="password" class="text" name="admin[pass2]" id="adminPass2"/></td>
-                        </tr>
-                        <tr>
-                            <th></th>
-                            <td><button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save</button></td>
-                        </tr>
-                    </table>
-                </form>
-            </div>
-            <div id="setupFinished">
-                <h2>Setup finished</h2>
-                <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
-                <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
-            </div>
-            <div id="mysqlNotify" class="notification-bar"></div>
-    <?php } /* end of if-statement: Ready-To-Install */ ?>
-            <noscript>
-                <div class="error">You have to enable JavaScript, to use this Setup and the oTranCe application.</div>
-            </noscript>
+            </form>
         </div>
+        <div id="step4">
+            <h2>Creating database tables</h2>
+            <table id="queriesTable" class="bdr small">
+                <tr>
+                    <th>Action</th>
+                    <th>Result</th>
+                </tr>
+            </table>
+        </div>
+        <div id="step5">
+            <h2>Project settings</h2>
+
+            <form id="projectSettings" action="index.php?controller=project&amp;action=save" method="post"
+                  onsubmit="return false;">
+                <table class="bdr small">
+                    <tr>
+                        <th><label for="projectName">Project name:</label></th>
+                        <td><input type="text" class="text" name="project[name]" id="projectName"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="projectUrl">Project URL:</label></th>
+                        <td><input type="text" class="text" name="project[url]" id="projectUrl"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="adminLogin">Admin login:</label></th>
+                        <td><input type="text" class="text" name="admin[login]" id="adminLogin"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="adminRealName">Admin real name:</label></th>
+                        <td><input type="text" class="text" name="admin[realName]" id="adminRealName"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="adminEMail">Admin E-Mail:</label></th>
+                        <td><input type="text" class="text" name="admin[email]" id="adminEMail"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="adminPass">Admin password:</label></th>
+                        <td><input type="password" class="text" name="admin[pass]" id="adminPass"/></td>
+                    </tr>
+                    <tr>
+                        <th><label for="adminPass2">... confirm:</label></th>
+                        <td><input type="password" class="text" name="admin[pass2]" id="adminPass2"/></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td>
+                            <button type="submit" class="Formbutton"><img src="images/16x16/save.png" alt=""/> Save
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="setupFinished">
+            <h2>Setup finished</h2>
+
+            <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
+            <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
+        </div>
+        <div id="mysqlNotify" class="notification-bar"></div>
+        <?php } /* end of if-statement: Ready-To-Install */ ?>
+        <noscript>
+            <div class="error">You have to enable JavaScript, to use this Setup and the oTranCe application.</div>
+        </noscript>
     </div>
-    <div class="spacer"></div>
-    <div class="spacer"></div>
-    <div id="footer">
-        <p>
-            oTranCe is a free online translation plattform &middot;
-            <a href="http://oTranCe.de/en/">oTranCe Homepage</a> &middot;
-            <a href="http://oTranCe.de/en/team/">The developer team</a> &middot;
-            <a href="http://oTranCe.de/en/project/donate/">Donate</a>&nbsp;
-        </p>
-    </div>
+</div>
+<div class="spacer"></div>
+<div class="spacer"></div>
+<div id="footer">
+    <p>
+        oTranCe is a free online translation plattform &middot;
+        <a href="http://oTranCe.de/en/">oTranCe Homepage</a> &middot;
+        <a href="http://oTranCe.de/en/team/">The developer team</a> &middot;
+        <a href="http://oTranCe.de/en/project/donate/">Donate</a>&nbsp;
+    </p>
+</div>
 </body>
 </html>

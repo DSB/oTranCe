@@ -9,7 +9,7 @@
  * @author          $Author$
  */
 /**
- * Setup application class for managing resquests and responses.
+ * Setup application class for managing requests and responses.
  *
  * @package         oTranCe
  * @subpackage      Setup
@@ -88,8 +88,8 @@ class Setup_Application
     protected function initRequest()
     {
         $controllerKey = null;
-        $actionKey = null;
-        $config = $this->getConfig();
+        $actionKey     = null;
+        $config        = $this->getConfig();
 
         if (isset($config['request']['controllerKey'])) {
             $controllerKey = $config['request']['controllerKey'];
@@ -129,13 +129,11 @@ class Setup_Application
 
         session_start();
 
-        $request = $this->getRequest();
-        $controller = $request->getController();
-
-        $controllerName = ucfirst($controller) . "Controller";
+        $request            = $this->getRequest();
+        $controller         = $request->getController();
+        $controllerName     = ucfirst($controller) . 'Controller';
         $controllerFilename = $controllerName . '.php';
-
-        $controllerFile = $this->getControllerDir() . $controllerFilename;
+        $controllerFile     = $this->getControllerDir() . $controllerFilename;
         if (!file_exists($controllerFile)) {
             require_once 'Setup/Application/Exception.php';
             throw new Setup_Application_Exception("Can't load controller '$controllerName'!");
@@ -189,7 +187,7 @@ class Setup_Application
      */
     public function setConfig($config)
     {
-        $this->_config = (array) $config;
+        $this->_config = (array)$config;
     }
 
     /**

@@ -227,7 +227,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_PROJECT_SETTINGS' => 'Inställningar för projekt',
 'L_PROJECT_URL' => 'Projektets adress',
 'L_PROJECT_USES_VCS' => 'Projektet använder VCS',
-'L_PROVIDED_PASSWORD_IS_WRONG' => 'The provided password is wrong.',
+'L_PROVIDED_PASSWORD_IS_WRONG' => 'Det angivna lösenordet är fel.',
 'L_REALLY_DELETE_USER' => 'Vill du verkligen radera denna användare?',
 'L_REAL_NAME' => 'Ditt riktiga namn',
 'L_REFERENCE_LANGUAGES' => 'Referensspråk',

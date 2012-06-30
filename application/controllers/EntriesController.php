@@ -21,11 +21,11 @@ class EntriesController extends Zend_Controller_Action
     private $_entriesModel;
 
     /**
-      * @var Application_Model_Languages
-      */
+     * @var Application_Model_Languages
+     */
     private $_languagesModel;
 
-     /**
+    /**
      * @var Application_Model_User
      */
     private $_userModel;
@@ -63,11 +63,11 @@ class EntriesController extends Zend_Controller_Action
     public function init()
     {
         $this->_entriesModel = new Application_Model_LanguageEntries();
-        $this->_userModel = new Application_Model_User();
-        $this->view->user = $this->_userModel;
+        $this->_userModel    = new Application_Model_User();
+        $this->view->user    = $this->_userModel;
 
-        $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
-        $this->_config = Msd_Registry::getConfig();
+        $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
+        $this->_config         = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();
     }
 
@@ -92,7 +92,7 @@ class EntriesController extends Zend_Controller_Action
             $this->_dynamicConfig->getParam('entries.recordsPerPage', 10)
         );
         $this->setLanguages();
-        $filterLanguageArray = $this->_languagesModel->getAllLanguages();
+        $filterLanguageArray     = $this->_languagesModel->getAllLanguages();
         $this->view->selLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $filterLanguageArray,
             'id',
@@ -122,15 +122,15 @@ class EntriesController extends Zend_Controller_Action
                 );
             }
         } else {
-            $languageId = $this->_dynamicConfig->getParam('entries.getUntranslated');
+            $languageId       = $this->_dynamicConfig->getParam('entries.getUntranslated');
             $this->view->hits =
-                    $this->_entriesModel->getUntranslated(
-                        $languageId,
-                        $this->view->filter,
-                        $this->view->offset,
-                        $this->view->recordsPerPage,
-                        $this->view->fileTemplateFilter
-                    );
+                $this->_entriesModel->getUntranslated(
+                    $languageId,
+                    $this->view->filter,
+                    $this->view->offset,
+                    $this->view->recordsPerPage,
+                    $this->view->fileTemplateFilter
+                );
             // if filtered language is not in edit or reference languages add it to the output
             if (!in_array($languageId, $this->view->showLanguages)) {
                 $this->view->showLanguages[] = $languageId;
@@ -180,8 +180,8 @@ class EntriesController extends Zend_Controller_Action
             $saveEntry = true;
             // check if the file template has changed
             $entry           = $this->_entriesModel->getKeyById($keyId);
-            $newFileTemplate = (int) $this->_request->getParam('fileTemplate');
-            if ((int) $entry['template_id'] !== $newFileTemplate) {
+            $newFileTemplate = (int)$this->_request->getParam('fileTemplate');
+            if ((int)$entry['template_id'] !== $newFileTemplate) {
                 // template changed - look up if there already is a key with that name
                 if (!$this->_entriesModel->validateLanguageKey($entry['key'], $newFileTemplate)) {
                     $this->view->keyExistsError = implode('<br>', $this->_entriesModel->getValidateMessages());
@@ -224,19 +224,19 @@ class EntriesController extends Zend_Controller_Action
      */
     private function _findNextUntranslatedKey()
     {
-        $nextKeyId = null;
+        $nextKeyId  = null;
         $langStatus = $this->_getLanguagesStatus();
         foreach ($langStatus as $languageId => $data) {
             $skippedKeys = $this->_getLanguageKeyOffset($languageId);
             if ($data['notTranslated'] > 0) {
-                if ($skippedKeys[$languageId] > $data['notTranslated']-1) {
-                    $skippedKeys[$languageId] = $data['notTranslated']-1;
+                if ($skippedKeys[$languageId] > $data['notTranslated'] - 1) {
+                    $skippedKeys[$languageId] = $data['notTranslated'] - 1;
                 }
                 // check for next key including the "skipped" offset
                 $nextKeyId = $this->_findNextUntranslated($languageId, $skippedKeys[$languageId]);
                 if ($nextKeyId === null) {
                     // nothing found - try with resetting the offset to 0
-                    $nextKeyId = $this->_findNextUntranslated($languageId, 0);
+                    $nextKeyId                = $this->_findNextUntranslated($languageId, 0);
                     $skippedKeys[$languageId] = 0;
                 }
                 if ($nextKeyId !== null) {
@@ -258,7 +258,7 @@ class EntriesController extends Zend_Controller_Action
     private function _getLanguagesStatus()
     {
         $editLanguages = $this->_userModel->getUserLanguageRights();
-        $getStatus = array();
+        $getStatus     = array();
         foreach ($editLanguages as $languageId) {
             $getStatus[]['id'] = $languageId;
         }
@@ -272,16 +272,24 @@ class EntriesController extends Zend_Controller_Action
      */
     public function addVariableAction()
     {
-        $error = array();
+        $error  = array();
+        $newVar = '';
         if (!$this->_userModel->hasRight('addVar')) {
             $error = array('You are not allowed to add a new language variable!');
         }
-        $newVar = '';
-        $fileTemplate = $this->_request->getParam(
-            'fileTemplate',
-            $this->_dynamicConfig->getParam('entries.addVar.fileTemplate')
-        );
+        // check if user filtered by file template on index page and then clicked "add key"
+        $fileTemplateFilter = $this->_request->getParam('fileTemplateFilter', false);
+        if ($fileTemplateFilter !== false && $fileTemplateFilter > 0) {
+            $fileTemplate = $fileTemplateFilter;
+        } else {
+            // retrieve from formerly added key or fall back to session
+            $fileTemplate = $this->_request->getParam(
+                'fileTemplate',
+                $this->_dynamicConfig->getParam('entries.addVar.fileTemplate')
+            );
+        }
         $this->_dynamicConfig->setParam('entries.addVar.fileTemplate', $fileTemplate);
+
         if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') !== null) {
             if ($this->_request->getParam('cancel') != null) {
                 $this->_myForward('index');
@@ -297,7 +305,7 @@ class EntriesController extends Zend_Controller_Action
             if (empty($error)) {
                 try {
                     $this->_entriesModel->saveNewKey($newVar, $fileTemplate);
-                    $entry = $this->_entriesModel->getEntryByKey($newVar, $fileTemplate);
+                    $entry        = $this->_entriesModel->getEntryByKey($newVar, $fileTemplate);
                     $historyModel = new Application_Model_History();
                     $historyModel->logNewVarCreated($entry['id']);
                     $this->view->entry = $entry;
@@ -344,7 +352,7 @@ class EntriesController extends Zend_Controller_Action
      */
     public function getPreviousUntranslatedKeyAction()
     {
-        $languageId = (int) $this->_request->getParam('languageId');
+        $languageId  = (int)$this->_request->getParam('languageId');
         $skippedKeys = $this->_getLanguageKeyOffset($languageId);
         $skippedKeys[$languageId]--;
 
@@ -352,7 +360,7 @@ class EntriesController extends Zend_Controller_Action
         if ($id === null) {
             // nothing found - reset offset and fetch entry we came from
             $skippedKeys[$languageId] = 0;
-            $id = $this->_request->getParam('entryId');
+            $id                       = $this->_request->getParam('entryId');
         }
         if ($skippedKeys[$languageId] < 0) {
             $skippedKeys[$languageId] = 0;
@@ -421,10 +429,11 @@ class EntriesController extends Zend_Controller_Action
             if ($value === null) {
                 $value = $this->_userModel->loadSetting($name, $default);
             }
-        };
+        }
+        ;
 
         if ($numeric !== false) {
-            $value = (int) $value;
+            $value = (int)$value;
         }
         // save to session
         $this->_dynamicConfig->setParam('entries.' . $name, $value);

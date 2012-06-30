@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<meta content="text/html; charset=utf-8"/>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title>oTranCe - Online Translation Center</title>
 <link type="text/css" rel="stylesheet" href="css/style.css"/>
 <link type="text/css" rel="stylesheet" href="css/login.css"/>
@@ -400,7 +400,11 @@ $(document).ready(function () {
     </table>
     <div class="spacer"></div>
 <?php
-if ($this->readyToInstall) {
+if (!$this->readyToInstall) {
+?>
+    </div>
+<?php
+} else {   
 ?>
     <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post"
           onsubmit="return false;">
@@ -543,7 +547,7 @@ if ($this->readyToInstall) {
         <h2>Setup finished</h2>
 
         <h3>Setup successfully completed. Now you can use your oTranCe installation.</h3>
-        <a href="../" class="Formbutton">Goto your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
+        <a href="../" class="Formbutton">Go to your oTranCe installation <img src="images/16x16/Forward.png" alt=""/></a>
     </div>
     <div id="mysqlNotify" class="notification-bar"></div>
 <?php

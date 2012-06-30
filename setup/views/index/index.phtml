@@ -165,6 +165,7 @@ var steps = {
     "3":function () {
         $('#dbHost').focus();
         $('#mysqlSettings').bind('submit', function () {
+            hideNotifier('#mysqlNotify');
             $.ajax({
                 "url":$(this).prop('action'),
                 "type":$(this).prop('method'),
@@ -264,11 +265,14 @@ var steps = {
     }
 };
 
-function nextStep() {
-    var $notifier = $('#mysqlNotify');
+function hideNotifier(elementSelector) {
+    var $notifier = $(elementSelector);
     while ($notifier.queue().length > 0) {
         $notifier.dequeue();
     }
+}
+function nextStep() {
+    hideNotifier('#mysqlNotify');
     window.clearInterval(timerRunning);
     $('#step' + currentStep).hide();
     currentStep++;

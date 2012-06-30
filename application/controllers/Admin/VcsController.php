@@ -89,30 +89,6 @@ class Admin_VcsController extends AdminController
     }
 
     /**
-     * Save general project VCS credentials.
-     *
-     * @return int
-     */
-    private function _saveVcsCredentials()
-    {
-        if ($this->_crypt === null) {
-            $this->_initCrypt();
-        }
-        $vcsUser = $this->_request->getParam('vcsUser');
-        if ($vcsUser !== null && strlen($vcsUser) > 0) {
-            $vcsPass        = $this->_request->getParam('vcsPass');
-            $vcsPassConfirm = $this->_request->getParam('vcsPass2');
-            if ($vcsPass != $vcsPassConfirm) {
-                return self::VCS_PASS_NOT_EQUAL;
-            }
-            $encrypted = $this->_crypt->encrypt($vcsUser . '%@%' . $vcsPass);
-            $this->_userModel->saveSetting('vcsCredentials', $encrypted);
-            return self::VCS_SAVE_SUCCESS;
-        }
-        return self::VCS_SAVE_SUCCESS;
-    }
-
-    /**
      * Get user specific VCS username.
      *
      * @return string|null

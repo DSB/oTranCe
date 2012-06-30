@@ -32,6 +32,7 @@ class SettingsController extends Msd_Controller_Action
             $this->_redirect('/');
         }
         $projectConfig = $this->_config->getParam('project');
+        $this->view->vcsActivated = false;
         if ($projectConfig['vcsActivated'] == 1) {
             $this->view->vcsActivated = true;
         }

@@ -756,7 +756,7 @@ pre.xdebug-var-dump {
 .switchUserEditRight,
 .switchUserEditRightLabel,
 .switchUserReferenceLanguage
- {
+{
     cursor: pointer;
 }
 
@@ -838,4 +838,131 @@ pre.xdebug-var-dump {
 #nextStepContainer {
     padding:12px;
     height:18px;
+}
+fieldset table {
+    margin-left:66px;
+    padding:12px;
+}
+.text {
+    width: 250px;
+}
+.register .text {
+    width: 240px;
+}
+#send {
+    margin:6px 0 0 2px;
+}
+fieldset {
+    border: 1px solid #DDDDDD;
+    color: #256777;
+    margin: 0 0 12px;
+    padding: 5px;
+}
+
+#login table.bdr {
+    margin: 0 auto;
+}
+
+#login .bdr td {
+    border: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+#login {
+    width: auto;
+    margin: 0 auto;
+    padding: 0 18px;
+    text-align: center;
+}
+
+#login a {
+    color:#6E9E2D;
+}
+#login a:hover {
+    color:#E87B00;
+}
+#login h1 {
+    margin:60px 0 20px;
+}
+.Formbutton {
+    margin-bottom:20px;
+}
+#steps .step {
+    float:left;
+    background: url("pics/bg-buttons.gif") repeat-x scroll 0 0 transparent;
+    border:1px solid #DDDDDD;
+    color:#425D1C;
+    vertical-align: middle;
+    padding:4px 6px;
+    margin:2px;
+}
+#steps .step .status {
+    display:block;
+    width:16px;
+    height:16px;
+    float:left;
+    background-repeat:no-repeat;
+    margin-right:3px;
+}
+ul#steps {
+    width:840px;
+    padding:0;
+    margin:0 auto;
+}
+ul#steps li {
+    text-align:left;
+}
+ul#steps li.clear {
+    height:0;
+}
+.step .status.pending {
+    background-image: url(../images/16x16/NotOk.png);
+}
+.step .status.active {
+    background-image: url(../images/16x16/Edit.png);
+}
+.step .status.done {
+    background-image: url(../images/16x16/Apply.png);
+}
+.step .status.error {
+    background-image: url(../images/16x16/Exception.png);
+}
+h2 {
+    border-bottom:none;
+    border-top:1px solid #C7C7C7;
+    font-size:2em;
+}
+#step2, #step3, #step4, #step5 {
+    display:none;
+}
+#nextStepButton {
+    display:none;
+}
+#nextStepButton, #setupFinished a.Formbutton {
+    margin-top:20px;
+    padding-left:20px;
+    font-weight:bold;
+}
+#setupFinished {
+    display:none;
+}
+.notification-bar.warning {
+    background-color:#ffff00;
+}
+.ui-progressbar .ui-progressbar-value { background-image: url(../images/pbar-ani.gif); }
+.pbarContainer {
+    text-align: center;
+}
+.status {
+    font-weight:bold;
+}
+.status.success {
+    color:#080;
+}
+.status.error {
+    color:#F00;
+}
+.error.fatal {
+    font-size:1.4em;
+    border:3px solid red;
 }

@@ -3,8 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
 <title>oTranCe - Online Translation Center</title>
-<link type="text/css" rel="stylesheet" href="css/style.css"/>
-<link type="text/css" rel="stylesheet" href="css/login.css"/>
+<link type="text/css" rel="stylesheet" href="css/setup.css"/>
 <link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.21.custom.css"/>
 <style type="text/css">
     #login .bdr td {
@@ -412,6 +411,14 @@ $(document).ready(function () {
     </table>
     <div class="spacer"></div>
 <?php
+if (!$this->correctPaths) {
+?>
+    <div class="error fatal">
+        The installation path is incorrect. It must be /path/to/webroot/public/setup/.<br/>
+        Please take a look into the <a href="docs/README.txt">README</a> file.
+    </div>
+<?php
+}
 if (!$this->readyToInstall) {
 ?>
     </div>

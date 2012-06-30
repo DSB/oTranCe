@@ -31,9 +31,11 @@ class IndexController extends Setup_Controller_Abstract
         $this->view->rootIsWritable   = is_writable($installationRoot);
         $this->view->phpVersion       = PHP_VERSION;
         $this->view->phpVersionOk     = (version_compare(PHP_VERSION, '5.2.10') >= 0);
+        $this->view->correctPaths     = (basename(dirname(APPLICATION_PATH)) == 'public');
         $this->view->readyToInstall   = $this->view->hasJsonExtension &&
             $this->view->hasCurlExtension &&
             $this->view->rootIsWritable &&
-            $this->view->phpVersionOk;
+            $this->view->phpVersionOk &&
+            $this->view->correctPaths;
     }
 }

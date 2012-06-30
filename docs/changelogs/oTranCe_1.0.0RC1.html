@@ -1,0 +1,308 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Release Notes - oTranCe - Version oTranCe 1.0.0 RC1</title>
+</head>
+<body>
+
+Release Notes - oTranCe - Version oTranCe 1.0.0 RC1
+
+<h2>        Technical task
+</h2>
+<ul>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-11'>OTC-11</a>] -         Add license
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-12'>OTC-12</a>] -         Create SQL file for creating the tables in MySQL database.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-23'>OTC-23</a>] -         Convert character set of uploaded file
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-26'>OTC-26</a>] -         Save detected keys to database.
+    </li>
+</ul>
+
+<h2>        Bug
+</h2>
+<ul>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-25'>OTC-25</a>] -         Reference languages are not set properly
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-27'>OTC-27</a>] -         Google translatable languages are not shown properly
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-32'>OTC-32</a>] -         In IE 8 extracted key,value-list is not shown
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-33'>OTC-33</a>] -         Toggling menue items and showing fles doesn&#39;t work in Chrome and IE
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-34'>OTC-34</a>] -         Line numbers are not aligned correctly
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-40'>OTC-40</a>] -         When importing an Oxid language file, the import creates an empty key with empty value
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-41'>OTC-41</a>] -         Change &quot;Items per page&quot; effects also other lists.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-42'>OTC-42</a>] -         Filter &quot;untranslated&quot; doesn&#39;t operate properly.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-50'>OTC-50</a>] -         Export - latest change timestamp refers to old structure before we introduced file templates and is wrong. It needs to be rewritten to reflect the new file template structure.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-57'>OTC-57</a>] -         When adding a new language var manually some validations are done, that have been implemented for MySQLDumper.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-61'>OTC-61</a>] -         When adding a new user, there is no check if a user with that name already exists. A second user with the same name is created but the older user is loaded afterwards.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-62'>OTC-62</a>] -         Servers with enabled magic_quotes add slashes to inputs
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-64'>OTC-64</a>] -         When revisiting the import page the fomrerly selected analyzer isn&#39;t pre-seelcted.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-67'>OTC-67</a>] -         If keys exist, that are not assigned to a file template, the export throws notices because it tries to create an empty file.
+        Block such keys and inform the user about that. &quot;Following keys could not be exported because they are not assigned to a tpl:...&quot;
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-71'>OTC-71</a>] -         If a svn command fails (e.g. &quot;unknown option --trust server-cert&quot;) the error is not shown. Instead the action of &quot;Commit to VCS&quot; shows &quot;Nothing to do&quot;.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-72'>OTC-72</a>] -         When adding a new language a warning is shown.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-73'>OTC-73</a>] -         If a new key with an empty value is saved via import this action is not logged in the log table.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-88'>OTC-88</a>] -         When adding a new user, his status (active / not active) is saved incorrectly at first save.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-93'>OTC-93</a>] -         At Admin/Project the image is shown in wrong dimensions if it differs from the original picture.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-105'>OTC-105</a>] -         Create duplicate keys by renaming existing keys
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-106'>OTC-106</a>] -         Table rows are not aligned correctly if user doesn&#39;t have the right to edit language keys.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-107'>OTC-107</a>] -         Disabling the fallback language causes notices to be shown on entries page
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-108'>OTC-108</a>] -         If no language is set as fallback calling the entries page throws an exception
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-109'>OTC-109</a>] -         It mustn&#39;t be possible to disable the fallback language. This is possible by clicking the language&#39;s status icon on the admin/languages overview page
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-115'>OTC-115</a>] -         If the translator edits a phrase, he can change the file template assignment (if he has the right). This is also possible if a key with the same name already exists.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-120'>OTC-120</a>] -         If the name of a key is changed via inline editing on the entries page, it is not recognized as a change when going to the export page.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-123'>OTC-123</a>] -         The url of some pictures doesn&#39;t reflect the selected theme but are hard coded to the otc-theme. Identify these pics and replace them with a dynamic url reflecting the actual theme.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-126'>OTC-126</a>] -         Disabled elements should not have hover effects
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-127'>OTC-127</a>] -         Untranslated phrases can cause notices during export if fallback translation is empty as well
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-128'>OTC-128</a>] -         Changing rights or statuses by clicking the corresponding icons has inconsistent workflow
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-129'>OTC-129</a>] -         Naming of user rights is mistakable
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-130'>OTC-130</a>] -         User right &quot;add new language keys&quot; works in a strange way - and does not effect inline editing
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-139'>OTC-139</a>] -         After editing an untranslated phrase, saving and then clicking the button to get the next untranslated phrase (arrow right) one empty phrase is skipped.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-140'>OTC-140</a>] -         Log:
+        - if no action is selected the browse buttons lead to &quot;no hits&quot;
+    </li>
+</ul>
+
+<h2>        Improvement
+</h2>
+<ul>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-13'>OTC-13</a>] -         View helper printFlag()
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-14'>OTC-14</a>] -         Switch output of flags to view helper
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-21'>OTC-21</a>] -         Don&#39;t show disabled languages
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-22'>OTC-22</a>] -         Export - SVN-Messages inputs should be textareas
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-24'>OTC-24</a>] -         Don&#39;t export disabled languages.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-37'>OTC-37</a>] -         Refactoring Msd_Configuration
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-47'>OTC-47</a>] -         An admin should be able to generally activate/deactivate the use of a vcs.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-48'>OTC-48</a>] -         A user should only see the vcs options if the admin generally activated vcs.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-49'>OTC-49</a>] -         Export to VCS should only be shown if the project uses vcs.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-52'>OTC-52</a>] -         Move fallback language setting to project tab because this is a general setting. Afterwadrs rename tab export to vcs.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-55'>OTC-55</a>] -         Fine tune settings of rights for user.
+        An admin should be able to configure the rights for a user more fine grained.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-56'>OTC-56</a>] -         DB design problem: it is only possible to save positive user rights into table userrights. Because the language edit rights are also stored in this table, but they buld a valid value of all three combinations of fields, we are stuck here.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-60'>OTC-60</a>] -         When importing the same validation rules for a language key should be applied like when creating a new key manually.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-63'>OTC-63</a>] -         If an imported value contains \&quot; and is delimited by &quot; but the file template is defined with &#39; as the value delimiter, the export contains unnecessary backslashes.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-65'>OTC-65</a>] -         When adding a new language it should be possible to assign the new language to specified users in the same step / tab
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-66'>OTC-66</a>] -         VCS is not working when files are stored in a subdirectory of data/export/ f.e. data/export/blubb (for more detailed information ask me or stefan)
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-68'>OTC-68</a>] -         When adding a new key the formerly selected file template should be pre-selected (taken from Session).
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-70'>OTC-70</a>] -         If we have many languages and keys in our database, the &quot;Entries&quot; page is very very slow.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-74'>OTC-74</a>] -         When importing a file the animation of the scrolling to the last inserted key is too slow. Remove the animation and jump directly to it.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-75'>OTC-75</a>] -         As in importer I want to strip out those keys that have formerly been filled with the fallback language.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-76'>OTC-76</a>] -         A new configuration setting must be added for the importer:
+        - user is allowed to import phrases that are the same as in the fallback language
+        Depending on this setting the importer should save or skip such phrases.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-77'>OTC-77</a>] -         When deleting a file template, there should be a possibility to delete all phrases attached to this template.
+        The option &quot;unassign&quot; should be removed because we don&#39;t want to have unassigned phrases.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-78'>OTC-78</a>] -         It would be nice to have a placeholder in the file header template containing a list of all translators with edit rights for giving them credits fro their work.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-79'>OTC-79</a>] -         Clicking on a language entry should open the entries page with the filter set to this language.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-85'>OTC-85</a>] -         In the GUI the image &quot;Attention&quot; is used at many places where instead there should be shown a minus icon (icon &quot;NotOk&quot;). Find all places and replace image.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-91'>OTC-91</a>] -         The file defaultConfig.dist.ini should be renamed to config.dist.ini
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-94'>OTC-94</a>] -         As an admin I want to be able to edit the key of a phrase.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-97'>OTC-97</a>] -         When editiing or creating a phrase and there is only one file template, the selectbox can be replaced by pure text output, because there is no selection.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-99'>OTC-99</a>] -         As an user I want to set my reference languages using immediately responding ajax requests instead of using old style checkboxes.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-100'>OTC-100</a>] -         Provide a field for informations on the login page
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-101'>OTC-101</a>] -         Provide a register functionality on the login page
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-110'>OTC-110</a>] -         Provide a skip functionality in the translation form
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-116'>OTC-116</a>] -         If there is only one file template defined for the project, there is no need to show a selectbox on the entries edit page.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-131'>OTC-131</a>] -         log filter doesn&#39;t work properly
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-132'>OTC-132</a>] -         Cannot change default interface language
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-133'>OTC-133</a>] -         On translations index page the &quot;search for untranslated&quot; filter excludes provided inputs in other fields. This should be visualized by optically deactiviating the other inputs when using this filter.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-136'>OTC-136</a>] -         If the download packages are up-to-date, display the &quot;Export to VCS&quot; button on the export page.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-141'>OTC-141</a>] -         The log page should also have the page X of Y information and the &quot;records per page&quot; select box.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-144'>OTC-144</a>] -         Don&#39;t show FileTemplate Column if filtered by FileTemplate
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-155'>OTC-155</a>] -         If the user uses the filter &quot;By file template&quot; and creates a new entry. The filtered file template isn&#39;t selected.
+    </li>
+</ul>
+
+<h2>        Story
+</h2>
+<ul>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-1'>OTC-1</a>] -         Install instructions
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-2'>OTC-2</a>] -         Create user
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-3'>OTC-3</a>] -         Edit user
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-4'>OTC-4</a>] -         Add language
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-5'>OTC-5</a>] -         Set file assignment
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-6'>OTC-6</a>] -         Create a file
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-7'>OTC-7</a>] -         Browse exported files
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-8'>OTC-8</a>] -         Filter by file
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-9'>OTC-9</a>] -         Import from file
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-10'>OTC-10</a>] -         Set file header, footer and format
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-15'>OTC-15</a>] -         Edit a language
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-16'>OTC-16</a>] -         Language overview
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-17'>OTC-17</a>] -         Export one language using file template
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-18'>OTC-18</a>] -         Commit to SVN
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-19'>OTC-19</a>] -         Configure SVN access
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-20'>OTC-20</a>] -         Test SVN commit
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-29'>OTC-29</a>] -         Check Google-License for Google translate
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-30'>OTC-30</a>] -         Contact Atlassian for hosting OTC at Jira
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-31'>OTC-31</a>] -         Language pack download
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-35'>OTC-35</a>] -         File template deletion
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-36'>OTC-36</a>] -         VCS config per user
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-39'>OTC-39</a>] -         As a developer I want to be able to check the code and run metrics on Jenkins to check the quality of the code.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-43'>OTC-43</a>] -         Project settings in Admin
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-44'>OTC-44</a>] -         When editing language vars the fallback language always should be shown.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-45'>OTC-45</a>] -         User shouldn&#39;t be able to unselect the leading fallback language.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-46'>OTC-46</a>] -         Importing CSV and SSV files
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-51'>OTC-51</a>] -         In Entries -&gt; Edit entry -&gt; form -&gt; it would be useful to have a button that lets you hop to the next untranslated entry of your file.
+
+        Otherwise, you would have to go back to the list, edit the next untranslated and so on. Just too many clicks...
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-54'>OTC-54</a>] -         The log in page should have an optional &quot;log in as guest&quot;-button.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-58'>OTC-58</a>] -         Make oTranCe itself multilingual by replacing all hard coded text outputs with language variables (that can be maintained using itself *g*).
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-80'>OTC-80</a>] -         As an admin I want to be able to delete a language and all translations belonging to this language.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-81'>OTC-81</a>] -         As an admin I want to be able to delete an user including all log entries belonging to him.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-82'>OTC-82</a>] -         The MySQLDumper Logos should be replaced with (the now existant) oTranCe Logos. (in Log in Screen and Menue)
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-83'>OTC-83</a>] -         As an admin I want to configure if untranslated vars are replaced with the translations of the fallback language when I start an export.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-84'>OTC-84</a>] -         As an user I want to be able to change my password.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-89'>OTC-89</a>] -         As an admin I want to be able to upload the project logo via the admin gui.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-90'>OTC-90</a>] -         As an user I want to see the gui in the colors of oTranCe.A new theme must be created and the momentary theme taken from MySQLDumper should be removed.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-95'>OTC-95</a>] -         Creating import/export for Titanium Studio simple xml language files
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-96'>OTC-96</a>] -         As an user with the right to edit other users, I want to be able to click on a users name on the home page (listing all languages and their translators) to directly jump to the user&#39;s edit mask.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-102'>OTC-102</a>] -         As an admin with language edit rights, I want to click on a language entry on the admin/userlist to directly get to that language.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-111'>OTC-111</a>] -         As a translator I want to be able to skip the currently edited  language key to get to the next untranslated key.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-112'>OTC-112</a>] -         As a translator I want to select which reference languages I want to see. This includes the fallback language which is selected in any case and which can&#39;t be unselected.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-113'>OTC-113</a>] -         As a translator I want to have the browse bar a second time on the entry list page at the bottom in order to not have to scroll back to the top.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-114'>OTC-114</a>] -         As a translator I want to be able to inline edit the phrases on the entries list view. This would save time because I don&#39;t need to enter the detailed view for each entry first, edit and save it and then come back to the list view.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-121'>OTC-121</a>] -         As an admin who wants to install oTranCe, I want to have a wiki page listing all necessary php extensions that need to be installed on the server to run oTranCe smoothly.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-122'>OTC-122</a>] -         As an admin I want to have a wiki page explaining how to customize oTranCe
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-134'>OTC-134</a>] -         As a new translator I want to provide my e-mail adress, so the Admin can contact me. Additionally I want to select the languages  I want to maintain.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-135'>OTC-135</a>] -         As a translator I want to be able to switch the language via a select box in the upper right corner on every page (near the log in status), so that I don&#39;t need to enter the configuration screen.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-137'>OTC-137</a>] -         Installation script
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-138'>OTC-138</a>] -         As an user I want to swich the gui language per session without overwriting the setting in my user profile.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-142'>OTC-142</a>] -         As a translator I want to save my translation adn get to the next untranslated key with one click.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-143'>OTC-143</a>] -         Language switcher on log in and register page
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-145'>OTC-145</a>] -         As a readxo user I want to be able to import redaxo language files into oTranCe.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-147'>OTC-147</a>] -         As a user I want to be able to use a second pagination at the bottom of the page. This way I won&#39;t have to scroll back to the top if choose to show many records on one page.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-150'>OTC-150</a>] -         General contact e-mail adress
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-153'>OTC-153</a>] -         As a user I don&#39;t want to have the user configuration placed on one big page. Instead I want to have tabs to have a better overview.
+    </li>
+    <li>[<a href='https://mysqldumper.jira.com/browse/OTC-154'>OTC-154</a>] -         When the output is filtered with &quot;find untranslated&quot; and I don&#39;t have this language set as a reference language, I nevertheless want to see the result row for that language.
+    </li>
+</ul>
+
+</body>
+</html>

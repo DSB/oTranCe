@@ -95,7 +95,7 @@ class Admin_UsersController extends AdminController
             );
             if (isset($params['saveAccount'])) {
                 $translator = Msd_Language::getInstance()->getTranslator();
-                if ($params['pass1'] > '') {
+                if ($userData['id'] == 0 || $params['pass1'] > '' || $params['pass2'] > '') {
                     $userData['pass1'] = $params['pass1'];
                     $userData['pass2'] = $params['pass2'];
                 }
@@ -159,7 +159,6 @@ class Admin_UsersController extends AdminController
     {
         $errors = array();
 
-        // TODO START Replace this code by Msd_Validate_UserData
         if ($userData['id'] == 0) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if (!$notEmptyValidate->isValid($userData['pass1'])) {
@@ -188,7 +187,6 @@ class Admin_UsersController extends AdminController
                 $errors['pass1'] = $identicalValidate->getMessages();
             }
         }
-        // TODO END
 
         $this->view->errors = $errors;
         if (empty($errors)) {

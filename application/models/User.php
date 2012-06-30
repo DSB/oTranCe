@@ -690,7 +690,7 @@ class Application_Model_User extends Msd_Application_Model
             if (isset($userData['active'])) {
                 $sql .= ', `active`=' . intval($userData['active']);
             }
-            if ($userData['pass1'] > '') {
+            if (isset($userData['pass1']) && $userData['pass1'] > '') {
                 $sql .= ', `password`=MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\')';
             }
             $sql .= ' WHERE `id`=' . intval($userData['id']);
@@ -865,10 +865,10 @@ class Application_Model_User extends Msd_Application_Model
      *
      * @return bool
      */
-    public function validateData($userData, Zend_Translate $translator, $onlyCheckPasswords = true)
+    public function validateData($userData, Zend_Translate $translator, $onlyCheckPasswords = false)
     {
         $this->clearValidateMessages();
-        if ($onlyCheckPasswords) {
+        if (!$onlyCheckPasswords) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if ($userData['id'] == 0) {
                 // new user

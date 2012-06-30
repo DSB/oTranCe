@@ -172,6 +172,7 @@ var steps = {
                 "data":$(this).serializeArray(),
                 "success":function (result) {
                     if (result.connect) {
+                        var disableTimer = false;
                         $('#mysqlConnectResult').remove();
                         $('#mysqlSettings table').append('<tr id="mysqlConnectResult"><td colspan="2" class="status success">MySQL connection successfully established.<\/td><\/tr>');
                         if (result.dbExists) {
@@ -180,8 +181,9 @@ var steps = {
                                 .addClass('warning')
                                 .html(result.message)
                                 .fadeIn(500)
-                                .delay(5000)
+                                .delay(20000)
                                 .fadeOut(500);
+                            disableTimer = true;
                         }
 
                         if (result.connect && !result.dbExists && !result.dbCreate) {
@@ -200,7 +202,7 @@ var steps = {
                             }
                         });
                         $renderedQueryRows.appendTo('#queriesTable');
-                        stepSuccess();
+                        stepSuccess(disableTimer);
                     } else {
                         stepError();
                         $('#mysqlConnectResult').remove();
@@ -264,20 +266,30 @@ var steps = {
 };
 
 function nextStep() {
+    var $notifier = $('#mysqlNotify');
+    while ($notifier.queue().length > 0) {
+        $notifier.dequeue();
+    }
     window.clearInterval(timerRunning);
     $('#step' + currentStep).hide();
     currentStep++;
     $('#step' + currentStep).show();
     $('#steps .step' + currentStep + ' .status').removeClass('pending').addClass('active');
     $('#nextStepButton').hide();
-    $('#timer').html('20');
     steps[currentStep]();
 }
 
-function stepSuccess() {
+function stepSuccess(disableTimer) {
+    $('#timer').html('20');
+    $('#timerContainer').show();
+    if (disableTimer) {
+        $('#timerContainer').hide();
+    }
     $('#steps .step' + currentStep + ' .status').removeClass('active error done pending').addClass('done');
     $('#nextStepButton').effect("pulsate", {times:4}, 300);
-    timerRunning = window.setInterval(stepTimer, 1000);
+    if (!disableTimer) {
+        timerRunning = window.setInterval(stepTimer, 1000);
+    }
 }
 
 function stepError() {
@@ -345,7 +357,7 @@ $(document).ready(function () {
     <li class="clear">&nbsp;</li>
 </ul>
 <div id="nextStepContainer">
-    <a href="#" id="nextStepButton" class="Formbutton">Continue (<span id="timer">20</span>) <img src="images/16x16/Forward.png" alt=""/>
+    <a href="#" id="nextStepButton" class="Formbutton">Continue<span id="timerContainer"> (<span id="timer">20</span>)</span> <img src="images/16x16/Forward.png" alt=""/>
 
     </a>
 </div>
@@ -404,7 +416,7 @@ if (!$this->readyToInstall) {
 ?>
     </div>
 <?php
-} else {   
+} else {
 ?>
     <form id="requireCheck" action="index.php?controller=requirements&amp;action=check" method="post"
           onsubmit="return false;">

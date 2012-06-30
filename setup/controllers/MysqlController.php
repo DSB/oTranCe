@@ -73,7 +73,8 @@ class MysqlController extends Setup_Controller_Abstract
                     'connect' => true,
                     'dbExists' => true,
                     'message' => 'The database ' . $mysql['db']
-                        . ' already exists.<br/>If you continue, all tables with the given prefix will be overwritten.',
+                        . ' already exists.<br/>To overwrite all tables with the given prefix click on "Continue", '
+                        . 'or use different MySQL settings.',
                     'queries' => $queries,
                 )
             );

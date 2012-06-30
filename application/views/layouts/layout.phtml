@@ -4,9 +4,9 @@ $interfaceConfig = $this->config->getParam('interface');
 $dynamicConfig   = Msd_Registry::getDynamicConfig();
 $guiLanguages    = $dynamicConfig->getParam('availableGuiLanguages');
 $theme           = $interfaceConfig['theme'];
-$language        = $interfaceConfig['language'];
+$language        = $this->lang->getActiveLanguage();
 $this->headMeta()
-    ->appendHttpEquiv('content-language', $language)
+    ->appendHttpEquiv('Content-Language', $language)
     ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
     ->appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
     ->appendHttpEquiv('pragma', 'no-cache')

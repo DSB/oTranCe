@@ -701,8 +701,13 @@ class Application_Model_User extends Msd_Application_Model
                 . '\'' . $this->_dbo->escape($userData['realName']) . '\', '
                 . '\'' . $this->_dbo->escape($userData['email']) . '\', '
                 . 'MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\'), '
-                . intval($userData['active']) . ','
-                . '\'' . $this->_dbo->escape($userData['newLanguage']) . '\')';
+                . intval($userData['active']) . ',';
+            if (isset($userData['newLanguage'])) {
+                $sql .= '\'' . $this->_dbo->escape($userData['newLanguage']) . '\'';
+            } else {
+                $sql .= '\'\'';
+            }
+            $sql .= ')';
         }
 
         $res = (bool) $this->_dbo->query($sql, Msd_Db::SIMPLE);

@@ -73,6 +73,8 @@ class Admin_UsersController extends AdminController
             $userData = array(
                 'id'       => 0,
                 'username' => '',
+                'realName' => '',
+                'email'    => '',
                 'pass1'    => '',
                 'pass2'    => '',
                 'active'   => 0
@@ -93,10 +95,8 @@ class Admin_UsersController extends AdminController
             );
             if (isset($params['saveAccount'])) {
                 $translator = Msd_Language::getInstance()->getTranslator();
-                if ($params['pass1'] > '') {
-                    $userData['pass1'] = $params['pass1'];
-                    $userData['pass2'] = $params['pass2'];
-                }
+                $userData['pass1'] = $params['pass1'];
+                $userData['pass2'] = $params['pass2'];
                 if ($this->_userModel->validateData($userData, $translator)) {
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {

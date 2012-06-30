@@ -195,6 +195,7 @@ var steps = {
 
                         var toggleVar = 0;
 
+                        $('.queryRowIns').remove();
                         var $renderedQueryRows = $('#queryRow').tmpl(result.queries, {
                             "getRowClass":function () {
                                 toggleVar++;
@@ -322,7 +323,7 @@ $(document).ready(function () {
 </script>
 <script type="text/x-jquery-tmpl" id="queryRow">
 <!--//--><![CDATA[//>
-    <tr class="${$item.getRowClass()}">
+    <tr class="${$item.getRowClass()} queryRowIns">
         <td class="vmiddle">${title}</td>
         <td class="vmiddle"><img src="images/16x16/Info.png" alt="" id="qi${id}"/></td>
     </tr>

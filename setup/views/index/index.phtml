@@ -415,7 +415,7 @@ if (!$this->correctPaths) {
 ?>
     <div class="error fatal">
         The installation path is incorrect. It must be /path/to/webroot/public/setup/.<br/>
-        Please take a look into the <a href="docs/README.txt">README</a> file.
+        Please take a look into the <?php if ($this->hasReadMe) { ?><a href="docs/README.txt"><?php } ?>docs/README<?php if ($this->hasReadMe) { ?></a><?php } ?> file.
     </div>
 <?php
 }

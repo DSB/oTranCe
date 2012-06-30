@@ -29,8 +29,8 @@ class StatisticsController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showStatistics')) {
+        $userModel = new Application_Model_User();
+        if (!$userModel->hasRight('showStatistics')) {
             $this->_redirect('/');
         }
 

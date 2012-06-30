@@ -53,8 +53,8 @@ class ExportController extends Msd_Controller_Action
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showExport')) {
+        $userModel = new Application_Model_User();
+        if (!$userModel->hasRight('showExport')) {
             $this->_redirect('/');
         }
 

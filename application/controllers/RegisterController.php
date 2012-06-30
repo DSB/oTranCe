@@ -33,8 +33,8 @@ class RegisterController extends Zend_Controller_Action
             'realName'    => '',
         );
         $userData              = $this->_request->getParam('user', $default);
-        $this->_languagesModel = new Application_Model_Languages();
-        $languagesMetaData     = $this->_languagesModel->getAllLanguages();
+        $languagesModel        = new Application_Model_Languages();
+        $languagesMetaData     = $languagesModel->getAllLanguages();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $userModel          = new Application_Model_User();
             $userData['id']     = 0;

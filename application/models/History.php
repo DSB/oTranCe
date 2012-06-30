@@ -31,6 +31,12 @@ class Application_Model_History extends Msd_Application_Model
     private $_tableKeys;
 
     /**
+     * Database table containing translations.
+     * @var string
+     */
+    private $_tableTranslations;
+
+    /**
      * Model initialization method.
      *
      * @return void

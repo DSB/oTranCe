@@ -23,8 +23,8 @@ class BrowserController extends Zend_Controller_Action
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showBrowseFiles')) {
+        $userModel = new Application_Model_User();
+        if (!$userModel->hasRight('showBrowseFiles')) {
             $this->_redirect('/');
         }
     }

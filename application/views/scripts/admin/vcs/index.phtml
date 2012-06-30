@@ -49,8 +49,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
         </tr>
         <tr class="thead">
             <th colspan="2"><?php echo $this->lang->L_VCS_ADAPTER_OPTIONS;?></th>
-        </tr>
-        <?php
+        </tr><?php
         foreach ($this->vcsAdapterParams as $optionName => $optionDisplayName) {
             if (isset($this->vcsConfig['options'][$optionName])) {
                 $optionValue = $this->vcsConfig['options'][$optionName];
@@ -60,17 +59,22 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             ?>
             <tr class="<?php echo $cycleHelper->next(); ?>">
                 <td><label for="options_<?php echo $optionName; ?>"><?php echo $optionDisplayName; ?></label></td>
-                <td><input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /></td>
+                <td><?php
+                        if (stripos($optionName, 'password') !== false) { ?>
+                            <input type="password" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /><?php
+                        } else { ?>
+                            <input type="text" class="text width300" name="vcsOptions[<?php echo $optionName; ?>]" id="options_<?php echo $optionName; ?>" value="<?php echo $optionValue; ?>" /><?php
+                        }
+                    ?>
+                </td>
             </tr>
             <?php
-        }
-        ?>
+        } ?>
         <tr class="<?php echo $cycleHelper->next(); ?>">
             <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton ui-corner-all" name="saveButton"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?></button></td>
         </tr>
     </table>
-
 </form>
 <?php
 $this->jQuery()->addOnLoad('$("textarea").autoGrow();');

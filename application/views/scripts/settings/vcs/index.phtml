@@ -15,7 +15,10 @@
         <tr class="row-odd">
             <td><label for="vcsUser"><?php echo $this->lang->L_USERNAME;?>:</label></td>
             <td>
-                <input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/>
+                <input type="text" class="text" name="vcsUser" id="vcsUser" value="<?php echo $this->vcsUser; ?>"/><?php
+                if (isset($this->errors['vcsUser'])) { ?>
+                    <br /><span class="error"><?php echo implode('<br />', $this->errors['vcsUser']);?></span><?php
+                } ?>
             </td>
         </tr>
         <tr class="row-even">
@@ -23,7 +26,12 @@
                 <?php echo $this->lang->L_PASSWORD;?>:<br/>
                                                      (* <?php echo $this->lang->L_CONFIRM_PASSWORD_EXPLAIN;?>)
             </label></td>
-            <td><input type="password" class="text" name="vcsPass" id="vcsPass" autocomplete="off"/></td>
+            <td>
+                <input type="password" class="text" name="vcsPass" id="vcsPass" autocomplete="off"/><?php
+                    if (isset($this->errors['vcsPass'])) { ?>
+                        <br /><span class="error"><?php echo implode('<br />', $this->errors['vcsPass']);?></span><?php
+                    } ?>
+            </td>
         </tr>
         <tr class="row-odd">
             <td><label for="vcsPass2">
@@ -32,20 +40,15 @@
             </td>
             <td><input type="password" class="text" name="vcsPass2" id="vcsPass2" autocomplete="off"/></td>
         </tr>
-        <tr class="row-even">
-            <td></td>
-            <td>
-                <button type="button" onclick="$('#confirmVCDeletion').dialog('open');"
-                        class="Formbutton ui-corner-all">
-                    <?php echo $this->getIcon('delete', ''); ?> <?php echo $this->lang->L_DELETE_CREDENTIALS;?>
-                </button>
-            </td>
-        </tr>
     </table>
     <div class="spacer"></div>
     <p>
         <button type="submit"
                 class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_SETTINGS;?></button>
+        <button type="button" onclick="$('#confirmVCDeletion').dialog('open');"
+                class="Formbutton ui-corner-all">
+            <?php echo $this->getIcon('delete', ''); ?> <?php echo $this->lang->L_DELETE_CREDENTIALS;?>
+        </button>
     </p>
 </form>
 <div class="spacer"></div>
@@ -74,4 +77,3 @@ if (isset($this->saved)) {
         $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
     );
 };
-

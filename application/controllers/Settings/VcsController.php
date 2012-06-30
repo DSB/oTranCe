@@ -16,9 +16,6 @@ require_once 'SettingsController.php';
  */
 class Settings_VcsController extends SettingsController
 {
-    const VCS_SAVE_SUCCESS   = 0x00;
-    const VCS_PASS_NOT_EQUAL = 0x01;
-
     /**
      * Instance of Msd_Crypt
      *
@@ -34,10 +31,59 @@ class Settings_VcsController extends SettingsController
     public function indexAction()
     {
         if ($this->_request->isPost()) {
-            $saved             = $this->_saveVcsCredentials();
-            $this->view->saved = ($saved == Settings_VcsController::VCS_SAVE_SUCCESS) ? true : false;
+            if ($this->_validateInputs() == true) {
+                $this->view->saved = $this->_saveVcsCredentials();
+            }
         }
         $this->view->vcsUser = $this->_getVcsUser();
+    }
+
+    /**
+     * Validate user input and set error messages for view
+     *
+     * @return bool
+     */
+    protected function _validateInputs()
+    {
+        $vcsUser        = $this->_request->getParam('vcsUser');
+        $vcsPass        = $this->_request->getParam('vcsPass');
+        $vcsPassConfirm = $this->_request->getParam('vcsPass2');
+
+        // Check user name has 2-50 chars
+        $messages       = array();
+        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
+        if (!$strLenValidate->isValid($vcsUser)) {
+            $messages['vcsUser'] = $this->_translateZendMessageIds($strLenValidate->getMessages());
+        }
+
+        // check both passwords are equal
+        $identicalValidate = new Zend_Validate_Identical($vcsPass);
+        if (!$identicalValidate->isValid($vcsPassConfirm)) {
+            $messages['vcsPass'] = $this->_translateZendMessageIds($identicalValidate->getMessages());
+        }
+
+        if (sizeof($messages) > 0) {
+            $this->view->errors = $messages;
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Translate Zend message ids into our own ones.
+     *
+     * @param array $messages Zend messages
+     *
+     * @return array
+     */
+    protected function _translateZendMessageIds($messages)
+    {
+        $ret        = array();
+        $translator = Msd_Language::getInstance();
+        foreach (array_keys($messages) as $messageId) {
+            $ret[] = $translator->translateZendId($messageId);
+        }
+        return $ret;
     }
 
     /**
@@ -54,7 +100,7 @@ class Settings_VcsController extends SettingsController
     /**
      * Save user specific VCS credentials.
      *
-     * @return int
+     * @return bool
      */
     private function _saveVcsCredentials()
     {
@@ -62,17 +108,13 @@ class Settings_VcsController extends SettingsController
             $this->_initCrypt();
         }
         $vcsUser = $this->_request->getParam('vcsUser');
+        $vcsPass = $this->_request->getParam('vcsPass');
         if ($vcsUser !== null && strlen($vcsUser) > 0) {
-            $vcsPass        = $this->_request->getParam('vcsPass');
-            $vcsPassConfirm = $this->_request->getParam('vcsPass2');
-            if ($vcsPass != $vcsPassConfirm) {
-                return self::VCS_PASS_NOT_EQUAL;
-            }
             $encrypted = $this->_crypt->encrypt($vcsUser . '%@%' . $vcsPass);
             $this->_userModel->saveSetting('vcsCredentials', $encrypted);
-            return self::VCS_SAVE_SUCCESS;
+            return true;
         }
-        return self::VCS_SAVE_SUCCESS;
+        return false;
     }
 
     /**

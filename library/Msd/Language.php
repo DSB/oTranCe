@@ -170,6 +170,22 @@ class Msd_Language
     }
 
     /**
+     * Translate Zend message ids into our own ones.
+     *
+     * @param array $messages Zend messages
+     *
+     * @return array
+     */
+    public function translateZendMessageIds($messages)
+    {
+        $ret = array();
+        foreach (array_keys($messages) as $messageId) {
+            $ret[] = $this->translateZendId($messageId);
+        }
+        return $ret;
+    }
+
+    /**
      * Transforms a message ID in Zend_Validate format into Msd_Language format.
      *
      * @param string $zendMessageId Message ID from Zend_Validate

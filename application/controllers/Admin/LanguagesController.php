@@ -250,17 +250,20 @@ class Admin_LanguagesController extends AdminController
         Zend_File_Transfer_Adapter_Abstract $flag = null
     )
     {
+        $translator = Msd_Language::getInstance();
         $inputsValid     = true;
         $intValidate     = new Zend_Validate_Int();
         $inputsValid    &= $intValidate->isValid($id);
+
         $betweenValidate = new Zend_Validate_Between(array('min' => 0, 'max' => 1));
         $inputsValid    &= $intValidate->isValid($active);
         $inputsValid    &= $betweenValidate->isValid($active);
+
         $strLenValidate  = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
         $inputErrors     = array();
         $langLocaleValid = $strLenValidate->isValid($langLocale);
         if (!$langLocaleValid) {
-            $inputErrors['langLocale'] = $strLenValidate->getMessages();
+            $inputErrors['langLocale'] = $translator->translateZendMessageIds($strLenValidate->getMessages());
         }
         $inputsValid &= $langLocaleValid;
 
@@ -268,7 +271,7 @@ class Admin_LanguagesController extends AdminController
         $strLenValidate->setMax(50);
         $langNameValid = $strLenValidate->isValid($langName);
         if (!$langNameValid) {
-            $inputErrors['langName'] = $strLenValidate->getMessages();
+            $inputErrors['langName'] = $translator->translateZendMessageIds($strLenValidate->getMessages());
         }
         $inputsValid &= $langNameValid;
 
@@ -278,7 +281,7 @@ class Admin_LanguagesController extends AdminController
 
             $langFlagValid = $flag->isValid();
             if (!$langFlagValid) {
-                $inputErrors['langFlag'] = $flag->getMessages();
+                $inputErrors['langFlag'] = $translator->translateZendMessageIds($flag->getMessages());
             }
             $inputsValid &= $langFlagValid;
         }

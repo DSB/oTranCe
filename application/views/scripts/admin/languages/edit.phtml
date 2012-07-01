@@ -49,7 +49,7 @@ if ($this->languageId == 0) {
         <tr class="row-even">
             <td class="vmiddle"><label for="langLocale"><?php echo $this->lang->L_LOCALE;?>:</label></td>
             <td class="vmiddle"><input type="text" class="text" name="langLocale" id="langLocale" value="<?php echo $this->escape($this->langLocale); ?>" maxlength="5"/><?php
-                if (array_key_exists('langLocale', $this->inputErrors)) { ?>
+                if (!empty($this->inputErrors['langLocale'])) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langLocale']); ?></span>
                 <?php }?>
             </td>
@@ -57,7 +57,7 @@ if ($this->languageId == 0) {
         <tr class="row-odd">
             <td class="vmiddle"><label for="langName"><?php echo $this->lang->L_NAME_OF_LANGUAGE;?>:</label></td>
             <td><input type="text" class="text" name="langName" id="langName" value="<?php echo $this->escape($this->langName); ?>" maxlength="50" /><?php
-                if (array_key_exists('langName', $this->inputErrors)) { ?>
+                if (!empty($this->inputErrors['langName'])) { ?>
                     <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langName']); ?></span>
                 <?php } ?>
             </td>
@@ -71,7 +71,7 @@ if ($this->languageId == 0) {
                 <input type="file" class="text" name="langFlag" id="langFlag" />
                 <?php if ($this->flagExtension > '') { ?>
                     <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
-                    <?php if (array_key_exists('langFlag', $this->inputErrors)) {?>
+                    <?php if (!empty($this->inputErrors['langFlag'])) {?>
                         <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
                     <?php }
                     }?>
@@ -108,30 +108,6 @@ if ($this->languageId == 0) {
     ?>
 </form>
 <?php
-if (!empty($this->inputErrors)) {
-    $fieldErrors = '<table>';
-    foreach ($this->inputErrors as $inputName => $inputError) {
-        if (array_key_exists($inputName, $inputFieldMap)) {
-            $inputName = $inputFieldMap[$inputName];
-        }
-        $fieldErrors .= "<tr><td class=\"error\">$inputName:</td><td class=\"error\">";
-        $fieldErrors .= implode('<br/>', $inputError);
-        $fieldErrors .= "</td></tr>";
-    }
-    $fieldErrors .= '</table>';
-    $this->popUpMessage()->addMessage(
-        'settingsNotSaved',
-        $this->lang->L_ERROR,
-        $this->lang->L_ERROR_VALIDATING_INPUTS . ':<br /><br />' . $fieldErrors
-            . '<br /><br />' . $this->lang->L_PLEASE_CORRECT_INPUT .'.',
-        array(
-            'modal' => true,
-            'width' => 400,
-            'dialogClass' => 'info',
-        )
-    );
-}
-
 if (in_array($this->flag, array('deleted', 'notDeleted'))) {
     $result = $this->flag == 'deleted';
     $this->showNotification(

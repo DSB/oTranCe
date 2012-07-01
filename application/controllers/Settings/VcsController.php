@@ -48,18 +48,19 @@ class Settings_VcsController extends SettingsController
         $vcsUser        = $this->_request->getParam('vcsUser');
         $vcsPass        = $this->_request->getParam('vcsPass');
         $vcsPassConfirm = $this->_request->getParam('vcsPass2');
+        $translator     = Msd_Language::getInstance();
 
         // Check user name has 2-50 chars
         $messages       = array();
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (!$strLenValidate->isValid($vcsUser)) {
-            $messages['vcsUser'] = $this->_translateZendMessageIds($strLenValidate->getMessages());
+            $messages['vcsUser'] = $translator->translateZendMessageIds($strLenValidate->getMessages());
         }
 
         // check both passwords are equal
         $identicalValidate = new Zend_Validate_Identical($vcsPass);
         if (!$identicalValidate->isValid($vcsPassConfirm)) {
-            $messages['vcsPass'] = $this->_translateZendMessageIds($identicalValidate->getMessages());
+            $messages['vcsPass'] = $translator->translateZendMessageIds($identicalValidate->getMessages());
         }
 
         if (sizeof($messages) > 0) {
@@ -67,23 +68,6 @@ class Settings_VcsController extends SettingsController
             return false;
         }
         return true;
-    }
-
-    /**
-     * Translate Zend message ids into our own ones.
-     *
-     * @param array $messages Zend messages
-     *
-     * @return array
-     */
-    protected function _translateZendMessageIds($messages)
-    {
-        $ret        = array();
-        $translator = Msd_Language::getInstance();
-        foreach (array_keys($messages) as $messageId) {
-            $ret[] = $translator->translateZendId($messageId);
-        }
-        return $ret;
     }
 
     /**

@@ -868,12 +868,13 @@ class Application_Model_User extends Msd_Application_Model
     public function validateData($userData, Zend_Translate $translator, $onlyCheckPasswords = false)
     {
         $this->clearValidateMessages();
+        $messageTranslator = Msd_Language::getInstance();
         if (!$onlyCheckPasswords) {
             $notEmptyValidate = new Zend_Validate_NotEmpty();
             if ($userData['id'] == 0) {
                 // new user
                 if (!$notEmptyValidate->isValid($userData['pass1'])) {
-                    $messages = $this->_translateZendMessageIds($notEmptyValidate->getMessages());
+                    $messages = $messageTranslator->translateZendMessageIds($notEmptyValidate->getMessages());
                     $this->_validateMessages['pass1'] = $messages;
                 }
 
@@ -887,20 +888,20 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check real name is not empty
             if (!$notEmptyValidate->isValid($userData['realName'])) {
-                $messages = $this->_translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($notEmptyValidate->getMessages());
                 $this->_validateMessages['realName'] = $messages;
             }
 
             // Check e-mail is not empty
             if (!$notEmptyValidate->isValid($userData['email'])) {
-                $messages = $this->_translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($notEmptyValidate->getMessages());
                 $this->_validateMessages['email'] = $messages;
             }
 
             // Check user name has 2-50 chars
             $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
             if (!$strLenValidate->isValid($userData['username'])) {
-                $messages = $this->_translateZendMessageIds($strLenValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($strLenValidate->getMessages());
                 $this->_validateMessages['username'] = array_merge(
                     $this->_validateMessages['username'],
                     $messages
@@ -909,7 +910,7 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check user name has 2-50 chars
             if (!$strLenValidate->isValid($userData['realName'])) {
-                $messages = $this->_translateZendMessageIds($strLenValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($strLenValidate->getMessages());
                 $this->_validateMessages['realName'] = array_merge(
                     $this->_validateMessages['realName'],
                     $messages
@@ -919,7 +920,7 @@ class Application_Model_User extends Msd_Application_Model
             // Check provided e-mail is valid
             $emailValidate = new Zend_Validate_EmailAddress();
             if (!$emailValidate->isValid($userData['email'])) {
-                $messages = $this->_translateZendMessageIds($emailValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($emailValidate->getMessages());
                 $this->_validateMessages['email'] = array_merge(
                     $this->_validateMessages['email'],
                     $messages
@@ -931,7 +932,7 @@ class Application_Model_User extends Msd_Application_Model
         if (isset($userData['pass1']) && ($userData['pass1'] > '' || $userData['pass2'] > '')) {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
             if (!$identicalValidate->isValid($userData['pass2'])) {
-                $messages = $this->_translateZendMessageIds($identicalValidate->getMessages());
+                $messages = $messageTranslator->translateZendMessageIds($identicalValidate->getMessages());
                 $this->_validateMessages['pass1'] = array_merge(
                     $this->_validateMessages['pass1'],
                     $messages
@@ -947,23 +948,6 @@ class Application_Model_User extends Msd_Application_Model
             $isValid = false;
         }
         return $isValid;
-    }
-
-    /**
-     * Translate Zend message ids into our own ones.
-     *
-     * @param array $messages Zend messages
-     *
-     * @return array
-     */
-    protected function _translateZendMessageIds($messages)
-    {
-        $ret = array();
-        $translator = Msd_Language::getInstance();
-        foreach (array_keys($messages) as $messageId) {
-            $ret[] = $translator->translateZendId($messageId);
-        }
-        return $ret;
     }
 
     /**

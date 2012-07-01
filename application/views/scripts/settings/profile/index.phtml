@@ -50,9 +50,12 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang,
     </tr>
     </table>
     <div class="spacer"></div>
-    <button type="submit"
-            class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?> <?php echo $this->lang->L_SAVE_PASSWORD; ?></button>
-    </div>
+    <p>
+        <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', '');?>
+            <?php echo $this->lang->L_SAVE_PASSWORD; ?>
+        </button>
+    </p>
+
 </form>
 <div class="spacer"></div>
 <?php

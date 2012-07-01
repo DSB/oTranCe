@@ -902,6 +902,16 @@ class Application_Model_User extends Msd_Application_Model
             }
         }
 
+        // Check password has 2-50 chars
+        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
+        if (isset($userData['pass1']) && !$strLenValidate->isValid($userData['pass1'])) {
+            $messages = $messageTranslator->translateZendMessageIds($strLenValidate->getMessages());
+            $this->_validateMessages['pass1'] = array_merge(
+                $this->_validateMessages['pass1'],
+                $messages
+            );
+        }
+
         // Check provided passwords are equal
         if (isset($userData['pass1']) && ($userData['pass1'] > '' || $userData['pass2'] > '')) {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);

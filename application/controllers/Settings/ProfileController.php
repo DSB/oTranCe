@@ -60,7 +60,7 @@ class Settings_ProfileController extends SettingsController
 
         $user['pass1'] = $newPassword;
         $user['pass2'] = $newPasswordConfirm;
-        if ($this->_userModel->validateData($user, $translator, false)) {
+        if ($this->_userModel->validateData($user, $translator, true)) {
             $res = $this->_userModel->saveAccount($user);
             if ($res !== false) {
                 $this->view->saved = true;

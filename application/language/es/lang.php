@@ -347,6 +347,7 @@ $lang = array(
 'L_ZEND_ID_EMAIL_ADDRESS_INVALID_SEGMENT' => 'El nombre de dominio está ubicado en una zona de red no enrutable. La dirección de correo no puede ser resuelta des de una red pública externa.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'La dirección de correo es demasiado larga. El tamaño máximo es de 320 carácteres.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'La dirección de correo no cumple con el formato aceptable de comillas (http://en.wikipedia.org/wiki/Email_address#Local_part).',
+'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'This file type is not allowed here.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'El nombre de dominio no cumple con la codificación "punycode" y no puede ser decodificado.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'El nombre de dominio contiene un guión en una posición no permitida.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'Tipo de datos no válido. Se esperaba una cadena de carácteres.',

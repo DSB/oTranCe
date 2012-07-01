@@ -347,6 +347,7 @@ $lang = array(
 'L_ZEND_ID_EMAIL_ADDRESS_INVALID_SEGMENT' => 'El nom de domini està ubicat en una zona de xarxa no enrutable. L\'adreça de correu no pot ser resolta des d\'una xarxa pública externa.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'L\'adreça de correu és massa llarga. El tamany màxim és de 320 caràcters.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'L\'adreça de correu no cumpleix amb el format acceptable de cometes (http://en.wikipedia.org/wiki/Email_address#Local_part).',
+'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'This file type is not allowed here.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'El nom de domini no cumpleix amb la codificació "punycode" i no pot ser decodificat.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'El nom de domini conté un guió a una posició no permesa.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'Tipus de dades no vàlid. S\'esperava una cadena de caràcters.',

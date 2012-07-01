@@ -219,7 +219,7 @@ var steps = {
             "type":"POST",
             "success":function (result) {
                 if (result.success) {
-                    $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL database tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
+                    $('#mysqlNotify').removeClass('ok error warning').addClass('ok').html('MySQL tables sucessfully created.').fadeIn(500).delay(2500).fadeOut(500);
                     stepSuccess();
                 } else {
                     stepError();

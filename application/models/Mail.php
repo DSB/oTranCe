@@ -29,16 +29,21 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @param Zend_View_Interface $view Instance of view
      */
-    public function __construct(\Zend_View_Interface $view = null)
+    public function __construct(\Zend_View_Interface $view)
     {
         parent::__construct();
-        if ($view !== null) {
-            $this->_view = $view;
-        }
+
+        $this->_view = $view;
+
         // for debugging - write mail-text to a local file instead of sending
+        // The file is created in system's temp dir.
         if (APPLICATION_ENV === 'development') {
+            $mailPath = sys_get_temp_dir() . '/otc/';
+            if (!file_exists($mailPath)) {
+                mkdir($mailPath, 0777, true);
+            }
             $transport = new Zend_Mail_Transport_File(
-                array('path' => APPLICATION_PATH . '/../data/')
+                array('path' => $mailPath)
             );
             Zend_Mail::setDefaultTransport($transport);
         }
@@ -68,13 +73,13 @@ class Application_Model_Mail extends Msd_Application_Model
      */
     public function sendAdminRegisterInfoMail($userData, $languagesMetaData)
     {
+        /**
+         * @var Zend_Translate_Adapter $translator
+         */
         $projectConfig = $this->_config->getParam('project');
-        if (trim($projectConfig['email'] == '')) {
+        if (!isset($projectConfig['email']) || trim($projectConfig['email']) == '') {
             // no project contact e-mail set -> can't send mail
             return;
-        }
-        if ($this->_view === null) {
-            throw new Exception('No view for rendering set: call setView($view) first.');
         }
 
         $this->_view->assign(

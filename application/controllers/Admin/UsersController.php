@@ -94,11 +94,11 @@ class Admin_UsersController extends AdminController
                 'active'   => $params['active']
             );
             if (isset($params['saveAccount'])) {
-                $translator = Msd_Language::getInstance()->getTranslator();
                 if ($userData['id'] == 0 || $params['pass1'] > '' || $params['pass2'] > '') {
                     $userData['pass1'] = $params['pass1'];
                     $userData['pass2'] = $params['pass2'];
                 }
+                $translator = Msd_Language::getInstance()->getTranslator();
                 if ($this->_userModel->validateData($userData, $translator)) {
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
@@ -146,53 +146,6 @@ class Admin_UsersController extends AdminController
         // prevent endless forward-loop
         $this->_request->setParam('deleteUser', 0);
         $this->_forward('index');
-    }
-
-    /**
-     * Validate inputs for account settings and set view error mesages.
-     *
-     * @param array $userData Data to check
-     *
-     * @return bool
-     */
-    public function _validateAccountSettings($userData)
-    {
-        $errors = array();
-
-        if ($userData['id'] == 0) {
-            $notEmptyValidate = new Zend_Validate_NotEmpty();
-            if (!$notEmptyValidate->isValid($userData['pass1'])) {
-                $errors['pass1'] = $notEmptyValidate->getMessages();
-            }
-
-            // check if we already have a user with that name
-            $existingUser = $this->_userModel->getUserByName($userData['username']);
-            if (!empty($existingUser)) {
-                $errors['username'] = array();
-                $errors['username'][] = 'A user with the name \'' . $userData['username'] .'\' already exists!';
-            }
-        }
-
-        $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
-        if (!$strLenValidate->isValid($userData['username'])) {
-            if (!isset($errors['username']) || !is_array($errors['username'])) {
-                $errors['username'] = array();
-            }
-            $errors['username'] = $strLenValidate->getMessages();
-        }
-
-        if ($userData['pass1'] > '' || $userData['pass2'] > '') {
-            $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
-            if (!$identicalValidate->isValid($userData['pass2'])) {
-                $errors['pass1'] = $identicalValidate->getMessages();
-            }
-        }
-
-        $this->view->errors = $errors;
-        if (empty($errors)) {
-            return true;
-        }
-        return false;
     }
 
     /**

@@ -66,29 +66,6 @@ if ($userData['id'] > 0) {
 ?>
 </form>
 <?php
-if (!empty($this->errors)) {
-    $inputErrors = '<table>';
-    foreach ($this->errors as $inputName => $inputError) {
-        if (array_key_exists($inputName, $inputNamesMap)) {
-            $inputName = $inputNamesMap[$inputName];
-        $inputErrors .= '<tr><td class="error">' . $inputName . ':</td><td class="error">'
-            . implode('<br/>', $inputError) . '</td></tr>';
-        }
-    }
-    $inputErrors .= '</table>';
-    $this->popUpMessage()->addMessage(
-        'settingsNotSaved',
-        $this->lang->L_ERROR,
-        $this->lang->L_ERROR_VALIDATING_INPUTS . ':<br /><br />' . $inputErrors
-            . '<br /><br />' . $this->lang->L_PLEASE_CORRECT_INPUT .'.',
-        array(
-            'modal' => true,
-            'width' => 400,
-            'dialogClass' => 'info',
-        )
-    );
-};
-
 if (isset($this->saved)) {
     $this->showNotification(
         $this->saved,

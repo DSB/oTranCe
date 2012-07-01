@@ -48,7 +48,9 @@ class Settings_ProfileController extends SettingsController
     protected function _changePassword($oldPassword, $newPassword, $newPasswordConfirm)
     {
         $translator = $this->view->lang->getTranslator();
-        if (empty($oldPassword)) {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $user = $this->_userModel->getUserById($auth['id']);
+        if (empty($oldPassword) || md5($oldPassword) != $user['password']) {
             $this->view->errors = array(
                 'oldPass' => array(0 => $translator->translate('L_PROVIDED_PASSWORD_IS_WRONG'))
             );
@@ -56,11 +58,8 @@ class Settings_ProfileController extends SettingsController
             return;
         }
 
-        $auth = Zend_Auth::getInstance()->getIdentity();
-        $user = $this->_userModel->getUserById($auth['id']);
         $user['pass1'] = $newPassword;
         $user['pass2'] = $newPasswordConfirm;
-
         if ($this->_userModel->validateData($user, $translator, false)) {
             $res = $this->_userModel->saveAccount($user);
             if ($res !== false) {

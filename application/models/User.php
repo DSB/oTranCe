@@ -719,32 +719,6 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Checks and saves a new password for an user account.
-     *
-     * @param string $oldPassword Old account password.
-     * @param string $newPassword New account password.
-     *
-     * @return bool
-     */
-    public function changePassword($oldPassword, $newPassword)
-    {
-        $sql = 'SELECT COUNT(*) FROM `' . $this->_database . '`.`' . $this->_tableUsers . '` '
-            . 'WHERE `id` = ' . $this->_userId . ' AND '
-            . '`password` = MD5(\'' . $this->_dbo->escape($oldPassword) . '\')';
-        $result = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
-        $count = $result[0][0];
-        if ($count == 0) {
-            return false;
-        }
-
-        $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '` '
-            . 'SET `password` = MD5(\'' . $this->_dbo->escape($newPassword) . '\') '
-            . 'WHERE `id` = ' . $this->_userId;
-        $result = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return (bool)$result;
-    }
-
-    /**
      * Delete a user and all of his rights and settings from the database
      *
      * @param int $userId Id of user

@@ -362,38 +362,6 @@ class UserTest extends ControllerTestCase
         $this->userModel->deleteUserById($newId);
     }
 
-    public function testChangePassword()
-    {
-        // create a test account
-        $user  = array(
-            'id'          => 0,
-            'username'    => 'phpUnitTestUser',
-            'pass1'       => 'IamKarl',
-            'active'      => 1,
-            'realName'    => 'Karl Tester',
-            'newLanguage' => '',
-            'email'       => 'karl@example.org'
-        );
-        $newId = $this->userModel->saveAccount($user);
-        $this->assertTrue($newId !== false);
-
-        $this->loginUser('phpUnitTestUser', 'IamKarl');
-        $this->userModel = new Application_Model_User();
-
-        $changed = $this->userModel->changePassword('IamKarl', 'IwasKarl');
-        $this->assertTrue($changed);
-
-        //check that password is changed
-        $check = $this->userModel->getUserByName('phpUnitTestUser');
-        $this->assertEquals(md5('IwasKarl'), $check['password']);
-
-        $this->userModel->deleteUserById($newId);
-
-        // ngetive check - try to change a password with wrong old passwort
-        $changed = $this->userModel->changePassword('IamTotallyWrong', 'IwasKarl');
-        $this->assertFalse($changed);
-    }
-
     public function testDeleteReferenceLanguageSetting()
     {
         //log in as tester

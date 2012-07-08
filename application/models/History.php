@@ -99,7 +99,7 @@ class Application_Model_History extends Msd_Application_Model
         foreach ($newValues as $langId => $newVal) {
             // if old value wasn't set
             if (!isset($oldValues[$langId])) {
-                $oldValues[$langId] = '-';
+                $oldValues[$langId] = '';
             }
 
             if ($newVal !== $oldValues[$langId]) {
@@ -117,7 +117,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logNewVarCreated($name)
     {
-        $this->saveChange($name, 0, '-', '-', 'created');
+        $this->saveChange($name, 0, '', '', 'created');
     }
 
     /**
@@ -143,7 +143,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logVarDeleted($key)
     {
-        $this->saveChange(0, 0, '-', '-', 'deleted \'' . $key .'\'');
+        $this->saveChange(0, 0, '', '', 'deleted \'' . $key .'\'');
     }
 
     /**
@@ -225,7 +225,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logLoginFailed($user)
     {
-        $this->saveChange('-', 0, '-', '-', '<i>'. $user . '</i> failed to log in');
+        $this->saveChange('', 0, '', '', '<i>'. $user . '</i> failed to log in');
     }
 
     /**
@@ -235,7 +235,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logLoginSuccess()
     {
-        $this->saveChange('-', 0, '-', '-', 'logged in');
+        $this->saveChange('', 0, '', '', 'logged in');
     }
 
     /**
@@ -245,7 +245,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logLogout()
     {
-        $this->saveChange('-', 0, '-', '-', 'logged out');
+        $this->saveChange('', 0, '', '', 'logged out');
     }
 
     /**
@@ -257,7 +257,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logSvnUpdate($langId)
     {
-        $this->saveChange('-', $langId, '-', '-', 'updated SVN');
+        $this->saveChange('', $langId, '', '', 'updated SVN');
     }
 
     /**
@@ -267,7 +267,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logSvnUpdateAll()
     {
-        $this->saveChange('-', 0, '-', '-', 'updated SVN');
+        $this->saveChange('', 0, '', '', 'updated SVN');
     }
 
     /**

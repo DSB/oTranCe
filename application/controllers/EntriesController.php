@@ -472,17 +472,6 @@ class EntriesController extends Zend_Controller_Action
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
 
-        // correct skipKeyOffsets per language if an untranslated value has been translated
-        /*
-        $oldValues   = $this->_entriesModel->getTranslationsByKeyId($params['id'], array_keys($values), true);
-        $skippedKeys = $this->_getLanguageKeyOffset();
-        foreach ($oldValues as $langId => $oldValue) {
-            if (trim($oldValue) == '' && trim($values[$langId]) > '' && $skippedKeys[$langId] > 0) {
-                $skippedKeys[$langId]--;
-            }
-        }
-        $this->_dynamicConfig->setParam('entries.skippedKeys', $skippedKeys);
-         */
         $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
         return $res;
     }

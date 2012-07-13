@@ -169,14 +169,17 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Search for term in translations table.
      *
+     * Saves number of hits in $this->_foundRows.
+     *
      * @param string $languageIds  Ids of languages to search in
      * @param string $searchphrase Text to find
      * @param int    $offset       Number of records to skip
      * @param int    $nrOfRecords  Number of hits to return
+     * @param int    $fileTemplateId If set, only search in this template
      *
      * @return array
      */
-    public function getEntriesByValue($languageIds, $searchphrase, $offset = 0, $nrOfRecords = 30)
+    public function getEntriesByValue($languageIds, $searchphrase, $offset = 0, $nrOfRecords = 30, $fileTemplateId = 0)
     {
         if (empty($languageIds)) {
             return array();
@@ -184,13 +187,27 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         //find key ids
         $sql = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT t.`key_id` FROM `' . $this->_tableTranslations . '` t ';
+        $where = array();
+        $join = '';
         if ($searchphrase > '') {
-            $sql .= ' WHERE t.`text` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\' AND '
+            $where[] = 't.`text` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\' AND '
                 . 't.`lang_id` IN (' . implode(",", $languageIds) . ')';
+        }
+
+        // if hits are filtered by a file template, we need to join the key table here
+        if ($fileTemplateId > 0) {
+            $join = ' JOIN `' . $this->_tableKeys .'` k ON k.`id` = t.`key_id` ';
+            $where[] = 'k.`template_id` = ' . $this->_dbo->escape($fileTemplateId);
+        }
+        if ($join > '') {
+            $sql .= $join;
+        }
+        if (count($where) > 0) {
+            $sql .= ' WHERE (' . implode(') AND (', $where) . ')';
         }
         $sql .= ' ORDER BY t.`key_id` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
         $rawKeyIds = $this->_dbo->query($sql, Msd_Db::ARRAY_NUMERIC);
-        $this->_foundRows = $this->getRowCount();
+        $this->setRowCount();
         if ($this->_foundRows == 0) {
             return array();
         }
@@ -329,7 +346,22 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getRowCount()
     {
-        return $this->_dbo->getRowCount();
+        if ($this->_foundRows === null) {
+            $this->_foundRows = $this->_dbo->getRowCount();
+        }
+        return $this->_foundRows;
+    }
+
+    /**
+     * Save nr of rows to property.
+     *
+     * Query must be invoked using SQL_CALC_FOUND_ROWS and method needs to be called right after the query is executed.
+     *
+     * @return integer
+     */
+    public function setRowCount()
+    {
+        $this->_foundRows = $this->_dbo->getRowCount();
     }
 
     /**

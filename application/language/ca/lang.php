@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (397), DSB (3)
+// caos30 (397)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar el compte de l\'usuari amb ID %s',

@@ -49,7 +49,7 @@ class Application_Model_Statistics extends Msd_Application_Model
     }
 
     /**
-     * Get array with user statistics
+     * Get array with user change action count per language
      *
      * @return array
      */
@@ -64,4 +64,24 @@ class Application_Model_Statistics extends Msd_Application_Model
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }
+
+    /**
+     * Get array with user overall change action count
+     *
+     * @return array
+     */
+    public function getUserChangeStatistics()
+    {
+        $sql = "SELECT `user_id`, count(*) as `editActions`, max(`dt`) as `lastAction`
+            FROM `{$this->_tableHistory}`
+            WHERE `action`='changed'
+            GROUP BY `user_id` ORDER BY `dt` DESC";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        $ret = array();
+        foreach ($res as $data) {
+            $ret[$data['user_id']] = $data;
+        }
+        return $ret;
+    }
+
 }

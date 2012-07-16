@@ -44,15 +44,18 @@ class Admin_UsersController extends AdminController
             $this->_setSessionParams();
         }
 
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+        $recordsPerPage                =
+            (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
-        $this->view->users = $this->_userModel->getUsers(
-            (string) $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
-            (int) $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+        $this->view->users             = $this->_userModel->getUsers(
+            (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
             $recordsPerPage
         );
-        $this->view->hits = $this->_userModel->getRowCount();
-        $this->view->userModel = $this->_userModel;
+        $this->view->hits              = $this->_userModel->getRowCount();
+        $this->view->userModel         = $this->_userModel;
+        $statisticsModel               = new Application_Model_Statistics();
+        $this->view->userStatistics    = $statisticsModel->getUserChangeStatistics();
     }
 
     /**
@@ -62,7 +65,7 @@ class Admin_UsersController extends AdminController
      */
     public function editAction()
     {
-        $userId = (int) $this->_request->getParam('id', 0);
+        $userId = (int)$this->_request->getParam('id', 0);
         if ($userId == 0) {
             // Is current user allowed to add a new user?
             if (!$this->_userModel->hasRight('addUser')) {
@@ -85,7 +88,7 @@ class Admin_UsersController extends AdminController
         }
 
         if ($this->_request->isPost()) {
-            $params = $this->_request->getParams();
+            $params   = $this->_request->getParams();
             $userData = array(
                 'id'       => $params['id'],
                 'username' => $params['username'],
@@ -102,10 +105,10 @@ class Admin_UsersController extends AdminController
                 if ($this->_userModel->validateData($userData, $translator)) {
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
-                        $userId = (int) $result;
+                        $userId = (int)$result;
                     }
-                    $this->view->saved = (bool) $result;
-                    $userData = $this->_userModel->getUserById($userId);
+                    $this->view->saved = (bool)$result;
+                    $userData          = $this->_userModel->getUserById($userId);
                 } else {
                     $this->view->errors = $this->_userModel->getValidateMessages();
                 }
@@ -131,7 +134,7 @@ class Admin_UsersController extends AdminController
         if (!$this->_userModel->hasRight('deleteUsers')) {
             $this->_redirect('/admin_users');
         }
-        $userId = (int) $this->_request->getParam('deleteUser', 0);
+        $userId       = (int)$this->_request->getParam('deleteUser', 0);
         $historyModel = new Application_Model_History();
         $deleteResult = true;
         $deleteResult &= $historyModel->deleteEntriesByUserId($userId);

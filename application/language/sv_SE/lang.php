@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// HolgerGremminger
+// DSB (1), HolgerGremminger (355)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',

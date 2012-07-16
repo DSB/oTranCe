@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// Jan.Twachtmann, pavdeijk
+// Jan.Twachtmann (394), pavdeijk (20)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',

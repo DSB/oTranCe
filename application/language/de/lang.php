@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB, janrei, kyoya, Marco.Steinhäuser, urban
+// DSB (318), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',

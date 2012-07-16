@@ -14,14 +14,16 @@ class StatisticsTest extends ControllerTestCase
         $statistics = $this->statisticsModel->getUserstatistics();
         $expected = array(
             0 => array(
-                    'user_id'     => 1,
-                    'lang_id'     => 1,
-                    'editActions' => 1
+                    'user_id'     => '1',
+                    'lang_id'     => '1',
+                    'editActions' => '1',
+                    'username'    => 'Admin'
                 ),
             1 => array(
-                    'user_id'     => 1,
-                    'lang_id'     => 2,
-                    'editActions' => 1
+                    'user_id'     => '1',
+                    'lang_id'     => '2',
+                    'editActions' => '1',
+                    'username'    => 'Admin'
                 )
         );
         $this->assertEquals($expected, $statistics);

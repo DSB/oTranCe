@@ -51,7 +51,7 @@ class UserTest extends ControllerTestCase
     public function testGetTranslatorListCanImplodeList()
     {
         $translatorList = $this->userModel->getTranslatorlist(true);
-        $expected       = array(1=> 'Admin, tester', 2=> 'Admin');
+        $expected       = array(1=> 'Admin (2)', 2=> 'Admin (1)');
         $this->assertEquals($expected, $translatorList);
     }
 

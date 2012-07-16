@@ -171,10 +171,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Saves number of hits in $this->_foundRows.
      *
-     * @param string $languageIds  Ids of languages to search in
-     * @param string $searchphrase Text to find
-     * @param int    $offset       Number of records to skip
-     * @param int    $nrOfRecords  Number of hits to return
+     * @param string $languageIds    Ids of languages to search in
+     * @param string $searchphrase   Text to find
+     * @param int    $offset         Number of records to skip
+     * @param int    $nrOfRecords    Number of hits to return
      * @param int    $fileTemplateId If set, only search in this template
      *
      * @return array

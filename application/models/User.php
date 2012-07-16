@@ -66,7 +66,7 @@ class Application_Model_User extends Msd_Application_Model
     private $_userrights;
 
     /**
-     * Sotres the validation messages.
+     * Holds validation messages.
      *
      * @var array
      */
@@ -136,20 +136,20 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function getTranslatorData()
     {
-        $this->_dbo->selectDb($this->_database);
-        $sql = 'SELECT l.`language_id`, u.`id` as `user_id`, u.`username` FROM `' . $this->_tableUserLanguages . '` l'
-            . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
-            . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        $ret = array();
-        foreach ($res as $val) {
-            if (empty($ret[$val['language_id']])) {
-                $ret[$val['language_id']] = array();
+        $statisticsModel = new Application_Model_Statistics();
+        $statistics      = $statisticsModel->getUserstatistics();
+        $ret             = array();
+        foreach ($statistics as $val) {
+            if (empty($ret[$val['lang_id']])) {
+                $ret[$val['lang_id']] = array();
             }
-            $ret[$val['language_id']][] = array(
-                'userId' => $val['user_id'],
-                'userName' => $val['username']
-            );
+            if ($val['editActions'] > 0) {
+                $ret[$val['lang_id']][] = array(
+                    'userId' => $val['user_id'],
+                    'userName' => $val['username'],
+                    'editActions' => $val['editActions']
+                );
+            }
         }
         return $ret;
     }
@@ -172,7 +172,8 @@ class Application_Model_User extends Msd_Application_Model
                 if (empty($ret[$languageId])) {
                     $ret[$languageId] = array();
                 }
-                $ret[$languageId][$translator['userId']] = $translator['userName'];
+                $ret[$languageId][$translator['userId']] =
+                    $translator['userName'] . ' (' . $translator['editActions'] . ')';
             }
         }
 
@@ -181,6 +182,7 @@ class Application_Model_User extends Msd_Application_Model
                 $ret[$languageId] = implode(', ', $ret[$languageId]);
             }
         }
+        $this->_statistics = $ret;
         return $ret;
     }
 

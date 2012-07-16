@@ -55,7 +55,7 @@ class Application_Model_Statistics extends Msd_Application_Model
      */
     public function getUserstatistics()
     {
-        $sql = "SELECT h.`user_id`, h.`lang_id`, count(*) as `editActions`
+        $sql = "SELECT h.`user_id`, h.`lang_id`, u.`username`, count(*) as `editActions`
             FROM `{$this->_tableHistory}` h
             LEFT JOIN `{$this->_tableLanguages}` l ON l.`id` = h.`lang_id`
             LEFT JOIN `{$this->_tableUsers}` u ON u.`id` = h.`user_id`

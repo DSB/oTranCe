@@ -6,7 +6,14 @@ $export = $this->export;
     <h2><?php echo $this->lang->L_HEADER_EXPORT;?></h2>
 </div>
 <h4><?php echo $this->lang->L_EXPORT_FILE_STATUS_DOWNLOAD_PACKAGE;?></h4>
-
+<a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton ui-corner-all">
+    <?php echo $this->getIcon('save', '') . ' ' . $this->lang->L_EXPORT_BUILD_DOWNLOAD_PACKAGE;?>
+</a>
+<?php
+if ($this->vcsActivated) { ?>
+<a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/><?php
+}
+?>
 <table class="bdr small flag" summary="List of languages and their change status">
     <tr class="thead">
         <th>#</th>
@@ -57,7 +64,7 @@ if ($exportNeeded) { ?>
 } ?>
 <a href="<?php echo $this->baseUrl();?>/export/update.all" class="Formbutton ui-corner-all">
     <?php echo $this->getIcon('save', '') . ' ' . $this->lang->L_EXPORT_BUILD_DOWNLOAD_PACKAGE;?>
-</a><br/>
+</a>
 <?php
 if ($this->vcsActivated) { ?>
     <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/><?php

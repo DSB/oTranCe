@@ -182,6 +182,7 @@ $lang = array(
 'L_LANGUAGE_NAME' => 'Español',
 'L_LANGUAGE_OTHER' => '¿No aparece el idioma en el listado? Escriba el nombre del idioma que quiere traducir',
 'L_LANGUAGE_SETTINGS' => 'Preferencias de idioma',
+'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Local',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Inicio de sesión',

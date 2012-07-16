@@ -182,6 +182,7 @@ $lang = array(
 'L_LANGUAGE_NAME' => 'Nederlands',
 'L_LANGUAGE_OTHER' => 'De taal niet bekend? Specificeer de taal die u wil onderhouden',
 'L_LANGUAGE_SETTINGS' => 'Instellingen taal',
+'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Locale',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Aanmelden',

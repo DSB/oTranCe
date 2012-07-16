@@ -182,6 +182,7 @@ $lang = array(
 'L_LANGUAGE_NAME' => 'Català',
 'L_LANGUAGE_OTHER' => 'L\'idioma no apareix al llistat? Doni el nom de l\'idioma que vol traduïr',
 'L_LANGUAGE_SETTINGS' => 'Preferències d\'idioma',
+'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Local',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Inici de sessió',

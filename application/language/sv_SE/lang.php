@@ -184,6 +184,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_LANGUAGE_NAME' => 'Svenska',
 'L_LANGUAGE_OTHER' => 'Språket finns inte med i listan? Ange vilket språk du skulle vilja bearbeta',
 'L_LANGUAGE_SETTINGS' => 'Inställningar för språk',
+'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Locale',
 'L_LOG' => 'Logg',
 'L_LOGIN' => 'Logga in',

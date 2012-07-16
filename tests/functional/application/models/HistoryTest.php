@@ -103,7 +103,7 @@ class HistoryTest extends ControllerTestCase
         // check automatic setting of old value if it isn't present
         $this->model->logChanges(1, array(), array(1 => 'Testeintrag2'));
         $entries = $this->model->getEntries(0, 50, 0, 1, 'changed');
-        $this->assertTrue($entries[0]['oldValue'] == '-');
+        $this->assertTrue($entries[0]['oldValue'] == '');
         $this->assertTrue($entries[0]['newValue'] == 'Testeintrag2');
 
         $deleted = $this->model->deleteById($entries[0]['id']);

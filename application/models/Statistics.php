@@ -30,15 +30,22 @@ class Application_Model_Statistics extends Msd_Application_Model
     private $_tableLanguages;
 
     /**
+     * Name of users table
+     * @var string
+     */
+    private $_tableUsers;
+
+    /**
      * Model initialization method.
      *
      * @return void
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->_tableHistory = $tableConfig['history'];
+        $tableConfig           = $this->_config->getParam('table');
+        $this->_tableHistory   = $tableConfig['history'];
         $this->_tableLanguages = $tableConfig['languages'];
+        $this->_tableUsers     = $tableConfig['users'];
     }
 
     /**
@@ -51,8 +58,9 @@ class Application_Model_Statistics extends Msd_Application_Model
         $sql = "SELECT h.`user_id`, h.`lang_id`, count(*) as `editActions`
             FROM `{$this->_tableHistory}` h
             LEFT JOIN `{$this->_tableLanguages}` l ON l.`id` = h.`lang_id`
+            LEFT JOIN `{$this->_tableUsers}` u ON u.`id` = h.`user_id`
             WHERE h.`action`='changed' AND l.`active` = 1
-            GROUP BY h.`user_id`, h.`lang_id`";
+            GROUP BY h.`user_id`, h.`lang_id` ORDER BY u.`username` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
     }

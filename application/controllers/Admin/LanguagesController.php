@@ -91,6 +91,12 @@ class Admin_LanguagesController extends AdminController
         if ($languageId > 0) {
             $this->_assignUserList($languageId);
         }
+        $flagImage = realpath(APPLICATION_PATH . '/../public/images/flags') . '/' . $this->view->langLocale . '.'
+            . $this->view->flagExtension;
+        if (!is_readable($flagImage)) {
+            $this->view->flagExtension = '';
+        }
+
         $this->view->languageId         = $languageId;
         $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
     }
@@ -217,6 +223,15 @@ class Admin_LanguagesController extends AdminController
                 $langName,
                 $sourceExt
             );
+
+            if ($flagUploaded === false && $languageId > 0 && $lang['locale'] != $langLocale) {
+                // locale of existing language was changed -> rename existing flag image
+                $path = realpath(APPLICATION_PATH . '/../public/images/flags') . '/';
+                $newFileName = $path . $langLocale . '.' . $lang['flag_extension'];
+                $oldFileName = $path . $lang['locale'] . '.' . $lang['flag_extension'];
+                @rename($oldFileName, $newFileName);
+            }
+
             //if it is was a new langauge - get id
             if ($languageId == 0) {
                 $languageId = $this->_languagesModel->getLastInsertedId();
@@ -228,6 +243,7 @@ class Admin_LanguagesController extends AdminController
             }
             $this->view->creationResult = $creationResult;
         }
+
         return $languageId;
     }
 
@@ -262,8 +278,16 @@ class Admin_LanguagesController extends AdminController
         $strLenValidate  = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
         $inputErrors     = array();
         $langLocaleValid = $strLenValidate->isValid($langLocale);
+        $inputErrors['langLocale'] = array();
         if (!$langLocaleValid) {
             $inputErrors['langLocale'] = $translator->translateZendMessageIds($strLenValidate->getMessages());
+        }
+        $inputsValid &= $langLocaleValid;
+
+        $charValidate = new Zend_Validate_Regex(array('pattern' => '/^[a-zA-Z0-9\.\-_]+$/i'));
+        $langLocaleValid = $charValidate->isValid($langLocale);
+        if (!$langLocaleValid) {
+            $inputErrors['langLocale'][] = $translator->translate('L_ERROR_INVALID_CHARS');
         }
         $inputsValid &= $langLocaleValid;
 
@@ -275,7 +299,7 @@ class Admin_LanguagesController extends AdminController
         }
         $inputsValid &= $langNameValid;
 
-        if ($flag !== null) {
+        if ($flag !== null && $inputsValid === true) {
             $flag->addValidator('Extension', false, array('gif', 'jpeg', 'jpg', 'png'));
             $flag->addValidator('Size', false, array('max' >= '10kB'));
 

@@ -56,18 +56,22 @@ if ($this->languageId == 0) {
             </td>
         </tr>
         <tr class="row-even">
-            <td class="vmiddle">
-                <label for="langFlag"><?php echo $this->lang->L_FLAG;?>:</label><br /><br />
+            <td>
+                    <label for="langFlag"><?php echo $this->lang->L_FLAG;?>:</label><br /><br />
             </td>
-            <td class="vmiddle">
-                <?php echo $this->printFlag($this->languageId);?>
-                <input type="file" class="text" name="langFlag" id="langFlag" />
-                <?php if ($this->flagExtension > '') { ?>
-                    <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button>
-                    <?php if (!empty($this->inputErrors['langFlag'])) {?>
-                        <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span>
-                    <?php }
-                    }?>
+            <td>
+                <?php if ($this->flagExtension > '') {
+                    echo $this->printFlag($this->languageId);
+                } else { ?>
+                    <input type="file" class="text" name="langFlag" id="langFlag" /><?php
+                }
+
+                if ($this->flagExtension > '') { ?>
+                    <button type="button" class="Formbutton ui-corner-all" onclick="window.location.href = '<?php echo $this->baseUrl(); ?>/admin_languages/delete.flag/id/<?php echo $this->languageId; ?>/';"><?php echo $this->getIcon('delete', '');?> <?php echo $this->lang->L_DELETE_FLAG;?></button><?php
+                    if (!empty($this->inputErrors['langFlag'])) {?>
+                        <span class="error"><br/><?php echo implode("<br/>", $this->inputErrors['langFlag']); ?></span><?php
+                    }
+                } ?>
             </td>
         </tr>
         <tr class="row-odd">

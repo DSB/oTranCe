@@ -299,7 +299,7 @@ class Admin_LanguagesController extends AdminController
         }
         $inputsValid &= $langNameValid;
 
-        if ($flag !== null && $inputsValid === true) {
+        if ($flag !== null && $inputsValid != false) {
             $flag->addValidator('Extension', false, array('gif', 'jpeg', 'jpg', 'png'));
             $flag->addValidator('Size', false, array('max' >= '10kB'));
 

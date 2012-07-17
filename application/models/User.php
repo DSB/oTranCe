@@ -132,24 +132,34 @@ class Application_Model_User extends Msd_Application_Model
      *                                    1 => array('userId' => z,
      *                                    ....);
      *
+     * @param bool $getAll If set to false, only translators with edit actions are returned.
+     *
      * @return array
      */
-    public function getTranslatorData()
+    public function getTranslatorData($getAll = false)
     {
-        $statisticsModel = new Application_Model_Statistics();
-        $statistics      = $statisticsModel->getUserstatistics();
+        if ($getAll === true) {
+            $sql = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username` FROM `' . $this->_tableUserLanguages . '` l'
+                . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
+                . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
+            $statistics = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        } else {
+            $statisticsModel = new Application_Model_Statistics();
+            $statistics      = $statisticsModel->getUserstatistics();
+        }
         $ret             = array();
         foreach ($statistics as $val) {
             if (empty($ret[$val['lang_id']])) {
                 $ret[$val['lang_id']] = array();
             }
-            if ($val['editActions'] > 0) {
-                $ret[$val['lang_id']][] = array(
-                    'userId' => $val['user_id'],
-                    'userName' => $val['username'],
-                    'editActions' => $val['editActions']
-                );
+            if ($getAll === false && $val['editActions'] == 0) {
+                continue;
             }
+            $ret[$val['lang_id']][] = array(
+                'userId' => $val['user_id'],
+                'userName' => $val['username'],
+                'editActions' => $val['editActions']
+            );
         }
         return $ret;
     }
@@ -159,21 +169,26 @@ class Application_Model_User extends Msd_Application_Model
      *
      * Return array[$languageId] = 'user1, user2, user3, ...';
      *
-     * @param bool $implodeList Wether to implode the names per language or retunr an array
+     * @param bool $implodeList Whether to implode the names per language or return an array
+     * @param bool $getAll      Whether all translators with edit rights should be returned.
+     *                          If set to false, only those with edit actions are returned.
      *
      * @return array
      */
-    public function getTranslatorlist($implodeList = true)
+    public function getTranslatorlist($implodeList = true, $getAll = false)
     {
-        $translatorList = $this->getTranslatorData();
+        $translatorList = $this->getTranslatorData($getAll);
         $ret = array();
         foreach ($translatorList as $languageId => $translatorData) {
             foreach ($translatorData as $translator) {
                 if (empty($ret[$languageId])) {
                     $ret[$languageId] = array();
                 }
-                $ret[$languageId][$translator['userId']] =
-                    $translator['userName'] . ' (' . $translator['editActions'] . ')';
+                $ret[$languageId][$translator['userId']] = $translator['userName'];
+                //append number of edit actions in
+                if ($getAll === false) {
+                    $ret[$languageId][$translator['userId']] .= ' (' . $translator['editActions'] . ')';
+                }
             }
         }
 

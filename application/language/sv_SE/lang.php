@@ -107,6 +107,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERROR_DELETING_KEY' => 'Ett fel uppträdde under radering av nyckeln',
 'L_ERROR_DELETING_LANGUAGE' => 'Tyvärr uppträdde ett problem när språket skulle raderas.<br />Försök igen.',
 'L_ERROR_DELETING_USER' => 'Ett fel uppträdde under radering av användaren.',
+'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Ett fel uppträdde under optimering av databastabellerna.',
 'L_ERROR_SAVING_CHANGE' => 'Ett fel uppträdde vid lagring av ändringen',
 'L_ERROR_SAVING_KEY' => 'Tyvärr uppträdde ett fel när nyckeln sparades.',

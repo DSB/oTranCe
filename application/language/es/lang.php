@@ -105,6 +105,7 @@ $lang = array(
 'L_ERROR_DELETING_KEY' => 'Ha habido un error al intentar eliminar la clave',
 'L_ERROR_DELETING_LANGUAGE' => 'Ha habido un error intentando eliminar este idioma.<br />Por favor, inténtelo de nuevo.',
 'L_ERROR_DELETING_USER' => 'Ha habido un error al intentar eliminar este usuario.',
+'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Ha habido un error mientras se intentaba optimizar las tablas de la base de datos.',
 'L_ERROR_SAVING_CHANGE' => 'Ha habido un error al tratar de guardar sus cambios',
 'L_ERROR_SAVING_KEY' => 'Ha habido un error al intentar guardar la clave.',

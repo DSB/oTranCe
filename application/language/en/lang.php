@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (355), janrei (17), kyoya (19), Marco.Steinhäuser (15)
+// DSB (356), janrei (17), kyoya (19), Marco.Steinhäuser (15)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -108,6 +108,7 @@ Please retry.',
 'L_ERROR_DELETING_KEY' => 'Error deleting the key',
 'L_ERROR_DELETING_LANGUAGE' => 'There was an error deleting this language.<br />Please try again.',
 'L_ERROR_DELETING_USER' => 'There was an error deleting this user.',
+'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'An error occured while trying to optimize the database tables.',
 'L_ERROR_SAVING_CHANGE' => 'An error occured while saving your change',
 'L_ERROR_SAVING_KEY' => 'An error occured while saving the key.',

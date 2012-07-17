@@ -105,6 +105,7 @@ $lang = array(
 'L_ERROR_DELETING_KEY' => 'Hi ha hagut un error provant d\'eliminar la clau',
 'L_ERROR_DELETING_LANGUAGE' => 'Hi ha hagut un error provant d\'eliminar aquest idioma.<br />Si us plau, provi de nou.',
 'L_ERROR_DELETING_USER' => 'Hi ha hagut un error provant d\'eliminar aquest usuari.',
+'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Hi ha hagut un error provant d\'optimitzar les taules de la base de dades.',
 'L_ERROR_SAVING_CHANGE' => 'Hi ha hagut un error provant de desar els canvis',
 'L_ERROR_SAVING_KEY' => 'Hi ha hagut un error provant de desar la clau.',

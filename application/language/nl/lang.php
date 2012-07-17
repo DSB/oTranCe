@@ -105,6 +105,7 @@ $lang = array(
 'L_ERROR_DELETING_KEY' => 'Bij het verwijderen van de sleutel is een fout opgetreden.',
 'L_ERROR_DELETING_LANGUAGE' => 'Helaas is er een fout bij het verwijderen van de taal opgetreden.<br />Probeer het nog een keer aub.',
 'L_ERROR_DELETING_USER' => 'Bij het verwijderen van de gebruiker is een fout opgetreden.',
+'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Tijdens het optimaliseren van de databanktabel is een fout opgetreden.',
 'L_ERROR_SAVING_CHANGE' => 'Helaas is er een fout bij het opslaan van de wijzigingen opgetreden.',
 'L_ERROR_SAVING_KEY' => 'Helaas is er een fout bij het opslaan van de sleutel opgetreden.',

@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (318), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (319), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -108,6 +108,7 @@ Bitte wiederholen Sie die Aktion.',
 'L_ERROR_DELETING_KEY' => 'Beim Löschen des Schlüssels ist ein Fehler aufgetreten',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuchen Sie es noch einmal.',
 'L_ERROR_DELETING_USER' => 'Beim Löschen des Benutzers ist ein Fehler aufgetreten.',
+'L_ERROR_INVALID_CHARS' => 'Die Eingabe enthält unerlaubte Zeichen.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Während der Optimierung der Datenbanktabellen ist ein Fehler aufgetreten.',
 'L_ERROR_SAVING_CHANGE' => 'Leider ist beim Speichern der Änderung ein Fehler aufgetreten',
 'L_ERROR_SAVING_KEY' => 'Leider ist beim Speichern des Schlüssels ein Fehler aufgetreten.',

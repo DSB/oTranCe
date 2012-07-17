@@ -46,7 +46,11 @@ foreach ($this->users as $userId => $user)
     $i += $this->offset;
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="' . $this->lang->L_EDIT_USER . '">';
-    $userLog = '<a href="'.$this->baseUrl().'/log/index/filterUser/'.$userId .'" title="' . $this->lang->L_LOG . '">';
+    if ($this->user->hasRight('showLog')) {
+        $userLog = '<a href="'.$this->baseUrl().'/log/index/filterUser/'.$userId .'" title="' . $this->lang->L_LOG . '">';
+    } else {
+        $userLog = $edit;
+    }
     ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="vmiddle nowrap">

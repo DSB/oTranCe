@@ -59,7 +59,7 @@ class Application_Model_Statistics extends Msd_Application_Model
             FROM `{$this->_tableHistory}` h
             LEFT JOIN `{$this->_tableLanguages}` l ON l.`id` = h.`lang_id`
             LEFT JOIN `{$this->_tableUsers}` u ON u.`id` = h.`user_id`
-            WHERE h.`action`='changed' AND l.`active` = 1
+            WHERE h.`action`='changed' AND l.`active` = 1 AND u.`active` = 1
             GROUP BY h.`user_id`, h.`lang_id` ORDER BY u.`username` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;

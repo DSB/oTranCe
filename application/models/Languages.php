@@ -231,7 +231,7 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function getLanguageIdFromLocale($locale)
     {
-        $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale'";
+        $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `locale` = '" . $this->_dbo->escape($locale) . "'";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return (isset($res[0]['id'])) ? $res[0]['id'] : 0;
     }

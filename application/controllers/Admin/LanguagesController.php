@@ -284,6 +284,13 @@ class Admin_LanguagesController extends AdminController
         }
         $inputsValid &= $langLocaleValid;
 
+        // Check if this locale already exists
+        $tempLangId = $this->_languagesModel->getLanguageIdFromLocale($langLocale);
+        if ( ($id == 0 && $tempLangId > 0) || ($id > 0 && $tempLangId != $id)) {
+            $inputErrors['langLocale'][] = $translator->translate('L_LOCALE_EXISTS');
+            $inputsValid = false;
+        }
+
         $charValidate = new Zend_Validate_Regex(array('pattern' => '/^[a-zA-Z0-9\.\-_]+$/i'));
         $langLocaleValid = $charValidate->isValid($langLocale);
         if (!$langLocaleValid) {

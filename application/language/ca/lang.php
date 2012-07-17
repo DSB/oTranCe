@@ -185,6 +185,7 @@ $lang = array(
 'L_LANGUAGE_SETTINGS' => 'Preferències d\'idioma',
 'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Local',
+'L_LOCALE_EXISTS' => 'A language with this locale already exists.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Inici de sessió',
 'L_LOGIN_AUTOLOGIN' => 'Inici de sessió automàtic',

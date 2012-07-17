@@ -185,6 +185,7 @@ $lang = array(
 'L_LANGUAGE_SETTINGS' => 'Instellingen taal',
 'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Locale',
+'L_LOCALE_EXISTS' => 'A language with this locale already exists.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Aanmelden',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch aanmelden',

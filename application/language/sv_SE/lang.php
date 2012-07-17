@@ -187,6 +187,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_LANGUAGE_SETTINGS' => 'Inställningar för språk',
 'L_LATEST_ACTIVITY' => 'Latest activity',
 'L_LOCALE' => 'Locale',
+'L_LOCALE_EXISTS' => 'A language with this locale already exists.',
 'L_LOG' => 'Logg',
 'L_LOGIN' => 'Logga in',
 'L_LOGIN_AUTOLOGIN' => 'Kom ihåg mig',

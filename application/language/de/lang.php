@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (319), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (320), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -189,6 +189,7 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_LANGUAGE_SETTINGS' => 'Einstellungen Sprache',
 'L_LATEST_ACTIVITY' => 'Letzte Aktivität',
 'L_LOCALE' => 'Locale',
+'L_LOCALE_EXISTS' => 'Es existiert bereits eine Sprache mit dieser Locale.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Anmelden',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',

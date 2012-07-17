@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (357), janrei (17), kyoya (19), Marco.Steinhäuser (15)
+// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -359,6 +359,7 @@ An administrator will activate it soon.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'The email address is too long. The maximum length is 320 chars.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'The email address can not be matched against quoted-string format.',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'This file type is not allowed here.',
+'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'The file is too big.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'The given punycode notation of the hostname cannot be decoded.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'The hostname contains a dash in an invalid position.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'Invalid type given. String expected.',

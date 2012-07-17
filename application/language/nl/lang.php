@@ -351,6 +351,7 @@ $lang = array(
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'De email adres is te lang. U kunt maximaal 320 tekens invullen.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'De email adres kan niet in het quoted-string formaat getoetst worden.',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'Dit bestandstype is hier niet toegestaan.',
+'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'The file is too big.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'De punycode-schrijfwijze kan niet worden decodeerd.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'De streepje in de domein staat aan de foute plaats.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'U heeft een fout type ingevuld. Er moet een string worden ingevuld.',

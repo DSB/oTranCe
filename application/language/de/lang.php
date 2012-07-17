@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (320), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (321), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -357,6 +357,7 @@ Ein Administrator wird es demnächst freischalten.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'Die E-Mail-Adresse ist zu lang. Die maximale Länge ist 320 Zeichen.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'Die E-Mail-Adresse kann nicht im Quoted-String-Format überprüft werden.',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'Dieser Dateityp ist hier nicht erlaubt.',
+'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'Die Datei ist zu groß.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'Die Punycode-Schreibweise im Hostnamen kann nicht decodiert werden.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'Der Bindestrich im Hostnamen steht an einer falschen Stelle.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'Sie haben einen falschen Typ eingegeben. Hier wird ein String erwartet.',

@@ -9,21 +9,21 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1)
+// diastasi (12), DSB (1)
 
 $lang = array(
-'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
-'L_ACCOUNT_SETTINGS' => 'Account settings',
-'L_ACTION' => 'Action',
-'L_ACTIVITIES' => 'Activities',
-'L_ADD' => 'Add',
-'L_ADDED' => 'added',
-'L_ADD_ENTRY' => 'Add a new entry',
-'L_ADD_FILE_TEMPLATE' => 'Add file template',
-'L_ADD_NEW_KEY' => 'Add new key',
-'L_ADD_NEW_LANGUAGE' => 'Add new language',
-'L_ADMIN' => 'Admin',
-'L_ADMIN_RIGHTS' => 'Admin rights',
+'L_ACCOUNT_OF_USER_WITH_ID' => 'Επεξεργασία λογαριασμού χρήστη με id %s',
+'L_ACCOUNT_SETTINGS' => 'Ρυθμίσεις λογαριασμού',
+'L_ACTION' => 'Ενέργεια',
+'L_ACTIVITIES' => 'Δραστηριότητες',
+'L_ADD' => 'Προσθήκη',
+'L_ADDED' => 'προστέθηκε',
+'L_ADD_ENTRY' => 'Προσθήκη νέας καταχώρησης',
+'L_ADD_FILE_TEMPLATE' => 'Προσθήκη αρχείου προτύπου',
+'L_ADD_NEW_KEY' => 'Προσθήκη νέου κλειδιού',
+'L_ADD_NEW_LANGUAGE' => 'Προσθήκη νέας γλώσσας',
+'L_ADMIN' => 'Διαχειριστής',
+'L_ADMIN_RIGHTS' => 'Δικαιώματα Διαχειριστή',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => 'Select a section to edit by clicking on a tab in the head navigation.',
 'L_ALL_TRANSLATIONS_WILL_BE_DELETED_TOO' => 'All translations of this key will be deleted too',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => 'All log entries, settings and rights have been removed too.',

@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// HolgerGremminger (355)
+// HolgerGremminger (359)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',
@@ -107,7 +107,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERROR_DELETING_KEY' => 'Ett fel uppträdde under radering av nyckeln',
 'L_ERROR_DELETING_LANGUAGE' => 'Tyvärr uppträdde ett problem när språket skulle raderas.<br />Försök igen.',
 'L_ERROR_DELETING_USER' => 'Ett fel uppträdde under radering av användaren.',
-'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
+'L_ERROR_INVALID_CHARS' => 'Fältet innehåller otillåtna tecken.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Ett fel uppträdde under optimering av databastabellerna.',
 'L_ERROR_SAVING_CHANGE' => 'Ett fel uppträdde vid lagring av ändringen',
 'L_ERROR_SAVING_KEY' => 'Tyvärr uppträdde ett fel när nyckeln sparades.',
@@ -185,9 +185,9 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_LANGUAGE_NAME' => 'Svenska',
 'L_LANGUAGE_OTHER' => 'Språket finns inte med i listan? Ange vilket språk du skulle vilja bearbeta',
 'L_LANGUAGE_SETTINGS' => 'Inställningar för språk',
-'L_LATEST_ACTIVITY' => 'Latest activity',
+'L_LATEST_ACTIVITY' => 'Senaste aktivitet',
 'L_LOCALE' => 'Locale',
-'L_LOCALE_EXISTS' => 'A language with this locale already exists.',
+'L_LOCALE_EXISTS' => 'Det existerar redan ett språk med denna locale.',
 'L_LOG' => 'Logg',
 'L_LOGIN' => 'Logga in',
 'L_LOGIN_AUTOLOGIN' => 'Kom ihåg mig',
@@ -355,7 +355,7 @@ En administratör kommer att se över kontot och godkänna det.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'Epost-adressen är för lång. Använd max 320 tecken.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'Epost-adressen kan ej kontrolleras i Quoted-String-formatet.',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'Denna filtyp är ej tillåten.',
-'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'The file is too big.',
+'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'Filen är för stor.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'Punycode-skrivsättet i hostnamnet kan ej dekoderas.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'Bindestrecket i hostnamnet står vid fel ställe.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'Du har matat in fel typ. Använd en string.',

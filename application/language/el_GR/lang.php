@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// 
+// DSB (1)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -185,7 +185,7 @@ The importer has processed all entries.',
 'L_LANGUAGE' => 'Language',
 'L_LANGUAGES' => 'Languages',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'The language has been deleted successfully.<br />All log entries, settings and edit rights of users have been removed too.',
-'L_LANGUAGE_NAME' => 'English',
+'L_LANGUAGE_NAME' => 'Ελληνικά',
 'L_LANGUAGE_OTHER' => 'The language is not listed? Provide the name of the language you want to maintain',
 'L_LANGUAGE_SETTINGS' => 'Language settings',
 'L_LATEST_ACTIVITY' => 'Latest activity',

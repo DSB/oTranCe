@@ -590,6 +590,12 @@ textarea {
     clear:both;
     height:34px;
 }
+
+.big-spacer {
+    clear:both;
+    height:100px;
+}
+
 .center {
     margin: 0 auto;
     text-align: center;

@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// Jan.Twachtmann (394), pavdeijk (20)
+// Jan.Twachtmann (394), pavdeijk (24)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',
@@ -105,7 +105,7 @@ $lang = array(
 'L_ERROR_DELETING_KEY' => 'Bij het verwijderen van de sleutel is een fout opgetreden.',
 'L_ERROR_DELETING_LANGUAGE' => 'Helaas is er een fout bij het verwijderen van de taal opgetreden.<br />Probeer het nog een keer aub.',
 'L_ERROR_DELETING_USER' => 'Bij het verwijderen van de gebruiker is een fout opgetreden.',
-'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
+'L_ERROR_INVALID_CHARS' => 'De invoer bevat ongeldige tekens',
 'L_ERROR_OPTIMIZING_TABLES' => 'Tijdens het optimaliseren van de databanktabel is een fout opgetreden.',
 'L_ERROR_SAVING_CHANGE' => 'Helaas is er een fout bij het opslaan van de wijzigingen opgetreden.',
 'L_ERROR_SAVING_KEY' => 'Helaas is er een fout bij het opslaan van de sleutel opgetreden.',
@@ -183,9 +183,9 @@ $lang = array(
 'L_LANGUAGE_NAME' => 'Nederlands',
 'L_LANGUAGE_OTHER' => 'De taal niet bekend? Specificeer de taal die u wil onderhouden',
 'L_LANGUAGE_SETTINGS' => 'Instellingen taal',
-'L_LATEST_ACTIVITY' => 'Latest activity',
+'L_LATEST_ACTIVITY' => 'Laatste activiteit',
 'L_LOCALE' => 'Locale',
-'L_LOCALE_EXISTS' => 'A language with this locale already exists.',
+'L_LOCALE_EXISTS' => 'Een taal met deze code bestaat al.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Aanmelden',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch aanmelden',
@@ -351,7 +351,7 @@ $lang = array(
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'De email adres is te lang. U kunt maximaal 320 tekens invullen.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'De email adres kan niet in het quoted-string formaat getoetst worden.',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'Dit bestandstype is hier niet toegestaan.',
-'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'The file is too big.',
+'L_ZEND_ID_FILE_SIZE_TOO_BIG' => 'Het bestand is te groot.',
 'L_ZEND_ID_HOSTNAME_CANNOT_DECODE_PUNYCODE' => 'De punycode-schrijfwijze kan niet worden decodeerd.',
 'L_ZEND_ID_HOSTNAME_DASH_CHARACTER' => 'De streepje in de domein staat aan de foute plaats.',
 'L_ZEND_ID_HOSTNAME_INVALID' => 'U heeft een fout type ingevuld. Er moet een string worden ingevuld.',

@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15)
+// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (1)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',

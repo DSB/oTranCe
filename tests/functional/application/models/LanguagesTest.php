@@ -23,7 +23,6 @@ class LanguagesTest extends ControllerTestCase
 
     public function testCanGetFallbackLanguageIfNoFallbackLanguageIsSet()
     {
-        $fallbackLang = $this->model->getFallbackLanguage();
         // set invalid id, will cause that no fallback language is set
         $this->model->setFallbackLanguage(9999);
 

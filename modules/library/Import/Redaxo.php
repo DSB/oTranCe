@@ -82,7 +82,6 @@ class Module_Import_Redaxo implements Msd_Import_Interface
                 continue;
             }
             $currentValue = trim($currentLine[1]);
-            $dataLength = strlen($currentValue);
 
             $this->_extractedData[$currentKey] = $currentValue;
         }

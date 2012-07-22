@@ -37,7 +37,7 @@ class ConfigTest extends PHPUnit_Framework_TestCase
     public function testMsdConfigThrowsAnExceptionIfTheIoHandlerIsInvalid()
     {
         $invalidIoHandler = new stdClass();
-        $config = new Msd_Config($invalidIoHandler);
+        new Msd_Config($invalidIoHandler);
     }
 
     public function testIfFirstParamIsAStringCreateAnIoHandlerWithItAsName()

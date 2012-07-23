@@ -139,7 +139,8 @@ class Application_Model_User extends Msd_Application_Model
     public function getTranslatorData($getAll = false)
     {
         if ($getAll === true) {
-            $sql = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username` FROM `' . $this->_tableUserLanguages . '` l'
+            $sql = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username`'
+                . ' FROM `' . $this->_tableUserLanguages . '` l'
                 . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
                 . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
             $statistics = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);

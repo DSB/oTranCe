@@ -4056,11 +4056,11 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
-  `realName` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
+  `realName` varchar(255) DEFAULT '' NOT NULL,
+  `email` varchar(255) DEFAULT '' NOT NULL,
   `password` varchar(64) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '0',
-  `newLanguage` varchar(255) NOT NULL,
+  `newLanguage` varchar(255) DEFAULT '' NOT NULL,
   PRIMARY KEY (`id`), UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
 

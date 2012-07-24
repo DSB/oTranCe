@@ -22,7 +22,7 @@ class RegisterController extends Zend_Controller_Action
      */
     public function indexAction()
     {
-        $default               = array(
+        $default           = array(
             'id'          => 0,
             'active'      => 0,
             'username'    => '',
@@ -32,29 +32,40 @@ class RegisterController extends Zend_Controller_Action
             'email'       => '',
             'realName'    => '',
         );
-        $userData              = $this->_request->getParam('user', $default);
-        $languagesModel        = new Application_Model_Languages();
-        $languagesMetaData     = $languagesModel->getAllLanguages();
+        $validationErrors  = array();
+        $userData          = $this->_request->getParam('user', $default);
+        $languagesModel    = new Application_Model_Languages();
+        $languagesMetaData = $languagesModel->getAllLanguages();
+        $translator        = Msd_Language::getInstance();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $userModel          = new Application_Model_User();
             $userData['id']     = 0;
             $userData['active'] = 0;
 
-            if ($userModel->validateData($userData, $this->view->lang->getTranslator())) {
-                $newUserId = $userModel->saveAccount($userData);
-                if ($newUserId) {
-                    $this->view->registerSuccess = true;
-                    if (!empty($userData['lang'])) {
-                        $userModel->saveLanguageRights($newUserId, array_keys($userData['lang']));
+            $languageSelected = true;
+            if (empty($userData['lang']) && $userData['newLanguage'] == '') {
+                $languageSelected = false;
+                $validationErrors['selectLanguage'][0] = $translator->translate('L_ERROR_SELECT_LANGUAGE');
+            }
+
+            if ($userModel->validateData($userData, $translator)) {
+                if ($languageSelected !== false) {
+                    $newUserId = $userModel->saveAccount($userData);
+                    if ($newUserId) {
+                        $this->view->registerSuccess = true;
+                        if (!empty($userData['lang'])) {
+                            $userModel->saveLanguageRights($newUserId, array_keys($userData['lang']));
+                        }
+                        $userData['id'] = $newUserId;
+                        $mailer         = new Application_Model_Mail($this->view);
+                        $mailer->sendAdminRegisterInfoMail($userData, $languagesMetaData);
                     }
-                    $userData['id'] = $newUserId;
-                    $mailer         = new Application_Model_Mail($this->view);
-                    $mailer->sendAdminRegisterInfoMail($userData, $languagesMetaData);
                 }
             } else {
-                $this->view->errors = $userModel->getValidateMessages();
+                $validationErrors = array_merge($validationErrors, $userModel->getValidateMessages());
             }
         }
+        $this->view->errors                = $validationErrors;
         $this->view->isLogin               = true;
         $this->view->request               = $this->_request;
         $this->view->user                  = $userData;

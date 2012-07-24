@@ -67,12 +67,20 @@ echo $this->partial(
                                    value="<?php echo $this->out($this->user['email']);?>"/>
                         </td>
                     </tr>
-                    <?php if (isset($this->errors['email'])) { ?>
-                    <tr>
-                        <td></td>
-                        <td class="error"><?php echo implode('<br/>', $this->errors['email']);?></td>
-                    </tr>
-                    <?php } ?>
+                    <?php
+                    if (isset($this->errors['email'])) { ?>
+                        <tr>
+                            <td></td>
+                            <td class="error"><?php echo implode('<br/>', $this->errors['email']);?></td>
+                        </tr><?php
+                    }
+
+                    if (isset($this->errors['selectLanguage'])) { ?>
+                        <tr>
+                            <td></td>
+                            <td class="error"><?php echo implode('<br/>', $this->errors['selectLanguage']);?></td>
+                        </tr><?php
+                    } ?>
 
                     <tr>
                         <td><?php echo $this->lang->L_SELECT_LANG_TO_MAINTAIN;?>:</td>

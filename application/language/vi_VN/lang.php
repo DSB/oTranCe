@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (358)
+// DSB (1), nukeviet (360)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
@@ -39,9 +39,9 @@ $lang = array(
 'L_CHANGE_STATUS' => 'Đổi trạng thái',
 'L_CHANGE_YOUR_PASSWORD' => 'Đổi mật khẩu tài khoản của bạn:',
 'L_CHECK_CHARS' => 'Hãy kiểm tra lại thiết đặt ký tự!',
-'L_CHECK_CHARS_EXPLAIN' => 'If you discover "weird" looking characters you can try to convert them.<br />
-Select a character set in the select box and hit the button "Convert data from". You can try different character sets until the text is ok. Each conversion is taken from the originally uploaded file.<br />
-If everything looks good, start to analyze the data.',
+'L_CHECK_CHARS_EXPLAIN' => 'Nếu bạn phát hiện ra các ký tự được hiển thị một cách "không bình thường", bạn có thể cố gắng để chuyển đổi chúng.<br />
+Chọn một kí tự trong hộp chọn và nhấn nút "Chuyển đổi dữ liệu từ". Bạn có thể thử các bộ ký tự khác nhau cho đến khi văn bản được hiển thị chính xác. Mỗi chuyển đổi được lấy từ các tập tin ban đầu được tải lên <br />.
+Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click vào đây để sửa tài khoản người dùng này',
 'L_CLICK_TO_INLINE_EDIT' => 'Click để sửa ngay trong dòng',
 'L_COMMIT_MESSAGE' => 'Thông điệp gửi đăng',
@@ -55,7 +55,7 @@ If everything looks good, start to analyze the data.',
 'L_CONFIRM_DELETE_TITLE' => 'Thực sự muốn xoá?',
 'L_CONFIRM_DELETE_USER' => 'Đúng, xóa thành viên',
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Xác nhận việc xóa chứng chỉ VCS',
-'L_CONFIRM_PASSWORD' => 'Mật khẩu xác nhận',
+'L_CONFIRM_PASSWORD' => 'Xác nhận mật khẩu',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Nhập mật khẩu mà bạn muốn thay đổi. Bỏ trống ô này nếu bạn muốn sử dụng mật khẩu cũ.',
 'L_CONTACT_EMAIL' => 'Địa chỉ email liên hệ chung',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Nội dung giống với ngôn ngữ chính do đó không được nhập vào hệ thống!',

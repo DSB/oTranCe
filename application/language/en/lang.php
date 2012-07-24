@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (1)
+// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (3)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -165,7 +165,7 @@ Please retry.',
 'L_GOTO_REGISTER_PAGE' => 'You don\'t have an account yet? You can <a href="%s">register</a> an account here.',
 'L_HEADER' => 'Header',
 'L_HEADER_EXPORT' => 'Export',
-'L_HITS' => 'Hits',
+'L_HITS' => 'Total',
 'L_HOME' => 'Home',
 'L_ID' => 'Id',
 'L_IMPORT' => 'Import',
@@ -210,7 +210,7 @@ The importer has processed all entries.',
 'L_NOT_UPTODATE' => 'Not up to date',
 'L_NO_DOWNLOAD_AVAILABLE' => 'No download available. Run export first.',
 'L_NO_FLAG' => 'No flag available',
-'L_NO_HITS' => 'No hits',
+'L_NO_HITS' => 'Nothing found.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Old password',
 'L_OLD_VALUE' => 'Old value',

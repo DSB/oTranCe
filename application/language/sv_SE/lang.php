@@ -84,6 +84,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_DOWNLOADS' => 'Nerladdningar',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Nerladdning av språkpaketen',
 'L_DROP_FILE_HINT' => 'Dra och släpp projekt-loggan här för uppladdning',
+'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Redigera',
 'L_EDITED' => 'Bearbetat',
 'L_EDIT_ENTRIES' => 'Redigera dataposter',

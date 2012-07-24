@@ -84,6 +84,7 @@ $lang = array(
 'L_DOWNLOADS' => 'Μεταφορτώσεις',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Μεταφόρτωση πακέτων γλώσσας',
 'L_DROP_FILE_HINT' => 'Μετακινήστε εδώ το λογότυπο έργου για φόρτωση',
+'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Επεξεργασία',
 'L_EDITED' => 'Επεξεργάστηκε',
 'L_EDIT_ENTRIES' => 'Επεξεργασία καταχωρήσεων',

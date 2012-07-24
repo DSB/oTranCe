@@ -82,6 +82,7 @@ $lang = array(
 'L_DOWNLOADS' => 'Downloads',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Downloaden van taal pakketten',
 'L_DROP_FILE_HINT' => 'Logo hierheen trekken voor uploaden',
+'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Bewerken',
 'L_EDITED' => 'Bewerkt',
 'L_EDIT_ENTRIES' => 'Records bewerken',

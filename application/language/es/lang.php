@@ -82,6 +82,7 @@ $lang = array(
 'L_DOWNLOADS' => 'Descargas',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Descarga de paquetes de idiomas',
 'L_DROP_FILE_HINT' => 'Arrastre el logo del proyecto hasta aquí para subirlo.',
+'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Editar',
 'L_EDITED' => 'Editado',
 'L_EDIT_ENTRIES' => 'Editar los registros',

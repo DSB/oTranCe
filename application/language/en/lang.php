@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (360), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
+// DSB (361), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -84,6 +84,7 @@ If everything looks good, start to analyze the data.',
 'L_DOWNLOADS' => 'Downloads',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Download of language packs',
 'L_DROP_FILE_HINT' => 'Drop project logo here to upload.',
+'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Edit',
 'L_EDITED' => 'Edited',
 'L_EDIT_ENTRIES' => 'Edit entries',

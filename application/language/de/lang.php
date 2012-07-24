@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (323), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (324), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -84,6 +84,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_DOWNLOADS' => 'Downloads',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Herunterladen der Sprachpakete',
 'L_DROP_FILE_HINT' => 'Projekt-Logo zum Upload hier hinziehen.',
+'L_DUPLICATE' => 'Duplizieren',
 'L_EDIT' => 'Bearbeiten',
 'L_EDITED' => 'Bearbeitet',
 'L_EDIT_ENTRIES' => 'Einträge bearbeiten',

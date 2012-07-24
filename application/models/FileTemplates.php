@@ -52,7 +52,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      * Get file templates
      *
      * @param string $order       Name of the column to order the file list
-     * @param string $filter      String to filter the templates (effects lang locale and lang name)
+     * @param string $filter      String to filter the templates (effects name and file name)
      * @param int    $offset      Offset of entry where the result starts
      * @param int    $recsPerPage Number of records per page
      *
@@ -136,7 +136,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      * @param string $footer   Template for file footer.
      * @param string $filename Template for filename creation.
      *
-     * @return bool
+     * @return bool | int False if there was an error, otherwise return template id
      */
     public function saveFileTemplate($id, $name, $header, $content, $footer, $filename)
     {
@@ -152,7 +152,15 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             ($id, '$name', '$header', '$content', '$footer', '$filename') ON DUPLICATE KEY UPDATE `name` = '$name',
             `header` = '$header', `content` = '$content', `footer` = '$footer', `filename` = '$filename'";
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        return $res;
+        if ($res === false) {
+            return false;
+        }
+
+        if ($id == 0) {
+            $id = $this->_dbo->getLastInsertId();
+        }
+
+        return $id;
     }
 
     /**
@@ -241,4 +249,84 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $res &= $this->_dbo->query($sql, MSD_DB::SIMPLE);
         return $res;
     }
+
+    /**
+     * Validates the file template data.
+     *
+     * @param array        $params     Data of the user account.
+     * @param Msd_Language $translator Translator for output messages
+     *
+     * @return bool
+     */
+    public function validateData($params, Msd_Language $translator)
+    {
+        $this->clearValidateMessages();
+        $notEmptyValidate = new Zend_Validate_NotEmpty();
+        if (!$notEmptyValidate->isValid($params['filename'])) {
+            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $this->_validateMessages['filename'] = $messages;
+        }
+
+        if (!$notEmptyValidate->isValid($params['name'])) {
+            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $this->_validateMessages['name'] = $messages;
+        }
+
+        if (!$notEmptyValidate->isValid($params['content'])) {
+            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $this->_validateMessages['content'] = $messages;
+        }
+
+        // check if we already have a file template with that name
+        $existingTemplates = $this->getFileTemplates('', $params['name']);
+        foreach ($existingTemplates as $template) {
+            if ($template['name'] == $params['name'] && $template['id'] != $params['id']) {
+                $message = $translator->translate('L_ERROR_TEMPLATE_NAME_EXISTS');
+                $this->_validateMessages['name'][] = sprintf($message, $params['name']);
+            }
+        }
+
+        // check if we already have a file template with that file name
+        $existingTemplates = $this->getFileTemplates('', $params['filename']);
+        foreach ($existingTemplates as $template) {
+            if ($template['filename'] == $params['filename'] && $template['id'] != $params['id']) {
+                $message = $translator->translate('L_ERROR_TEMPLATE_FILENAME_EXISTS');
+                $this->_validateMessages['filename'][] = sprintf($message, $params['filename']);
+            }
+        }
+
+        $isValid = true;
+        // if any error message is set the validation failed
+        if (!empty($this->_validateMessages['filename']) || !empty($this->_validateMessages['name'])
+            || !empty($this->_validateMessages['content']))
+        {
+            $isValid = false;
+        }
+        return $isValid;
+    }
+
+    /**
+     * Retrieves the validation messages.
+     *
+     * @return array
+     */
+    public function getValidateMessages()
+    {
+        return $this->_validateMessages;
+    }
+
+    /**
+     * Clear the validation messages and make sure indexes exist.
+     *
+     * @return void
+     */
+    public function clearValidateMessages()
+    {
+        $this->_validateMessages = array(
+            'tplFile' => array(),
+            'tplName' => array(),
+            'tplContent' => array()
+        );
+    }
+
 }

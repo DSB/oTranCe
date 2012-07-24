@@ -37,10 +37,10 @@ class Admin_FilesController extends AdminController
     public function indexAction()
     {
         $templateOrderFields = array(
-            'name' => 'Name',
+            'name'     => 'Name',
             'filename' => 'Filename',
         );
-        $templateOrderField = $this->_dynamicConfig->getParam($this->_requestedController . '.templateOrderField');
+        $templateOrderField  = $this->_dynamicConfig->getParam($this->_requestedController . '.templateOrderField');
         if ($templateOrderField === null) {
             $templateOrderField = 'name';
         }
@@ -48,16 +48,16 @@ class Admin_FilesController extends AdminController
         if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
             $this->_setSessionParams();
         }
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
-        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
-        $this->view->fileTemplates = $templatesModel->getFileTemplates(
+        $recordsPerPage                  = (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+        $this->view->selRecordsPerPage   = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
+        $this->view->fileTemplates       = $templatesModel->getFileTemplates(
             $templateOrderField,
             $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
         );
-        $this->view->hits = $templatesModel->getRowCount();
-        $this->view->selOrderField = $templateOrderField;
+        $this->view->hits                = $templatesModel->getRowCount();
+        $this->view->selOrderField       = $templateOrderField;
         $this->view->templateOrderFields = $templateOrderFields;
     }
 
@@ -81,8 +81,10 @@ class Admin_FilesController extends AdminController
      */
     public function editAction()
     {
-        $templateId = $this->_request->getParam('id', 0);
-        $templatesModel = new Application_Model_FileTemplates();
+        $this->view->errors = array();
+        $templateId         = $this->_request->getParam('id', 0);
+        $templatesModel     = new Application_Model_FileTemplates();
+
         // check if this is a new template and if the user is allowed to add it
         $template = $templatesModel->getFileTemplate($templateId);
         if ($template['id'] == 0) {
@@ -92,17 +94,29 @@ class Admin_FilesController extends AdminController
         }
 
         if ($this->_request->isPost()) {
-            $params = $this->_request->getParams();
-            $this->view->creationResult = $templatesModel->saveFileTemplate(
-                $templateId,
-                $params['tplName'],
-                $params['tplHeader'],
-                $params['tplContent'],
-                $params['tplFooter'],
-                $params['tplFile']
-            );
+            $params     = $this->_request->getParams();
+            $translator = Msd_Language::getInstance();
+            if ($templatesModel->validateData($params, $translator)) {
+                $res                        = $templatesModel->saveFileTemplate(
+                    $templateId,
+                    $params['name'],
+                    $params['header'],
+                    $params['content'],
+                    $params['footer'],
+                    $params['filename']
+                );
+                $this->view->creationResult = (bool)$res;
+                if ($res !== false) {
+                    $templateId = $res;
+                }
+            } else {
+                $this->view->errors = $templatesModel->getValidateMessages();
+            }
+            $params['id']            = $templateId;
+            $this->view->fileTemplate = $params;
+        }  else {
+            $this->view->fileTemplate = $templatesModel->getFileTemplate($templateId);
         }
-        $this->view->fileTemplate = $templatesModel->getFileTemplate($templateId);
     }
 
     /**
@@ -117,13 +131,14 @@ class Admin_FilesController extends AdminController
         }
 
         if ($this->_request->isPost()) {
-            $templatesModel = new Application_Model_FileTemplates();
-            $delTemplateId = $this->_request->getParam('delTemplateId', 0);
-            $replacementId = $this->_request->getParam('replacementId', 0);
+            $templatesModel             = new Application_Model_FileTemplates();
+            $delTemplateId              = $this->_request->getParam('delTemplateId', 0);
+            $replacementId              = $this->_request->getParam('replacementId', 0);
             $this->view->deletionResult = $templatesModel->deleteFileTemplate($delTemplateId, $replacementId);
             //trigger ajax call to optimize database tables
             $this->_dynamicConfig->setParam('optimizeTables', true);
         }
         $this->_forward('index');
     }
+
 }

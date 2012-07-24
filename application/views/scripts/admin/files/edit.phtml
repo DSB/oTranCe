@@ -8,7 +8,16 @@ if ($this->fileTemplate['id'] == 0) {
     $subTitle = $this->lang->L_CREATE_NEW_FILE_TEMPLATE;
 } else {
     $subTitle = sprintf($this->lang->L_EDIT_FILE_TEMPLATE_X, $this->fileTemplate['name']);
+}
+
+if ($this->user->hasRight('addTemplate')) { ?>
+<button type="button" class="Formbutton ui-corner-all" onclick="window.location.href='<?php echo $this->baseUrl();?>/admin_files/edit/id/0'">
+    <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_FILE_TEMPLATE;?>
+</button>
+<br /><br />
+<?php
 } ?>
+
 <h4><?php echo $this->out($subTitle); ?>:</h4>
 <form action="<?php echo $this->baseUrl(); ?>/admin_files/edit/id/<?php echo $this->fileTemplate['id']; ?>/" method="post" enctype="multipart/form-data">
     <table class="bdr more-padding" summary="List of file template settings">
@@ -17,30 +26,39 @@ if ($this->fileTemplate['id'] == 0) {
             <th><?php echo $this->lang->L_POSSIBLE_PLACEHOLDER;?></th>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
-            <td class="top"><label for="tplFile"><?php echo $this->lang->L_FILENAME;?></label></td>
-            <td><input type="text" name="tplFile" id="tplFile" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/></td>
-            <td class="top">{LOCALE}</td>
+            <td><label for="name"><?php echo $this->lang->L_NAME;?></label></td>
+            <td>
+                <input type="text" name="name" id="name" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['name']); ?>"/>
+                <?php if (isset($this->errors['name'])) {?><br /><span class="error"><?php echo implode('<br/>', $this->errors['name']); ?></span><?php } ?>
+            </td>
+            <td class="top">-</td>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
-            <td><label for="tplName"><?php echo $this->lang->L_NAME;?></label></td>
-            <td><input type="text" name="tplName" id="tplName" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['name']); ?>"/></td>
-            <td class="top">-</td>
+            <td class="top"><label for="filename"><?php echo $this->lang->L_FILENAME;?></label></td>
+            <td>
+                <input type="text" name="filename" id="filename" class="text" size="80" value="<?php echo $this->out($this->fileTemplate['filename']); ?>"/>
+                <?php if (isset($this->errors['filename'])) {?><br /><span class="error"><?php echo implode('<br/>', $this->errors['filename']); ?></span><?php } ?>
+            </td>
+            <td class="top">{LOCALE}</td>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="top">
                 <label for="tplHeader"><?php echo $this->lang->L_HEADER;?></label>
             </td>
-            <td><textarea name="tplHeader" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
+            <td><textarea name="header" id="tplHeader" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['header']); ?></textarea></td>
             <td class="top">{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="top"><label for="tplContent"><?php echo $this->lang->L_GENERATED_CONTENT;?></label></td>
-            <td><textarea name="tplContent" id="tplContent" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['content']); ?></textarea></td>
+            <td>
+                <textarea name="content" id="tplContent" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['content']); ?></textarea>
+                <?php if (isset($this->errors['content'])) {?><br /><span class="error"><?php echo implode('<br/>', $this->errors['content']); ?></span><?php } ?>
+            </td>
             <td class="top">{KEY}, {VALUE}</td>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="top"><label for="tplFooter"><?php echo $this->lang->L_FOOTER;?></label></td>
-            <td><textarea name="tplFooter" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
+            <td><textarea name="footer" id="tplFooter" rows="2" cols="80" class="textarea-edit"><?php echo $this->out($this->fileTemplate['footer']); ?></textarea></td>
             <td class="top">{LANG_NAME}, {LOCALE}, {TRANSLATOR_NAMES}</td>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">

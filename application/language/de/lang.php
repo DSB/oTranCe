@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (321), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (323), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
@@ -115,6 +115,8 @@ Bitte wiederholen Sie die Aktion.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
 'L_ERROR_SAVING_RIGHT' => 'Beim Speichern des Rechts ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',
 'L_ERROR_SAVING_STATUS' => 'Beim Speichern des Status ist ein Fehler aufgetreten. Bitte versuchen Sie es noch einmal.',
+'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'Es existiert bereits eine Dateivorlage mit dem Dateinamen \'%s\'.',
+'L_ERROR_TEMPLATE_NAME_EXISTS' => 'Es existiert bereits eine Dateivorlage mit dem Namen \'%s\'.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Beim Aktualisieren der Dateivorlage ist leider ein Fehler aufgetreten',
 'L_ERROR_VALIDATING_INPUTS' => 'Fehler beim Prüfen Ihrer Eingaben',
 'L_EXPORT' => 'Export',

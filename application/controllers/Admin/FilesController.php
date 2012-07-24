@@ -112,9 +112,9 @@ class Admin_FilesController extends AdminController
             } else {
                 $this->view->errors = $templatesModel->getValidateMessages();
             }
-            $params['id']            = $templateId;
+            $params['id']             = $templateId;
             $this->view->fileTemplate = $params;
-        }  else {
+        } else {
             $this->view->fileTemplate = $templatesModel->getFileTemplate($templateId);
         }
     }
@@ -141,4 +141,21 @@ class Admin_FilesController extends AdminController
         $this->_forward('index');
     }
 
+    /**
+     * Clone an existing file template
+     *
+     * @return void
+     */
+    public function cloneAction()
+    {
+        if (!$this->_userModel->hasRight('addTemplate')) {
+            $this->_redirect('/');
+        }
+        $id                       = $this->_getParam('id');
+        $templatesModel           = new Application_Model_FileTemplates();
+        $template                 = $templatesModel->getFileTemplate($id);
+        $template['id']           = 0;
+        $this->view->fileTemplate = $template;
+        $this->render('edit');
+    }
 }

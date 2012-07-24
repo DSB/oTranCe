@@ -25,6 +25,11 @@ class Application_Model_Mail extends Msd_Application_Model
     private $_view;
 
     /**
+     * @var array Holds the project's configuration
+     */
+    public $projectConfig;
+
+    /**
      * Init
      *
      * @param Zend_View_Interface $view Instance of view
@@ -47,6 +52,7 @@ class Application_Model_Mail extends Msd_Application_Model
             );
             Zend_Mail::setDefaultTransport($transport);
         }
+        $this->projectConfig = $this->_config->getParam('project');
     }
 
     /**
@@ -76,17 +82,16 @@ class Application_Model_Mail extends Msd_Application_Model
         /**
          * @var Zend_Translate_Adapter $translator
          */
-        $projectConfig = $this->_config->getParam('project');
-        if (!isset($projectConfig['email']) || trim($projectConfig['email']) == '') {
+        if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == '') {
             // no project contact e-mail set -> can't send mail
             return;
         }
 
         $this->_view->assign(
             array(
-                 'user'      => $userData,
-                 'project'   => $projectConfig,
-                 'languages' => $languagesMetaData,
+                'user'      => $userData,
+                'project'   => $this->projectConfig,
+                'languages' => $languagesMetaData,
             )
         );
         $htmlBody      = $this->_view->render('mail/admin-register-info.phtml');
@@ -95,12 +100,51 @@ class Application_Model_Mail extends Msd_Application_Model
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
             ->setBodyText($plainTextBody)
-            ->setFrom($projectConfig['email'], $projectConfig['name'])
-            ->addTo($projectConfig['email'], $projectConfig['name'])
+            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
+            ->addTo($this->projectConfig['email'], $this->projectConfig['name'])
             ->setReplyTo($userData['email'], $userData['realName']);
         $translator = $this->_view->lang->getTranslator();
         $subject    = $translator->translate('L_REGISTER_MAIL_SUBJECT');
-        $mail->setSubject(sprintf($subject, $projectConfig['name'], $userData['username']));
+        $mail->setSubject(sprintf($subject, $this->projectConfig['name'], $userData['username']));
         $mail->send();
     }
+
+    /**
+     * Sends info-mail about account activating to user
+     *
+     * @param array $userData          Array containing the users data
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function sendAccountActivationInfoMail($userData)
+    {
+        if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == ''
+            || trim($userData['email']) == ''
+        ) {
+            return;
+        }
+
+        $this->_view->assign(
+            array(
+                'user'      => $userData,
+                'project'   => $this->projectConfig,
+            )
+        );
+        $htmlBody      = $this->_view->render('mail/user-account-activated.phtml');
+        $plainTextBody = $this->_view->render('mail/user-account-activated-plain.phtml');
+
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setBodyHtml($htmlBody)
+            ->setBodyText($plainTextBody)
+            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
+            ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
+            ->addTo($userData['email'], $userData['realName']);
+        $translator = $this->_view->lang->getTranslator();
+        $subject    = $translator->translate('L_ACCOUNT_ACTIVATED_SUBJECT');
+        $mail->setSubject(sprintf($subject, $userData['username'], $this->projectConfig['name']));
+        $mail->send();
+    }
+
 }

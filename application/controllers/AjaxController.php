@@ -397,6 +397,9 @@ class AjaxController extends Zend_Controller_Action
             if ($res !== false) {
                 if ($user['active'] > 0) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+                    // inform user via e-mail that his account has been activated
+                    $mailer         = new Application_Model_Mail($this->view);
+                    $mailer->sendAccountActivationInfoMail($user);
                 } else {
                     $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
                 }

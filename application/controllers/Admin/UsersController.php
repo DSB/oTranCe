@@ -89,6 +89,10 @@ class Admin_UsersController extends AdminController
 
         if ($this->_request->isPost()) {
             $params   = $this->_request->getParams();
+            $sendAccountActivationInfo = false;
+            if ($userData['active'] == 0 && $params['active'] == 1) {
+                $sendAccountActivationInfo = true;
+            }
             $userData = array(
                 'id'       => $params['id'],
                 'username' => $params['username'],
@@ -106,6 +110,12 @@ class Admin_UsersController extends AdminController
                     $result = $this->_saveAccountSettings($userData);
                     if ($result !== false) {
                         $userId = (int)$result;
+                        if ($sendAccountActivationInfo === true) {
+                            // inform user via e-mail that his account has been activated
+                            $mailer = new Application_Model_Mail(new Zend_View);
+                            $mailer->sendAccountActivationInfoMail($userData);
+                        }
+
                     }
                     $this->view->saved = (bool)$result;
                     $userData          = $this->_userModel->getUserById($userId);

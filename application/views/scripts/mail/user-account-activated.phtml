@@ -1,0 +1,8 @@
+<?php
+echo sprintf($this->lang->L_ACCOUNT_ACTIVATED, $this->user['username'], $this->project['name']);
+?>
+<br /><br />
+<a href="<?php echo $this->serverUrl() . $this->baseUrl() . '/index/login';?>">
+<?php echo $this->lang->L_CLICK_TO_LOG_IN;?>
+</a>
+

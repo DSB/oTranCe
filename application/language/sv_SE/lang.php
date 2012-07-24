@@ -115,6 +115,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Kunde ej spara behörigheten för språkförvaltningen',
 'L_ERROR_SAVING_RIGHT' => 'Ett fel uppträdde när behörigheten sparades. Försök igen.',
 'L_ERROR_SAVING_STATUS' => 'Ett fel uppträdde när statusen sparades. Försök igen.',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Ett fel uppträdde när filmallen aktualiserades',

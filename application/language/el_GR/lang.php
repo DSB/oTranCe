@@ -116,6 +116,7 @@ $lang = array(
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Αποτυχία αποθήκευσης επεξεργασίας γλώσσας',
 'L_ERROR_SAVING_RIGHT' => 'Σφάλμα αποθήκευσης δικαιωμάτων. Δοκιμάστε πάλι',
 'L_ERROR_SAVING_STATUS' => 'Σφάλμα αποθήκευσης αλλαγής κατάστασης. Δοκιμάστε πάλι',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Σφάλμα αναβάθμισης αρχείου προτύπου',

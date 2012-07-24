@@ -113,6 +113,7 @@ $lang = array(
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'No se ha podido guardar el permiso de edición de este idioma',
 'L_ERROR_SAVING_RIGHT' => 'Ha habido un error al tratar de guardar el permiso. Por favor, inténtelo de nuevo.',
 'L_ERROR_SAVING_STATUS' => 'Hubo un error intentando cambiar el estado. Por favor, inténtelo de nuevo.',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Ha habido un error al intentar actualizar el archivo de la plantilla.',

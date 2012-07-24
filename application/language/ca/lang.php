@@ -113,6 +113,7 @@ $lang = array(
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'No s\'ha pogut desar el permís d\'edició d\'aquest idioma',
 'L_ERROR_SAVING_RIGHT' => 'Hi ha hagut un error provant de desar el permís. Si us plau, provi-ho de nou.',
 'L_ERROR_SAVING_STATUS' => 'Hi ha hagut un error provant de canviar l\'estat. Si us plau, provi de nou.',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Hi ha hagut un error provant d\'actualitzar l\'arxiu de la plantilla.',

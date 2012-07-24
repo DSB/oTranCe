@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (361), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
+// DSB (362), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -116,6 +116,7 @@ Please retry.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
 'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',
 'L_ERROR_SAVING_STATUS' => 'Error saving changed status. Please retry.',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'An error occured while updating the file template',

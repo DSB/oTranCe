@@ -113,6 +113,7 @@ $lang = array(
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Wij konden de bevoegdheid de talen te administreren niet opslaan.',
 'L_ERROR_SAVING_RIGHT' => 'Bij het opslaan van de bevoegdheid is een fout opgetreden. Probeer het opnieuw aub.',
 'L_ERROR_SAVING_STATUS' => 'Bij het opslaan van de status is een fout opgetreden. Probeer het opnieuw aub.',
+'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Helaas is er een fout bij het opslaan v/h bestandsvoorbeeld opgetreden.',

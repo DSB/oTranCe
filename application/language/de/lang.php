@@ -9,9 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (325), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (329), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %s für das Projekt %s wurde soeben durch einen Administrator aktiviert.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %s für %s aktiviert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',
 'L_ACTION' => 'Aktion',
@@ -44,6 +46,7 @@ Wählen Sie dazu einen Zeichensatz und klicken Sie auf den Button "Konvertiere Z
 Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Analyse" einleiten.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Klicken Sie hier, um das Benutzerkonto zu bearbeiten',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicken, um hier zu editieren',
+'L_CLICK_TO_LOG_IN' => 'Klicken Sie hier, um sich mit den registrierten Daten anzumelden.',
 'L_COMMIT_MESSAGE' => 'Commit-Nachricht',
 'L_COMPLETE_VIEW' => 'Vollständige Ansicht',
 'L_CONFIGURATION' => 'Konfiguration',

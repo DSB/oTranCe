@@ -12,6 +12,8 @@
 // Jan.Twachtmann (394), pavdeijk (24)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',
 'L_ACCOUNT_SETTINGS' => 'Instellingen gebruikersaccount',
 'L_ACTION' => 'Actie',
@@ -42,6 +44,7 @@ $lang = array(
 'L_CHECK_CHARS_EXPLAIN' => 'Als u wanordelijke teken ziet, kunt u de bestand in een andere tekenset converteren.<br />Kies een tekenset en klik op de knop "Converteer teken van" aub. U kunt deze actie opnieuw beginnen tot de output goed uitkomt. Bij ieder convertering wordt de origineel bestand als basis gebruikt.<br />Als de output goed uitkomt, kunt u de import met de knop "Begin analyse" beginnen.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Klik hier om gebruikersaccount aan te passen',
 'L_CLICK_TO_INLINE_EDIT' => 'Klik hier om te wijzigen',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Commit-bericht',
 'L_COMPLETE_VIEW' => 'Volledige aanzicht',
 'L_CONFIGURATION' => 'Configuratie',

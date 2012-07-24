@@ -12,6 +12,8 @@
 // DSB (1), nukeviet (362)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
 'L_ACCOUNT_SETTINGS' => 'Thiết lập tài khoản',
 'L_ACTION' => 'Thao tác',
@@ -44,6 +46,7 @@ Chọn một kí tự trong hộp chọn và nhấn nút "Chuyển đổi dữ l
 Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click vào đây để sửa tài khoản người dùng này',
 'L_CLICK_TO_INLINE_EDIT' => 'Click để sửa ngay trong dòng',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Thông điệp gửi đăng',
 'L_COMPLETE_VIEW' => 'Hoàn thành',
 'L_CONFIGURATION' => 'Cấu hình',

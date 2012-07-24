@@ -12,6 +12,8 @@
 // HolgerGremminger (359)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Inställningar användarkontot',
 'L_ACTION' => 'Aktion',
@@ -44,6 +46,7 @@ Välj teckensats och klicka på knappen "Konvertera tecken från". Upprepa denna
 När resultatet är korrekt kan du starta importen med knappen "Starta analysen".',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Klicka här för att bearbeta användarkontot',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicka för att ändra här',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Commit-meddelande',
 'L_COMPLETE_VIEW' => 'Fullständig visning',
 'L_CONFIGURATION' => 'Konfigurering',

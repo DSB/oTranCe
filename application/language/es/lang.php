@@ -12,6 +12,8 @@
 // caos30 (367)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar la cuenta del usuario con ID %s',
 'L_ACCOUNT_SETTINGS' => 'Opciones de la cuenta',
 'L_ACTION' => 'Acción',
@@ -42,6 +44,7 @@ $lang = array(
 'L_CHECK_CHARS_EXPLAIN' => 'Si descubre carácteres "extraños" puede intentar convertirlos.<br />Seleccione un juego de carácteres (charset) en la lista desplegable y pulse el botón "Convertir datos desde". Puede intentar conversiones desde diferentes juegos de carácteres hasta que el texto se vea bien. Cada conversión se hace a partir del archivo que se subió originalmente.<br />Si todo le parece correcto, comience el análisis de los datos.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Pulse aquí para editar la cuenta de usuario',
 'L_CLICK_TO_INLINE_EDIT' => 'Pulse para editar aquí mismo',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Agregar el mensaje',
 'L_COMPLETE_VIEW' => 'Vista completa',
 'L_CONFIGURATION' => 'Configuración',

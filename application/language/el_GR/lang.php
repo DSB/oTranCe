@@ -12,6 +12,8 @@
 // diastasi (265), DSB (1)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Επεξεργασία λογαριασμού χρήστη με id %s',
 'L_ACCOUNT_SETTINGS' => 'Ρυθμίσεις λογαριασμού',
 'L_ACTION' => 'Ενέργεια',
@@ -44,6 +46,7 @@ $lang = array(
 Εάν όλα δείχνουν εντάξει, ξεκινήστε την ανάλυση των δεδομένων.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Κλικ εδώ για επεξεργασία του λογαριασμού χρήστη',
 'L_CLICK_TO_INLINE_EDIT' => 'Κλικ για επεξεργασία στη σειρά',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Δημιουργήστε μήνυμα',
 'L_COMPLETE_VIEW' => 'Πλήρης προβολή',
 'L_CONFIGURATION' => 'Ρυθμίσεις',

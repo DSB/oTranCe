@@ -9,9 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (362), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
+// DSB (366), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
 
 $lang = array(
+'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',
 'L_ACTION' => 'Action',
@@ -44,6 +46,7 @@ Select a character set in the select box and hit the button "Convert data from".
 If everything looks good, start to analyze the data.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click here to edit the user account',
 'L_CLICK_TO_INLINE_EDIT' => 'Click to edit inline',
+'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
 'L_COMMIT_MESSAGE' => 'Commit message',
 'L_COMPLETE_VIEW' => 'Complete view',
 'L_CONFIGURATION' => 'Configuration',

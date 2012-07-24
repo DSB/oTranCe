@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (361)
+// DSB (1), nukeviet (362)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
@@ -185,7 +185,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_LANGUAGES' => 'Ngôn ngữ',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'Ngôn ngữ đã được xóa thành công.<br />Tất cả nhật ký, thiết đặt và quyền chỉnh sửa của thành viên cũng vừa được xóa.',
 'L_LANGUAGE_NAME' => 'Tiếng Việt',
-'L_LANGUAGE_OTHER' => 'Ngôn gnuwx chưa có trong danh sách này? Cung cấp tên của ngôn ngữ bạn muốn dịch',
+'L_LANGUAGE_OTHER' => 'Ngôn ngữ chưa có trong danh sách này? Cung cấp tên của ngôn ngữ bạn muốn dịch',
 'L_LANGUAGE_SETTINGS' => 'Thiết lập ngôn ngữ',
 'L_LATEST_ACTIVITY' => 'Hoạt động cuối',
 'L_LOCALE' => 'Địa chỉ',

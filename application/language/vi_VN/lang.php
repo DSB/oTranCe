@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (360)
+// DSB (1), nukeviet (361)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
@@ -204,7 +204,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_NEXT_PAGE' => 'Trang tiếp',
 'L_NO' => 'Không',
 'L_NOTHING' => 'Không có gì',
-'L_NOTHING_TO_DO' => 'Không còn gì để làm',
+'L_NOTHING_TO_DO' => 'Đã hoàn thành',
 'L_NOTICE' => 'Chú ý',
 'L_NOT_UPTODATE' => 'Không được cập nhật',
 'L_NO_DOWNLOAD_AVAILABLE' => 'Chưa có sẵn để tải về. Đầu tiên bạn cần XUẤT ra trước.',

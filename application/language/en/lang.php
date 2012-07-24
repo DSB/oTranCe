@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (3)
+// DSB (358), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
 
 $lang = array(
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -205,7 +205,7 @@ The importer has processed all entries.',
 'L_NEXT_PAGE' => 'Next page',
 'L_NO' => 'No',
 'L_NOTHING' => 'Nothing',
-'L_NOTHING_TO_DO' => 'Nothing to do',
+'L_NOTHING_TO_DO' => 'Completed',
 'L_NOTICE' => 'Notice',
 'L_NOT_UPTODATE' => 'Not up to date',
 'L_NO_DOWNLOAD_AVAILABLE' => 'No download available. Run export first.',

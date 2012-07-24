@@ -128,7 +128,7 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $this->_view->assign(
             array(
-                'user'      => $userData,
+                'userData'  => $userData,
                 'project'   => $this->projectConfig,
             )
         );

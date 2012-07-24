@@ -57,7 +57,7 @@ class RegisterController extends Zend_Controller_Action
                             $userModel->saveLanguageRights($newUserId, array_keys($userData['lang']));
                         }
                         $userData['id'] = $newUserId;
-                        $mailer         = new Application_Model_Mail(new Zend_View);
+                        $mailer         = new Application_Model_Mail($this->view);
                         $mailer->sendAdminRegisterInfoMail($userData, $languagesMetaData);
                     }
                 }

@@ -112,7 +112,7 @@ class Admin_UsersController extends AdminController
                         $userId = (int)$result;
                         if ($sendAccountActivationInfo === true) {
                             // inform user via e-mail that his account has been activated
-                            $mailer = new Application_Model_Mail(new Zend_View);
+                            $mailer = new Application_Model_Mail($this->view);
                             $mailer->sendAccountActivationInfoMail($userData);
                         }
 

@@ -243,7 +243,13 @@ var steps = {
     "5":function () {
         $('#projectName').focus();
         $('#projectSettings').bind('submit', function () {
-            if ($('#adminPass').val() == $('#adminPass2').val()) {
+            if ($('#adminPass').val() == '' || $('#adminLogin').val() == '') {
+                var message = "Admin login and password must not be empty.";
+                $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+            } else if ($('#adminPass').val() != $('#adminPass2').val()) {
+                var message = "Admin password must be equal with its confirmation.";
+                $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
+            } else {
                 $.ajax({
                     "url":$(this).prop('action'),
                     "type":$(this).prop('method'),
@@ -257,9 +263,6 @@ var steps = {
                         }
                     }
                 });
-            } else {
-                var message = "Admin password must be equal with it's confirmation.";
-                $('#mysqlNotify').removeClass('ok error warning').addClass('error').html(message).fadeIn(500).delay(5000).fadeOut(500);
             }
             return false;
         });
@@ -586,7 +589,7 @@ if (!$this->readyToInstall) {
 <div class="spacer"></div>
 <div id="footer">
     <p>
-        oTranCe is a free online translation plattform &middot;
+        oTranCe is a free online translation platform &middot;
         <a href="http://oTranCe.de/en/">oTranCe Homepage</a> &middot;
         <a href="http://oTranCe.de/en/team/">The developer team</a> &middot;
         <a href="http://oTranCe.de/en/project/donate/">Donate</a>&nbsp;

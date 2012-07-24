@@ -255,7 +255,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
     }
     // no hits found
     if ($this->rows == 0) {
-        $rowCount = 5 + count($this->languagesEdit) + count($this->showLanguages);
+        $rowCount = 7 + count($this->languagesEdit) + count($this->showLanguages);
         if ($this->user->hasRight('addVar')) {
             $rowCount++;
         } ?>

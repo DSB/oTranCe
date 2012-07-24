@@ -37,13 +37,12 @@ $i = 1;
 if ($this->hits == 0) { ?>
     <tr class="row-odd">
         <td colspan="6" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
-    </tr>
-
-<?php
+    </tr><?php
 }
+
+$i += $this->offset;
 foreach ($this->users as $userId => $user)
 {
-    $i += $this->offset;
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="' . $this->lang->L_EDIT_USER . '">';
     if ($this->user->hasRight('showLog')) {

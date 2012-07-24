@@ -34,6 +34,8 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      * Create a connection to MySQL and store the connection handle in
      * $this->connectionHandle.
      *
+     * @throws Msd_Exception
+     *
      * @return boolean
      **/
     protected function _dbConnect()
@@ -60,6 +62,13 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
         }
         $this->setConnectionCharset();
         return true;
+    }
+
+    public function __destruct()
+    {
+        if ($this->_mysqli instanceof mysqli) {
+            $this->_mysqli->close();
+        }
     }
 
     /**

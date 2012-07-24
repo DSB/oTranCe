@@ -112,7 +112,7 @@ class AdminController extends Msd_Controller_Action
         $this->_dynamicConfig->setParam($this->_requestedController . '.filterLanguage', '');
         $this->_dynamicConfig->setParam(
             $this->_requestedController . '.recordsPerPage',
-            $this->_userModel->loadSetting('recordsPerPage')
+            $this->_userModel->loadSetting('recordsPerPage', 20)
         );
     }
 

@@ -100,10 +100,10 @@ class Application_Model_Mail extends Msd_Application_Model
      */
     private function _loadFallbackLanguage()
     {
-        $languageModel = new Application_Model_Languages();
-        $fallbackLanguageId = $languageModel->getFallbackLanguageId();
+        $languageModel          = new Application_Model_Languages();
+        $fallbackLanguageId     = $languageModel->getFallbackLanguageId();
         $fallbackLanguageLocale = $languageModel->getLanguageLocaleFromId($fallbackLanguageId);
-        if ($fallbackLanguageLocale == '') {
+        if ($fallbackLanguageLocale === false) {
             $fallbackLanguageLocale = 'en';
         }
         $this->_view->lang->loadLanguageByLocale($fallbackLanguageLocale);
@@ -182,7 +182,7 @@ class Application_Model_Mail extends Msd_Application_Model
         );
         $this->_setOriginalLanguage();
         // load language of user
-        $userModel = new Application_Model_User();
+        $userModel          = new Application_Model_User();
         $userLanguageLocale = $userModel->getUserLanguageLocale($userData['id']);
         $this->_view->lang->loadLanguageByLocale($userLanguageLocale);
 

@@ -9,11 +9,11 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (362)
+// DSB (1), nukeviet (369)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Tài khoản %s của bạn cho dự án %s vừa được Quản trị kích hoạt.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Tài khoản %s của bạn trên %s đã được kích hoạt',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
 'L_ACCOUNT_SETTINGS' => 'Thiết lập tài khoản',
 'L_ACTION' => 'Thao tác',
@@ -46,7 +46,7 @@ Chọn một kí tự trong hộp chọn và nhấn nút "Chuyển đổi dữ l
 Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click vào đây để sửa tài khoản người dùng này',
 'L_CLICK_TO_INLINE_EDIT' => 'Click để sửa ngay trong dòng',
-'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
+'L_CLICK_TO_LOG_IN' => 'Click vào đây để đăng nhập bằng thông tin bạn đã đăng ký.',
 'L_COMMIT_MESSAGE' => 'Thông điệp gửi đăng',
 'L_COMPLETE_VIEW' => 'Hoàn thành',
 'L_CONFIGURATION' => 'Cấu hình',
@@ -87,7 +87,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_DOWNLOADS' => 'Tải về',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Tải về gói ngôn ngữ',
 'L_DROP_FILE_HINT' => 'Kéo logo dự án tới đây để tải lên',
-'L_DUPLICATE' => 'Duplicate',
+'L_DUPLICATE' => 'Trùng',
 'L_EDIT' => 'Sửa',
 'L_EDITED' => 'Đã sửa',
 'L_EDIT_ENTRIES' => 'Sửa mục',
@@ -119,9 +119,9 @@ Hãy thử lại.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Không thể lưu chỉnh sửa ngôn ngữ',
 'L_ERROR_SAVING_RIGHT' => 'Có lỗi khi đang lưu. Hãy thử lại.',
 'L_ERROR_SAVING_STATUS' => 'Lỗi trong quá trình lưu lại trạng thái đã thay đổi. Hãy thử lại.',
-'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
-'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
-'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
+'L_ERROR_SELECT_LANGUAGE' => 'Bạn phải chọn ít nhất một ngôn ngữ hiện có hoặc chỉ định một ngôn ngữ mới để thành lập.',
+'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'Tệp mẫu có tên \'%s\' đã tồn tại.',
+'L_ERROR_TEMPLATE_NAME_EXISTS' => 'Một tệp mẫu với tên \'%s\' đã tồn tại.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Lỗi xảy ra trong quá trình cập nhật tệp mẫu',
 'L_ERROR_VALIDATING_INPUTS' => 'Dữ liệu bạn nhập vào không hợp lệ',
 'L_EXPORT' => 'Xuất',

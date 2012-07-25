@@ -46,7 +46,7 @@ $lang = array(
 Εάν όλα δείχνουν εντάξει, ξεκινήστε την ανάλυση των δεδομένων.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Κλικ εδώ για επεξεργασία του λογαριασμού χρήστη',
 'L_CLICK_TO_INLINE_EDIT' => 'Κλικ για επεξεργασία στη σειρά',
-'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
+'L_CLICK_TO_LOG_IN' => 'Click here to login with your registered data.',
 'L_COMMIT_MESSAGE' => 'Δημιουργήστε μήνυμα',
 'L_COMPLETE_VIEW' => 'Πλήρης προβολή',
 'L_CONFIGURATION' => 'Ρυθμίσεις',

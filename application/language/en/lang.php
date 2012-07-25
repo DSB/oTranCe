@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (366), janrei (17), kyoya (19), Marco.Steinhäuser (15), nukeviet (4)
+// DSB (366), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
@@ -46,7 +46,7 @@ Select a character set in the select box and hit the button "Convert data from".
 If everything looks good, start to analyze the data.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click here to edit the user account',
 'L_CLICK_TO_INLINE_EDIT' => 'Click to edit inline',
-'L_CLICK_TO_LOG_IN' => 'Click here to log in with your registered data.',
+'L_CLICK_TO_LOG_IN' => 'Click here to login with your registered data.',
 'L_COMMIT_MESSAGE' => 'Commit message',
 'L_COMPLETE_VIEW' => 'Complete view',
 'L_CONFIGURATION' => 'Configuration',
@@ -161,7 +161,7 @@ Please retry.',
 'L_FOLLOWING_ERROR_OCCURED_WHILE_SAVING_CHANGES' => 'The following error occurred while saving your changes',
 'L_FOOTER' => 'Footer',
 'L_FOOTER_DONATE' => 'Donate',
-'L_FOOTER_EXPLAIN' => 'oTranCe is a free online translation plattform',
+'L_FOOTER_EXPLAIN' => 'oTranCe is a free online translation platform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe Homepage',
 'L_FOOTER_TEAM' => 'The developer team',
 'L_FOUND_X_KEYS' => 'Found %s keys.',

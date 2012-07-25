@@ -48,7 +48,9 @@ class Admin_FilesController extends AdminController
         if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
             $this->_setSessionParams();
         }
-        $recordsPerPage                  = (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+        $recordsPerPage                  = (int)$this->_dynamicConfig->getParam(
+            $this->_requestedController . '.recordsPerPage'
+        );
         $this->view->selRecordsPerPage   = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->fileTemplates       = $templatesModel->getFileTemplates(
             $templateOrderField,

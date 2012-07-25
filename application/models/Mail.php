@@ -160,7 +160,7 @@ class Application_Model_Mail extends Msd_Application_Model
     /**
      * Sends info-mail about account activating to user
      *
-     * @param array $userData          Array containing the users data
+     * @param array $userData Array containing the users data
      *
      * @throws Exception
      *

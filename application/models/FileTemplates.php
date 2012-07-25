@@ -298,8 +298,8 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $isValid = true;
         // if any error message is set the validation failed
         if (!empty($this->_validateMessages['filename']) || !empty($this->_validateMessages['name'])
-            || !empty($this->_validateMessages['content']))
-        {
+            || !empty($this->_validateMessages['content'])
+        ) {
             $isValid = false;
         }
         return $isValid;

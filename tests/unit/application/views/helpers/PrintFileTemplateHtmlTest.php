@@ -44,7 +44,7 @@ class PrintFileTemplateHtmlTest extends PHPUnit_Framework_TestCase
         );
         // force reloading template list for following tests
         $this->view->printFileTemplateHtml(1);
-        $this->assertTrue($saved);
+        $this->assertNotEquals(false, $saved);
     }
 }
 

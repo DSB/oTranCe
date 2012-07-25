@@ -90,7 +90,7 @@ class FileTemplatesTest extends ControllerTestCase
     public function testSaveFileTemplate()
     {
         $saved = $this->model->saveFileTemplate(127, 'test', 'header', 'content', 'footer', 'test.php');
-        $this->assertTrue($saved);
+        $this->assertNotEquals(false, $saved);
         $template = $this->model->getFileTemplate(127);
         $expected = array(
             'id'       => '127',

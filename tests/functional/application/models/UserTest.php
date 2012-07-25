@@ -410,7 +410,7 @@ class UserTest extends ControllerTestCase
 
     public function testValidateData()
     {
-        $translator = Msd_Language::getInstance()->getTranslator();
+        $translator = Msd_Language::getInstance();
 
         // test case - username exists
         $userData = array(

@@ -49,7 +49,7 @@ class Admin_LanguagesController extends AdminController
             false
         );
         $this->view->hits               = $this->_languagesModel->getRowCount();
-        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
     }
 
     /**
@@ -98,7 +98,7 @@ class Admin_LanguagesController extends AdminController
         }
 
         $this->view->languageId         = $languageId;
-        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
     }
 
     /**

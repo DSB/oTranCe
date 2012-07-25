@@ -25,7 +25,7 @@ class Settings_LanguagesController extends SettingsController
     {
         $languagesModel        = new Application_Model_Languages();
         $this->view->languages            = $languagesModel->getAllLanguages();
-        $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguage();
+        $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguageId();
         $this->view->refLanguagesSelected = $this->getRefLanguageSettings();
         $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
     }

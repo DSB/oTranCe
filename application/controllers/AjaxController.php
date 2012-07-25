@@ -532,7 +532,7 @@ class AjaxController extends Zend_Controller_Action
      */
     private function _getFallbackLanguageData($keys, $templateId, $languageId)
     {
-        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
         if ($fallbackLanguageId == $languageId) {
             // imported language is the fallback language - nothing to check
             return false;

@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class RegisterController extends Zend_Controller_Action
+class RegisterController extends Msd_Controller_Action
 {
     /**
      * Register a user
@@ -57,6 +57,11 @@ class RegisterController extends Zend_Controller_Action
                             $userModel->saveLanguageRights($newUserId, array_keys($userData['lang']));
                         }
                         $userData['id'] = $newUserId;
+                        // save interface language setting to user profile
+                        $interfaceLanguage = $this->_dynamicConfig->getParam('interfaceLanguage', false);
+                        $userModel->saveSetting('interfaceLanguage', $interfaceLanguage, $userData['id']);
+
+                        // send e-mail to administrator
                         $mailer         = new Application_Model_Mail($this->view);
                         $mailer->sendAdminRegisterInfoMail($userData, $languagesMetaData);
                     }

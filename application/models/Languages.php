@@ -115,6 +115,20 @@ class Application_Model_Languages extends Msd_Application_Model
     }
 
     /**
+     * Get language locale from language id
+     *
+     * @param int $id Id of the language
+     *
+     * @return string | bool
+     */
+    public function getLanguageLocaleFromId($id)
+    {
+        $sql = "SELECT `locale` FROM `{$this->_tableLanguages}` WHERE `id` = $id";
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return isset($res[0]['locale']) ? $res[0]['locale'] : false;
+    }
+
+    /**
      * Retrieves all languages and their meta data.
      *
      * @param string $filter      String to filter the languages (effects lang locale and lang name)
@@ -193,7 +207,7 @@ class Application_Model_Languages extends Msd_Application_Model
      *
      * @return int|bool
      */
-    public function getFallbackLanguage()
+    public function getFallbackLanguageId()
     {
         $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `is_fallback` = 1";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);

@@ -307,16 +307,20 @@ class Application_Model_User extends Msd_Application_Model
      * @param string $name       Name of setting to read
      * @param mixed  $default    Default value if no value is found in db
      * @param bool   $forceArray Force returning as array
+     * @param int    $userId     Id of user, if not set teh current userId will be used
      *
      * @return mixed
      */
-    public function loadSetting($name, $default = '', $forceArray = false)
+    public function loadSetting($name, $default = '', $forceArray = false, $userId = null)
     {
         if ($forceArray === true) {
             $default = array();
         }
+        if ($userId === null) {
+            $userId = $this->_userId;
+        }
         $sql = 'SELECT `value` FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
-            . 'WHERE `user_id`=\'' . $this->_userId . '\' '
+            . 'WHERE `user_id`=\'' . $userId . '\' '
             . 'AND `setting`=\'' . $name . '\' ORDER BY `value` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0])) {
@@ -331,6 +335,18 @@ class Application_Model_User extends Msd_Application_Model
         } else {
             return $default;
         }
+    }
+
+    /**
+     * Get the locale of the interface language setting of a user
+     *
+     * @param int $userId Id of user
+     *
+     * @return string The locale of the interface language of the user
+     */
+    public function getUserLanguageLocale($userId)
+    {
+        return $this->loadSetting('interfaceLanguage', 'en', false, $userId);
     }
 
     /**
@@ -410,11 +426,15 @@ class Application_Model_User extends Msd_Application_Model
      *
      * @param string       $name   The setting to save to db
      * @param string|array $values The value to save to db
+     * @param int          $userId Id of user, if not set teh current user id is used
      *
      * @return boolean
      */
-    public function saveSetting($name, $values)
+    public function saveSetting($name, $values, $userId = null)
     {
+        if ($userId === null) {
+            $userId = $this->_userId;
+        }
         // delete old entries
         $sql = 'DELETE FROM `' . $this->_tableUsersettings . '` WHERE '
             . '`user_id`=' . $this->_userId . ' AND `setting`=\'' . $name . '\'';
@@ -430,7 +450,7 @@ class Application_Model_User extends Msd_Application_Model
         $paramPattern = "(%s, '%s', '%s')";
         $insertValues = array();
         foreach ($values as $value) {
-            $insertValues[] = sprintf($paramPattern, $this->_userId, $name, $value);
+            $insertValues[] = sprintf($paramPattern, $userId, $name, $value);
         }
         $params = implode(', ', $insertValues);
 

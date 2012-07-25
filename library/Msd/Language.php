@@ -60,17 +60,17 @@ class Msd_Language
         } else {
             $this->_language = $language;
         }
-        $this->loadLanguage($this->_language);
+        $this->loadLanguageByLocale($this->_language);
     }
 
     /**
      * Load new language.
      *
-     * @param string $language New language
+     * @param string $language Locale of language to load
      *
      * @return void
      */
-    public function loadLanguage($language)
+    public function loadLanguageByLocale($language)
     {
         if (empty($language)) {
             $language = 'en';
@@ -234,12 +234,12 @@ class Msd_Language
         foreach ($languageDirs as $dir) {
             $parts = explode('/', $dir);
             $lang = array_pop($parts);
-            $this->loadLanguage($lang);
+            $this->loadLanguageByLocale($lang);
             $translator = $this->getTranslator();
             $ret[$lang] = array('locale' => $lang, 'name' => $translator->translate('L_LANGUAGE_NAME'));
         }
         $this->setTranslator($currentTranslator);
-        $this->loadLanguage($this->_language);
+        $this->loadLanguageByLocale($this->_language);
         return $ret;
     }
 

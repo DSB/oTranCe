@@ -30,6 +30,11 @@ class Application_Model_Mail extends Msd_Application_Model
     public $projectConfig;
 
     /**
+     * @var int Id of the currently selected language
+     */
+    protected $_originalLanguageLocale;
+
+    /**
      * Init
      *
      * @param Zend_View_Interface $view Instance of view
@@ -53,6 +58,7 @@ class Application_Model_Mail extends Msd_Application_Model
             Zend_Mail::setDefaultTransport($transport);
         }
         $this->projectConfig = $this->_config->getParam('project');
+        $this->_setOriginalLanguage();
     }
 
     /**
@@ -65,6 +71,42 @@ class Application_Model_Mail extends Msd_Application_Model
     public function setView(\Zend_View_Interface $view)
     {
         $this->_view = $view;
+    }
+
+    /**
+     * Set the id of the currently selected language
+     *
+     * @return void
+     */
+    private function _setOriginalLanguage()
+    {
+        $this->_originalLanguageLocale = $this->_view->lang->getActiveLanguage();
+    }
+
+    /**
+     * (Re-)Load the formerly set selected language
+     *
+     * @return void
+     */
+    private function _loadOriginalLanguage()
+    {
+        $this->_view->lang->loadLanguageByLocale($this->_originalLanguageLocale);
+    }
+
+    /**
+     * Load fall back language
+     *
+     * @return void
+     */
+    private function _loadFallbackLanguage()
+    {
+        $languageModel = new Application_Model_Languages();
+        $fallbackLanguageId = $languageModel->getFallbackLanguageId();
+        $fallbackLanguageLocale = $languageModel->getLanguageLocaleFromId($fallbackLanguageId);
+        if ($fallbackLanguageLocale == '') {
+            $fallbackLanguageLocale = 'en';
+        }
+        $this->_view->lang->loadLanguageByLocale($fallbackLanguageLocale);
     }
 
     /**
@@ -94,6 +136,11 @@ class Application_Model_Mail extends Msd_Application_Model
                 'languages' => $languagesMetaData,
             )
         );
+
+        $this->_setOriginalLanguage();
+        // we inform the administrator in the fallback language
+        $this->_loadFallbackLanguage();
+
         $htmlBody      = $this->_view->render('mail/admin-register-info.phtml');
         $plainTextBody = $this->_view->render('mail/admin-register-info-plain.phtml');
 
@@ -107,6 +154,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subject    = $translator->translate('L_REGISTER_MAIL_SUBJECT');
         $mail->setSubject(sprintf($subject, $this->projectConfig['name'], $userData['username']));
         $mail->send();
+        $this->_loadOriginalLanguage();
     }
 
     /**
@@ -132,6 +180,12 @@ class Application_Model_Mail extends Msd_Application_Model
                 'project'   => $this->projectConfig,
             )
         );
+        $this->_setOriginalLanguage();
+        // load language of user
+        $userModel = new Application_Model_User();
+        $userLanguageLocale = $userModel->getUserLanguageLocale($userData['id']);
+        $this->_view->lang->loadLanguageByLocale($userLanguageLocale);
+
         $htmlBody      = $this->_view->render('mail/user-account-activated.phtml');
         $plainTextBody = $this->_view->render('mail/user-account-activated-plain.phtml');
 
@@ -145,6 +199,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subject    = $translator->translate('L_ACCOUNT_ACTIVATED_SUBJECT');
         $mail->setSubject(sprintf($subject, $userData['username'], $this->projectConfig['name']));
         $mail->send();
+        $this->_loadOriginalLanguage();
     }
 
 }

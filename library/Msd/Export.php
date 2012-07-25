@@ -152,7 +152,7 @@ class Msd_Export
         if (!empty($this->_fallbackLanguageTranslations)) {
             return;
         }
-        $fallbackLanguageId = $languageModel->getFallbackLanguage();
+        $fallbackLanguageId = $languageModel->getFallbackLanguageId();
         // if the fallback language isn't set, detect id for "English" and use it instead
         if ($fallbackLanguageId == false) {
             $fallbackLanguageId = $languageModel->getLanguageIdFromLocale('en');

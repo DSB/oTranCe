@@ -59,7 +59,7 @@ class Admin_ProjectController extends AdminController
             $this->projectSettings['email'] = '';
         }
         $this->view->settings           = $projectSettings;
-        $this->view->fallbackLanguageId = $languageModel->getFallbackLanguage();
+        $this->view->fallbackLanguageId = $languageModel->getFallbackLanguageId();
 
         // if user does not have edit rights just show the information
         if (!$this->_userModel->hasRight('editProject')) {

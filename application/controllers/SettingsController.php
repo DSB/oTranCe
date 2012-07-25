@@ -71,7 +71,7 @@ class SettingsController extends Msd_Controller_Action
             false
         );
 
-        $languageConfig->loadLanguage($interfaceLanguage);
+        $languageConfig->loadLanguageByLocale($interfaceLanguage);
         $this->view->lang = $languageConfig;
     }
 

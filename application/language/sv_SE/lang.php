@@ -98,6 +98,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_EDIT_KEY' => 'Bearbeta nyckel',
 'L_EDIT_LANGUAGE' => 'Redigera språket',
 'L_EDIT_RIGHTS' => 'Redigeringsbehörighet',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Redigera användare',
 'L_EMAIL' => 'Epostadress',
 'L_ENTER_VCS_EXPLAIN' => 'Mata in ditt användarnamn.',

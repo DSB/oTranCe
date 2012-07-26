@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (366), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (368), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
@@ -98,6 +98,8 @@ If everything looks good, start to analyze the data.',
 'L_EDIT_KEY' => 'Edit key',
 'L_EDIT_LANGUAGE' => 'Edit language',
 'L_EDIT_RIGHTS' => 'Edit rights',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Edit user',
 'L_EMAIL' => 'E-Mail address',
 'L_ENTER_VCS_EXPLAIN' => 'Enter at least the username of your personal VCS credentials.',

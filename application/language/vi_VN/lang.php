@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (383)
+// DSB (1), nukeviet (386)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %s của bạn cho dự án %s vừa được Quản trị kích hoạt.',
@@ -41,8 +41,8 @@ $lang = array(
 'L_CHANGE_STATUS' => 'Đổi trạng thái',
 'L_CHANGE_YOUR_PASSWORD' => 'Đổi mật khẩu tài khoản của bạn:',
 'L_CHECK_CHARS' => 'Hãy kiểm tra lại thiết đặt ký tự!',
-'L_CHECK_CHARS_EXPLAIN' => 'Nếu bạn phát hiện ra các ký tự được hiển thị một cách "không bình thường", bạn có thể cố gắng để chuyển đổi chúng.<br />
-Chọn một kí tự trong hộp chọn và nhấn nút "Chuyển đổi dữ liệu từ". Bạn có thể thử các bộ ký tự khác nhau cho đến khi văn bản được hiển thị chính xác. Mỗi chuyển đổi được lấy từ các tập tin ban đầu được tải lên <br />.
+'L_CHECK_CHARS_EXPLAIN' => 'Nếu bạn phát hiện ra các ký tự được hiển thị một cách "không bình thường", bạn có thể thử lại bằng cách chuyển đổi chúng.<br />
+Chọn một bảng mã trong hộp chọn và nhấn nút "Chuyển đổi". Bạn có thể thử các bảng mã khác nhau cho đến khi văn bản được hiển thị chính xác. Mỗi chuyển đổi được lấy từ các tập tin ban đầu được tải lên.<br />
 Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Click vào đây để sửa tài khoản người dùng này',
 'L_CLICK_TO_INLINE_EDIT' => 'Click để sửa ngay trong dòng',
@@ -98,6 +98,8 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_EDIT_KEY' => 'Sửa từ khóa',
 'L_EDIT_LANGUAGE' => 'Sửa ngôn ngữ',
 'L_EDIT_RIGHTS' => 'Sửa quyền',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Sửa thành viên',
 'L_EMAIL' => 'Địa chỉ e-mail',
 'L_ENTER_VCS_EXPLAIN' => 'Nhập tên người dùng của chứng chỉ VCS cá nhân của bạn.',
@@ -186,7 +188,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_KEY' => 'Từ khóa',
 'L_KEYS_PROCESSED' => 'Đã xử lý từ khóa',
 'L_KEYS_TOTAL' => 'Tổng số từ khóa',
-'L_KEYS_TO_IMPORT' => 'Từ khóa để nhập',
+'L_KEYS_TO_IMPORT' => 'Từ khóa chờ nhập',
 'L_KEY_DELETED_SUCCESSFULLY' => 'Từ khóa vừa được xóa thành công',
 'L_LANGUAGE' => 'Ngôn ngữ',
 'L_LANGUAGES' => 'Ngôn ngữ',

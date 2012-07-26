@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (386)
+// DSB (1), nukeviet (387)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %s của bạn cho dự án %s vừa được Quản trị kích hoạt.',
@@ -99,7 +99,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_EDIT_LANGUAGE' => 'Sửa ngôn ngữ',
 'L_EDIT_RIGHTS' => 'Sửa quyền',
 'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
-'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
+'L_EDIT_RIGHT_ADDED_TO' => 'Sửa quyền cho %s vừa thêm',
 'L_EDIT_USER' => 'Sửa thành viên',
 'L_EMAIL' => 'Địa chỉ e-mail',
 'L_ENTER_VCS_EXPLAIN' => 'Nhập tên người dùng của chứng chỉ VCS cá nhân của bạn.',

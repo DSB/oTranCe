@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (381)
+// DSB (1), nukeviet (383)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %s của bạn cho dự án %s vừa được Quản trị kích hoạt.',
@@ -69,7 +69,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Tạo tệp mẫu mới',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Tạo tài khoản thành viên mới',
 'L_CREDITS' => 'Ghi công / Trợ giúp',
-'L_CURRENT_VCS_ADAPTER' => 'Đã dùng trình chuyển đổi VCS',
+'L_CURRENT_VCS_ADAPTER' => 'Dùng trình chuyển đổi VCS',
 'L_DATA_TO_ANALYZE' => 'Dữ liệu để phân tích',
 'L_DATETIME' => 'Ngày / Giờ',
 'L_DELETE' => 'Xóa',
@@ -87,7 +87,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_DOWNLOADS' => 'Tải về',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Tải về gói ngôn ngữ',
 'L_DROP_FILE_HINT' => 'Kéo logo dự án tới đây để tải lên',
-'L_DUPLICATE' => 'Trùng',
+'L_DUPLICATE' => 'Tạo bản sao',
 'L_EDIT' => 'Sửa',
 'L_EDITED' => 'Đã sửa',
 'L_EDIT_ENTRIES' => 'Sửa mục',

@@ -180,14 +180,27 @@ class Application_Model_Mail extends Msd_Application_Model
                 'project'   => $this->projectConfig,
             )
         );
-        $this->_setOriginalLanguage();
-        // load language of user
-        $userModel          = new Application_Model_User();
-        $userLanguageLocale = $userModel->getUserLanguageLocale($userData['id']);
-        $this->_view->lang->loadLanguageByLocale($userLanguageLocale);
+        $mail = $this->_getUserMail($userData, 'mail/user-account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT');
+        $mail->send();
+    }
 
-        $htmlBody      = $this->_view->render('mail/user-account-activated.phtml');
-        $plainTextBody = $this->_view->render('mail/user-account-activated-plain.phtml');
+    /**
+     * Create mail object that will be sent to the user and set body text, subject, user language and recipient data.
+     * Will restore the current language for further actions.
+     *
+     * @param array  $userData     Data of user containing username, name and e-mail address
+     * @param string $mailTemplate File name of template to render
+     * @param string $subject      Language var used for composing the mail's subject line
+     *
+     * @return Zend_Mail
+     */
+    protected function _getUserMail($userData, $mailTemplate, $subject)
+    {
+        $this->_setOriginalLanguage();
+        $this->_assignUserLanguage($userData['id']);
+
+        $htmlBody      = $this->_view->render($mailTemplate . '.phtml');
+        $plainTextBody = $this->_view->render($mailTemplate . '-plain.phtml');
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
@@ -195,11 +208,27 @@ class Application_Model_Mail extends Msd_Application_Model
             ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
             ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
             ->addTo($userData['email'], $userData['realName']);
+
         $translator = $this->_view->lang->getTranslator();
-        $subject    = $translator->translate('L_ACCOUNT_ACTIVATED_SUBJECT');
+        $subject    = $translator->translate($subject);
         $mail->setSubject(sprintf($subject, $userData['username'], $this->projectConfig['name']));
-        $mail->send();
         $this->_loadOriginalLanguage();
+
+        return $mail;
+    }
+
+    /**
+     * Get the user setting "interfaceLanguage" and assign it to the template.
+     *
+     * @param int $userId Id of user
+     */
+    protected function _assignUserLanguage($userId)
+    {
+        $this->_setOriginalLanguage();
+        // load language of user
+        $userModel          = new Application_Model_User();
+        $userLanguageLocale = $userModel->getUserLanguageLocale($userId);
+        $this->_view->lang->loadLanguageByLocale($userLanguageLocale);
     }
 
 }

@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (397)
+// caos30 (397), DSB (2)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar el compte de l\'usuari amb ID %s',
 'L_ACCOUNT_SETTINGS' => 'Opcions del compte',
 'L_ACTION' => 'Acció',
@@ -63,7 +63,7 @@ $lang = array(
 'L_CONVERT' => 'Convertir',
 'L_CONVERT_CHARS_FROM' => 'Convertir els caràcters des de',
 'L_COPY_TO' => 'Copiar a',
-'L_CREATED_ON_X_AT_Y' => 'Creat a %s a %s.',
+'L_CREATED_ON_X_AT_Y' => 'Creat a %1$s a %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Crear un nou arxiu de plantilla',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Crear un nou compte d\'usuari',
 'L_CREDITS' => 'Crèdits / Ajuda',
@@ -96,7 +96,7 @@ $lang = array(
 'L_EDIT_KEY' => 'Editar la clau',
 'L_EDIT_LANGUAGE' => 'Editar l\'idioma',
 'L_EDIT_RIGHTS' => 'Editar els permisos',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Editar l\'usuari',
 'L_EMAIL' => 'Adreça de correu electrònic',
@@ -244,7 +244,7 @@ $lang = array(
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'La traducció en els idiomes seleccionats serà mostrada com a referència quan vosté editi una frase en el seu idioma. Això hauria de fer-li més fàcil la traducció.',
 'L_REGISTER' => 'Registrar',
 'L_REGISTER_INFORMATION' => 'Informació pel registre',
-'L_REGISTER_MAIL_SUBJECT' => '%s - usuari nou %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - usuari nou %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Un nou usuari s\'ha registrat a %s.',
 'L_REGISTER_TITLE' => 'Registrat un nou compte',
 'L_REGISTER_USERNAME_EXISTS' => 'Ja existeix un usuari amb el nom "%s".',

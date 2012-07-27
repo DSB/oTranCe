@@ -9,11 +9,11 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// diastasi (265), DSB (1)
+// diastasi (265), DSB (3)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Επεξεργασία λογαριασμού χρήστη με id %s',
 'L_ACCOUNT_SETTINGS' => 'Ρυθμίσεις λογαριασμού',
 'L_ACTION' => 'Ενέργεια',
@@ -65,7 +65,7 @@ $lang = array(
 'L_CONVERT' => 'Μετατροπή',
 'L_CONVERT_CHARS_FROM' => 'Μετατροπή χαρακτήρων από',
 'L_COPY_TO' => 'Αντιγραφή σε',
-'L_CREATED_ON_X_AT_Y' => 'Δημιουργήθηκε σε %s στις %s.',
+'L_CREATED_ON_X_AT_Y' => 'Δημιουργήθηκε σε %1$s στις %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Δημιουργία νέου αρχείου προτύπου',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Δημιουργία νέου λογαριασμού χρήστη',
 'L_CREDITS' => 'Ευχαριστίες / Βοήθεια',
@@ -98,7 +98,7 @@ $lang = array(
 'L_EDIT_KEY' => 'Επεξεργασία κλειδιού',
 'L_EDIT_LANGUAGE' => 'Επεξεργασία γλώσσας',
 'L_EDIT_RIGHTS' => 'Επεξεργασία δικαιωμάτων',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Επεξεργασία χρήστη',
 'L_EMAIL' => 'Διέυθυνση email',
@@ -250,7 +250,7 @@ $lang = array(
 Αυτό θα βοηθήσεις να μεταφράζετε εύκολα.',
 'L_REGISTER' => 'Εγγραφή',
 'L_REGISTER_INFORMATION' => 'Πληροφορίες Εγγραφής',
-'L_REGISTER_MAIL_SUBJECT' => '%s - νέος χρήστης %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - νέος χρήστης %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Νέος χρήστης εγγράφηκε σε %s.',
 'L_REGISTER_TITLE' => 'Εγγραφή νέου λογαριασμού',
 'L_REGISTER_USERNAME_EXISTS' => 'Χρήστης με όνομα "%s" υπάρχει ήδη.',

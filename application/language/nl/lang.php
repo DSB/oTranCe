@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// Jan.Twachtmann (394), pavdeijk (24)
+// DSB (2), Jan.Twachtmann (394), pavdeijk (24)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',
 'L_ACCOUNT_SETTINGS' => 'Instellingen gebruikersaccount',
 'L_ACTION' => 'Actie',
@@ -63,7 +63,7 @@ $lang = array(
 'L_CONVERT' => 'Converteer',
 'L_CONVERT_CHARS_FROM' => 'Converter token van',
 'L_COPY_TO' => 'Kopiëre naar',
-'L_CREATED_ON_X_AT_Y' => 'Aangemaakt op %s om %s uur.',
+'L_CREATED_ON_X_AT_Y' => 'Aangemaakt op %1$s om %2$s uur.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Aanmaken van een nieuwe voorbeeld bestand',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Nieuwe gebruikersaccount creëren',
 'L_CREDITS' => 'Dankzegging',
@@ -96,7 +96,7 @@ $lang = array(
 'L_EDIT_KEY' => 'Sluitel bewerken',
 'L_EDIT_LANGUAGE' => 'Taal bewerken',
 'L_EDIT_RIGHTS' => 'Bewerkingsrechten',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Gebruiker bewerken',
 'L_EMAIL' => 'Email',
@@ -244,7 +244,7 @@ $lang = array(
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'De gekozen talen worden als hulp voor de vertaling getoond, als u een record wijzigt.',
 'L_REGISTER' => 'Aanmaken',
 'L_REGISTER_INFORMATION' => 'Account informatie',
-'L_REGISTER_MAIL_SUBJECT' => '%s - nieuwe gebruiker %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - nieuwe gebruiker %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Een nieuwe gebruiker geregistreerd als %s.',
 'L_REGISTER_TITLE' => 'Nieuwe account aanmaken',
 'L_REGISTER_USERNAME_EXISTS' => 'Er is al een gebruiker met de naam "%s".',

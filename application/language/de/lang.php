@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (331), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (336), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %s für das Projekt %s wurde soeben durch einen Administrator aktiviert.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %s für %s aktiviert',
+'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %1$s für %2$s aktiviert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',
 'L_ACTION' => 'Aktion',
@@ -65,7 +65,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONVERT' => 'Konvertiere',
 'L_CONVERT_CHARS_FROM' => 'Konvertiere Zeichen von',
 'L_COPY_TO' => 'Kopiere nach',
-'L_CREATED_ON_X_AT_Y' => 'Erstellt am %s um %s Uhr.',
+'L_CREATED_ON_X_AT_Y' => 'Erstellt am %1$s um %2$s Uhr.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Erstellen einer neuen Dateivorlage',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Neues Benutzerkonto anlegen',
 'L_CREDITS' => 'Danksagung',
@@ -98,7 +98,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_EDIT_KEY' => 'Schlüssel bearbeiten',
 'L_EDIT_LANGUAGE' => 'Sprache editieren',
 'L_EDIT_RIGHTS' => 'Bearbeitungsrechte',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Ein Administrator hat Ihnen soeben Bearbeitungsrechte für Sprache %s (%s) eingeräumt.',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Ein Administrator hat Ihnen soeben Bearbeitungsrechte für Sprache %1$s (%2$s) eingeräumt.',
 'L_EDIT_RIGHT_ADDED_TO' => 'Bearbeitungsrechte für %s hinzugefügt',
 'L_EDIT_USER' => 'Benutzer bearbeiten',
 'L_EMAIL' => 'E-Mail-Adresse',
@@ -248,7 +248,7 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'Die gewählten Sprachen werden als Übersetzungshilfe angezeigt, wenn Sie einen Eintrag bearbeiten.',
 'L_REGISTER' => 'Registrieren',
 'L_REGISTER_INFORMATION' => 'Registrierungsinformationen',
-'L_REGISTER_MAIL_SUBJECT' => '%s - neuer Benutzer %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - neuer Benutzer %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Ein neuer Benutzer hat sich bei %s registriert.',
 'L_REGISTER_TITLE' => 'Neues Benutzerkonto registrieren',
 'L_REGISTER_USERNAME_EXISTS' => 'Es gibt bereits einen Benutzer mit dem Namen "%s".',

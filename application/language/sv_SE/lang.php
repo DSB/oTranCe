@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// HolgerGremminger (359)
+// DSB (2), HolgerGremminger (359)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Inställningar användarkontot',
 'L_ACTION' => 'Aktion',
@@ -65,7 +65,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_CONVERT' => 'Konvertera',
 'L_CONVERT_CHARS_FROM' => 'Konvertera tecken från',
 'L_COPY_TO' => 'Kopiera till',
-'L_CREATED_ON_X_AT_Y' => 'Skapat den %s klockan %s.',
+'L_CREATED_ON_X_AT_Y' => 'Skapat den %1$s klockan %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Skapar en ny filmall',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Skapa nytt användarkonto',
 'L_CREDITS' => 'Tack',
@@ -98,7 +98,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_EDIT_KEY' => 'Bearbeta nyckel',
 'L_EDIT_LANGUAGE' => 'Redigera språket',
 'L_EDIT_RIGHTS' => 'Redigeringsbehörighet',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Redigera användare',
 'L_EMAIL' => 'Epostadress',
@@ -246,7 +246,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'De valda språken används som översättningsreferens när en datapost bearbetas.',
 'L_REGISTER' => 'Registrera',
 'L_REGISTER_INFORMATION' => 'Registreringsinformation',
-'L_REGISTER_MAIL_SUBJECT' => '%s - ny användare %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - ny användare %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'En ny användare har registrerat sig hos %s.',
 'L_REGISTER_TITLE' => 'Registrera nytt användarkonto',
 'L_REGISTER_USERNAME_EXISTS' => 'Det finsn redan en användar med namnet "%s".',

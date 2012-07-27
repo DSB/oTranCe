@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (367)
+// caos30 (367), DSB (2)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar la cuenta del usuario con ID %s',
 'L_ACCOUNT_SETTINGS' => 'Opciones de la cuenta',
 'L_ACTION' => 'Acción',
@@ -63,7 +63,7 @@ $lang = array(
 'L_CONVERT' => 'Convertir',
 'L_CONVERT_CHARS_FROM' => 'Convertir los carácteres desde',
 'L_COPY_TO' => 'Copiar a',
-'L_CREATED_ON_X_AT_Y' => 'Creado en %s en %s.',
+'L_CREATED_ON_X_AT_Y' => 'Creado en %1$s en %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Crear un archivo nuevo de plantilla',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Crear una nueva cuenta de usuario',
 'L_CREDITS' => 'Créditos / Ayuda',
@@ -96,7 +96,7 @@ $lang = array(
 'L_EDIT_KEY' => 'Editar la clave',
 'L_EDIT_LANGUAGE' => 'Editar el idioma',
 'L_EDIT_RIGHTS' => 'Editar los permisos',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Editar el usuario',
 'L_EMAIL' => 'Dirección de correo electrónico',
@@ -244,7 +244,7 @@ $lang = array(
 'L_REFERENCE_LANGUAGES_EXPLAIN' => 'La traducción en los idiomas seleccionados será mostrada como referencia cuando usted edite una frase en su idioma. Esto tendría que hacer más fácil la traducción.',
 'L_REGISTER' => 'Registrar',
 'L_REGISTER_INFORMATION' => 'Información para el registro',
-'L_REGISTER_MAIL_SUBJECT' => '%s - usuario nuevo %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - usuario nuevo %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Un nuevo usuario se ha registrado en %s.',
 'L_REGISTER_TITLE' => 'Registrar una nueva cuenta',
 'L_REGISTER_USERNAME_EXISTS' => 'Ya existe un usuario con el nombre "%s".',

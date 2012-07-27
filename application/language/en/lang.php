@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (368), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (373), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %s for the project %s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %s for %s activated',
+'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',
 'L_ACTION' => 'Action',
@@ -65,7 +65,7 @@ If everything looks good, start to analyze the data.',
 'L_CONVERT' => 'Convert',
 'L_CONVERT_CHARS_FROM' => 'Convert characters from',
 'L_COPY_TO' => 'Copy to',
-'L_CREATED_ON_X_AT_Y' => 'Created on %s at %s.',
+'L_CREATED_ON_X_AT_Y' => 'Created on %1$s at %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Create a new file template',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Create new user account',
 'L_CREDITS' => 'Credits / Help',
@@ -98,7 +98,7 @@ If everything looks good, start to analyze the data.',
 'L_EDIT_KEY' => 'Edit key',
 'L_EDIT_LANGUAGE' => 'Edit language',
 'L_EDIT_RIGHTS' => 'Edit rights',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %s (%s).',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Edit user',
 'L_EMAIL' => 'E-Mail address',
@@ -250,7 +250,7 @@ The importer has processed all entries.',
 This should help you to easily translate the current variable.',
 'L_REGISTER' => 'Register',
 'L_REGISTER_INFORMATION' => 'Registration information',
-'L_REGISTER_MAIL_SUBJECT' => '%s - new user %s',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - new user %2$s',
 'L_REGISTER_NEW_USER_REGISTERED' => 'A new user registered at %s.',
 'L_REGISTER_TITLE' => 'Register a new account',
 'L_REGISTER_USERNAME_EXISTS' => 'A user with the name "%s" already exists.',

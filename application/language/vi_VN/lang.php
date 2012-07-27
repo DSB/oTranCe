@@ -9,10 +9,10 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), nukeviet (394)
+// DSB (5), nukeviet (394)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Tài khoản %s của bạn cho dự án %s vừa được Quản trị kích hoạt.',
+'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Tài khoản %s của bạn trên %s đã được kích hoạt',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
 'L_ACCOUNT_SETTINGS' => 'Thiết lập tài khoản',
@@ -65,7 +65,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CONVERT' => 'Chuyển đổi',
 'L_CONVERT_CHARS_FROM' => 'Chuyển đổi ký tự từ',
 'L_COPY_TO' => 'Sao chép tới',
-'L_CREATED_ON_X_AT_Y' => 'Đã tạo %s tại %s.',
+'L_CREATED_ON_X_AT_Y' => 'Đã tạo %1$s tại %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Tạo tệp mẫu mới',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Tạo tài khoản thành viên mới',
 'L_CREDITS' => 'Ghi công / Trợ giúp',
@@ -98,7 +98,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_EDIT_KEY' => 'Sửa từ khóa',
 'L_EDIT_LANGUAGE' => 'Sửa ngôn ngữ',
 'L_EDIT_RIGHTS' => 'Sửa quyền',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Một người quản trị đã cấp quyền chỉnh sửa ngôn ngữ %s (%s) cho bạn.',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Một người quản trị đã cấp quyền chỉnh sửa ngôn ngữ %1$s (%2$s) cho bạn.',
 'L_EDIT_RIGHT_ADDED_TO' => 'Sửa quyền cho %s vừa thêm',
 'L_EDIT_USER' => 'Sửa thành viên',
 'L_EMAIL' => 'Địa chỉ e-mail',
@@ -249,7 +249,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 Điều này sẽ giúp bạn dễ dàng dịch biến hiện tại.',
 'L_REGISTER' => 'Đăng ký',
 'L_REGISTER_INFORMATION' => 'Thông tin đăng ký',
-'L_REGISTER_MAIL_SUBJECT' => '%s - %s thành viên mới',
+'L_REGISTER_MAIL_SUBJECT' => '%1$s - %2$s thành viên mới',
 'L_REGISTER_NEW_USER_REGISTERED' => 'Một thành viên mới đã đăng ký tại %s.',
 'L_REGISTER_TITLE' => 'Đăng ký tài khoản mới',
 'L_REGISTER_USERNAME_EXISTS' => 'Đã có nguowiff đăng ký tên "%s".',

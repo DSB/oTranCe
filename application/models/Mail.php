@@ -197,8 +197,8 @@ class Application_Model_Mail extends Msd_Application_Model
         ) {
             return;
         }
-        $subjectArgs = array($userData['username'], $this->projectConfig['name']);
-        $this->_view->assign(array('userData'     => $userData, 'languageData' => $languageData));
+        $subjectArgs = array($languageData['name']);
+        $this->_view->assign(array('userData' => $userData, 'languageData' => $languageData));
         $mail = $this->_getUserMail($userData, 'user-edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
         $mail->send();
     }
@@ -219,8 +219,13 @@ class Application_Model_Mail extends Msd_Application_Model
         $this->_setOriginalLanguage();
         $this->_assignUserLanguage($userData['id']);
 
-        $htmlBody      = $this->_view->render('mail/' . $mailTemplate . '.phtml');
-        $plainTextBody = $this->_view->render('mail/' . $mailTemplate . '-plain.phtml');
+        $translator    = $this->_view->lang->getTranslator();
+        $greetLine     = sprintf($translator->translate('L_EMAIL_HEADER'), $userData['username']);
+        $footer        = sprintf($translator->translate('L_EMAIL_FOOTER'), $this->projectConfig['name']);
+        $htmlBody      = $greetLine . '<br /><br />' . $this->_view->render('mail/' . $mailTemplate . '.phtml')
+            . '<br /><br />' . $footer;
+        $plainTextBody = $greetLine . "\n\n" . $this->_view->render('mail/' . $mailTemplate . '-plain.phtml')
+            . "\n\n" . $footer;
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
@@ -228,8 +233,7 @@ class Application_Model_Mail extends Msd_Application_Model
             ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
             ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
             ->addTo($userData['email'], $userData['realName']);
-        $translator = $this->_view->lang->getTranslator();
-        $subject    = $translator->translate($subject);
+        $subject = $translator->translate($subject);
         // replace placeholder with values if given
         if (!empty($subjectArgs)) {
             $subjectLine = vsprintf($subject, $subjectArgs);

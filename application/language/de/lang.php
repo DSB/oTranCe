@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (336), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (337), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -98,7 +98,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_EDIT_KEY' => 'Schlüssel bearbeiten',
 'L_EDIT_LANGUAGE' => 'Sprache editieren',
 'L_EDIT_RIGHTS' => 'Bearbeitungsrechte',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Ein Administrator hat Ihnen soeben Bearbeitungsrechte für Sprache %1$s (%2$s) eingeräumt.',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Ein Administrator hat Ihnen soeben Bearbeitungsrechte für die Sprache %1$s (%2$s) eingeräumt.',
 'L_EDIT_RIGHT_ADDED_TO' => 'Bearbeitungsrechte für %s hinzugefügt',
 'L_EDIT_USER' => 'Benutzer bearbeiten',
 'L_EMAIL' => 'E-Mail-Adresse',

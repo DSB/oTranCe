@@ -204,6 +204,11 @@ class AjaxController extends Zend_Controller_Action
                     $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_RIGHT, 16);
                 } else {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
+                    // inform user via e-mail that his account has been activated
+                    $user = $this->_userModel->getUserById($userId);
+                    $language = $this->_languagesModel->getLanguageById($languageId);
+                    $mailer = new Application_Model_Mail($this->view);
+                    $mailer->sendLanguageRightGrantedMail($user, $language);
                 }
             } else {
                 $icon = $this->view->getIcon('Attention', $this->view->lang->L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT, 16);

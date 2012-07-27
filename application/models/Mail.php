@@ -174,13 +174,32 @@ class Application_Model_Mail extends Msd_Application_Model
             return;
         }
 
-        $this->_view->assign(
-            array(
-                'userData'  => $userData,
-                'project'   => $this->projectConfig,
-            )
-        );
-        $mail = $this->_getUserMail($userData, 'mail/user-account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT');
+        $subjectArgs = array($userData['username'], $this->projectConfig['name']);
+        $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig));
+        $mail = $this->_getUserMail($userData, 'user-account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
+        $mail->send();
+    }
+
+    /**
+     * Sends info-mail about assignign a new edit right of a language to the user.
+     *
+     * @param array $userData Array containing the users data
+     * @param array $languageData Array containing the indexes 'name' and 'locale'
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function sendLanguageRightGrantedMail($userData, $languageData)
+    {
+        if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == ''
+            || trim($userData['email']) == ''
+        ) {
+            return;
+        }
+        $subjectArgs = array($userData['username'], $this->projectConfig['name']);
+        $this->_view->assign(array('userData'     => $userData, 'languageData' => $languageData));
+        $mail = $this->_getUserMail($userData, 'user-edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
         $mail->send();
     }
 
@@ -191,16 +210,17 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array  $userData     Data of user containing username, name and e-mail address
      * @param string $mailTemplate File name of template to render
      * @param string $subject      Language var used for composing the mail's subject line
+     * @param array  $subjectArgs  Values of placeholders in subject line
      *
      * @return Zend_Mail
      */
-    protected function _getUserMail($userData, $mailTemplate, $subject)
+    protected function _getUserMail($userData, $mailTemplate, $subject, $subjectArgs = array())
     {
         $this->_setOriginalLanguage();
         $this->_assignUserLanguage($userData['id']);
 
-        $htmlBody      = $this->_view->render($mailTemplate . '.phtml');
-        $plainTextBody = $this->_view->render($mailTemplate . '-plain.phtml');
+        $htmlBody      = $this->_view->render('mail/' . $mailTemplate . '.phtml');
+        $plainTextBody = $this->_view->render('mail/' . $mailTemplate . '-plain.phtml');
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
@@ -208,10 +228,13 @@ class Application_Model_Mail extends Msd_Application_Model
             ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
             ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
             ->addTo($userData['email'], $userData['realName']);
-
         $translator = $this->_view->lang->getTranslator();
         $subject    = $translator->translate($subject);
-        $mail->setSubject(sprintf($subject, $userData['username'], $this->projectConfig['name']));
+        // replace placeholder with values if given
+        if (!empty($subjectArgs)) {
+            $subjectLine = vsprintf($subject, $subjectArgs);
+        }
+        $mail->setSubject($subjectLine);
         $this->_loadOriginalLanguage();
 
         return $mail;

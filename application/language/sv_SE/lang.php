@@ -102,6 +102,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
 'L_EDIT_USER' => 'Redigera användare',
 'L_EMAIL' => 'Epostadress',
+'L_EMAIL_FOOTER' => 'Your %s-Team',
+'L_EMAIL_HEADER' => 'Hello %s,',
 'L_ENTER_VCS_EXPLAIN' => 'Mata in ditt användarnamn.',
 'L_ENTRIES_PER_PAGE' => 'Poster per sida',
 'L_ERROR' => 'Fel',

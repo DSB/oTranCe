@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (375), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (378), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -262,6 +262,10 @@ This should help you to easily translate the current variable.',
 
 An administrator will activate it soon.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registration successful',
+'L_REQUEST_EDIT_RIGHTS' => 'Request edit rights',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
+You will get an e-mail as soon as the edit right is granted to you.',
 'L_RESET' => 'Reset',
 'L_RETRY' => 'Retry',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add / edit languages',

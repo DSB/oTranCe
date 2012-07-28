@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (339), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (342), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -260,6 +260,10 @@ Der Importer hat alle Einträge verarbeitet.',
 
 Ein Administrator wird es demnächst freischalten.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registrierung erfolgreich',
+'L_REQUEST_EDIT_RIGHTS' => 'Bearbeitungsrechte beantragen',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Möchten Sie wirklich Bearbeitungsrechte für die Sprache {LOCALE} beantragen?',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Ihr Anfrage wurde an den Administrator weitergeleitet.
+Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_RESET' => 'Zurücksetzen',
 'L_RETRY' => 'Wiederholen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf Sprachen hinzufügen / bearbeiten',

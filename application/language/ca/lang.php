@@ -254,6 +254,10 @@ $lang = array(
 'L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE' => 'L\'usuari vol treballar un idioma nou que primer ha de ser afegit.',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'S\'ha registrat correctament el nou compte. Un usuari administrador l\'activarà aviat.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registre completat amb èxit.',
+'L_REQUEST_EDIT_RIGHTS' => 'Request edit rights',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
+'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
+You will get an e-mail as soon as the edit right is granted to you.',
 'L_RESET' => 'Reinicialitzar',
 'L_RETRY' => 'Reintentar',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'A l\'usuari li està permés afegir i editar idiomes',

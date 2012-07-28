@@ -262,9 +262,9 @@ $lang = array(
 
 Εάν διαχειριστής θα τον ενεργοποιήσει σύντομα.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Επιτυχής εγγραφή',
-'L_REQUEST_EDIT_RIGHTS' => 'Request edit rights',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
+'L_REQUEST_EDIT_RIGHT' => 'Request edit rights',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
 You will get an e-mail as soon as the edit right is granted to you.',
 'L_RESET' => 'Επαναφορά',
 'L_RETRY' => 'Επανάληψη',

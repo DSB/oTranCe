@@ -260,9 +260,9 @@ Der Importer hat alle Einträge verarbeitet.',
 
 Ein Administrator wird es demnächst freischalten.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registrierung erfolgreich',
-'L_REQUEST_EDIT_RIGHTS' => 'Bearbeitungsrechte beantragen',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Möchten Sie wirklich Bearbeitungsrechte für die Sprache {LOCALE} beantragen?',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Ihr Anfrage wurde an den Administrator weitergeleitet.
+'L_REQUEST_EDIT_RIGHT' => 'Bearbeitungsrechte beantragen',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Möchten Sie wirklich Bearbeitungsrechte für die Sprache {LOCALE} beantragen?',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Ihr Anfrage wurde an den Administrator weitergeleitet.
 Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_RESET' => 'Zurücksetzen',
 'L_RETRY' => 'Wiederholen',

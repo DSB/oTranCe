@@ -259,9 +259,9 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE' => 'Người dùng muốn dịch một ngôn ngữ mới, trước hết có cần được thêm vào',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Tài khoản mới đã được đăng ký thành công, Quản trị viên sẽ kích hoạt nó sau.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Đăng ký thành công',
-'L_REQUEST_EDIT_RIGHTS' => 'Request edit rights',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
-'L_REQUEST_EDIT_RIGHTS_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
+'L_REQUEST_EDIT_RIGHT' => 'Request edit rights',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
 You will get an e-mail as soon as the edit right is granted to you.',
 'L_RESET' => 'Làm lại',
 'L_RETRY' => 'Thử lại',

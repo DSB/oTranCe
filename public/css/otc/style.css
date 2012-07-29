@@ -297,6 +297,7 @@ td .Formbutton {
 }
 td a {
     font-size:11px;
+    cursor: pointer;
 }
 th .Formbutton {
     margin: 6px;
@@ -368,6 +369,7 @@ button.Formbutton img, .qq-upload-button img {
 
 a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover, .qq-upload-button-hover {
     color: #6E9E2D !important;
+    cursor: pointer;
 }
 
 .Formbutton:disabled {

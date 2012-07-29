@@ -55,7 +55,7 @@ foreach ($this->users as $userId => $user)
         <td class="vmiddle nowrap">
             <?php echo $edit . $this->getIcon('Edit', $this->lang->L_EDIT);?></a>
             <?php if ($this->user->hasRight('deleteUsers')) { ?>
-                <a href="#" id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="<?php echo $this->lang->L_DELETE_USER;?>">
+                <a id="deleteUser-<?php echo $userId;?>" class="deleteUser" title="<?php echo $this->lang->L_DELETE_USER;?>">
                     <?php echo $this->getIcon('delete', '');?>
                 </a>
             <?php } ?>

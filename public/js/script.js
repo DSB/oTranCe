@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
     });
     setPageActive();
-    $('a').bind('mouseup', function() {
+    $('a[href]').bind('mouseup', function() {
         var href = $(this).attr('href');
         var searchTerms = [/\.zip$/, /\.tar\.gz$/, /\.tar\.bz2$/];
         var found = false;

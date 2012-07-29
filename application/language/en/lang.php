@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (378), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (379), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -100,6 +100,7 @@ If everything looks good, start to analyze the data.',
 'L_EDIT_RIGHTS' => 'Edit rights',
 'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
+'L_EDIT_RIGHT_REQUESTED' => 'User %1$s requests edit rights for %$2s (%$3s)',
 'L_EDIT_USER' => 'Edit user',
 'L_EMAIL' => 'E-Mail address',
 'L_EMAIL_FOOTER' => 'Your %s-Team',

@@ -100,6 +100,7 @@ $lang = array(
 'L_EDIT_RIGHTS' => 'Επεξεργασία δικαιωμάτων',
 'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
 'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
+'L_EDIT_RIGHT_REQUESTED' => 'User %1$s requests edit rights for %$2s (%$3s)',
 'L_EDIT_USER' => 'Επεξεργασία χρήστη',
 'L_EMAIL' => 'Διέυθυνση email',
 'L_EMAIL_FOOTER' => 'Your %s-Team',

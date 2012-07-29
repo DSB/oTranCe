@@ -132,8 +132,8 @@ class Application_Model_Mail extends Msd_Application_Model
             )
         );
 
-        $subjectArs = array($this->projectConfig['name'], $userData['username']);
-        $mail = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArs);
+        $subjectArgs = array($this->projectConfig['name'], $userData['username']);
+        $mail = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArgs);
         $mail->send();
     }
 

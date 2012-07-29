@@ -115,8 +115,6 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array $userData          Array containing the users data
      * @param array $languagesMetaData Languages meta data
      *
-     * @throws Exception
-     *
      * @return void
      */
     public function sendUserRegisteredMail($userData, $languagesMetaData)
@@ -145,8 +143,6 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array $userData     Array containing the users data
      * @param array $languageData Languages meta data
      *
-     * @throws Exception
-     *
      * @return void
      */
     public function sendEditRightRequestedMail($userData, $languageData)
@@ -173,8 +169,6 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @param array $userData Array containing the users data
      *
-     * @throws Exception
-     *
      * @return void
      */
     public function sendAccountActivationInfoMail($userData)
@@ -196,8 +190,6 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @param array $userData     Array containing the users data
      * @param array $languageData Array containing the indexes 'name' and 'locale'
-     *
-     * @throws Exception
      *
      * @return void
      */

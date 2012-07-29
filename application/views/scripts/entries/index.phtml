@@ -186,9 +186,9 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
 
         <?php
         if ($this->user->hasRight('addVar')) {
-            $delete = '<a href="#" title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
+            $delete = '<a title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
                         . $keyId . '\',\''
-                        . $hit['key'] . '\');">'; ?>
+                        . $this->jsEscape($hit['key']) . '\');">'; ?>
             <td class="top nowrap">
                 <?php
                     echo $edit . $this->getIcon('Edit') . '</a>&nbsp;';

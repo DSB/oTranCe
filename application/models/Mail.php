@@ -194,7 +194,7 @@ class Application_Model_Mail extends Msd_Application_Model
     /**
      * Sends info-mail about assignign a new edit right of a language to the user.
      *
-     * @param array $userData Array containing the users data
+     * @param array $userData     Array containing the users data
      * @param array $languageData Array containing the indexes 'name' and 'locale'
      *
      * @throws Exception
@@ -302,6 +302,8 @@ class Application_Model_Mail extends Msd_Application_Model
      * Get the user setting "interfaceLanguage" and assign it to the template.
      *
      * @param int $userId Id of user
+     *
+     * @return void
      */
     protected function _assignUserLanguage($userId)
     {

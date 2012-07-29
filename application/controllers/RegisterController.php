@@ -63,7 +63,7 @@ class RegisterController extends Msd_Controller_Action
 
                         // send e-mail to administrator
                         $mailer         = new Application_Model_Mail($this->view);
-                        $mailer->sendAdminRegisterInfoMail($userData, $languagesMetaData);
+                        $mailer->sendUserRegisteredMail($userData, $languagesMetaData);
                     }
                 }
             } else {

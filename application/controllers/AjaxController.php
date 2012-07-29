@@ -109,17 +109,17 @@ class AjaxController extends Zend_Controller_Action
      */
     public function importKeyAction()
     {
-        $ret = array();
-        $params       = $this->_request->getParams();
-        $languageId   = $params['languageId'];
-        $fileTemplate = $params['fileTemplate'];
-        $keys         = $params['keys'];
-        $this->_data  = $this->_dynamicConfig->getParam('extractedData');
-        $i = 0;
-        $fallbackData = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
+        $ret           = array();
+        $params        = $this->_request->getParams();
+        $languageId    = $params['languageId'];
+        $fileTemplate  = $params['fileTemplate'];
+        $keys          = $params['keys'];
+        $this->_data   = $this->_dynamicConfig->getParam('extractedData');
+        $i             = 0;
+        $fallbackData  = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
         $overallResult = true;
         foreach ($keys as $key) {
-            $key = substr($key, 4);
+            $key     = substr($key, 4);
             $saveKey = true;
             if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
                 // value is the same as in the fallback language
@@ -183,8 +183,8 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchLanguageEditRightAction()
     {
-        $languageId = (int) $this->_request->getParam('languageId', 0);
-        $userId     = (int) $this->_request->getParam('userId', 0);
+        $languageId = (int)$this->_request->getParam('languageId', 0);
+        $userId     = (int)$this->_request->getParam('userId', 0);
         if ($userId < 1 || $languageId < 1 || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change edit right
             $icon = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
@@ -205,10 +205,10 @@ class AjaxController extends Zend_Controller_Action
                 } else {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
                     // inform user via e-mail that his account has been activated
-                    $user = $this->_userModel->getUserById($userId);
+                    $user     = $this->_userModel->getUserById($userId);
                     $language = $this->_languagesModel->getLanguageById($languageId);
-                    $mailer = new Application_Model_Mail($this->view);
-                    $mailer->sendLanguageRightGrantedMail($user, $language);
+                    $mail     = new Application_Model_Mail($this->view);
+                    $mail->sendEditRightGrantedMail($user, $language);
                 }
             } else {
                 $icon = $this->view->getIcon('Attention', $this->view->lang->L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT, 16);
@@ -226,8 +226,8 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchRightAction()
     {
-        $right  = (string) $this->_request->getParam('right', '');
-        $userId = (int) $this->_request->getParam('userId', 0);
+        $right  = (string)$this->_request->getParam('right', '');
+        $userId = (int)$this->_request->getParam('userId', 0);
         $icon   = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_RIGHT, 16);
         if ($userId < 1 || $right == '' || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change edit right
@@ -243,7 +243,8 @@ class AjaxController extends Zend_Controller_Action
                 $res = $this->_userModel->saveRight($userId, $right, 1);
                 if ($res == true) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
-                };
+                }
+                ;
             }
 
             if ($res == true) {
@@ -265,8 +266,8 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchLanguageStatusAction()
     {
-        $languageId = (int) $this->_request->getParam('languageId', 0);
-        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        $languageId         = (int)$this->_request->getParam('languageId', 0);
+        $icon               = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
         $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
         if ($languageId < 1 || $languageId == $fallbackLanguageId || !$this->_userModel->hasRight('editLanguage')) {
             //Missing param or no permission to change status
@@ -276,7 +277,7 @@ class AjaxController extends Zend_Controller_Action
             $language = $this->_languagesModel->getLanguageById($languageId);
             //switch status
             $language['active'] = ($language['active'] > 0) ? 0 : 1;
-            $res = $this->_languagesModel->saveLanguageStatus($languageId, $language['active']);
+            $res                = $this->_languagesModel->saveLanguageStatus($languageId, $language['active']);
             if ($res === true) {
                 if ($language['active'] > 0) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
@@ -300,10 +301,10 @@ class AjaxController extends Zend_Controller_Action
      */
     public function saveKeyNameAction()
     {
-        $keyId     = (int) substr($this->_request->getParam('id'), 4);
-        $keyName   = (string) $this->_request->getParam('new_value');
-        $ret       = array('is_error' => false);
-        $errors    = array();
+        $keyId   = (int)substr($this->_request->getParam('id'), 4);
+        $keyName = (string)$this->_request->getParam('new_value');
+        $ret     = array('is_error' => false);
+        $errors  = array();
 
         //check rights
         if (!$this->_userModel->hasRight('editKey') || $keyId == 0) {
@@ -346,21 +347,22 @@ class AjaxController extends Zend_Controller_Action
      */
     public function saveTranslationAction()
     {
-        $param       = (string) $this->_request->getParam('id', '');
+        $param       = (string)$this->_request->getParam('id', '');
         $params      = explode('-', $param);
         $keyId       = !empty($params[1]) ? $params[1] : 0;
         $languageId  = !empty($params[2]) ? $params[2] : 0;
-        $translation = (string) $this->_request->getParam('new_value');
+        $translation = (string)$this->_request->getParam('new_value');
         $ret         = array('is_error' => false);
         $errors      = array();
 
         //check rights
         $editLanguages = $this->_userModel->getUserLanguageRights();
         if (!in_array($languageId, $editLanguages)
-            || $keyId == 0 || $languageId == 0) {
+            || $keyId == 0 || $languageId == 0
+        ) {
             $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
         } else {
-            $data = array($languageId => $translation);
+            $data  = array($languageId => $translation);
             $saved = $this->_entriesModel->saveEntries($keyId, $data);
             if ($saved !== true) {
                 $errors[] = $this->view->lang->L_ERROR_SAVING_CHANGE;
@@ -369,7 +371,7 @@ class AjaxController extends Zend_Controller_Action
 
         // re-read the saved translation to get the real value from the database
         $translations = $this->_entriesModel->getTranslationsByKeyId($keyId, $languageId);
-        $ret['html'] = htmlspecialchars($translations[$languageId], ENT_COMPAT, 'UTF-8');
+        $ret['html']  = htmlspecialchars($translations[$languageId], ENT_COMPAT, 'UTF-8');
         if (!empty($errors)) {
             $ret['is_error']   = true;
             $ret['error_text'] = implode('<br />', $errors);
@@ -386,8 +388,8 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchUserStatusAction()
     {
-        $userId = (int) $this->_request->getParam('userId', false);
-        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        $userId = (int)$this->_request->getParam('userId', false);
+        $icon   = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
         if ($userId < 1 || !$this->_userModel->hasRight('editUsers')) {
             //Missing param or no permission to change status
             $data = array('icon' => $icon);
@@ -398,12 +400,12 @@ class AjaxController extends Zend_Controller_Action
             $user['active'] = ($user['active'] > 0) ? 0 : 1;
             unset($user['password']);
             $user['pass1'] = '';
-            $res = $this->_userModel->saveAccount($user);
+            $res           = $this->_userModel->saveAccount($user);
             if ($res !== false) {
                 if ($user['active'] > 0) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
                     // inform user via e-mail that his account has been activated
-                    $mailer         = new Application_Model_Mail($this->view);
+                    $mailer = new Application_Model_Mail($this->view);
                     $mailer->sendAccountActivationInfoMail($user);
                 } else {
                     $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
@@ -423,7 +425,7 @@ class AjaxController extends Zend_Controller_Action
     public function switchReferenceLanguageStatusAction()
     {
         $userId     = $this->_userModel->getUserId();
-        $languageId = (int) $this->_request->getParam('languageId');
+        $languageId = (int)$this->_request->getParam('languageId');
         $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
         if ($languageId > 0) {
             $status = $this->_userModel->switchReferenceLanguageStatus($userId, $languageId);
@@ -433,7 +435,7 @@ class AjaxController extends Zend_Controller_Action
                 $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
             }
         }
-        $data = array('icon' => $icon);
+        $data             = array('icon' => $icon);
         $this->view->data = $data;
         $this->render('json');
     }
@@ -441,7 +443,7 @@ class AjaxController extends Zend_Controller_Action
     /**
      * Uploads a new project logo.
      *
-     * @return null
+     * @return void
      */
     public function uploadProjectLogoAction()
     {
@@ -450,11 +452,11 @@ class AjaxController extends Zend_Controller_Action
          */
         Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
 
-        $request = $this->getRequest();
-        $publicDir = realpath(APPLICATION_PATH . '/../public');
+        $request         = $this->getRequest();
+        $publicDir       = realpath(APPLICATION_PATH . '/../public');
         $interfaceConfig = $this->_config->getParam('interface');
-        $webPath = '/css/' . $interfaceConfig['theme'] . '/pics';
-        $targetDir = $publicDir . $webPath;
+        $webPath         = '/css/' . $interfaceConfig['theme'] . '/pics';
+        $targetDir       = $publicDir . $webPath;
 
 
         if ($request->isXmlHttpRequest()) {
@@ -463,7 +465,7 @@ class AjaxController extends Zend_Controller_Action
             $uploader = new Msd_Upload_Form($targetDir);
         }
 
-        $result = array(
+        $result            = array(
             'success' => $uploader->isFileTypeAllowed(array('png', 'jpg', 'jpeg', 'jpe', 'gif'))
         );
         $result['success'] = $result['success'] && $uploader->saveFile();
@@ -471,8 +473,8 @@ class AjaxController extends Zend_Controller_Action
             $result['newLogo'] = $webPath . '/' . $uploader->getFilename();
 
             // Save the uploaded image as project logo in config. Uncomment these lines to activate automatic saving.
-            if ((bool) $this->_request->getParam('saveToConfig', false)) {
-                $projectConfig = $this->_config->getParam('project');
+            if ((bool)$this->_request->getParam('saveToConfig', false)) {
+                $projectConfig                  = $this->_config->getParam('project');
                 $projectConfig['logo']['large'] = $result['newLogo'];
                 $this->_config->setParam('project', $projectConfig);
                 $this->_config->save();
@@ -480,6 +482,31 @@ class AjaxController extends Zend_Controller_Action
         }
 
         $this->_response->setBody(htmlspecialchars(json_encode($result), ENT_NOQUOTES));
+    }
+
+    /**
+     * User request for edit right for the given language.
+     *
+     * @return void
+     */
+    public function requestLanguageEditRightAction()
+    {
+        $auth     = Zend_Auth::getInstance();
+        $identity = $auth->getIdentity();
+        $userData = $this->_userModel->getUserById($identity['id']);
+
+        $locale     = $this->_request->getParam('locale');
+        $languageId = $this->_languagesModel->getLanguageIdFromLocale($locale);
+        $language   = $this->_languagesModel->getLanguageById($languageId);
+        $data       = array('success' => false);
+        if ($languageId > 0 && $userData['id'] > 0) {
+            // send mail to admin
+            $mail = new Application_Model_Mail($this->view);
+            $mail->sendEditRightRequestedMail($userData, $language);
+            $data['success'] = true;
+        }
+        $this->view->data = $data;
+        $this->render('json');
     }
 
     /**
@@ -508,7 +535,8 @@ class AjaxController extends Zend_Controller_Action
                 // Validate the new key.
                 if (!$this->_entriesModel->validateLanguageKey($key, $fileTemplate)) {
                     return 4;
-                };
+                }
+                ;
                 // user is allowed to add new keys -> create it
                 $this->_entriesModel->saveNewKey($key, $fileTemplate);
             }
@@ -518,7 +546,7 @@ class AjaxController extends Zend_Controller_Action
         $entry = $this->_entriesModel->getEntryByKey($key, $fileTemplate);
         $keyId = $entry['id'];
         $value = $this->_data[$key];
-        $res = $this->_entriesModel->saveEntries($keyId, array($languageId => $value));
+        $res   = $this->_entriesModel->saveEntries($keyId, array($languageId => $value));
         if ($res === true) {
             return 1;
         } else {
@@ -559,22 +587,22 @@ class AjaxController extends Zend_Controller_Action
         if ($text == '') {
             return '';
         }
-        $sourceLang = $this->_mapLangCode($sourceLang);
-        $targetLang = $this->_mapLangCode($targetLang);
-        $config = Msd_Registry::getConfig();
+        $sourceLang   = $this->_mapLangCode($sourceLang);
+        $targetLang   = $this->_mapLangCode($targetLang);
+        $config       = Msd_Registry::getConfig();
         $googleConfig = $config->getParam('google');
-        $pattern = 'https://www.googleapis.com/language/translate/v2?key=%s'
-                   .'&q=%s&source=%s&target=%s' ;
-        $url = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
-        $handle = @fopen($url, "r");
+        $pattern      = 'https://www.googleapis.com/language/translate/v2?key=%s'
+            . '&q=%s&source=%s&target=%s';
+        $url          = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
+        $handle       = @fopen($url, "r");
         if ($handle) {
-            $contents = fread($handle, 4*4096);
+            $contents = fread($handle, 4 * 4096);
             fclose($handle);
         } else {
             return 'Error: not possible!';
         }
         $response = json_decode($contents);
-        $data = $response->data->translations[0]->translatedText;
+        $data     = $response->data->translations[0]->translatedText;
         return $data;
     }
 

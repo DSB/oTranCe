@@ -49,6 +49,7 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
             <th>#</th>
             <th colspan="3"><?php echo $this->lang->L_REFERENCE_LANGUAGES;?></th>
             <th><?php echo $this->lang->L_STATUS;?></th>
+            <th>&nbsp;</th>
         </tr>
         <?php
         $i                 = 1;
@@ -58,7 +59,10 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
             $id       = 'lang_' . $language['id'];
             $langId   = $language['id'];
             $langName = $this->languages[$langId]['name'];
-            ?>
+            $canEditLanguage = false;
+            if (in_array($key, $this->editLanguages)) {
+                $canEditLanguage = true;
+            } ?>
             <tr class="<?php echo $cycle->next();?>">
                 <td class="right vmiddle"><?php echo $i;?>.</td>
                 <td>
@@ -78,7 +82,7 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
                         <?php echo $langName;?>
                     </label>
                 </td>
-                <td class="vmiddle">
+                <td class="vmiddle center">
                     <div id="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguage">
                         <?php
                         if (in_array($key, $this->refLanguagesSelected)) {
@@ -88,6 +92,15 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
                         }
                         ;?>
                     </div>
+                </td>
+                <td class="vmiddle"><?php
+                    if ($canEditLanguage !== true) { ?>
+                        <a class="Formbutton requestEditRights" id="lang-<?php echo $language['locale'];?>"><?php
+                            echo $this->getIcon('Edit', '', 16). ' ' . $this->lang->L_REQUEST_EDIT_RIGHT;?>
+                        </a><?php
+                    } else { ?>
+                        &nbsp;<?php
+                    } ?>
                 </td>
             </tr>
             <?php
@@ -122,7 +135,66 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
         var id = $(this).attr('for');
         $('#' + id).trigger('click');
     });
+    $('.requestEditRights').click(function () {
+        var languageLocale = this.id.replace(/lang-/, '');
+        var message = '<?php echo $this->jsEscape($this->lang->L_REQUEST_EDIT_RIGHT_CONFIRM);?>';
+        message = message.replace('{LOCALE}', languageLocale);
+        $('#confirmRequestEditRight').html(message);
+        $('#confirmRequestEditRight').dialog('option', 'locale', languageLocale);
+        $('#confirmRequestEditRight').dialog('open');
+    });
+
     <?php
+    $this->popUpMessage()->addMessage(
+        'confirmRequestEditRight',
+        $this->lang->L_REQUEST_EDIT_RIGHT,
+        $this->lang->L_REQUEST_EDIT_RIGHT_CONFIRM,
+        array(
+            'modal' => true,
+            'height' => 140,
+            'width' => 440,
+            'dialogClass' => 'info',
+            'autoOpen' => false,
+            'buttons' => array(
+                'L_CANCEL' => 'function() {
+                                    $(this).dialog("close");
+                                }',
+                'L_REQUEST_EDIT_RIGHT' => 'function() {
+                    $(this).html(\'' . $this->jsEscape($this->getIcon('ajax-loader', '')) . '\');
+                    var locale = $(\'#confirmRequestEditRight\').dialog(\'option\', \'locale\');
+                    $.ajax({
+                        type:\'POST\',
+                        url:\'' . $this->serverUrl() . $this->baseUrl() . '/ajax/request-language-edit-right\',
+                        dataType:\'json\',
+                            async:false,
+                            cache:false,
+                            data:{
+                            \'locale\':locale
+                        },
+                        success:function (data) {
+                            if (data.success == true) {
+                                $(\'#confirmRequestEditRight\').html(\'' . $this->jsEscape($this->lang->L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE) . '\');
+                            } else {
+                                $(\'#confirmRequestEditRight\').html(\'' . $this->jsEscape(($this->lang->L_ERROR . '!<br /> ' . $this->lang->L_TRY_AGAIN)) . '\');
+                            }
+                            buttons = $(\'#confirmRequestEditRight\').dialog(\'option\', \'buttons\');
+                            $(\'#confirmRequestEditRight\').dialog(\'option\', \'buttons\', {
+                                \'' . $this->jsEscape($this->lang->L_OK) . '\': function() {
+                                    $(this).dialog("close");
+                                    $(\'#confirmRequestEditRight\').dialog(\'option\', \'buttons\', buttons);
+                                }
+                            });
+                        },
+                        error:function (error) {
+                            $(\'#confirmRequestEditRight\').html(imgError + \'' . $this->jsEscape($this->lang->L_ERROR_AJAX) . '\');
+                        }
+                    });
+
+                }'
+            )
+        )
+    );
+
     $this->jQuery()->onLoadCaptureEnd();
     ?>
 </script>

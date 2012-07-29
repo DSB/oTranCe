@@ -119,11 +119,8 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @return void
      */
-    public function sendAdminRegisterInfoMail($userData, $languagesMetaData)
+    public function sendUserRegisteredMail($userData, $languagesMetaData)
     {
-        /**
-         * @var Zend_Translate_Adapter $translator
-         */
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == '') {
             // no project contact e-mail set -> can't send mail
             return;
@@ -137,24 +134,38 @@ class Application_Model_Mail extends Msd_Application_Model
             )
         );
 
-        $this->_setOriginalLanguage();
-        // we inform the administrator in the fallback language
-        $this->_loadFallbackLanguage();
-
-        $htmlBody      = $this->_view->render('mail/admin-register-info.phtml');
-        $plainTextBody = $this->_view->render('mail/admin-register-info-plain.phtml');
-
-        $mail = new Zend_Mail('UTF-8');
-        $mail->setBodyHtml($htmlBody)
-            ->setBodyText($plainTextBody)
-            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
-            ->addTo($this->projectConfig['email'], $this->projectConfig['name'])
-            ->setReplyTo($userData['email'], $userData['realName']);
-        $translator = $this->_view->lang->getTranslator();
-        $subject    = $translator->translate('L_REGISTER_MAIL_SUBJECT');
-        $mail->setSubject(sprintf($subject, $this->projectConfig['name'], $userData['username']));
+        $subjectArs = array($this->projectConfig['name'], $userData['username']);
+        $mail = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArs);
         $mail->send();
-        $this->_loadOriginalLanguage();
+    }
+
+    /**
+     * Sends info-mail about requested language edit right of a registered user to admin
+     *
+     * @param array $userData     Array containing the users data
+     * @param array $languageData Languages meta data
+     *
+     * @throws Exception
+     *
+     * @return void
+     */
+    public function sendEditRightRequestedMail($userData, $languageData)
+    {
+        if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == '') {
+            // no project contact e-mail set -> can't send mail
+            return;
+        }
+
+        $this->_view->assign(
+            array(
+                'userData' => $userData,
+                'language' => $languageData,
+            )
+        );
+
+        $subjectArgs = array($userData['username'], $languageData['name'], $languageData['locale']);
+        $mail = $this->_getAdminMail($userData, 'admin/edit-right-requested', 'L_EDIT_RIGHT_REQUESTED', $subjectArgs);
+        $mail->send();
     }
 
     /**
@@ -176,7 +187,7 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
         $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig));
-        $mail = $this->_getUserMail($userData, 'user-account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
+        $mail = $this->_getUserMail($userData, 'user/account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
         $mail->send();
     }
 
@@ -190,7 +201,7 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @return void
      */
-    public function sendLanguageRightGrantedMail($userData, $languageData)
+    public function sendEditRightGrantedMail($userData, $languageData)
     {
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == ''
             || trim($userData['email']) == ''
@@ -199,7 +210,7 @@ class Application_Model_Mail extends Msd_Application_Model
         }
         $subjectArgs = array($languageData['name']);
         $this->_view->assign(array('userData' => $userData, 'languageData' => $languageData));
-        $mail = $this->_getUserMail($userData, 'user-edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
+        $mail = $this->_getUserMail($userData, 'user/edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
         $mail->send();
     }
 
@@ -233,6 +244,49 @@ class Application_Model_Mail extends Msd_Application_Model
             ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
             ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
             ->addTo($userData['email'], $userData['realName']);
+        $subject = $translator->translate($subject);
+        // replace placeholder with values if given
+        if (!empty($subjectArgs)) {
+            $subjectLine = vsprintf($subject, $subjectArgs);
+        }
+        $mail->setSubject($subjectLine);
+        $this->_loadOriginalLanguage();
+
+        return $mail;
+    }
+
+    /**
+     * Create mail object that will be sent to the administrator and set body text, subject, user language
+     * and recipient data.
+     *
+     * Will restore the current language for further actions.
+     *
+     * @param array  $userData     Data of user
+     * @param string $mailTemplate File name of template to render
+     * @param string $subject      Language var used for composing the mail's subject line
+     * @param array  $subjectArgs  Values of placeholders in subject line
+     *
+     * @return Zend_Mail
+     */
+    protected function _getAdminMail($userData, $mailTemplate, $subject, $subjectArgs = array())
+    {
+        $this->_setOriginalLanguage();
+        $this->_loadFallbackLanguage();
+
+        $translator    = $this->_view->lang->getTranslator();
+        $greetLine     = sprintf($translator->translate('L_EMAIL_HEADER'), $translator->translate('L_ADMIN'));
+        $footer        = sprintf($translator->translate('L_EMAIL_FOOTER'), $this->projectConfig['name']);
+        $htmlBody      = $greetLine . '<br /><br />' . $this->_view->render('mail/' . $mailTemplate . '.phtml')
+            . '<br /><br />' . $footer;
+        $plainTextBody = $greetLine . "\n\n" . $this->_view->render('mail/' . $mailTemplate . '-plain.phtml')
+            . "\n\n" . $footer;
+
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setBodyHtml($htmlBody)
+            ->setBodyText($plainTextBody)
+            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
+            ->setReplyTo($userData['email'], $userData['username'])
+            ->addTo($this->projectConfig['email'], $this->projectConfig['name']);
         $subject = $translator->translate($subject);
         // replace placeholder with values if given
         if (!empty($subjectArgs)) {

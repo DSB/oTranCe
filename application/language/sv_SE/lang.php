@@ -9,11 +9,11 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (359)
+// DSB (2), HolgerGremminger (374)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
-'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
+'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
+'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Användarkontot %1$s för %2$s har aktiverats',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Inställningar användarkontot',
 'L_ACTION' => 'Aktion',
@@ -46,7 +46,7 @@ Välj teckensats och klicka på knappen "Konvertera tecken från". Upprepa denna
 När resultatet är korrekt kan du starta importen med knappen "Starta analysen".',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Klicka här för att bearbeta användarkontot',
 'L_CLICK_TO_INLINE_EDIT' => 'Klicka för att ändra här',
-'L_CLICK_TO_LOG_IN' => 'Click here to login with your registered data.',
+'L_CLICK_TO_LOG_IN' => 'Klicka här för att logga in med den registrerade informationen.',
 'L_COMMIT_MESSAGE' => 'Commit-meddelande',
 'L_COMPLETE_VIEW' => 'Fullständig visning',
 'L_CONFIGURATION' => 'Konfigurering',
@@ -87,7 +87,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_DOWNLOADS' => 'Nerladdningar',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Nerladdning av språkpaketen',
 'L_DROP_FILE_HINT' => 'Dra och släpp projekt-loggan här för uppladdning',
-'L_DUPLICATE' => 'Duplicate',
+'L_DUPLICATE' => 'Duplicera',
 'L_EDIT' => 'Redigera',
 'L_EDITED' => 'Bearbetat',
 'L_EDIT_ENTRIES' => 'Redigera dataposter',
@@ -98,13 +98,13 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_EDIT_KEY' => 'Bearbeta nyckel',
 'L_EDIT_LANGUAGE' => 'Redigera språket',
 'L_EDIT_RIGHTS' => 'Redigeringsbehörighet',
-'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'An administrator granted you edit rights for the language %1$s (%2$s).',
-'L_EDIT_RIGHT_ADDED_TO' => 'Edit rights for %s added',
-'L_EDIT_RIGHT_REQUESTED' => 'User %1$s requests edit rights for %2$s (%3$s)',
+'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'En administrator har givit dig behörighet för språket %1$s (%2$s).',
+'L_EDIT_RIGHT_ADDED_TO' => 'Redigeringsbehörighet tillagd för %s',
+'L_EDIT_RIGHT_REQUESTED' => 'Användaren %1$s begär redigeringsbehörighet för %2$s (%3$s)',
 'L_EDIT_USER' => 'Redigera användare',
 'L_EMAIL' => 'Epostadress',
-'L_EMAIL_FOOTER' => 'Your %s-Team',
-'L_EMAIL_HEADER' => 'Hello %s,',
+'L_EMAIL_FOOTER' => 'Ditt %s-team',
+'L_EMAIL_HEADER' => 'Hej %s,',
 'L_ENTER_VCS_EXPLAIN' => 'Mata in ditt användarnamn.',
 'L_ENTRIES_PER_PAGE' => 'Poster per sida',
 'L_ERROR' => 'Fel',
@@ -123,9 +123,9 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Kunde ej spara behörigheten för språkförvaltningen',
 'L_ERROR_SAVING_RIGHT' => 'Ett fel uppträdde när behörigheten sparades. Försök igen.',
 'L_ERROR_SAVING_STATUS' => 'Ett fel uppträdde när statusen sparades. Försök igen.',
-'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
-'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
-'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',
+'L_ERROR_SELECT_LANGUAGE' => 'Du måste välja minst ett existerande språk eller ange ett nytt språk som bör läggas till.',
+'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'En filmall med filnamnet \'%s\' existerar redan.',
+'L_ERROR_TEMPLATE_NAME_EXISTS' => 'En filmall med namnet \'%s\' existerar redan.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Ett fel uppträdde när filmallen aktualiserades',
 'L_ERROR_VALIDATING_INPUTS' => 'Ett fel uppträdde under kontroll av din inmatning',
 'L_EXPORT' => 'Export',
@@ -259,10 +259,10 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 
 En administratör kommer att se över kontot och godkänna det.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Registreringen genomförd',
-'L_REQUEST_EDIT_RIGHT' => 'Request edit rights',
-'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
-'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
-You will get an e-mail as soon as the edit right is granted to you.',
+'L_REQUEST_EDIT_RIGHT' => 'Begär bearbetningsbehörighet',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Vill du verkligen begära bearbetningsbehörighet för språket {LOCALE}?',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Din förfrågan har skickats till en administratör.
+Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_RESET' => 'Återställ',
 'L_RETRY' => 'Upprepa',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Användaren får infoga nya språk',

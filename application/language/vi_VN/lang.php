@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (5), nukeviet (394)
+// DSB (5), nukeviet (400)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
@@ -100,11 +100,11 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_EDIT_RIGHTS' => 'Sửa quyền',
 'L_EDIT_RIGHT_ADDED_EXPLAIN' => 'Một người quản trị đã cấp quyền chỉnh sửa ngôn ngữ %1$s (%2$s) cho bạn.',
 'L_EDIT_RIGHT_ADDED_TO' => 'Sửa quyền cho %s vừa thêm',
-'L_EDIT_RIGHT_REQUESTED' => 'User %1$s requests edit rights for %2$s (%3$s)',
+'L_EDIT_RIGHT_REQUESTED' => 'Thành viên %vieenyeeu cầu được tham gia dịch thuật %2$s (%3$s)',
 'L_EDIT_USER' => 'Sửa thành viên',
 'L_EMAIL' => 'Địa chỉ e-mail',
 'L_EMAIL_FOOTER' => 'Your %s-Team',
-'L_EMAIL_HEADER' => 'Hello %s,',
+'L_EMAIL_HEADER' => 'Chào %s,',
 'L_ENTER_VCS_EXPLAIN' => 'Nhập tên người dùng của chứng chỉ VCS cá nhân của bạn.',
 'L_ENTRIES_PER_PAGE' => 'Số mục trên trang',
 'L_ERROR' => 'Lỗi',
@@ -260,10 +260,9 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_REGISTER_USER_WANTS_TO_MAINTAIN_NEW_LANGUAGE' => 'Người dùng muốn dịch một ngôn ngữ mới, trước hết có cần được thêm vào',
 'L_REGISTRATION_SUCCESSFUL_MESSAGE' => 'Tài khoản mới đã được đăng ký thành công, Quản trị viên sẽ kích hoạt nó sau.',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => 'Đăng ký thành công',
-'L_REQUEST_EDIT_RIGHT' => 'Request edit rights',
-'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
-'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
-You will get an e-mail as soon as the edit right is granted to you.',
+'L_REQUEST_EDIT_RIGHT' => 'Yêu cầu cấp quyền sửa',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Bạn yêu cầu cấp quyền sửa ngôn ngữ {LOCALE}?',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Yêu cầu của bạn vừa được chuyển tới Quản trị viên. Bạn sẽ nhận được email ngay khi quyền chỉnh sửa được cấp cho bạn.',
 'L_RESET' => 'Làm lại',
 'L_RETRY' => 'Thử lại',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Người dùng được phép thêm / chỉnh sửa ngôn ngữ',

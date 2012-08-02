@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), Jan.Twachtmann (394), pavdeijk (48)
+// DSB (4), Jan.Twachtmann (394), pavdeijk (48)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Uw gebruikersaccount %1$s voor het project %2$s is geactiveerd door een beheerder.',
@@ -122,8 +122,8 @@ $lang = array(
 'L_ERROR_SAVING_RIGHT' => 'Bij het opslaan van de bevoegdheid is een fout opgetreden. Probeer het opnieuw aub.',
 'L_ERROR_SAVING_STATUS' => 'Bij het opslaan van de status is een fout opgetreden. Probeer het opnieuw aub.',
 'L_ERROR_SELECT_LANGUAGE' => 'Selecteer tenminste een bestaande taal of specificeer een nieuwe taal wat moet worden begonnen.',
-'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'Een template met de bestandsnaam \\'%s\\' bestaat reeds.',
-'L_ERROR_TEMPLATE_NAME_EXISTS' => 'Een template met de naam \\'%s\\' bestaat reeds.',
+'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'Een template met de bestandsnaam \'%s\' bestaat reeds.',
+'L_ERROR_TEMPLATE_NAME_EXISTS' => 'Een template met de naam \'%s\' bestaat reeds.',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => 'Helaas is er een fout bij het opslaan v/h bestandsvoorbeeld opgetreden.',
 'L_ERROR_VALIDATING_INPUTS' => 'Fout bij het toetsen van uw input.',
 'L_EXPORT' => 'Export',

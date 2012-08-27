@@ -320,16 +320,31 @@ function showOkMsg() {
     $('body').append(notify);
     $('#notify').delay(200).fadeIn(600).delay(1500).fadeOut(600);
 }
+
 <?php $this->jQuery()->onLoadCaptureStart();?>
+/*
+var mouseX = 0;
+var mouseY = 0;
+$(document).mousemove(function(e) {
+    mouseY = e.pageY;
+    //console.debug(mouseY);
+});
+*/
 
 /* register click event for key edit icons */
 $('.inlineEditKeyTrigger').click(function(e) {
     $('#' + $(this).attr('for')).trigger('click');
+    return false;
 });
 
 /* register click event for value edit icons */
 $('.inlineEditValueTrigger').click(function(e) {
     var id = $(this).attr('for');
+    if ($('#' +id).css('display') !== 'inline') {
+        // inline edit is already initialized - don't do it twice
+        return false;
+    }
+
     // remove link
     var oldHtml = $('#' + id).html();
     var editText = $('#' + id + ' a').html();
@@ -405,6 +420,8 @@ $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/aja
     },
     after_save: function() {
         showOkMsg();
+    },
+    on_cancel: function() {
     }
 });
 

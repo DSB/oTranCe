@@ -850,3 +850,9 @@ pre.xdebug-var-dump {
 #switchLanguage {
     width:200px;
 }
+.inlineEditKey, .inlineEditValue {
+    padding:1px;
+}
+.inlineEditKey.inlineEditMouseOver, .inlineEditValue.inlineEditMouseOver {
+    padding:0;
+}

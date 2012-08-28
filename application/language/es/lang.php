@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (406), DSB (2)
+// caos30 (413), DSB (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
@@ -297,7 +297,7 @@ $lang = array(
 'L_SELECT_FILE' => 'Escoja un archivo',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Escoja cuántos registros quiere mostrar por página',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Escoja el idioma para esta interfaz',
-'L_SELECT_LANG_TO_MAINTAIN' => 'Escoja en la traducción de qué idioma/s quiere colaborar',
+'L_SELECT_LANG_TO_MAINTAIN' => 'Escoja para qué idioma/s quiere colaborar con su traducción',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Escojer otro filtro / criterio de búsqueda',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Por favor, escoja una plantilla. Las claves y sus traducciones serán asignadas a la plantilla seleccionada. Si escoje "Eliminar la plantilla de archivo" todas las claves y sus traducciones serán eliminadas sin ser asignadas a otra plantilla',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Escoja el idioma/s de referencia, a partir del cuál traducir',
@@ -325,7 +325,7 @@ $lang = array(
 'L_USERACCOUNT_IS_ACTIVE' => 'La cuenta del usuario está activa',
 'L_USERNAME' => 'Nombre de usuario',
 'L_USERS' => 'Usuarios',
-'L_USERS_WITH_EDIT_RIGHTS' => 'Usuario con permisos para editar',
+'L_USERS_WITH_EDIT_RIGHTS' => 'Usuarios con permiso para editar',
 'L_USER_DELETED_SUCCESSFULLY' => 'El usuario ha sido eliminado con éxito.',
 'L_USER_PROFILE' => 'Perfil de usuario',
 'L_USE_ANALYZER' => 'Use el importador',
@@ -362,7 +362,7 @@ $lang = array(
 'L_ZEND_ID_EMAIL_ADDRESS_INVALID_HOSTNAME' => 'El nombre de dominio en la dirección de correo no es válido.',
 'L_ZEND_ID_EMAIL_ADDRESS_INVALID_LOCAL_PART' => 'La parte local de la dirección de correo (a la izquierda de la arroba) no es válida.',
 'L_ZEND_ID_EMAIL_ADDRESS_INVALID_MX_RECORD' => 'No hay registros MX válidos para esta dirección de correo electrónico.',
-'L_ZEND_ID_EMAIL_ADDRESS_INVALID_SEGMENT' => 'El nombre de dominio está ubicado en una zona de red no enrutable. La dirección de correo no puede ser resuelta des de una red pública externa.',
+'L_ZEND_ID_EMAIL_ADDRESS_INVALID_SEGMENT' => 'El nombre de dominio está ubicado en una zona de red no enrutable. La dirección de correo no puede ser resuelta desde una red pública externa.',
 'L_ZEND_ID_EMAIL_ADDRESS_LENGTH_EXCEEDED' => 'La dirección de correo es demasiado larga. El tamaño máximo es de 320 carácteres.',
 'L_ZEND_ID_EMAIL_ADDRESS_QUOTED_STRING' => 'La dirección de correo no cumple con el formato aceptable de comillas (http://en.wikipedia.org/wiki/Email_address#Local_part).',
 'L_ZEND_ID_FILE_EXTENSION_FALSE' => 'Este tipo de archivo no está permitido aquí.',
@@ -381,10 +381,10 @@ $lang = array(
 'L_ZEND_ID_IS_EMPTY' => 'El valor es imprescindible y no puede estar vacío.',
 'L_ZEND_ID_MISSING_TOKEN' => 'No se ha proporcionado ningún "token" que contrastar.',
 'L_ZEND_ID_NOT_DIGITS' => 'Solo se permiten dígitos numéricos.',
-'L_ZEND_ID_NOT_EMPTY_INVALID' => 'El valor entrado no es válido.',
+'L_ZEND_ID_NOT_EMPTY_INVALID' => 'El valor proporcionado no es válido.',
 'L_ZEND_ID_NOT_SAME' => 'Los dos valores que se han dado no son iguales.',
-'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor entrado no es válido.',
-'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor introducido es demasiado largo.',
-'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor introducido es demasiado corto.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionado no es válido.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionado es demasiado largo.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionado es demasiado corto.',
 );
 return $lang;

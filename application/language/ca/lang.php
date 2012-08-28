@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (438), DSB (2)
+// caos30 (445), DSB (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'El vostre compte d\'usuari %1$s per al projecte %2$s ha estat activat per un administrador.',
@@ -297,7 +297,7 @@ $lang = array(
 'L_SELECT_FILE' => 'Indiqui un arxiu',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Indiqui quants registres vol mostrar per pàgina',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Seleccioni l\'idioma per a aquesta interfície',
-'L_SELECT_LANG_TO_MAINTAIN' => 'Seleccioni l\'idioma/es en els que vol colaborar per a la seva traducció',
+'L_SELECT_LANG_TO_MAINTAIN' => 'Seleccioni per a quin idioma/es vol colaborar en la seva traducció',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Escollir un altre filtre / criteri de cerca',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Si us plau, escolli una plantilla. Les claus i les seves traduccions seràn assignades a la plantilla seleccionada. Si escull "Eliminar la plantilla d\'arxiu" totes les claus i les seves traduccions seràn eliminades sense ser assignades a una altra plantilla',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Seleccioni el seu idioma/es de referència -a partir dels quals traduir-',
@@ -325,7 +325,7 @@ $lang = array(
 'L_USERACCOUNT_IS_ACTIVE' => 'El compte de l\'usuari és actiu',
 'L_USERNAME' => 'Nom d\'usuari',
 'L_USERS' => 'Usuaris',
-'L_USERS_WITH_EDIT_RIGHTS' => 'Usuari amb permisos per a editar',
+'L_USERS_WITH_EDIT_RIGHTS' => 'Usuaris amb permís per a editar',
 'L_USER_DELETED_SUCCESSFULLY' => 'L\'usuari s\'ha eliminat amb èxit.',
 'L_USER_PROFILE' => 'Perfil d\'usuari',
 'L_USE_ANALYZER' => 'Usi l\'importador',
@@ -381,10 +381,10 @@ $lang = array(
 'L_ZEND_ID_IS_EMPTY' => 'El valor és un requeriment i no pot ser buit.',
 'L_ZEND_ID_MISSING_TOKEN' => 'No s\'ha proporcionat cap "token" per a contrastar.',
 'L_ZEND_ID_NOT_DIGITS' => 'Només es permeten digits numèrics.',
-'L_ZEND_ID_NOT_EMPTY_INVALID' => 'El valor entrat no és vàlid.',
+'L_ZEND_ID_NOT_EMPTY_INVALID' => 'El valor proporcionat no és vàlid.',
 'L_ZEND_ID_NOT_SAME' => 'Els dos valors que s\'han donat no són iguals.',
-'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor entrat no és vàlid.',
-'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor introduït és massa llarg.',
-'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor introduït és massa curt.',
+'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionat no és vàlid.',
+'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionat és massa llarg.',
+'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionat és massa curt.',
 );
 return $lang;

@@ -897,6 +897,19 @@ class Application_Model_User extends Msd_Application_Model
                 }
             }
 
+            // Check for invalid chars in alnum fields
+            $alnumValidate = new Zend_Filter_Alnum(true);
+            $alnumValues = array('username', 'realName', 'newLanguage');
+            foreach ($alnumValues as $key) {
+                if (empty($userData[$key])) {
+                    continue;
+                }
+
+                if ($alnumValidate->filter($userData[$key]) !== $userData[$key]) {
+                    $this->_validateMessages[$key][] = $translator->translate('L_ERROR_INVALID_CHARS');
+                }
+            }
+
             // Check real name is not empty
             if (!$notEmptyValidate->isValid($userData['realName'])) {
                 $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());

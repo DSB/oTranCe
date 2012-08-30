@@ -66,8 +66,8 @@ foreach ($this->users as $userId => $user)
         <td class="right vmiddle">
             <?php echo $edit . $user['id'];?></a>
         </td>
-        <td class="vmiddle"><?php echo $edit . $user['username'];?></a></td>
-        <td class="vmiddle"><?php echo $edit . $user['realName'];?></a></td>
+        <td class="vmiddle"><?php echo $edit . $this->escape($user['username']);?></a></td>
+        <td class="vmiddle"><?php echo $edit . $this->escape($user['realName']);?></a></td>
         <td class="vmiddle">
             <div id="img-<?php echo $userId;?>" class="switchUserEditRight">
                 <?php

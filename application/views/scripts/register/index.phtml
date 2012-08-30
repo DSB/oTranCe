@@ -20,7 +20,7 @@ echo $this->partial(
                 <legend><?php echo $this->lang->L_REGISTER_INFORMATION; ?></legend>
                 <table>
                     <tr>
-                        <td><label for="user_name"><?php echo $this->lang->L_USERNAME; ?>:</label></td>
+                        <td><label for="user_name"><?php echo $this->escape($this->lang->L_USERNAME); ?>:</label></td>
                         <td><input type="text" class="text" name="user[username]" id="user_name"
                                    value="<?php echo $this->escape($this->user['username']);?>" /></td>
                     </tr>
@@ -32,7 +32,7 @@ echo $this->partial(
                     <?php } ?>
 
                     <tr>
-                        <td><label for="user_pass1"><?php echo $this->lang->L_PASSWORD;?>:</label></td>
+                        <td><label for="user_pass1"><?php echo $this->escape($this->lang->L_PASSWORD);?>:</label></td>
                         <td><input type="password" class="text" name="user[pass1]" id="user_pass1"/></td>
                     </tr>
                     <?php if (isset($this->errors['pass1'])) { ?>
@@ -47,7 +47,7 @@ echo $this->partial(
                     </tr>
 
                     <tr>
-                        <td><label for="user_realname"><?php echo $this->lang->L_REAL_NAME;?>:</label></td>
+                        <td><label for="user_realname"><?php echo $this->escape($this->lang->L_REAL_NAME);?>:</label></td>
                         <td>
                             <input type="text" class="text" name="user[realName]" id="user_realname"
                                 value="<?php echo $this->escape($this->user['realName']);?>"/>

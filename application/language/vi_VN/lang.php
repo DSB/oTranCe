@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (5), nukeviet (406)
+// DSB (5), nukeviet (407)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
@@ -333,7 +333,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Người có quyền chỉnh sửa',
 'L_USER_DELETED_SUCCESSFULLY' => 'Thành viên vừa bị xóa thành công.',
 'L_USER_PROFILE' => 'Hồ sơ thành viên',
-'L_USE_ANALYZER' => 'Nhập thành viên',
+'L_USE_ANALYZER' => 'Sử dụng trình nhập liệu',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'Từ khóa \'%s\' đã có trong tệp tin mẫu.',
 'L_VALIDATE_ERROR_NAME_TOO_SHORT' => 'Từ khóa quá ngắn.',
 'L_VAULE' => 'Giá trị',

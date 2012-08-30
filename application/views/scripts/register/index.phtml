@@ -105,6 +105,13 @@ echo $this->partial(
                                    value="<?php echo $this->escape($this->user['newLanguage']);?>" />
                         </td>
                     </tr>
+                    <?php
+                    if (isset($this->errors['newLanguage'])) { ?>
+                        <tr>
+                            <td></td>
+                            <td class="error"><?php echo implode('<br/>', $this->errors['newLanguage']);?></td>
+                        </tr><?php
+                    } ?>
 
 
                     <tr>

@@ -115,8 +115,8 @@ foreach ($this->logEntries as $entry)
         ?>
         <td class="right"><?php echo $this->numberFormat($i);?>.</td>
         <td class="nowrap"><?php echo $entry['dt'];?></td>
-        <td><?php echo $this->printTranslators($entry['user_id']);?></td>
-        <td class="nowrap"><?php echo $entry['action'];?></td>
+        <td><?php echo $this->escape($this->printTranslators($entry['user_id']));?></td>
+        <td class="nowrap"><?php echo $this->escape($entry['action']);?></td>
         <td class="nowrap">
             <?php
                 if (isset($this->languages[$entry['lang_id']])) {
@@ -131,7 +131,7 @@ foreach ($this->logEntries as $entry)
                 if ($entry['key_id'] == 0) {
                     echo '-';
             } else {
-                echo $entry['key'];
+                echo $this->escape($entry['key']);
             }
             ;?>
         </td>

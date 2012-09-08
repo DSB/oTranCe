@@ -303,6 +303,7 @@ class AjaxController extends Zend_Controller_Action
     {
         $keyId   = (int)substr($this->_request->getParam('id'), 4);
         $keyName = (string)$this->_request->getParam('new_value');
+        $keyName = strip_tags($keyName);
         $ret     = array('is_error' => false);
         $errors  = array();
 
@@ -330,7 +331,7 @@ class AjaxController extends Zend_Controller_Action
 
         // re-read the saved key name to get the real value from the database
         $newKey      = $this->_entriesModel->getKeyById($keyId);
-        $ret['html'] = $newKey['key'];
+        $ret['html'] = htmlspecialchars($newKey['key'], ENT_COMPAT, 'UTF-8');
         if (!empty($errors)) {
             $ret['is_error']   = true;
             $ret['error_text'] = implode('<br />', $errors);

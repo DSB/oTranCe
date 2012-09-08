@@ -188,7 +188,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
         if ($this->user->hasRight('addVar')) {
             $delete = '<a title="' . $this->lang->L_DELETE_KEY . '" onclick="deleteVar(\''
                         . $keyId . '\',\''
-                        . $this->jsEscape($hit['key']) . '\');">'; ?>
+                        . htmlspecialchars($this->jsEscape($hit['key']), ENT_COMPAT, 'utf-8') . '\');">'; ?>
             <td class="top nowrap">
                 <?php
                     echo $edit . $this->getIcon('Edit') . '</a>&nbsp;';
@@ -220,7 +220,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
 
             <td class="ssmall nowrap top">
                 <?php if ($this->user->hasRight('editKey')) { ?>
-                <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $hit['key'];?></div>
+                <div class="inlineEditKey" id="key-<?php echo $hit['id'];?>" title="<?php echo $this->lang->L_CLICK_TO_INLINE_EDIT;?>"><?php echo $this->escape($hit['key']);?></div>
                 <?php } else { ?>
                     <?php echo $edit . $hit['key'];?></a>
                 <?php } ?>
@@ -289,6 +289,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
 function deleteVar(id, name)
 {
     var message = '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_KEY_X)?>';
+    name = stripTags(name);
     var text = message.replace(/{KEY}/g, name);
     $('#confirmDeleteVar').html(text);
     $('#confirmDeleteVar').dialog({

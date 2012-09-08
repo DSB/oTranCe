@@ -69,3 +69,7 @@ function decrease(id) {
 function scrollToId(id){
     $('html,body').scrollTop($("#"+id).offset().top -40);
 }
+
+function stripTags(value) {
+    return value.replace(/<\/?[^>]+>/gi, '');
+}

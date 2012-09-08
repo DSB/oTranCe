@@ -65,7 +65,7 @@ class Admin_LanguagesController extends AdminController
             $this->_redirect('/');
         }
 
-        // check if it is a new language and ifthe user has the right to add a new language
+        // check if it is a new language and if the user has the right to add a new language
         if (!$this->_userModel->hasRight('addLanguage')) {
             $language = $this->_languagesModel->getLanguageById($languageId);
             if (empty($language)) {

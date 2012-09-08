@@ -20,7 +20,7 @@ $viewData = array(
 <div id="headline">
     <h2><?php echo $this->lang->L_EDIT_ENTRY;?></h2>
 </div>
-<h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->key['key'];?></h4>
+<h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->escape($this->key['key']);?></h4>
 <div>
     <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton ui-corner-all">
         <?php echo $this->getIcon('Back', $this->lang->L_BACK_TO_OVERVIEW, 16) . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?>

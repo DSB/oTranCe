@@ -6,14 +6,14 @@ $entry = $this->entry;
     <table class="bdr more-padding" summary="List of edit boxes">
         <tr class="thead"><th colspan="2"><?php echo $this->lang->L_EDIT;?>:</th></tr>
         <tr class="<?php echo $cycleHelper->next();?>">
-            <td class="top"><?php echo $this->lang->L_KEY;?>:</td>
+            <td class="top"><?php echo $this->escape($this->lang->L_KEY);?>:</td>
             <td>
-                <?php echo $this->key['key'];?>
+                <?php echo $this->escape($this->key['key']);?>
             </td>
         </tr>
 
         <tr class="<?php echo $cycleHelper->next()?>">
-            <td><?php echo $this->lang->L_FILE; ?>:</td>
+            <td><?php echo $this->escape($this->lang->L_FILE); ?>:</td>
             <td><?php
                 if ($this->user->hasRight('addVar')) {
                     echo $this->printFileTemplateHtml($this->assignedFileTemplate['id']);

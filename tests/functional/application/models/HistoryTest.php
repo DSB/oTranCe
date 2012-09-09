@@ -157,7 +157,7 @@ class HistoryTest extends ControllerTestCase
         $this->model->deleteById($entries[0]['id']);
     }
 
-    public function testLogSvnUpdate()
+    public function testLogVcsUpdate()
     {
         // force logging with actual timestamp
         $this->model->logVcsUpdate(99);
@@ -169,7 +169,7 @@ class HistoryTest extends ControllerTestCase
         $this->model->deleteById($entries[0]['id']);
     }
 
-   public function testLogSvnUpdateAll()
+   public function testLogVcsUpdateAll()
     {
         // force logging with actual timestamp
         $this->model->logVcsUpdateAll();

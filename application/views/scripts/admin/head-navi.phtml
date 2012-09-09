@@ -1,10 +1,11 @@
 <?php
-$user         = new Application_Model_User();
-$projectUrl   = $this->url(array('controller'=>'admin_project','action'=>'index'));
-$usersUrl     = $this->url(array('controller'=>'admin_users','action'=>'index'));
-$languagesUrl = $this->url(array('controller'=>'admin_languages','action'=>'index'));
-$filesUrl     = $this->url(array('controller'=>'admin_files','action'=>'index'));
-$vcsUrl       = $this->url(array('controller'=>'admin_vcs','action'=>'index'));
+$user          = new Application_Model_User();
+$projectUrl    = $this->url(array('controller'=>'admin_project','action'=>'index'));
+$usersUrl      = $this->url(array('controller'=>'admin_users','action'=>'index'));
+$languagesUrl  = $this->url(array('controller'=>'admin_languages','action'=>'index'));
+$filesUrl      = $this->url(array('controller'=>'admin_files','action'=>'index'));
+$importersUrl  = $this->url(array('controller'=>'admin_importers','action'=>'index'));
+$vcsUrl        = $this->url(array('controller'=>'admin_vcs','action'=>'index'));
 // get action name to set the active item in TabBar
 $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 // format action name and escape possible dot in action name
@@ -44,7 +45,15 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editTemplate')) { ?>
             <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $filesUrl;?>">
-                    <?php echo$this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_FILE_TEMPLATES;?>
+                    <?php echo$this->getIcon('Download', '', 16). ' ' . $this->lang->L_FILE_TEMPLATES;?>
+                </a>
+            </li>
+            <?php
+        }
+        if ($user->hasRight('editImporter')) { ?>
+            <li id="admin_importer" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $importersUrl;?>">
+                    <?php echo$this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_IMPORTER;?>
                 </a>
             </li>
             <?php

@@ -268,7 +268,7 @@ class AjaxController extends Zend_Controller_Action
     {
         $languageId         = (int)$this->_request->getParam('languageId', 0);
         $icon               = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
-        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguage();
+        $fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
         if ($languageId < 1 || $languageId == $fallbackLanguageId || !$this->_userModel->hasRight('editLanguage')) {
             //Missing param or no permission to change status
             $data = array('icon' => $icon);
@@ -509,6 +509,40 @@ class AjaxController extends Zend_Controller_Action
             $mail->sendEditRightRequestedMail($userData, $language);
             $data['success'] = true;
         }
+        $this->view->data = $data;
+        $this->render('json');
+    }
+
+    /**
+     * Activate/deactivate an importer, depending on the current status.
+     *
+     * @return void
+     */
+    public function switchImporterStatusAction()
+    {
+        $importer = (string)$this->_request->getParam('importer', '');
+        $icon   = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        $importerModel = new Application_Model_Importers();
+        $allImporters = $importerModel->getImporter();
+
+        //check rights and if such an importer exists
+        if (!$this->_userModel->hasRight('editImporter') || !isset($allImporters["$importer"])) {
+            $data = array('icon' => $icon);
+        } else {
+            //switch status
+            $allImporters[$importer] = $allImporters[$importer] == 1 ? 0 : 1;
+            $this->_config->setParam('importers', $allImporters);
+            $res = $this->_config->save();
+            if ($res !== false) {
+                if ($allImporters[$importer] == 1) {
+                    $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
+                } else {
+                    $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
+                }
+            }
+            $data = array('icon' => $icon);
+        }
+
         $this->view->data = $data;
         $this->render('json');
     }

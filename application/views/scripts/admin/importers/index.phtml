@@ -1,0 +1,67 @@
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_IMPORTER;?></h2>
+</div>
+<?php
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$i           = 1;
+?>
+<h4><?php echo $this->lang->L_SELECT_ALLOWED_IMPORTERS;?></h4>
+<p>
+    <?php echo $this->lang->L_SELECT_ALLOWED_IMPORTERS_EXPLAIN;?><br/>
+</p>
+<table class="bdr more-padding small" summary="Languages">
+    <tr class="thead">
+        <th>#</th>
+        <th><?php echo $this->lang->L_IMPORTER;?></th>
+        <th><?php echo $this->lang->L_STATUS;?></th>
+    </tr>
+    <?php
+    foreach ($this->importers as $name => $status) {
+        ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td><?php echo $i++;?>.</td>
+            <td>
+                <label for="importer-<?php echo $name;?>" class="switchImporterStatusLabel" title="<?php echo $this->lang->L_CHANGE_STATUS;?>">
+                    <?php echo $name;?>
+                </label>
+            </td>
+            <td class="vmiddle">
+                <div id="importer-<?php echo $name;?>" class="switchImporterStatus">
+                    <?php echo $status == 1 ? $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16) : $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16); ?>
+                </div>
+            </td>
+        </tr><?php
+    }
+    ?>
+</table>
+<script type="text/javascript">
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+    $('.switchImporterStatus').click(function () {
+        var id = this.id.replace(/importer-/, '');
+        $(this).html(imgAjax);
+        $.ajax({
+            type:'POST',
+            url:'<?php echo $this->serverUrl() . $this->baseUrl(); ?>/ajax/switch-importer-status',
+            dataType:'json',
+            async:true,
+            cache:false,
+            data:{
+                'importer':id
+            },
+            success:function (data) {
+                $('#importer-' + id).html(data.icon);
+            },
+            error:function (error) {
+                $('#importer-' + id).html(imgError);
+            }
+        });
+    });
+    $('.switchImporterStatusLabel').click(function () {
+        var id = $(this).attr('for');
+        $('#' + id).trigger('click');
+    });
+<?php $this->jQuery()->onLoadCaptureEnd();?>
+</script>
+
+

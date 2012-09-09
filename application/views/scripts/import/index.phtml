@@ -1,6 +1,11 @@
 <div id="headline">
     <h2><?php echo $this->lang->L_IMPORT;?></h2>
 </div>
+<?php
+    if (count($this->analyzers) == 0) { ?>
+        <h4><?php echo $this->lang->L_NO_IMPORTER_AVAILABLE;?></h4>
+        <p><?php echo $this->lang->L_NO_IMPORTER_AVAILABLE_EXPLAIN;?></p><?php
+    } else { ?>
 <h4><?php echo $this->lang->L_IMPORT_SETTINGS;?>:</h4>
 <form enctype="multipart/form-data" action="<?php echo $this->baseUrl();?>/import/index" method="post" id="myForm"
     onsubmit="setPageInactive()">
@@ -87,7 +92,9 @@ if ($this->importData > '') { ?>
     </button>
 </p>
 </form>
-<?php $this->jQuery()->onLoadCaptureStart();?>
+<?php
+}
+$this->jQuery()->onLoadCaptureStart();?>
 $('#showImporterInfo').click(function () {
     $('#importerInfo').toggle('blind', {}, 1000);
 });

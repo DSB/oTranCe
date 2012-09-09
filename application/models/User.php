@@ -79,15 +79,15 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->_tableUsersettings = $tableConfig['usersettings'];
-        $this->_tableUserrights = $tableConfig['userrights'];
-        $this->_tableLanguages = $tableConfig['languages'];
+        $tableConfig               = $this->_config->getParam('table');
+        $this->_tableUsersettings  = $tableConfig['usersettings'];
+        $this->_tableUserrights    = $tableConfig['userrights'];
+        $this->_tableLanguages     = $tableConfig['languages'];
         $this->_tableUserLanguages = $tableConfig['user_languages'];
-        $this->_tableUsers = $tableConfig['users'];
-        $auth = Zend_Auth::getInstance()->getIdentity();
-        $this->_username = $auth['name'];
-        $this->_userId = (int)$auth['id'];
+        $this->_tableUsers         = $tableConfig['users'];
+        $auth                      = Zend_Auth::getInstance()->getIdentity();
+        $this->_username           = $auth['name'];
+        $this->_userId             = (int)$auth['id'];
     }
 
     /**
@@ -139,7 +139,7 @@ class Application_Model_User extends Msd_Application_Model
     public function getTranslatorData($getAll = false)
     {
         if ($getAll === true) {
-            $sql = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username`'
+            $sql        = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username`'
                 . ' FROM `' . $this->_tableUserLanguages . '` l'
                 . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
                 . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
@@ -148,7 +148,7 @@ class Application_Model_User extends Msd_Application_Model
             $statisticsModel = new Application_Model_Statistics();
             $statistics      = $statisticsModel->getUserstatistics();
         }
-        $ret             = array();
+        $ret = array();
         foreach ($statistics as $val) {
             if (empty($ret[$val['lang_id']])) {
                 $ret[$val['lang_id']] = array();
@@ -157,8 +157,8 @@ class Application_Model_User extends Msd_Application_Model
                 continue;
             }
             $ret[$val['lang_id']][] = array(
-                'userId' => $val['user_id'],
-                'userName' => $val['username'],
+                'userId'      => $val['user_id'],
+                'userName'    => $val['username'],
                 'editActions' => isset($val['editActions']) ? $val['editActions'] : 0
             );
         }
@@ -179,7 +179,7 @@ class Application_Model_User extends Msd_Application_Model
     public function getTranslatorlist($implodeList = true, $getAll = false)
     {
         $translatorList = $this->getTranslatorData($getAll);
-        $ret = array();
+        $ret            = array();
         foreach ($translatorList as $languageId => $translatorData) {
             foreach ($translatorData as $translator) {
                 if (empty($ret[$languageId])) {
@@ -258,19 +258,19 @@ class Application_Model_User extends Msd_Application_Model
     public function getUserById($userId)
     {
         $userId = (int)$userId;
-        $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
+        $sql    = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
             . ' WHERE `id`= ' . $userId;
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0]['id'])) {
             return $res[0];
         }
         $defaults = array(
-            'id' => '0',
-            'username' => '',
-            'password' => '',
-            'active' => '0',
-            'realName' => '',
-            'email' => '',
+            'id'          => '0',
+            'username'    => '',
+            'password'    => '',
+            'active'      => '0',
+            'realName'    => '',
+            'email'       => '',
             'newLanguage' => ''
         );
         return $defaults;
@@ -383,9 +383,9 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function switchReferenceLanguageStatus($userId, $languageId)
     {
-        $userId = (int)$userId;
+        $userId     = (int)$userId;
         $languageId = (string)$languageId;
-        $status = $this->getReferenceLanguageStatus($userId, $languageId);
+        $status     = $this->getReferenceLanguageStatus($userId, $languageId);
         if ($status == true) {
             $this->deleteReferenceLanguageSettings($languageId, $userId = 0);
         } else {
@@ -408,13 +408,13 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function getReferenceLanguageStatus($userId, $languageId)
     {
-        $status = false;
-        $userId = (int)$userId;
+        $status     = false;
+        $userId     = (int)$userId;
         $languageId = (string)$languageId;
-        $sql = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
+        $sql        = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
             . ' WHERE `user_id` = ' . $userId . ' AND `setting` = \'referenceLanguage\''
             . ' AND `value` = \'' . $languageId . '\'';
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $res        = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0]['id'])) {
             $status = true;
         }
@@ -470,9 +470,9 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function deleteUsersEditLanguageRight($userId, $languageId)
     {
-        $userId = (int)$userId;
+        $userId     = (int)$userId;
         $languageId = (int)$languageId;
-        $sql = 'DELETE FROM `' . $this->_tableUserLanguages . '`'
+        $sql        = 'DELETE FROM `' . $this->_tableUserLanguages . '`'
             . ' WHERE `user_id` = ' . $userId . ' AND `language_id` = ' . $languageId;
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -487,9 +487,9 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function addUsersEditLanguageRight($userId, $languageId)
     {
-        $userId = (int)$userId;
+        $userId     = (int)$userId;
         $languageId = (int)$languageId;
-        $sql = 'INSERT INTO `' . $this->_tableUserLanguages . '` (`user_id`, `language_id`)'
+        $sql        = 'INSERT INTO `' . $this->_tableUserLanguages . '` (`user_id`, `language_id`)'
             . ' VALUES(' . $userId . ', ' . $languageId . ')';
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -539,9 +539,9 @@ class Application_Model_User extends Msd_Application_Model
     public function deleteSetting($name)
     {
         $sqlName = $this->_dbo->escape($name);
-        $sql = "DELETE FROM `{$this->_tableUsersettings}`
+        $sql     = "DELETE FROM `{$this->_tableUsersettings}`
             WHERE `user_id` = {$this->_userId} AND `setting` = '$sqlName'";
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $res     = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         return ($res !== null && $res !== false);
     }
 
@@ -558,9 +558,9 @@ class Application_Model_User extends Msd_Application_Model
         if ($userId == 0) {
             $userId = $this->_userId;
         }
-        $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
+        $sql    = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
             . ' WHERE `user_id`=\'' . $userId . '\'';
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $rights = $this->getDefaultRights();
         foreach ($res as $val) {
             $rights[$val['right']] = $val['value'];
@@ -654,12 +654,12 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function hasLanguageEditRight($userId, $languageId)
     {
-        $userId = (int)$userId;
+        $userId     = (int)$userId;
         $languageId = (int)$languageId;
-        $sql = 'SELECT `user_id` FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '`'
+        $sql        = 'SELECT `user_id` FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '`'
             . ' WHERE `user_id`=\'' . $userId . '\' AND `language_id` = ' . $languageId
             . ' LIMIT 1';
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $res        = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         return isset($res[0]['user_id']) ? true : false;
     }
 
@@ -676,12 +676,12 @@ class Application_Model_User extends Msd_Application_Model
     {
         $this->deleteRight($userId, $right, $value);
         $value = (int)$value;
-        $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
+        $sql   = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
             . ' (`user_id`, `right`, `value`) VALUES ('
             . intval($userId) . ', '
             . '\'' . $this->_dbo->escape($right) . '\', '
             . $value . ') ON DUPLICATE KEY UPDATE `value` = ' . (int)$value;
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
+        $res   = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
         return (bool)$res;
     }
 
@@ -748,10 +748,10 @@ class Application_Model_User extends Msd_Application_Model
             $sql .= ')';
         }
 
-        $res = (bool) $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $res = (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
         if ($res !== false) {
             $user = $this->getUserByName($userData['username']);
-            $res = isset($user['id']) ? $user['id'] : false;
+            $res  = isset($user['id']) ? $user['id'] : false;
         }
         return $res;
     }
@@ -765,7 +765,7 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function deleteUserById($userId)
     {
-        $res = true;
+        $res    = true;
         $userId = (int)$userId;
         //remove user rights
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
@@ -804,7 +804,7 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function deleteReferenceLanguageSettings($languageId, $userId = 0)
     {
-        $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '`'
+        $sql    = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '`'
             . ' WHERE `setting`= \'referenceLanguage\''
             . ' AND `value`=' . intval($languageId);
         $userId = (int)$userId;
@@ -840,30 +840,31 @@ class Application_Model_User extends Msd_Application_Model
     public function getDefaultRights()
     {
         $defaultRights = array(
-            'editConfig' => 1,
-            'showEntries' => 1,
-            'showDownloads' => 1,
+            'editConfig'      => 1,
+            'showEntries'     => 1,
+            'showDownloads'   => 1,
             'showBrowseFiles' => 1,
-            'showImport' => 1,
-            'showExport' => 1,
-            'showLog' => 1,
-            'showStatistics' => 1,
-            'admin' => 0,
+            'showImport'      => 1,
+            'showExport'      => 1,
+            'showLog'         => 1,
+            'showStatistics'  => 1,
+            'admin'           => 0,
             /* other rights */
-            'addVar' => 0,
-            'editKey' => 0,
-            'importEqualVar' => 0,
+            'addVar'          => 0,
+            'editKey'         => 0,
+            'importEqualVar'  => 0,
             /* admin rights */
-            'editProject' => 0,
-            'addUser' => 0,
-            'editUsers' => 0,
-            'deleteUsers' => 0,
-            'editLanguage' => 0,
-            'addLanguage' => 0,
-            'deleteLanguage' => 0,
-            'editTemplate' => 0,
-            'addTemplate' => 0,
-            'editVcs' => 0,
+            'editProject'     => 0,
+            'addUser'         => 0,
+            'editUsers'       => 0,
+            'deleteUsers'     => 0,
+            'editLanguage'    => 0,
+            'addLanguage'     => 0,
+            'deleteLanguage'  => 0,
+            'editTemplate'    => 0,
+            'editImporter'    => 0,
+            'addTemplate'     => 0,
+            'editVcs'         => 0,
         );
         return $defaultRights;
     }
@@ -885,21 +886,22 @@ class Application_Model_User extends Msd_Application_Model
             if ($userData['id'] == 0) {
                 // new user
                 if (!$notEmptyValidate->isValid($userData['pass1'])) {
-                    $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                    $messages                         =
+                        $translator->translateZendMessageIds($notEmptyValidate->getMessages());
                     $this->_validateMessages['pass1'] = $messages;
                 }
 
                 // check if we already have a user with that name
                 $existingUser = $this->getUserByName($userData['username']);
                 if (!empty($existingUser)) {
-                    $message = $translator->translate('L_REGISTER_USERNAME_EXISTS');
+                    $message                               = $translator->translate('L_REGISTER_USERNAME_EXISTS');
                     $this->_validateMessages['username'][] = sprintf($message, $userData['username']);
                 }
             }
 
             // Check for invalid chars in alnum fields
             $alnumValidate = new Zend_Filter_Alnum(true);
-            $alnumValues = array('username', 'realName', 'newLanguage');
+            $alnumValues   = array('username', 'realName', 'newLanguage');
             foreach ($alnumValues as $key) {
                 if (empty($userData[$key])) {
                     continue;
@@ -912,20 +914,23 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check real name is not empty
             if (!$notEmptyValidate->isValid($userData['realName'])) {
-                $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages                            =
+                    $translator->translateZendMessageIds($notEmptyValidate->getMessages());
                 $this->_validateMessages['realName'] = $messages;
             }
 
             // Check e-mail is not empty
             if (!$notEmptyValidate->isValid($userData['email'])) {
-                $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages                         =
+                    $translator->translateZendMessageIds($notEmptyValidate->getMessages());
                 $this->_validateMessages['email'] = $messages;
             }
 
             // Check user name has 2-50 chars
             $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
             if (!$strLenValidate->isValid($userData['username'])) {
-                $messages = $translator->translateZendMessageIds($strLenValidate->getMessages());
+                $messages                            =
+                    $translator->translateZendMessageIds($strLenValidate->getMessages());
                 $this->_validateMessages['username'] = array_merge(
                     $this->_validateMessages['username'],
                     $messages
@@ -934,7 +939,8 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check user name has 2-50 chars
             if (!$strLenValidate->isValid($userData['realName'])) {
-                $messages = $translator->translateZendMessageIds($strLenValidate->getMessages());
+                $messages                            =
+                    $translator->translateZendMessageIds($strLenValidate->getMessages());
                 $this->_validateMessages['realName'] = array_merge(
                     $this->_validateMessages['realName'],
                     $messages
@@ -944,7 +950,8 @@ class Application_Model_User extends Msd_Application_Model
             // Check provided e-mail is valid
             $emailValidate = new Zend_Validate_EmailAddress();
             if (!$emailValidate->isValid($userData['email'])) {
-                $messages = $translator->translateZendMessageIds($emailValidate->getMessages());
+                $messages                         =
+                    $translator->translateZendMessageIds($emailValidate->getMessages());
                 $this->_validateMessages['email'] = array_merge(
                     $this->_validateMessages['email'],
                     $messages
@@ -955,7 +962,7 @@ class Application_Model_User extends Msd_Application_Model
         // Check password has 2-50 chars
         $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
         if (isset($userData['pass1']) && !$strLenValidate->isValid($userData['pass1'])) {
-            $messages = $translator->translateZendMessageIds($strLenValidate->getMessages());
+            $messages                         = $translator->translateZendMessageIds($strLenValidate->getMessages());
             $this->_validateMessages['pass1'] = array_merge(
                 $this->_validateMessages['pass1'],
                 $messages
@@ -966,7 +973,8 @@ class Application_Model_User extends Msd_Application_Model
         if (isset($userData['pass1']) && ($userData['pass1'] > '' || $userData['pass2'] > '')) {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
             if (!$identicalValidate->isValid($userData['pass2'])) {
-                $messages = $translator->translateZendMessageIds($identicalValidate->getMessages());
+                $messages                         =
+                    $translator->translateZendMessageIds($identicalValidate->getMessages());
                 $this->_validateMessages['pass1'] = array_merge(
                     $this->_validateMessages['pass1'],
                     $messages
@@ -1003,9 +1011,9 @@ class Application_Model_User extends Msd_Application_Model
     {
         $this->_validateMessages = array(
             'username' => array(),
-            'pass1' => array(),
+            'pass1'    => array(),
             'realName' => array(),
-            'email' => array(),
+            'email'    => array(),
         );
     }
 }

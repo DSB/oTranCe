@@ -394,5 +394,6 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ακυρη εισαγωγή.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Η εισαγωγή που δόθηκε είναι πολύ μεγάλη.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Η εισαγωγή που δόθηκε είναι πολύ μικρή.',
+'RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 );
 return $lang;

@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (344), janrei (32), kyoya (19), Marco.Steinhäuser (74)
+// DSB (345), janrei (32), kyoya (19), Marco.Steinhäuser (74)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -393,5 +393,6 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist ungültig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
+'RIGHT_EXPLAIN_EDITIMPORTER' => 'Benutzer darf erlaubte Importmethoden vorgeben',
 );
 return $lang;

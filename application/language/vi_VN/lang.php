@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (5), nukeviet (407)
+// DSB (5), nukeviet (408)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
@@ -142,7 +142,7 @@ Hãy thử lại.',
 'L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE' => 'Gói tải về chứa những thay đổi mới nhất?',
 'L_EXPORT_UPDATE_NEEDED' => 'Gói tải về cần được cập nhật.',
 'L_EXPORT_VCSERROR' => 'Lỗi VCS',
-'L_EXPORT_VCS_OUTPUT' => 'Đầu ra VCS',
+'L_EXPORT_VCS_OUTPUT' => 'VCS xuất',
 'L_FALLBACK_LANGUAGE' => 'Ngôn ngữ chính',
 'L_FILE' => 'Tệp',
 'L_FILEBROWSER' => 'Duyệt tệp tin',
@@ -391,5 +391,6 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Không hợp lệ.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Dữ liệu nhập vào quá dài.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Dữ liệu nhập vào quá ngắn.',
+'RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 );
 return $lang;

@@ -32,7 +32,7 @@ class Application_Model_Importers extends Msd_Application_Model
                 $importers[$importerName] = 0;
             }
         }
-        ksort($importers, SORT_NATURAL);
+        ksort($importers, SORT_LOCALE_STRING);
         return $importers;
     }
 

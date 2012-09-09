@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (381), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (384), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -181,6 +181,7 @@ Please retry.',
 'L_HOME' => 'Home',
 'L_ID' => 'Id',
 'L_IMPORT' => 'Import',
+'L_IMPORTER' => 'Importer',
 'L_IMPORT_ANOTHER_FILE' => 'Import another file',
 'L_IMPORT_DONE' => 'Congratulations.<br />
 The importer has processed all entries.',
@@ -303,6 +304,8 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_SEARCH' => 'Search',
 'L_SEARCH_IN_KEYS' => 'Search in keys',
 'L_SEARCH_IN_TRANSLATIONS' => 'Search in translations',
+'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
+'L_SELECT_ALLOWED_IMPORTERS _EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Select the assigned file template',
 'L_SELECT_FILE' => 'Select a file',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Select how many entries should be shown per page',

@@ -181,6 +181,7 @@ $lang = array(
 'L_HOME' => 'Αρχική',
 'L_ID' => 'Id',
 'L_IMPORT' => 'Εισαγωγή',
+'L_IMPORTER' => 'Importer',
 'L_IMPORT_ANOTHER_FILE' => 'Εισαγωγή άλλου αρχείου',
 'L_IMPORT_DONE' => 'Συγχαρητήρια.<br />
 Ο εισαγωγέας επεξεργάστηκε όλες τις καταχωρήσεις.',
@@ -302,6 +303,8 @@ $lang = array(
 'L_SEARCH' => 'Αναζήτηση',
 'L_SEARCH_IN_KEYS' => 'Αναζήτηση σε κλειδιά',
 'L_SEARCH_IN_TRANSLATIONS' => 'Αναζήτηση σε μετάφραση',
+'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
+'L_SELECT_ALLOWED_IMPORTERS _EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Επιλέξτε το εκχωρημένο πρότυπο αρχείου',
 'L_SELECT_FILE' => 'Επιλέξτε ένα αρχείο',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Επιλέξτε πόσες καταχωρήσεις θα προβάλλονται ανά σελίδα',

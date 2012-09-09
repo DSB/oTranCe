@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (384), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (387), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -224,6 +224,8 @@ The importer has processed all entries.',
 'L_NO_DOWNLOAD_AVAILABLE' => 'No download available. Run export first.',
 'L_NO_FLAG' => 'No flag available',
 'L_NO_HITS' => 'Nothing found.',
+'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
+'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Old password',
 'L_OLD_VALUE' => 'Old value',

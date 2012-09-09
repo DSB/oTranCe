@@ -221,6 +221,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_NO_DOWNLOAD_AVAILABLE' => 'Ingen download. Starta först exporten av datan.',
 'L_NO_FLAG' => 'Ingen flagga',
 'L_NO_HITS' => 'Inga träffar',
+'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
+'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Gamla lösenordet',
 'L_OLD_VALUE' => 'Gamla värdet',

@@ -160,8 +160,8 @@ class HistoryTest extends ControllerTestCase
     public function testLogSvnUpdate()
     {
         // force logging with actual timestamp
-        $this->model->logSvnUpdate(99);
-        $entries = $this->model->getEntries(0, 50, 99, 0, 'updated SVN');
+        $this->model->logVcsUpdate(99);
+        $entries = $this->model->getEntries(0, 50, 99, 0, 'updated VCS');
         $this->assertTrue(sizeof($entries) > 0);
         // latest entry for "log out" mustn't be older than now - 2 seconds
         $timestamp = Testhelper::mysql2timestamp($entries[0]['dt']);
@@ -172,8 +172,8 @@ class HistoryTest extends ControllerTestCase
    public function testLogSvnUpdateAll()
     {
         // force logging with actual timestamp
-        $this->model->logSvnUpdateAll();
-        $entries = $this->model->getEntries(0, 50, 0, 0, 'updated SVN');
+        $this->model->logVcsUpdateAll();
+        $entries = $this->model->getEntries(0, 50, 0, 0, 'updated VCS');
         $this->assertTrue(sizeof($entries) > 0);
         // latest entry for "log out" mustn't be older than now - 2 seconds
         $timestamp = Testhelper::mysql2timestamp($entries[0]['dt']);

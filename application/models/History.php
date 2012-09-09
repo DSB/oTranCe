@@ -220,23 +220,23 @@ class Application_Model_History extends Msd_Application_Model
     }
 
     /**
-     * Log action svn update
+     * Log action vcs update
      *
      * @param int $langId Id of language
      *
      * @return void
      */
-    public function logSvnUpdate($langId)
+    public function logVcsUpdate($langId)
     {
-        $this->_saveChange('', $langId, '', '', 'updated SVN');
+        $this->_saveChange('', $langId, '', '', 'updated VCS');
     }
 
     /**
-     * Log action svn update for all languages
+     * Log action vcs update for all languages
      *
      * @return void
      */
-    public function logSvnUpdateAll()
+    public function logVcsUpdateAll()
     {
         $auth = Zend_Auth::getInstance()->getIdentity();
         $this->_saveAction($auth['id'], 'updated VCS');

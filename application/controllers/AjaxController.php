@@ -402,13 +402,16 @@ class AjaxController extends Zend_Controller_Action
             unset($user['password']);
             $user['pass1'] = '';
             $res           = $this->_userModel->saveAccount($user);
+            $historyModel = new Application_Model_History();
             if ($res !== false) {
                 if ($user['active'] > 0) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
                     // inform user via e-mail that his account has been activated
                     $mailer = new Application_Model_Mail($this->view);
                     $mailer->sendAccountActivationInfoMail($user);
+                    $historyModel->logUserAccountApproved($user['id']);
                 } else {
+                    $historyModel->logUserAccountClosed($user['id']);
                     $icon = $this->view->getIcon('NotOk', $this->view->lang->L_CHANGE_STATUS, 16);
                 }
             }

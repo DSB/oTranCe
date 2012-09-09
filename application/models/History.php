@@ -43,9 +43,9 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->_tableHistory = $tableConfig['history'];
-        $this->_tableKeys = $tableConfig['keys'];
+        $tableConfig              = $this->_config->getParam('table');
+        $this->_tableHistory      = $tableConfig['history'];
+        $this->_tableKeys         = $tableConfig['keys'];
         $this->_tableTranslations = $tableConfig['translations'];
     }
 
@@ -62,26 +62,26 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function getEntries($offset = 0, $nr = 50, $filterLanguage = 0, $filterUser = 0, $filterAction = '')
     {
-        $sql = 'SELECT SQL_CALC_FOUND_ROWS h.*, k.`id` as `key_id`, k.`key` FROM `'.$this->_tableHistory .'` h ';
-        $sql .= ' LEFT JOIN `' . $this->_tableKeys.'` k ON h.`key_id` = k.`id`';
+        $sql = 'SELECT SQL_CALC_FOUND_ROWS h.*, k.`id` as `key_id`, k.`key` FROM `' . $this->_tableHistory . '` h ';
+        $sql .= ' LEFT JOIN `' . $this->_tableKeys . '` k ON h.`key_id` = k.`id`';
         $sql .= ' WHERE 1';
         if ($filterLanguage > 0) {
             $sql .= ' AND `lang_id`=' . intval($filterLanguage);
         }
         if ($filterUser > 0) {
-            $sql .= ' AND `user_id`=\'' . $filterUser .'\'';
+            $sql .= ' AND `user_id`=\'' . $filterUser . '\'';
         }
         if ($filterAction != '0' && $filterAction > '') {
             if (strpos($filterAction, '%') !== false) {
-                $sql .= ' AND `action` LIKE \'' . $filterAction .'\'';
+                $sql .= ' AND `action` LIKE \'' . $filterAction . '\'';
             } else {
                 if ($filterAction > '') {
-                    $sql .= ' AND `action`=\'' . $filterAction .'\'';
+                    $sql .= ' AND `action`=\'' . $filterAction . '\'';
                 }
             }
         }
         $sql .= ' ORDER BY `dt` DESC'
-               .' LIMIT '.$offset.','.$nr;
+            . ' LIMIT ' . $offset . ',' . $nr;
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
     }
 
@@ -103,7 +103,7 @@ class Application_Model_History extends Msd_Application_Model
             }
 
             if ($newVal !== $oldValues[$langId]) {
-                $this->saveChange($keyId, $langId, $oldValues[$langId], $newVal);
+                $this->_saveChange($keyId, $langId, $oldValues[$langId], $newVal);
             }
         }
     }
@@ -117,7 +117,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logNewVarCreated($name)
     {
-        $this->saveChange($name, 0, '', '', 'created');
+        $this->_saveChange($name, 0, '', '', 'created');
     }
 
     /**
@@ -131,7 +131,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logVarNameChanged($keyId, $oldName, $newName)
     {
-        $this->saveChange($keyId, 0, $oldName, $newName, 'changed');
+        $this->_saveChange($keyId, 0, $oldName, $newName, 'changed');
     }
 
     /**
@@ -143,7 +143,158 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function logVarDeleted($key)
     {
-        $this->saveChange(0, 0, '', '', 'deleted \'' . $key .'\'');
+        $this->_saveChange(0, 0, '', '', 'deleted \'' . $key . '\'');
+    }
+
+    /**
+     * Delete entry by id
+     *
+     * @param int $id Id of history entry
+     *
+     * @return boolean
+     */
+    public function deleteById($id)
+    {
+        $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `id` = ' . intval($id) . ' LIMIT 1';
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * Get latest edit change of the given language
+     *
+     * @param string $langId Id of language
+     *
+     * @return string
+     */
+    public function getLatestChange($langId)
+    {
+        $langId = (int)$langId;
+        $sql    = 'SELECT MAX(`dt`)  as `latestChange` FROM `' . $this->_tableTranslations . '`'
+            . ' WHERE `lang_id`=' . $langId;
+        $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return isset($res[0]['latestChange']) ? $res[0]['latestChange'] : '';
+    }
+
+    /**
+     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
+     *
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        return (int)$this->_dbo->getRowCount();
+    }
+
+    /**
+     * Log action login failed
+     *
+     * @param string $user Name of user that tried to log in
+     *
+     * @return void
+     */
+    public function logLoginFailed($user)
+    {
+        $this->_saveAction(0, $user . ' failed to log in');
+    }
+
+    /**
+     * Log action login ok
+     *
+     * @return void
+     */
+    public function logLoginSuccess()
+    {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $this->_saveAction($auth['id'], 'logged in');
+    }
+
+    /**
+     * Log action log out
+     *
+     * @return void
+     */
+    public function logLogout()
+    {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $this->_saveAction($auth['id'], 'logged out');
+    }
+
+    /**
+     * Log action svn update
+     *
+     * @param int $langId Id of language
+     *
+     * @return void
+     */
+    public function logSvnUpdate($langId)
+    {
+        $this->_saveChange('', $langId, '', '', 'updated SVN');
+    }
+
+    /**
+     * Log action svn update for all languages
+     *
+     * @return void
+     */
+    public function logSvnUpdateAll()
+    {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $this->_saveAction($auth['id'], 'updated VCS');
+    }
+
+    /**
+     * Log action user registered
+     *
+     * @param int $userId Id of user
+     *
+     * @return void
+     */
+    public function logUserRegistered($userId)
+    {
+        $this->_saveAction($userId, 'registered');
+    }
+
+    /**
+     * Log action user account approved
+     *
+     * @param int $userId Id of user
+     *
+     * @return void
+     */
+    public function logUserAccountApproved($userId)
+    {
+        $auth   = Zend_Auth::getInstance()->getIdentity();
+        $action = 'account approved by ' . $auth['name'];
+        $this->_saveAction($userId, $action);
+    }
+
+    /**
+     * Log action user account approved
+     *
+     * @param int $userId Id of user
+     *
+     * @return void
+     */
+    public function logUserAccountClosed($userId)
+    {
+        $auth   = Zend_Auth::getInstance()->getIdentity();
+        $action = 'account closed by ' . $auth['name'];
+        $this->_saveAction($userId, $action);
+    }
+
+    /**
+     * Delete all log entries of a user
+     *
+     * @param int $userId The Id of the user to delete
+     *
+     * @return bool
+     */
+    public function deleteEntriesByUserId($userId)
+    {
+        $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `user_id` = ' . intval($userId);
+        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $this->_dbo->optimizeTable($this->_tableHistory);
+        return (bool)$res;
     }
 
     /**
@@ -158,130 +309,42 @@ class Application_Model_History extends Msd_Application_Model
      *
      * @return void
      */
-    public function saveChange($keyId, $langId, $oldVal, $newVal, $action = 'changed', $time = false)
+    private function _saveChange($keyId, $langId, $oldVal, $newVal, $action = 'changed', $time = false)
     {
         $auth = Zend_Auth::getInstance()->getIdentity();
         if ($time == false) {
             $time = date('Y-m-d H-i-s', time());
         }
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
-               . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
-               .' VALUES ('
-               . intval($auth['id']) . ', '
-               .'\'' . $time .'\', '
-               . intval($keyId) . ', '
-               .'\'' . $this->_dbo->escape($action) .'\', '
-               . intval($langId) . ', '
-               .'\'' . $this->_dbo->escape($oldVal) . '\', '
-               .'\'' . $this->_dbo->escape($newVal) . '\')';
+            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+            . ' VALUES ('
+            . intval($auth['id']) . ', '
+            . '\'' . $time . '\', '
+            . intval($keyId) . ', '
+            . '\'' . $this->_dbo->escape($action) . '\', '
+            . intval($langId) . ', '
+            . '\'' . $this->_dbo->escape($oldVal) . '\', '
+            . '\'' . $this->_dbo->escape($newVal) . '\')';
         $this->_dbo->query($sql);
     }
 
     /**
-     * Delete entry by id
+     * Save action that is not related to a language/key change
      *
-     * @param int $id Id of history entry
-     *
-     * @return boolean
-     */
-    public function deleteById($id)
-    {
-        $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `id` = '.intval($id) . ' LIMIT 1';
-        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
-    }
-
-    /**
-     * Get latest edit change of the given language
-     *
-     * @param string $langId Id of language
-     *
-     * @return string
-     */
-    public function getLatestChange($langId)
-    {
-        $langId = (int) $langId;
-        $sql = 'SELECT MAX(`dt`)  as `latestChange` FROM `'.$this->_tableTranslations . '`'
-                .' WHERE `lang_id`=' . $langId;
-        $res =$this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        return isset($res[0]['latestChange']) ? $res[0]['latestChange'] : '';
-    }
-
-    /**
-     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        return (int) $this->_dbo->getRowCount();
-    }
-
-    /**
-     * Log action login failed
-     *
-     * @param string $user Name of user that tried to log in
+     * @param int    $userId The id of the user
+     * @param string $action The action to log
      *
      * @return void
      */
-    public function logLoginFailed($user)
+    private function _saveAction($userId, $action)
     {
-        $this->saveChange('', 0, '', '', '<i>'. $user . '</i> failed to log in');
+        $time = date('Y-m-d H-i-s', time());
+        $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
+            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+            . ' VALUES (' . intval($userId) . ', \'' . $time . '\', 0, '
+            . '\'' . $this->_dbo->escape($action) . '\', '
+            . '0, \'\', \'\')';
+        $this->_dbo->query($sql);
     }
 
-    /**
-     * Log action login ok
-     *
-     * @return void
-     */
-    public function logLoginSuccess()
-    {
-        $this->saveChange('', 0, '', '', 'logged in');
-    }
-
-    /**
-     * Log action log out
-     *
-     * @return void
-     */
-    public function logLogout()
-    {
-        $this->saveChange('', 0, '', '', 'logged out');
-    }
-
-    /**
-     * Log action svn update
-     *
-     * @param int $langId Id of language
-     *
-     * @return void
-     */
-    public function logSvnUpdate($langId)
-    {
-        $this->saveChange('', $langId, '', '', 'updated SVN');
-    }
-
-    /**
-     * Log action svn update for all languages
-     *
-     * @return void
-     */
-    public function logSvnUpdateAll()
-    {
-        $this->saveChange('', 0, '', '', 'updated SVN');
-    }
-
-    /**
-     * Delete all log entries of a user
-     *
-     * @param int $userId The Id of the user to delete
-     *
-     * @return bool
-     */
-    public function deleteEntriesByUserId($userId)
-    {
-        $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `user_id` = '.intval($userId);
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        $this->_dbo->optimizeTable($this->_tableHistory);
-        return (bool) $res;
-    }
 }

@@ -45,7 +45,7 @@ class Admin_UsersController extends AdminController
         }
 
         $recordsPerPage                =
-            (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->users             = $this->_userModel->getUsers(
             (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
@@ -65,59 +65,48 @@ class Admin_UsersController extends AdminController
      */
     public function editAction()
     {
+        //set default form values for new user
+        $userData = array(
+            'id'       => 0,
+            'username' => '',
+            'realName' => '',
+            'email'    => '',
+            'pass1'    => '',
+            'pass2'    => '',
+            'active'   => 0
+        );
+
         $userId = (int)$this->_request->getParam('id', 0);
         if ($userId == 0) {
             // Is current user allowed to add a new user?
             if (!$this->_userModel->hasRight('addUser')) {
                 $this->_redirect('/');
             }
-
-            //set default form values for new user
-            $userData = array(
-                'id'       => 0,
-                'username' => '',
-                'realName' => '',
-                'email'    => '',
-                'pass1'    => '',
-                'pass2'    => '',
-                'active'   => 0
-            );
         } else {
             // get user data from database
             $userData = $this->_userModel->getUserById($userId);
         }
 
         if ($this->_request->isPost()) {
-            $params   = $this->_request->getParams();
-            $sendAccountActivationInfo = false;
-            if ($userData['active'] == 0 && $params['active'] == 1) {
-                $sendAccountActivationInfo = true;
-            }
-            $userData = array(
-                'id'       => $params['id'],
+            $oldUserStatus = $userData['active'];
+            $params        = $this->_request->getParams();
+            $userData      = array(
+                'id'       => (int)$params['id'],
                 'username' => $params['username'],
                 'realName' => $params['realName'],
                 'email'    => $params['email'],
                 'active'   => $params['active']
             );
+
             if (isset($params['saveAccount'])) {
+                // if password changed or new user added we need to add and validate the password
                 if ($userData['id'] == 0 || $params['pass1'] > '' || $params['pass2'] > '') {
                     $userData['pass1'] = $params['pass1'];
                     $userData['pass2'] = $params['pass2'];
                 }
                 $translator = Msd_Language::getInstance();
                 if ($this->_userModel->validateData($userData, $translator)) {
-                    $result = $this->_saveAccountSettings($userData);
-                    if ($result !== false) {
-                        $userId = (int)$result;
-                        if ($sendAccountActivationInfo === true) {
-                            // inform user via e-mail that his account has been activated
-                            $mailer = new Application_Model_Mail($this->view);
-                            $mailer->sendAccountActivationInfoMail($userData);
-                        }
-
-                    }
-                    $this->view->saved = (bool)$result;
+                    $this->view->saved = (bool)$this->_saveAccountSettings($userData, $oldUserStatus);
                     $userData          = $this->_userModel->getUserById($userId);
                 } else {
                     $this->view->errors = $this->_userModel->getValidateMessages();
@@ -164,13 +153,32 @@ class Admin_UsersController extends AdminController
     /**
      * Save account settings to database
      *
-     * @param array $userData Array containing username, pass1, active and id
+     * @param array $userData      Array containing username, pass1, active and id
+     * @param bool  $oldUserStatus Bool to reflect whether the user was active/inactive before saving
      *
      * @return bool|int Return user id on succes or false on error
      */
-    public function _saveAccountSettings($userData)
+    public function _saveAccountSettings($userData, $oldUserStatus)
     {
-        return $this->_userModel->saveAccount($userData);
+        $result = $this->_userModel->saveAccount($userData);
+        if ($result !== false) {
+            $userId = (int)$result;
+            // if user status changed -> log it
+            if ($oldUserStatus != $userData['active']) {
+                $historyModel = new Application_Model_History();
+                if ($userData['active'] == 1) {
+                    // inform user via e-mail that his account has been activated
+                    $mailer = new Application_Model_Mail($this->view);
+                    $mailer->sendAccountActivationInfoMail($userData);
+                    $historyModel->logUserAccountApproved($userId);
+                } else {
+                    // acount was switched to inactive
+                    // TODO Decide if we also want to inform the user if his account was closed
+                    $historyModel->logUserAccountClosed($userId);
+                }
+            }
+        }
+        return $result;
     }
 
 }

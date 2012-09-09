@@ -88,24 +88,6 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
         } else {
             if ($res[0]['password'] != md5($this->_password)) {
                 $loginResult = false;
-                //TODO extract this to own model and make it configurable
-                // admin should be able to glue this to any referring database
-                // password incorrect - try to look into forum db
-                /*
-                $sql = 'SELECT `username` as `name`, `user_id` as `id` FROM `db81760001`.`phpbb_users` '
-                       .'WHERE `username`='
-                       .'\''.$db->escape($this->_username) . '\' AND `user_password`=\''
-                       .(md5($this->_password)).'\' AND `msd_translator`=1';
-                $res = $db->query($sql, Msd_Db::ARRAY_ASSOC);
-                if (isset($res[0]['name'])) {
-                    // log in correct - update own table
-                    $loginResult = true;
-                    $this->_updatePassword();
-                } else {
-                    // username exists but password doesn't match forum db
-                    $loginResult = false;
-                }
-                */
             }
         }
 

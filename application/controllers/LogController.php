@@ -44,17 +44,17 @@ class LogController extends Msd_Controller_Action
      *
      * @return void
      */
-     public function init()
-     {
-         $this->_userModel      = new Application_Model_User();
-         if (!$this->_userModel->hasRight('showLog')) {
-             $this->_redirect('/');
-         }
+    public function init()
+    {
+        $this->_userModel = new Application_Model_User();
+        if (!$this->_userModel->hasRight('showLog')) {
+            $this->_redirect('/');
+        }
 
-         $this->_historyModel   = new Application_Model_History();
-         $this->_entriesModel   = new Application_Model_LanguageEntries();
-         $this->_languagesModel = new Application_Model_Languages();
-     }
+        $this->_historyModel   = new Application_Model_History();
+        $this->_entriesModel   = new Application_Model_LanguageEntries();
+        $this->_languagesModel = new Application_Model_Languages();
+    }
 
     /**
      * Process index action
@@ -63,7 +63,7 @@ class LogController extends Msd_Controller_Action
      */
     public function indexAction()
     {
-        $recordsPerPage = (int) $this->_request->getParam(
+        $recordsPerPage = (int)$this->_request->getParam(
             'recordsPerPage',
             $this->_dynamicConfig->getParam('log.recordsPerPage', 0)
         );
@@ -88,21 +88,24 @@ class LogController extends Msd_Controller_Action
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
         $filterAction = $this->_request->getParam('filterAction', '');
-
-        $actions = array(
-            'changed' => 'changed',
-            'deleted %' => 'deleted',
-            'created' => 'created',
-            'updated SVN' => 'updated SVN',
-            'logged in' => 'logged in',
-            '%failed to log in' => 'log in failed',
-            'logged out' => 'log out'
+        $translator = $this->view->lang;
+        $actions    = array(
+            'changed'            => $translator->translate('L_EDITED'),
+            'deleted %'          => 'Deleted key',
+            'created'            => 'Created key',
+            'updated %'          => 'Updated VCS',
+            'logged in'          => 'Logged in',
+            '%failed to log in'  => 'Log in failed',
+            'logged out'         => 'Logged out',
+            'registered'         => 'Registered',
+            'account approved %' => 'Account approved',
+            'account closed %'   => 'Account closed',
         );
         natcasesort($actions);
         $this->view->selectFilterAction = Msd_Html::getHtmlOptions($actions, $filterAction, true);
 
-        $offset = $this->_request->getParam('offset', 0);
-        $this->view->logEntries = $this->_historyModel->getEntries(
+        $offset                        = $this->_request->getParam('offset', 0);
+        $this->view->logEntries        = $this->_historyModel->getEntries(
             $offset,
             $recordsPerPage,
             $filterLanguage,
@@ -124,7 +127,7 @@ class LogController extends Msd_Controller_Action
      */
     public function deleteAction()
     {
-        $id = $this->getRequest()->getParam('id');
+        $id           = $this->getRequest()->getParam('id');
         $historyModel = new Application_Model_History();
         $historyModel->deleteById($id);
         $this->_forward('index');

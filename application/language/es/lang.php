@@ -269,6 +269,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'El usuario tiene permiso para eliminar idiomas',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'El usuario tiene permiso para eliminar usuarios',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'El usuario tiene permiso para ver y usar el elemento del menú "Configuración"',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'El usuario tiene permiso para  editar claves de idioma',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'El usuario tiene permiso para ver y usar la pestaña de administración "Idiomas"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'El usuario tiene permiso para editar la información del proyecto',
@@ -386,6 +387,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionado no es válido.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionado es demasiado largo.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionado es demasiado corto.',
-'RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 );
 return $lang;

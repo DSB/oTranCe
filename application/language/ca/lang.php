@@ -269,6 +269,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'A l\'usuari li està permés eliminar idiomes',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'A l\'usuari li està permés eliminar usuaris',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'A l\'usuari li està permés veure i usar  l\'element del menú "Configuració"',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'A l\'usuari li està permés editar claus d\'idioma',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'A l\'usuari li està permés de veure i usar la pestanya d\'administració "Idiomes"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'A l\'usuari li està permés editar la informació del projecte',
@@ -386,6 +387,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionat no és vàlid.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionat és massa llarg.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionat és massa curt.',
-'RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 );
 return $lang;

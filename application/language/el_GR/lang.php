@@ -277,6 +277,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'ο χρήστη επιτρέπεται να διαγράφει γλώσσες',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'Ο χρήστης επιτρέπεται να διαγράφει χρήστες',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'Ο χρήστης βλέπει και χρησιμοποιεί το στοιχείο μενού "Ρυθμίσεις"',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'Ο χρήστης επιτρέπεται να επεξεργαστεί κλειδιά γλώσσας',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Ο χρήστης βλέπει και χρησιμοποιεί τη καρτέλα διαχειριστή "Γλώσσες"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Ο χρήστης επιτρέπεται να επεξεργάζεται δεδομένα έργου',
@@ -394,6 +395,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ακυρη εισαγωγή.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Η εισαγωγή που δόθηκε είναι πολύ μεγάλη.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Η εισαγωγή που δόθηκε είναι πολύ μικρή.',
-'RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
 );
 return $lang;

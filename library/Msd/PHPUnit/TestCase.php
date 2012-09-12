@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      PHPUnit
- * @version         SVN: $Rev: 2284 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * Abstract class to extend PHPUnit tests with custom assertions.

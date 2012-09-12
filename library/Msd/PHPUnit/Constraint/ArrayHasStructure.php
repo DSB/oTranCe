@@ -5,8 +5,8 @@
  *
  * @package         MySQLDumper
  * @subpackage      PHPUnit_Constraint
- * @version         SVN: $Rev: 2284 $
- * @author          $Author: kyoya $
+ * @version         SVN: $Rev$
+ * @author          $Author$
  */
 /**
  * PHPUnit constraint to check an array for the given structure.

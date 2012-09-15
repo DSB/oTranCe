@@ -216,24 +216,38 @@ class ImportController extends Zend_Controller_Action
      */
     private function _setAnalyzer()
     {
-        $importerModel = new Application_Model_Importers();
+        $importerModel      = new Application_Model_Importers();
         $availableImporters = $importerModel->getActiveImporters();
-        $analyzers = array();
+        $importers          = array();
         foreach ($availableImporters as $importerName => $status) {
-            $analyzers[] = $importerName;
+            $importers[$importerName] = $importerName;
         }
-        $lastSelectedAnalyzerIndex = $this->_dynamicConfig->getParam('selectedAnalyzer');
-        if (!isset($analyzers[$lastSelectedAnalyzerIndex])) {
-            $lastSelectedAnalyzerIndex = 0;
+        // get Importer from session
+        $selectedImporter = $this->_dynamicConfig->getParam('selectedAnalyzer');
+
+        // if sent via form
+        if ($this->_request->getParam('selectedAnalyzer', false) !== false) {
+            $selectedImporter = $this->_request->getParam('selectedAnalyzer');
         }
-        $selectedAnalyzer = strtolower($this->_request->getParam('selectedAnalyzer', $lastSelectedAnalyzerIndex));
-        $this->_dynamicConfig->setParam('selectedAnalyzer', $selectedAnalyzer);
-        $this->view->analyzers        = $analyzers;
-        $this->view->selAnalyzer      = Msd_Html::getHtmlOptions($analyzers, $selectedAnalyzer, false);
-        $this->view->selectedAnalyzer = $selectedAnalyzer;
-        if (isset($analyzers[$selectedAnalyzer])) {
-            $this->view->analyzer = Msd_Import::factory($analyzers[$selectedAnalyzer]);
+
+        if (!isset($importers[$selectedImporter])) {
+            $analyzerNames = array_keys($availableImporters);
+            if (isset($analyzerNames[0])) {
+                $selectedImporter = $analyzerNames[0];
+            }
         }
+
+        $this->_dynamicConfig->setParam('selectedAnalyzer', $selectedImporter);
+        $this->view->analyzers        = $importers;
+        $this->view->selAnalyzer      = Msd_Html::getHtmlOptions($importers, $selectedImporter, false);
+        $this->view->selectedAnalyzer = $selectedImporter;
+        try {
+            $importer = Msd_Import::factory($selectedImporter);
+
+        } catch (Exception $e) {
+            $importer = null;
+        }
+        $this->view->analyzer = $importer;
     }
 
     /**
@@ -243,8 +257,7 @@ class ImportController extends Zend_Controller_Action
      */
     public function analyzeAction()
     {
-        $analyzers                = Msd_Import::getAvailableImportAnalyzers();
-        $selectedAnalyzer         = $analyzers[$this->_dynamicConfig->getParam('selectedAnalyzer')];
+        $selectedAnalyzer         = $this->_dynamicConfig->getParam('selectedAnalyzer');
         $data                     = $this->_dynamicConfig->getParam('importConvertedData');
         $importer                 = Msd_Import::factory($selectedAnalyzer);
         $this->view->fileTemplate = $this->_dynamicConfig->getParam('importFileTemplate');

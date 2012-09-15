@@ -71,7 +71,7 @@ class Module_Import_Csv implements Msd_Import_Interface
             $currentLine = explode($this->_separator, $this->_lines[$i], 2);
 
             $currentKey = trim($currentLine[0]);
-            if ($currentKey == '') {
+            if ($currentKey == '' || !isset($currentLine[1])) {
                 continue;
             }
             $currentValue = trim($currentLine[1]);

@@ -231,9 +231,9 @@ class ImportController extends Zend_Controller_Action
         }
 
         if (!isset($importers[$selectedImporter])) {
-            $analyzerNames = array_keys($availableImporters);
-            if (isset($analyzerNames[0])) {
-                $selectedImporter = $analyzerNames[0];
+            $importerNames = array_keys($availableImporters);
+            if (isset($importerNames[0])) {
+                $selectedImporter = $importerNames[0];
             }
         }
 
@@ -243,7 +243,6 @@ class ImportController extends Zend_Controller_Action
         $this->view->selectedAnalyzer = $selectedImporter;
         try {
             $importer = Msd_Import::factory($selectedImporter);
-
         } catch (Exception $e) {
             $importer = null;
         }

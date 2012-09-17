@@ -1,6 +1,4 @@
 <?php
-//define('DS', DIRECTORY_SEPARATOR);
-
 // Define path to application directory
 defined('APPLICATION_PATH') || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/../application'));
 defined('EXPORT_PATH') || define('EXPORT_PATH', realpath(APPLICATION_PATH .  '/../data/export'));

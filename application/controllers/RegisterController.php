@@ -67,7 +67,7 @@ class RegisterController extends Msd_Controller_Action
 
                         // log register action
                         $historyModel = new Application_Model_History();
-                        $historyModel->logUserRegistered($userData);
+                        $historyModel->logUserRegistered($userData['id']);
                     }
                 }
             } else {

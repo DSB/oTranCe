@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (374)
+// DSB (2), HolgerGremminger (380)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
@@ -179,7 +179,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_HOME' => 'Start',
 'L_ID' => 'ID',
 'L_IMPORT' => 'Import',
-'L_IMPORTER' => 'Importer',
+'L_IMPORTER' => 'Importör',
 'L_IMPORT_ANOTHER_FILE' => 'Importera ytterligare en fil',
 'L_IMPORT_DONE' => 'Grattis!<br />Importen har bearbetat alla poster.',
 'L_IMPORT_SETTINGS' => 'Inställningar för import',
@@ -221,8 +221,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_NO_DOWNLOAD_AVAILABLE' => 'Ingen download. Starta först exporten av datan.',
 'L_NO_FLAG' => 'Ingen flagga',
 'L_NO_HITS' => 'Inga träffar',
-'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
-'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
+'L_NO_IMPORTER_AVAILABLE' => 'Ingen import existerar',
+'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'Hittills har ingen importmetod ställts till förfogande så ingen import har kunnat utföras. En behörig administratör kan aktivera olika importörer för behöriga användare. Kontakta en projekt-administratör.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Gamla lösenordet',
 'L_OLD_VALUE' => 'Gamla värdet',
@@ -277,7 +277,7 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'Användaren får radera språk',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'Avändaren kan radera andra användare',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'Användaren kan använda menyn "Konfigurering"',
-'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'Användaren får lägga fast tillåtna importmetoder',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'Användaren får redigera språknycklar',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Användaren kan editera språk',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Användaren får ändra projektdatan',
@@ -302,8 +302,8 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_SEARCH' => 'Sök',
 'L_SEARCH_IN_KEYS' => 'Sök i nycklarna',
 'L_SEARCH_IN_TRANSLATIONS' => 'Sök i översättningarna',
-'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
-'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
+'L_SELECT_ALLOWED_IMPORTERS' => 'Välj tillåtna importmetoder',
+'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Välj importmetoder som får användas i menyn "Import".',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Välj tillordnad filmall',
 'L_SELECT_FILE' => 'Välj en fil',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Hur många poster skall visas per sida',

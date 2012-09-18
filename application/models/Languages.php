@@ -74,11 +74,11 @@ class Application_Model_Languages extends Msd_Application_Model
         if ($id == 0 && $this->localeExists($locale)) {
             return "The specified locale '$locale' already exists.";
         }
-        $locale = $this->_dbo->escape($locale);
-        $name = $this->_dbo->escape($name);
+        $locale        = $this->_dbo->escape($locale);
+        $name          = $this->_dbo->escape($name);
         $flagExtension = $this->_dbo->escape($flagExtension);
-        $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`) VALUES
-            ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
+        $sql           = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`)
+            VALUES ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
             `name` = '$name', `flag_extension` = '$flagExtension', `active` = $active";
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -93,9 +93,9 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function saveLanguageStatus($languageId, $status)
     {
-        $languageId     = (int) $languageId;
-        $status = (int) $status;
-        $sql    = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $languageId;
+        $languageId = (int)$languageId;
+        $status     = (int)$status;
+        $sql        = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $languageId;
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -144,12 +144,12 @@ class Application_Model_Languages extends Msd_Application_Model
         $limit = '';
         if ($filter > '') {
             $filter = $this->_dbo->escape($filter);
-            $where = "WHERE (`locale` LIKE '%$filter%' OR `name` LIKE '%$filter%')";
+            $where  = "WHERE (`locale` LIKE '%$filter%' OR `name` LIKE '%$filter%')";
         }
         if ($recsPerPage > 0) {
             $recsPerPage = $this->_dbo->escape($recsPerPage);
-            $offset = $this->_dbo->escape($offset);
-            $limit = "LIMIT $offset, $recsPerPage";
+            $offset      = $this->_dbo->escape($offset);
+            $limit       = "LIMIT $offset, $recsPerPage";
         }
         if ($activeOnly) {
             if ($where != '') {
@@ -159,10 +159,10 @@ class Application_Model_Languages extends Msd_Application_Model
             }
             $where .= " `active` = 1";
         }
-        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
+        $sql       = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
                 (`flag_extension` != '') hasFlag
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC $limit";
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $res       = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $languages = array();
         while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
             $languages[$row['id']] = $row;
@@ -180,8 +180,8 @@ class Application_Model_Languages extends Msd_Application_Model
     public function localeExists($locale)
     {
         $locale = $this->_dbo->escape($locale);
-        $sql = "SELECT `locale` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale' LIMIT 1";
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        $sql    = "SELECT `locale` FROM `{$this->_tableLanguages}` WHERE `locale` = '$locale' LIMIT 1";
+        $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (isset($res[0]['locale'])) {
             return true;
         }
@@ -197,8 +197,8 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function deleteFlag($languageId)
     {
-        $languageId = (int) $languageId;
-        $sql = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $languageId";
+        $languageId = (int)$languageId;
+        $sql        = "UPDATE `{$this->_tableLanguages}` SET `flag_extension` = '' WHERE `id` = $languageId";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -230,7 +230,7 @@ class Application_Model_Languages extends Msd_Application_Model
     public function setFallbackLanguage($langId)
     {
         $langId = $this->_dbo->escape($langId);
-        $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 0 WHERE `is_fallback` = 1";
+        $sql    = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 0 WHERE `is_fallback` = 1";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $sql = "UPDATE `{$this->_tableLanguages}` SET `is_fallback` = 1 WHERE `id` = $langId";
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
@@ -260,7 +260,7 @@ class Application_Model_Languages extends Msd_Application_Model
     public function deleteLanguage($languageId)
     {
         $sql = "DELETE FROM `{$this->_tableLanguages}` WHERE `id` = " . intval($languageId);
-        return (bool) $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        return (bool)$this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
 
     /**
@@ -271,7 +271,7 @@ class Application_Model_Languages extends Msd_Application_Model
     public function optimizeAllTables()
     {
         $tables = $this->_config->getParam('table');
-        $sql = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
+        $sql    = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
 

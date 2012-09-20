@@ -350,7 +350,6 @@ class UserTest extends ControllerTestCase
             'active'      => 0,
             'realName'    => 'Now I am Kurt',
             'email'       => 'karl2@example.org',
-            'newLanguage' => ''
         );
         $userId      = $this->userModel->saveAccount($user);
         $changedUser = $this->userModel->getUserById($userId);

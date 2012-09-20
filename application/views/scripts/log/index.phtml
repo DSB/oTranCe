@@ -149,7 +149,7 @@ foreach ($this->logEntries as $entry)
        onclick="mySubmit('offset', '<?php echo $this->offset-$this->recordsPerPage;?>');"
        accesskey="c" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Back', '', 16);?>
         <?php else: ?>
-        class="Formbutton ui-corner-all"><?php echo $this->getIcon('BackDisabled', '', 16);?>
+        class="Formbutton ui-corner-all disabled"><?php echo $this->getIcon('BackDisabled', '', 16);?>
         <?php endif; ?>
     </a>
 
@@ -157,7 +157,7 @@ foreach ($this->logEntries as $entry)
        onclick="mySubmit('offset', '<?php echo $this->offset+$this->recordsPerPage;?>');"
        accesskey="v" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Forward', '', 16);?>
         <?php else: ?>
-        class="Formbutton ui-corner-all"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
+        class="Formbutton ui-corner-all disabled"><?php echo $this->getIcon('ForwardDisabled', '', 16);?>
         <?php endif; ?>
     </a>
     <?php echo sprintf($this->lang->L_PAGE_X_OF_Y, $currentPage, $nrOfPages); ?> |

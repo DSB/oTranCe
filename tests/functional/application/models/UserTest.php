@@ -341,7 +341,7 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($user['active'] == $check['active']);
         $this->assertTrue($user['realName'] == $check['realName']);
         $this->assertTrue($user['email'] == $check['email']);
-        $this->assertTrue($user['newLanguage'] == $check['email']);
+        $this->assertTrue($user['newLanguage'] == $check['newLanguage']);
         $this->userModel->deleteUserById($newId);
 
         $user  = array(

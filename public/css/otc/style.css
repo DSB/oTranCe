@@ -273,7 +273,7 @@ input.Formbutton {
 }
 
 .Formbutton.disabled {
-    cursor:default;
+    cursor:default !important;
 }
 
 ul.Formbutton {
@@ -374,7 +374,7 @@ a.Formbutton:hover,button.Formbutton:hover,input.Formbutton:hover, .qq-upload-bu
 
 .Formbutton:disabled {
     color: #888 !important;
-    cursor: default;
+    cursor: default !important;
 }
 
 .Formbutton:disabled img {

@@ -648,8 +648,13 @@ class UserTest extends ControllerTestCase
         $languageRights = $this->userModel->getUserLanguageRights();
         $expected = array(
             '0' => '1',
-            '1' => '2'
         );
         $this->assertEquals($expected, $languageRights);
+    }
+
+    public function testGetUserLanguageLocale()
+    {
+        $languageLocale = $this->userModel->getUserLanguageLocale(1);
+        $this->assertEquals('en', $languageLocale);
     }
 }

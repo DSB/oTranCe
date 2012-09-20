@@ -331,8 +331,7 @@ class UserTest extends ControllerTestCase
             'pass1'       => 'IamKarl',
             'active'      => 1,
             'realName'    => 'Karl Tester',
-            'email'       => 'karl@example.org',
-            'newLanguage' => ''
+            'email'       => 'karl@example.org'
         );
         $newId = $this->userModel->saveAccount($user);
         $this->assertTrue($newId !== false);
@@ -350,6 +349,7 @@ class UserTest extends ControllerTestCase
             'active'      => 0,
             'realName'    => 'Now I am Kurt',
             'email'       => 'karl2@example.org',
+            'newLanguage' => ''
         );
         $userId      = $this->userModel->saveAccount($user);
         $changedUser = $this->userModel->getUserById($userId);

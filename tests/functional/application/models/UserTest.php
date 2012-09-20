@@ -639,8 +639,17 @@ class UserTest extends ControllerTestCase
         $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
-        $expected = 'The email address format is invalid.';
+        $expected = 'The input contains invalid characters.';
         $this->assertEquals($expected, $messages['username'][0]);
     }
 
+    public function testGetUserLanguageRightsFallsBackToLoggedInUserIfParamNotGiven()
+    {
+        $languageRights = $this->userModel->getUserLanguageRights();
+        $expected = array(
+            '0' => '1',
+            '1' => '2'
+        );
+        $this->assertEquals($expected, $languageRights);
+    }
 }

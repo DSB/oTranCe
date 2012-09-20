@@ -455,7 +455,6 @@ class UserTest extends ControllerTestCase
             'pass2'       => '',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
-            'newLanguage' => ''
         );
 
         $res = $this->userModel->validateData($userData, $this->translator);
@@ -475,7 +474,6 @@ class UserTest extends ControllerTestCase
             'pass2'       => 'world',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
-            'newLanguage' => ''
         );
 
         $res = $this->userModel->validateData($userData, $this->translator);
@@ -495,7 +493,6 @@ class UserTest extends ControllerTestCase
             'pass2'       => 'admin',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
-            'newLanguage' => ''
         );
 
         $res = $this->userModel->validateData($userData, $this->translator);
@@ -515,7 +512,43 @@ class UserTest extends ControllerTestCase
             'pass2'       => 'admin',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
-            'newLanguage' => ''
+        );
+
+        $res = $this->userModel->validateData($userData, $this->translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'The provided input is too short.';
+        $this->assertTrue(in_array($expected, $messages['username']));
+    }
+
+    public function testValidateDataDetectsIfRealNameIsTooLong()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => str_repeat('A', 51),
+            'email'       => 'admin@example.org',
+        );
+
+        $res = $this->userModel->validateData($userData, $this->translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'The provided input is too long.';
+        $this->assertTrue(in_array($expected, $messages['username']));
+        return array($userData, $res, $messages, $expected);
+    }
+
+    public function testValidateDataDetectsIfRealNameIsTooShort()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'A',
+            'email'       => 'admin@example.org',
         );
 
         $res = $this->userModel->validateData($userData, $this->translator);
@@ -534,7 +567,6 @@ class UserTest extends ControllerTestCase
             'pass2'       => 'admin',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
-            'newLanguage' => ''
         );
         $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
@@ -543,9 +575,54 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($expected, $messages['username'][0]);
     }
 
-    public function testValidateDataDetectsNonAlnumInpus()
+    public function testValidateDataDetectsIfRealNamelIsEmpty()
     {
-
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'Admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => '',
+            'email'       => 'admin@example.org',
+        );
+        $res      = $this->userModel->validateData($userData, $this->translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'Value is required and can\'t be empty.';
+        $this->assertEquals($expected, $messages['username'][0]);
     }
 
+    public function testValidateDataDetectsIfEmailIsEmpty()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'Admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'Administrator',
+            'email'       => '',
+        );
+        $res      = $this->userModel->validateData($userData, $this->translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'Value is required and can\'t be empty.';
+        $this->assertEquals($expected, $messages['username'][0]);
+    }
+
+    public function testValidateDataDetectsIfEmailIsSyntacticallyInvalid()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'Admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'Administrator',
+            'email'       => 'hello',
+        );
+        $res      = $this->userModel->validateData($userData, $this->translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'The email address format is invalid.';
+        $this->assertEquals($expected, $messages['username'][0]);
+    }
 }

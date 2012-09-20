@@ -12,7 +12,8 @@ class UserTest extends ControllerTestCase
 
     public function setUp()
     {
-        $this->userModel = new Application_Model_User();
+        $this->userModel   = new Application_Model_User();
+        $this->_translator = Msd_Language::getInstance();
     }
 
     public function testCanGetUserId()
@@ -421,35 +422,19 @@ class UserTest extends ControllerTestCase
 
     public function testValidateData()
     {
-        $translator = Msd_Language::getInstance();
-
-        // test case - username exists
         $userData = array(
             'id'          => 0,
-            'username'    => 'Admin',
+            'username'    => 'A',
             'pass1'       => 'admin',
             'pass2'       => 'admin',
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
             'newLanguage' => ''
         );
-        $res      = $this->userModel->validateData($userData, $translator);
-        $this->assertFalse($res);
-        $messages = $this->userModel->getValidateMessages();
-        $expected = 'A user with the name "Admin" already exists.';
-        $this->assertEquals($expected, $messages['username'][0]);
-
-        // test case - name too short
-        $userData['username'] = 'A';
-        $res                  = $this->userModel->validateData($userData, $translator);
-        $this->assertFalse($res);
-        $messages = $this->userModel->getValidateMessages();
-        $expected = 'The provided input is too short.';
-        $this->assertTrue(in_array($expected, $messages['username']));
 
         // test case - name too long
         $userData['username'] = str_repeat('A', 151);
-        $res                  = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $this->_translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too long.';
@@ -460,7 +445,7 @@ class UserTest extends ControllerTestCase
         $userData['pass1']    = 'hello';
         $userData['pass2']    = 'world';
 
-        $res = $this->userModel->validateData($userData, $translator);
+        $res = $this->userModel->validateData($userData, $this->_translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The two given values are not equal.';
@@ -469,7 +454,7 @@ class UserTest extends ControllerTestCase
         // test case - password is empty
         $userData['username'] = 'Karl';
         $userData['pass1']    = '';
-        $res                  = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $this->_translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'Value is required and can\'t be empty.';
@@ -479,10 +464,54 @@ class UserTest extends ControllerTestCase
         $userData['username'] = 'Karl';
         $userData['pass1']    = 'hello';
         $userData['pass2']    = 'hello';
-        $res                  = $this->userModel->validateData($userData, $translator);
+        $res                  = $this->userModel->validateData($userData, $this->_translator);
         $this->assertTrue($res);
         $messages = $this->userModel->getValidateMessages();
         $this->assertEquals(array(), $messages['username']);
         $this->assertEquals(array(), $messages['pass1']);
     }
+
+    public function testValidateDataDetectsIfUserNameIsTooShort()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'A',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'Administrator',
+            'email'       => 'admin@example.org',
+            'newLanguage' => ''
+        );
+
+        // test case - name too short
+        $res = $this->userModel->validateData($userData, $this->_translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'The provided input is too short.';
+        $this->assertTrue(in_array($expected, $messages['username']));
+    }
+
+    public function testValidateDataDetectsIfUserNameExists()
+    {
+        $userData = array(
+            'id'          => 0,
+            'username'    => 'Admin',
+            'pass1'       => 'admin',
+            'pass2'       => 'admin',
+            'realName'    => 'Administrator',
+            'email'       => 'admin@example.org',
+            'newLanguage' => ''
+        );
+        $res      = $this->userModel->validateData($userData, $this->_translator);
+        $this->assertFalse($res);
+        $messages = $this->userModel->getValidateMessages();
+        $expected = 'A user with the name "Admin" already exists.';
+        $this->assertEquals($expected, $messages['username'][0]);
+    }
+
+    public function testValidateDataDetectsNonAlnumInpus()
+    {
+
+    }
+
 }

@@ -536,7 +536,7 @@ class UserTest extends ControllerTestCase
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too long.';
-        $this->assertTrue(in_array($expected, $messages['username']));
+        $this->assertTrue(in_array($expected, $messages['realName']));
         return array($userData, $res, $messages, $expected);
     }
 
@@ -555,7 +555,7 @@ class UserTest extends ControllerTestCase
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too short.';
-        $this->assertTrue(in_array($expected, $messages['username']));
+        $this->assertTrue(in_array($expected, $messages['realName']));
     }
 
     public function testValidateDataDetectsIfUserNameExists()
@@ -589,7 +589,7 @@ class UserTest extends ControllerTestCase
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'Value is required and can\'t be empty.';
-        $this->assertEquals($expected, $messages['username'][0]);
+        $this->assertEquals($expected, $messages['realName'][0]);
     }
 
     public function testValidateDataDetectsIfEmailIsEmpty()
@@ -606,7 +606,7 @@ class UserTest extends ControllerTestCase
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'Value is required and can\'t be empty.';
-        $this->assertEquals($expected, $messages['username'][0]);
+        $this->assertEquals($expected, $messages['email'][0]);
     }
 
     public function testValidateDataDetectsIfEmailIsSyntacticallyInvalid()
@@ -623,6 +623,6 @@ class UserTest extends ControllerTestCase
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The email address format is invalid.';
-        $this->assertEquals($expected, $messages['username'][0]);
+        $this->assertEquals($expected, $messages['email'][0]);
     }
 }

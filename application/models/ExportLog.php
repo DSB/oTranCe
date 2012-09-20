@@ -43,8 +43,8 @@ class Application_Model_ExportLog extends Msd_Application_Model
      */
     public function getFileList($exportId)
     {
-        $sql   = "SELECT `filename` FROM `' . $this->_tableExportLog . '` WHERE'
-            . ' `export_id` = '" . $this->_dbo->escape($exportId) . "'"
+        $sql   = 'SELECT `filename` FROM `' . $this->_tableExportLog . '` WHERE'
+            . ' `export_id` = \'' . $this->_dbo->escape($exportId) . "'"
             . ' ORDER BY `filename` ASC';
         $res   = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $files = array();

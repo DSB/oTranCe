@@ -331,7 +331,8 @@ class UserTest extends ControllerTestCase
             'pass1'       => 'IamKarl',
             'active'      => 1,
             'realName'    => 'Karl Tester',
-            'email'       => 'karl@example.org'
+            'email'       => 'karl@example.org',
+            'newLanguage' => 'newLa'
         );
         $newId = $this->userModel->saveAccount($user);
         $this->assertTrue($newId !== false);
@@ -340,7 +341,18 @@ class UserTest extends ControllerTestCase
         $this->assertTrue($user['active'] == $check['active']);
         $this->assertTrue($user['realName'] == $check['realName']);
         $this->assertTrue($user['email'] == $check['email']);
+        $this->assertTrue($user['newLanguage'] == $check['email']);
+        $this->userModel->deleteUserById($newId);
 
+        $user  = array(
+            'id'          => 0,
+            'username'    => 'phpUnitTestUser',
+            'pass1'       => 'IamKarl',
+            'active'      => 1,
+            'realName'    => 'Karl Tester',
+            'email'       => 'karl@example.org'
+        );
+        $newId = $this->userModel->saveAccount($user);
         // check update
         $user        = array(
             'id'          => $newId,

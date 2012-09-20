@@ -79,8 +79,8 @@ class Application_Model_ExportLog extends Msd_Application_Model
     public function delete($exportId)
     {
         $this->_dbo->query(
-            'DELETE FROM `' . $this->_tableExportLog . '` WHERE '
-                . '`export_id` = \'' . $this->_dbo->escape($exportId) . '\'',
+            'DELETE FROM `' . $this->_tableExportLog . '` WHERE ' .
+            '`export_id` = \'' . $this->_dbo->escape($exportId) . '\'',
             Msd_Db::SIMPLE
         );
     }

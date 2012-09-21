@@ -36,6 +36,12 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     private $_tableTranslations;
 
     /**
+     * Will hold validation error messages
+     * @var array
+     */
+    private $_validateMessages;
+
+    /**
      * Model initialization method.
      *
      * @return void
@@ -65,19 +71,19 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $order = $this->_dbo->escape($order);
         if ($filter > '') {
             $filter = $this->_dbo->escape($filter);
-            $where = "WHERE `name` LIKE '%$filter%' OR `filename` LIKE '%$filter%'";
+            $where  = "WHERE `name` LIKE '%$filter%' OR `filename` LIKE '%$filter%'";
         }
         if ($recsPerPage > 0) {
             $recsPerPage = $this->_dbo->escape($recsPerPage);
-            $offset = $this->_dbo->escape($offset);
-            $limit = "LIMIT $offset, $recsPerPage";
+            $offset      = $this->_dbo->escape($offset);
+            $limit       = "LIMIT $offset, $recsPerPage";
         }
         $sql = "SELECT SQL_CALC_FOUND_ROWS * FROM `{$this->_database}`.`{$this->_tableFiletemplates}`";
         if ($where > '') {
             $sql .= ' ' . $where;
         }
         if ($order > '') {
-            $sql .= ' ORDER BY `' . $order .'` ' . $limit;
+            $sql .= ' ORDER BY `' . $order . '` ' . $limit;
         }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         return $res;
@@ -104,14 +110,14 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function getFileTemplate($templateId)
     {
-        $templateId = (int) $templateId;
+        $templateId = (int)$templateId;
         // Fake db row for new file template or if the result set is empty.
         $template = array(
-            'id' => 0,
-            'name' => '',
-            'header' => '',
-            'footer' => '',
-            'content' => '',
+            'id'       => 0,
+            'name'     => '',
+            'header'   => '',
+            'footer'   => '',
+            'content'  => '',
             'filename' => '',
         );
 
@@ -140,27 +146,26 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function saveFileTemplate($id, $name, $header, $content, $footer, $filename)
     {
-        $id        = (int) $id;
-        $name      = $this->_dbo->escape($name);
-        $header    = $this->_dbo->escape($header);
-        $content   = $this->_dbo->escape($content);
-        $footer    = $this->_dbo->escape($footer);
-        $filename  = $this->_dbo->escape($filename);
+        $id       = (int)$id;
+        $name     = $this->_dbo->escape($name);
+        $header   = $this->_dbo->escape($header);
+        $content  = $this->_dbo->escape($content);
+        $footer   = $this->_dbo->escape($footer);
+        $filename = $this->_dbo->escape($filename);
 
         $sql = "INSERT INTO `{$this->_database}`.`{$this->_tableFiletemplates}`
             (`id`, `name`, `header`, `content`, `footer`, `filename`) VALUES
             ($id, '$name', '$header', '$content', '$footer', '$filename') ON DUPLICATE KEY UPDATE `name` = '$name',
             `header` = '$header', `content` = '$content', `footer` = '$footer', `filename` = '$filename'";
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-        if ($res === false) {
+        try {
+            $this->_dbo->query($sql, Msd_Db::SIMPLE);
+            if ($id == 0) {
+                $id = $this->_dbo->getLastInsertId();
+            }
+            return $id;
+        } catch (Msd_Exception $e) {
             return false;
         }
-
-        if ($id == 0) {
-            $id = $this->_dbo->getLastInsertId();
-        }
-
-        return $id;
     }
 
     /**
@@ -170,8 +175,8 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function getFileTemplatesAssoc()
     {
-        $sql = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}`";
-        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        $sql           = "SELECT * FROM `{$this->_database}`.`{$this->_tableFiletemplates}`";
+        $res           = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         $fileTemplates = array();
         if (isset($res[0])) {
             foreach ($res as $row) {
@@ -192,9 +197,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function deleteFileTemplate($templateId, $replacement = 0)
     {
-        $replacement = (int) $replacement;
-        $templateId  = (int) $templateId;
-        $result = array(
+        $replacement = (int)$replacement;
+        $templateId  = (int)$templateId;
+        $result      = array(
             'delete' => false,
             'update' => false,
         );
@@ -209,8 +214,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $result['update'] = $res;
 
         // now delete file template
-        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = " . $templateId;
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $sql              =
+            "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = " . $templateId;
+        $res              = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $result['delete'] = $res;
 
         return $result;
@@ -263,17 +269,19 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $this->clearValidateMessages();
         $notEmptyValidate = new Zend_Validate_NotEmpty();
         if (!$notEmptyValidate->isValid($params['filename'])) {
-            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $messages                            =
+                $translator->translateZendMessageIds($notEmptyValidate->getMessages());
             $this->_validateMessages['filename'] = $messages;
         }
 
         if (!$notEmptyValidate->isValid($params['name'])) {
-            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $messages                        = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
             $this->_validateMessages['name'] = $messages;
         }
 
         if (!$notEmptyValidate->isValid($params['content'])) {
-            $messages = $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $messages                           =
+                $translator->translateZendMessageIds($notEmptyValidate->getMessages());
             $this->_validateMessages['content'] = $messages;
         }
 
@@ -281,7 +289,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $existingTemplates = $this->getFileTemplates('', $params['name']);
         foreach ($existingTemplates as $template) {
             if ($template['name'] == $params['name'] && $template['id'] != $params['id']) {
-                $message = $translator->translate('L_ERROR_TEMPLATE_NAME_EXISTS');
+                $message                           = $translator->translate('L_ERROR_TEMPLATE_NAME_EXISTS');
                 $this->_validateMessages['name'][] = sprintf($message, $params['name']);
             }
         }
@@ -290,7 +298,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $existingTemplates = $this->getFileTemplates('', $params['filename']);
         foreach ($existingTemplates as $template) {
             if ($template['filename'] == $params['filename'] && $template['id'] != $params['id']) {
-                $message = $translator->translate('L_ERROR_TEMPLATE_FILENAME_EXISTS');
+                $message                               = $translator->translate('L_ERROR_TEMPLATE_FILENAME_EXISTS');
                 $this->_validateMessages['filename'][] = sprintf($message, $params['filename']);
             }
         }
@@ -323,8 +331,8 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     public function clearValidateMessages()
     {
         $this->_validateMessages = array(
-            'tplFile' => array(),
-            'tplName' => array(),
+            'tplFile'    => array(),
+            'tplName'    => array(),
             'tplContent' => array()
         );
     }

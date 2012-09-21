@@ -436,7 +436,7 @@ class UserTest extends ControllerTestCase
             'email'       => 'admin@example.org',
             'newLanguage' => ''
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertTrue($res);
         $messages = $this->userModel->getValidateMessages();
         $this->assertEquals(array(), $messages['username']);
@@ -455,7 +455,7 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'Value is required and can\'t be empty.';
@@ -473,7 +473,7 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The two given values are not equal.';
@@ -491,7 +491,7 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too long.';
@@ -509,7 +509,7 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too short.';
@@ -526,7 +526,7 @@ class UserTest extends ControllerTestCase
             'realName'    => str_repeat('A', 51),
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too long.';
@@ -544,7 +544,7 @@ class UserTest extends ControllerTestCase
             'realName'    => 'A',
             'email'       => 'admin@example.org',
         );
-        $res = $this->userModel->validateData($userData, $this->translator);
+        $res      = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
         $expected = 'The provided input is too short.';
@@ -650,4 +650,59 @@ class UserTest extends ControllerTestCase
         $languageLocale = $this->userModel->getUserLanguageLocale(1);
         $this->assertEquals('en', $languageLocale);
     }
+
+    public function testGetTranslatorDataCanGetAllTranslators()
+    {
+        $translators = $this->userModel->getTranslatorData(true);
+        $expected    = array(
+            1 =>
+            array(
+                0 =>
+                array(
+                    'userId'      => '1',
+                    'userName'    => 'Admin',
+                    'editActions' => 0,
+                ),
+                1 =>
+                array(
+                    'userId'      => '2',
+                    'userName'    => 'tester',
+                    'editActions' => 0,
+                ),
+            ),
+            2 =>
+            array(
+                0 =>
+                array(
+                    'userId'      => '1',
+                    'userName'    => 'Admin',
+                    'editActions' => 0,
+                ),
+            ),
+        );
+        $this->assertEquals($expected, $translators);
+    }
+
+    public function testGetTranslatorDataCanSkipUserssWithoutEditActions()
+    {
+        $translators = $this->userModel->getTranslatorData(false);
+        $expected    = array(
+            1 => array(
+                0 => array(
+                    'userId'      => '1',
+                    'userName'    => 'Admin',
+                    'editActions' => '1',
+                ),
+            ),
+            2 => array(
+                0 => array(
+                    'userId'      => '1',
+                    'userName'    => 'Admin',
+                    'editActions' => '1',
+                ),
+            ),
+        );
+        $this->assertEquals($expected, $translators);
+    }
+
 }

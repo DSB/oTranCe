@@ -153,9 +153,6 @@ class Application_Model_User extends Msd_Application_Model
             if (empty($ret[$val['lang_id']])) {
                 $ret[$val['lang_id']] = array();
             }
-            if ($getAll === false && empty($val['editActions'])) {
-                continue;
-            }
             $ret[$val['lang_id']][] = array(
                 'userId'      => $val['user_id'],
                 'userName'    => $val['username'],

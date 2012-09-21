@@ -169,7 +169,7 @@ class HistoryTest extends ControllerTestCase
         $this->model->deleteById($entries[0]['id']);
     }
 
-   public function testLogVcsUpdateAll()
+    public function testLogVcsUpdateAll()
     {
         // force logging with actual timestamp
         $this->model->logVcsUpdateAll();
@@ -195,5 +195,36 @@ class HistoryTest extends ControllerTestCase
         $entries = $this->model->getEntries(0, 50, 0, 2);
         // now we must get an empty array
         $this->assertEquals(array(), $entries);
+    }
+
+    public function testLogVarNameChanged()
+    {
+        $this->model->logVarNameChanged(1, 'L_TEST', 'L_NEW_TEST');
+        $entries  = $this->model->getEntries(0, 50, 0, 1, 'changed');
+        $expected = array(
+            'id'       => '35',
+            'user_id'  => '1',
+            'key_id'   => NULL,
+            'action'   => 'changed',
+            'lang_id'  => '0',
+            'oldValue' => 'L_TEST',
+            'newValue' => 'L_NEW_TEST',
+            'key'      => NULL,
+        );
+        unset($entries[0]['dt']); // skip timestamp
+        $this->assertEquals($expected, $entries[0]);
+        $this->model->deleteById(35);
+    }
+
+    public function testCanLogRegistrationOfUser()
+    {
+        $entries = $this->model->getEntries(0, 100, 0, 2, 'registered');
+        $expected = array();
+        $this->assertEquals($expected, $entries);
+
+        $this->model->logUserRegistered(2);
+        $entries = $this->model->getEntries(0, 100, 0, 2, 'registered');
+        $this->assertEquals(1, count($entries));
+        $this->assertEquals('registered', $entries[0]['action']);
     }
 }

@@ -436,7 +436,6 @@ class UserTest extends ControllerTestCase
             'email'       => 'admin@example.org',
             'newLanguage' => ''
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertTrue($res);
         $messages = $this->userModel->getValidateMessages();
@@ -456,7 +455,6 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -475,7 +473,6 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -494,7 +491,6 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -513,7 +509,6 @@ class UserTest extends ControllerTestCase
             'realName'    => 'Administrator',
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -531,7 +526,6 @@ class UserTest extends ControllerTestCase
             'realName'    => str_repeat('A', 51),
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -550,7 +544,6 @@ class UserTest extends ControllerTestCase
             'realName'    => 'A',
             'email'       => 'admin@example.org',
         );
-
         $res = $this->userModel->validateData($userData, $this->translator);
         $this->assertFalse($res);
         $messages = $this->userModel->getValidateMessages();
@@ -646,7 +639,7 @@ class UserTest extends ControllerTestCase
     public function testGetUserLanguageRightsFallsBackToLoggedInUserIfParamNotGiven()
     {
         $languageRights = $this->userModel->getUserLanguageRights();
-        $expected = array(
+        $expected       = array(
             '0' => '1',
         );
         $this->assertEquals($expected, $languageRights);

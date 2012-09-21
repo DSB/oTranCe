@@ -3,7 +3,7 @@
  * @group Statistics
  * @group Models
  */
-class StatisticsTest extends ControllerTestCase
+class StatisticsTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Application_Model_Statistics
@@ -22,13 +22,13 @@ class StatisticsTest extends ControllerTestCase
             0 => array(
                 'user_id'     => '1',
                 'lang_id'     => '1',
-                'editActions' => '1',
+                'editActions' => '758',
                 'username'    => 'Admin'
             ),
             1 => array(
                 'user_id'     => '1',
                 'lang_id'     => '2',
-                'editActions' => '1',
+                'editActions' => '755',
                 'username'    => 'Admin'
             )
         );
@@ -42,10 +42,10 @@ class StatisticsTest extends ControllerTestCase
             1 =>
             array(
                 'user_id'     => '1',
-                'editActions' => '2',
-                'lastAction'  => '2012-03-03 20:39:16',
+                'editActions' => '1513',
             ),
         );
+        unset($res[1]['lastAction']); // skip timestamp
         $this->assertEquals($expected, $res);
     }
 }

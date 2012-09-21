@@ -3,7 +3,7 @@
  * @group Languages
  * @group Models
  */
-class LanguagesTest extends ControllerTestCase
+class LanguagesTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Application_Model_Languages

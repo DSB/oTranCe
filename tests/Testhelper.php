@@ -45,25 +45,26 @@ class Testhelper
     public static function copyFile($source, $destination, $overwrite = false)
     {
         $fixturePath = realpath(dirname(__FILE__) . '/fixtures');
-        $source = realpath($fixturePath . '/' . $source);
+        $source      = realpath($fixturePath . '/' . $source);
         // delete target file if it exists
         if (file_exists($destination)) {
             if ($overwrite) {
                 if (!unlink($destination)) {
-                    throw new Exception('Error: Can\'t delete file "' . $destination .'"!');
+                    throw new Exception('Error: Can\'t delete file "' . $destination . '"!');
                 }
             } else {
                 if (!rename($destination, $destination . '.phpunit')) {
-                    throw new Exception('Error: Can\'t create backup of file "' . $destination .'"!');
+                    throw new Exception('Error: Can\'t create backup of file "' . $destination . '"!');
                 }
             }
         }
         if (!copy($source, $destination)) {
             throw new Exception(
                 'Error: Can\'t copy file "' . $source . '" to "'
-                . $destination .'"!'
+                    . $destination . '"!'
             );
-        };
+        }
+        ;
         chmod($destination, 0755);
         self::$_copiedFiles[] = $destination;
         if (!self::$_shutdownRegistered) {
@@ -86,12 +87,12 @@ class Testhelper
             return;
         }
         if (!unlink($file)) {
-            throw new Exception('Error: Can\'t remove file "' . $file .'"');
+            throw new Exception('Error: Can\'t remove file "' . $file . '"');
         }
 
         if (file_exists($file . '.phpunit')) {
             if (!rename($file . '.phpunit', $file)) {
-                throw new Exception('Error: Can\'t rename backup file "' . $file .'"');
+                throw new Exception('Error: Can\'t rename backup file "' . $file . '"');
             }
         }
     }
@@ -105,13 +106,13 @@ class Testhelper
      */
     public static function setUpDb($file = 'db_schema.sql')
     {
-        if (!is_readable(TEST_PATH .'/fixtures/db/' . $file)) {
+        if (!is_readable(TEST_PATH . '/fixtures/db/' . $file)) {
             echo "\nError: couldn\' read fixture file " . $file;
             die();
         }
-        $sqlFile = file_get_contents(TEST_PATH .'/fixtures/db/' . $file);
+        $sqlFile = file_get_contents(TEST_PATH . '/fixtures/db/' . $file);
         $queries = explode(";\n", $sqlFile);
-        $db = Msd_Db::getAdapter();
+        $db      = Msd_Db::getAdapter();
         $db->selectDb('phpunit_otc');
         foreach ($queries as $query) {
             if (trim($query) > '') {
@@ -130,10 +131,10 @@ class Testhelper
      */
     public static function mysql2timestamp($datetime)
     {
-       $val  = explode(' ', $datetime);
-       $date = explode('-', $val[0]);
-       $time = explode(':', $val[1]);
-       return mktime($time[0],$time[1],$time[2],$date[1],$date[2],$date[0]);
-}
+        $val  = explode(' ', $datetime);
+        $date = explode('-', $val[0]);
+        $time = explode(':', $val[1]);
+        return mktime($time[0], $time[1], $time[2], $date[1], $date[2], $date[0]);
+    }
 
 }

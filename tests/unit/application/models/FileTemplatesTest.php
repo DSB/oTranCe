@@ -2,7 +2,7 @@
 /**
  * @group Models
  */
-class FileTemplatesTest extends ControllerTestCase
+class FileTemplatesTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Application_Model_FileTemplates

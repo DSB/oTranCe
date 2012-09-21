@@ -2,7 +2,7 @@
 /**
  * @group Models
  */
-class ConverterTest extends ControllerTestCase
+class ConverterTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var \Application_Model_Converter

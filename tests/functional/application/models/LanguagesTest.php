@@ -201,4 +201,16 @@ class LanguagesTest extends ControllerTestCase
         $language = $this->model->getLanguageById(3);
         $this->assertTrue($language['active'] == 0);
     }
+
+    public function testCanGetLanguageLocaleFromId()
+    {
+        $locale = $this->model->getLanguageLocaleFromId(1);
+        $this->assertEquals('de', $locale);
+    }
+
+    public function testGetLanguageLocaleFromIdReturnsFalseOnInvalidLanguageId()
+    {
+        $locale = $this->model->getLanguageLocaleFromId(56748);
+        $this->assertFalse($locale);
+    }
 }

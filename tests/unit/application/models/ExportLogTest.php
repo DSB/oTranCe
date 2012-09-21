@@ -30,4 +30,9 @@ class ExportLogTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(), $fileList);
     }
 
+    public function testGetExportsCount()
+    {
+        $exports = $this->model->getExportsCount();
+        $this->assertEquals(0, $exports);
+    }
 }

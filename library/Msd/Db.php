@@ -300,9 +300,10 @@ abstract class Msd_Db
     /**
      * Handles a SQL-Error
      *
-     * @param string $errmsg
-     * @param int    $errno
-     * @throws MsdEception
+     * @param string $errmsg The error message
+     * @param int    $errno  The error number
+     *
+     * @throws Msd_Exception
      *
      * @return void
      */

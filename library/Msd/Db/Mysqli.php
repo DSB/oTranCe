@@ -163,7 +163,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      *
      * @param string  $query   The query to execute
      * @param int     $kind    Type of result set
-     * @param bool $getRows Wether to fetch all rows and return them
+     * @param bool    $getRows Whether to fetch all rows and return them
      *
      * @return mysqli_result|array|bool
      */

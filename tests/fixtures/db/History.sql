@@ -1,3 +1,20 @@
+DROP TABLE IF EXISTS `keys`;
+CREATE TABLE `keys` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `key` varchar(200) NOT NULL,
+  `template_id` tinyint(4) NOT NULL,
+  `dt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tpl_assign` (`template_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=756 DEFAULT CHARSET=utf8;
+
+--
+-- Data for Table `keys`
+--
+
+/*!40000 ALTER TABLE `keys` DISABLE KEYS */;
+INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('1','L_TEST','1','2012-03-03 20:39:02');
+
 DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

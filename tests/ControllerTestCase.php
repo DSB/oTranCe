@@ -18,12 +18,12 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
         $_SERVER['SERVER_NAME'] = 'localhost';
-        $this->_translator = Msd_Language::getInstance()->getTranslator();
+        $this->_translator      = Msd_Language::getInstance()->getTranslator();
     }
 
     public function appBootstrap()
     {
-        $this->_application= new Zend_Application(
+        $this->_application = new Zend_Application(
             APPLICATION_ENV,
             APPLICATION_PATH . '/configs/application.ini'
         );
@@ -40,14 +40,14 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
     public function loginUser($userName = 'tester', $userPass = 'test')
     {
         $this->getRequest()
-              ->setMethod('POST')
-              ->setParams(
-                  array(
-                        'user' => $userName,
-                        'pass' => $userPass,
-                        'autologin' => 0
-                  )
-              );
+            ->setMethod('POST')
+            ->setParams(
+            array(
+                'user'      => $userName,
+                'pass'      => $userPass,
+                'autologin' => 0
+            )
+        );
         $this->dispatch('/index/login');
         //re-init user model
         $this->userModel = new Application_Model_User();
@@ -79,7 +79,7 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
                 $replace = 'true';
             }
             echo "\t {$header['name']} - {$header['value']} "
-                ."(replace: {$replace})\n";
+                . "(replace: {$replace})\n";
         }
         if ($response->isException()) {
             echo "Exceptions:\n\n";
@@ -92,7 +92,7 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
         }
         $body = $response->getBody();
         if ($body > '') {
-            echo str_repeat('-', 80) . "\n" . $body. str_repeat('-', 80);
+            echo str_repeat('-', 80) . "\n" . $body . str_repeat('-', 80);
         }
         // force output
         die();
@@ -107,9 +107,9 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
      */
     public function loadFixtureFile($fileName)
     {
-        $fixturePath = realpath(dirname(__FILE__) . '/fixtures');
+        $fixturePath  = realpath(dirname(__FILE__) . '/fixtures');
         $fullFileName = $fixturePath . '/' . $fileName;
-        $content = file_get_contents($fullFileName);
+        $content      = file_get_contents($fullFileName);
         return $content;
     }
 }

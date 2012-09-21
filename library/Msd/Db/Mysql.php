@@ -31,15 +31,25 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
      */
     protected $_resultHandle = null;
 
+    public function __construct($options)
+    {
+        $this->_server = $options['host'];
+        $this->_user = $options['user'];
+        $this->_password = $options['pass'];
+        $this->_port = $options['port'];
+        $this->_socket = $options['socket'];
+    }
+
     /**
-     *	Establish a connection to MySQL.
+     * Establish a connection to MySQL.
      *
      * Creates a connection to the database and stores the connection handle in
      * $this->_connectionHandle.
      * Returns true on success or false if connection couldn't be established.
      *
-     * @throws Exception
-     * 	@return bool
+     * @throws Msd_Exception
+     *
+     * @return bool
      **/
     protected function _dbConnect()
     {
@@ -124,7 +134,8 @@ class Msd_Db_Mysql extends Msd_Db_MysqlCommon
      *
      * Returns true if selection was succesfull otherwise false.
      *
-     * @throws Exception
+     * @throws Msd_Exception
+     *
      * @param string $database The database to select
      *
      * @return bool

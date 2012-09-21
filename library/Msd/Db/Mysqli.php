@@ -28,6 +28,15 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      */
     private $_resultHandle = null;
 
+    public function __construct($options)
+    {
+        $this->_server   = $options['host'];
+        $this->_user     = $options['user'];
+        $this->_password = $options['pass'];
+        $this->_port     = $options['port'];
+        $this->_socket   = $options['socket'];
+    }
+
     /**
      * Establish a connection to MySQL.
      *
@@ -55,8 +64,8 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
         );
         error_reporting($errorReporting);
         if ($this->_mysqli->connect_errno) {
-            $error = $this->_mysqli->connect_error;
-            $errno = $this->_mysqli->connect_errno;
+            $error         = $this->_mysqli->connect_error;
+            $errno         = $this->_mysqli->connect_errno;
             $this->_mysqli = null;
             throw new Msd_Exception($error, $errno);
         }
@@ -195,8 +204,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      */
     public function getNextRow($kind)
     {
-        switch ($kind)
-        {
+        switch ($kind) {
             case self::ARRAY_ASSOC:
                 return $this->_resultHandle->fetch_assoc();
             case self::ARRAY_OBJECT:
@@ -257,7 +265,7 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
         if (!isset($res[0]['results'])) {
             return 0;
         }
-        return (int) $res[0]['results'];
+        return (int)$res[0]['results'];
     }
 
 }

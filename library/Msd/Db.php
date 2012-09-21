@@ -98,6 +98,7 @@ abstract class Msd_Db
      */
     protected $_charsets = array();
 
+    public static $dbObject;
     /**
      * Init database object
      *
@@ -113,6 +114,7 @@ abstract class Msd_Db
         $this->_port = (int) $options['port'];
         $this->_socket = $options['socket'];
     }
+
     /**
      * Create database adapter
      *
@@ -123,6 +125,9 @@ abstract class Msd_Db
      */
     public static function getAdapter($options = null, $forceMysql = false)
     {
+        if (self::$dbObject !== null) {
+            return self::$dbObject;
+        }
         if ($options === null) {
             $config = Msd_Registry::getConfig();
             $dbUserConfig = $config->getParam('dbuser');
@@ -135,11 +140,11 @@ abstract class Msd_Db
             );
         }
         if (function_exists('mysqli_connect') && !$forceMysql) {
-            $dbObject = new Msd_Db_Mysqli($options);
+            self::$dbObject = new Msd_Db_Mysqli($options);
         } else {
-            $dbObject = new Msd_Db_Mysql($options);
+            self::$dbObject = new Msd_Db_Mysql($options);
         }
-        return $dbObject;
+        return self::$dbObject;
     }
 
     /**

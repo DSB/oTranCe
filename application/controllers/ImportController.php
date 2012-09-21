@@ -121,13 +121,12 @@ class ImportController extends Zend_Controller_Action
      */
     protected function _convertTextInput()
     {
-        $entriesModel = new Application_Model_Converter();
-        try {
-            $res = $entriesModel->convertData(
-                $this->_dynamicConfig->getParam('selectedCharset'),
-                $this->_dynamicConfig->getParam('importOriginalData')
-            );
-        } catch (Exception $e) {
+        $converterModel = new Application_Model_Converter();
+        $res            = $converterModel->convertData(
+            $this->_dynamicConfig->getParam('selectedCharset'),
+            $this->_dynamicConfig->getParam('importOriginalData')
+        );
+        if ($res === false) {
             // we show the user our own error message instead of the mysql error
             // $this->view->convertError = $e->getMessage();
             $this->view->conversionError = true;

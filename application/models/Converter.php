@@ -40,8 +40,6 @@ class Application_Model_Converter extends Msd_Application_Model
      * @param string $inputCharset The current character set of the string
      * @param string $text         The text to convert
      *
-     * @throws Exception
-     *
      * @return bool|string UTF-8 encoded string
      */
     public function convertData($inputCharset, $text)
@@ -61,7 +59,8 @@ class Application_Model_Converter extends Msd_Application_Model
         $stmt->bind_param('ss', $id, $text);
         $stmt->execute();
         if ((int) $stmt->errno !== 0) {
-            throw new Exception($stmt->error . ' ' . $stmt->errno);
+            $stmt->close();
+            return false;
         }
         $stmt->close();
 

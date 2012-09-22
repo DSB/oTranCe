@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// diastasi (381), DSB (3)
+// diastasi (387), DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ο λογαριασμός χρήστη %1$s για το έργο %2$s ενεργοποιήθηκε από ένα διαχειριστή.',
@@ -181,7 +181,7 @@ $lang = array(
 'L_HOME' => 'Αρχική',
 'L_ID' => 'Id',
 'L_IMPORT' => 'Εισαγωγή',
-'L_IMPORTER' => 'Importer',
+'L_IMPORTER' => 'Εισαγωγέας',
 'L_IMPORT_ANOTHER_FILE' => 'Εισαγωγή άλλου αρχείου',
 'L_IMPORT_DONE' => 'Συγχαρητήρια.<br />
 Ο εισαγωγέας επεξεργάστηκε όλες τις καταχωρήσεις.',
@@ -224,8 +224,8 @@ $lang = array(
 'L_NO_DOWNLOAD_AVAILABLE' => 'Καμία μεταφόρτωση διαθέσιμη. Εκτελέστε εξαγωγή πρώτα.',
 'L_NO_FLAG' => 'Καμία σημαία διαθέσιμη',
 'L_NO_HITS' => 'Κανένα κτύπημα',
-'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
-'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
+'L_NO_IMPORTER_AVAILABLE' => 'Κανείς εισαγωγέας διαθέσιμος',
+'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'Δεν ενεργοποιήθηκε μέθοδος εισαγωγής για χρήση από τους χρήστες. Ετσι δε μπορεί να χρησιμοποιηθεί η εισαγωγή. Ενας διαχειριστής μπορεί να παρέχει πολλούς εισαγωγείς. Παρακαλώ επικοινωνήστε με τους διαχειριστές του έργου.',
 'L_OK' => 'ΟΚ',
 'L_OLD_PASSWORD' => 'Παλιός κωδικός',
 'L_OLD_VALUE' => 'Παλιά τιμή',
@@ -280,7 +280,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'ο χρήστη επιτρέπεται να διαγράφει γλώσσες',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'Ο χρήστης επιτρέπεται να διαγράφει χρήστες',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'Ο χρήστης βλέπει και χρησιμοποιεί το στοιχείο μενού "Ρυθμίσεις"',
-'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'Ο χρήστης μπορεί να ορίσει επιτρεπόμενες μεθόδους εισαγωγής.',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'Ο χρήστης επιτρέπεται να επεξεργαστεί κλειδιά γλώσσας',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Ο χρήστης βλέπει και χρησιμοποιεί τη καρτέλα διαχειριστή "Γλώσσες"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Ο χρήστης επιτρέπεται να επεξεργάζεται δεδομένα έργου',
@@ -305,8 +305,8 @@ $lang = array(
 'L_SEARCH' => 'Αναζήτηση',
 'L_SEARCH_IN_KEYS' => 'Αναζήτηση σε κλειδιά',
 'L_SEARCH_IN_TRANSLATIONS' => 'Αναζήτηση σε μετάφραση',
-'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
-'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
+'L_SELECT_ALLOWED_IMPORTERS' => 'Επιλογή επιτρεπόμενων μεθόδων εισαγωγής',
+'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Επιλέξτε ποιές μέθοδοι εισαγωγής μπορούν να χρησιμοποιηθούν όταν ο χρήστης θέλει να εισάγει δεδομένα.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Επιλέξτε το εκχωρημένο πρότυπο αρχείου',
 'L_SELECT_FILE' => 'Επιλέξτε ένα αρχείο',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Επιλέξτε πόσες καταχωρήσεις θα προβάλλονται ανά σελίδα',

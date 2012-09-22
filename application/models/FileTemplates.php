@@ -259,7 +259,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     /**
      * Validates the file template data.
      *
-     * @param array        $params     Data of the user account.
+     * @param array        $params     Data of the file template.
      * @param Msd_Language $translator Translator for output messages
      *
      * @return bool

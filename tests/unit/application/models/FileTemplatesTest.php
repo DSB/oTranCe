@@ -1,6 +1,7 @@
 <?php
 /**
  * @group Models
+ * @group FileTemplates
  */
 class FileTemplatesTest extends PHPUnit_Framework_TestCase
 {
@@ -14,10 +15,30 @@ class FileTemplatesTest extends PHPUnit_Framework_TestCase
      */
     protected $templates;
 
+    /**
+     * @var Msd_Language
+     */
+    protected $translator;
+
+    /**
+     * @var array
+     */
+    protected $tplData;
+
     public function setUp()
     {
-        $this->model     = new Application_Model_FileTemplates();
-        $this->templates = $this->model->getFileTemplates();
+        $this->model      = new Application_Model_FileTemplates();
+        $this->templates  = $this->model->getFileTemplates();
+        $this->translator = Msd_Language::getInstance();
+        $this->tplData    = array(
+            'id'       => '',
+            'name'     => 'My template',
+            'filename' => 'test.php',
+            'header'   => '/* my template*/',
+            'content'  => '{Key} => {VALUE}',
+            'footer'   => '// my footer'
+        );
+
     }
 
     public function testGetFileTemplates()
@@ -51,12 +72,12 @@ class FileTemplatesTest extends PHPUnit_Framework_TestCase
 
     public function testGetFileTemplateReturnsDefaultValuesOnInvalidId()
     {
-        $default = array(
-            'id' => 0,
-            'name' => '',
-            'header' => '',
-            'footer' => '',
-            'content' => '',
+        $default  = array(
+            'id'       => 0,
+            'name'     => '',
+            'header'   => '',
+            'footer'   => '',
+            'content'  => '',
             'filename' => ''
         );
         $template = $this->model->getFileTemplate(-1);
@@ -134,5 +155,75 @@ class FileTemplatesTest extends PHPUnit_Framework_TestCase
         $res = $this->model->deleteFileTemplate(127, 0);
         $this->assertTrue($res['delete']);
     }
+
+    public function testValidateDataPassesOnValidInputs()
+    {
+        $res = $this->model->validateData($this->tplData, $this->translator);
+        $this->assertTrue($res);
+        $expected = array(
+            'tplFile'    => array(),
+            'tplName'    => array(),
+            'tplContent' => array(),
+        );
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages);
+    }
+
+    public function testValidateDataDetectsEmptyName()
+    {
+        $params         = $this->tplData;
+        $params['name'] = '';
+        $res            = $this->model->validateData($params, $this->translator);
+        $this->assertFalse($res);
+        $expected = 'Value is required and can\'t be empty.';
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages['name'][0]);
+    }
+
+    public function testValidateDataDetectsEmptyFileName()
+    {
+        $params             = $this->tplData;
+        $params['filename'] = '';
+        $res                = $this->model->validateData($params, $this->translator);
+        $this->assertFalse($res);
+        $expected = 'Value is required and can\'t be empty.';
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages['filename'][0]);
+    }
+
+    public function testValidateDataDetectsEmptyContent()
+    {
+        $params            = $this->tplData;
+        $params['content'] = '';
+        $res               = $this->model->validateData($params, $this->translator);
+        $this->assertFalse($res);
+        $expected = 'Value is required and can\'t be empty.';
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages['content'][0]);
+    }
+
+    public function testValidateDataDetectsExistingTemplateNames()
+    {
+        $params         = $this->tplData;
+        $params['name'] = 'Admin';
+        $res            = $this->model->validateData($params, $this->translator);
+        $this->assertFalse($res);
+        $expected = 'A file template with the name \'Admin\' already exists.';
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages['name'][0]);
+    }
+
+    public function testValidateDataDetectsExistingFileNames()
+    {
+        $params         = $this->tplData;
+        $params['filename'] = '{LOCALE}/lang.php';
+        $res            = $this->model->validateData($params, $this->translator);
+        $this->assertFalse($res);
+        $expected = 'A file template with the filename \'{LOCALE}/lang.php\' already exists.';
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals($expected, $messages['filename'][0]);
+    }
+
+
 
 }

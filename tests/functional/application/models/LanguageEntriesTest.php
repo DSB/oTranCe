@@ -206,19 +206,49 @@ class LanguageEntriesTest extends ControllerTestCase
         foreach ($entries as $entry) {
             $this->assertTrue(in_array($entry['key'], $check));
         }
+    }
 
-        // check param $languages with empty array returns an empty array
-        $entries = $this->model->getEntriesByValue(array(), 'löschen', 0, 30);
+    public function testGetEntriesByValueReturnsEmptyArrayOnInvalidKeyHits()
+    {
+        //check we get an empty array if we find hits for translations that are not assigned to a valid key
+        // create defect entry  - key 9999 doesn't exist
+        $entries = array(
+            1 => 'Testtext',
+            2 => 'Testtext2'
+        );
+        $this->model->saveEntries(9999, $entries);
+
+        $entries = $this->model->getEntriesByValue(array(1), 'Testtext', 1, 2);
         $this->assertEquals(array(), $entries);
+        $this->model->deleteEntryByKeyId(9999);
+    }
 
-        // check for empty result set
-        $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 30);
-        $this->assertEquals(array(), $entries);
-
+    public function testGetEntriesByValuesResetsNrOfRecordsParamOnInvalidInput()
+    {
         // check that param $nrOfRecords is set to 10 if it is lower (Result can be seen in CodeCoverage)
         $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 1);
         $this->assertEquals(array(), $entries);
+        return $entries;
+    }
 
+    public function testGetEntriesByValueReturnsEmptyArrayOnNonExistantSearchphrase()
+    {
+        // check for empty result set
+        $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 30);
+        $this->assertEquals(array(), $entries);
+        return $entries;
+    }
+
+    public function testGetEntriesByValueReturnsEmptyArrayOnEmptyLanguageIdInput()
+    {
+        // check param $languages with empty array returns an empty array
+        $entries = $this->model->getEntriesByValue(array(), 'löschen', 0, 30);
+        $this->assertEquals(array(), $entries);
+        return $entries;
+    }
+
+    public function testGetEntrissBValueCanFilterByFileTemplate()
+    {
         // check result is filtered by template id
         $entries  = $this->model->getEntriesByValue(array(1), 'a', 0, 2, 1);
         $expected = array(
@@ -236,17 +266,7 @@ class LanguageEntriesTest extends ControllerTestCase
             )
         );
         $this->assertEquals($expected, $entries);
-
-        //check we get an empty array if we find hits for translations that are not assigned to a a valid key
-        // save defect entry  - key 9999 doesn't exist
-        $entries = array(
-            1 => 'Testtext',
-            2 => 'Testtext2'
-        );
-        $this->model->saveEntries(9999, $entries);
-        $entries = $this->model->getEntriesByValue(array(1), 'Testtext', 1, 2);
-        $this->assertEquals(array(), $entries);
-        $this->model->deleteEntryByKeyId(9999);
+        return $entries;
     }
 
     public function testGetEntriesByKey()

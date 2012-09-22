@@ -376,4 +376,11 @@ class LanguageEntriesTest extends ControllerTestCase
         $res = $this->model->deleteEntryByKeyId(9998);
         $this->assertTrue($res);
     }
+
+    public function testSaveEntriesIsSkippedOnEmptyValues()
+    {
+        $res = $this->model->saveEntries(9999, array());
+        $this->assertTrue($res);
+    }
+
 }

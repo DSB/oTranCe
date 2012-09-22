@@ -60,7 +60,7 @@ class LanguageEntriesTest extends ControllerTestCase
 
     public function testsGetEntriesByKey()
     {
-        $entries = $this->model->getEntriesByKey('L_CHECK');
+        $entries  = $this->model->getEntriesByKey('L_CHECK');
         $expected = array(
             'id'          => 40,
             'key'         => 'L_CHECK',
@@ -87,7 +87,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertTrue($saved);
 
         // check
-        $key = $this->model->getKeyById(1);
+        $key      = $this->model->getKeyById(1);
         $expected = array(
             'id'          => '1',
             'key'         => 'L_TEST',
@@ -106,7 +106,7 @@ class LanguageEntriesTest extends ControllerTestCase
         $updated = $this->model->updateKeyName(1, 'L_TEST_XX');
         $this->assertTrue($updated);
         // check
-        $key = $this->model->getKeyById(1);
+        $key      = $this->model->getKeyById(1);
         $expected = array(
             'id'          => '1',
             'key'         => 'L_TEST_XX',
@@ -121,38 +121,38 @@ class LanguageEntriesTest extends ControllerTestCase
 
     public function testGetEntryById()
     {
-        $entry = $this->model->getTranslationsByKeyId(1, 2);
+        $entry    = $this->model->getTranslationsByKeyId(1, 2);
         $expected = array(2 => 'Test records');
         $this->assertEquals($expected, $entry);
 
-        $entry = $this->model->getTranslationsByKeyId(1, 1);
+        $entry    = $this->model->getTranslationsByKeyId(1, 1);
         $expected = array(1 => 'Test eintrag');
         $this->assertEquals($expected, $entry);
 
         // get non existent
-        $entry = $this->model->getTranslationsByKeyId(99999, 2);
+        $entry    = $this->model->getTranslationsByKeyId(99999, 2);
         $expected = array();
         $this->assertEquals($expected, $entry);
 
         // check call with invalid params
-        $entry = $this->model->getTranslationsByKeyId(0, 0);
+        $entry    = $this->model->getTranslationsByKeyId(0, 0);
         $expected = array();
         $this->assertEquals($expected, $entry);
     }
 
     public function testGetEntriesByKeys()
     {
-        $keys = array('L_TEST');
-        $entry = $this->model->getEntriesByKeys($keys, 1, 1);
+        $keys     = array('L_TEST');
+        $entry    = $this->model->getEntriesByKeys($keys, 1, 1);
         $expected = array('L_TEST' => 'Test eintrag');
         $this->assertEquals($expected, $entry);
 
-        $entry = $this->model->getEntriesByKeys($keys, 1, 2);
+        $entry    = $this->model->getEntriesByKeys($keys, 1, 2);
         $expected = array('L_TEST' => 'Test records');
         $this->assertEquals($expected, $entry);
 
         // check non existent key returns empty string
-        $entry = $this->model->getEntriesByKeys(array('IDontExist'), 1, 1);
+        $entry    = $this->model->getEntriesByKeys(array('IDontExist'), 1, 1);
         $expected = array('IDontExist' => '');
         $this->assertEquals($expected, $entry);
     }
@@ -177,18 +177,18 @@ class LanguageEntriesTest extends ControllerTestCase
 
     public function testGetEntriesByValue()
     {
-        $entries = $this->model->getEntriesByValue(array(1), 'löschen', 0, 30);
+        $entries  = $this->model->getEntriesByValue(array(1), 'löschen', 0, 30);
         $expected = array(
             0 => array(
-                    'id'          => 25,
-                    'key'         => 'L_AUTODELETE',
-                    'template_id' => 1
-                ),
+                'id'          => 25,
+                'key'         => 'L_AUTODELETE',
+                'template_id' => 1
+            ),
             1 => array(
-                    'id'          => 57,
-                    'key'         => 'L_CONFIG_AUTODELETE',
-                    'template_id' => 1
-                ),
+                'id'          => 57,
+                'key'         => 'L_CONFIG_AUTODELETE',
+                'template_id' => 1
+            ),
         );
         $this->assertEquals($expected, $entries);
 
@@ -218,6 +218,35 @@ class LanguageEntriesTest extends ControllerTestCase
         // check that param $nrOfRecords is set to 10 if it is lower (Result can be seen in CodeCoverage)
         $entries = $this->model->getEntriesByValue(array(1), 'IDOnTExist', 0, 1);
         $this->assertEquals(array(), $entries);
+
+        // check result is filtered by template id
+        $entries  = $this->model->getEntriesByValue(array(1), 'a', 0, 2, 1);
+        $expected = array(
+            0 =>
+            array(
+                'id'          => '5',
+                'key'         => 'L_ACTUALLY_INSERTED_RECORDS_OF',
+                'template_id' => '1',
+            ),
+            1 =>
+            array(
+                'id'          => '1',
+                'key'         => 'L_TEST',
+                'template_id' => '1',
+            )
+        );
+        $this->assertEquals($expected, $entries);
+
+        //check we get an empty array if we find hits for translations that are not assigned to a a valid key
+        // save defect entry  - key 9999 doesn't exist
+        $entries = array(
+            1 => 'Testtext',
+            2 => 'Testtext2'
+        );
+        $this->model->saveEntries(9999, $entries);
+        $entries = $this->model->getEntriesByValue(array(1), 'Testtext', 1, 2);
+        $this->assertEquals(array(), $entries);
+        $this->model->deleteEntryByKeyId(9999);
     }
 
     public function testGetEntriesByKey()
@@ -259,12 +288,12 @@ class LanguageEntriesTest extends ControllerTestCase
 
     public function testAssignTranslations()
     {
-        $languageIds = array(1,2);
-        $entries = array(
+        $languageIds          = array(1, 2);
+        $entries              = array(
             0 => array('id' => 2, 'key' => 'L_ACTION'),
             1 => array('id' => 6, 'key' => 'L_ADD'),
         );
-        $res = $this->model->assignTranslations($languageIds, $entries);
+        $res                  = $this->model->assignTranslations($languageIds, $entries);
         $expectedTranslations = array(
             2 => array(1 => '', 2 => 'Action'),
             6 => array(1 => 'Hinzufügen', 2 => 'Add'),

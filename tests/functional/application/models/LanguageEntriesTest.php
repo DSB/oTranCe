@@ -383,4 +383,21 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertTrue($res);
     }
 
+    public function testSaveEntriesRemovesUnchangedValues()
+    {
+        $translations = array(
+            1 => 'Test eintrag',
+            2 => 'Test records',
+        );
+        $res = $this->model->saveEntries(1, $translations);
+        $this->assertTrue($res);
+    }
+
+    public function testSaveEntriesRemovesEmptyValuesIfOldTranslationDoesntExist()
+    {
+        $translations = array(1 => '');
+        $res = $this->model->saveEntries(10000, $translations);
+        $this->assertTrue($res);
+    }
+
 }

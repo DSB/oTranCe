@@ -400,4 +400,37 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertTrue($res);
     }
 
+    public function testValidateLanguageKey()
+    {
+        $res = $this->model->validateLanguageKey('L_I_AM_THE_KEYNAME', 1);
+        $this->assertTrue($res);
+
+        $messages = $this->model->getValidateMessages();
+        $this->assertEquals(array(), $messages);
+    }
+
+    public function testValidateLanguageKeyDetectsIfKeyNameIsTooShort()
+    {
+        $res = $this->model->validateLanguageKey('', 1);
+        $this->assertFalse($res);
+
+        $messages = $this->model->getValidateMessages();
+        $expected = array(
+            0 => 'The name of the key is too short.'
+        );
+        $this->assertEquals($expected, $messages);
+    }
+
+    public function testValidateLanguageKeyDetectsIfKeyExists()
+    {
+        $res = $this->model->validateLanguageKey('L_TEST', 1);
+        $this->assertFalse($res);
+
+        $messages = $this->model->getValidateMessages();
+        $expected = array(
+            0 => 'The key \'L_TEST\' already exists in this file template.',
+        );
+        $this->assertEquals($expected, $messages);
+    }
+
 }

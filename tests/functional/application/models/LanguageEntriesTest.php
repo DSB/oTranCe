@@ -247,7 +247,7 @@ class LanguageEntriesTest extends ControllerTestCase
         return $entries;
     }
 
-    public function testGetEntrissBValueCanFilterByFileTemplate()
+    public function testGetEntriesBValueCanFilterByFileTemplate()
     {
         // check result is filtered by template id
         $entries  = $this->model->getEntriesByValue(array(1), 'a', 0, 2, 1);
@@ -295,7 +295,18 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals(0, sizeof($entries));
     }
 
-    public function testGetFirstUntranslated()
+    public function testGetUntranslatedResetsInvalidOffset()
+    {
+        $entries = $this->model->getUntranslated(1, -14);
+        // if illegal offset -14 is corrected to 0 we should get 3 hits
+        $this->assertEquals(3, sizeof($entries));
+
+        // while we are here and triggered a search, we check the method getRowCount()
+        $foundRows = $this->model->getRowCount();
+        $this->assertEquals(3, $foundRows);
+    }
+
+    public function testGetUntranslatedKey()
     {
         // check we find the first untranslated key of language 1
         $keyId = $this->model->getUntranslatedKey(1);
@@ -304,6 +315,13 @@ class LanguageEntriesTest extends ControllerTestCase
         // check we get null if all keys are translated (case for language 2)
         $keyId = $this->model->getUntranslatedKey(2);
         $this->assertEquals(null, $keyId);
+    }
+
+    public function testGetUntranslatedKeyResetsIllegalOffset()
+    {
+        // check we find the first untranslated key of language 1
+        $keyId = $this->model->getUntranslatedKey(1, -14);
+        $this->assertEquals(2, $keyId);
     }
 
     public function testAssignTranslations()
@@ -326,16 +344,36 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals(array(), $res);
     }
 
-    public function testSaveEntries()
+    public function testSaveNewKey()
     {
-
+        $res = $this->model->saveNewKey(9998, 'I_AM_A_TEST_KEY');
+        $this->assertTrue($res);
     }
 
     /**
-     * @depends testSaveEntries
+     * @depends testSaveNewKey
      */
-    public function deleteLanguageEntries()
+    public function testDeleteLanguageEntries()
     {
+        //create translations for fake language 3
+        $data = array(3 => 'Test translation');
+        $res = $this->model->saveEntries(9998, $data);
+        $this->assertTrue($res);
 
+        $data = array(3 => 'Test translation');
+        $res = $this->model->saveEntries(1, $data);
+        $this->assertTrue($res);
+
+        // now delete all translations of this language
+        $res = $this->model->deleteLanguageEntries(3);
+        $this->assertTrue($res);
+
+        // a search for translations of language 3 should now be empty
+        $entries  = $this->model->getTranslations(3);
+        $this->assertEquals(array(), $entries);
+
+        //cleanup
+        $res = $this->model->deleteEntryByKeyId(9998);
+        $this->assertTrue($res);
     }
 }

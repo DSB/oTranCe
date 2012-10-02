@@ -35,14 +35,12 @@ class ErrorController extends Zend_Controller_Action
             if (in_array($errors->type, $exceptionTypes)) {
                 // 404 error -- controller or action not found
                 $this->getResponse()->setHttpResponseCode(404);
-                $this->view->message = 'Page not found<br />'
-                    .$errors->exception->getMessage();
+                $this->view->message = 'Page not found';
                 $this->view->displayErrors = 1;
             } else {
                 // application error
                 $this->getResponse()->setHttpResponseCode(200);
-                $this->view->message = 'Application error: '
-                    . $errors->exception->getMessage();
+                $this->view->message = 'Application error';
             }
 
             // conditionally display exceptions

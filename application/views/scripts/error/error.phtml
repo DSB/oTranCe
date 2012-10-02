@@ -1,52 +1,123 @@
 <?php
-echo $this->doctype();
+    echo $this->doctype();
+    $this->headMeta()
+        ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
 ?>
-<html>
-<head>
-    <title>oTranCe Error</title>
-    <?php
-        echo $this->headMeta() . "\n";
-        echo $this->headScript() . "\n";
-    ?>
-</head>
-<body>
-<?php
-if ($this->displayErrors == 1) {
-?>
-  <h1>An error occurred</h1>
-  <h2><?php echo $this->message ?></h2>
-
-  <?php if (isset($this->exception)): ?>
-
-  <h3>Exception information:</h3>
-  <p>
-      <b>Message:</b> <?php echo $this->exception->getMessage() ?>
-      <br>
-        Controller:
-            <span id="controller">
-                <?php echo $this->request->getParam('controller'); ?>
-            </span>
-      <br>
-        Action:
-            <span id="action">
-                <?php echo $this->request->getParam('action'); ?>
-            </span>
-      <br>
-        Module:
-            <span id="module">
-                <?php echo $this->request->getParam('module'); ?>
-            </span>
-  </p>
-
-  <h3>Stack trace:</h3>
-  <pre><?php echo $this->exception->getTraceAsString() ?>
-  </pre>
-
-  <h3>Request Parameters:</h3>
-  <pre><?php echo var_export($this->request->getParams(), true) ?>
-  </pre>
-  <?php endif;
-}
-?>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>oTranCe Error</title>
+        <?php
+            echo $this->headMeta() . "\n";
+        ?>
+        <style type="text/css">
+            html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            html { 
+                display: table;
+            }
+            body {
+                display: table-cell;
+                vertical-align: middle;
+            }
+            #errormessage {
+                margin: 0 auto;
+                width: 85%;
+                overflow-x: auto;
+            }
+            .pre {
+                white-space:pre-wrap;
+                font-family: monospace;
+            }
+            .exclamation {
+                margin-right: 3px;
+            }
+        </style>
+    </head>
+    <body>
+        <fieldset id="errormessage">
+            <legend>oTranCe Error</legend>
+            <table>
+                <tr>
+                    <td valign="top">
+                        <img class="exclamation" alt="Error" src="data:image/png;base64,
+                            iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAEsUlEQVR42n3Vb2xT
+                            VRQA8HPee203Nrp1bffHdmwLgbEhMNgAF6PBLxojREVBQWXCYIARBD6gn1Q0BhV1
+                            hj+iISDigoAYkWEWDIIZiQZkDjcn2wpbt3Xt2rXb2tL2re/+8fW9iYEI79PNu7m/
+                            e+65552HcMdzpnY1jFzrgCGPVyrJsSBPNynRnj6emjNPn4oQixl6Q6M8Ny+XWGeU
+                            w5IjDbetx7uA2NvjlshQQCnOs/PVDQe0uS9fXAfuwDBK+bmGokJnCuT3BEN7P4Tf
+                            210YaP9TWPXrZXpwAksE/FQUJTBarWIKrfUP4+EF88S8WbPZgup53Lp28/+DwT0f
+                            wNdHT6Mz08AjbR0aFgiEFcWeD1xOwOTYGGTZsg0pNHPmDPSEYljzag23rXvtP/BY
+                            VQUMB4LQ1e+BHft2Qc7MMjj03GoNS7p7lNHKRZA1d66YjCcg3tRIC8Rx4JlmDV1z
+                            qgFH/u6Gt2o3QWmhA+xTnLdAtDkcYtUTj5HmPfs1DIN+FvX4WGzhIsH84EOQHBkF
+                            uekHsIqEGaxWgYuSkEIffmUDXjnTJAWHfFQFeQo0hIIj0OruV6oncoZeD+OUMjkS
+                            FUZLZkLW4idR9gwAPdfE7XYzcBSZYDIIHAUN/U3NaUVRoTSlfDrF4/PnpjNJSsR7
+                            3DoW8BEajXE0GCQlGuGBrAK0rKyB2A0XiGdOgi3HzOl4EtU6IlJGBnKHQ0qhotOB
+                            7S1Xjdj8/FJwXbioYx53ksRlVDcWBWMa0HAY+yIy2Le9AaHz5yDts4+gIN8GJBrn
+                            giAAo4RKJhPna+uMWk6/P4D4b2mgq5MwOckhVR+McYhGU9Giq98H2fVfwFijmr9v
+                            D0OO0wksclMDOapVwjlBro62btMivQXC1RbCmTpFFAn9Q5xHwiCqC9y9gwA76yF6
+                            +hQUN5+FTJsdeExNCaWqhahuTjA5jvDuOzrYvOIZcJ1v1qO8+EuSDHpRUJIiYwxE
+                            QURv3yBENmwD4cJPUNLRAtKkDMCErG7MgCWTVFJj4O/v1I+87z3EEw9UpVNTWiLe
+                            2aWjR48QklCPrkYqCQJPBEN4cVQGJ5GhPCdLfU24QAgyeZxIaoj8k136pZTOUC+l
+                            1YjHF1YagjKF1mvdSrUlQ0f372WMqjmPxwQXFYEtfhrHr3fDfT+f5fnmyUDjcSbJ
+                            ssA/36eXjcWOFTaLNCU7g6ZACCQI2gpyxarqStK8/6CO1tczb18/G9n8ulBetx5G
+                            RsfAs+JZKO9oY8b0dIF/tlsv7LoavNJ2TQqGxqjdqJbmBAhdA17YsfxxyCmbBod2
+                            7tbQ4LoNinf7m1C6caMYCQbBu3wpndNyCeC7E/qn98JTGBrwwds3hqB0kglU8I7m
+                            sH4VHFYM6Bwa4LGWVg29vnW7cnPZSgBXFxQ1ngLLyW/05lBZgZ6yClw10MntJxrv
+                            0r7qXoJLGRb0t7cJL9c+Sg9tqdfQ8LIV1CSKkHasQWtfa7KG8aviR8S8+2ez+f3X
+                            ue3kj3dvsKe3bILQX+3Y4xmUIowrs8Ph2xrsH+bJaJMkQ0mhg1hnzeFLPv703h17
+                            AgR/ZzcumDbVdNk/LNtDIe0XwIqLMJvRtF6fbzy3vIyrINwJ/gMAaYyMhyWegwAA
+                            AABJRU5ErkJggg==" />
+                    </td>
+                    <td>
+                        Sorry, there was an error processing your request. 
+                        Please try again later or contact an administrator.
+                        
+                        <table>
+                            <tr>
+                                <td><i>Error message:</i></td>
+                                <td><?php echo $this->message ?></td>
+                            </tr>
+                        </table>
+                        
+                        <?php if ($this->displayErrors == 1 && isset($this->exception)) { ?>
+                        <div style="font-size:smaller;">
+                            <br />
+                            <b>Exception information</b>
+                            <table>
+                                <tr>
+                                    <td><i>Message:</i></td>
+                                    <td><?php echo $this->exception->getMessage(); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i>Controller:</i></td>
+                                    <td><?php echo $this->request->getParam('controller'); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i>Action:</i></td>
+                                    <td><?php echo $this->request->getParam('action'); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i>Module:</i></td>
+                                    <td><?php echo $this->request->getParam('module'); ?></td>
+                                </tr>
+                            </table>
+                            
+                            <br />
+                            <b>Stack trace</b>
+                            <div class="pre"><?php echo $this->exception->getTraceAsString(); ?></div>
+          
+                            <br />
+                            <b>Request parameters</b>
+                            <div class="pre"><?php echo var_export($this->request->getParams(), true); ?></div>
+                        </div>
+                        <?php } ?> 
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </body>
 </html>

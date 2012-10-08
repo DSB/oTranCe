@@ -39,7 +39,7 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @param Zend_View_Interface $view Instance of view
      */
-    public function __construct(\Zend_View_Interface $view)
+    public function __construct(Zend_View_Interface $view)
     {
         parent::__construct();
 
@@ -68,7 +68,7 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @return void
      */
-    public function setView(\Zend_View_Interface $view)
+    public function setView(Zend_View_Interface $view)
     {
         $this->_view = $view;
     }

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (5), nukeviet (408)
+// DSB (5), nukeviet (414)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
@@ -180,7 +180,7 @@ Hãy thử lại.',
 'L_HOME' => 'Trang chính',
 'L_ID' => 'ID',
 'L_IMPORT' => 'Nhập',
-'L_IMPORTER' => 'Importer',
+'L_IMPORTER' => 'Trình nhập liệu',
 'L_IMPORT_ANOTHER_FILE' => 'Nhập tệp khác',
 'L_IMPORT_DONE' => 'Chúc mừng.<br />
 Trình nhập liệu đã xử lý xong toàn bộ các mục.',
@@ -223,8 +223,8 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_NO_DOWNLOAD_AVAILABLE' => 'Chưa có sẵn để tải về. Đầu tiên bạn cần XUẤT ra trước.',
 'L_NO_FLAG' => 'Không có cờ',
 'L_NO_HITS' => 'Không có gì.',
-'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
-'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
+'L_NO_IMPORTER_AVAILABLE' => 'Trình nhập liệu không sẵn sàng',
+'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'Chưa có phương thức nhập nào được kích hoạt. Đó là lý do tại sao trình nhập liệu không thể sử dụng. Người quản trị có thể cung cấp một vài trình nhập liệu. Hãy liên hệ quản trị viên dự án để giải quyết việc này.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Mật khẩu cũ',
 'L_OLD_VALUE' => 'Giá trị cũ',
@@ -277,7 +277,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => 'Người dùng được phép xóa ngôn ngữ',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => 'Người dùng được phép xóa tài khoản khác',
 'L_RIGHT_EXPLAIN_EDITCONFIG' => 'Người dùng có thể thấy và sử dụng menu "Cấu hình"',
-'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'User can define allowed import methods',
+'L_RIGHT_EXPLAIN_EDITIMPORTER' => 'Người dùng có thể tự xác định phương pháp nhập.',
 'L_RIGHT_EXPLAIN_EDITKEY' => 'Người dùng được phép sửa từ khóa',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Người dùng có thể thấy và sử dụng bảng quản trị "Ngôn ngữ"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Ngời dùng được phép sửa dữ liệu dự án',
@@ -302,8 +302,8 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_SEARCH' => 'Tìm',
 'L_SEARCH_IN_KEYS' => 'Tìm trong từ khóa',
 'L_SEARCH_IN_TRANSLATIONS' => 'Tìm trong chuỗi dịch',
-'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
-'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
+'L_SELECT_ALLOWED_IMPORTERS' => 'Chọn một phương pháp nhập được phép sử dụng ở đây',
+'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Chọn phương pháp nhập có thể sử dụng khi người dùng muốn nhập dữ liệu.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Chọn tệp tin mẫu được chỉ định',
 'L_SELECT_FILE' => 'Chọn một tệp tin',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Chọn số lượng mục sẽ hiển thị trên 1 trang',

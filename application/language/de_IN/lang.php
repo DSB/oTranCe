@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// Marco.Steinhäuser (431)
+// DSB (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -197,7 +197,7 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_LANGUAGE' => 'Sprache',
 'L_LANGUAGES' => 'Sprachen',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'Die Sprache wurde erfolgreich gelöscht.<br />Alle Log-Einträge und Benutzerrechte für diese Sprache wurden ebenfalls erfolgreich entfernt.',
-'L_LANGUAGE_NAME' => 'Deutsch',
+'L_LANGUAGE_NAME' => 'Deutsch (Du)',
 'L_LANGUAGE_OTHER' => 'Die Sprache ist noch nicht gelistet? Gib an, welche Sprache Du pflegen möchtest',
 'L_LANGUAGE_SETTINGS' => 'Einstellungen Sprache',
 'L_LATEST_ACTIVITY' => 'Letzte Aktivität',

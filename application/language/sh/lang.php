@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1)
+// DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -198,7 +198,7 @@ The importer has processed all entries.',
 'L_LANGUAGE' => 'Language',
 'L_LANGUAGES' => 'Languages',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'The language has been deleted successfully.<br />All log entries, settings and edit rights of users have been removed too.',
-'L_LANGUAGE_NAME' => 'English',
+'L_LANGUAGE_NAME' => 'Serbokrotaisch',
 'L_LANGUAGE_OTHER' => 'The language is not listed? Provide the name of the language you want to maintain',
 'L_LANGUAGE_SETTINGS' => 'Language settings',
 'L_LATEST_ACTIVITY' => 'Latest activity',
@@ -210,7 +210,7 @@ The importer has processed all entries.',
 'L_LOGIN_INVALID_USER' => 'Unknown combination of username and password.',
 'L_LOG_OUT' => 'Log out',
 'L_MENUE_RIGHTS' => 'Menu rights',
-'L_NAME' => 'Serbo-krotaisch',
+'L_NAME' => 'Name',
 'L_NAME_OF_LANGUAGE' => 'Name of language',
 'L_NEEDS_WORK' => 'Needs work',
 'L_NEW_PASSWORD' => 'New password',

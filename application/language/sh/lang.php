@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// 
+// DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -210,7 +210,7 @@ The importer has processed all entries.',
 'L_LOGIN_INVALID_USER' => 'Unknown combination of username and password.',
 'L_LOG_OUT' => 'Log out',
 'L_MENUE_RIGHTS' => 'Menu rights',
-'L_NAME' => 'Name',
+'L_NAME' => 'Serbo-krotaisch',
 'L_NAME_OF_LANGUAGE' => 'Name of language',
 'L_NEEDS_WORK' => 'Needs work',
 'L_NEW_PASSWORD' => 'New password',

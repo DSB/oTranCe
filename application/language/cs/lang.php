@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (3), italjet (56)
+// DSB (3), italjet (57)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Váš účet %1$s pro projekt %2$s byl aktivován administrátorem.',
@@ -84,7 +84,7 @@ If everything looks good, start to analyze the data.',
 'L_DESCRIPTION' => 'Description',
 'L_DONE' => 'Hotovo',
 'L_DOWNLOAD' => 'Download',
-'L_DOWNLOADS' => 'Stahování',
+'L_DOWNLOADS' => 'Ke stažení',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Download of language packs',
 'L_DROP_FILE_HINT' => 'Drop project logo here to upload.',
 'L_DUPLICATE' => 'Duplicate',

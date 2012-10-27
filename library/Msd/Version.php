@@ -16,5 +16,5 @@
  */
 class Msd_Version
 {
-    const VERSION = '1.0.0RC1';
+    const VERSION = '1.0.0';
 }

@@ -178,7 +178,7 @@ class RequirementsController extends Setup_Controller_Abstract
      */
     public function fetchInfoAction()
     {
-        $curlHandle = curl_init($this->_config['url']);
+        $curlHandle = curl_init($this->_config['url'] . '?module=otrance_' . $this->_config['version']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $rawResponse = curl_exec($curlHandle);
         $setupInfo = json_decode($rawResponse, true);

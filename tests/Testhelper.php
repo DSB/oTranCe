@@ -98,7 +98,7 @@ class Testhelper
     }
 
     /**
-     * Executes docs/db_schema.sql and fills database
+     * Executes db_schema.sql and fills database with test data
      *
      * @param string $file SQL-File to execute
      *

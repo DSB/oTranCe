@@ -18,36 +18,42 @@ class Msd_Export
 {
     /**
      * Array with file templates.
+     *
      * @var \Application_Model_FileTemplates
      */
     private $_fileTemplates = array();
 
     /**
      * Array with language meta infos (name, locale, ect.).
+     *
      * @var array
      */
     private $_langInfo = array();
 
     /**
      * Will hold all language keys grouped by template id
+     *
      * @var array
      */
     private $_keys;
 
     /**
      * Will hold all texts of the fallback language
+     *
      * @var array
      */
     private $_fallbackLanguageTranslations;
 
     /**
      * Will hold a list of translators grouped by languageId
+     *
      * @var array
      */
     private $_translatorList;
 
     /**
      * Will hold the project's configuration
+     *
      * @var array
      */
     private $_config;
@@ -69,7 +75,7 @@ class Msd_Export
      */
     public function getLatestDownloadPackageTimestamp()
     {
-        $mTime = 0;
+        $mTime    = 0;
         $iterator = new DirectoryIterator(DOWNLOAD_PATH);
         foreach ($iterator as $fileinfo) {
             if (!$fileinfo->isFile()) {
@@ -84,6 +90,7 @@ class Msd_Export
      * Convert a unix timestamp to date format
      *
      * @param  int $timestamp
+     *
      * @return string
      */
     public function convertUnixDate($timestamp)
@@ -101,7 +108,7 @@ class Msd_Export
     public function exportLanguageFile($languageId)
     {
         $languageEntriesModel = new Application_Model_LanguageEntries();
-        $languageModel = new Application_Model_Languages();
+        $languageModel        = new Application_Model_Languages();
         //mini cache - only read once per request
         if (!isset($this->_langInfo[$languageId])) {
             $this->_langInfo[$languageId] = $languageModel->getLanguageById($languageId);
@@ -120,15 +127,15 @@ class Msd_Export
 
         //Add footers and save file content to physical file
         $exportOk = true;
-        $res = array();
+        $res      = array();
         foreach ($fileContent as $templateId => $langFile) {
             $fileFooter = $this->_replaceLanguageMetaPlaceholder(
                 $this->_fileTemplates[$templateId]['footer'],
                 $languageId
             );
             $langFile['fileContent'] .= $fileFooter . "\n";
-            $size                     = file_put_contents($langFile['filename'], $langFile['fileContent']);
-            $exportOk                 = ($size !== false) && $exportOk;
+            $size     = file_put_contents($langFile['filename'], $langFile['fileContent']);
+            $exportOk = ($size !== false) && $exportOk;
             //Suppress warnings, if we can't change the file permissions.
             @chmod($langFile['filename'], 0664);
             $res[$templateId]['size']     = $size;
@@ -165,15 +172,16 @@ class Msd_Export
      *
      * @param $languageId
      * @param $languageEntriesModel
+     *
      * @return array
      */
     public function _addTranslations($languageId, $languageEntriesModel)
     {
-        $fileContent = array();
+        $fileContent  = array();
         $translations = $languageEntriesModel->getTranslations($languageId);
 
         if ($this->_config == null) {
-            $config = Msd_Registry::getConfig();
+            $config        = Msd_Registry::getConfig();
             $this->_config = $config->getParam('project');
         }
 
@@ -186,7 +194,7 @@ class Msd_Export
 
             $val = isset($translations[$key]) ? trim($translations[$key]) : '';
             //If we have no value, fill the var with the value of the fallback language.
-            if ($val == '' && (int) $this->_config['translateToFallback'] == 1) {
+            if ($val == '' && (int)$this->_config['translateToFallback'] == 1) {
                 if (isset($this->_fallbackLanguageTranslations[$key])) {
                     $val = $this->_fallbackLanguageTranslations[$key];
                 }
@@ -213,8 +221,8 @@ class Msd_Export
     /**
      * Extract meta data for a file and create directory if it doesn't exist
      *
-     * @param int   $languageId   Id of language
-     * @param int   $templateId   Id of template
+     * @param int $languageId Id of language
+     * @param int $templateId Id of template
      *
      * @return array
      */
@@ -228,7 +236,7 @@ class Msd_Export
             ),
             '/'
         );
-        $langDir = dirname($langFilename);
+        $langDir      = dirname($langFilename);
         if (!file_exists($langDir)) {
             mkdir($langDir, 0775, true);
         }
@@ -246,7 +254,7 @@ class Msd_Export
         ) . "\n";
 
         //extract delimiter
-        $pos = strpos($this->_fileTemplates[$templateId]['content'], '{VALUE}') + 7;
+        $pos               = strpos($this->_fileTemplates[$templateId]['content'], '{VALUE}') + 7;
         $data['delimiter'] = substr($this->_fileTemplates[$templateId]['content'], $pos, 1);
         return $data;
     }
@@ -262,11 +270,11 @@ class Msd_Export
     protected function _replaceLanguageMetaPlaceholder($content, $languageId)
     {
         if ($this->_translatorList == null) {
-            $userModel = new Application_Model_User();
+            $userModel             = new Application_Model_User();
             $this->_translatorList = $userModel->getTranslatorlist();
         }
 
-        $search = array(
+        $search  = array(
             '{LANG_NAME}',
             '{LOCALE}',
             '{TRANSLATOR_NAMES}'
@@ -276,7 +284,7 @@ class Msd_Export
             $this->_langInfo[$languageId]['locale'],
             empty($this->_translatorList[$languageId]) ? '' : $this->_translatorList[$languageId],
         );
-        $res = str_replace($search, $replace, $content);
+        $res     = str_replace($search, $replace, $content);
         return $res;
     }
 }

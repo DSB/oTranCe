@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (3), italjet (113)
+// DSB (3), italjet (121)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Váš účet %1$s pro projekt %2$s byl aktivován administrátorem.',
@@ -116,13 +116,13 @@ Prosím, zkuste to znovu',
 'L_ERROR_DELETING_KEY' => 'Chyba při mazání klíče',
 'L_ERROR_DELETING_LANGUAGE' => 'Vyskytla se chyba při mazání tohoto jazyka.<br />Zkuste to prosím znovu.',
 'L_ERROR_DELETING_USER' => 'Vyskytla se chyba při smazání tohoto uživatele.',
-'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
-'L_ERROR_OPTIMIZING_TABLES' => 'An error occured while trying to optimize the database tables.',
-'L_ERROR_SAVING_CHANGE' => 'An error occured while saving your change',
-'L_ERROR_SAVING_KEY' => 'An error occured while saving the key.',
-'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
-'L_ERROR_SAVING_RIGHT' => 'There was an error saving the right. Please try again.',
-'L_ERROR_SAVING_STATUS' => 'Error saving changed status. Please retry.',
+'L_ERROR_INVALID_CHARS' => 'Nahrané obsahuje neplatné znaky',
+'L_ERROR_OPTIMIZING_TABLES' => 'Vyskytla se chyba při pokusu o přizpůsobení databázové tabulky.',
+'L_ERROR_SAVING_CHANGE' => 'Vyskytla se chyba pri pokusu o uložení Vašich změn',
+'L_ERROR_SAVING_KEY' => 'Vyskytla se chyba při pokusu o uložení klíčů',
+'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Není možné uložit změnu u jazykových oprávnění',
+'L_ERROR_SAVING_RIGHT' => 'Vyskytla se chyba při ukládání oprávnění. Zkuste to prosím znovu.',
+'L_ERROR_SAVING_STATUS' => 'Chyba při ukládání statusu. Prosím, zkuste to znovu.',
 'L_ERROR_SELECT_LANGUAGE' => 'You must select at least one existing language or specify a new language to be established.',
 'L_ERROR_TEMPLATE_FILENAME_EXISTS' => 'A file template with the filename \'%s\' already exists.',
 'L_ERROR_TEMPLATE_NAME_EXISTS' => 'A file template with the name \'%s\' already exists.',

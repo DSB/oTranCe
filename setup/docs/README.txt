@@ -3,7 +3,9 @@ README
 
 Installing instructions:
 
-- Copy the folder "public" to your web sever.
+- Copy the folder "public" and all file in it to your web sever.
+Attention: include the folder "public" because other folders will be created on the same level.
+Do not only copy the files inside this folder!
 - Configure a vhost or an alias that has defined the "public" folder as it's root web folder.
 - Start the setup of the application in your browser by calling the url http://yourVhost/setup/
 - Follow the instructions of the setup guide.

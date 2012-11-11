@@ -95,7 +95,7 @@ class ProjectController extends Setup_Controller_Abstract
         $saveConfig = true;
         $ini        = new Msd_Ini();
         $ini->setIniData($configIni);
-        $ini->disableEscaping();
+        $ini->enableEscaping();
         $saveConfig = $saveConfig && $ini->saveFile($this->_config['extractDir'] . '/application/configs/config.ini');
 
         $saveConfig = $saveConfig && copy(

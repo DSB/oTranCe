@@ -9,7 +9,7 @@
  * @author        $Author$
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (413), DSB (2)
+// caos30 (413), DSB (2), PatrickSanchez (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
@@ -177,7 +177,7 @@ $lang = array(
 'L_HOME' => 'Inicio',
 'L_ID' => 'Id',
 'L_IMPORT' => 'Importar',
-'L_IMPORTER' => 'Importer',
+'L_IMPORTER' => 'Importador',
 'L_IMPORT_ANOTHER_FILE' => 'Importar otro archivo',
 'L_IMPORT_DONE' => 'Felicidades.<br />El importador ha procesado todos los registros.',
 'L_IMPORT_SETTINGS' => 'Preferencias para la importación',
@@ -219,7 +219,7 @@ $lang = array(
 'L_NO_DOWNLOAD_AVAILABLE' => 'No hay descargas disponibles. Primero realice una exportación.',
 'L_NO_FLAG' => 'No hay disponible ninguna bandera',
 'L_NO_HITS' => 'No hay datos disponibles',
-'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
+'L_NO_IMPORTER_AVAILABLE' => 'Importador no disponible',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Contraseña antigua',

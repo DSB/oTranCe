@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
 // DSB (387), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)

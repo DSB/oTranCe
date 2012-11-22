@@ -21,7 +21,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('admTabProject')) { ?>
             <li id="admin_project" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $projectUrl;?>">
-                    <?php echo$this->getIcon('Project', '', 16) . ' ' . $this->lang->L_PROJECT;?>
+                    <?php echo $this->getIcon('Project', '', 16) . ' ' . $this->lang->L_PROJECT;?>
                 </a>
             </li>
         <?php
@@ -29,7 +29,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editUsers')) { ?>
             <li id="admin_users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $usersUrl;?>">
-                    <?php echo$this->getIcon('Users', '', 16) . ' ' . $this->lang->L_USERS;?>
+                    <?php echo $this->getIcon('Users', '', 16) . ' ' . $this->lang->L_USERS;?>
                 </a>
             </li>
         <?php
@@ -37,7 +37,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editLanguage')) { ?>
             <li id="admin_languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $languagesUrl;?>">
-                    <?php echo$this->getIcon('Document', '', 16). ' ' . $this->lang->L_LANGUAGES;?>
+                    <?php echo $this->getIcon('Document', '', 16). ' ' . $this->lang->L_LANGUAGES;?>
                 </a>
             </li>
             <?php
@@ -45,7 +45,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editTemplate')) { ?>
             <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $filesUrl;?>">
-                    <?php echo$this->getIcon('Download', '', 16). ' ' . $this->lang->L_FILE_TEMPLATES;?>
+                    <?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_FILE_TEMPLATES;?>
                 </a>
             </li>
             <?php
@@ -53,7 +53,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editImporter')) { ?>
             <li id="admin_importer" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $importersUrl;?>">
-                    <?php echo$this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_IMPORTER;?>
+                    <?php echo $this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_IMPORTER;?>
                 </a>
             </li>
             <?php
@@ -61,7 +61,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
         if ($user->hasRight('editVcs')) { ?>
             <li id="admin_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $vcsUrl;?>">
-                    <?php echo$this->getIcon('BackupDatabase', '', 16) . ' ' . $this->lang->L_VCS;?>
+                    <?php echo $this->getIcon('BackupDatabase', '', 16) . ' ' . $this->lang->L_VCS;?>
                 </a>
             </li>
         <?php } ?>

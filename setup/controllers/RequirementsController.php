@@ -75,7 +75,7 @@ class RequirementsController extends Setup_Controller_Abstract
 
         $this->_requirements[$requirement] = array(
             'status' => $status,
-            'value' => $value,
+            'value'  => $value,
             'passed' => ($status != self::REQUIREMENT_ERROR),
         );
     }
@@ -91,7 +91,7 @@ class RequirementsController extends Setup_Controller_Abstract
     protected function _checkExtension($extensionName, $required = true)
     {
         $checkResult = in_array($extensionName, $this->_loadedExtensions);
-        $status = self::REQUIREMENT_OK;
+        $status      = self::REQUIREMENT_OK;
         if (!$checkResult) {
             $status = $required ? self::REQUIREMENT_ERROR : self::REQUIREMENT_WARNING;
         }
@@ -109,8 +109,13 @@ class RequirementsController extends Setup_Controller_Abstract
      */
     protected function _checkClass($className, $required = true)
     {
-        $checkResult = class_exists($className);
-        $status = self::REQUIREMENT_OK;
+        try {
+            $checkResult = class_exists($className);
+            $status      = self::REQUIREMENT_OK;
+        } catch (Exception $e) {
+            $checkResult = false;
+        }
+
         if (!$checkResult) {
             $status = $required ? self::REQUIREMENT_ERROR : self::REQUIREMENT_WARNING;
         }
@@ -129,7 +134,7 @@ class RequirementsController extends Setup_Controller_Abstract
     protected function _checkFunction($functionName, $required = true)
     {
         $checkResult = function_exists($functionName) && !in_array($functionName, $this->_disabledFunctions);
-        $status = self::REQUIREMENT_OK;
+        $status      = self::REQUIREMENT_OK;
         if (!$checkResult) {
             $status = $required ? self::REQUIREMENT_ERROR : self::REQUIREMENT_WARNING;
         }
@@ -161,11 +166,11 @@ class RequirementsController extends Setup_Controller_Abstract
 
         clearstatcache();
         $checkResult = $checkResult && is_writable($filename);
-        $status = self::REQUIREMENT_OK;
-        $value = 'writable';
+        $status      = self::REQUIREMENT_OK;
+        $value       = 'writable';
         if (!$checkResult) {
             $status = $required ? self::REQUIREMENT_ERROR : self::REQUIREMENT_WARNING;
-            $value = 'not writable';
+            $value  = 'not writable';
         }
 
         $this->_addCheckResult($id, $status, $value);
@@ -181,11 +186,11 @@ class RequirementsController extends Setup_Controller_Abstract
         $curlHandle = curl_init($this->_config['url'] . '?module=otrance_' . $this->_config['version']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
         $rawResponse = curl_exec($curlHandle);
-        $setupInfo = json_decode($rawResponse, true);
+        $setupInfo   = json_decode($rawResponse, true);
 
         if ($setupInfo === null) {
             $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
-            $message = "The update server sends an invalid response.";
+            $message  = "The update server sends an invalid response.";
             if ($httpCode != 200) {
                 $message = "Server response HTTP code: $httpCode";
             }
@@ -209,14 +214,14 @@ class RequirementsController extends Setup_Controller_Abstract
         }
 
         $_SESSION['setupInfo'] = $setupInfo;
-        $jsonArray = array();
+        $jsonArray             = array();
         foreach ($setupInfo['requirements'] as $requireKey => $requirement) {
             $requirement['reqKey'] = $requireKey;
-            $jsonArray[] = $requirement;
+            $jsonArray[]           = $requirement;
         }
         $this->_response->setBodyJson(
             array(
-                'version' => $setupInfo['version'],
+                'version'      => $setupInfo['version'],
                 'requirements' => $jsonArray,
             )
         );
@@ -230,7 +235,7 @@ class RequirementsController extends Setup_Controller_Abstract
     public function checkAction()
     {
         $this->_disabledFunctions = explode(',', ini_get('disable_functions'));
-        $this->_loadedExtensions = get_loaded_extensions();
+        $this->_loadedExtensions  = get_loaded_extensions();
 
         $setupInfo = $_SESSION['setupInfo']['requirements'];
 

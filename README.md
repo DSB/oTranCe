@@ -13,11 +13,11 @@ All your translators will need is just a log in so they can start working on the
 * commit changes to a repository (subversion)
 * set translator rights fine grained
 
-== Project website ==
+== Project website == <br>
 http://otrance.org
 
-== Installation ==
+== Installation == <br>
 https://mysqldumper.jira.com/wiki/display/OTC/Installation
 
-== Help translating oTranCe ==
+== Help translating oTranCe == <br>
 http://translate.otrance.org/

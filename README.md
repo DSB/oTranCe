@@ -17,7 +17,7 @@ All your translators will need is just a log in so they can start working on the
 http://otrance.org
 
 ## Installation ##
-https://mysqldumper.jira.com/wiki/display/OTC/Home
+https://mysqldumper.jira.com/wiki/display/OTC/Installation
 
 ## Help translating oTranCe ##
 http://translate.otrance.org/

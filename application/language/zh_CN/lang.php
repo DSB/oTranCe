@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (61), DSB (1830), DSB (1)
+// binota (61), DSB (1830), DSB (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
@@ -63,7 +63,7 @@ $lang = array(
 'L_CONVERT' => '转换',
 'L_CONVERT_CHARS_FROM' => '转换字符自',
 'L_COPY_TO' => '复制到',
-'L_CREATED_ON_X_AT_Y' => '于%2$s，%1$s 创建W_FILE_TEMPLATE' => '创建一个新的模版文件',
+'L_CREATED_ON_X_AT_Y' => '于%2$s，%, 创建W_FILE_TEMPLATE' => '创建一个新的模版文件',
 'L_CREATE_NEW_USER_ACCOUNT' => '创建一个新的用户账户',
 'L_CUR帐户',
 'L_CURRENT_VCS_ADAPTER' => '使用VCS适配器',

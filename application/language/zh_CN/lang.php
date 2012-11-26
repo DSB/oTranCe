@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (61), DSB (1830), DSB (2)
+// binota (830), DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
@@ -49,7 +49,7 @@ $lang = array(
 'L_COMPLETE_VIEW' => '完整视图',
 'L_CONFIGURATION' => '配置',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => '确定要删除文件模版么？',
-'L_CONFIRM_DELETE_KEY_X' => '您确定要删除键值“{KEY}”么？',
+'L_CONFIRM_DELETE_KEY_X' => '您确定要删除键值\'{KEY}\'么？',
 'L_CONFIRM_DELETE_LANGUAGE' => '您确定要删除该语言么？<br />这将一并移除所有翻译、条目与所有拥有编辑此语言权限的用户之编辑权限。',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => '没问题，删除语言',
 'L_CONFIRM_DELETE_LOG_ENTRY' => '您确定要删除此日志条目吗？',
@@ -63,13 +63,14 @@ $lang = array(
 'L_CONVERT' => '转换',
 'L_CONVERT_CHARS_FROM' => '转换字符自',
 'L_COPY_TO' => '复制到',
-'L_CREATED_ON_X_AT_Y' => '于%2$s，%, 创建W_FILE_TEMPLATE' => '创建一个新的模版文件',
-'L_CREATE_NEW_USER_ACCOUNT' => '创建一个新的用户账户',
-'L_CUR帐户',
+'L_CREATED_ON_X_AT_Y' => '于%2$s,%1$s 创建',
+'L_CREATE_NEW_FILE_TEMPLATE' => '创建一个新的模版文件',
+'L_CREATE_NEW_USER_ACCOUNT' => '创建一个新的用户帐户',
 'L_CURRENT_VCS_ADAPTER' => '使用VCS适配器',
 'L_DATA_TO_ANALYZE' => '分析数据',
 'L_DATETIME' => '日期与时间',
-'L_DELETE' => '删_CREDENTIALS' => '删除凭证',
+'L_DELETE' => '删除',
+'L_DELETE_CREDENTIALS' => '删除凭证',
 'L_DELETE_FILE_TEMPLATE' => '删除文件模版',
 'L_DELETE_FLAG' => '删除国旗',
 'L_DELETE_KEY' => '删除键值',
@@ -80,13 +81,13 @@ $lang = array(
 'L_DOWNLOAD' => '下载',
 'L_DOWNLOADS' => '下载',
 'L_DOWNLOAD_OF_LANGUAGE_PACKS' => '语言包下载',
-'L_DROP_FILE_HINT' => '删除工程标识并从这图标传',
+'L_DROP_FILE_HINT' => '删除工程图标并从这里上传',
 'L_DUPLICATE' => '克隆',
 'L_EDIT' => '编辑',
 'L_EDITED' => '已编辑',
 'L_EDIT_ENTRIES' => '添加新条目',
 'L_EDIT_ENTRY' => '编辑条目',
-'L_EDIT_FILE_TEMPLATE' => 'Edit file templ编辑文件模版',
+'L_EDIT_FILE_TEMPLATE' => '编辑文件模版',
 'L_EDIT_FILE_TEMPLATE_X' => '编辑“%s”文件模版',
 'L_EDIT_LANGUAGE' => '编辑语言',
 'L_EDIT_RIGHTS' => '编辑权限',

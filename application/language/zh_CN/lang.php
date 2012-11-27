@@ -9,8 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (857), DSB (3)
-
+// binota (857), DSB (360
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已激活用户帐户 %1$s',
@@ -123,7 +122,7 @@ $lang = array(
 'L_EXPORT' => '导出',
 'L_EXPORT_BUILD_DOWNLOAD_PACKAGE' => '建立下载包',
 'L_EXPORT_COMMITTOVCS' => '导出为VCS',
-'L_EXPORT_COMMIT_FILES_VCS' => '发送文件到VCS',
+'L_EXPO至COMMIT_FILES_VCS' => '发送文件到VCS',
 'L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE' => '下载包为最新状态',
 'L_EXPORT_EXPORTING_LANGUAGE' => '正在导出语言',
 'L_EXPORT_FILE_STATUS_DOWNLOAD_PACKAGE' => '下载包中的文件状态：',
@@ -134,8 +133,8 @@ $lang = array(
 'L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE' => '下载包中是否包含最新变化？',
 'L_EXPORT_UPDATE_NEEDED' => '下载包需要更新',
 'L_EXPORT_VCSERROR' => 'VCS错误',
-'L_EXPORT_VCS_OUTPUT' => 'VCS输出',
-'L_FALLBACK_LANGUAGE' => '主要语言',
+'L_EXPOR 错误',
+'L_EXPORT_VCS_OUTPUT' => 'VCS ACK_LANGUAGE' => '主要语言',
 'L_FILE' => '文件',
 'L_FILEBROWSER' => '文件浏览器',
 'L_FILECONTENT' => '文件“%s”的内容',

@@ -9,8 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (722), DSB (1)
-
+// binota (722), DSB (1)5
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '您用於專案 %2$s 的使用者帳戶 %1$s 已由管理員啟動',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已啟動使用者帳戶 %1$s',
@@ -123,7 +122,7 @@ $lang = array(
 'L_EXPORT' => '匯出',
 'L_EXPORT_BUILD_DOWNLOAD_PACKAGE' => '建立下載包',
 'L_EXPORT_COMMITTOVCS' => '匯出為VCS',
-'L_EXPORT_COMMIT_FILES_VCS' => '傳送檔案到VCS',
+'L_EXPO至COMMIT_FILES_VCS' => '傳送檔案到VCS',
 'L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE' => '下載包為最新狀態',
 'L_EXPORT_EXPORTING_LANGUAGE' => '正在匯出語言',
 'L_EXPORT_FILE_STATUS_DOWNLOAD_PACKAGE' => '下載包中的檔案狀態：',
@@ -134,8 +133,8 @@ $lang = array(
 'L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE' => '下載包中是否包含最新變化？',
 'L_EXPORT_UPDATE_NEEDED' => '下載包需要更新',
 'L_EXPORT_VCSERROR' => 'VCS錯誤',
-'L_EXPORT_VCS_OUTPUT' => 'VCS輸出',
-'L_FALLBACK_LANGUAGE' => '主要語言',
+'L_EXPOR 錯誤',
+'L_EXPORT_VCS_OUTPUT' => 'VCS ACK_LANGUAGE' => '主要語言',
 'L_FILE' => '檔案',
 'L_FILEBROWSER' => '檔案瀏覽器',
 'L_FILECONTENT' => '檔案「%s」的內容',

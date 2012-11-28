@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (705), DSB (1)
+// binota (725), DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '您用於專案 %2$s 的使用者帳戶 %1$s 已由管理員啟動',
@@ -19,7 +19,7 @@ $lang = array(
 'L_ACTION' => '動作',
 'L_ACTIVITIES' => '啟動',
 'L_ADD' => '新增',
-'L_ADD_ENTRY' => '新增新條目',
+'L_ADD_ENTRY' => '新增條目',
 'L_ADD_FILE_TEMPLATE' => '新增檔案模版',
 'L_ADD_NEW_KEY' => '新增鍵值',
 'L_ADD_NEW_LANGUAGE' => '新增語言',
@@ -27,7 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => '管理權限',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => '點擊頭部導航中的分頁並選擇一個選項以進行編輯。',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => '所有日誌條目、設定與權限皆以移除。',
-'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '您確定要刪除您的個人VCS憑證嗎？',
+'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '確定要刪除您的個人VCS憑證嗎？',
 'L_AUTHENTICATE' => '登入資訊',
 'L_BACK' => '返回',
 'L_BACK_TO_OVERVIEW' => '回到總覽',
@@ -40,8 +40,8 @@ $lang = array(
 'L_CHANGE_YOUR_PASSWORD' => '修改您的帳戶密碼：',
 'L_CHECK_CHARS' => '檢查字元集！',
 'L_CHECK_CHARS_EXPLAIN' => '如果您看到了「亂碼」，您可以嘗試轉換它們的編碼。<br />
-於選擇框中選擇字元集並點擊「轉換資料」。您可以試試不同的編碼，直到文字顯示正常。（每次轉換是以最初上傳的檔案來進行的）<br />
-如果看起來正常了，請開始分析資料。',
+於選擇框中選擇字元集並點擊「轉換資料」。您可以試試不同的編碼，直到文字顯示正常。（每次轉換都是以最初上傳的檔案來進行的）<br />
+如果一切就緒，請開始分析資料。',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => '點擊此處以編輯使用者帳戶',
 'L_CLICK_TO_INLINE_EDIT' => '點擊以進行內嵌編輯',
 'L_CLICK_TO_LOG_IN' => '點擊此處使用您的註冊資料登入',
@@ -57,7 +57,7 @@ $lang = array(
 'L_CONFIRM_DELETE_USER' => '沒問題，刪除使用者',
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => '確定刪除VCS憑證',
 'L_CONFIRM_PASSWORD' => '確認密碼',
-'L_CONFIRM_PASSWORD_EXPLAIN' => '要修改密碼，請輸入新密碼，留空則使用原密碼。',
+'L_CONFIRM_PASSWORD_EXPLAIN' => '請輸入新密碼以進行修改，留空則使用原密碼。',
 'L_CONTACT_EMAIL' => '常用電子信箱',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => '該內容與主要語言相同故未將其匯入！',
 'L_CONVERT' => '轉換',
@@ -66,7 +66,7 @@ $lang = array(
 'L_CREATED_ON_X_AT_Y' => '於%2$s，%1$s 建立',
 'L_CREATE_NEW_FILE_TEMPLATE' => '建立一個新的模版檔案',
 'L_CREATE_NEW_USER_ACCOUNT' => '建立一個新的使用者帳戶',
-'L_CURRENT_VCS_ADAPTER' => '使用VCS變壓器',
+'L_CURRENT_VCS_ADAPTER' => '使用VCS轉換器',
 'L_DATA_TO_ANALYZE' => '分析資料',
 'L_DATETIME' => '日期與時間',
 'L_DELETE' => '刪除',
@@ -85,7 +85,7 @@ $lang = array(
 'L_DUPLICATE' => '拷貝',
 'L_EDIT' => '編輯',
 'L_EDITED' => '已編輯',
-'L_EDIT_ENTRIES' => '新增新條目',
+'L_EDIT_ENTRIES' => '編輯條目',
 'L_EDIT_ENTRY' => '編輯條目',
 'L_EDIT_FILE_TEMPLATE' => '編輯檔案模版',
 'L_EDIT_FILE_TEMPLATE_X' => '編輯「%s」檔案模版',
@@ -93,7 +93,7 @@ $lang = array(
 'L_EDIT_RIGHTS' => '編輯權限',
 'L_EDIT_RIGHT_ADDED_EXPLAIN' => '管理員已授予您%1$s (%2$s)語言的編輯權限',
 'L_EDIT_RIGHT_ADDED_TO' => '已為%s 新增編輯權限',
-'L_EDIT_RIGHT_REQUESTED' => '使用者 %1$s 請求%2$s (%3$s)的編輯權限。',
+'L_EDIT_RIGHT_REQUESTED' => '使用者 %1$s 申請%2$s (%3$s)的編輯權限。',
 'L_EDIT_USER' => '編輯使用者',
 'L_EMAIL' => '電子郵件',
 'L_EMAIL_FOOTER' => '您的 %s-團隊',
@@ -121,9 +121,9 @@ $lang = array(
 'L_ERROR_TEMPLATE_NAME_EXISTS' => '檔案模版名稱「%s」已存在。',
 'L_ERROR_UPDATING_FILE_TEMPLATE' => '更新檔案模版時發生錯誤',
 'L_EXPORT' => '匯出',
-'L_EXPORT_BUILD_DOWNLOAD_PACKAGE' => '建構下載包',
-'L_EXPORT_COMMITTOVCS' => '匯出為VCS',
-'L_EXPORT_COMMIT_FILES_VCS' => '送出檔案到VCS',
+'L_EXPORT_BUILD_DOWNLOAD_PACKAGE' => '建立下載包',
+'L_EXPORT_COMMITTOVCS' => '匯出至VCS',
+'L_EXPORT_COMMIT_FILES_VCS' => '傳送檔案到VCS',
 'L_EXPORT_DOWNLOAD_PACKAGE_UPTODATE' => '下載包為最新狀態',
 'L_EXPORT_EXPORTING_LANGUAGE' => '正在匯出語言',
 'L_EXPORT_FILE_STATUS_DOWNLOAD_PACKAGE' => '下載包中的檔案狀態：',
@@ -131,10 +131,10 @@ $lang = array(
 'L_EXPORT_LANGUAGES_EXPLAIN' => '如果匯出的語言包含空的值，<br />
 則是否使用主要語言的翻譯取代未翻譯的字串？',
 'L_EXPORT_LATEST_CHANGE_DATABASE' => '資料庫中的最新變化',
-'L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE' => '是否要在下載包中包含最新變化？',
+'L_EXPORT_LATEST_CHANGE_IN_DOWNLOAD_PACKAGE' => '下載包中是否包含最新變化？',
 'L_EXPORT_UPDATE_NEEDED' => '下載包需要更新',
-'L_EXPORT_VCSERROR' => 'VCS錯誤',
-'L_EXPORT_VCS_OUTPUT' => 'VCS輸出',
+'L_EXPORT_VCSERROR' => 'VCS 錯誤',
+'L_EXPORT_VCS_OUTPUT' => 'VCS 輸出',
 'L_FALLBACK_LANGUAGE' => '主要語言',
 'L_FILE' => '檔案',
 'L_FILEBROWSER' => '檔案瀏覽器',
@@ -228,7 +228,7 @@ $lang = array(
 'L_PREVIEW' => '預覽',
 'L_PREVIOUS_PAGE' => '上一頁',
 'L_PROGRESS' => '進度',
-'L_PROGRESS_OF_LANGUAGES' => '語言進度',
+'L_PROGRESS_OF_LANGUAGES' => '翻譯進度',
 'L_PROJECT' => '專案',
 'L_PROJECT_LOGO' => '專案圖示',
 'L_PROJECT_LOGO_EXPLAIN' => '專案相對資料夾',
@@ -240,7 +240,7 @@ $lang = array(
 'L_REALLY_DELETE_USER' => '您確定要刪除此使用者？',
 'L_REAL_NAME' => '真實姓名',
 'L_REFERENCE_LANGUAGES' => '介面語言',
-'L_REFERENCE_LANGUAGES_EXPLAIN' => '當您編輯語言變數時選擇的語言將被顯示為介面語言。
+'L_REFERENCE_LANGUAGES_EXPLAIN' => '選擇的語言將在您編輯語言變數時顯示為介面語言。
 這應該可以幫助您更輕鬆地進行翻譯。',
 'L_REGISTER' => '註冊',
 'L_REGISTER_INFORMATION' => '註冊資訊',
@@ -254,10 +254,10 @@ $lang = array(
 
 很快地，管理員將會啟動這個帳戶。',
 'L_REGISTRATION_SUCCESSFUL_TITLE' => '成功註冊',
-'L_REQUEST_EDIT_RIGHT' => '請求編輯權限',
-'L_REQUEST_EDIT_RIGHT_CONFIRM' => '您確定要請求{LOCALE}的語言編輯權限嗎？',
-'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => '您的請求已上報給管理員。
-如果您獲得了編輯權限，很快地您將收到一封電子郵件通知您。',
+'L_REQUEST_EDIT_RIGHT' => '申請編輯權限',
+'L_REQUEST_EDIT_RIGHT_CONFIRM' => '您確定要申請{LOCALE}的語言編輯權限嗎？',
+'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => '您的申請已上報給管理員。
+如果您獲得了編輯權限，您將很快會收到一封電子郵件通知您。',
 'L_RESET' => '重設',
 'L_RETRY' => '重試',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => '已允許使用者新增、編輯語言',
@@ -301,7 +301,7 @@ $lang = array(
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => '選擇您要在一頁中顯示多少條目',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => '選擇界面所使用的語言',
 'L_SELECT_LANG_TO_MAINTAIN' => '選擇您要維護的語言',
-'L_SELECT_OTHER_FILTER_CRITERIA' => '選擇其他篩選器 / 搜尋條件',
+'L_SELECT_OTHER_FILTER_CRITERIA' => '請嘗試選擇其他篩選器 / 搜尋條件',
 'L_SELECT_REPLACEMENT_TEMPLATE' => '請選擇一個提換模板。鍵值及其翻譯將被保存於選定的模版。如果您選擇「刪除模版檔案」則所有的鍵值及其翻譯將被刪除而不會分配到另一個模版。',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => '選擇您的介面語言',
 'L_SHORTCUT' => '捷徑',
@@ -335,7 +335,7 @@ $lang = array(
 'L_VALIDATE_ERROR_NAME_TOO_SHORT' => '鍵值的名稱過短。',
 'L_VALUE' => '值',
 'L_VCS' => '版本控制系統（Version control system，VCS）',
-'L_VCS_ADAPTER_OPTIONS' => 'VCS變壓器選項',
+'L_VCS_ADAPTER_OPTIONS' => 'VCS轉換器選項',
 'L_VCS_CREDENTIALS' => 'VCS憑證',
 'L_VCS_SETTINGS' => '版本控制系統設定',
 'L_VERSION' => '版本：',

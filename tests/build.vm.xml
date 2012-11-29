@@ -1,4 +1,4 @@
-<project name="oTranCe" default="build" basedir="../../">
+<project name="oTranCe" default="build" basedir="./../../">
 
 <property name="repodir" value="${basedir}/src" />
 <property name="builddir" value="${basedir}/build" />
@@ -67,7 +67,7 @@
  <target name="phpcpd">
   <exec dir="${repodir}" executable="phpcpd">
    <arg line="--log-pmd ${logdir}/pmd-cpd.xml
-        --names php
+        --names *.php
         --exclude ${repodir}/library/Zend
         --exclude ${repodir}/application/language
         --exclude ${repodir}/library/ZendX

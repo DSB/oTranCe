@@ -1,4 +1,4 @@
-<project name="oTranCe" default="build" basedir="../">
+<project name="oTranCe" default="build" basedir="../../">
 
 <property name="repodir" value="${basedir}/src" />
 <property name="builddir" value="${basedir}/build" />

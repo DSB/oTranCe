@@ -111,6 +111,7 @@ class Testhelper
             die();
         }
         $sqlFile = file_get_contents(TEST_PATH . '/fixtures/db/' . $file);
+        $sqlFile = str_replace("\r\n", "\n", $sqlFile);
         $queries = explode(";\n", $sqlFile);
         $db      = Msd_Db::getAdapter();
         $db->selectDb('phpunit_otc');

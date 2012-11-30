@@ -2,3 +2,4 @@
 /.idea
 /public/.htaccess
 /application/configs/config.ini
+/atlassian-ide-plugin.xml

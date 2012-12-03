@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (350), janrei (32), kyoya (19), Marco.Steinhäuser (75)
+// DSB (350), enkay (3), janrei (32), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -158,11 +158,13 @@ Bitte wiederholen Sie die Aktion.',
 'L_FOOTER_EXPLAIN' => 'oTranCe ist eine freie Online-Übersetzungsplattform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe Homepage',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
+'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
 'L_FOUND_X_KEYS' => 'Es wurden %s Schlüssel gefunden.',
 'L_GENERAL' => 'Allgemeines',
 'L_GENERATED_CONTENT' => 'Generierter Inhalt',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Finde nächsten unübersetzten Schlüssel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Finde vorherigen unübersetzten Schlüssel',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Sie haben Ihr Passwort <a href="%s">vergessen</a> ?.',
 'L_GOTO_REGISTER_PAGE' => 'Sie haben noch kein Benutzerkonto? <a href="%s">Registrieren</a> Sie sich hier.',
 'L_HEADER' => 'Kopf',
 'L_HEADER_EXPORT' => 'Export',
@@ -256,6 +258,7 @@ Ein Administrator wird es demnächst freischalten.',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Möchten Sie wirklich Bearbeitungsrechte für die Sprache {LOCALE} beantragen?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Ihr Anfrage wurde an den Administrator weitergeleitet.
 Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
+'L_REQUEST_PASSWORD' => 'Passwort anfordern',
 'L_RESET' => 'Zurücksetzen',
 'L_RETRY' => 'Wiederholen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf Sprachen hinzufügen / bearbeiten',

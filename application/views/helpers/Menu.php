@@ -25,7 +25,7 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
     {
         $front   = Zend_Controller_Front::getInstance();
         $request = $front->getRequest();
-        if ($this->view->isLogin) {
+        if ($this->view->isLogin || $request->getControllerName() == 'index_password') {
             //don't render menu when we show the login form
             return '';
         }

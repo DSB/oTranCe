@@ -289,6 +289,21 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
+     * Get a user by email
+     *
+     * @param string $userEmail Email of user
+     *
+     * @return array
+     */
+    public function getUserByEmail($userEmail)
+    {
+        $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
+            . ' WHERE `email`= \'' . $this->_dbo->escape($userEmail) . '\'';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        return isset($res[0]) ? $res[0] : array();
+    }
+
+    /**
      * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
      *
      * @return integer

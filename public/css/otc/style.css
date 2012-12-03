@@ -82,6 +82,7 @@ img {
 #container {
     float:left;
     min-width:100%;
+    margin-top: 50px;
 }
 
 #header {
@@ -856,4 +857,12 @@ pre.xdebug-var-dump {
 }
 .inlineEditKey.inlineEditMouseOver, .inlineEditValue.inlineEditMouseOver {
     padding:0;
+}
+
+.textHeadLine{text-align: center;}
+fieldset {
+    border: 1px solid #DDDDDD;
+    color: #425D1C;
+    margin: 0 0 12px;
+    padding: 5px;
 }

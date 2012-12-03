@@ -10,6 +10,8 @@ echo $this->partial(
          'availableGuiLanguages' => $this->availableGuiLanguages,
     )
 );
+
+    $forgotPasswordUrl = $this->url(array('controller'=>'index_password','action'=>'index'));
 ?>
 </div>
 <div id="login">
@@ -31,7 +33,8 @@ echo $this->partial(
         " method="post" enctype="multipart/formdata">
     <?php echo $this->form; ?>
     </form>
-    <?php printf($this->lang->L_GOTO_REGISTER_PAGE, $this->baseUrl() . '/register/index/'); ?>
+    <?php printf($this->lang->L_GOTO_REGISTER_PAGE, $this->baseUrl() . '/register/index/'); ?><br>
+    <?php printf($this->lang->L_GOTO_FORGOT_PASSWORD_PAGE, $forgotPasswordUrl); ?>
 </div>
 </div>
 <?php

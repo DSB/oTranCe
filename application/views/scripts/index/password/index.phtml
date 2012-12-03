@@ -1,0 +1,48 @@
+<div id="logout">
+    <?php
+    echo $this->partial(
+        'helper/switch-language-box.phtml',
+        array(
+            'lang'                  => $this->lang,
+            'controller'            => 'register',
+            'request'               => $this->request,
+            'availableGuiLanguages' => $this->availableGuiLanguages,
+        )
+    );
+    ?>
+</div>
+<div class="textHeadLine">
+    <h1><?php echo $this->lang->L_FORGOT_PASSWORD_TITLE; ?></h1>
+</div>
+<div style="width:600px;margin: auto auto; vertical-align:middle; background: url('/css/otc/pics/User.png') no-repeat 2% 6%;">
+    <form action="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/index_password/requestpassword/" method="post" enctype="multipart/formdata">
+        <fieldset>
+            <legend>Benutzerinformationen</legend>
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            Benutzer-Email:
+                        </td>
+                        <td>
+                            <input type="text" class="text" name="user_email" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_REQUEST_PASSWORD; ?></button>
+                            <a href="<?php echo $this->serverUrl() . $this->baseUrl();?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('delete'); ?> <?php echo $this->lang->L_CANCEL; ?></a>
+                        </td>
+                    </tr>
+                    <?php if (isset($this->errors['linkNotValid'])) { ?>
+                    <tr>
+                        <td></td>
+                        <td class="error"><?php echo implode('<br/>', $this->errors['username']);?></td>
+                    </tr>
+                        <?php } ?>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

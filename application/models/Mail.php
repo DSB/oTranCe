@@ -164,6 +164,19 @@ class Application_Model_Mail extends Msd_Application_Model
         $mail->send();
     }
 
+    public function sendForgotPasswordMail($userData, $languageData, $verficationLink)
+    {
+        if(!isset($userData['email']) || trim($userData['email']) == ''){
+            // no user email set -> can't set email
+            return;
+        }
+
+        $subjectArgs = array($userData['username'], $this->projectConfig['name']);
+        $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig, 'verificationlink' => $verficationLink));
+        $mail = $this->_getUserMail($userData, 'user/forgot-password', 'L_USER_FORGOT_PASSWORD_SUBJECT', $subjectArgs);
+        $mail->send();
+    }
+
     /**
      * Sends info-mail about account activating to user
      *

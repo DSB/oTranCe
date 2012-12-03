@@ -26,7 +26,7 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
         $this->_request = $request;
-        if ($this->_isLoginPage() || $this->_isRegisterPage() || $this->_isErrorPage()) {
+        if ($this->_isLoginPage() || $this->_isRegisterPage() || $this->_isErrorPage() || $request->getControllerName()=='index_password') {
             return;
         }
 

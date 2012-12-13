@@ -73,6 +73,10 @@ class RequirementsController extends Setup_Controller_Abstract
             $status = $status ? self::REQUIREMENT_OK : self::REQUIREMENT_ERROR;
         }
 
+        if ($status !== self::REQUIREMENT_OK && $value === 'installed') {
+            $value = 'not installed';
+        }
+
         $this->_requirements[$requirement] = array(
             'status' => $status,
             'value'  => $value,

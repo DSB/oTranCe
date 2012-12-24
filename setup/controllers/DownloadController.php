@@ -105,7 +105,7 @@ class DownloadController extends Setup_Controller_Abstract
      */
     public function extractAction()
     {
-        $log = array('extract' => false);
+        $log = array('extract' => false, 'dirsCreated' => true);
         $tempFilename = $_SESSION['tempFilename'];
         $zip = new ZipArchive();
         if ($zip->open($tempFilename) === true) {
@@ -115,9 +115,34 @@ class DownloadController extends Setup_Controller_Abstract
             $extractDir     = realpath($this->_config['extractDir']);
             $log['extract'] = $zip->extractTo($extractDir);
             $zip->close();
+            
+            // Create directories for export and downloads
+            if ($log['extract']) {
+                $dirsToBeCreated = array();
+                $dirsToBeCreated[] = '/data/downloads/';
+                $dirsToBeCreated[] = '/data/export/';
+                foreach ($dirsToBeCreated as $value) {
+                    $value = str_replace('/', DIRECTORY_SEPARATOR, $value);
+                    $log['dirsCreated'] &= $this->_createDir($extractDir . $value);
+                }
+            } else {
+                $log['dirsCreated'] = false;
+            }
         }
         unlink($tempFilename);
 
         $this->_response->setBodyJson($log);
+    }
+    
+    /**
+     * Creates a directory if it does not exist.
+     *
+     * @param string $path The path of the directory to be created.
+     *
+     * @return bool
+     */
+    protected function _createDir($path)
+    {
+        return is_dir($path) || @mkdir($path, 0775);
     }
 }

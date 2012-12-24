@@ -96,13 +96,24 @@ var steps = {
                     if (result.download) {
                         $('#downloadProgress').progressbar('value', 100).hide(1500);
                         $('#extractStatus').prop('src', icons[3]);
+                        $('#dirsCreateStatus').prop('src', icons[3]);
                         $.ajax({
                             "url":"index.php?controller=download&action=extract",
                             "type":"POST",
                             "success":function (result) {
                                 $('#extractStatus').prop('src', icons[result.extract ? 0 : 1]);
+                                $('#dirsCreateStatus').prop('src', icons[result.dirsCreated ? 0 : 1]);
                                 if (result.extract == true) {
-                                    stepSuccess();
+                                    if (result.dirsCreated) {
+                                        stepSuccess();
+                                    } else {
+                                        $('#mysqlNotify')
+                                            .removeClass('ok error warning')
+                                            .addClass('error')
+                                            .html('Package extracted, but directories for export could not be created. Please do it manually.')
+                                            .fadeIn(500);
+                                        stepSuccess(true); 
+                                    }
                                 } else {
                                     stepError();
                                     $('#mysqlNotify')
@@ -466,6 +477,10 @@ if (!$this->readyToInstall) {
             <tr class="row-odd">
                 <td class="vmiddle">Extracting to <span id="extractDir"></span></td>
                 <td class="vmiddle"><img src="images/16x16/NotOk.png" alt="" id="extractStatus"/></td>
+            </tr>
+            <tr class="row-even">
+                <td class="vmiddle">Creating directories for export (data/downloads, data/export)</td>
+                <td class="vmiddle"><img src="images/16x16/NotOk.png" alt="" id="dirsCreateStatus"/></td>
             </tr>
         </table>
     </div>

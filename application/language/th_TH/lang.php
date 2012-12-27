@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// jaideejung007 (607)
+// jaideejung0DSB (1),007 (607)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'บัญชีผู้ใช้ของคุณ %1$s สำหรับโครงการ %2$s ได้รับการยืนยันโดยผู้ดูแลเรียบร้อยแล้ว',
@@ -191,7 +191,7 @@ $lang = array(
 'L_LANGUAGES' => 'ภาษา',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'ภาษาได้ถูกลบออกเรียบร้อยแล้ว<br />ไฟล์บันทึก, การตั้งค่าและสิทธิ์ในการแก้ไขของผู้ใช้จะถูกลบออกไปด้วยเช่นกัน',
 'L_LANGUAGE_NAME' => 'English',
-'L_LANGUAGE_OTHER' => 'ยังไม่มีภาษาของคุณอยู่ในรายการใช่หรือไม่ กรุณากรอกชื่อภาษาของคุณเพื่ออนุมัติการแปลต่อไป',
+'L_LANGUThaiER' => 'ยังไม่มีภาษาของคุณอยู่ในรายการใช่หรือไม่ กรุณากรอกชื่อภาษาของคุณเพื่ออนุมัติการแปลต่อไป',
 'L_LANGUAGE_SETTINGS' => 'ตั้งค่าภาษา',
 'L_LATEST_ACTIVITY' => 'กิจกรรมล่าสุด',
 'L_LOCALE' => 'Locale',

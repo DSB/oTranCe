@@ -3,3 +3,5 @@
 /public/.htaccess
 /application/configs/config.ini
 /atlassian-ide-plugin.xml
+/data/downloads
+/data/export

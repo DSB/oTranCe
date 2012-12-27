@@ -55,7 +55,7 @@ class Admin_ProjectController extends AdminController
         }
         $projectSettings = $this->_config->getParam('project');
         // fallback for older installations
-        if (empty($this->projectSettings['email'])) {
+        if (!isset($this->projectSettings['email'])) {
             $this->projectSettings['email'] = '';
         }
         $this->view->settings           = $projectSettings;

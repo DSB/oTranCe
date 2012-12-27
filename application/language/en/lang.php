@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (387), enkay (3), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (387), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -165,7 +165,7 @@ Please retry.',
 'L_GENERATED_CONTENT' => 'Generated content',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Find next untranslated key',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Get last untranslated key',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'You don\'t have an account yet? You can <a href="%s">register</a> an account here.',
 'L_HEADER' => 'Header',
 'L_HEADER_EXPORT' => 'Export',

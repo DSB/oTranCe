@@ -161,7 +161,7 @@ $lang = array(
 'L_GENERATED_CONTENT' => 'Contingut generat',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Trobar la següent clau no traduïda',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Obtenir la darrera clau no traduïda',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Encara no disposa d\'un compte? Es pot <a href="%s">registrar</a> ara.',
 'L_HEADER' => 'Capçalera',
 'L_HEADER_EXPORT' => 'Exportar',

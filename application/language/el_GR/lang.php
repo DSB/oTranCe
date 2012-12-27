@@ -165,7 +165,7 @@ $lang = array(
 'L_GENERATED_CONTENT' => 'Δημιουργημένο περιεχόμενο',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Αναζήτηση επόμενου αμετάφραστου κλειδιού',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Λήψη τελευταίου αμετάφραστου κλειδιού',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Δεν έχετε ακόμη λογαριασμό? Μπορείτε να <a href="%s">δημιουργήσετε</a> έναν λογαριασμό εδώ.',
 'L_HEADER' => 'Κεφαλίδα',
 'L_HEADER_EXPORT' => 'Εξαγωγή',

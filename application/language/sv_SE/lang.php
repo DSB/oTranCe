@@ -163,7 +163,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_GENERATED_CONTENT' => 'Genererat innehåll',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Hitta nästa oöversatta nyckel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Hitta föregående oöversatta nyckel',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Har du inget användarkonto? <a href="%s">Registrera ett användarkonto här</a>.',
 'L_HEADER' => 'Huvud',
 'L_HEADER_EXPORT' => 'Export',

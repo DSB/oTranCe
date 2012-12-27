@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (5), nukeviet (414)
+// DSB (5), nukeviet (419)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
@@ -63,7 +63,7 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CONVERT' => 'Chuyển đổi',
 'L_CONVERT_CHARS_FROM' => 'Chuyển đổi ký tự từ',
 'L_COPY_TO' => 'Sao chép tới',
-'L_CREATED_ON_X_AT_Y' => 'Đã tạo %1$s tại %2$s.',
+'L_CREATED_ON_X_AT_Y' => 'Tạo ngày %1$s lúc %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Tạo tệp mẫu mới',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Tạo tài khoản thành viên mới',
 'L_CURRENT_VCS_ADAPTER' => 'Dùng trình chuyển đổi VCS',
@@ -158,13 +158,13 @@ Hãy thử lại.',
 'L_FOOTER_EXPLAIN' => 'oTranCe là nền tảng dịch thuật trực tuyến',
 'L_FOOTER_HOMEPAGE' => 'Website chính thức của oTranCe',
 'L_FOOTER_TEAM' => 'Nhóm phát triển',
-'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
+'L_FORGOT_PASSWORD_TITLE' => 'Bạn quên mật khẩu?',
 'L_FOUND_X_KEYS' => 'Thấy %s từ khóa',
 'L_GENERAL' => 'Tổng quan',
 'L_GENERATED_CONTENT' => 'Nội dung được tạo',
-'L_GET_NEXT_UNTRANSLATED_KEY' => 'Tìm từ khóa tiếp theo chưa được dịch',
+'L_GET_NEXT_UNTRANSLATED_KEY' => 'Lưu và tìm từ khóa tiếp theo chưa được dịch',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Lấy từ khóa cuối cùng chưa được dịch',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Bạn <a href="%s">quên mật khẩu</a> của mình?',
 'L_GOTO_REGISTER_PAGE' => 'Bạn chưa có tài khoản? Bạn có thể <a href="%s">đăng ký</a> một tài khoản tại đây.',
 'L_HEADER' => 'Phần đầu',
 'L_HEADER_EXPORT' => 'Xuất',
@@ -256,7 +256,7 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_REQUEST_EDIT_RIGHT' => 'Yêu cầu cấp quyền sửa',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Bạn yêu cầu cấp quyền sửa ngôn ngữ {LOCALE}?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Yêu cầu của bạn vừa được chuyển tới Quản trị viên. Bạn sẽ nhận được email ngay khi quyền chỉnh sửa được cấp cho bạn.',
-'L_REQUEST_PASSWORD' => 'Request password',
+'L_REQUEST_PASSWORD' => 'Yêu cầu mật khẩu',
 'L_RESET' => 'Làm lại',
 'L_RETRY' => 'Thử lại',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Người dùng được phép thêm / chỉnh sửa ngôn ngữ',

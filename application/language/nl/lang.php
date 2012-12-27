@@ -161,7 +161,7 @@ $lang = array(
 'L_GENERATED_CONTENT' => 'Gegenereerd inhoud',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Zoek de volgende onvertaalde sleutel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Zoek de vorige onvertaalde sleutel',
-'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password ?.',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Heeft u nog geen gebruikersaccount? <a href="%s">Registrer</a> hier.',
 'L_HEADER' => 'Kop',
 'L_HEADER_EXPORT' => 'Export',

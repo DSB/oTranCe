@@ -390,5 +390,6 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
+'_TEST' => 'test',
 );
 return $lang;

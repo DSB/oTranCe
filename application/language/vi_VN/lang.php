@@ -387,5 +387,6 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Không hợp lệ.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Dữ liệu nhập vào quá dài.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Dữ liệu nhập vào quá ngắn.',
+'_TEST' => 'test',
 );
 return $lang;

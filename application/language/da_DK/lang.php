@@ -384,5 +384,6 @@ Hvis alt ser godt ud, begynde at analysere dataene.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ugyldig indtastning.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Indtastning er for lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Indtastning er for kort.',
+'_TEST' => 'test',
 );
 return $lang;

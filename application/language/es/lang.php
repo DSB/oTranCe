@@ -382,5 +382,6 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionado no es válido.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionado es demasiado largo.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionado es demasiado corto.',
+'_TEST' => 'test',
 );
 return $lang;

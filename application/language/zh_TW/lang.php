@@ -391,5 +391,6 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => '輸入的內容無效。',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => '您輸入了太多東西了。',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => '輸入的內容過短。',
+'_TEST' => 'test',
 );
 return $lang;

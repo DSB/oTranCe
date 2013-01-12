@@ -382,5 +382,6 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ugyldig inntasting.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Inntastingen er for lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Inntastingen er for kort.',
+'_TEST' => 'test',
 );
 return $lang;

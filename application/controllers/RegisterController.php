@@ -16,6 +16,16 @@
 class RegisterController extends Msd_Controller_Action
 {
     /**
+     * @var Application_Model_Languages
+     */
+    protected $languagesModel;
+
+    public function init()
+    {
+        $this->languagesModel = new Application_Model_Languages();
+    }
+
+    /**
      * Register a user
      *
      * @return void
@@ -34,8 +44,7 @@ class RegisterController extends Msd_Controller_Action
         );
         $validationErrors  = array();
         $userData          = $this->_request->getParam('user', $default);
-        $languagesModel    = new Application_Model_Languages();
-        $languagesMetaData = $languagesModel->getAllLanguages();
+        $languagesMetaData = $this->languagesModel->getAllLanguages();
         $translator        = Msd_Language::getInstance();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $userModel          = new Application_Model_User();
@@ -44,30 +53,19 @@ class RegisterController extends Msd_Controller_Action
 
             $languageSelected = true;
             if (empty($userData['lang']) && $userData['newLanguage'] == '') {
-                $languageSelected = false;
+                $languageSelected                      = false;
                 $validationErrors['selectLanguage'][0] = $translator->translate('L_ERROR_SELECT_LANGUAGE');
             }
 
             if ($userModel->validateData($userData, $translator)) {
                 if ($languageSelected !== false) {
-                    $newUserId = $userModel->saveAccount($userData);
-                    if ($newUserId) {
+                    $this->view->registerSuccess = false;
+                    $userId                      = $userModel->registerUser($userData, $languagesMetaData);
+                    if ($userId !== false) {
                         $this->view->registerSuccess = true;
-                        if (!empty($userData['lang'])) {
-                            $userModel->saveLanguageRights($newUserId, array_keys($userData['lang']));
-                        }
-                        $userData['id'] = $newUserId;
-                        // save interface language setting to user profile
-                        $interfaceLanguage = $this->_dynamicConfig->getParam('interfaceLanguage', false);
-                        $userModel->saveSetting('interfaceLanguage', $interfaceLanguage, $userData['id']);
-
                         // send e-mail to administrator
-                        $mailer         = new Application_Model_Mail($this->view);
+                        $mailer = new Application_Model_Mail($this->view);
                         $mailer->sendUserRegisteredMail($userData, $languagesMetaData);
-
-                        // log register action
-                        $historyModel = new Application_Model_History();
-                        $historyModel->logUserRegistered($userData['id']);
                     }
                 }
             } else {
@@ -81,4 +79,5 @@ class RegisterController extends Msd_Controller_Action
         $this->view->availableGuiLanguages = $this->view->dynamicConfig->getParam('availableGuiLanguages');
         $this->view->editLanguages         = $languagesMetaData;
     }
+
 }

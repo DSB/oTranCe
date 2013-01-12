@@ -19,48 +19,56 @@ class Application_Model_User extends Msd_Application_Model
 {
     /**
      * Name of current user
+     *
      * @var
      */
     private $_username;
 
     /**
      * Id of current user
+     *
      * @var int
      */
     private $_userId;
 
     /**
      * User table
+     *
      * @var string
      */
     private $_tableUsers;
 
     /**
      * Usersettings table
+     *
      * @var string
      */
     private $_tableUsersettings;
 
     /**
      * Userrights table
+     *
      * @var string
      */
     private $_tableUserrights;
 
     /**
      * User language edit rights table
+     *
      * @var string
      */
     private $_tableUserLanguages;
 
     /**
      * Language table
+     *
      * @var string
      */
     private $_tableLanguages;
 
     /**
      * Rights of the current user
+     *
      * @var array
      */
     private $_userrights;
@@ -1028,4 +1036,40 @@ class Application_Model_User extends Msd_Application_Model
             'email'    => array(),
         );
     }
+
+    /**
+     * Register the user and save all needed params to database
+     *
+     * @param array $userData          Ass. array holding user data
+     * @param array $languagesMetaData Array holding lang meta data
+     *
+     * @return int|bool New id of user or false on error
+     */
+    public function registerUser($userData, $languagesMetaData)
+    {
+        $newUserId = $this->saveAccount($userData);
+        if ($newUserId) {
+            if (!empty($userData['lang'])) {
+                $this->saveLanguageRights($newUserId, array_keys($userData['lang']));
+            }
+            $userData['id'] = $newUserId;
+            // save interface language setting to user profile
+            $interfaceLanguage = $this->_dynamicConfig->getParam('interfaceLanguage', false);
+            $this->saveSetting('interfaceLanguage', $interfaceLanguage, $userData['id']);
+
+            // add main language as reference language to user profile
+            $languagesModel     = new Application_Model_Languages();
+            $fallbackLanguageId = $languagesModel->getFallbackLanguageId();
+            if ($fallbackLanguageId !== false) {
+                $this->saveSetting('referenceLanguage', $fallbackLanguageId, $userData['id']);
+            }
+
+            // log register action
+            $historyModel = new Application_Model_History();
+            $historyModel->logUserRegistered($userData['id']);
+        }
+
+        return $newUserId;
+    }
+
 }

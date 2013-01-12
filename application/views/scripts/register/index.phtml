@@ -143,3 +143,13 @@ if ($this->registerSuccess) {
         )
     );
 }
+
+if (isset($this->registerSuccess) && $this->registerSuccess == false) {
+    $this->showNotification(
+        false,
+        '',
+        $this->lang->L_ERROR_CREATING_ACCOUNT,
+        10000
+    );
+}
+

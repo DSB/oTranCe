@@ -12,8 +12,7 @@
 // caos30 (445), DSB (2)
 
 $lang = array(
-'A_TEST' => 'test',
-'L_ACCOUNT_ACTIVATED' => 'El vostre compte d\'usuari %1$s per al projecte %2$s ha estat activat per un administrador.',
+'A_TEST' => 'tIVATED' => 'El vostre compte d\'usuari %1$s per al projecte %2$s ha estat activat per un administrador.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'El compte d\'usuari %1$s per a %2$s ha estat activat.',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar el compte de l\'usuari amb ID %s',
 'L_ACCOUNT_SETTINGS' => 'Opcions del compte',

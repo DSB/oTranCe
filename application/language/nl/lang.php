@@ -12,8 +12,7 @@
 // DSB (4), Jan.Twachtmann (394), pavdeijk (100)
 
 $lang = array(
-'A_TEST' => 'test',
-'L_ACCOUNT_ACTIVATED' => 'Uw gebruikersaccount %1$s voor het project %2$s is geactiveerd door een beheerder.',
+'A_TEST' => 'tIVATED' => 'Uw gebruikersaccount %1$s voor het project %2$s is geactiveerd door een beheerder.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'gebruikersaccount %1$s voor %2$s is geactiveerd',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',
 'L_ACCOUNT_SETTINGS' => 'Instellingen gebruikersaccount',

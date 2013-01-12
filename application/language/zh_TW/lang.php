@@ -12,8 +12,7 @@
 // binota (749), DSB (1)
 
 $lang = array(
-'A_TEST' => 'test',
-'L_ACCOUNT_ACTIVATED' => '您用於專案 %2$s 的使用者帳戶 %1$s 已由管理員啟動',
+'A_TEST' => 'tIVATED' => '您用於專案 %2$s 的使用者帳戶 %1$s 已由管理員啟動',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已啟動使用者帳戶 %1$s',
 'L_ACCOUNT_OF_USER_WITH_ID' => '編輯 %s 的使用者帳戶',
 'L_ACCOUNT_SETTINGS' => '帳戶設定',

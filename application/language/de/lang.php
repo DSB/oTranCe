@@ -12,8 +12,7 @@
 // DSB (353), enkay (3), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
-'A_TEST' => 'test',
-'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
+'A_TEST' => 'tIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %1$s für %2$s aktiviert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',

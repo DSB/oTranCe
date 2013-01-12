@@ -12,8 +12,7 @@
 // DSB (2), HolgerGremminger (380)
 
 $lang = array(
-'A_TEST' => 'test',
-'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
+'A_TEST' => 'tIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Användarkontot %1$s för %2$s har aktiverats',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeta användarkontot med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Inställningar användarkontot',

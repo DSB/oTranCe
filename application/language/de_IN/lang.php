@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), Marco.Steinhäuser (431)
+// DSB (4), enkay (3), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -105,6 +105,7 @@ Wenn die Anzeige stimmig ist, kannst Du den Import mit dem Button "Starte Analys
 'L_ERROR_AJAX' => 'Upps - es gab ein Problem mit dem Ajax-Request!<br /> 
 Bitte wiederhole die Aktion.',
 'L_ERROR_CONVERTING' => 'Die Daten konnten nicht als %s interpretiert werden!',
+'L_ERROR_CREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuchen Sie bitte noch einmal. Wenn der Fehler weiterhin besteht, wenden Sie sich bitte an den Administrator.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
 'L_ERROR_DELETING_FLAG' => 'Die Flagge konnte nicht gelöscht werden',
 'L_ERROR_DELETING_KEY' => 'Beim Löschen des Schlüssels ist ein Fehler aufgetreten',
@@ -158,11 +159,13 @@ Bitte wiederhole die Aktion.',
 'L_FOOTER_EXPLAIN' => 'oTranCe ist eine freie Online-Übersetzungsplattform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe Homepage',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
+'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
 'L_FOUND_X_KEYS' => 'Es wurden %s Schlüssel gefunden.',
 'L_GENERAL' => 'Allgemeines',
 'L_GENERATED_CONTENT' => 'Generierter Inhalt',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Finde nächsten unübersetzten Schlüssel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Finde vorherigen unübersetzten Schlüssel',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Hast Du Dein Passwort <a href="%s">vergessen</a>?',
 'L_GOTO_REGISTER_PAGE' => 'Du hast noch kein Benutzerkonto? <a href="%s">Registriere</a> Dich hier.',
 'L_HEADER' => 'Kopf',
 'L_HEADER_EXPORT' => 'Export',
@@ -256,6 +259,7 @@ Ein Administrator wird es demnächst freischalten.',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Möchtest Du wirklich Bearbeitungsrechte für die Sprache {LOCALE} beantragen?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Deine Anfrage wurde an den Administrator weitergeleitet. 
 Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
+'L_REQUEST_PASSWORD' => 'Passwort anfordern',
 'L_RESET' => 'Zurücksetzen',
 'L_RETRY' => 'Wiederholen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf Sprachen hinzufügen / bearbeiten',

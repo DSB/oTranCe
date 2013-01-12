@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
 // DSB (4), Jan.Twachtmann (394), pavdeijk (100)
@@ -102,6 +102,7 @@ $lang = array(
 'L_ERRORS' => 'Fouten',
 'L_ERROR_AJAX' => 'Oeps! Er is een probleem met uw AJAX-request!<br />Voer de actie opnieuw uit aub.',
 'L_ERROR_CONVERTING' => 'De records konden niet als %s verwerkt werden.',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Er was een fout bij het verwijderen van het voorbeeldbestand.',
 'L_ERROR_DELETING_FLAG' => 'De vlag kon niet verwijderd worden.',
 'L_ERROR_DELETING_KEY' => 'Er is een fout opgetreden bij het verwijderen van de sleutel.',
@@ -155,11 +156,13 @@ $lang = array(
 'L_FOOTER_EXPLAIN' => 'oTranCe is een vrij online vertalingsplatform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe webpagina',
 'L_FOOTER_TEAM' => 'Het ontwikkelaar team',
+'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => 'Er zijn %s sleutel(s) gevonden.',
 'L_GENERAL' => 'Algemeen',
 'L_GENERATED_CONTENT' => 'Gegenereerd inhoud',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Zoek de volgende onvertaalde sleutel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Zoek de vorige onvertaalde sleutel',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Heeft u nog geen gebruikersaccount? <a href="%s">Registrer</a> hier.',
 'L_HEADER' => 'Kop',
 'L_HEADER_EXPORT' => 'Export',
@@ -250,6 +253,7 @@ $lang = array(
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Weet u zeker, dat u een verzoek voor bewerk-rechten voor taal {LOCALE} wil indienen?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'uw verzoek is doorgestuurd aan een beheerder.
 U krijgt een email zodra de bewerk-rechten toegekend zijn.',
+'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Resetten',
 'L_RETRY' => 'Herhalen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Gebruiker mag nieuwe talen toevoegen',

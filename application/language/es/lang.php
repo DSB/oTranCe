@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
 // caos30 (413), DSB (2), PatrickSanchez (2)
@@ -102,6 +102,7 @@ $lang = array(
 'L_ERRORS' => 'Errores',
 'L_ERROR_AJAX' => 'Upss... ha sucedido un error con la llamada ajax al servidor.<br />Por favor, inténtelo de nuevo.',
 'L_ERROR_CONVERTING' => '¡Los datos no se han podido interpretar como %s!',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Ha ocurrido un error al tratar de eliminar la plantilla de archivo',
 'L_ERROR_DELETING_FLAG' => 'No se ha podido eliminar la bandera',
 'L_ERROR_DELETING_KEY' => 'Ha habido un error al intentar eliminar la clave',
@@ -155,11 +156,13 @@ $lang = array(
 'L_FOOTER_EXPLAIN' => 'oTrance es una plataforma de traducción en línea y gratuita',
 'L_FOOTER_HOMEPAGE' => 'Portada de oTrance',
 'L_FOOTER_TEAM' => 'El equipo de desarrollo',
+'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => 'Se han encontrado %s claves.',
 'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Contenido generado',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Encontrar la siguiente clave no traducida',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Obtener la última clave no traducida',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => '¿Aún no dispone de una cuenta? Se puede <a href="%s">registrar</a> ahora.',
 'L_HEADER' => 'Cabecera',
 'L_HEADER_EXPORT' => 'Exportar',
@@ -249,6 +252,7 @@ $lang = array(
 'L_REQUEST_EDIT_RIGHT' => 'Solicitar permisos de edición',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => '¿Realmente quiere solicitar permisos de edición sobre el idioma {LOCALE}?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Su solicitud ha sido enviada a un administrador. Recibirá un email tan pronto como se le otorgue el permiso de edición que ha solicitado.',
+'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Reinicializar',
 'L_RETRY' => 'Reintentar',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'El usuario tiene permiso para editar y añadir idiomas',

@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
 // caos30 (445), DSB (2)
@@ -102,6 +102,7 @@ $lang = array(
 'L_ERRORS' => 'Errors',
 'L_ERROR_AJAX' => 'Upss... hi ha hagut un error amb la trucada ajax al servidor.<br />Si us plau, intenti-ho de nou.',
 'L_ERROR_CONVERTING' => 'Les dades no s\'han pogut interpretar com a %s!',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Hi ha hagut un error provant d\'eliminar la plantilla d\'arxiu',
 'L_ERROR_DELETING_FLAG' => 'No s\'ha pogut eliminar la bandera',
 'L_ERROR_DELETING_KEY' => 'Hi ha hagut un error provant d\'eliminar la clau',
@@ -155,11 +156,13 @@ $lang = array(
 'L_FOOTER_EXPLAIN' => 'oTranCe és una plataforma de traducció en línia i gratuita',
 'L_FOOTER_HOMEPAGE' => 'Portada d\' oTranCe',
 'L_FOOTER_TEAM' => 'L\'equip de desenvolupament',
+'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => 'S\'han trobat %s claus.',
 'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Contingut generat',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Trobar la següent clau no traduïda',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Obtenir la darrera clau no traduïda',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Encara no disposa d\'un compte? Es pot <a href="%s">registrar</a> ara.',
 'L_HEADER' => 'Capçalera',
 'L_HEADER_EXPORT' => 'Exportar',
@@ -249,6 +252,7 @@ $lang = array(
 'L_REQUEST_EDIT_RIGHT' => 'Solicitar permissos d\'edició',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Realment vol solicitar drets d\'edició sobre l\'idioma {LOCALE}?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'La seva solicitud ha estat enviada a un administrador. Rebrà un email tan aviat com se li otorgui el permís d\'edició solicitat.',
+'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Reinicialitzar',
 'L_RETRY' => 'Reintentar',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'A l\'usuari li està permés afegir i editar idiomes',

@@ -5,11 +5,11 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (387), janrei (18), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (390), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -105,6 +105,7 @@ If everything looks good, start to analyze the data.',
 'L_ERROR_AJAX' => 'Oops - there was a fatal error with the ajax request!<br />
 Please retry.',
 'L_ERROR_CONVERTING' => 'Data couldn\'t be interpreted as %s!',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Error deleting file template',
 'L_ERROR_DELETING_FLAG' => 'The flag couldn\'t be deleted',
 'L_ERROR_DELETING_KEY' => 'Error deleting the key',
@@ -159,11 +160,13 @@ Please retry.',
 'L_FOOTER_EXPLAIN' => 'oTranCe is a free online translation platform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe Homepage',
 'L_FOOTER_TEAM' => 'The developer team',
+'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => 'Found %s keys.',
 'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Generated content',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Find next untranslated key',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Get last untranslated key',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'You don\'t have an account yet? You can <a href="%s">register</a> an account here.',
 'L_HEADER' => 'Header',
 'L_HEADER_EXPORT' => 'Export',
@@ -258,6 +261,7 @@ An administrator will activate it soon.',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Do you really want to request edit rights for the language {LOCALE}?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Your request has been forwarded to an administrator.
 You will get an e-mail as soon as the edit right is granted to you.',
+'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Reset',
 'L_RETRY' => 'Retry',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add / edit languages',

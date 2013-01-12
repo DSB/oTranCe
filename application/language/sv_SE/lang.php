@@ -5,8 +5,8 @@
  *
  * @package       otrance
  * @subpackage    Language
- * @version       $Rev$
- * @author        $Author$
+ * @version       $Rev: $
+ * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
 // DSB (2), HolgerGremminger (380)
@@ -104,6 +104,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERRORS' => 'Fel',
 'L_ERROR_AJAX' => 'Ett fel har uppträtt i AJAX-förfrågningen!<br />Var vänlig och upprepa aktionen.',
 'L_ERROR_CONVERTING' => 'Datan kunde ej interpreteras som %s!',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Ett fel uppträdde vid radering av filmallen',
 'L_ERROR_DELETING_FLAG' => 'Flaggan kunde ej raderas',
 'L_ERROR_DELETING_KEY' => 'Ett fel uppträdde under radering av nyckeln',
@@ -157,11 +158,13 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_FOOTER_EXPLAIN' => 'oTranCe är en fri online-översättningsplattform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe hemsida',
 'L_FOOTER_TEAM' => 'Utvecklingsteamet',
+'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => '%s nycklar hittades.',
 'L_GENERAL' => 'Allmänt',
 'L_GENERATED_CONTENT' => 'Genererat innehåll',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Hitta nästa oöversatta nyckel',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Hitta föregående oöversatta nyckel',
+'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Did you <a href="%s">forget</a> your password?',
 'L_GOTO_REGISTER_PAGE' => 'Har du inget användarkonto? <a href="%s">Registrera ett användarkonto här</a>.',
 'L_HEADER' => 'Huvud',
 'L_HEADER_EXPORT' => 'Export',
@@ -254,6 +257,7 @@ En administratör kommer att se över kontot och godkänna det.',
 'L_REQUEST_EDIT_RIGHT_CONFIRM' => 'Vill du verkligen begära bearbetningsbehörighet för språket {LOCALE}?',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Din förfrågan har skickats till en administratör.
 Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
+'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Återställ',
 'L_RETRY' => 'Upprepa',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Användaren får infoga nya språk',

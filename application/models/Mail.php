@@ -134,7 +134,7 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $subjectArgs = array($this->projectConfig['name'], $userData['username']);
         $mail = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArgs);
-        $mail->send();
+        return $this->_sendMail($mail);
     }
 
     /**
@@ -143,7 +143,7 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array $userData     Array containing the users data
      * @param array $languageData Languages meta data
      *
-     * @return void
+     * @return bool
      */
     public function sendEditRightRequestedMail($userData, $languageData)
     {
@@ -161,7 +161,7 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $subjectArgs = array($userData['username'], $languageData['name'], $languageData['locale']);
         $mail = $this->_getAdminMail($userData, 'admin/edit-right-requested', 'L_EDIT_RIGHT_REQUESTED', $subjectArgs);
-        $mail->send();
+        return $this->_sendMail($mail);
     }
 
     public function sendForgotPasswordMail($userData, $languageData, $verficationLink)
@@ -174,7 +174,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
         $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig, 'verificationlink' => $verficationLink));
         $mail = $this->_getUserMail($userData, 'user/forgot-password', 'L_USER_FORGOT_PASSWORD_SUBJECT', $subjectArgs);
-        $mail->send();
+        return $this->_sendMail($mail);
     }
 
     /**
@@ -195,7 +195,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
         $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig));
         $mail = $this->_getUserMail($userData, 'user/account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
-        $mail->send();
+        return $this->_sendMail($mail);
     }
 
     /**
@@ -204,7 +204,7 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array $userData     Array containing the users data
      * @param array $languageData Array containing the indexes 'name' and 'locale'
      *
-     * @return void
+     * @return bool
      */
     public function sendEditRightGrantedMail($userData, $languageData)
     {
@@ -216,7 +216,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subjectArgs = array($languageData['name']);
         $this->_view->assign(array('userData' => $userData, 'languageData' => $languageData));
         $mail = $this->_getUserMail($userData, 'user/edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
-        $mail->send();
+        return $this->_sendMail($mail);
     }
 
     /**
@@ -319,4 +319,22 @@ class Application_Model_Mail extends Msd_Application_Model
         $this->_view->lang->loadLanguageByLocale($userLanguageLocale);
     }
 
+    /**
+     * Send mail
+     *
+     * @param Zend_Mail $mail
+     *
+     * @return bool
+     */
+    protected function _sendMail(\Zend_Mail $mail)
+    {
+        $success = false;
+        try {
+            $mail->send();
+        } catch (Exception $e) {
+            $success = false;
+        }
+
+        return $success;
+    }
 }

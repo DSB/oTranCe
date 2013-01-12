@@ -102,7 +102,7 @@ $lang = array(
 'L_ERRORS' => 'Errores',
 'L_ERROR_AJAX' => 'Upss... ha sucedido un error con la llamada ajax al servidor.<br />Por favor, inténtelo de nuevo.',
 'L_ERROR_CONVERTING' => '¡Los datos no se han podido interpretar como %s!',
-'L_ERROR_DELETING_FILE_TEMPLATE' => 'Ha ocurrido un error al tratar de eliminar la plantilla de archivo',
+'L_ERROR_DELETING_FILECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.ELETING_FILE_TEMPLATE' => 'Ha ocurrido un error al tratar de eliminar la plantilla de archivo',
 'L_ERROR_DELETING_FLAG' => 'No se ha podido eliminar la bandera',
 'L_ERROR_DELETING_KEY' => 'Ha habido un error al intentar eliminar la clave',
 'L_ERROR_DELETING_LANGUAGE' => 'Ha habido un error intentando eliminar este idioma.<br />Por favor, inténtelo de nuevo.',

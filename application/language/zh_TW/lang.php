@@ -105,7 +105,7 @@ $lang = array(
 'L_ERROR_AJAX' => '哦哦 - 這裡有一個致命錯誤的AJAX請求！<br />
 請重試。',
 'L_ERROR_CONVERTING' => '無法將資料解析為 %s！',
-'L_ERROR_DELETING_FILE_TEMPLATE' => '刪除檔案模版發生錯誤',
+'L_ERROR_DELETING_FILE_TECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.TING_FILE_TEMPLATE' => '刪除檔案模版發生錯誤',
 'L_ERROR_DELETING_FLAG' => '無法刪除國旗',
 'L_ERROR_DELETING_KEY' => '刪除鍵值發生錯誤',
 'L_ERROR_DELETING_LANGUAGE' => '該語言中包含錯誤，請重試。',

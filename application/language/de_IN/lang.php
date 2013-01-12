@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (1), enkay (3), janrei (1), Marco.Steinhäuser (431)
+// DSB (1), enkay (2), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -105,7 +105,7 @@ Wenn die Anzeige stimmig ist, kannst Du den Import mit dem Button "Starte Analys
 'L_ERROR_AJAX' => 'Upps - es gab ein Problem mit dem Ajax-Request!<br /> 
 Bitte wiederhole die Aktion.',
 'L_ERROR_CONVERTING' => 'Die Daten konnten nicht als %s interpretiert werden!',
-'L_ERROR_DELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
+'L_ERROR_DELETING_FILECREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuchen Sie bitte noch einmal. Wenn der Fehler weiterhin besteht, wenden Sie sich bitte an den Administrator.ELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
 'L_ERROR_DELETING_FLAG' => 'Die Flagge konnte nicht gelöscht werden',
 'L_ERROR_DELETING_KEY' => 'Beim Löschen des Schlüssels ist ein Fehler aufgetreten',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuch es noch einmal.',

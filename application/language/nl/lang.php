@@ -102,7 +102,7 @@ $lang = array(
 'L_ERRORS' => 'Fouten',
 'L_ERROR_AJAX' => 'Oeps! Er is een probleem met uw AJAX-request!<br />Voer de actie opnieuw uit aub.',
 'L_ERROR_CONVERTING' => 'De records konden niet als %s verwerkt werden.',
-'L_ERROR_DELETING_FILE_TEMPLATE' => 'Er was een fout bij het verwijderen van het voorbeeldbestand.',
+'L_ERROR_DELETING_FILECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persistsDELETING_FILE_TEMPLATE' => 'Er was een fout bij het verwijderen van het voorbeeldbestand.',
 'L_ERROR_DELETING_FLAG' => 'De vlag kon niet verwijderd worden.',
 'L_ERROR_DELETING_KEY' => 'Er is een fout opgetreden bij het verwijderen van de sleutel.',
 'L_ERROR_DELETING_LANGUAGE' => 'Er is een fout opgetreden bij het verwijderen van de taal.<br />Probeer het nog een keer aub.',

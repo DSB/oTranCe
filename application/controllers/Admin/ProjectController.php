@@ -42,12 +42,13 @@ class Admin_ProjectController extends AdminController
         $request       = $this->_request;
         $languageModel = new Application_Model_Languages();
         if ($request->isPost() && $this->_userModel->hasRight('editProject')) {
-            $projectSettings                        = $this->_config->getParam('project');
-            $projectSettings['name']                = $this->_request->getParam('name');
-            $projectSettings['url']                 = $this->_request->getParam('url');
-            $projectSettings['email']               = $this->_request->getParam('email');
-            $projectSettings['logo']                = $this->_request->getParam('logo');
-            $projectSettings['translateToFallback'] = $this->_request->getParam('translateToFallback', 0);
+            $projectSettings                             = $this->_config->getParam('project');
+            $projectSettings['name']                     = $this->_request->getParam('name');
+            $projectSettings['url']                      = $this->_request->getParam('url');
+            $projectSettings['email']                    = $this->_request->getParam('email');
+            $projectSettings['logo']                     = $this->_request->getParam('logo');
+            $projectSettings['forceFallbackAsReference'] = $this->_request->getParam('forceFallbackAsReference', 0);
+            $projectSettings['translateToFallback']      = $this->_request->getParam('translateToFallback', 0);
             $this->_config->setParam('project', $projectSettings);
             $languageModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
 

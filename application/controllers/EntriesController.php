@@ -158,7 +158,17 @@ class EntriesController extends Zend_Controller_Action
         $this->view->languagesEdit = $this->_languagesEdit;
 
         // set reference languages
-        $this->_referenceLanguages      = $this->_userModel->getRefLanguages();
+        $this->_referenceLanguages = $this->_userModel->getRefLanguages();
+        $projectSettings           = $this->_config->getParam('project');
+        if ($projectSettings['forceFallbackAsReference']) {
+            // add main language as reference
+            $this->_referenceLanguages = array_merge(
+                array($this->_languagesModel->getFallbackLanguageId()),
+                $this->_referenceLanguages
+            );
+            // in case user has set main language as reference - make each langId unique and show only once
+            $this->_referenceLanguages = array_unique($this->_referenceLanguages);
+        }
         $this->view->referenceLanguages = $this->_referenceLanguages;
 
         // build show language array for index page

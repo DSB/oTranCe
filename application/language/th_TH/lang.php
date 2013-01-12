@@ -105,7 +105,8 @@ $lang = array(
 'L_ERROR_AJAX' => 'อุ๊ปส์ - มีข้อผิดพลาดเกิดขึ้นระหว่างการส่งคำร้องขอของ ajax!<br />
 กรุณาลองใหม่อีกครั้ง',
 'L_ERROR_CONVERTING' => 'ข้อมูลไม่สามารถแปลงเป็น %s!',
-'L_ERROR_DELETING_FILE_TECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.TING_FILE_TEMPLATE' => 'มีข้อผิดพลาดระหว่างลบไฟล์เทมเพลท',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'มีข้อผิดพลาดระหว่างลบไฟล์เทมเพลท',
 'L_ERROR_DELETING_FLAG' => 'ธงชาตินี้ไม่สามารถลบได้',
 'L_ERROR_DELETING_KEY' => 'มีข้อผิดพลาดระหว่างลบคีย์',
 'L_ERROR_DELETING_LANGUAGE' => 'มีข้อผิดพลาดในการลบภาษานี้<br />กรุณาลองใหม่อีกครั้ง',

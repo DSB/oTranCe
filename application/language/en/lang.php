@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (387), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (388), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -105,7 +105,8 @@ If everything looks good, start to analyze the data.',
 'L_ERROR_AJAX' => 'Oops - there was a fatal error with the ajax request!<br />
 Please retry.',
 'L_ERROR_CONVERTING' => 'Data couldn\'t be interpreted as %s!',
-'L_ERROR_DELETING_FILE_TECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.TING_FILE_TEMPLATE' => 'Error deleting file template',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Error deleting file template',
 'L_ERROR_DELETING_FLAG' => 'The flag couldn\'t be deleted',
 'L_ERROR_DELETING_KEY' => 'Error deleting the key',
 'L_ERROR_DELETING_LANGUAGE' => 'There was an error deleting this language.<br />Please try again.',

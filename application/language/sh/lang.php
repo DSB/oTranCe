@@ -105,7 +105,8 @@ Kada indikator je dosledan , možete pokrenuti uvoz klikom na dugme " Start " an
 'L_ERROR_AJAX' => 'Ups - bilo jeproblema sa Ajaks zahtev <br /> !
 Pokušajte ponovo na operaciju.',
 'L_ERROR_CONVERTING' => 'Podaci se ne mogu tumačiti kao %s!',
-'L_ERROR_DELETING_FILE_TECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.TING_FILE_TEMPLATE' => 'Greška Brisanje datoteke šablona',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Greška Brisanje datoteke šablona',
 'L_ERROR_DELETING_FLAG' => 'Zastava nije mogla biti obrisana',
 'L_ERROR_DELETING_KEY' => 'U toku brisanja ključa, došlo je do greške',
 'L_ERROR_DELETING_LANGUAGE' => 'There was an error deleting this language.<br />Please try again.',

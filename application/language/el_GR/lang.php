@@ -105,7 +105,8 @@ $lang = array(
 'L_ERROR_AJAX' => 'Ωπα.. υπήρξε ένα κρίσιμο σφάλμα με τη ζήτηση Ajax!<br />
 Ξαναπροσπαθήστε',
 'L_ERROR_CONVERTING' => 'Τα δεδομένα δε μπορούν να ερμηνευτούν ως %s!',
-'L_ERROR_DELETING_FILE_TECREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.TING_FILE_TEMPLATE' => 'Σφάλμα διαγραφής αρχείου προτύπου',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Σφάλμα διαγραφής αρχείου προτύπου',
 'L_ERROR_DELETING_FLAG' => 'Η σημαία δε διαγράφεται',
 'L_ERROR_DELETING_KEY' => 'Σφάλμα διαγραφής κλειδιού',
 'L_ERROR_DELETING_LANGUAGE' => 'Υπήρξε σφάλμα διαγραφής γλώσσας.<br /> Παρακαλώ δοκιμάστε πάλι',

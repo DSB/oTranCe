@@ -104,7 +104,8 @@ Vyberte nastavení znaků z nabidky a klikněte na tlačítko "přeměnit data z
 'L_ERROR_AJAX' => 'Jejda - stala se fatalní chyba s požadavkem na ajax!<br /> 
 Prosím, zkuste to znovu',
 'L_ERROR_CONVERTING' => 'Data nemohla být interpretována jako %s!',
-'L_ERROR_DELETING_FILE_TCREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.ETING_FILE_TEMPLATE' => 'Chyba při mazání vzorového souboru',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_DELETING_FILE_TEMPLATE' => 'Chyba při mazání vzorového souboru',
 'L_ERROR_DELETING_FLAG' => 'Vlajka nemohla být smazána',
 'L_ERROR_DELETING_KEY' => 'Chyba při mazání klíče',
 'L_ERROR_DELETING_LANGUAGE' => 'Vyskytla se chyba při mazání tohoto jazyka.<br />Zkuste to prosím znovu.',

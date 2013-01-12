@@ -12,6 +12,7 @@
 // DSB (4), Jan.Twachtmann (394), pavdeijk (100)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Uw gebruikersaccount %1$s voor het project %2$s is geactiveerd door een beheerder.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'gebruikersaccount %1$s voor %2$s is geactiveerd',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bewerk gebruikersaccount met de ID %s',
@@ -383,4 +384,5 @@ U krijgt een email zodra de bewerk-rechten toegekend zijn.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ongeldige invoer.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'De invoer is te lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'De invoer is te kort.',
-'_TEST' => 'teg;
+);
+return $lang;

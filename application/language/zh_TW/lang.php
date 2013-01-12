@@ -12,6 +12,7 @@
 // binota (749), DSB (1)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => '您用於專案 %2$s 的使用者帳戶 %1$s 已由管理員啟動',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已啟動使用者帳戶 %1$s',
 'L_ACCOUNT_OF_USER_WITH_ID' => '編輯 %s 的使用者帳戶',
@@ -391,7 +392,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => '輸入的內容無效。',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => '您輸入了太多東西了。',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => '輸入的內容過短。',
-'_TEST' => 'test',
-);
 );
 return $lang;

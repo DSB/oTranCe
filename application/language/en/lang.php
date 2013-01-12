@@ -9,9 +9,10 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (389), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (390), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -391,7 +392,5 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
-'_TEST' => 'test',
-);
 );
 return $lang;

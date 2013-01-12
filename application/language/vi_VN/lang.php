@@ -12,6 +12,7 @@
 // DSB (5), nukeviet (419)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Tài khoản %s của bạn trên %s đã được kích hoạt',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
@@ -387,5 +388,5 @@ Trình nhập liệu đã xử lý xong toàn bộ các mục.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Không hợp lệ.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Dữ liệu nhập vào quá dài.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Dữ liệu nhập vào quá ngắn.',
-'_TEST' => 'test);
+);
 return $lang;

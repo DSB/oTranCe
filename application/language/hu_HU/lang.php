@@ -12,6 +12,7 @@
 // DSB (1), KardiWeb (3)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Sikeres aktiválás!',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Fiók aktiválás',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
@@ -391,5 +392,5 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
-'_TEST' => 'test',
 );
+return $lang;

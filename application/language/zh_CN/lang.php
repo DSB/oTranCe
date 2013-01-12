@@ -12,6 +12,7 @@
 // binota (887), DSB (3)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已激活用户帐户 %1$s',
 'L_ACCOUNT_OF_USER_WITH_ID' => '编辑 %s 的用户帐户',
@@ -391,7 +392,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => '输入的内容无效。',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => '您输入了太多东西了。',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => '输入的内容过短。',
-'_TEST' => 'test',
-);
 );
 return $lang;

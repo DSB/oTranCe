@@ -12,6 +12,7 @@
 // jsm (542)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Brugerkonto %1$s for projekt %2$s er blevet aktiveret af en administrator',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Brugerkonto %1$s for %2$s er blevet aktiveret',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Rediger brugerkonto med ID %s',
@@ -384,4 +385,5 @@ Hvis alt ser godt ud, begynde at analysere dataene.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ugyldig indtastning.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Indtastning er for lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Indtastning er for kort.',
-'_TEST' => 'tes;
+);
+return $lang;

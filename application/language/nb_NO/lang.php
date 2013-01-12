@@ -12,6 +12,7 @@
 // DSB (1), reswild (406)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Brukerkonto %1$s for prosjekt %2$s har blitt aktivert av en administrator',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Brukerkonto %1$s for %2$s har blitt aktivert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Rediger kontoen til bruker med ID %s',
@@ -382,5 +383,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ugyldig inntasting.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Inntastingen er for lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Inntastingen er for kort.',
-'_TEST' => 't);
+);
 return $lang;

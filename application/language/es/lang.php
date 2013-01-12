@@ -12,6 +12,7 @@
 // caos30 (413), DSB (2), PatrickSanchez (2)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'La cuenta de usuario %1$s para %2$s ha sido activada.',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar la cuenta del usuario con ID %s',
@@ -382,4 +383,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionado no es válido.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionado es demasiado largo.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionado es demasiado corto.',
-'_TEST' => 'tng;
+);
+return $lang;

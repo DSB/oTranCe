@@ -12,6 +12,7 @@
 // DSB (3), italjet (121)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Váš účet %1$s pro projekt %2$s byl aktivován administrátorem.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Uživatelský účet %1$s pro %2$s byl aktivován',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Upravit úživatelský účet s ID %s',
@@ -390,5 +391,5 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
-'_TEST' => 'test',
 );
+return $lang;

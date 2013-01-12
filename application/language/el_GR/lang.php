@@ -12,6 +12,7 @@
 // diastasi (387), DSB (3)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'Ο λογαριασμός χρήστη %1$s για το έργο %2$s ενεργοποιήθηκε από ένα διαχειριστή.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Ενεργοποιήθηκε ο λογαριασμός χρήστη %1$s για %2$s',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Επεξεργασία λογαριασμού χρήστη με id %s',
@@ -390,5 +391,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ακυρη εισαγωγή.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Η εισαγωγή που δόθηκε είναι πολύ μεγάλη.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Η εισαγωγή που δόθηκε είναι πολύ μικρή.',
-'_TEST' => 'test',
 );
+return $lang;

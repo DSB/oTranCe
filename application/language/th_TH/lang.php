@@ -12,6 +12,7 @@
 // DSB (3), jaideejung007 (607)
 
 $lang = array(
+'A_TEST' => 'test',
 'L_ACCOUNT_ACTIVATED' => 'บัญชีผู้ใช้ของคุณ %1$s สำหรับโครงการ %2$s ได้รับการยืนยันโดยผู้ดูแลเรียบร้อยแล้ว',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'บัญชีผู้ใช้ %1$s สำหรับ %2$s ได้รับการยืนยันแล้ว',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'แก้ไขบัญชีผู้ใช้ด้วย ID %s',
@@ -391,7 +392,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
-'_TEST' => 'test',
-);
 );
 return $lang;

@@ -133,7 +133,7 @@ class Application_Model_Mail extends Msd_Application_Model
         );
 
         $subjectArgs = array($this->projectConfig['name'], $userData['username']);
-        $mail = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArgs);
+        $mail        = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArgs);
         return $this->_sendMail($mail);
     }
 
@@ -160,19 +160,19 @@ class Application_Model_Mail extends Msd_Application_Model
         );
 
         $subjectArgs = array($userData['username'], $languageData['name'], $languageData['locale']);
-        $mail = $this->_getAdminMail($userData, 'admin/edit-right-requested', 'L_EDIT_RIGHT_REQUESTED', $subjectArgs);
+        $mail        = $this->_getAdminMail($userData, 'admin/edit-right-requested', 'L_EDIT_RIGHT_REQUESTED', $subjectArgs);
         return $this->_sendMail($mail);
     }
 
     public function sendForgotPasswordMail($userData, $languageData, $verficationLink)
     {
-        if(!isset($userData['email']) || trim($userData['email']) == ''){
+        if (!isset($userData['email']) || trim($userData['email']) == '') {
             // no user email set -> can't set email
             return;
         }
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
-        $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig, 'verificationlink' => $verficationLink));
+        $this->_view->assign(array('userData' => $userData, 'project' => $this->projectConfig, 'verificationlink' => $verficationLink));
         $mail = $this->_getUserMail($userData, 'user/forgot-password', 'L_USER_FORGOT_PASSWORD_SUBJECT', $subjectArgs);
         return $this->_sendMail($mail);
     }
@@ -193,7 +193,7 @@ class Application_Model_Mail extends Msd_Application_Model
         }
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
-        $this->_view->assign(array('userData'  => $userData, 'project'   => $this->projectConfig));
+        $this->_view->assign(array('userData' => $userData, 'project' => $this->projectConfig));
         $mail = $this->_getUserMail($userData, 'user/account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
         return $this->_sendMail($mail);
     }

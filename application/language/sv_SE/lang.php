@@ -158,6 +158,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_FOOTER_EXPLAIN' => 'oTranCe är en fri online-översättningsplattform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe hemsida',
 'L_FOOTER_TEAM' => 'Utvecklingsteamet',
+'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Always show the main language as reference language',
+'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'If activated the main language will always be shown as a reference language to any translator - independently from their personal reference configuration.',
 'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FOUND_X_KEYS' => '%s nycklar hittades.',
 'L_GENERAL' => 'Allmänt',

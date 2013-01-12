@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (4), enkay (5), janrei (1), Marco.Steinhäuser (431)
+// DSB (7), enkay (3), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -159,6 +159,8 @@ Bitte wiederhole die Aktion.',
 'L_FOOTER_EXPLAIN' => 'oTranCe ist eine freie Online-Übersetzungsplattform',
 'L_FOOTER_HOMEPAGE' => 'oTranCe Homepage',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
+'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Hauptsprache immer als Referenzsprache anzeigen',
+'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'Wenn diese Option aktiviert ist, wird jedem Übersetzer - unabhängig von seiner persönlichen Konfiguration - die Hauptsprache als Referenzsprache angezeigt.',
 'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
 'L_FOUND_X_KEYS' => 'Es wurden %s Schlüssel gefunden.',
 'L_GENERAL' => 'Allgemeines',

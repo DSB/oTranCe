@@ -9,10 +9,10 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (353), enkay (3), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (353), enkay (4), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
+'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %1$s für %2$s aktiviert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',

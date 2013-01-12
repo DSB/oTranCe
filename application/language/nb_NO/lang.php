@@ -12,7 +12,7 @@
 // DSB (1), reswild (406)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Brukerkonto %1$s for prosjekt %2$s har blitt aktivert av en administrator',
+'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Brukerkonto %1$s for prosjekt %2$s har blitt aktivert av en administrator',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Brukerkonto %1$s for %2$s har blitt aktivert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Rediger kontoen til bruker med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Kontoinnstillinger',

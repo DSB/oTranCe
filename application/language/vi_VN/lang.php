@@ -12,7 +12,7 @@
 // DSB (5), nukeviet (419)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
+'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Tài khoản %1$s của bạn cho dự án %2$s vừa được Quản trị kích hoạt.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Tài khoản %s của bạn trên %s đã được kích hoạt',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Sửa tài khoản của thành viên có ID %s',
 'L_ACCOUNT_SETTINGS' => 'Thiết lập tài khoản',

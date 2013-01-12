@@ -12,7 +12,7 @@
 // DSB (1)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
+'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'User account %1$s for %2$s activated',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',

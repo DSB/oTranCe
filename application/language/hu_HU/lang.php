@@ -12,7 +12,7 @@
 // DSB (1), KardiWeb (3)
 
 $lang = array(
-'L_ACCOUNT_ACTIVATED' => 'Sikeres aktiválás!',
+'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Sikeres aktiválás!',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Fiók aktiválás',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Edit account of user with id %s',
 'L_ACCOUNT_SETTINGS' => 'Account settings',

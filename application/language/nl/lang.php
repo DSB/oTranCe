@@ -383,6 +383,4 @@ U krijgt een email zodra de bewerk-rechten toegekend zijn.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ongeldige invoer.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'De invoer is te lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'De invoer is te kort.',
-'_TEST' => 'test',
-);
-return $lang;
+'_TEST' => 'teg;

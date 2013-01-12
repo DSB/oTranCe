@@ -389,6 +389,5 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist ungültig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
-'_TEST' => 'test',
-);
+'_TEST' => 'test);
 return $lang;

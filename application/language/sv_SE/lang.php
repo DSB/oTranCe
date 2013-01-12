@@ -387,6 +387,5 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Inmatningen är ogiltig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Inmatningen är för lång.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Inmatningen är för kort.',
-'_TEST' => 'test',
-);
+'_TEST' => 'test',);
 return $lang;

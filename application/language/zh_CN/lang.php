@@ -393,4 +393,5 @@ $lang = array(
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => '输入的内容过短。',
 '_TEST' => 'test',
 );
+);
 return $lang;

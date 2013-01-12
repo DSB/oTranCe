@@ -115,7 +115,7 @@ class Application_Model_Mail extends Msd_Application_Model
      * @param array $userData          Array containing the users data
      * @param array $languagesMetaData Languages meta data
      *
-     * @return void
+     * @return bool
      */
     public function sendUserRegisteredMail($userData, $languagesMetaData)
     {
@@ -149,7 +149,7 @@ class Application_Model_Mail extends Msd_Application_Model
     {
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == '') {
             // no project contact e-mail set -> can't send mail
-            return;
+            return true;
         }
 
         $this->_view->assign(
@@ -168,7 +168,7 @@ class Application_Model_Mail extends Msd_Application_Model
     {
         if (!isset($userData['email']) || trim($userData['email']) == '') {
             // no user email set -> can't set email
-            return;
+            return true;
         }
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
@@ -182,14 +182,14 @@ class Application_Model_Mail extends Msd_Application_Model
      *
      * @param array $userData Array containing the users data
      *
-     * @return void
+     * @return bool
      */
     public function sendAccountActivationInfoMail($userData)
     {
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == ''
             || trim($userData['email']) == ''
         ) {
-            return;
+            return true;
         }
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
@@ -211,7 +211,7 @@ class Application_Model_Mail extends Msd_Application_Model
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == ''
             || trim($userData['email']) == ''
         ) {
-            return;
+            return true;
         }
         $subjectArgs = array($languageData['name']);
         $this->_view->assign(array('userData' => $userData, 'languageData' => $languageData));
@@ -232,6 +232,7 @@ class Application_Model_Mail extends Msd_Application_Model
      */
     protected function _getUserMail($userData, $mailTemplate, $subject, $subjectArgs = array())
     {
+        $subjectLine = '';
         $this->_setOriginalLanguage();
         $this->_assignUserLanguage($userData['id']);
 

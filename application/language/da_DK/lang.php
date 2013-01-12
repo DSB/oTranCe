@@ -12,7 +12,7 @@
 // jsm (542)
 
 $lang = array(
-'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Brugerkonto %1$s for projekt %2$s er blevet aktiveret af en administrator',
+'L_ACCOUNT_ACTIVATED' => 'Brugerkonto %1$s for projekt %2$s er blevet aktiveret af en administrator',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Brugerkonto %1$s for %2$s er blevet aktiveret',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Rediger brugerkonto med ID %s',
 'L_ACCOUNT_SETTINGS' => 'Kontoindstillinger',

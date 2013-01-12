@@ -12,7 +12,7 @@
 // caos30 (413), DSB (2), PatrickSanchez (2)
 
 $lang = array(
-'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
+'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'La cuenta de usuario %1$s para %2$s ha sido activada.',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Editar la cuenta del usuario con ID %s',
 'L_ACCOUNT_SETTINGS' => 'Opciones de la cuenta',

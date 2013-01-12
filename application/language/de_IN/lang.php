@@ -12,7 +12,7 @@
 // DSB (4), enkay (5), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
-'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
+'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Benutzeraccount %1$s für %2$s aktiviert',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Bearbeite Benutzerkonto mit der Id %s',
 'L_ACCOUNT_SETTINGS' => 'Einstellungen des Benutzerkontos',

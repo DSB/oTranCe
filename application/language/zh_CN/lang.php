@@ -12,7 +12,7 @@
 // binota (887), DSB (3)
 
 $lang = array(
-'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
+'L_ACCOUNT_ACTIVATED' => '您用于工程 %2$s 的用户帐户 %1$s 已由管理员激活',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => '%2$s 已激活用户帐户 %1$s',
 'L_ACCOUNT_OF_USER_WITH_ID' => '编辑 %s 的用户帐户',
 'L_ACCOUNT_SETTINGS' => '帐户设置',

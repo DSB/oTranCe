@@ -12,7 +12,7 @@
 // DSB (3), italjet (121)
 
 $lang = array(
-'L_ACCOUNT_ACTA_TEST' => 't',CTIVATED' => 'Váš účet %1$s pro projekt %2$s byl aktivován administrátorem.',
+'L_ACCOUNT_ACTIVATED' => 'Váš účet %1$s pro projekt %2$s byl aktivován administrátorem.',
 'L_ACCOUNT_ACTIVATED_SUBJECT' => 'Uživatelský účet %1$s pro %2$s byl aktivován',
 'L_ACCOUNT_OF_USER_WITH_ID' => 'Upravit úživatelský účet s ID %s',
 'L_ACCOUNT_SETTINGS' => 'Nastavení účtu',

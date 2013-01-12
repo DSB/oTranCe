@@ -328,7 +328,7 @@ class Application_Model_Mail extends Msd_Application_Model
      */
     protected function _sendMail(\Zend_Mail $mail)
     {
-        $success = false;
+        $success = true;
         try {
             $mail->send();
         } catch (Exception $e) {

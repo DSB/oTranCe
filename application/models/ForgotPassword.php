@@ -63,6 +63,7 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
         $tempString = 'userid=' . $user['id'] . '&usermail=' . $user['email'] . '&id=' . $this->getLastInsertedId();
 
         $this->generatedLinkHash = base64_encode($tempString);
+
     }
 
     /**
@@ -113,9 +114,14 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function isValidRequest($forgotPasswordId, $requestedUserId)
     {
-        $sql = 'SELECT `timestamp`, `userid` FROM `'.$this->tableForgotPassword.'` where id = '.$forgotPasswordId;
+        $sql = 'SELECT `timestamp`, `userid` FROM `'.$this->tableForgotPassword.'` where id = ' . $forgotPasswordId;
 
         $requestTime = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
+        if(!$requestTime){
+            return false;
+        }
+
         $requestTimeInSeconds = strtotime($requestTime[0]['timestamp']);
         $userId = $requestTime[0]['userid'];
         $now = time();
@@ -125,5 +131,13 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
         }
 
         return false;
+    }
+
+
+    public function deleteRequestByUserId($userId)
+    {
+        $sql = 'DELETE FROM `'.$this->tableForgotPassword.'` where userid = ' . $userId;
+
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 }

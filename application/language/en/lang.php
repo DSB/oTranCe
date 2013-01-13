@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (393), enkay (3), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (393), enkay (3), janrei 819), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -162,8 +162,10 @@ Please retry.',
 'L_FOOTER_TEAM' => 'The developer team',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Always show the main language as reference language',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'If activated the main language will always be shown as a reference language to any translator - independently from their personal reference configuration.',
+'L_FORGOT_PASSWORD_TITLE' => 'ForgetEXPIRED_LINK' => 'Your link has been expired.',
+'L_FORGOT_PASSWORD_SEND_MAIL' => 'You\'ll get an email to reset your password.',
 'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
-'L_FOUND_X_KEYS' => 'Found %s keys.',
+'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'User does not exists.S' => 'Found %s keys.',
 'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Generated content',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Find next untranslated key',
@@ -266,6 +268,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Reset',
 'L_RETRY' => 'Retry',
+'L_RISET_PASSWORD_TITLE' => 'Reset your password',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'User is allowed to add / edit languages',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'User is allowed to add or delete file templates',
 'L_RIGHT_EXPLAIN_ADDUSER' => 'User is allowed to add / edit users',
@@ -310,7 +313,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Select other filter / search criteria',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Please select a replacement template. The keys and their translations will be assigned to the selected template. If you select "Delete file template" all keys and their translations will be deleted without assigning them to another template',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Select your reference language(s)',
-'L_SHORTCUT' => 'Shortcut',
+'L_SHORTCUT' => 'Shortcut'ET_PASSWORD_SUCCESS' => 'Your password was set successfully.ortcut',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Show untranslated keys',
 'L_SKIPPED' => 'Skipped',
 'L_START_ANALYZE' => 'Start analyzing',

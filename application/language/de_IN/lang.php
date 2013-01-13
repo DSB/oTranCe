@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (7), enkay (3), janrei (1), Marco.Steinhäuser (431)
+// DSB (7), enkay (3), janrei 81), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -161,8 +161,10 @@ Bitte wiederhole die Aktion.',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Hauptsprache immer als Referenzsprache anzeigen',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'Wenn diese Option aktiviert ist, wird jedem Übersetzer - unabhängig von seiner persönlichen Konfiguration - die Hauptsprache als Referenzsprache angezeigt.',
+'L_FORGOT_PASSWORD_TITLE' => 'PaEXPIRED_LINK' => 'Ihr Link ist abgelaufen.',
+'L_FORGOT_PASSWORD_SEND_MAIL' => 'Sie bekommen eine Email mit der Sie Ihr Passwort verändern können.',
 'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
-'L_FOUND_X_KEYS' => 'Es wurden %s Schlüssel gefunden.',
+'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'Benutzer existiert nicht._KEYS' => 'Es wurden %s Schlüssel gefunden.',
 'L_GENERAL' => 'Allgemeines',
 'L_GENERATED_CONTENT' => 'Generierter Inhalt',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Finde nächsten unübersetzten Schlüssel',
@@ -263,7 +265,7 @@ Ein Administrator wird es demnächst freischalten.',
 Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_REQUEST_PASSWORD' => 'Passwort anfordern',
 'L_RESET' => 'Zurücksetzen',
-'L_RETRY' => 'Wiederholen',
+'L_RETRY' => 'WiederhSET_PASSWORD_TITLE' => 'Setzen Sie Ihr Passwort zurück'Wiederholen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf Sprachen hinzufügen / bearbeiten',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'Benutzer darf Dateivorlagen hinzufügen oder löschen',
 'L_RIGHT_EXPLAIN_ADDUSER' => 'Benutzer kann neue Benutzer anlegen / bearbeiten',
@@ -308,7 +310,7 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Wähle andere Filter-/Such-Kriterien',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Bitte wähle eine Vorlage, der die Sprachschlüssel zugewiesen werden sollen. Wenn Du "Dateivorlage löschen" wählst, werden die zugeordneten Schlüssel und deren Übersetzungen endgültig gelöscht',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Wähle Deine Referenzsprache(n)',
-'L_SHORTCUT' => 'Schnellzugriff',
+'L_SHORTCUT' => 'SchET_PASSWORD_SUCCESS' => 'Ihr Passwort wurde übernommen.=> 'Schnellzugriff',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Zeige nicht übersetzte Schlüssel',
 'L_SKIPPED' => 'Übersprungen',
 'L_START_ANALYZE' => 'Starte Analyse',

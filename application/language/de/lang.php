@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (356), enkay (3), janrei 833), kyoya (19), Marco.Steinhäuser (75)
+// DSB (356), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -161,10 +161,11 @@ Bitte wiederholen Sie die Aktion.',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Hauptsprache immer als Referenzsprache anzeigen',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'Wenn diese Option aktiviert ist, wird jedem Übersetzer - unabhängig von seiner persönlichen Konfiguration - die Hauptsprache als Referenzsprache angezeigt.',
-'L_FORGOT_PASSWORD_TITLE' => 'PasswEXPIRED_LINK' => 'Dein Link ist abgelaufen.',
+'L_FORGOT_PASSWORD_EXPIRED_LINK' => 'Dein Link ist abgelaufen.',
 'L_FORGOT_PASSWORD_SEND_MAIL' => 'Du bekommst eine Email mit der Du dein Passwort verändern kannst.',
 'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
-'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'Benutzer existiert nicht.YS' => 'Es wurden %s Schlüssel gefunden.',
+'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'Benutzer existiert nicht.',
+'L_FOUND_X_KEYS' => 'Es wurden %s Schlüssel gefunden.',
 'L_GENERAL' => 'Allgemeines',
 'L_GENERATED_CONTENT' => 'Generierter Inhalt',
 'L_GET_NEXT_UNTRANSLATED_KEY' => 'Finde nächsten unübersetzten Schlüssel',
@@ -265,7 +266,8 @@ Ein Administrator wird es demnächst freischalten.',
 Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_REQUEST_PASSWORD' => 'Passwort anfordern',
 'L_RESET' => 'Zurücksetzen',
-'L_RETRY' => 'WiederholenSET_PASSWORD_TITLE' => 'Setze Dein Passwort zurückderholen',
+'L_RESET_PASSWORD_TITLE' => 'Setze Dein Passwort zurück',
+'L_RETRY' => 'Wiederholen',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'Benutzer darf Sprachen hinzufügen / bearbeiten',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'Benutzer darf Dateivorlagen hinzufügen oder löschen',
 'L_RIGHT_EXPLAIN_ADDUSER' => 'Benutzer kann neue Benutzer anlegen / bearbeiten',
@@ -310,7 +312,8 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Wählen Sie andere Filter-/Such-Kriterien',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Bitte wählen Sie eine Vorlage, der die Sprachschlüssel zugewiesen werden sollen. Wenn Sie "Dateivorlage löschen" wählen, werden die zugeordneten Schlüssel und deren Übersetzungen endgültig gelöscht',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Wählen Sie Ihre Referenzsprache(n)',
-'L_SHORTCUT' => 'SchnellET_PASSWORD_SUCCESS' => 'Dein Passwort wurde übernommen.Schnellzugriff',
+'L_SET_PASSWORD_SUCCESS' => 'Dein Passwort wurde übernommen.',
+'L_SHORTCUT' => 'Schnellzugriff',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Zeige nicht übersetzte Schlüssel',
 'L_SKIPPED' => 'Übersprungen',
 'L_START_ANALYZE' => 'Starte Analyse',

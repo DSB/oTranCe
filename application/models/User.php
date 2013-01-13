@@ -1072,4 +1072,24 @@ class Application_Model_User extends Msd_Application_Model
         return $newUserId;
     }
 
+    /**
+     * Sets new md5 password for user
+     *
+     * @param $userid
+     * @param $password
+     *
+     * @return bool
+     */
+    public function setPassword($userid, $password)
+    {
+        $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '`'
+            . ' SET `password` =MD5(\'' . $this->_dbo->escape($password) . '\')';
+
+        $sql .= ' WHERE `id`=' . intval($userid);
+
+        $res = (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+        return $res;
+    }
+
 }

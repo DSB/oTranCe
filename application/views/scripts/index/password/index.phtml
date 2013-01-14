@@ -11,14 +11,13 @@
     );
     ?>
 </div>
-<div class="t
+
 <div id="login">
     <h1><br><br><?php echo $this->lang->L_FORGOT_PASSWORD_TITLE; ?></h1>
 
-    h:600px;margin: auto auto; vertical-align:middle; background: url('/css/otc/pics/User.png') no-repeat 2% 6%;">
-    <form action="<?p"<?php echo $this->serverUrl() . $this->baseUrl(); ?>/index_password/requestpassword/" method="post" enctype="multipart/formdata">
-        <fieldset>
-           <fieldset>
+    <div style="width:600px;margin: auto auto; vertical-align:middle; background: url('/css/otc/pics/User.png') no-repeat 2% 6%;">
+        <form action="<?php echo $this->serverUrl() . $this->baseUrl(); ?>/index_password/requestpassword/" method="post" enctype="multipart/formdata">
+            <fieldset>
                 <table>
                     <tbody>
                         <tr>
@@ -32,11 +31,9 @@
                         <tr>
                             <td></td>
                             <td>
-    on type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_REQUEST_PASSWORD; ?></button>
-                            <a href="<?php echo $this->serverUverUrl() . $this->baseUrl();?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('delete'); ?> <?php echo $this->lang->L_CANCEL; ?></a>
-                        </td>
-                    </tr>
-       </td>
+                                <button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_REQUEST_PASSWORD; ?></button>
+                                <a href="<?php echo $this->serverUrl() . $this->baseUrl();?>" class="Formbutton ui-corner-all"><?php echo $this->getIcon('delete'); ?> <?php echo $this->lang->L_CANCEL; ?></a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

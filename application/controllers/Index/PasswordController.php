@@ -19,16 +19,16 @@ class Index_PasswordController extends IndexController
 {
     public function indexAction()
     {
+        $form = new Application_Form_ForgotPassword();
+
         $this->view->assign(
- form = new Application_Form_ForgotPassword();
-->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request' => $this->_request
-            )
-        ),
+                'request' => $this->_request,
                 'form' => $form,
-                'isLogin'               => true,;
+                'isLogin'               => true,
+            )
+        );
 
     }
 
@@ -39,10 +39,7 @@ class Index_PasswordController extends IndexController
         $userEmail = $this->getRequest()->getParam('user_email');
         $emailValidator = new Zend_Validate_EmailAddress();
         $translator = Msd_Language::getInstance();
-
-        echo "<PRE>";
-
-        var_d        $isValidEmail = $emailValidator->isValid($userEmail);
+        $isValidEmail = $emailValidator->isValid($userEmail);
 
         if (!$isValidEmail) {
             $errorMsg = array_shift($translator->translateZendMessageIds($emailValidator->getMessages()));
@@ -64,16 +61,12 @@ class Index_PasswordController extends IndexController
                 if ($forgotPasswordModel->saveRequest($userModel['id'])) {
                     $forgotPasswordModel->setLinkHashId($userModel);
 
-    forgotPasswordModel->getGeneratedHashId();
+                    $link = '/index_password/resetpassword/id/' . $forgotPasswordModel->getGeneratedHashId();
 
-                //-- send email
-                $mailer = new Application_Model_M    //-- send email
+                    //-- send email
                     $mailer = new Application_Model_Mail($this->view);
-    gesMetaData, $link);
-            }
-        }
+                    $mailer->sendForgotPasswordMail($userModel, $languagesMetaData, $link);
 
-        $this->_redirect('/index_password')
 
                     $this->view->isError = false;
                     $this->setViewNotifications(null, $translator->translate('L_FORGOT_PASSWORD_SEND_MAIL'));
@@ -112,31 +105,37 @@ class Index_PasswordController extends IndexController
         );
 
         $this->view->assign($params);
-sh = base64_decode($this->getRequest()->getParam('id'));
 
+    }
+
+    public function resetpasswordAction()
+    {
+        $userHash = base64_decode($this->getRequest()->getParam('id'));
         $paramArray = $this->getParamsFromHash($userHash);
-
-        $forgotP        $paramArray = $this->getParamsFromHash($userHash);
         $forgotPasswordModel = new Application_Model_ForgotPassword();
         $translator = Msd_Language::getInstance();
 
-        if (!            echo "is valid";
-        } else {
-            #$this->view->errors['linkNotValid'] $this->view->isError = true;
+        if (!$forgotPasswordModel->isValidRequest($paramArray['id'], $paramArray['userid'])) {
+            $this->view->isError = true;
             $this->setViewNotifications($translator->translate('L_FORGOT_PASSWORD_EXPIRED_LINK'));
             $this->_forward('index', 'index_password');
         }
-->assign(
+
+        $this->view->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request' => $this->_request
-            )
-        ),
+                'request' => $this->_request,
                 'userid' => $paramArray['userid'],
                 'userhash' => $this->getRequest()->getParam('id'),
                 'isLogin'               => true,
             )
-        )param string $hash
+        );
+    }
+
+    /**
+     * splits hash into his params and returns them back
+     *
+     * @param string $hash
      * @return array
      */
     protected function getParamsFromHash($hash)
@@ -151,7 +150,6 @@ sh = base64_decode($this->getRequest()->getParam('id'));
 
         return $realParams;
     }
-}
 
     /**
      * Sets new password for a single user

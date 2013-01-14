@@ -24,53 +24,49 @@ class Index_PasswordController extends IndexController
         $this->view->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request' => $this->_request,
-                'form' => $form,
+                'request'               => $this->_request,
+                'form'                  => $form,
                 'isLogin'               => true,
             )
         );
 
     }
 
-    public function requestpasswordAction()
+    public function requestPasswordAction()
     {
-        $languagesModel = new Application_Model_Languages();
+        $languagesModel    = new Application_Model_Languages();
         $languagesMetaData = $languagesModel->getAllLanguages();
-        $userEmail = $this->getRequest()->getParam('user_email');
-        $emailValidator = new Zend_Validate_EmailAddress();
-        $translator = Msd_Language::getInstance();
-        $isValidEmail = $emailValidator->isValid($userEmail);
+        $userEmail         = $this->getRequest()->getParam('user_email');
+        $emailValidator    = new Zend_Validate_EmailAddress();
+        $translator        = Msd_Language::getInstance();
+        $isValidEmail      = $emailValidator->isValid($userEmail);
 
         if (!$isValidEmail) {
-            $errorMsg = array_shift($translator->translateZendMessageIds($emailValidator->getMessages()));
+            $errorMsg            = $translator->translateZendMessageIds($emailValidator->getMessages());
             $this->view->isError = true;
-            $this->setViewNotifications($errorMsg);
+            $this->setViewNotifications($errorMsg[0]);
         }
 
-        if($isValidEmail){
-            $user = new Application_Model_User();
-            $userModel = $user->getUserByEmail($userEmail);
+        if ($isValidEmail) {
+            $user     = new Application_Model_User();
+            $userData = $user->getUserByEmail($userEmail);
 
             //-- check if user mail exists
-            if ($userModel) {
+            if (isset($userData['id'])) {
                 //-- generate mail link
-
                 $forgotPasswordModel = new Application_Model_ForgotPassword();
 
                 //-- store request
-                if ($forgotPasswordModel->saveRequest($userModel['id'])) {
-                    $forgotPasswordModel->setLinkHashId($userModel);
-
+                if ($forgotPasswordModel->saveRequest($userData['id'])) {
+                    $forgotPasswordModel->setLinkHashId($userData);
                     $link = '/index_password/resetpassword/id/' . $forgotPasswordModel->getGeneratedHashId();
 
                     //-- send email
                     $mailer = new Application_Model_Mail($this->view);
-                    $mailer->sendForgotPasswordMail($userModel, $languagesMetaData, $link);
-
+                    $mailer->sendForgotPasswordMail($userData, $languagesMetaData, $link);
 
                     $this->view->isError = false;
                     $this->setViewNotifications(null, $translator->translate('L_FORGOT_PASSWORD_SEND_MAIL'));
-
                 }
             } else {
                 $this->view->isError = true;
@@ -89,31 +85,30 @@ class Index_PasswordController extends IndexController
      */
     protected function setViewNotifications($errorMessage = null, $successMessage = null)
     {
-        if($errorMessage === null){
+        if ($errorMessage === null) {
             $errorMessage = '';
         }
 
-        if($successMessage === null){
+        if ($successMessage === null) {
             $successMessage = '';
         }
 
         $params = array(
             'infos' => array(
                 'SUCCESS_MESSAGE' => $successMessage,
-                'ERROR_MESSAGE' => $errorMessage,
+                'ERROR_MESSAGE'   => $errorMessage,
             )
         );
 
         $this->view->assign($params);
-
     }
 
     public function resetpasswordAction()
     {
-        $userHash = base64_decode($this->getRequest()->getParam('id'));
-        $paramArray = $this->getParamsFromHash($userHash);
+        $userHash            = base64_decode($this->getRequest()->getParam('id'));
+        $paramArray          = $this->getParamsFromHash($userHash);
         $forgotPasswordModel = new Application_Model_ForgotPassword();
-        $translator = Msd_Language::getInstance();
+        $translator          = Msd_Language::getInstance();
 
         if (!$forgotPasswordModel->isValidRequest($paramArray['id'], $paramArray['userid'])) {
             $this->view->isError = true;
@@ -124,9 +119,9 @@ class Index_PasswordController extends IndexController
         $this->view->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request' => $this->_request,
-                'userid' => $paramArray['userid'],
-                'userhash' => $this->getRequest()->getParam('id'),
+                'request'               => $this->_request,
+                'userid'                => $paramArray['userid'],
+                'userhash'              => $this->getRequest()->getParam('id'),
                 'isLogin'               => true,
             )
         );
@@ -136,15 +131,16 @@ class Index_PasswordController extends IndexController
      * splits hash into his params and returns them back
      *
      * @param string $hash
+     *
      * @return array
      */
     protected function getParamsFromHash($hash)
     {
         $mainParams = explode('&', $hash);
+        $realParams = '';
 
         foreach ($mainParams as $params) {
-            $tmpParams = explode('=', $params);
-
+            $tmpParams                 = explode('=', $params);
             $realParams[$tmpParams[0]] = $tmpParams[1];
         }
 
@@ -156,26 +152,24 @@ class Index_PasswordController extends IndexController
      */
     public function setpasswordAction()
     {
-        $translator = Msd_Language::getInstance();
-        $password = $this->_request->getParam('user_password');
-        $confirm_pwd = $this->_request->getParam('user_password2');
-        $userid = $this->_request->getParam('userid');
-        $user = new Application_Model_User();
+        $translator  = Msd_Language::getInstance();
+        $password    = $this->_request->getParam('user_password');
+        $confirmPwd = $this->_request->getParam('user_password2');
+        $userId      = $this->_request->getParam('userid');
+        $user        = new Application_Model_User();
 
-        $params = array(
-            'id' => $this->_request->getParam('userhash')
-        );
+        $params = array('id' => $this->_request->getParam('userhash'));
 
         $userData = array(
             'pass1' => $password,
-            'pass2' => $confirm_pwd
+            'pass2' => $confirmPwd
         );
 
-        if(!$user->validateData($userData, $translator, true)){
+        if (!$user->validateData($userData, $translator, true)) {
             $messages = $user->getValidateMessages();
-            $msg = '';
+            $msg      = '';
 
-            foreach($messages['pass1'] as $validatedField => $validateMsg){
+            foreach ($messages['pass1'] as $validatedField => $validateMsg) {
                 $msg .= $validateMsg . '<br>';
             }
 
@@ -185,9 +179,9 @@ class Index_PasswordController extends IndexController
             $this->_forward('resetpassword', 'index_password', '', $params);
         } else {
 
-            if($user->setPassword($userid, $password)){
+            if ($user->setPassword($userId, $password)) {
                 $forgotPassword = new Application_Model_ForgotPassword();
-                $forgotPassword->deleteRequestByUserId($userid);
+                $forgotPassword->deleteRequestByUserId($userId);
 
                 $this->view->isError = false;
                 $this->setViewNotifications(null, $translator->translate('L_SET_PASSWORD_SUCCESS'));

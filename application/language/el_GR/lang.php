@@ -339,6 +339,7 @@ $lang = array(
 'L_USERS' => 'Χρήστες',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Χρήστης με δικαιώματα επεξεργασίας',
 'L_USER_DELETED_SUCCESSFULLY' => 'Ο χρήστης διαγράφηκε επιτυχώς',
+'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - change password for %1$s',
 'L_USER_PROFILE' => 'Προφίλ χρήστη',
 'L_USE_ANALYZER' => 'Χρήση εισαγωγέα',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'Το κλειδί \'%s\' υπάρχει ήδη στο πρότυπο αρχείου.',

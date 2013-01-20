@@ -331,6 +331,7 @@ $lang = array(
 'L_USERS' => 'Usuaris',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Usuaris amb permís per a editar',
 'L_USER_DELETED_SUCCESSFULLY' => 'L\'usuari s\'ha eliminat amb èxit.',
+'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - change password for %1$s',
 'L_USER_PROFILE' => 'Perfil d\'usuari',
 'L_USE_ANALYZER' => 'Usi l\'importador',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'La clau \'%s\' ja existeix en aquesta plantilla d\'arxiu.',

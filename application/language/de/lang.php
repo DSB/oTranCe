@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (356), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (358), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -338,6 +338,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_USERS' => 'Benutzer',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Benutzer mit Bearbeitungsrechten',
 'L_USER_DELETED_SUCCESSFULLY' => 'Der Benutzer wurde erfolgreich gelöscht.',
+'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - Kennwort ändern für %1$s',
 'L_USER_PROFILE' => 'Benutzerprofil',
 'L_USE_ANALYZER' => 'Benutze Importer',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'In dieser Dateivorlage  existiert der Schlüssel \'%s\' bereits.',

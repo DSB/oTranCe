@@ -331,6 +331,7 @@ $lang = array(
 'L_USERS' => 'Brukere',
 'L_USERS_WITH_EDIT_RIGHTS' => 'Brukere med redigeringsrettighet',
 'L_USER_DELETED_SUCCESSFULLY' => 'Brukeren har blitt slettet.',
+'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - change password for %1$s',
 'L_USER_PROFILE' => 'Brukerprofil',
 'L_USE_ANALYZER' => 'Bruk importør',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'Nøkkelen \'%s\' eksisterer allerede i denne filmalen.',

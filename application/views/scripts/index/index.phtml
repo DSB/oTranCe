@@ -58,7 +58,7 @@ foreach ($this->status as $languageId => $val)
         }
             ?>
         </td>
-        <td class="right vmiddle"><?php echo $val['done'];?>%</td>
+        <td class="right vmiddle"><?php echo $this->numberFormat($val['done'], 2);?>%</td>
         <td class="nowrap vmiddle">
         <?php
             if ($val['done'] < 90) {

@@ -1056,13 +1056,7 @@ class Application_Model_User extends Msd_Application_Model
             // save interface language setting to user profile
             $interfaceLanguage = $this->_dynamicConfig->getParam('interfaceLanguage', false);
             $this->saveSetting('interfaceLanguage', $interfaceLanguage, $userData['id']);
-
-            // add main language as reference language to user profile
-            $languagesModel     = new Application_Model_Languages();
-            $fallbackLanguageId = $languagesModel->getFallbackLanguageId();
-            if ($fallbackLanguageId !== false) {
-                $this->saveSetting('referenceLanguage', $fallbackLanguageId, $userData['id']);
-            }
+            $this->addFallBackLanguageAsReferenceLanguage($userData['id']);
 
             // log register action
             $historyModel = new Application_Model_History();
@@ -1092,4 +1086,19 @@ class Application_Model_User extends Msd_Application_Model
         return $res;
     }
 
+    /**
+     * Add fallback language as reference language to user configuration
+     *
+     * @param int $userId Id of user
+     *
+     * @return void
+     */
+    public function addFallBackLanguageAsReferenceLanguage($userId)
+    {
+        $languagesModel     = new Application_Model_Languages();
+        $fallbackLanguageId = $languagesModel->getFallbackLanguageId();
+        if ($fallbackLanguageId !== false) {
+            $this->saveSetting('referenceLanguage', $fallbackLanguageId, $userId);
+        }
+    }
 }

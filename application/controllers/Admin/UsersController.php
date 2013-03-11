@@ -163,6 +163,10 @@ class Admin_UsersController extends AdminController
         $result = $this->_userModel->saveAccount($userData);
         if ($result !== false) {
             $userId = (int)$result;
+            if ($userData['id'] == 0) {
+                $this->_userModel->addFallBackLanguageAsReferenceLanguage($userId);
+            }
+
             // if user status changed -> log it
             if ($oldUserStatus != $userData['active']) {
                 $historyModel = new Application_Model_History();

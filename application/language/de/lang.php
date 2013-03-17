@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (358), enkay 61), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (361), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -222,10 +222,10 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_NO_HITS' => 'Keine Treffer',
 'L_NO_IMPORTER_AVAILABLE' => 'Kein Importer verfügbar',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'Es wurde bisher keine Importmethode für die Nutzung zur Verfügung gestellt, weshalb nichts importiert werden kann. Ein berechtigter Administrator kann verschiedene Importer für die Nutzung durch berechtigte Anwender freischalten. Bitte wenden Sie sich an einen der Projekt-Administratoren.',
-'L_OK' => 'OK',
-'L_ONO_TEMPLATE' => 'Keine Dateivorlage',
+'L_NO_TEMPLATE' => 'Keine Dateivorlage',
 'L_NO_TEMPLATE_CONFIGURED' => 'Es ist keine Dateivorage definiert.',
-'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Jeder Schlüssel muss einer Dateivorlage zugeordnet werden. Momentan existiert jedoch keine Dateivorlage, so dass keine Zuordnung möglich ist. Wenden Sei sich an den Administrator damit dieser mindestens eine Dateivorlage anlegt',
+'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Jeder Schlüssel muss einer Dateivorlage zugeordnet werden. Momentan existiert jedoch keine Dateivorlage, so dass keine Zuordnung möglich ist. Wenden Sei sich an den Administrator damit dieser mindestens eine Dateivorlage anlegt.',
+'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Altes Kennwort',
 'L_OLD_VALUE' => 'Alter Wert',
 'L_ORDER_LIST_BY' => 'Sortiere Liste nach',

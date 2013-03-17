@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (396), enkay (9), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (399), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -223,10 +223,10 @@ The importer has processed all entries.',
 'L_NO_HITS' => 'Nothing found.',
 'L_NO_IMPORTER_AVAILABLE' => 'No importer available',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
-'L_OK' => 'OK',
-'L_OLNO_TEMPLATE' => 'No file template',
+'L_NO_TEMPLATE' => 'No file template',
 'L_NO_TEMPLATE_CONFIGURED' => 'There is no configured file template.',
-'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Each key must be assigned to a file template. Currently there is no file template configured. Please ask an administrator to configure at least one file template,
+'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Each key must be assigned to a file template. Currently there is no file template configured. Please ask an administrator to configure at least one file template.',
+'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Old password',
 'L_OLD_VALUE' => 'Old value',
 'L_ORDER_LIST_BY' => 'Order list by',

@@ -72,6 +72,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     }
 
     /**
+     * Init plug ins
+     */
+    public function _initPlugIns()
+    {
+        $frontController = Zend_Controller_Front::getInstance();
+        $frontController->registerPlugin(new Application_Plugin_FileTemplateCheck());
+    }
+
+    /**
      * Un-quote a string or array
      *
      * @param string|array $value The value to strip

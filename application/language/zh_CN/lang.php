@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (924), DSB (3)
+// binota (927), DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -105,7 +105,7 @@ $lang = array(
 'L_ERROR_AJAX' => '哦哦 - 这里有一个致命错误的AJAX请求！<br />
 请重试。',
 'L_ERROR_CONVERTING' => '不能将数据解析为 %s！',
-'L_ERROR_CREATING_ACCOUNT' => '创建用户时不幸地发生了一个技术性错误，请重试。如果问题仍然存在，请联系管理员。',
+'L_ERROR_CREATING_ACCOUNT' => '创建用户时不幸地发生了一个技术性错误，请重试。如果该问题持续存在，请联系管理员。',
 'L_ERROR_DELETING_FILE_TEMPLATE' => '删除文件模版发生错误',
 'L_ERROR_DELETING_FLAG' => '不能删除国旗',
 'L_ERROR_DELETING_KEY' => '删除键值发生错误',
@@ -312,7 +312,7 @@ $lang = array(
 'L_SELECT_LANGUAGE_OF_INTERFACE' => '选择界面所使用的语言',
 'L_SELECT_LANG_TO_MAINTAIN' => '选择您要维护的语言',
 'L_SELECT_OTHER_FILTER_CRITERIA' => '请尝试选择其他筛选 / 搜索条件',
-'L_SELECT_REPLACEMENT_TEMPLATE' => '请选择一个提换模板。键值及其翻译将被保存于选定的模版。如果您选择“删除模版文件”则所有的键值及其翻译将被删除而不会分配到另一个模版。',
+'L_SELECT_REPLACEMENT_TEMPLATE' => '请选择一个替換模板。键值及其翻译将被保存于选定的模版。如果您选择“删除模版文件”则所有的键值及其翻译将被删除而不会分配到另一个模版。',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => '选择您的參考语言',
 'L_SET_PASSWORD_SUCCESS' => '已成功设置密码。',
 'L_SHORTCUT' => '快捷方式',
@@ -340,7 +340,7 @@ $lang = array(
 'L_USERS' => '用户',
 'L_USERS_WITH_EDIT_RIGHTS' => '拥有编辑权限的用户',
 'L_USER_DELETED_SUCCESSFULLY' => '已成功删除该用户',
-'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - change password for %1$s',
+'L_USER_FORGOT_PASSWORD_SUBJECT' => '%2$s - 已为 %1$s 修改密码',
 'L_USER_PROFILE' => '用户个人档案',
 'L_USE_ANALYZER' => '使用导入器',
 'L_VALIDATE_ERROR_KEY_EXISTS' => '该键值“%s”已存在于此模版。',

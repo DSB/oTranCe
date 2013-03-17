@@ -47,6 +47,7 @@ class ImportController extends Zend_Controller_Action
 
     /**
      * Ass. languages array which the user is allowed to edit
+     *
      * @var array
      */
     private $_languages;
@@ -110,6 +111,7 @@ class ImportController extends Zend_Controller_Action
         if (isset($params['analyze'])) {
             $this->_dynamicConfig->setParam('importConvertedData', $this->view->importData);
             $this->_forward('analyze');
+
             return;
         }
     }
@@ -133,6 +135,7 @@ class ImportController extends Zend_Controller_Action
             $this->view->targetCharset   = $this->_dynamicConfig->getParam('selectedCharset');
             // re-assign unconverted data
             $this->view->importData = $this->_dynamicConfig->getParam('importOriginalData');
+
             return;
         }
         $this->_dynamicConfig->setParam('importConvertedData', $res);

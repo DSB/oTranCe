@@ -42,6 +42,7 @@ class ExportController extends Msd_Controller_Action
 
     /**
      * Project config from configuration
+     *
      * @var array
      */
     private $_projectConfig;
@@ -59,10 +60,10 @@ class ExportController extends Msd_Controller_Action
         }
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
-        $this->_languagesModel = new Application_Model_Languages();
-        $this->_export = new Msd_Export();
-        $this->_historyModel = new Application_Model_History();
-        $this->_projectConfig = $this->_config->getParam('project');
+        $this->_languagesModel       = new Application_Model_Languages();
+        $this->_export               = new Msd_Export();
+        $this->_historyModel         = new Application_Model_History();
+        $this->_projectConfig        = $this->_config->getParam('project');
     }
 
     /**
@@ -72,13 +73,12 @@ class ExportController extends Msd_Controller_Action
      */
     public function indexAction()
     {
-        $this->view->languages = $this->_languagesModel->getAllLanguages();
-        $this->view->status = $this->_languageEntriesModel->getStatus($this->view->languages);
+        $this->view->languages    = $this->_languagesModel->getAllLanguages();
+        $this->view->status       = $this->_languageEntriesModel->getStatus($this->view->languages);
         $this->view->historyModel = $this->_historyModel;
-        $this->view->export = $this->_export;
-        $log = new Application_Model_ExportLog();
-        $this->view->vcsActivated = (bool) ($this->_projectConfig['vcsActivated'] && ($log->getExportsCount() > 0));
-
+        $this->view->export       = $this->_export;
+        $log                      = new Application_Model_ExportLog();
+        $this->view->vcsActivated = (bool)($this->_projectConfig['vcsActivated'] && ($log->getExportsCount() > 0));
     }
 
     /**
@@ -91,11 +91,11 @@ class ExportController extends Msd_Controller_Action
         $vcs = $this->_getVcsInstance();
         $vcs->update();
         $statusResult = $vcs->status();
-        $log = new Application_Model_ExportLog();
+        $log          = new Application_Model_ExportLog();
         if (!empty($statusResult)) {
-            $files = $log->getFileList(session_id());
-            $files = $this->_getCommitFileList($statusResult, $files, $vcs);
-            $vcsConfig = $this->_config->getParam('vcs');
+            $files         = $log->getFileList(session_id());
+            $files         = $this->_getCommitFileList($statusResult, $files, $vcs);
+            $vcsConfig     = $this->_config->getParam('vcs');
             $commitMessage = 'Language pack update';
             if (isset($vcsConfig['commitMessage'])) {
                 $commitMessage = $vcsConfig['commitMessage'];
@@ -141,6 +141,7 @@ class ExportController extends Msd_Controller_Action
         }
 
         $files = array_unique($files);
+
         return $files;
     }
 
@@ -152,14 +153,14 @@ class ExportController extends Msd_Controller_Action
     private function _getVcsInstance()
     {
         if ($this->_vcs === null) {
-            $vcsConfig = $this->_config->getParam('vcs');
-            $userModel = new Application_Model_User();
+            $vcsConfig       = $this->_config->getParam('vcs');
+            $userModel       = new Application_Model_User();
             $cryptedVcsCreds = $userModel->loadSetting('vcsCredentials', null);
             if ($cryptedVcsCreds !== null) {
-                $projectConfig = $this->_config->getParam('project');
-                $msdCrypt = new Msd_Crypt($projectConfig['encryptionKey']);
+                $projectConfig  = $this->_config->getParam('project');
+                $msdCrypt       = new Msd_Crypt($projectConfig['encryptionKey']);
                 $vcsCredentials = $msdCrypt->decrypt($cryptedVcsCreds);
-                $vcsCredFields = Msd_Vcs::getCredentialFields($vcsConfig['adapter']);
+                $vcsCredFields  = Msd_Vcs::getCredentialFields($vcsConfig['adapter']);
                 if (strpos($vcsCredentials, '%@%') !== false) {
                     list ($vcsUser, $vcsPass) = explode('%@%', $vcsCredentials);
                     $vcsConfig['options'][$vcsCredFields['username']] = $vcsUser;
@@ -199,19 +200,19 @@ class ExportController extends Msd_Controller_Action
     public function updateAllAction()
     {
         $this->_vcsUpdate();
-        $langs = $this->_languagesModel->getAllLanguages();
+        $langs     = $this->_languagesModel->getAllLanguages();
         $languages = array();
-        $i = 0;
-        $exportOk = true;
+        $i         = 0;
+        $exportOk  = true;
         foreach ($langs as $lang => $langMeta) {
             if ($langMeta['active'] == 0) {
                 continue;
             }
-            $languages[$i] = array();
-            $languages[$i]['key'] = $lang;
+            $languages[$i]         = array();
+            $languages[$i]['key']  = $lang;
             $languages[$i]['meta'] = $langMeta;
-            $exportResult = $this->_export->exportLanguageFile($lang);
-            $exportOk = $exportOk && $exportResult['exportOk'];
+            $exportResult          = $this->_export->exportLanguageFile($lang);
+            $exportOk              = $exportOk && $exportResult['exportOk'];
             unset($exportResult['exportOk']);
             $this->_writeExportLog($exportResult);
             $languages[$i]['files'] = $exportResult;
@@ -219,7 +220,7 @@ class ExportController extends Msd_Controller_Action
         }
         $fileExportModel = new Application_Model_FileExport();
         $fileExportModel->buildArchives();
-        $this->view->exportOk = $exportOk;
+        $this->view->exportOk  = $exportOk;
         $this->view->languages = $languages;
     }
 
@@ -235,4 +236,5 @@ class ExportController extends Msd_Controller_Action
             $vcs->update();
         }
     }
+
 }

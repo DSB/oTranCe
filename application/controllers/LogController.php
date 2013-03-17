@@ -21,19 +21,16 @@ class LogController extends Msd_Controller_Action
      * @var Application_Model_User
      */
     private $_userModel;
-
     /**
      * History model
      * @var Application_Model_History
      */
     private $_historyModel;
-
     /**
      * Languages model
      * @var Application_Model_LanguageEntries
      */
     private $_entriesModel;
-
     /**
      * @var Application_Model_Languages
      */
@@ -88,8 +85,8 @@ class LogController extends Msd_Controller_Action
         $this->view->selectFilterUser = Msd_Html::getHtmlOptions($users, $filterUser, true);
 
         $filterAction = $this->_request->getParam('filterAction', '');
-        $translator = $this->view->lang;
-        $actions    = array(
+        $translator   = $this->view->lang;
+        $actions      = array(
             'changed'            => $translator->translate('L_EDITED'),
             'deleted %'          => 'Deleted key',
             'created'            => 'Created key',
@@ -131,6 +128,7 @@ class LogController extends Msd_Controller_Action
         $historyModel = new Application_Model_History();
         $historyModel->deleteById($id);
         $this->_forward('index');
+
         return;
     }
 }

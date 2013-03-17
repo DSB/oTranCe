@@ -257,6 +257,7 @@ class EntriesController extends Zend_Controller_Action
         }
         // save corrected offsets
         $this->_dynamicConfig->setParam('entries.skippedKeys', $skippedKeys);
+
         return $nextKeyId === null ? false : $nextKeyId;
     }
 
@@ -272,6 +273,7 @@ class EntriesController extends Zend_Controller_Action
         foreach ($editLanguages as $languageId) {
             $getStatus[]['id'] = $languageId;
         }
+
         return $this->_entriesModel->getStatus($getStatus);
     }
 
@@ -303,6 +305,7 @@ class EntriesController extends Zend_Controller_Action
         if (empty($error) && $this->_request->isPost() && $this->_request->getParam('var') !== null) {
             if ($this->_request->getParam('cancel') != null) {
                 $this->_myForward('index');
+
                 return;
             }
             $newVar = trim($this->_request->getParam('var'));
@@ -321,6 +324,7 @@ class EntriesController extends Zend_Controller_Action
                     $this->view->entry = $entry;
                     $this->_request->setParam('id', $entry['id']);
                     $this->_myForward('edit');
+
                     return;
                 } catch (Exception $e) {
                     $error = array('Technical error: Couldn\'t create new language variable.<br />' . $e->getMessage());
@@ -483,6 +487,7 @@ class EntriesController extends Zend_Controller_Action
         }
 
         $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
+
         return $res;
     }
 
@@ -534,6 +539,7 @@ class EntriesController extends Zend_Controller_Action
         if ($languageId !== null && !isset($skippedKeys[$languageId])) {
             $skippedKeys[$languageId] = 0;
         }
+
         return $skippedKeys;
     }
 
@@ -565,6 +571,7 @@ class EntriesController extends Zend_Controller_Action
     private function _findNextUntranslated($languageId, $offset = 0)
     {
         $langEnriesModel = new Application_Model_LanguageEntries();
+
         return $langEnriesModel->getUntranslatedKey($languageId, $offset);
     }
 

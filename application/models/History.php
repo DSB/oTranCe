@@ -20,18 +20,21 @@ class Application_Model_History extends Msd_Application_Model
 {
     /**
      * Name of table containing history data
+     *
      * @var string
      */
     private $_tableHistory;
 
     /**
      * Database table containing language keys.
+     *
      * @var string
      */
     private $_tableKeys;
 
     /**
      * Database table containing translations.
+     *
      * @var string
      */
     private $_tableTranslations;
@@ -80,8 +83,8 @@ class Application_Model_History extends Msd_Application_Model
                 }
             }
         }
-        $sql .= ' ORDER BY `dt` DESC'
-            . ' LIMIT ' . $offset . ',' . $nr;
+        $sql .= ' ORDER BY `dt` DESC LIMIT ' . $offset . ',' . $nr;
+
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
     }
 
@@ -156,6 +159,7 @@ class Application_Model_History extends Msd_Application_Model
     public function deleteById($id)
     {
         $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `id` = ' . intval($id) . ' LIMIT 1';
+
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -170,8 +174,9 @@ class Application_Model_History extends Msd_Application_Model
     {
         $langId = (int)$langId;
         $sql    = 'SELECT MAX(`dt`)  as `latestChange` FROM `' . $this->_tableTranslations . '`'
-            . ' WHERE `lang_id`=' . $langId;
+                  . ' WHERE `lang_id`=' . $langId;
         $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return isset($res[0]['latestChange']) ? $res[0]['latestChange'] : '';
     }
 
@@ -294,6 +299,7 @@ class Application_Model_History extends Msd_Application_Model
         $sql = 'DELETE FROM `' . $this->_tableHistory . '` WHERE `user_id` = ' . intval($userId);
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $this->_dbo->optimizeTable($this->_tableHistory);
+
         return (bool)$res;
     }
 
@@ -316,15 +322,15 @@ class Application_Model_History extends Msd_Application_Model
             $time = date('Y-m-d H-i-s', time());
         }
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
-            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
-            . ' VALUES ('
-            . intval($auth['id']) . ', '
-            . '\'' . $time . '\', '
-            . intval($keyId) . ', '
-            . '\'' . $this->_dbo->escape($action) . '\', '
-            . intval($langId) . ', '
-            . '\'' . $this->_dbo->escape($oldVal) . '\', '
-            . '\'' . $this->_dbo->escape($newVal) . '\')';
+               . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+               . ' VALUES ('
+               . intval($auth['id']) . ', '
+               . '\'' . $time . '\', '
+               . intval($keyId) . ', '
+               . '\'' . $this->_dbo->escape($action) . '\', '
+               . intval($langId) . ', '
+               . '\'' . $this->_dbo->escape($oldVal) . '\', '
+               . '\'' . $this->_dbo->escape($newVal) . '\')';
         $this->_dbo->query($sql);
     }
 
@@ -340,10 +346,10 @@ class Application_Model_History extends Msd_Application_Model
     {
         $time = date('Y-m-d H-i-s', time());
         $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
-            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
-            . ' VALUES (' . intval($userId) . ', \'' . $time . '\', 0, '
-            . '\'' . $this->_dbo->escape($action) . '\', '
-            . '0, \'\', \'\')';
+                . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+                . ' VALUES (' . intval($userId) . ', \'' . $time . '\', 0, '
+                . '\'' . $this->_dbo->escape($action) . '\', '
+                . '0, \'\', \'\')';
         $this->_dbo->query($sql);
     }
 

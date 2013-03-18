@@ -23,11 +23,12 @@ class Settings_LanguagesController extends SettingsController
      */
     public function indexAction()
     {
-        $languagesModel        = new Application_Model_Languages();
-        $this->view->languages            = $languagesModel->getAllLanguages();
-        $this->view->fallbackLanguageId   = $languagesModel->getFallbackLanguageId();
-        $this->view->refLanguagesSelected = $this->getRefLanguageSettings();
-        $this->view->editLanguages        = $this->_userModel->getUserLanguageRights();
+        $languagesModel                       = new Application_Model_Languages();
+        $this->view->languages                = $languagesModel->getAllLanguages();
+        $this->view->fallbackLanguageId       = $languagesModel->getFallbackLanguageId();
+        $this->view->refLanguagesSelected     = $this->getRefLanguageSettings();
+        $this->view->editLanguages            = $this->_userModel->getUserLanguageRights();
+        $this->view->forceFallbackAsReference = (bool)$this->_projectConfig['forceFallbackAsReference'];
     }
 
     /**
@@ -41,7 +42,7 @@ class Settings_LanguagesController extends SettingsController
     public function saveUserSettings($recordsPerPage, $interfaceLanguage)
     {
         $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
-        $res  = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
+        $res = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
         $res &= $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
 
         return $res;
@@ -55,6 +56,7 @@ class Settings_LanguagesController extends SettingsController
     public function getRefLanguageSettings()
     {
         $res = $this->_userModel->loadSetting('referenceLanguage', '', true);
+
         return $res;
     }
 

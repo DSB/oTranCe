@@ -21,6 +21,11 @@ class SettingsController extends Msd_Controller_Action
     protected $_userModel;
 
     /**
+     * @var array
+     */
+    protected $_projectConfig;
+
+    /**
      * Init
      *
      * @return void
@@ -31,9 +36,9 @@ class SettingsController extends Msd_Controller_Action
         if (!$this->_userModel->hasRight('editConfig')) {
             $this->_redirect('/');
         }
-        $projectConfig = $this->_config->getParam('project');
+        $this->_projectConfig = $this->_config->getParam('project');
         $this->view->vcsActivated = false;
-        if ($projectConfig['vcsActivated'] == 1) {
+        if ($this->_projectConfig['vcsActivated'] == 1) {
             $this->view->vcsActivated = true;
         }
     }

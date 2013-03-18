@@ -62,33 +62,46 @@ echo $this->partial('settings/head-navi.phtml', array('lang' => $this->lang, 'vc
             $canEditLanguage = false;
             if (in_array($key, $this->editLanguages)) {
                 $canEditLanguage = true;
-            } ?>
+            }
+            $labelClass = 'switchUserReferenceLanguageLabel';
+            $switchClass = 'switchUserReferenceLanguage';
+            $forceFallbackAsReference = ($this->forceFallbackAsReference == true && $language['id'] == $this->fallbackLanguageId);
+            if ($forceFallbackAsReference) {
+                $labelClass = '';
+                $switchClass = '';
+                $switchStatusTitle = 'title="' . $this->lang->L_FALLBACK_LANGUAGE . '"';
+            }
+            ?>
             <tr class="<?php echo $cycle->next();?>">
                 <td class="right vmiddle"><?php echo $i;?>.</td>
                 <td>
-                    <label for="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguageLabel">
+                    <label for="img-<?php echo $language['id'];?>" class="<?php echo $labelClass;?>">
                         <?php echo $this->printFlag($key);?>
                     </label>
                 </td>
                 <td class="vmiddle">
                     <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>"
-                                                            class="switchUserReferenceLanguageLabel">
+                                                            class="<?php echo $labelClass;?>">
                         <?php echo $this->languages[$langId]['locale'];?>
                     </label>
                 </td>
                 <td class="vmiddle">
                     <label <?php echo $switchStatusTitle;?> for="img-<?php echo $language['id'];?>"
-                                                            class="switchUserReferenceLanguageLabel">
+                                                            class="<?php echo $labelClass;?>">
                         <?php echo $langName;?>
                     </label>
                 </td>
                 <td class="vmiddle center">
-                    <div id="img-<?php echo $language['id'];?>" class="switchUserReferenceLanguage">
+                    <div id="img-<?php echo $language['id'];?>" class="<?php echo $switchClass;?>">
                         <?php
-                        if (in_array($key, $this->refLanguagesSelected)) {
-                            echo $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16);
+                        if ($forceFallbackAsReference) {
+                            echo $this->getIcon('Ok', $this->lang->L_FALLBACK_LANGUAGE, 16);
                         } else {
-                            echo $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16);
+                            if (in_array($key, $this->refLanguagesSelected)) {
+                                echo $this->getIcon('Ok', $this->lang->L_CHANGE_STATUS, 16);
+                            } else {
+                                echo $this->getIcon('NotOk', $this->lang->L_CHANGE_STATUS, 16);
+                            }
                         }
                         ;?>
                     </div>

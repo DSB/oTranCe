@@ -204,6 +204,7 @@ class ExportController extends Msd_Controller_Action
         $languages = array();
         $i         = 0;
         $exportOk  = true;
+        $exportedFiles = array();
         foreach ($langs as $lang => $langMeta) {
             if ($langMeta['active'] == 0) {
                 continue;
@@ -214,12 +215,15 @@ class ExportController extends Msd_Controller_Action
             $exportResult          = $this->_export->exportLanguageFile($lang);
             $exportOk              = $exportOk && $exportResult['exportOk'];
             unset($exportResult['exportOk']);
+            foreach ($exportResult as $result) {
+                $exportedFiles[] = $result['filename'];
+            }
             $this->_writeExportLog($exportResult);
             $languages[$i]['files'] = $exportResult;
             $i++;
         }
         $fileExportModel = new Application_Model_FileExport();
-        $fileExportModel->buildArchives();
+        $fileExportModel->buildArchives($exportedFiles);
         $this->view->exportOk  = $exportOk;
         $this->view->languages = $languages;
     }

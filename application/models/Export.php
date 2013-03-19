@@ -24,7 +24,7 @@ class Application_Model_Export
     private $_fileTemplates = array();
 
     /**
-     * Array with language meta infos (name, locale, ect.).
+     * Array with language meta info (name, locale, ect.).
      *
      * @var array
      */
@@ -77,11 +77,11 @@ class Application_Model_Export
     {
         $mTime    = 0;
         $iterator = new DirectoryIterator(DOWNLOAD_PATH);
-        foreach ($iterator as $fileinfo) {
-            if (!$fileinfo->isFile()) {
+        foreach ($iterator as $fileInfo) {
+            if (!$fileInfo->isFile()) {
                 continue;
             }
-            $mTime = $fileinfo->getMTime();
+            $mTime = $fileInfo->getMTime();
         }
 
         return $mTime;
@@ -172,8 +172,8 @@ class Application_Model_Export
     /**
      * Get translations and add them to file content array
      *
-     * @param $languageId
-     * @param $languageEntriesModel
+     * @param int                               $languageId
+     * @param Application_Model_LanguageEntries $languageEntriesModel
      *
      * @return array
      */
@@ -231,13 +231,9 @@ class Application_Model_Export
      */
     public function _getFileMetaData($languageId, $templateId)
     {
-        $langFilename = EXPORT_PATH . '/' . trim(
-            str_replace(
-                '{LOCALE}',
-                $this->_langInfo[$languageId]['locale'],
-                $this->_fileTemplates[$templateId]['filename']
-            ),
-            '/'
+        $langFilename = EXPORT_PATH . '/' . $this->_replacePlaceholderInFileName(
+            $this->_fileTemplates[$templateId]['filename'],
+            $this->_langInfo[$languageId]['locale']
         );
         $langDir      = dirname($langFilename);
         if (!file_exists($langDir)) {
@@ -261,6 +257,17 @@ class Application_Model_Export
         $data['delimiter'] = substr($this->_fileTemplates[$templateId]['content'], $pos, 1);
 
         return $data;
+    }
+
+    /**
+     * @param string $fileName Name of file containing placeholder
+     * @param string $locale   Locale of language
+     *
+     * @return string
+     */
+    protected function _replacePlaceholderInFileName($fileName, $locale)
+    {
+        return trim(str_replace('{LOCALE}', $locale, $fileName), '/');
     }
 
     /**
@@ -292,4 +299,28 @@ class Application_Model_Export
 
         return $res;
     }
+
+    /**
+     * Get a list of files that will be created when doing an export.
+     *
+     * @return array
+     */
+    public function getFileTemplateList()
+    {
+        $files          = array();
+        $languagesModel = new Application_Model_Languages();
+        $templatesModel = new Application_Model_FileTemplates();
+        $languages      = $languagesModel->getAllLanguages('', 0, 0, true);
+        $fileTemplates  = $templatesModel->getFileTemplates();
+
+        foreach ($languages as $language) {
+            foreach ($fileTemplates as $file) {
+                $files[] = $this->_replacePlaceholderInFileName($file['filename'], $language['locale']);
+            }
+        }
+
+        return $files;
+    }
+
+
 }

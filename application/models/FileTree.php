@@ -54,6 +54,13 @@ class Application_Model_FileTree
     private $_jsTreeEntryCount = 0;
 
     /**
+     * Will hold the list of exportable files taken from file templates
+     *
+     * @var array
+     */
+    private $_fileList;
+
+    /**
      * Class constructor.
      * Sets the base path for the iteration.
      *
@@ -61,7 +68,7 @@ class Application_Model_FileTree
      */
     public function __construct($basePath)
     {
-        $this->_basePath = (string) $basePath;
+        $this->_basePath = (string)$basePath;
     }
 
     /**
@@ -75,7 +82,7 @@ class Application_Model_FileTree
     {
         if ($this->_simpleTree === null || $rebuild == true) {
             $this->_simpleEntryCount = 0;
-            $this->_simpleTree = $this->_buildSimpleTree($this->_basePath);
+            $this->_simpleTree       = $this->_buildSimpleTree($this->_basePath);
         }
 
         return $this->_simpleTree;
@@ -92,8 +99,8 @@ class Application_Model_FileTree
     private function _buildSimpleTree($baseDir, $prefix = '')
     {
         $tree = array();
-        $dir = new DirectoryIterator($baseDir);
-        for (;$dir->valid();$dir->next()) {
+        $dir  = new DirectoryIterator($baseDir);
+        for (; $dir->valid(); $dir->next()) {
             $filename = $dir->getFilename();
             if ($dir->isDot() || $filename == '.svn') {
                 continue;
@@ -113,6 +120,7 @@ class Application_Model_FileTree
         }
 
         usort($tree, array($this, '_sortEntries'));
+
         return $tree;
     }
 
@@ -128,7 +136,7 @@ class Application_Model_FileTree
     {
         if ($this->_jsTreeData === null || $rebuild) {
             $this->_jsTreeEntryCount = 0;
-            $this->_jsTreeData = $this->_buildJsTreeData($this->_basePath);
+            $this->_jsTreeData       = $this->_buildJsTreeData($this->_basePath);
         }
 
         return $this->_jsTreeData;
@@ -143,37 +151,61 @@ class Application_Model_FileTree
      */
     private function _buildJsTreeData($baseDir)
     {
+        if ($this->_fileList == null) {
+            $this->getExportFileList();
+        }
+
         $entries = array();
-        $dir = new DirectoryIterator($baseDir);
-        for (;$dir->valid();$dir->next()) {
+        $dir     = new DirectoryIterator($baseDir);
+        for (; $dir->valid(); $dir->next()) {
             $filename = $dir->getFilename();
             if ($dir->isDot() || $filename == '.svn') {
                 continue;
             }
             $this->_jsTreeEntryCount++;
-            $entry = array();
+            $entry              = array();
             $entryData['title'] = $dir->getFilename();
             if ($dir->isDir()) {
                 $entryData['icon'] = 'folder';
                 $entryData['attr'] = array(
-                    'href' => '#',
+                    'href'    => '#',
                     'onclick' => "\$(this).parent().children('ins').click();",
                 );
                 $entry['children'] = $this->_buildJsTreeData($dir->getPathname());
             } else {
-                $pathname = str_replace($this->_basePath, '', $dir->getPathname());
-                $pathname = addslashes($pathname);
+                $pathName = str_replace($this->_basePath, '', $dir->getPathname());
+                if (!in_array($pathName, $this->_fileList)) {
+                    continue;
+                }
+
+                $pathName          = addslashes($pathName);
                 $entryData['attr'] = array(
-                    'href' => '#',
-                    'onclick' => 'loadFileContent("' . htmlspecialchars($pathname, ENT_COMPAT, 'UTF-8') . '");',
+                    'href'    => '#',
+                    'onclick' => 'loadFileContent("' . htmlspecialchars($pathName, ENT_COMPAT, 'UTF-8') . '");',
                 );
                 $entryData['icon'] = 'file';
             }
             $entry['data'] = $entryData;
-            $entries[] = $entry;
+            $entries[]     = $entry;
         }
         usort($entries, array($this, '_sortJsTreeEntries'));
+
         return $entries;
+    }
+
+    /**
+     * Get export file list from file templates and prepare it for comparison in _buildJsTreeData
+     *
+     * @return void
+     */
+    private function getExportFileList()
+    {
+        $exportModel = new Application_Model_Export();
+        $files       = $exportModel->getFileTemplateList();
+        foreach ($files as $index => $file) {
+            $files[$index] = '\\' . str_replace('/', '\\', $file);
+        }
+        $this->_fileList = $files;
     }
 
     /**
@@ -249,6 +281,7 @@ class Application_Model_FileTree
         ) {
             return strcmp($prevEntry['data']['title'], $nextEntry['data']['title']);
         }
+
         return isset($prevEntry['children']) ? -1 : 1;
     }
 }

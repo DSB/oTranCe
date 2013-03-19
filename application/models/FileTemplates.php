@@ -19,24 +19,28 @@ class Application_Model_FileTemplates extends Msd_Application_Model
 {
     /**
      * Database table containing file templates
+     *
      * @var string
      */
     private $_tableFiletemplates;
 
     /**
      * Database table containing language var keys
+     *
      * @var string
      */
     private $_tableKeys;
 
     /**
      * Database table containing translations
+     *
      * @var string
      */
     private $_tableTranslations;
 
     /**
      * Will hold validation error messages
+     *
      * @var array
      */
     private $_validateMessages;
@@ -86,6 +90,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             $sql .= ' ORDER BY `' . $order . '` ' . $limit;
         }
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return $res;
     }
 
@@ -129,6 +134,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         if (isset($res[0])) {
             $template = $res[0];
         }
+
         return $template;
     }
 
@@ -162,6 +168,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             if ($id == 0) {
                 $id = $this->_dbo->getLastInsertId();
             }
+
             return $id;
         } catch (Msd_Exception $e) {
             return false;
@@ -208,7 +215,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             $res = $this->_deleteFileTemplate($templateId);
         } else {
             $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` SET `template_id` = "
-                . $replacement . " WHERE `template_id` = " . $templateId;
+                   . $replacement . " WHERE `template_id` = " . $templateId;
             $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
         $result['update'] = $res;
@@ -233,7 +240,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     {
         // first get all key-Ids
         $sql = "SELECT `id` FROM `{$this->_database}`.`{$this->_tableKeys}` "
-            . " WHERE `template_id` = " . $templateId;
+               . " WHERE `template_id` = " . $templateId;
         $res = $this->_dbo->query($sql, MSD_DB::ARRAY_ASSOC);
         if (empty($res[0])) {
             // nothing to delete
@@ -246,13 +253,14 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         }
         // delete all translations of these keys
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableTranslations}` "
-            . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
+               . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
         $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
 
         // delete all keys assigned to that file template
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableKeys}` "
-            . " WHERE `template_id` = " . $templateId;
+               . " WHERE `template_id` = " . $templateId;
         $res &= $this->_dbo->query($sql, MSD_DB::SIMPLE);
+
         return $res;
     }
 
@@ -310,6 +318,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         ) {
             $isValid = false;
         }
+
         return $isValid;
     }
 

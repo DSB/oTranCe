@@ -3,16 +3,16 @@
  * This file is part of oTranCe released under the GNU/GPL 2 license
  * http://www.otrance.org
  *
- * @package         oTranCe
- * @subpackage      Export
- * @version         SVN: $
- * @author          $Author$
+ * @package    oTranCe
+ * @subpackage Models
+ * @version    SVN: $
+ * @author     $Author$
  */
 /**
  * Export
  *
- * @package         MySQLDumper
- * @subpackage      Export
+ * @package         oTranCe
+ * @subpackage      Models
  */
 class Application_Model_Export
 {
@@ -83,6 +83,7 @@ class Application_Model_Export
             }
             $mTime = $fileinfo->getMTime();
         }
+
         return $mTime;
     }
 
@@ -142,6 +143,7 @@ class Application_Model_Export
             $res[$templateId]['filename'] = str_replace(EXPORT_PATH . '/', '', $langFile['filename']);
         }
         $res['exportOk'] = (count($res) > 0) && $exportOk;
+
         return $res;
     }
 
@@ -215,6 +217,7 @@ class Application_Model_Export
             );
             $fileContent[$templateId]['fileContent'] .= "\n";
         }
+
         return $fileContent;
     }
 
@@ -249,13 +252,14 @@ class Application_Model_Export
         );
         //Add file header
         $data['fileContent'] = $this->_replaceLanguageMetaPlaceholder(
-            $this->_fileTemplates[$templateId]['header'],
-            $languageId
-        ) . "\n";
+                                   $this->_fileTemplates[$templateId]['header'],
+                                   $languageId
+                               ) . "\n";
 
         //extract delimiter
         $pos               = strpos($this->_fileTemplates[$templateId]['content'], '{VALUE}') + 7;
         $data['delimiter'] = substr($this->_fileTemplates[$templateId]['content'], $pos, 1);
+
         return $data;
     }
 
@@ -285,6 +289,7 @@ class Application_Model_Export
             empty($this->_translatorList[$languageId]) ? '' : $this->_translatorList[$languageId],
         );
         $res     = str_replace($search, $replace, $content);
+
         return $res;
     }
 }

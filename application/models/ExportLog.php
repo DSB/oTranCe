@@ -86,7 +86,7 @@ class Application_Model_ExportLog extends Msd_Application_Model
     }
 
     /**
-     * Retrives the number of exports.
+     * Retrieves the number of exports.
      *
      * @return int
      */

@@ -14,7 +14,7 @@
  * @package         MySQLDumper
  * @subpackage      Export
  */
-class Msd_Export
+class Application_Model_Export
 {
     /**
      * Array with file templates.

@@ -26,7 +26,7 @@ class ExportController extends Msd_Controller_Action
     private $_historyModel;
 
     /**
-     * @var Msd_Export
+     * @var Application_Model_Export
      */
     private $_export;
 
@@ -61,7 +61,7 @@ class ExportController extends Msd_Controller_Action
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel       = new Application_Model_Languages();
-        $this->_export               = new Msd_Export();
+        $this->_export               = new Application_Model_Export();
         $this->_historyModel         = new Application_Model_History();
         $this->_projectConfig        = $this->_config->getParam('project');
     }

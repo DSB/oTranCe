@@ -340,7 +340,7 @@ $lang = array(
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'La clave \'%s\' ya existe en esta plantilla de archivo.',
 'L_VALIDATE_ERROR_NAME_TOO_SHORT' => 'El nombre de la clave es demasiado pequeño.',
 'L_VALUE' => 'Valor',
-'L_VCS' => 'Sistema de control de versiones (VCS)',
+'L_VCS' => 'SisteALUE_IN_APPLICATION' => 'Value in application 'Sistema de control de versiones (VCS)',
 'L_VCS_ADAPTER_OPTIONS' => 'Opciones del adaptador VCS',
 'L_VCS_CREDENTIALS' => 'Credenciales para VCS',
 'L_VCS_SETTINGS' => 'Preferencias para el sistema de control de versiones',

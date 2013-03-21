@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (12), enkay (8), janrei (1), Marco.Steinhäuser (431)
+// DSB (12), enkay (3), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -347,7 +347,7 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_VALIDATE_ERROR_KEY_EXISTS' => 'In dieser Dateivorlage  existiert der Schlüssel \'%s\' bereits.',
 'L_VALIDATE_ERROR_NAME_TOO_SHORT' => 'Der Name des Schlüssels ist zu kurz.',
 'L_VALUE' => 'Wert',
-'L_VCS' => 'Versionierungssystem (VCS)',
+'L_VCS' => 'VersioniALUE_IN_APPLICATION' => 'Wert in der Applikationersionierungssystem (VCS)',
 'L_VCS_ADAPTER_OPTIONS' => 'Einstellungen VCS-Adapter',
 'L_VCS_CREDENTIALS' => 'VCS-Zugangsdaten',
 'L_VCS_SETTINGS' => 'Einstellungen Versionierungssystem',

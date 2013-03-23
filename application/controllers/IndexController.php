@@ -127,6 +127,7 @@ class IndexController extends Zend_Controller_Action
                     }
 
                     $this->_forwardAfterSuccessfulLogin();
+
                     return;
                 } else {
                     $loginResult = false;
@@ -158,7 +159,7 @@ class IndexController extends Zend_Controller_Action
 
     /**
      * Forward to formerly requested target page.
-     * Detect if another page was called before the login was triggered and redirect to this target page.
+     * Detect if another page was called before the login was triggered and forward to this target page.
      * Otherwise forward to the index page.
      *
      * @return void

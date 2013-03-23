@@ -583,6 +583,7 @@ class Application_Model_User extends Msd_Application_Model
         $defaultRights = array(
             'editConfig'      => 1,
             'showEntries'     => 1,
+            'showConnector'   => 1,
             'showDownloads'   => 1,
             'showBrowseFiles' => 1,
             'showImport'      => 1,

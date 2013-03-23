@@ -435,6 +435,28 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         return $ret;
     }
 
+    /**
+     * Get ids of given keys
+     *
+     * @param array $keys Ids of keys to fetch
+     *
+     * @return array
+     */
+    public function getIdsByKeys($keys)
+    {
+        $ret = array();
+        foreach ($keys as $k => $v) {
+            $keys[$k] = $this->_dbo->escape($v);
+        }
+        $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableKeys . '` k'
+               . ' WHERE `key` IN (\'' . implode('\',\'', $keys) . '\') ORDER BY `key`';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        foreach ($res as $r) {
+            $ret[$r['id']] = $r;
+        }
+
+        return $ret;
+    }
 
     /**
      * Add translations for the given languages to the entries.

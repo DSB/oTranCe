@@ -224,8 +224,28 @@ class EntriesController extends Zend_Controller_Action
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($keyId);
         $this->view->translatable         = Msd_Google::getTranslatableLanguages();
         $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
+        $this->_setReferrer();
     }
 
+    /**
+     * Detect referrer and set it to view.
+     * Used to send the user back to the connector if he hits "back to overview" after he clicked edit
+     * in the connector list.
+     *
+     * @return void
+     */
+    protected function _setReferrer()
+    {
+        $referrer = 'entries';
+        if ($this->_request->getParam('ref', false)) {
+            $referrer = $this->_request->getParam('ref');
+            // Security: check against white list
+            if (!in_array($referrer, array('connector'))) {
+                $referrer = 'entries';
+            }
+        }
+        $this->view->referrer = $referrer;
+    }
 
     /**
      * Find the next untranslated key. Iterates over all languages the user can edit.

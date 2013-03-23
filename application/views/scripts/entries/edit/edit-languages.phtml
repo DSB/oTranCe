@@ -2,7 +2,7 @@
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $entry = $this->entry;
 ?>
-<form action="<?php echo $this->baseUrl();?>/entries/edit" method="post" id="editForm">
+<form action="<?php echo $this->baseUrl();?>/entries/edit/ref/<?php echo $this->referrer;?>" method="post" id="editForm">
     <table class="bdr more-padding" summary="List of edit boxes">
         <tr class="thead"><th colspan="2"><?php echo $this->lang->L_EDIT;?>:</th></tr>
         <tr class="<?php echo $cycleHelper->next();?>">

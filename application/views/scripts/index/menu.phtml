@@ -37,6 +37,16 @@
                 </li>
                 <?php
             }
+            if ($this->user->hasRight('showConnector')) {
+                ?>
+                <li
+                    <?php if ($this->controller == 'connector') {
+                    echo ' class="active"';
+                };?>
+                    ><a href="<?php echo $this->baseUrl();?>/connector/index"><?php echo $this->getIcon('Edit', '', 20);?><?php echo $this->lang->L_CONNECTOR;?></a>
+                </li>
+            <?php
+            }
             if ($this->user->hasRight('showDownloads')) {
                 ?>
                 <li

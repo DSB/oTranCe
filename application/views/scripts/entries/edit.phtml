@@ -14,7 +14,8 @@ $viewData = array(
     'skipKeysOffsets'      => $this->skipKeysOffsets,
     'assignedFileTemplate' => $this->assignedFileTemplate,
     'keyExistsError'       => $this->keyExistsError,
-    'setFocusToLanguage'   => isset($this->setFocusToLanguage) ? $this->setFocusToLanguage : $this->languagesEdit[0]
+    'setFocusToLanguage'   => isset($this->setFocusToLanguage) ? $this->setFocusToLanguage : $this->languagesEdit[0],
+    'referrer'             => $this->referrer
 );
 ?>
 <div id="headline">
@@ -22,7 +23,7 @@ $viewData = array(
 </div>
 <h4><?php echo $this->lang->L_EDIT;?>: <?php echo $this->escape($this->key['key']);?></h4>
 <div>
-    <a href="<?php echo $this->baseUrl();?>/entries/index" class="Formbutton ui-corner-all">
+    <a href="<?php echo $this->baseUrl(). '/' . $this->referrer;?>/index" class="Formbutton ui-corner-all">
         <?php echo $this->getIcon('Back', $this->lang->L_BACK_TO_OVERVIEW, 16) . ' ' . $this->lang->L_BACK_TO_OVERVIEW;?>
     </a>
     <?php

@@ -811,7 +811,7 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check for invalid chars in alnum fields
             $alnumValidate = new Zend_Filter_Alnum(true);
-            $alnumValues   = array('username', 'realName', 'newLanguage');
+            $alnumValues   = array('realName', 'newLanguage');
             foreach ($alnumValues as $key) {
                 if (empty($userData[$key])) {
                     continue;

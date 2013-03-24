@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (362), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (367), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -58,6 +58,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Bestätigung der Löschung der Zugangsdaten zum VCS',
 'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen, bleibt das alte Kennwort bestehen.',
+'L_CONNECTOR' => 'Konnektor',
 'L_CONTACT_EMAIL' => 'Allgemeine Kontakt-E-Mail-Adresse',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Der Inhalt ist derselbe wie in der Hauptsprache und wurde nicht importiert!',
 'L_CONVERT' => 'Konvertiere',
@@ -113,6 +114,9 @@ Bitte wiederholen Sie die Aktion.',
 'L_ERROR_DELETING_USER' => 'Beim Löschen des Benutzers ist ein Fehler aufgetreten.',
 'L_ERROR_INVALID_CHARS' => 'Die Eingabe enthält unerlaubte Zeichen.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Während der Optimierung der Datenbanktabellen ist ein Fehler aufgetreten.',
+'L_ERROR_PERMISSION' => 'Berechtigungsfehler',
+'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden da Ihnen das erforderliche Recht dazu fehlt. Kontaktieren Sie den Administrator wenn Sie der Meinung sind, dass Ihnen das Recht eingeräumt werden soll.<br />
+Die hinterlegte Kontaktadresse für dieses Projekt lautet: %s',
 'L_ERROR_SAVING_CHANGE' => 'Leider ist beim Speichern der Änderung ein Fehler aufgetreten',
 'L_ERROR_SAVING_KEY' => 'Leider ist beim Speichern des Schlüssels ein Fehler aufgetreten.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Konnte Sprachverwaltungs-Recht nicht speichern',
@@ -289,6 +293,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Benutzer darf VCS-Einstellungen bearbeiten',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'Benutzer darf Phrasen importieren, die die gleiche Übersetzung haben wie die Hauptsprache',
 'L_RIGHT_EXPLAIN_SHOWBROWSEFILES' => 'Benutzer kann den Menüpunkt "Dateibrowser" benutzen',
+'L_RIGHT_EXPLAIN_SHOWCONNECTOR' => 'Benutzer kann den Menüpunkt "Konnektor" benutzen',
 'L_RIGHT_EXPLAIN_SHOWDOWNLOADS' => 'Benutzer kann den Menüpunkt "Downloads" benutzen',
 'L_RIGHT_EXPLAIN_SHOWENTRIES' => 'Benutzer kann den Menüpunkt "Übersetzungen" benutzen',
 'L_RIGHT_EXPLAIN_SHOWEXPORT' => 'Benutzer kann den Menüpunkt "Export" benutzen',

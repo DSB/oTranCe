@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (400), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (404), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -58,6 +58,7 @@ If everything looks good, start to analyze the data.',
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Confirm deletion of VCS credentials',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
+'L_CONNECTOR' => 'Connector',
 'L_CONTACT_EMAIL' => 'General contact e-mail address',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'The content is the same as in the main language and was not imported!',
 'L_CONVERT' => 'Convert',
@@ -113,6 +114,9 @@ Please retry.',
 'L_ERROR_DELETING_USER' => 'There was an error deleting this user.',
 'L_ERROR_INVALID_CHARS' => 'The input contains invalid characters.',
 'L_ERROR_OPTIMIZING_TABLES' => 'An error occured while trying to optimize the database tables.',
+'L_ERROR_PERMISSION' => 'Permission error',
+'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />
+The given contact e-mail is: %s',
 'L_ERROR_SAVING_CHANGE' => 'An error occured while saving your change',
 'L_ERROR_SAVING_KEY' => 'An error occured while saving the key.',
 'L_ERROR_SAVING_LANGUAGE_EDIT_RIGHT' => 'Couldn\'t save language edit right',
@@ -291,6 +295,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'User can see and use admin tab "VCS"',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'User can import phrases that are equal to the main language',
 'L_RIGHT_EXPLAIN_SHOWBROWSEFILES' => 'User can see and use menu item "File browser"',
+'L_RIGHT_EXPLAIN_SHOWCONNECTOR' => 'User can see and use menu item "Connector"',
 'L_RIGHT_EXPLAIN_SHOWDOWNLOADS' => 'User can see and use menu item "Downloads"',
 'L_RIGHT_EXPLAIN_SHOWENTRIES' => 'User can see and use menu item "Translations"',
 'L_RIGHT_EXPLAIN_SHOWEXPORT' => 'User can see and use menu item "Export"',

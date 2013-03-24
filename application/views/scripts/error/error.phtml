@@ -1,6 +1,6 @@
 <?php
     echo $this->doctype();
-    echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -82,8 +82,7 @@
                             </tr>
                         </table>
 
-                        <?php if (true) { //$this->displayErrors == 1 && isset($this->exception)) {
-                            ?>
+                        <?php if ($this->displayErrors == 1 && isset($this->exception)) { ?>
                         <div style="font-size:smaller;">
                             <br />
                             <b>Exception information</b>
@@ -91,6 +90,14 @@
                                 <tr>
                                     <td><i>Message:</i></td>
                                     <td><?php echo $this->exception->getMessage(); ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i>File:</i></td>
+                                    <td><?php echo $this->exception->getFile();; ?></td>
+                                </tr>
+                                <tr>
+                                    <td><i>Line:</i></td>
+                                    <td><?php echo $this->exception->getLine();; ?></td>
                                 </tr>
                                 <tr>
                                     <td><i>Controller:</i></td>

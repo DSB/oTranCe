@@ -35,22 +35,34 @@ class ErrorController extends Zend_Controller_Action
             if (in_array($errors->type, $exceptionTypes)) {
                 // 404 error -- controller or action not found
                 $this->getResponse()->setHttpResponseCode(404);
-                $this->view->message       = 'Page not found';
-                $this->view->displayErrors = 1;
+                $this->view->message = 'Page not found';
             } else {
+                $this->_setDisplayError();
                 // application error
                 $this->getResponse()->setHttpResponseCode(200);
                 $this->view->message = 'Application error';
             }
 
-            // conditionally display exceptions
-            if ($this->getInvokeArg('displayExceptions') == true) {
-                $this->view->exception = $errors->exception;
-            }
-            if (in_array(APPLICATION_ENV, array('development', 'testing'))) {
-                $this->view->displayErrors = 1;
-            }
-            $this->view->request = $errors->request;
+            $this->view->exception = $errors->exception;
+            $this->view->request   = $errors->request;
+        }
+    }
+
+    /**
+     * Sets display errors if user has admin right or if we are in testing or development environment
+     *
+     * @return void
+     */
+    public function _setDisplayError()
+    {
+        $this->view->displayErrors = 0;
+        $this->_userModel          = new Application_Model_User();
+        if ($this->_userModel->hasRight('admin')) {
+            $this->view->displayErrors = 1;
+        }
+
+        if (in_array(APPLICATION_ENV, array('development', 'testing'))) {
+            $this->view->displayErrors = 1;
         }
     }
 

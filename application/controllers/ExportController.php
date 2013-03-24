@@ -56,7 +56,7 @@ class ExportController extends Msd_Controller_Action
     {
         $userModel = new Application_Model_User();
         if (!$userModel->hasRight('showExport')) {
-            $this->_redirect('/error/not-allowed');
+            $this->_redirect('/');
         }
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();

@@ -58,8 +58,9 @@ class Msd_Archive_Zip extends Msd_Archive_Abstract
             return false;
         }
 
-        // Suppress warnings about already existing directories.
-        @mkdir(dirname($this->_archiveFilename), 0775, true);
+        if (!is_dir(dirname($this->_archiveFilename))) {
+            mkdir(dirname($this->_archiveFilename), 0775, true);
+        }
         $zipOpened = $this->_zip->open($this->_archiveFilename, ZipArchive::CREATE | ZipArchive::OVERWRITE);
         if ($zipOpened !== true) {
             $this->_errorMessage .= Msd_Archive_Zip_Messages::getErrorMessage($zipOpened) . "\n";

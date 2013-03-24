@@ -9,10 +9,10 @@
  * @author          $Author$
  */
 /**
- * Check if user switched the language and save change to user config
+ * Check if application is invoked via cli call and disable MVC and view renderer
  *
- * @package         oTranCe_Plugins
- * @subpackage      LoginCheck
+ * @package         oTranCe
+ * @subpackage      Plugins
  */
 class Application_Plugin_DisableLayout extends Zend_Controller_Plugin_Abstract
 {

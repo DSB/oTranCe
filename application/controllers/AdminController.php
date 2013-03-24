@@ -52,7 +52,7 @@ class AdminController extends Msd_Controller_Action
         $this->_userModel = new Application_Model_User();
         // security - if user doesn't have admin rights -> send him to index page
         if (!$this->_userModel->hasRight('admin')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
 
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();

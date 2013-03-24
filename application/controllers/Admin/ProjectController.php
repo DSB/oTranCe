@@ -25,7 +25,7 @@ class Admin_ProjectController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('admTabProject')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 

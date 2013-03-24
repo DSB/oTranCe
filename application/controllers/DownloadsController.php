@@ -24,7 +24,7 @@ class DownloadsController extends Zend_Controller_Action
     {
         $userModel = new Application_Model_User();
         if (!$userModel->hasRight('showDownloads')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 

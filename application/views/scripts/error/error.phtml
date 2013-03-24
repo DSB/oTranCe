@@ -1,7 +1,6 @@
 <?php
     echo $this->doctype();
-    $this->headMeta()
-        ->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+    echo $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8')
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -16,7 +15,7 @@
                 margin: 0;
                 padding: 0;
             }
-            html { 
+            html {
                 display: table;
             }
             body {
@@ -73,17 +72,18 @@
                             AABJRU5ErkJggg==" />
                     </td>
                     <td>
-                        Sorry, there was an error processing your request. 
+                        Sorry, there was an error processing your request.
                         Please try again later or contact an administrator.
-                        
+
                         <table>
                             <tr>
                                 <td><i>Error message:</i></td>
                                 <td><?php echo $this->message ?></td>
                             </tr>
                         </table>
-                        
-                        <?php if ($this->displayErrors == 1 && isset($this->exception)) { ?>
+
+                        <?php if (true) { //$this->displayErrors == 1 && isset($this->exception)) {
+                            ?>
                         <div style="font-size:smaller;">
                             <br />
                             <b>Exception information</b>
@@ -105,16 +105,16 @@
                                     <td><?php echo $this->request->getParam('module'); ?></td>
                                 </tr>
                             </table>
-                            
+
                             <br />
                             <b>Stack trace</b>
                             <div class="pre"><?php echo $this->exception->getTraceAsString(); ?></div>
-          
+
                             <br />
                             <b>Request parameters</b>
                             <div class="pre"><?php echo var_export($this->request->getParams(), true); ?></div>
                         </div>
-                        <?php } ?> 
+                        <?php } ?>
                     </td>
                 </tr>
             </table>

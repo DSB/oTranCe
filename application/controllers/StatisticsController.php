@@ -31,7 +31,7 @@ class StatisticsController extends Zend_Controller_Action
     {
         $userModel = new Application_Model_User();
         if (!$userModel->hasRight('showStatistics')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
 
         $this->_statisticsModel = new Application_Model_Statistics();

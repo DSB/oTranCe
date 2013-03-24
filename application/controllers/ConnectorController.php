@@ -62,13 +62,21 @@ class ConnectorController extends Zend_Controller_Action
      */
     private $_referenceLanguages = array();
 
+    /**
+     * Init
+     *
+     * @return void
+     */
     public function init()
     {
-        $this->_getKeys();
-        $this->_entriesModel = new Application_Model_LanguageEntries();
-        $this->_userModel    = new Application_Model_User();
-        $this->view->user    = $this->_userModel;
+        $this->_userModel = new Application_Model_User();
+        if (!$this->_userModel->hasRight('showConnector')) {
+            $this->_redirect('/error/not-allowed');
+        }
 
+        $this->_getKeys();
+        $this->_entriesModel   = new Application_Model_LanguageEntries();
+        $this->view->user      = $this->_userModel;
         $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
         $this->_config         = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();

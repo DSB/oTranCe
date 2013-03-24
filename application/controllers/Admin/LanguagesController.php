@@ -25,7 +25,7 @@ class Admin_LanguagesController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('editLanguage')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 

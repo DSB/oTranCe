@@ -45,7 +45,7 @@ class LogController extends Msd_Controller_Action
     {
         $this->_userModel = new Application_Model_User();
         if (!$this->_userModel->hasRight('showLog')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
 
         $this->_historyModel   = new Application_Model_History();

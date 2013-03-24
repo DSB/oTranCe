@@ -63,7 +63,7 @@ class ImportController extends Zend_Controller_Action
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
         $this->_userModel     = new Application_Model_User();
         if (!$this->_userModel->hasRight('showImport')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
 
         $this->_entriesModel       = new Application_Model_LanguageEntries();

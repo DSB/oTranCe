@@ -32,7 +32,7 @@ class Admin_VcsController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('editVcs')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 

@@ -34,7 +34,7 @@ class SettingsController extends Msd_Controller_Action
     {
         $this->_userModel = new Application_Model_User();
         if (!$this->_userModel->hasRight('editConfig')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
         $this->_projectConfig = $this->_config->getParam('project');
         $this->view->vcsActivated = false;

@@ -35,7 +35,7 @@ class ErrorController extends Zend_Controller_Action
             if (in_array($errors->type, $exceptionTypes)) {
                 // 404 error -- controller or action not found
                 $this->getResponse()->setHttpResponseCode(404);
-                $this->view->message = 'Page not found';
+                $this->view->message       = 'Page not found';
                 $this->view->displayErrors = 1;
             } else {
                 // application error
@@ -50,12 +50,28 @@ class ErrorController extends Zend_Controller_Action
             if (in_array(APPLICATION_ENV, array('development', 'testing'))) {
                 $this->view->displayErrors = 1;
             }
-            $this->view->request   = $errors->request;
+            $this->view->request = $errors->request;
         }
     }
 
+    /**
+     * Show error message "no file template configured"
+     *
+     * @return void
+     */
     public function noFileTemplateAction()
     {
+    }
+
+    /**
+     * Show error message "no permission for this action"
+     *
+     * @return void
+     */
+    public function notAllowedAction()
+    {
+        $projectConfig            = $this->view->config->getParam('project');
+        $this->view->projectEmail = $projectConfig['email'];
     }
 }
 

@@ -25,7 +25,7 @@ class Admin_FilesController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('editTemplate')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 
@@ -91,7 +91,7 @@ class Admin_FilesController extends AdminController
         $template = $templatesModel->getFileTemplate($templateId);
         if ($template['id'] == 0) {
             if (!$this->_userModel->hasRight('addTemplate')) {
-                $this->_redirect('/');
+                $this->_redirect('/error/not-allowed');
             }
         }
 
@@ -129,7 +129,7 @@ class Admin_FilesController extends AdminController
     public function deleteAction()
     {
         if (!$this->_userModel->hasRight('addTemplate')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
 
         if ($this->_request->isPost()) {
@@ -151,7 +151,7 @@ class Admin_FilesController extends AdminController
     public function cloneAction()
     {
         if (!$this->_userModel->hasRight('addTemplate')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
         $id                       = $this->_getParam('id');
         $templatesModel           = new Application_Model_FileTemplates();

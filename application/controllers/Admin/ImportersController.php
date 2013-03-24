@@ -29,7 +29,7 @@ class Admin_ImportersController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('editImporter')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
         $this->_importerModel = new Application_Model_Importers();
     }

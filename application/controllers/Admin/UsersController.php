@@ -25,7 +25,7 @@ class Admin_UsersController extends AdminController
     {
         parent::init();
         if (!$this->_userModel->hasRight('editUsers')) {
-            $this->_redirect('/');
+            $this->_redirect('/error/not-allowed');
         }
     }
 
@@ -80,7 +80,7 @@ class Admin_UsersController extends AdminController
         if ($userId == 0) {
             // Is current user allowed to add a new user?
             if (!$this->_userModel->hasRight('addUser')) {
-                $this->_redirect('/');
+                $this->_redirect('/error/not-allowed');
             }
         } else {
             // get user data from database

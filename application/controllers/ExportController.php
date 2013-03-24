@@ -58,7 +58,7 @@ class ExportController extends Msd_Controller_Action
         if (!$userModel->hasRight('showExport')) {
             $this->_redirect('/');
         }
-
+        $this->view->user            = $userModel;
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel       = new Application_Model_Languages();
         $this->_export               = new Application_Model_Export();
@@ -200,10 +200,10 @@ class ExportController extends Msd_Controller_Action
     public function updateAllAction()
     {
         $this->_vcsUpdate();
-        $langs     = $this->_languagesModel->getAllLanguages();
-        $languages = array();
-        $i         = 0;
-        $exportOk  = true;
+        $langs         = $this->_languagesModel->getAllLanguages();
+        $languages     = array();
+        $i             = 0;
+        $exportOk      = true;
         $exportedFiles = array();
         foreach ($langs as $lang => $langMeta) {
             if ($langMeta['active'] == 0) {

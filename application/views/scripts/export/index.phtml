@@ -11,9 +11,13 @@ $export = $this->export;
 </a>
 <?php
 if ($this->vcsActivated) { ?>
-<a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/><?php
+<a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><?php
+}
+if ($this->user->hasRight('showDownloads')) { ?>
+    <a href="<?php echo $this->baseUrl();?>/downloads/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_DOWNLOADS;?></a><?php
 }
 ?>
+<br />
 <table class="bdr small flag" summary="List of languages and their change status">
     <tr class="thead">
         <th>#</th>
@@ -67,5 +71,9 @@ if ($exportNeeded) { ?>
 </a>
 <?php
 if ($this->vcsActivated) { ?>
-    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><br/><?php
+    <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a><?php
 }
+if ($this->user->hasRight('showDownloads')) { ?>
+    <a href="<?php echo $this->baseUrl();?>/downloads/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_DOWNLOADS;?></a><?php
+}
+

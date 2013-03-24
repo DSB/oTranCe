@@ -26,10 +26,13 @@ class Application_Model_FileExport extends Msd_Application_Model
      */
     public function buildArchives($fileList)
     {
-        $filename  = DOWNLOAD_PATH . '/' . 'language_pack-' . date('Y-m-d_His');
-        $zipArch   = Msd_Archive::factory('Zip', $filename, EXPORT_PATH);
-        $tarGzArch = Msd_Archive::factory('Tar_Gz', $filename, EXPORT_PATH);
-        $tarBzArch = Msd_Archive::factory('Tar_Bz2', $filename, EXPORT_PATH);
+        $this->_cleanDownloads();
+
+        $fileName = DOWNLOAD_PATH . '/' . $this->getLanguagePackBaseFileName() . '_languagePack';
+
+        $zipArch   = Msd_Archive::factory('Zip', $fileName, EXPORT_PATH);
+        $tarGzArch = Msd_Archive::factory('Tar_Gz', $fileName, EXPORT_PATH);
+        $tarBzArch = Msd_Archive::factory('Tar_Bz2', $fileName, EXPORT_PATH);
         foreach ($fileList as $file) {
             $zipArch->addFile($file);
             $tarGzArch->addFile($file);
@@ -38,51 +41,35 @@ class Application_Model_FileExport extends Msd_Application_Model
         $zipArch->buildArchive();
         $tarGzArch->buildArchive();
         $tarBzArch->buildArchive();
-        $this->_cleanDownloads();
     }
 
     /**
-     * Remain the latest download package and delete older ones.
-     *
-     * Takes care of different extensions (zip, gz, tar.gz)
+     * Delete all files in DOWNLOAD_PATH
      *
      * @return void
      */
     private function _cleanDownloads()
     {
-        $files          = array();
-        $fileExtensions = array();
-        $iterator       = new DirectoryIterator(DOWNLOAD_PATH);
-        foreach ($iterator as $fileinfo) {
-            if (!$fileinfo->isFile()) {
+        $iterator = new DirectoryIterator(DOWNLOAD_PATH);
+        foreach ($iterator as $file) {
+            if (!$file->isFile()) {
                 continue;
             }
-            $filename      = $fileinfo->getFilename();
-            $fileExtension = pathinfo($filename, PATHINFO_EXTENSION);
-            $fileNameWoExt = substr($filename, 0, -(strlen($fileExtension) + 1));
-            if (!in_array($fileExtension, $fileExtensions)) {
-                $fileExtensions[] = $fileExtension;
-            }
-            if (!in_array($fileNameWoExt, $files)) {
-                $mTime           = $fileinfo->getMTime();
-                $files["$mTime"] = $fileNameWoExt;
-            }
-        }
-        if (empty($files)) {
-            return;
-        }
-        krsort($files); // move latest file to top
-
-        $fileKeys = array_keys($files);
-        unset($fileKeys[0]); // remove latest file from array for not deleting it
-        foreach ($fileKeys as $key) {
-            foreach ($fileExtensions as $ext) {
-                $filename = DOWNLOAD_PATH . '/' . $files[$key] . '.' . $ext;
-                if (is_readable($filename)) {
-                    @unlink($filename);
-                }
-            }
+            unlink(DOWNLOAD_PATH . '/' . $file->getFilename());
         }
     }
 
+    /**
+     * Build file name from project name
+     *
+     * @return string
+     */
+    public function getLanguagePackBaseFileName()
+    {
+        $projectInfo = $this->_config->getParam('project');
+        $fileName    = preg_replace('/[^a-z0-9-]/i', '_', $projectInfo['name']);
+        $fileName    = preg_replace('/__+/', '_', $fileName);
+
+        return $fileName;
+    }
 }

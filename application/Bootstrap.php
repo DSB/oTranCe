@@ -10,7 +10,7 @@
 /**
  * Bootstrap class
  *
- * @package         oTranCe
+ * @package oTranCe
  */
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
@@ -38,16 +38,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         Zend_Session::setOptions(array('strict' => true));
         Zend_Session::start();
 
-        $moduleLoader = new Msd_Module_Loader(
-            array(
-                 'Module_' => realpath(APPLICATION_PATH . '/../modules/library/')
-            )
-        );
-
+        $moduleLoader = new Msd_Module_Loader(array('Module_' => realpath(APPLICATION_PATH . '/../modules/library/')));
         Zend_Loader_Autoloader::getInstance()->pushAutoloader($moduleLoader, 'Module_');
 
         // check if server has magic quotes enabled and normalize params
-        if ( (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1)) {
+        if ((function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1)) {
             $_POST = Bootstrap::stripslashes_deep($_POST);
         }
     }
@@ -60,8 +55,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public function _initConfiguration()
     {
         $dynamicConfig = new Msd_Config_Dynamic();
-        $configFile = $dynamicConfig->getParam('configFile', 'config.ini');
-        $config = new Msd_Config(
+        $configFile    = $dynamicConfig->getParam('configFile', 'config.ini');
+        $config        = new Msd_Config(
             'Default',
             array('directories' => APPLICATION_PATH . DIRECTORY_SEPARATOR . 'configs')
         );
@@ -78,6 +73,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->registerPlugin(new Application_Plugin_FileTemplateCheck());
+        $frontController->registerPlugin(new Application_Plugin_DisableLayout());
     }
 
     /**
@@ -90,7 +86,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     public static function stripslashes_deep($value)
     {
         $value = is_array($value) ? array_map('Bootstrap::stripslashes_deep', $value) : stripslashes($value);
+
         return $value;
     }
 
+    /**
+     * Set cli router if app is called via cli
+     *
+     * @return void
+     */
+    protected function _initRouter()
+    {
+        if (PHP_SAPI == 'cli') {
+            $this->bootstrap('FrontController');
+            $front = $this->getResource('FrontController');
+            $front->setParam('disableOutputBuffering', true);
+            include(dirname(__FILE__) . '/router/Cli.php');
+            $front->setRouter(new Application_Router_Cli());
+        }
+    }
 }

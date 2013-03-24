@@ -152,7 +152,7 @@ class Application_Model_FileTree
     private function _buildJsTreeData($baseDir)
     {
         if ($this->_fileList == null) {
-            $this->getExportFileList();
+            $this->_getExportFileList();
         }
 
         $entries = array();
@@ -198,12 +198,13 @@ class Application_Model_FileTree
      *
      * @return void
      */
-    private function getExportFileList()
+    private function _getExportFileList()
     {
         $exportModel = new Application_Model_Export();
         $files       = $exportModel->getFileTemplateList();
         foreach ($files as $index => $file) {
-            $files[$index] = '\\' . str_replace('/', '\\', $file);
+            // normalize Win, Linux Directory-Separator
+            $file[$index] =  DIRECTORY_SEPARATOR . str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $file);
         }
         $this->_fileList = $files;
     }

@@ -248,6 +248,17 @@ class Application_Model_History extends Msd_Application_Model
     }
 
     /**
+     * Log updating of languaeg packages
+     *
+     * @return void
+     */
+    public function logUpdateOfLanguagePacks()
+    {
+        $auth = Zend_Auth::getInstance()->getIdentity();
+        $this->_saveAction($auth['id'], 'updated language packages');
+    }
+
+    /**
      * Log action user registered
      *
      * @param int $userId Id of user
@@ -344,6 +355,7 @@ class Application_Model_History extends Msd_Application_Model
      */
     private function _saveAction($userId, $action)
     {
+        //TODO normalize action row and get rid of text entries
         $time = date('Y-m-d H-i-s', time());
         $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
                 . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'

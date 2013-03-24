@@ -224,6 +224,9 @@ class ExportController extends Msd_Controller_Action
         }
         $fileExportModel              = new Application_Model_FileExport();
         $this->view->isArchiveCreated = $fileExportModel->buildArchives($exportedFiles);
+        if ($this->view->isArchiveCreated !== false) {
+            $this->_historyModel->logUpdateOfLanguagePacks();
+        }
         $this->view->exportOk         = $exportOk;
         $this->view->languages        = $languages;
     }

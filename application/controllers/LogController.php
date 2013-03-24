@@ -18,19 +18,25 @@ class LogController extends Msd_Controller_Action
 
     /**
      * User model
+     *
      * @var Application_Model_User
      */
     private $_userModel;
+
     /**
      * History model
+     *
      * @var Application_Model_History
      */
     private $_historyModel;
+
     /**
      * Languages model
+     *
      * @var Application_Model_LanguageEntries
      */
     private $_entriesModel;
+
     /**
      * @var Application_Model_Languages
      */
@@ -87,16 +93,17 @@ class LogController extends Msd_Controller_Action
         $filterAction = $this->_request->getParam('filterAction', '');
         $translator   = $this->view->lang;
         $actions      = array(
-            'changed'            => $translator->translate('L_EDITED'),
-            'deleted %'          => 'Deleted key',
-            'created'            => 'Created key',
-            'updated %'          => 'Updated VCS',
-            'logged in'          => 'Logged in',
-            '%failed to log in'  => 'Log in failed',
-            'logged out'         => 'Logged out',
-            'registered'         => 'Registered',
-            'account approved %' => 'Account approved',
-            'account closed %'   => 'Account closed',
+            'changed'                   => $translator->translate('L_EDITED'),
+            'deleted %'                 => 'Deleted key',
+            'created'                   => 'Created key',
+            'updated VCS'               => 'Updated VCS',
+            'updated language packages' => 'Updated language packages',
+            'logged in'                 => 'Logged in',
+            '%failed to log in'         => 'Log in failed',
+            'logged out'                => 'Logged out',
+            'registered'                => 'Registered',
+            'account approved %'        => 'Account approved',
+            'account closed %'          => 'Account closed',
         );
         natcasesort($actions);
         $this->view->selectFilterAction = Msd_Html::getHtmlOptions($actions, $filterAction, true);

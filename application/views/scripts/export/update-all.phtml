@@ -9,7 +9,11 @@ if ($this->exportOk) {
     <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
     <?php
     }
-} ?>
+}
+if ($this->user->hasRight('showDownloads')) { ?>
+    <a href="<?php echo $this->baseUrl();?>/downloads/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_DOWNLOADS;?></a><?php
+}
+?>
 <h4><?php echo $this->lang->L_EXPORT_LANGUAGES;?></h4>
 <table class="bdr" style="margin-bottom:20px;">
     <tr class="thead">
@@ -45,4 +49,8 @@ if ($this->exportOk) {
     <a href="<?php echo $this->baseUrl();?>/export/commit/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Sync', '', 16) . ' ' . $this->lang->L_EXPORT_COMMITTOVCS;?> </a>
     <?php
     }
+    if ($this->user->hasRight('showDownloads')) { ?>
+        <a href="<?php echo $this->baseUrl();?>/downloads/" class="Formbutton ui-corner-all"><?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_DOWNLOADS;?></a><?php
+    }
 }
+

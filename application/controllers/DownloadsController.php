@@ -26,6 +26,7 @@ class DownloadsController extends Zend_Controller_Action
         if (!$userModel->hasRight('showDownloads')) {
             $this->_redirect('/error/not-allowed');
         }
+        $this->view->user = $userModel;
     }
 
     /**
@@ -91,6 +92,7 @@ class DownloadsController extends Zend_Controller_Action
      */
     private function _getAvailableArchives()
     {
+        clearstatcache();
         $files = glob(DOWNLOAD_PATH . '/' . '{*.zip,*.tar.gz,*.tar.bz2}', GLOB_BRACE | GLOB_NOSORT);
         if (is_array($files)) {
             rsort($files);
@@ -100,11 +102,11 @@ class DownloadsController extends Zend_Controller_Action
             return $archives;
         }
         foreach ($files as $file) {
-            $filename = str_replace(DOWNLOAD_PATH . '/', '', $file);
-            $fileStats = stat($file);
+            $filename            = str_replace(DOWNLOAD_PATH . '/', '', $file);
+            $fileStats           = stat($file);
             $archives[$filename] = array(
-                'creationTime' => $fileStats['ctime'],
-                'fileSize' => filesize($file),
+                'creationTime' => $fileStats['mtime'],
+                'fileSize'     => filesize($file),
             );
         }
 

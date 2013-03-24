@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (367), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (368), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -336,6 +336,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_TRANSLATIONS' => 'Übersetzungen',
 'L_TRY_AGAIN' => 'Bitte versuchen Sie es noch einmal.',
 'L_UNTRANSLATED' => 'Nicht übersetzt',
+'L_UPDATE_DOWNLOAD_PACKAGE' => 'Sprachpaket aktualisieren',
 'L_UPLOAD_FAILED' => 'Hochladen fehlgeschlagen.',
 'L_UPLOAD_FILE' => 'Datei hochladen',
 'L_UPLOAD_PROJECT_LOGO' => 'Projekt-Logo hochladen oder Bild hier hinziehen',

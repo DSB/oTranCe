@@ -112,6 +112,7 @@ Prosím, zkuste to znovu',
 'L_ERROR_DELETING_LANGUAGE' => 'Vyskytla se chyba při mazání tohoto jazyka.<br />Zkuste to prosím znovu.',
 'L_ERROR_DELETING_USER' => 'Vyskytla se chyba při smazání tohoto uživatele.',
 'L_ERROR_INVALID_CHARS' => 'Nahrané obsahuje neplatné znaky',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Vyskytla se chyba při pokusu o přizpůsobení databázové tabulky.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

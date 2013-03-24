@@ -110,6 +110,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => 'Hi ha hagut un error provant d\'eliminar aquest idioma.<br />Si us plau, provi de nou.',
 'L_ERROR_DELETING_USER' => 'Hi ha hagut un error provant d\'eliminar aquest usuari.',
 'L_ERROR_INVALID_CHARS' => 'Les dades introduïdes contenen caràcters no vàlids.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Hi ha hagut un error provant d\'optimitzar les taules de la base de dades.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

@@ -22,7 +22,7 @@ class Application_Model_FileExport extends Msd_Application_Model
      *
      * @param array $fileList List of files that will be packed
      *
-     * @return void
+     * @return bool If at least one archive could be built successfully return true
      */
     public function buildArchives($fileList)
     {
@@ -38,9 +38,17 @@ class Application_Model_FileExport extends Msd_Application_Model
             $tarGzArch->addFile($file);
             $tarBzArch->addFile($file);
         }
-        $zipArch->buildArchive();
-        $tarGzArch->buildArchive();
-        $tarBzArch->buildArchive();
+
+        $isArchiveCreated = false;
+        $isArchiveCreated &= $tarGzArch->buildArchive();
+        $isArchiveCreated &= $tarBzArch->buildArchive();
+        try {
+            $isArchiveCreated &= $zipArch->buildArchive();
+        } catch (Msd_Archive_Zip_Exception $e) {
+            $isArchiveCreated = false;
+        }
+
+        return $isArchiveCreated;
     }
 
     /**

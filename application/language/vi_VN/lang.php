@@ -113,6 +113,7 @@ Hãy thử lại.',
 'L_ERROR_DELETING_LANGUAGE' => 'Có lỗi khi xóa ngôn ngữ này.<br />Hãy thử lại.',
 'L_ERROR_DELETING_USER' => 'Có lỗi trong khi xóa thành viên này.',
 'L_ERROR_INVALID_CHARS' => 'Ký tự được nhập vào không hợp lệ.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Có lỗi xảy ra trong khi cố gắng tối ưu hóa các bảng cơ sở dữ liệu.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

@@ -110,6 +110,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => 'Det oppstod en feil ved sletting av språk. <br /> Vennligst prøv igjen.',
 'L_ERROR_DELETING_USER' => 'Det oppstod en feil ved sletting av bruker.',
 'L_ERROR_INVALID_CHARS' => 'Inntastingen inneholder ugyldige tegn.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Det oppstod en feil ved optimalisering av databasetabellene.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

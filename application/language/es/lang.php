@@ -110,6 +110,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => 'Ha habido un error intentando eliminar este idioma.<br />Por favor, inténtelo de nuevo.',
 'L_ERROR_DELETING_USER' => 'Ha habido un error al intentar eliminar este usuario.',
 'L_ERROR_INVALID_CHARS' => 'Los datos introducidos contienen carácteres no válidos.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Ha habido un error mientras se intentaba optimizar las tablas de la base de datos.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

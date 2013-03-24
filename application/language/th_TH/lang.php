@@ -113,6 +113,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => 'มีข้อผิดพลาดในการลบภาษานี้<br />กรุณาลองใหม่อีกครั้ง',
 'L_ERROR_DELETING_USER' => 'มีข้อผิดพลาดในการลบผู้ใช้นี้',
 'L_ERROR_INVALID_CHARS' => 'อักขระที่กรอกลงไปไม่ถูกต้อง',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'มีข้อผิดพลาดเกิดขึ้น ระหว่างที่กำลังเพิ่มประสิทธิภาพตารางฐานข้อมูล',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

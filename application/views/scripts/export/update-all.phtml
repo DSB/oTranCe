@@ -54,3 +54,7 @@ if ($this->exportOk) {
     }
 }
 
+if ($this->isArchiveCreated === false) {
+    $this->showNotification(false, '', $this->lang-> L_ERROR_NO_LANGUAGE_PACK_CREATED, 5000);
+}
+

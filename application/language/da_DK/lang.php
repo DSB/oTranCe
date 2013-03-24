@@ -112,6 +112,7 @@ Hvis alt ser godt ud, begynde at analysere dataene.',
 'L_ERROR_DELETING_LANGUAGE' => 'Der opstod en fejl ved sletning af sprog. <br /> Prøv igen.',
 'L_ERROR_DELETING_USER' => 'Der opstod en fejl ved sletning af bruger.',
 'L_ERROR_INVALID_CHARS' => 'Indtastningen indeholder ugyldige tegn.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Der opstod en fejl ved optimering af  databasetabellerne.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

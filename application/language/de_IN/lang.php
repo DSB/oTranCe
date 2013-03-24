@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (19), enkay (8), janrei (1), Marco.Steinhäuser (431)
+// DSB (20), enkay (8), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -113,6 +113,7 @@ Bitte wiederhole die Aktion.',
 'L_ERROR_DELETING_LANGUAGE' => 'Leider ist beim Löschen der Sprache ein Fehler aufgetreten.<br />Bitte versuch es noch einmal.',
 'L_ERROR_DELETING_USER' => 'Beim Löschen des Benutzers ist ein Fehler aufgetreten.',
 'L_ERROR_INVALID_CHARS' => 'Die Eingabe enthält unerlaubte Zeichen.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'Es konnte kein Sprachpaket gespeichert werden.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Während der Optimierung der Datenbanktabellen ist ein Fehler aufgetreten.',
 'L_ERROR_PERMISSION' => 'Berechtigungsfehler',
 'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden da Dir das erforderliche Recht dazu fehlt. Kontaktiere den Administrator wenn Du der Meinung bist, dass Dir das Recht eingeräumt werden soll.<br />

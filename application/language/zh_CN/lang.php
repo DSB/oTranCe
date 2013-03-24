@@ -113,6 +113,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => '该语言中包含错误，请重试。',
 'L_ERROR_DELETING_USER' => '错误导致该用户被删除',
 'L_ERROR_INVALID_CHARS' => '输入的内容包含非法字符。',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => '尝试优化数据表时发生错误。',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

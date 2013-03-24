@@ -110,6 +110,7 @@ $lang = array(
 'L_ERROR_DELETING_LANGUAGE' => 'Er is een fout opgetreden bij het verwijderen van de taal.<br />Probeer het nog een keer aub.',
 'L_ERROR_DELETING_USER' => 'Er is een fout opgetreden bij het verwijderen van de gebruiker .',
 'L_ERROR_INVALID_CHARS' => 'De invoer bevat ongeldige tekens',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Er is een fout opgetreden tijdens het optimaliseren van de databanktabel.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

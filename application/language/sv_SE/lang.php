@@ -112,6 +112,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_ERROR_DELETING_LANGUAGE' => 'Tyvärr uppträdde ett problem när språket skulle raderas.<br />Försök igen.',
 'L_ERROR_DELETING_USER' => 'Ett fel uppträdde under radering av användaren.',
 'L_ERROR_INVALID_CHARS' => 'Fältet innehåller otillåtna tecken.',
+'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'No language package could be saved.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Ett fel uppträdde under optimering av databastabellerna.',
 'L_ERROR_PERMISSION' => 'Permission error',
 'L_ERROR_PERMISSION_EXPLAIN' => 'This action couldn\'t be executed because you don\'t have the permission to do so. If you feel this is incorrect, contact an administrator.<br />

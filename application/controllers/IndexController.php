@@ -54,10 +54,10 @@ class IndexController extends Zend_Controller_Action
         $languages = $languagesModel->getAllLanguages();
         $this->view->assign(
             array(
-                'user'        => $userModel,
-                'languages'   => $languages,
-                'translators' => $userModel->getTranslatorList(false, true),
-                'status'      => $entriesModel->getStatus($languages)
+                 'user'        => $userModel,
+                 'languages'   => $languages,
+                 'translators' => $userModel->getTranslatorList(false, true),
+                 'status'      => $entriesModel->getStatus($languages)
             )
         );
     }
@@ -89,8 +89,8 @@ class IndexController extends Zend_Controller_Action
         setcookie('oTranCe_autologin', null, null, '/');
         $this->_doRedirect(
             array(
-                'controller' => 'index',
-                'action'     => 'login',
+                 'controller' => 'index',
+                 'action'     => 'login',
             )
         );
     }
@@ -126,7 +126,7 @@ class IndexController extends Zend_Controller_Action
                         $this->view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
                     }
 
-                    $this->_forwardAfterSuccessfulLogin();
+                    $this->_redirectAfterSuccessfulLogin();
 
                     return;
                 } else {
@@ -141,18 +141,18 @@ class IndexController extends Zend_Controller_Action
                     'L_LOGIN',
                     'L_LOGIN_INVALID_USER',
                     array(
-                        'modal'       => true,
-                        'dialogClass' => 'error'
+                         'modal'       => true,
+                         'dialogClass' => 'error'
                     )
                 );
             }
         }
         $this->view->assign(
             array(
-                'isLogin'               => true,
-                'form'                  => $form,
-                'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request'               => $this->_request
+                 'isLogin'               => true,
+                 'form'                  => $form,
+                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
+                 'request'               => $this->_request
             )
         );
     }
@@ -164,20 +164,17 @@ class IndexController extends Zend_Controller_Action
      *
      * @return void
      */
-    public function _forwardAfterSuccessfulLogin()
+    public function _redirectAfterSuccessfulLogin()
     {
-        $controller = 'index';
-        $action     = 'index';
-        $module     = 'default';
-
-        $ns = new Zend_Session_Namespace('requestData');
-        if (!empty($ns->data)) {
-            $requestData = $ns->data;
-            $controller  = $requestData['controller'];
-            $action      = $requestData['action'];
-            $module      = $requestData['module'];
+        $redirectUrl = $this->view->serverUrl();
+        $ns          = new Zend_Session_Namespace('requestData');
+        if (!empty($ns->redirectUrl)) {
+            $redirectUrl .= $ns->redirectUrl;
+            $ns->redirectUrl = null;
+        } else {
+            $redirectUrl .= $this->view->baseUrl() . '/index/index';
         }
 
-        $this->_forward($action, $controller, $module);
+        $this->redirect($redirectUrl);
     }
 }

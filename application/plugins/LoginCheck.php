@@ -39,6 +39,7 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
             // save requested page to session for redirecting the user after login is successful
             $ns = new Zend_Session_Namespace('requestData');
             $ns->data = $requestData;
+            $ns->redirectUrl = $request->getRequestUri();
 
             $view            = new Zend_View;
             $fullUrl         = $view->serverUrl() . $view->baseUrl() .'/index/login/';

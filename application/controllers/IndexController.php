@@ -175,6 +175,6 @@ class IndexController extends Zend_Controller_Action
             $redirectUrl .= $this->view->baseUrl() . '/index/index';
         }
 
-        $this->redirect($redirectUrl);
+        $this->redirect($redirectUrl, array('exit' => true));
     }
 }

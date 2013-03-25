@@ -54,7 +54,6 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 
         // after successful login we should be redirected to the index page
         $this->assertResponseCode('302');
-        $this->assertRedirectTo('/');
         // clear request - so each test can use it's own dispatch
         $this->clearRequest();
     }

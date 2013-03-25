@@ -621,23 +621,6 @@ class UserTest extends ControllerTestCase
         $this->assertEquals($expected, $messages['email'][0]);
     }
 
-    public function testValidateDataDetectsNonAlnumInputs()
-    {
-        $userData = array(
-            'id'          => 0,
-            'username'    => ';Ad-min',
-            'pass1'       => 'admin',
-            'pass2'       => 'admin',
-            'realName'    => 'Administrator',
-            'email'       => '',
-        );
-        $res      = $this->userModel->validateData($userData, $this->translator);
-        $this->assertFalse($res);
-        $messages = $this->userModel->getValidateMessages();
-        $expected = 'The input contains invalid characters.';
-        $this->assertEquals($expected, $messages['username'][0]);
-    }
-
     public function testGetUserLanguageRightsFallsBackToLoggedInUserIfParamNotGiven()
     {
         $languageRights = $this->userModel->getUserLanguageRights();

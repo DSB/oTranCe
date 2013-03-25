@@ -97,11 +97,11 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
      */
     protected function _initRouter()
     {
-        if (PHP_SAPI == 'cli') {
+        if (PHP_SAPI == 'cli' && APPLICATION_ENV !== 'testing') {
             $this->bootstrap('FrontController');
             $front = $this->getResource('FrontController');
             $front->setParam('disableOutputBuffering', true);
-            include(dirname(__FILE__) . '/router/Cli.php');
+            include_once(dirname(__FILE__) . '/router/Cli.php');
             $front->setRouter(new Application_Router_Cli());
         }
     }

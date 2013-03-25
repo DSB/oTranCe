@@ -25,10 +25,8 @@ class Application_Plugin_DisableLayout extends Zend_Controller_Plugin_Abstract
      */
     public function preDispatch(Zend_Controller_Request_Abstract $request)
     {
-        if (PHP_SAPI == 'cli') {
-            Zend_Layout::getMvcInstance()->disableLayout();
-            Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
-        }
+        Zend_Layout::getMvcInstance()->disableLayout();
+        Zend_Controller_Front::getInstance()->setParam('noViewRenderer', true);
     }
 
 }

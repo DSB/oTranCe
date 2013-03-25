@@ -73,7 +73,6 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $frontController = Zend_Controller_Front::getInstance();
         $frontController->registerPlugin(new Application_Plugin_FileTemplateCheck());
-        $frontController->registerPlugin(new Application_Plugin_DisableLayout());
     }
 
     /**
@@ -101,6 +100,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             $this->bootstrap('FrontController');
             $front = $this->getResource('FrontController');
             $front->setParam('disableOutputBuffering', true);
+            $front->registerPlugin(new Application_Plugin_DisableLayout());
             include_once(dirname(__FILE__) . '/router/Cli.php');
             $front->setRouter(new Application_Router_Cli());
         }

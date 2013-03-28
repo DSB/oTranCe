@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class StatisticsController extends Zend_Controller_Action
+class StatisticsController extends OtranceController
 {
 
     /**

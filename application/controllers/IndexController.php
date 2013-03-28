@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class IndexController extends Zend_Controller_Action
+class IndexController extends OtranceController
 {
     /**
      * Remember last controler

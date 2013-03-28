@@ -1,0 +1,11 @@
+<?php
+echo $this->lang->L_EXPORT_COMMIT_FILES_VCS . ":\n";
+if (isset($this->commitResult['stdout']) && strlen($this->commitResult['stdout']) > 0) {
+    echo $this->lang->L_EXPORT_VCS_OUTPUT . "\n";
+    echo $this->out($this->commitResult['stdout']) . "\n";
+}
+
+if (isset($this->commitResult['stderr']) && strlen($this->commitResult['stderr']) > 0) {
+    echo $this->lang->L_EXPORT_VCSERROR . ":\n";
+    echo $this->commitResult['stderr'] . "\n";
+}

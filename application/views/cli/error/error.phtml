@@ -1,0 +1,15 @@
+Error:
+<?php
+echo $this->message;
+if (isset($this->exception)) {
+    echo "\nException information";
+    echo "\nMessage:" . $this->exception->getMessage();
+    echo "\nFile:" . $this->exception->getFile();
+    echo "\nLine:" . $this->exception->getLine();
+    echo "\nController:" . $this->request->getParam('controller');
+    echo "\nAction:" . $this->request->getParam('action');
+    echo "\nModule:" . $this->request->getParam('module');
+    echo "\nStack trace: " . $this->exception->getTraceAsString();
+    echo "\nRequest parameters:";
+    echo var_export($this->request->getParams(), true) . "\n";
+}

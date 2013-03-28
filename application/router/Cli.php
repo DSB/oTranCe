@@ -30,10 +30,10 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
     {
         $opts = new Zend_Console_Getopt(
             array(
-                 'username|u=s'   => 'Username',
-                 'pass|p=s'       => 'Password',
-                 'controller|c=s' => 'Controller to call',
-                 'action|a=s'     => 'Action to call',
+                 'username|u=s'   => 'The user name to use in oTranCe.',
+                 'pass|p=s'       => 'The password of the user in oTranCe.',
+                 'controller|c=s' => 'The controller to call.',
+                 'action|a-s'     => 'The action of the controller to call. If not given defauls to "index".',
                  'help|h'         => 'Show this help. Example call: php index.php -u User -p Password -c Export -a update-all'
             )
         );
@@ -41,7 +41,7 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
         try {
             $opts->parse();
         } catch (Zend_Console_Getopt_Exception $e) {
-            echo $e->getMessage() ."\n";
+            echo $e->getMessage() . "\n";
             echo $e->getUsageMessage();
             exit(255);
         }
@@ -50,13 +50,17 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
         $action     = $opts->getOption('a');
         $userName   = $opts->getOption('u');
         $userPass   = $opts->getOption('p');
-        if (empty($controller) || empty($action) || empty($userName) || empty($userPass)) {
+        if (empty($controller) || empty($userName) || empty($userPass)) {
             echo $opts->getUsageMessage();
             exit(255);
         }
+        if (empty($action)) {
+            $action = 'index';
+        }
+
         $this->_loginUser($userName, $userPass);
 
-        echo "\nExecuting: " . $controller . " - Action: " . $action . "\n\n";
+        echo "\nExecuting: " . $action . " action of controller " . $controller . "\n";
 
         $dispatcher->setControllerName($controller);
         $dispatcher->setActionName($action);

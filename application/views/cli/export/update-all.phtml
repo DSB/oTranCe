@@ -1,0 +1,11 @@
+<?php
+echo $this->lang->L_EXPORT_LANGUAGES . "\n";
+foreach ($this->languages as $lang) {
+    foreach ($lang['files'] as $exportedFile) {
+        printf("%-6s", $lang['meta']['locale'] . ' ');
+        printf("%-20s", $lang['meta']['name'] . ' ');
+        printf("%-40s", $exportedFile['filename'] . ' ');
+        printf("%20s\n", $this->byteOutput($exportedFile['size'], 2, false));
+    }
+}
+

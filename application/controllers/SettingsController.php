@@ -13,17 +13,22 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class SettingsController extends Msd_Controller_Action
+class SettingsController extends OtranceController
 {
-    /**
-     * @var Application_Model_User
-     */
-    protected $_userModel;
-
     /**
      * @var array
      */
     protected $_projectConfig;
+
+    /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('editConfig');
+    }
 
     /**
      * Init
@@ -32,11 +37,7 @@ class SettingsController extends Msd_Controller_Action
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('editConfig')) {
-            $this->_redirect('/error/not-allowed');
-        }
-        $this->_projectConfig = $this->_config->getParam('project');
+        $this->_projectConfig     = $this->_config->getParam('project');
         $this->view->vcsActivated = false;
         if ($this->_projectConfig['vcsActivated'] == 1) {
             $this->view->vcsActivated = true;
@@ -61,12 +62,12 @@ class SettingsController extends Msd_Controller_Action
             $this->_dynamicConfig->setParam('interfaceLanguage', $interfaceLanguage);
             $saved                 = $this->saveUserSettings($recordsPerPage, $interfaceLanguage);
             $userInterfaceLanguage = $this->_userModel->loadSetting('interfaceLanguage');
-            $this->view->saved = (bool) $saved;
+            $this->view->saved     = (bool)$saved;
         } else {
             $recordsPerPage = $this->_userModel->loadSetting('recordsPerPage', 10);
         }
         $this->view->languages            = $languagesModel->getAllLanguages();
-        $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int) $recordsPerPage);
+        $this->view->selRecordsPerPage    = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$recordsPerPage);
         $availableLanguages               = $languageConfig->getAvailableLanguages();
         $this->view->selInterfaceLanguage = Msd_Html::getHtmlOptionsFromAssocArray(
             $availableLanguages,
@@ -93,6 +94,7 @@ class SettingsController extends Msd_Controller_Action
         $this->_dynamicConfig->setParam('recordsPerPage', $recordsPerPage);
         $res = $this->_userModel->saveSetting('recordsPerPage', $recordsPerPage);
         $res &= $this->_userModel->saveSetting('interfaceLanguage', $interfaceLanguage);
+
         return $res;
     }
 }

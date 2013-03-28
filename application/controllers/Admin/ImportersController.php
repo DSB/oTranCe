@@ -20,6 +20,18 @@ class Admin_ImportersController extends AdminController
      * @var \Application_Model_Importers
      */
     protected $_importerModel;
+
+
+    /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('editImporter');
+    }
+
     /**
      * Init
      *
@@ -28,9 +40,6 @@ class Admin_ImportersController extends AdminController
     public function init()
     {
         parent::init();
-        if (!$this->_userModel->hasRight('editImporter')) {
-            $this->_redirect('/error/not-allowed');
-        }
         $this->_importerModel = new Application_Model_Importers();
     }
 
@@ -41,7 +50,6 @@ class Admin_ImportersController extends AdminController
      */
     public function indexAction()
     {
-        $importers = $this->_importerModel->getImporter();
-        $this->view->importers = $importers;
+        $this->view->importers = $this->_importerModel->getImporter();
     }
 }

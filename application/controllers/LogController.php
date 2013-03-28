@@ -13,16 +13,8 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class LogController extends Msd_Controller_Action
+class LogController extends OtranceController
 {
-
-    /**
-     * User model
-     *
-     * @var Application_Model_User
-     */
-    private $_userModel;
-
     /**
      * History model
      *
@@ -43,17 +35,22 @@ class LogController extends Msd_Controller_Action
     private $_languagesModel;
 
     /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showLog');
+    }
+
+    /**
      * Init
      *
      * @return void
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showLog')) {
-            $this->_redirect('/error/not-allowed');
-        }
-
         $this->_historyModel   = new Application_Model_History();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
         $this->_languagesModel = new Application_Model_Languages();
@@ -120,7 +117,7 @@ class LogController extends Msd_Controller_Action
         $this->view->recordsPerPage    = $recordsPerPage;
         $this->view->languages         = $languages;
         $this->view->rows              = $this->_historyModel->getRowCount();
-        $this->view->canDelete         = $this->_userModel->hasRight('addVar');
+        $this->view->canDelete         = $this->_userModel->hasRight('admin');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
     }
 
@@ -131,10 +128,12 @@ class LogController extends Msd_Controller_Action
      */
     public function deleteAction()
     {
-        $id           = $this->getRequest()->getParam('id');
-        $historyModel = new Application_Model_History();
-        $historyModel->deleteById($id);
-        $this->_forward('index');
+        if ($this->checkRight('admin')) {
+            $id           = $this->getRequest()->getParam('id');
+            $historyModel = new Application_Model_History();
+            $historyModel->deleteById($id);
+            $this->_forward('index');
+        }
 
         return;
     }

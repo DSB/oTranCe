@@ -13,8 +13,18 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class DownloadsController extends Zend_Controller_Action
+class DownloadsController extends OtranceController
 {
+    /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showDownloads');
+    }
+
     /**
      * Init
      *
@@ -22,11 +32,7 @@ class DownloadsController extends Zend_Controller_Action
      */
     public function init()
     {
-        $userModel = new Application_Model_User();
-        if (!$userModel->hasRight('showDownloads')) {
-            $this->_redirect('/error/not-allowed');
-        }
-        $this->view->user = $userModel;
+        $this->view->user = $this->_userModel;
     }
 
     /**

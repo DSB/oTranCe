@@ -17,16 +17,13 @@ require_once('AdminController.php');
 class Admin_UsersController extends AdminController
 {
     /**
-     * Init
+     * Check general access right
      *
-     * @return void
+     * @return bool|void
      */
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
-        if (!$this->_userModel->hasRight('editUsers')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('editUsers');
     }
 
     /**
@@ -79,9 +76,9 @@ class Admin_UsersController extends AdminController
         $userId = (int)$this->_request->getParam('id', 0);
         if ($userId == 0) {
             // Is current user allowed to add a new user?
-            if (!$this->_userModel->hasRight('addUser')) {
-                $this->_redirect('/error/not-allowed');
-            }
+            //if (!$this->checkRight('addUser')) {
+            //    return;
+            //}
         } else {
             // get user data from database
             $userData = $this->_userModel->getUserById($userId);
@@ -130,9 +127,10 @@ class Admin_UsersController extends AdminController
      */
     public function deleteUserAction()
     {
-        if (!$this->_userModel->hasRight('deleteUsers')) {
-            $this->_redirect('/admin_users');
+        if (!$this->checkRight('deleteUsers')) {
+            return;
         }
+
         $userId       = (int)$this->_request->getParam('deleteUser', 0);
         $historyModel = new Application_Model_History();
         $deleteResult = true;
@@ -182,6 +180,7 @@ class Admin_UsersController extends AdminController
                 }
             }
         }
+
         return $result;
     }
 

@@ -49,14 +49,13 @@ class IndexController extends Zend_Controller_Action
     {
         $languagesModel = new Application_Model_Languages();
         $entriesModel   = new Application_Model_LanguageEntries();
-        $userModel      = new Application_Model_User();
 
         $languages = $languagesModel->getAllLanguages();
         $this->view->assign(
             array(
-                 'user'        => $userModel,
+                 'user'        => $this->_userModel,
                  'languages'   => $languages,
-                 'translators' => $userModel->getTranslatorList(false, true),
+                 'translators' => $this->_userModel->getTranslatorList(false, true),
                  'status'      => $entriesModel->getStatus($languages)
             )
         );
@@ -120,8 +119,8 @@ class IndexController extends Zend_Controller_Action
                     $historyModel->logLoginSuccess();
 
                     // load user setting for the interface language
-                    $userModel   = new Application_Model_User();
-                    $guiLanguage = $userModel->loadSetting('interfaceLanguage', null);
+                    $this->_userModel   = new Application_Model_User();
+                    $guiLanguage = $this->_userModel->loadSetting('interfaceLanguage', null);
                     if ($guiLanguage !== null) {
                         $this->view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
                     }

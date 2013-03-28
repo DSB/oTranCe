@@ -13,50 +13,39 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class AjaxController extends Zend_Controller_Action
+class AjaxController extends OtranceController
 {
     /**
-     * @var Msd_Config
-     */
-    protected $_config;
-
-    /**
-     * @var \Msd_Config_Dynamic
-     */
-    protected $_dynamicConfig;
-
-    /**
-     * User model
-     * @var \Application_Model_User
-     */
-    protected $_userModel;
-
-    /**
      * Languages model
+     *
      * @var \Application_Model_Languages
      */
     protected $_languagesModel;
 
     /**
      * Languages entries model
+     *
      * @var \Application_Model_LanguageEntries
      */
     protected $_entriesModel;
 
     /**
      * Array holding all languages
+     *
      * @var array
      */
     protected $_languages;
 
     /**
      * The fallback language
+     *
      * @var string
      */
     protected $_fallbackLanguage;
 
     /**
      * The fallback language data holding the values of the given keys
+     *
      * @var array
      */
     protected $_fallbackLanguageData;
@@ -69,13 +58,9 @@ class AjaxController extends Zend_Controller_Action
     public function init()
     {
         $this->_helper->layout()->disableLayout();
-
-        $this->_config         = Msd_Registry::getConfig();
-        $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
         $this->_languagesModel = new Application_Model_Languages();
         $this->_languages      = $this->_languagesModel->getAllLanguages();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
-        $this->_userModel      = new Application_Model_User();
     }
 
     /**
@@ -402,7 +387,7 @@ class AjaxController extends Zend_Controller_Action
             unset($user['password']);
             $user['pass1'] = '';
             $res           = $this->_userModel->saveAccount($user);
-            $historyModel = new Application_Model_History();
+            $historyModel  = new Application_Model_History();
             if ($res !== false) {
                 if ($user['active'] > 0) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_STATUS, 16);
@@ -520,10 +505,10 @@ class AjaxController extends Zend_Controller_Action
      */
     public function switchImporterStatusAction()
     {
-        $importer = (string)$this->_request->getParam('importer', '');
-        $icon   = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+        $importer      = (string)$this->_request->getParam('importer', '');
+        $icon          = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
         $importerModel = new Application_Model_Importers();
-        $allImporters = $importerModel->getImporter();
+        $allImporters  = $importerModel->getImporter();
 
         //check rights and if such an importer exists
         if (!$this->_userModel->hasRight('editImporter') || !isset($allImporters["$importer"])) {
@@ -608,6 +593,7 @@ class AjaxController extends Zend_Controller_Action
             // imported language is the fallback language - nothing to check
             return false;
         }
+
         return $this->_entriesModel->getEntriesByKeys($keys, $templateId, $fallbackLanguageId);
     }
 
@@ -630,7 +616,7 @@ class AjaxController extends Zend_Controller_Action
         $config       = Msd_Registry::getConfig();
         $googleConfig = $config->getParam('google');
         $pattern      = 'https://www.googleapis.com/language/translate/v2?key=%s'
-            . '&q=%s&source=%s&target=%s';
+                        . '&q=%s&source=%s&target=%s';
         $url          = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
         $handle       = @fopen($url, "r");
         if ($handle) {
@@ -641,6 +627,7 @@ class AjaxController extends Zend_Controller_Action
         }
         $response = json_decode($contents);
         $data     = $response->data->translations[0]->translatedText;
+
         return $data;
     }
 
@@ -657,6 +644,7 @@ class AjaxController extends Zend_Controller_Action
         if ($pos === false) {
             return $code;
         }
+
         return substr($code, 0, $pos);
     }
 }

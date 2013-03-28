@@ -41,6 +41,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $moduleLoader = new Msd_Module_Loader(array('Module_' => realpath(APPLICATION_PATH . '/../modules/library/')));
         Zend_Loader_Autoloader::getInstance()->pushAutoloader($moduleLoader, 'Module_');
 
+        // include main controller without adding another path to autoloader
+        include_once(APPLICATION_PATH . '/controllers/OtranceController.php');
+
         // check if server has magic quotes enabled and normalize params
         if ((function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1)) {
             $_POST = Bootstrap::stripslashes_deep($_POST);

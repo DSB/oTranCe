@@ -13,13 +13,16 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class RegisterController extends Msd_Controller_Action
+class RegisterController extends OtranceController
 {
     /**
      * @var Application_Model_Languages
      */
     protected $languagesModel;
 
+    /**
+     * Init
+     */
     public function init()
     {
         $this->languagesModel = new Application_Model_Languages();

@@ -17,16 +17,13 @@ require_once 'AdminController.php';
 class Admin_ProjectController extends AdminController
 {
     /**
-     * Init
+     * Check general access right
      *
-     * @return void
+     * @return bool|void
      */
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
-        if (!$this->_userModel->hasRight('admTabProject')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('admTabProject');
     }
 
     /**

@@ -17,23 +17,13 @@ require_once 'AdminController.php';
 class Admin_VcsController extends AdminController
 {
     /**
-     * Instance of Msd_Crypt
+     * Check general access right
      *
-     * @var Msd_Crypt
+     * @return bool|void
      */
-    protected $_crypt = null;
-
-    /**
-     * Init
-     *
-     * @return void
-     */
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
-        if (!$this->_userModel->hasRight('editVcs')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('editVcs');
     }
 
     /**
@@ -88,34 +78,4 @@ class Admin_VcsController extends AdminController
         $this->_forward('index');
     }
 
-    /**
-     * Get user specific VCS username.
-     *
-     * @return string|null
-     */
-    private function _getVcsUser()
-    {
-        if ($this->_crypt === null) {
-            $this->_initCrypt();
-        }
-        $cryptedVcsCreds = $this->_userModel->loadSetting('vcsCredentials', null);
-        if ($cryptedVcsCreds !== null) {
-            $vcsCredentials = $this->_crypt->decrypt($cryptedVcsCreds);
-            list ($vcsUser,) = explode('%@%', $vcsCredentials);
-            return $vcsUser;
-        }
-
-        return null;
-    }
-
-    /**
-     * Initialize class for en- and decryption.
-     *
-     * @return void
-     */
-    private function _initCrypt()
-    {
-        $projectConfig = $this->_config->getParam('project');
-        $this->_crypt  = new Msd_Crypt($projectConfig['encryptionKey']);
-    }
 }

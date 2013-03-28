@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class EntriesController extends Zend_Controller_Action
+class EntriesController extends OtranceController
 {
     /**
      * @var Application_Model_LanguageEntries
@@ -24,21 +24,6 @@ class EntriesController extends Zend_Controller_Action
      * @var Application_Model_Languages
      */
     private $_languagesModel;
-
-    /**
-     * @var Application_Model_User
-     */
-    private $_userModel;
-
-    /**
-     * @var Msd_Config
-     */
-    protected $_config;
-
-    /**
-     * @var Msd_Config_Dynamic
-     */
-    protected $_dynamicConfig;
 
     /**
      * @var array
@@ -63,11 +48,7 @@ class EntriesController extends Zend_Controller_Action
     public function init()
     {
         $this->_entriesModel = new Application_Model_LanguageEntries();
-        $this->_userModel    = new Application_Model_User();
         $this->view->user    = $this->_userModel;
-
-        $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
-        $this->_config         = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();
     }
 

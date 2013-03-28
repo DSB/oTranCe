@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class ExportController extends Msd_Controller_Action
+class ExportController extends OtranceController
 {
     /**
      * @var Application_Model_LanguageEntries
@@ -48,17 +48,24 @@ class ExportController extends Msd_Controller_Action
     private $_projectConfig;
 
     /**
+     * Check right showExport
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showExport');
+    }
+
+    /**
      * Init
      *
      * @return void
      */
     public function init()
     {
-        $userModel = new Application_Model_User();
-        if (!$userModel->hasRight('showExport')) {
-            $this->_redirect('/');
-        }
-        $this->view->user            = $userModel;
+        parent::init();
+        $this->view->user            = $this->_userModel;
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel       = new Application_Model_Languages();
         $this->_export               = new Application_Model_Export();
@@ -154,8 +161,7 @@ class ExportController extends Msd_Controller_Action
     {
         if ($this->_vcs === null) {
             $vcsConfig       = $this->_config->getParam('vcs');
-            $userModel       = new Application_Model_User();
-            $cryptedVcsCreds = $userModel->loadSetting('vcsCredentials', null);
+            $cryptedVcsCreds = $this->_userModel->loadSetting('vcsCredentials', null);
             if ($cryptedVcsCreds !== null) {
                 $projectConfig  = $this->_config->getParam('project');
                 $msdCrypt       = new Msd_Crypt($projectConfig['encryptionKey']);
@@ -227,8 +233,8 @@ class ExportController extends Msd_Controller_Action
         if ($this->view->isArchiveCreated !== false) {
             $this->_historyModel->logUpdateOfLanguagePacks();
         }
-        $this->view->exportOk         = $exportOk;
-        $this->view->languages        = $languages;
+        $this->view->exportOk  = $exportOk;
+        $this->view->languages = $languages;
     }
 
     /**

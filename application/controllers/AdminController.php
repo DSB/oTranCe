@@ -13,25 +13,21 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class AdminController extends Msd_Controller_Action
+class AdminController extends OtranceController
 {
     /**
      * Languages model
+     *
      * @var \Application_Model_LanguageEntries
      */
     protected $_languageEntriesModel;
 
     /**
      * Languages model
+     *
      * @var \Application_Model_Languages
      */
     protected $_languagesModel;
-
-    /**
-     * User model
-     * @var \Application_Model_User
-     */
-    protected $_userModel;
 
     /**
      * Name of the requested controller.
@@ -41,6 +37,16 @@ class AdminController extends Msd_Controller_Action
     protected $_requestedController;
 
     /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('admin');
+    }
+
+    /**
      * Init
      * Automatically read post and set session params
      *
@@ -48,13 +54,7 @@ class AdminController extends Msd_Controller_Action
      */
     public function init()
     {
-        $this->_requestedController = $this->_request->getControllerName();
-        $this->_userModel = new Application_Model_User();
-        // security - if user doesn't have admin rights -> send him to index page
-        if (!$this->_userModel->hasRight('admin')) {
-            $this->_redirect('/error/not-allowed');
-        }
-
+        $this->_requestedController  = $this->_request->getControllerName();
         $this->_languageEntriesModel = new Application_Model_LanguageEntries();
         $this->_languagesModel       = new Application_Model_Languages();
         if ($this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage', null) == null) {
@@ -82,13 +82,13 @@ class AdminController extends Msd_Controller_Action
      */
     protected function _getParams()
     {
-        $recordsPerPage = (int) $this->_request->getParam(
+        $recordsPerPage = (int)$this->_request->getParam(
             'recordsPerPage',
-            (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
         );
         $this->_dynamicConfig->setParam($this->_requestedController . '.recordsPerPage', $recordsPerPage);
 
-        $offset = (int) $this->_request->getParam('offset', 0);
+        $offset = (int)$this->_request->getParam('offset', 0);
         $this->_dynamicConfig->setParam($this->_requestedController . '.offset', $offset);
 
         $filterUser = trim($this->_request->getParam('filterUser', ''));
@@ -123,14 +123,14 @@ class AdminController extends Msd_Controller_Action
      */
     private function _assignVars()
     {
-        $this->view->filterUser = (string) $this->_dynamicConfig->getParam(
+        $this->view->filterUser     = (string)$this->_dynamicConfig->getParam(
             $this->_requestedController . '.filterUser'
         );
-        $this->view->filterLanguage = (string) $this->_dynamicConfig->getParam(
+        $this->view->filterLanguage = (string)$this->_dynamicConfig->getParam(
             $this->_requestedController . '.filterLanguage'
         );
-        $this->view->offset         = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.offset');
-        $this->view->recordsPerPage = (int) $this->_dynamicConfig->getParam(
+        $this->view->offset         = (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset');
+        $this->view->recordsPerPage = (int)$this->_dynamicConfig->getParam(
             $this->_requestedController . '.recordsPerPage'
         );
         $this->view->languages      = $this->_languagesModel->getAllLanguages();

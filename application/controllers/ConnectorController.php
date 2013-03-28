@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class ConnectorController extends Zend_Controller_Action
+class ConnectorController extends OtranceController
 {
     /**
      * Will hold all keys to translate delivered by external call
@@ -33,21 +33,6 @@ class ConnectorController extends Zend_Controller_Action
     private $_languagesModel;
 
     /**
-     * @var Application_Model_User
-     */
-    private $_userModel;
-
-    /**
-     * @var Msd_Config
-     */
-    protected $_config;
-
-    /**
-     * @var Msd_Config_Dynamic
-     */
-    protected $_dynamicConfig;
-
-    /**
      * @var array
      */
     private $_languagesEdit = array();
@@ -63,22 +48,25 @@ class ConnectorController extends Zend_Controller_Action
     private $_referenceLanguages = array();
 
     /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showConnector');
+    }
+
+    /**
      * Init
      *
      * @return void
      */
     public function init()
     {
-        $this->_userModel = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showConnector')) {
-            $this->_redirect('/error/not-allowed');
-        }
-
         $this->_getKeys();
         $this->_entriesModel   = new Application_Model_LanguageEntries();
         $this->view->user      = $this->_userModel;
-        $this->_dynamicConfig  = Msd_Registry::getDynamicConfig();
-        $this->_config         = Msd_Registry::getConfig();
         $this->_languagesModel = new Application_Model_Languages();
     }
 

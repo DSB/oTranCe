@@ -17,16 +17,13 @@ require_once('AdminController.php');
 class Admin_LanguagesController extends AdminController
 {
     /**
-     * Init
+     * Check general access right
      *
-     * @return void
+     * @return bool|void
      */
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
-        if (!$this->_userModel->hasRight('editLanguage')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('editLanguage');
     }
 
     /**
@@ -40,9 +37,9 @@ class Admin_LanguagesController extends AdminController
         if ($deleteLanguageId > 0) {
             $this->_forward('delete-language');
         }
-        $recordsPerPage = (int) $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
-        $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
-        $this->view->languages = $this->_languagesModel->getAllLanguages(
+        $recordsPerPage                 = (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+        $this->view->selRecordsPerPage  = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
+        $this->view->languages          = $this->_languagesModel->getAllLanguages(
             $this->_dynamicConfig->getParam($this->_requestedController . '.filterLanguage'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
             $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage'),
@@ -59,7 +56,7 @@ class Admin_LanguagesController extends AdminController
      */
     public function editAction()
     {
-        $languageId  = (int) $this->_request->getParam('id', 0);
+        $languageId = (int)$this->_request->getParam('id', 0);
         if ($languageId < 0) {
             // someone manipulated the id of the language - silently jump to index page
             $this->_redirect('/');
@@ -92,7 +89,7 @@ class Admin_LanguagesController extends AdminController
             $this->_assignUserList($languageId);
         }
         $flagImage = realpath(APPLICATION_PATH . '/../public/images/flags') . '/' . $this->view->langLocale . '.'
-            . $this->view->flagExtension;
+                     . $this->view->flagExtension;
         if (!is_readable($flagImage)) {
             $this->view->flagExtension = '';
         }
@@ -111,19 +108,19 @@ class Admin_LanguagesController extends AdminController
     protected function _assignUserList($languageId)
     {
         $this->view->filterUser = $this->_dynamicConfig->getParam($this->_requestedController . '.filterUser');
-        $this->view->users = $this->_userModel->getUsers(
+        $this->view->users      = $this->_userModel->getUsers(
             (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
-            (int)   $this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
-            (int)   $this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
+            (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage')
         );
-        $this->view->userHits = $this->_userModel->getRowCount();
+        $this->view->userHits   = $this->_userModel->getRowCount();
 
         $translators = $this->_userModel->getTranslators($languageId);
         $translators = empty($translators[$languageId]) ? array() : $translators[$languageId];
         //set user id as index - this way we can use isset() for testing if a user id has edit rights
         // (instead of searching with in_array() which is slower)
-        $translators = array_flip($translators);
-        $this->view->translators = $translators;
+        $translators                   = array_flip($translators);
+        $this->view->translators       = $translators;
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
     }
 
@@ -134,12 +131,12 @@ class Admin_LanguagesController extends AdminController
      */
     public function deleteLanguageAction()
     {
-        $deleteLanguageId = (int) $this->_request->getParam('deleteLanguage');
-        if (!$this->_userModel->hasRight('deleteLanguage') || $deleteLanguageId < 1) {
-            $this->_redirect('/admin_languages');
+        if (!$this->checkRight('deleteLanguage')) {
+            return;
         }
 
-        $res = true;
+        $deleteLanguageId = (int)$this->_request->getParam('deleteLanguage');
+        $res              = true;
         //delete reference language settings of users
         $res &= $this->_userModel->deleteReferenceLanguageSettings($deleteLanguageId);
         //delete edit rights of language
@@ -153,7 +150,7 @@ class Admin_LanguagesController extends AdminController
         //trigger ajax call to optimize database tables
         $this->_dynamicConfig->setParam('optimizeTables', true);
 
-        $this->view->languageDeleted = (bool) $res;
+        $this->view->languageDeleted = (bool)$res;
         $this->_request->setParam('deleteLanguage', 0);
         $this->_forward('index');
     }
@@ -165,7 +162,7 @@ class Admin_LanguagesController extends AdminController
      */
     public function deleteFlagAction()
     {
-        $languageId   = (int) $this->_request->getParam('id', 0);
+        $languageId   = (int)$this->_request->getParam('id', 0);
         $deleteResult = 'deleted';
         if (!$this->_deleteFlag($languageId)) {
             $deleteResult = 'notDeleted';
@@ -191,12 +188,12 @@ class Admin_LanguagesController extends AdminController
         $flagUploaded = array_key_exists('langFlag', $_FILES) && ($_FILES['langFlag']['size'] > 0);
 
         $sourceExt = $this->_request->getParam('flagExt');
-        $upload = null;
+        $upload    = null;
         if ($flagUploaded) {
             $upload     = new Zend_File_Transfer_Adapter_Http();
             $sourceFile = $upload->getFileName();
             if (is_string($sourceFile)) {
-                $sourceExt = pathinfo($sourceFile, PATHINFO_EXTENSION);
+                $sourceExt  = pathinfo($sourceFile, PATHINFO_EXTENSION);
                 $targetFile = realpath(APPLICATION_PATH . '/../public/images/flags') . "/$langLocale.$sourceExt";
                 $upload->addFilter('Rename', array('target' => $targetFile, 'overwrite' => true));
             }
@@ -226,7 +223,7 @@ class Admin_LanguagesController extends AdminController
 
             if ($flagUploaded === false && $languageId > 0 && $lang['locale'] != $langLocale) {
                 // locale of existing language was changed -> rename existing flag image
-                $path = realpath(APPLICATION_PATH . '/../public/images/flags') . '/';
+                $path        = realpath(APPLICATION_PATH . '/../public/images/flags') . '/';
                 $newFileName = $path . $langLocale . '.' . $lang['flag_extension'];
                 $oldFileName = $path . $lang['locale'] . '.' . $lang['flag_extension'];
                 @rename($oldFileName, $newFileName);
@@ -266,18 +263,18 @@ class Admin_LanguagesController extends AdminController
         Zend_File_Transfer_Adapter_Abstract $flag = null
     )
     {
-        $translator = Msd_Language::getInstance();
-        $inputsValid     = true;
-        $intValidate     = new Zend_Validate_Int();
-        $inputsValid    &= $intValidate->isValid($id);
+        $translator  = Msd_Language::getInstance();
+        $inputsValid = true;
+        $intValidate = new Zend_Validate_Int();
+        $inputsValid &= $intValidate->isValid($id);
 
         $betweenValidate = new Zend_Validate_Between(array('min' => 0, 'max' => 1));
-        $inputsValid    &= $intValidate->isValid($active);
-        $inputsValid    &= $betweenValidate->isValid($active);
+        $inputsValid &= $intValidate->isValid($active);
+        $inputsValid &= $betweenValidate->isValid($active);
 
-        $strLenValidate  = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
-        $inputErrors     = array();
-        $langLocaleValid = $strLenValidate->isValid($langLocale);
+        $strLenValidate            = new Zend_Validate_StringLength(array('min' => 2, 'max' => 5));
+        $inputErrors               = array();
+        $langLocaleValid           = $strLenValidate->isValid($langLocale);
         $inputErrors['langLocale'] = array();
         if (!$langLocaleValid) {
             $inputErrors['langLocale'] = $translator->translateZendMessageIds($strLenValidate->getMessages());
@@ -287,12 +284,12 @@ class Admin_LanguagesController extends AdminController
         if ($inputsValid) {
             // Check if this locale already exists
             $tempLangId = $this->_languagesModel->getLanguageIdFromLocale($langLocale);
-            if ( ($id == 0 && $tempLangId > 0) || ($id > 0 && $tempLangId >0 && $tempLangId != $id)) {
+            if (($id == 0 && $tempLangId > 0) || ($id > 0 && $tempLangId > 0 && $tempLangId != $id)) {
                 $inputErrors['langLocale'][] = $translator->translate('L_LOCALE_EXISTS');
-                $inputsValid = false;
+                $inputsValid                 = false;
             }
 
-            $charValidate = new Zend_Validate_Regex(array('pattern' => '/^[a-zA-Z0-9\.\-_]+$/i'));
+            $charValidate    = new Zend_Validate_Regex(array('pattern' => '/^[a-zA-Z0-9\.\-_]+$/i'));
             $langLocaleValid = $charValidate->isValid($langLocale);
             if (!$langLocaleValid) {
                 $inputErrors['langLocale'][] = $translator->translate('L_ERROR_INVALID_CHARS');
@@ -333,7 +330,7 @@ class Admin_LanguagesController extends AdminController
      */
     private function _deleteFlags($locale)
     {
-        $result = true;
+        $result    = true;
         $flagFiles = glob(realpath(APPLICATION_PATH . '/../public/images/flags') . "/$locale.*");
         if (empty($flagFiles)) {
             //nothing to delete
@@ -343,6 +340,7 @@ class Admin_LanguagesController extends AdminController
         foreach ($flagFiles as $flagFile) {
             $result &= @unlink($flagFile);
         }
+
         return $result;
     }
 
@@ -361,7 +359,8 @@ class Admin_LanguagesController extends AdminController
             return true;
         }
         $imageFile = realpath(APPLICATION_PATH . '/../public/images/flags')
-                        . "/{$lang['locale']}.{$lang['flag_extension']}";
+                     . "/{$lang['locale']}.{$lang['flag_extension']}";
+
         return @unlink($imageFile);
     }
 }

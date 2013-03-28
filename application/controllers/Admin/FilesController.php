@@ -16,17 +16,15 @@ require_once 'AdminController.php';
  */
 class Admin_FilesController extends AdminController
 {
+
     /**
-     * Init
+     * Check general access right
      *
-     * @return void
+     * @return bool|void
      */
-    public function init()
+    public function preDispatch()
     {
-        parent::init();
-        if (!$this->_userModel->hasRight('editTemplate')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('editTemplate');
     }
 
     /**
@@ -90,8 +88,8 @@ class Admin_FilesController extends AdminController
         // check if this is a new template and if the user is allowed to add it
         $template = $templatesModel->getFileTemplate($templateId);
         if ($template['id'] == 0) {
-            if (!$this->_userModel->hasRight('addTemplate')) {
-                $this->_redirect('/error/not-allowed');
+            if (!$this->checkRight('addTemplate')) {
+                return;
             }
         }
 
@@ -128,8 +126,8 @@ class Admin_FilesController extends AdminController
      */
     public function deleteAction()
     {
-        if (!$this->_userModel->hasRight('addTemplate')) {
-            $this->_redirect('/error/not-allowed');
+        if (!$this->checkRight('addTemplate')) {
+            return;
         }
 
         if ($this->_request->isPost()) {
@@ -150,9 +148,10 @@ class Admin_FilesController extends AdminController
      */
     public function cloneAction()
     {
-        if (!$this->_userModel->hasRight('addTemplate')) {
-            $this->_redirect('/error/not-allowed');
+        if (!$this->checkRight('addTemplate')) {
+            return;
         }
+
         $id                       = $this->_getParam('id');
         $templatesModel           = new Application_Model_FileTemplates();
         $template                 = $templatesModel->getFileTemplate($id);

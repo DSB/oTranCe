@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class ImportController extends Zend_Controller_Action
+class ImportController extends OtranceController
 {
     /**
      * @var Application_Model_LanguageEntries
@@ -24,21 +24,6 @@ class ImportController extends Zend_Controller_Action
      * @var Application_Model_Languages
      */
     private $_languagesModel;
-
-    /**
-     * @var Application_Model_User
-     */
-    private $_userModel;
-
-    /**
-     * @var Msd_Config
-     */
-    private $_config;
-
-    /**
-     * @var Msd_Config_Dynamic
-     */
-    private $_dynamicConfig;
 
     /**
      * @var Application_Model_FileTemplates
@@ -53,19 +38,22 @@ class ImportController extends Zend_Controller_Action
     private $_languages;
 
     /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showImport');
+    }
+
+    /**
      * Init
      *
      * @return void
      */
     public function init()
     {
-        $this->_config        = Msd_Registry::getConfig();
-        $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
-        $this->_userModel     = new Application_Model_User();
-        if (!$this->_userModel->hasRight('showImport')) {
-            $this->_redirect('/error/not-allowed');
-        }
-
         $this->_entriesModel       = new Application_Model_LanguageEntries();
         $this->_languagesModel     = new Application_Model_Languages();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();

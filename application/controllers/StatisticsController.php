@@ -17,10 +17,21 @@ class StatisticsController extends Zend_Controller_Action
 {
 
     /**
-     * Statitics model
+     * Statistics model
+     *
      * @var Application_Model_Statistics
      */
     private $_statisticsModel;
+
+    /**
+     * Check general access right
+     *
+     * @return bool|void
+     */
+    public function preDispatch()
+    {
+        $this->checkRight('showStatistics');
+    }
 
     /**
      * Init
@@ -29,13 +40,9 @@ class StatisticsController extends Zend_Controller_Action
      */
     public function init()
     {
-        $userModel = new Application_Model_User();
-        if (!$userModel->hasRight('showStatistics')) {
-            $this->_redirect('/error/not-allowed');
-        }
-
         $this->_statisticsModel = new Application_Model_Statistics();
     }
+
     /**
      * Process index action
      *
@@ -44,8 +51,8 @@ class StatisticsController extends Zend_Controller_Action
     public function indexAction()
     {
         $this->view->userStatistics = $this->_statisticsModel->getUserstatistics();
-        $languagesModel = new Application_Model_Languages();
-        $this->view->languages = $languagesModel->getAllLanguages();
+        $languagesModel             = new Application_Model_Languages();
+        $this->view->languages      = $languagesModel->getAllLanguages();
     }
 
 }

@@ -13,20 +13,16 @@
  * @package         oTranCe
  * @subpackage      Controllers
  */
-class BrowserController extends Zend_Controller_Action
+class BrowserController extends OtranceController
 {
-
     /**
-     * Init
+     * Check general access right
      *
-     * @return void
+     * @return bool|void
      */
-    public function init()
+    public function preDispatch()
     {
-        $userModel = new Application_Model_User();
-        if (!$userModel->hasRight('showBrowseFiles')) {
-            $this->_redirect('/error/not-allowed');
-        }
+        $this->checkRight('showBrowseFiles');
     }
 
     /**

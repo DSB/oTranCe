@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (414), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (416), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -322,12 +322,14 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_SELECT_ALLOWED_IMPORTERS' => 'Select allowed import methods',
 'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Select which import methods can be used when a user wants to import data.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Select the assigned file template',
+'L_SELECT_AS_STANDARD' => 'Select as default',
 'L_SELECT_FILE' => 'Select a file',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Select how many entries should be shown per page',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Select the language of this interface',
 'L_SELECT_LANG_TO_MAINTAIN' => 'Select the language(s) you want to maintan',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Select other filter / search criteria',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Please select a replacement template. The keys and their translations will be assigned to the selected template. If you select "Delete file template" all keys and their translations will be deleted without assigning them to another template',
+'L_SELECT_STANDARD_IMPORTER' => 'Select the default import method. It will be preselected if the user didn\'t select an importer yet.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Select your reference language(s)',
 'L_SET_PASSWORD_SUCCESS' => 'Your password was set successfully.',
 'L_SHORTCUT' => 'Shortcut',

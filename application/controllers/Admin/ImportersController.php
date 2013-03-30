@@ -50,6 +50,7 @@ class Admin_ImportersController extends AdminController
      */
     public function indexAction()
     {
-        $this->view->importers = $this->_importerModel->getImporter();
+        $this->view->importers        = $this->_importerModel->getImporter();
+        $this->view->standardImporter = $this->_importerModel->getStandardImporter();
     }
 }

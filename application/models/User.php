@@ -1077,7 +1077,7 @@ class Application_Model_User extends Msd_Application_Model
         }
         // delete old entries
         $sql = 'DELETE FROM `' . $this->_tableUsersettings . '` WHERE '
-               . '`user_id`=' . $this->_userId . ' AND `setting`=\'' . $name . '\'';
+               . '`user_id`=' . $userId . ' AND `setting`=\'' . $name . '\'';
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         if (!is_array($values)) {

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (27), enkay (8), janrei (1), Marco.Steinhäuser (431)
+// DSB (29), enkay (8), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -320,12 +320,14 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_SELECT_ALLOWED_IMPORTERS' => 'Wähle die erlaubten Importmethoden',
 'L_SELECT_ALLOWED_IMPORTERS_EXPLAIN' => 'Wähle, welche Importmethoden im Menüpunkt "Import" benutzt werden dürfen.',
 'L_SELECT_ASSIGNED_FILE_TEMPLATE' => 'Wähle die zugeordnete Dateivorlage',
+'L_SELECT_AS_STANDARD' => 'Als Standard wählen',
 'L_SELECT_FILE' => 'Wähle eine Datei',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Wie viele Einträge sollen pro Seite angezeigt werden',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Bitte wähle die Sprache der Bedienoberfläche',
 'L_SELECT_LANG_TO_MAINTAIN' => 'Wähle die Sprache(n), die Du pflegen möchtest',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Wähle andere Filter-/Such-Kriterien',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Bitte wähle eine Vorlage, der die Sprachschlüssel zugewiesen werden sollen. Wenn Du "Dateivorlage löschen" wählst, werden die zugeordneten Schlüssel und deren Übersetzungen endgültig gelöscht',
+'L_SELECT_STANDARD_IMPORTER' => 'Wähle die Standard-Importmethode. Diese wird vorausgewählt wenn der Benutzer noch keine Auswahl getroffen hat.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Wähle Deine Referenzsprache(n)',
 'L_SET_PASSWORD_SUCCESS' => 'Ihr Passwort wurde übernommen.',
 'L_SHORTCUT' => 'Schnellzugriff',

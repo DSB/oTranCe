@@ -51,4 +51,29 @@ class Application_Model_Importers extends Msd_Application_Model
         }
         return $activeImporters;
     }
+
+    /**
+     * Set the given importer as standard importer.
+     *
+     * @param string $importerId Id of importer
+     *
+     * @return bool
+     */
+    public function setStandardImporter($importerId)
+    {
+        $userModel = new Application_Model_User();
+        return $userModel->saveSetting('standardImporter', $importerId, 0);
+    }
+
+    /**
+     * Get the id of the selected standard importer.
+     *
+     * @return string
+     */
+    public function getStandardImporter()
+    {
+        $userModel = new Application_Model_User();
+        return $userModel->loadSetting('standardImporter', '', false, 0);
+    }
+
 }

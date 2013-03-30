@@ -212,8 +212,8 @@ class ImportController extends OtranceController
         foreach ($availableImporters as $importerName => $status) {
             $importers[$importerName] = $importerName;
         }
-        // get Importer from session
-        $selectedImporter = $this->_dynamicConfig->getParam('selectedAnalyzer');
+        // get Importer from session. If not set get standard importer.
+        $selectedImporter = $this->_dynamicConfig->getParam('selectedAnalyzer', $importerModel->getStandardImporter());
 
         // if sent via form
         if ($this->_request->getParam('selectedAnalyzer', false) !== false) {

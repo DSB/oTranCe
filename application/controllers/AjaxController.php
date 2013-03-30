@@ -533,6 +533,29 @@ class AjaxController extends OtranceController
     }
 
     /**
+     * Set the standard importer
+     *
+     * @return void
+     */
+    public function setStandardImporterAction()
+    {
+        $importerId = (string)$this->_request->getParam('importer', '');
+        $icon       = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+
+        if ($this->_userModel->hasRight('editImporter')) {
+            $importerModel = new Application_Model_Importers();
+            $res           = $importerModel->setStandardImporter($importerId);
+            $icon          = $this->view->getIcon('Ok', $this->view->lang->L_SELECT_AS_STANDARD, 16);
+            if ($res === false) {
+                $icon = $this->view->getIcon('Attention', $this->view->lang->L_ERROR, 16);
+            }
+        }
+
+        $this->view->data = array('icon' => $icon);
+        $this->render('json');
+    }
+
+    /**
      * Save a key and it's value to the database.
      *
      * @param string $key          Keyname to save
@@ -559,7 +582,6 @@ class AjaxController extends OtranceController
                 if (!$this->_entriesModel->validateLanguageKey($key, $fileTemplate)) {
                     return 4;
                 }
-                ;
                 // user is allowed to add new keys -> create it
                 $this->_entriesModel->saveNewKey($key, $fileTemplate);
             }

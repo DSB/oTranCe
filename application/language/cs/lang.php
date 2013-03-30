@@ -58,6 +58,10 @@ Vyberte nastavení znaků z nabidky a klikněte na tlačítko "přeměnit data z
 'L_CONFIRM_PASSWORD' => 'Potvrdid heslo',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Vložte heslo, pokud ho chcete změnit. Pokud kolonku nevyplníte, současné heslo bude stále platné.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'Hlavní kontatkní e-mail',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Obsah je stejný, jako v původním jazyce a nebyl importován.',
 'L_CONVERT' => 'Přeměnit',

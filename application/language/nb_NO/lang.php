@@ -57,6 +57,10 @@ $lang = array(
 'L_CONFIRM_PASSWORD' => 'Bekreft passord',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Skriv inn passordet dersom du ønsker å endre den. Hvis du lar feltet være tomt, beholdes det gamle passordet.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'E-postadresse for generell kontakt',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Innholdet er det samme som i hovedspråket og ble ikke importert!',
 'L_CONVERT' => 'Konverter',

@@ -59,6 +59,10 @@ Kada indikator je dosledan , možete pokrenuti uvoz klikom na dugme " Start " an
 'L_CONFIRM_PASSWORD' => 'Potvrdi lozinku',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Ako želite da promenite lozinku, unesite je. Ako ostavite polje prazno,stara lozinka ostaje postojeci.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'Generalna e-mail adresa',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Sadržaj je isti kao svoj primarni jezik i nije uvezen!',
 'L_CONVERT' => 'pretvoriti',

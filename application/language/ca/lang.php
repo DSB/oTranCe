@@ -57,6 +57,10 @@ $lang = array(
 'L_CONFIRM_PASSWORD' => 'Confirmi la contrasenya',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Escrigui una contrasenya si vol canviar l\'actual. Si deixa la caixa buida romandrà l\'actual.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'Adreça de correu electrònica de contacte habitual',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'El contingut és el mateix que a l\'idioma principal i no ha estat importat!',
 'L_CONVERT' => 'Convertir',

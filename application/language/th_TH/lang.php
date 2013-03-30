@@ -59,6 +59,10 @@ $lang = array(
 'L_CONFIRM_PASSWORD' => 'ยืนยันรหัสผ่าน',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'กรอกรหัสผ่านของคุณ ถ้าต้องการจะเปลี่ยนแปลง หรือไม่ ให้ปล่อยค่าว่างไว้ รหัสผ่านเดิมจะยังเหมือนเดิม',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'ที่อยู่อีเมล์สำหรับติดต่อ',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'เนื้อหาของไฟล์เหมือนกันกับภาษาหลัก และจะไม่มีการนำเข้าภาษา!',
 'L_CONVERT' => 'แปลง',

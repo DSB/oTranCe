@@ -59,6 +59,10 @@ Hvis alt ser godt ud, begynde at analysere dataene.',
 'L_CONFIRM_PASSWORD' => 'Bekræft adgangskode',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Indtast en adgangskode, hvis du ønsker at ændre den. Hvis du lader feltet være tomt ændres den aktuelle adgangskode ikke.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'Generel kontakt e-mail',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Indholdet er det samme som i hovedsproger og blev ikke importeret!',
 'L_CONVERT' => 'Konverter',

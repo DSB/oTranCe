@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (406), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (412), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -59,6 +59,10 @@ If everything looks good, start to analyze the data.',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Enter a password if you want to change it. If you leave this field empty the current password will remain.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'General contact e-mail address',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'The content is the same as in the main language and was not imported!',
 'L_CONVERT' => 'Convert',

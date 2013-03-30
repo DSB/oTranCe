@@ -59,6 +59,10 @@ Nếu mọi thứ đều tốt, hãy bắt đầu phân tích dữ liệu.',
 'L_CONFIRM_PASSWORD' => 'Xác nhận mật khẩu',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Nhập mật khẩu mà bạn muốn thay đổi. Bỏ trống ô này nếu bạn muốn sử dụng mật khẩu cũ.',
 'L_CONNECTOR' => 'Connector',
+'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
+The external application needs a configured plug in to connect with this oTranCe installation.<br />
+No list of keys has been transmitted yet.',
 'L_CONTACT_EMAIL' => 'Địa chỉ email liên hệ chung',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Nội dung giống với ngôn ngữ chính do đó không được nhập vào hệ thống!',
 'L_CONVERT' => 'Chuyển đổi',

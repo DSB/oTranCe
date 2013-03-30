@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (369), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (374), enkay (8), janrei (33), kyoya (19), Marco.Steinhäuser (75)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -59,6 +59,10 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONFIRM_PASSWORD' => 'Kennwort bestätigen',
 'L_CONFIRM_PASSWORD_EXPLAIN' => 'Wenn Sie das Kennwort ändern möchten, geben Sie es ein. Wenn Sie das Feld leer lassen, bleibt das alte Kennwort bestehen.',
 'L_CONNECTOR' => 'Konnektor',
+'L_CONNECTOR_NO_HITS' => 'Es sind keine zu übersetzenden Schlüssel geliefert worden.',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => 'Der Konnektor nimmt eine Liste von Schlüsseln von einer externen Applikation entgegen und bietet diese hier zur Übersetzung an.<br />
+Die externe Applikation benötigt ein konfiguriertes Plug-In, um sich mit dieser oTranCe-Installation verbinden zu können.<br />
+Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_CONTACT_EMAIL' => 'Allgemeine Kontakt-E-Mail-Adresse',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => 'Der Inhalt ist derselbe wie in der Hauptsprache und wurde nicht importiert!',
 'L_CONVERT' => 'Konvertiere',

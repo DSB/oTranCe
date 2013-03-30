@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (25), enkay (8), janrei (1), Marco.Steinhäuser (431)
+// DSB (27), enkay (8), janrei (1), Marco.Steinhäuser (431)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -212,6 +212,8 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_LOCALE_EXISTS' => 'Es existiert bereits eine Sprache mit dieser Locale.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Anmelden',
+'L_LOGIN_ACCOUNT_NOT_ACTIVE' => 'Deine Anmeldung ist korrekt aber Dein Zugang ist (noch) nicht freigeschaltet. <br />
+Du erhältst eine E-Mail sobald ein Administrator den Zugang aktiviert.',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',
 'L_LOGIN_INVALID_USER' => 'Unbekannte Kombination von Benutzername und Kennwort',
 'L_LOG_OUT' => 'Ausloggen',
@@ -339,6 +341,7 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Sämtliche Rechte, Einstellungen und Log-Einträge dieses Benutzers werden ebenfalls entfernt.',
 'L_TRANSLATE_TO' => 'Übersetze nach',
 'L_TRANSLATIONS' => 'Übersetzungen',
+'L_TRANSLATION_CENTER' => 'Translation Center',
 'L_TRY_AGAIN' => 'Bitte versuch es noch einmal.',
 'L_UNTRANSLATED' => 'Nicht übersetzt',
 'L_UPDATE_DOWNLOAD_PACKAGE' => 'Sprachpaket aktualisieren',

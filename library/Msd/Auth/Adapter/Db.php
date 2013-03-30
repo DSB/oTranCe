@@ -35,12 +35,12 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
      */
     public function __construct()
     {
-        $this->_db = Msd_Db::getAdapter();
-        $config = Msd_Registry::getConfig();
-        $tableConfig = $config->getParam('table');
-        $dbUserConfig = $config->getParam('dbuser');
+        $this->_db       = Msd_Db::getAdapter();
+        $config          = Msd_Registry::getConfig();
+        $tableConfig     = $config->getParam('table');
+        $dbUserConfig    = $config->getParam('dbuser');
         $this->_database = $dbUserConfig['db'];
-        $this->_users = $tableConfig['users'];
+        $this->_users    = $tableConfig['users'];
     }
 
     /**
@@ -52,7 +52,7 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
      */
     public function setUsername($username)
     {
-        $this->_username = (string) $username;
+        $this->_username = (string)$username;
     }
 
     /**
@@ -64,7 +64,7 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
      */
     public function setPassword($password)
     {
-        $this->_password = (string) $password;
+        $this->_password = (string)$password;
     }
 
     /**
@@ -75,11 +75,11 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
     public function authenticate()
     {
         $loginResult = true;
-        $db = Msd_db::getAdapter();
+        $db          = Msd_db::getAdapter();
         // look for user in own db-table
-        $sql = 'SELECT `username` as `name`, `id`, `password` FROM `'.$this->_database . '`.`'.$this->_users.'` '
-               .'WHERE `username`='
-               .'\''.$db->escape($this->_username) . '\' AND `active`=1';
+        $sql = 'SELECT `username` as `name`, `id`, `password`, `active` FROM `' . $this->_database . '`.`' . $this->_users . '` '
+               . 'WHERE `username`='
+               . '\'' . $db->escape($this->_username) . '\'';
 
         $res = $db->query($sql, Msd_Db::ARRAY_ASSOC);
         if (!isset($res[0]['name'])) {
@@ -94,9 +94,11 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
         if ($loginResult === true) {
             // user log in valid
             $authResult = array(
-                'name' => $res[0]['name'],
-                'id' => $res[0]['id'],
+                'name'   => $res[0]['name'],
+                'id'     => $res[0]['id'],
+                'active' => $res[0]['active'],
             );
+
             return new Zend_Auth_Result(
                 Zend_Auth_Result::SUCCESS,
                 $authResult
@@ -118,8 +120,8 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
      */
     private function _updatePassword()
     {
-        $sql = 'UPDATE `' . $this->_database .'`.`' . $this->_users
-                . '` SET `password` = \'' . md5($this->_password) .'\'';
+        $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_users
+               . '` SET `password` = \'' . md5($this->_password) . '\'';
         $this->_db->query($sql);
     }
 }

@@ -114,7 +114,7 @@ class IndexController extends OtranceController
                     $postData['pass'],
                     $autoLogin
                 );
-                $this->view->assign('messages', $user->getAuthMessages());
+                $message = $user->getAuthMessages();
                 if ($loginResult === Msd_User::SUCCESS) {
                     $historyModel->logLoginSuccess();
 
@@ -129,6 +129,9 @@ class IndexController extends OtranceController
 
                     return;
                 } else {
+                    if ($loginResult == Msd_User::NOT_ACTIVE) {
+                        $message = 'L_LOGIN_ACCOUNT_NOT_ACTIVE';
+                    }
                     $loginResult = false;
                 }
             }
@@ -138,7 +141,7 @@ class IndexController extends OtranceController
                 $this->view->popUpMessage()->addMessage(
                     'login-message',
                     'L_LOGIN',
-                    'L_LOGIN_INVALID_USER',
+                    $message, //'L_LOGIN_INVALID_USER',
                     array(
                          'modal'       => true,
                          'dialogClass' => 'error'

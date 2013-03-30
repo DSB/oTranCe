@@ -21,35 +21,42 @@ class Msd_User
      *
      * @var int
      */
-    const SUCCESS           = 0x00;
+    const SUCCESS = 0x00;
 
     /**
      * There is no file with user identities and credentials.
      *
      * @var int
      */
-    const NO_USER_FILE      = 0x01;
+    const NO_USER_FILE = 0x01;
 
     /**
      * The user file doesn't contain any valid user logins.
      *
      * @var int
      */
-    const NO_VALID_USER     = 0x02;
+    const NO_VALID_USER = 0x02;
+
+    /**
+     * The user file doesn't contain any valid user logins.
+     *
+     * @var int
+     */
+    const NOT_ACTIVE = 0x04;
 
     /**
      * The given identity is unknown or the password is wrong.
      *
      * @var int
      */
-    const UNKNOWN_IDENTITY  = 0x03;
+    const UNKNOWN_IDENTITY = 0x03;
 
     /**
      * An unknown error occured.
      *
      * @var int
      */
-    const GENERAL_FAILURE   = 0xFF;
+    const GENERAL_FAILURE = 0xFF;
 
     /**
      * Instance to authentication storage.
@@ -94,7 +101,7 @@ class Msd_User
     public function __construct()
     {
         $this->_authStorage = new Zend_Auth_Storage_Session();
-        $auth = $this->_authStorage->read();
+        $auth               = $this->_authStorage->read();
         if (!empty($auth)) {
             if (isset($auth['name'])) {
                 $this->_userName = $auth['name'];
@@ -138,7 +145,7 @@ class Msd_User
      *
      * @param string  $username  Identity for login process.
      * @param string  $password  Credentials for login procress.
-     * @param bool $autoLogin Set cookie for automatic login?
+     * @param bool    $autoLogin Set cookie for automatic login?
      *
      * @return int
      */
@@ -147,19 +154,25 @@ class Msd_User
         $authAdapter = new Msd_Auth_Adapter_Db();
         $authAdapter->setUsername($username);
         $authAdapter->setPassword($password);
-        $auth = Zend_Auth::getInstance();
-        $authResult = $auth->authenticate($authAdapter);
+        $auth                = Zend_Auth::getInstance();
+        $authResult          = $auth->authenticate($authAdapter);
         $this->_authMessages = $authResult->getMessages();
-        $this->_isLoggedIn = false;
+        $this->_isLoggedIn   = false;
         if ($authResult->isValid()) {
+            $identity = $authResult->getIdentity();
+            if ($identity['active'] != "1") {
+                return self::NOT_ACTIVE;
+            }
             $this->_isLoggedIn = true;
             if ($autoLogin) {
                 Zend_Session::regenerateId();
                 $this->setLoginCookie($username, $password);
             }
             $this->setDefaultConfiguration();
+
             return self::SUCCESS;
         }
+
         return self::UNKNOWN_IDENTITY;
     }
 
@@ -173,7 +186,7 @@ class Msd_User
      */
     public function setLoginCookie($username, $password)
     {
-        $crypt = new Msd_Crypt('oTranCe');
+        $crypt    = new Msd_Crypt('oTranCe');
         $identity = $crypt->encrypt(
             $username . ':' . $password
         );
@@ -199,7 +212,7 @@ class Msd_User
          * @var Zend_Controller_Request_Http $request
          */
         $request = Zend_Controller_Front::getInstance()->getRequest();
-        $cookie = $request->getCookie('oTranCe_autologin');
+        $cookie  = $request->getCookie('oTranCe_autologin');
         if ($cookie === null || $cookie == '') {
             // no cookie found
             return;
@@ -216,6 +229,7 @@ class Msd_User
         // to stay logged in until you logout.
         $this->login($username, $pass, true);
     }
+
     /**
      * Clear the user identity and logout the user.
      *
@@ -231,7 +245,7 @@ class Msd_User
     /**
      * Force loading of default configuration file
      *
-     *  @return void
+     * @return void
      */
     public function setDefaultConfiguration()
     {

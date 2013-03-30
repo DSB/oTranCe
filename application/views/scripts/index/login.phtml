@@ -1,4 +1,4 @@
-    <?php $this->jQuery()->addOnLoad("$('#user').focus();");?>
+<?php $this->jQuery()->addOnLoad("$('#user').focus();");?>
 <div id="logout">
 <?php
 echo $this->partial(
@@ -16,7 +16,7 @@ $forgotPasswordUrl = $this->url(array('controller'=>'index_password','action'=>'
 </div>
 <div id="login">
     <h1>
-        <br /><br />Translation-Center: <?php echo $this->lang->L_LOGIN;?>
+        <br /><br /><?php echo $this->lang->L_TRANSLATION_CENTER .': ' . $this->lang->L_LOGIN;?>
     </h1>
         <br /><br />
     <div style="width:600px;margin: auto auto; vertical-align:middle;

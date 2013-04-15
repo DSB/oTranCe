@@ -1136,4 +1136,22 @@ class Application_Model_User extends Msd_Application_Model
 
         return $res;
     }
+
+
+    /**
+     * Checks if username does exist
+     *
+     * @param string $userName Is the username
+     * @return bool
+     */
+    public function userNameExists($userName)
+    {
+        $res = $this->getUserByName($userName);
+        if(!empty($res)){
+            return true;
+        }
+
+        return false;
+
+    }
 }

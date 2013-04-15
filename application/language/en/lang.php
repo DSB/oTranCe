@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (416), enkay (8), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (416), enkay (14), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -172,9 +172,13 @@ The given contact e-mail is: %s',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Always show the main language as reference language',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'If activated the main language will always be shown as a reference language to any translator - independently from their personal reference configuration.',
 'L_FORGOT_PASSWORD_EXPIRED_LINK' => 'Your link has been expired.',
+'L_FORGOT_PASSWORD_RESET_PASSWORD' => 'Reset password',
+'L_FORGOT_PASSWORD_RESET_PASSWORD_MAIL_TEXT' => 'we heard you lost your oTrance password.',
+'L_FORGOT_PASSWORD_RESET_PASSWORD_MAIL_TEXT_2' => 'Use the following link within the next 24 hours to reset your password:',
 'L_FORGOT_PASSWORD_SEND_MAIL' => 'You\'ll get an email to reset your password.',
 'L_FORGOT_PASSWORD_TITLE' => 'Forget Password?',
 'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'User does not exists.',
+'L_FORGOT_PASSWORD_USERNAME_NOT_EXISTS' => 'The user "%s" does not exists!',
 'L_FOUND_X_KEYS' => 'Found %s keys.',
 'L_GENERAL' => 'General',
 'L_GENERATED_CONTENT' => 'Generated content',

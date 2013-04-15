@@ -24,9 +24,9 @@ class Index_PasswordController extends IndexController
         $this->view->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request'               => $this->_request,
-                'form'                  => $form,
-                'isLogin'               => true,
+                'request' => $this->_request,
+                'form' => $form,
+                'isLogin' => true,
             )
         );
 
@@ -34,22 +34,23 @@ class Index_PasswordController extends IndexController
 
     public function requestPasswordAction()
     {
-        $languagesModel    = new Application_Model_Languages();
+        $languagesModel = new Application_Model_Languages();
         $languagesMetaData = $languagesModel->getAllLanguages();
-        $userEmail         = $this->getRequest()->getParam('user_email');
-        $emailValidator    = new Zend_Validate_EmailAddress();
-        $translator        = Msd_Language::getInstance();
-        $isValidEmail      = $emailValidator->isValid($userEmail);
+        $userName = $this->getRequest()->getParam('username');
+        $translator = Msd_Language::getInstance();
+        $user = new \Application_Model_User();
+        $userExists = $user->userNameExists($userName);
 
-        if (!$isValidEmail) {
-            $errorMsg            = $translator->translateZendMessageIds($emailValidator->getMessages());
+        if (!$userExists) {
+            $errorMsg = $translator->translate('L_FORGOT_PASSWORD_USERNAME_NOT_EXISTS');
+            $errorMsg = sprintf($errorMsg, $userName);
             $this->view->isError = true;
-            $this->setViewNotifications($errorMsg[0]);
+            $this->setViewNotifications($errorMsg);
         }
 
-        if ($isValidEmail) {
-            $user     = new Application_Model_User();
-            $userData = $user->getUserByEmail($userEmail);
+        if ($userExists) {
+            $user = new Application_Model_User();
+            $userData = $user->getUserByName($userName);
 
             //-- check if user mail exists
             if (isset($userData['id'])) {
@@ -96,7 +97,7 @@ class Index_PasswordController extends IndexController
         $params = array(
             'infos' => array(
                 'SUCCESS_MESSAGE' => $successMessage,
-                'ERROR_MESSAGE'   => $errorMessage,
+                'ERROR_MESSAGE' => $errorMessage,
             )
         );
 
@@ -105,10 +106,10 @@ class Index_PasswordController extends IndexController
 
     public function resetpasswordAction()
     {
-        $userHash            = base64_decode($this->getRequest()->getParam('id'));
-        $paramArray          = $this->getParamsFromHash($userHash);
+        $userHash = base64_decode($this->getRequest()->getParam('id'));
+        $paramArray = $this->getParamsFromHash($userHash);
         $forgotPasswordModel = new Application_Model_ForgotPassword();
-        $translator          = Msd_Language::getInstance();
+        $translator = Msd_Language::getInstance();
 
         if (!$forgotPasswordModel->isValidRequest($paramArray['id'], $paramArray['userid'])) {
             $this->view->isError = true;
@@ -119,10 +120,10 @@ class Index_PasswordController extends IndexController
         $this->view->assign(
             array(
                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                'request'               => $this->_request,
-                'userid'                => $paramArray['userid'],
-                'userhash'              => $this->getRequest()->getParam('id'),
-                'isLogin'               => true,
+                'request' => $this->_request,
+                'userid' => $paramArray['userid'],
+                'userhash' => $this->getRequest()->getParam('id'),
+                'isLogin' => true,
             )
         );
     }
@@ -140,7 +141,7 @@ class Index_PasswordController extends IndexController
         $realParams = '';
 
         foreach ($mainParams as $params) {
-            $tmpParams                 = explode('=', $params);
+            $tmpParams = explode('=', $params);
             $realParams[$tmpParams[0]] = $tmpParams[1];
         }
 
@@ -152,11 +153,11 @@ class Index_PasswordController extends IndexController
      */
     public function setpasswordAction()
     {
-        $translator  = Msd_Language::getInstance();
-        $password    = $this->_request->getParam('user_password');
+        $translator = Msd_Language::getInstance();
+        $password = $this->_request->getParam('user_password');
         $confirmPwd = $this->_request->getParam('user_password2');
-        $userId      = $this->_request->getParam('userid');
-        $user        = new Application_Model_User();
+        $userId = $this->_request->getParam('userid');
+        $user = new Application_Model_User();
 
         $params = array('id' => $this->_request->getParam('userhash'));
 
@@ -167,7 +168,7 @@ class Index_PasswordController extends IndexController
 
         if (!$user->validateData($userData, $translator, true)) {
             $messages = $user->getValidateMessages();
-            $msg      = '';
+            $msg = '';
 
             foreach ($messages['pass1'] as $validatedField => $validateMsg) {
                 $msg .= $validateMsg . '<br>';

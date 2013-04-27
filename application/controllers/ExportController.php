@@ -86,6 +86,15 @@ class ExportController extends OtranceController
         $this->view->export       = $this->_export;
         $log                      = new Application_Model_ExportLog();
         $this->view->vcsActivated = (bool)($this->_projectConfig['vcsActivated'] && ($log->getExportsCount() > 0));
+        $proc = new Msd_Process('ssh -vvv 192.168.1.41 "echo $HOME"', null, array('HOME' => realpath(EXPORT_PATH . '/..')));
+        $proc->execute();
+        $stdout = '';
+        $stderr = '';
+        while ($proc->isRunning()) {
+            $stdout .= $proc->readOutput();
+            $stderr .= $proc->readError();
+        }
+        var_dump($stdout, $stderr);
     }
 
     /**
@@ -95,14 +104,26 @@ class ExportController extends OtranceController
      */
     public function commitAction()
     {
-        $vcs = $this->_getVcsInstance();
+        $log = new Application_Model_ExportLog();
+
+        $vcsConfig = $this->_config->getParam('vcs');
+        $vcs       = $this->_getVcsInstance();
+        $files     = $log->getFileList(session_id());
+
+        if ($vcsConfig['revertBeforeUpdate'] == 1) {
+            $vcs->revert(array('.'));
+        }
+
         $vcs->update();
+
+        if ($vcsConfig['copyToCOPath'] == 1) {
+            $this->_copyFilesToCheckoutPath($files, $vcsConfig['options']['checkoutPath']);
+        }
+
         $statusResult = $vcs->status();
-        $log          = new Application_Model_ExportLog();
+
         if (!empty($statusResult)) {
-            $files         = $log->getFileList(session_id());
             $files         = $this->_getCommitFileList($statusResult, $files, $vcs);
-            $vcsConfig     = $this->_config->getParam('vcs');
             $commitMessage = 'Language pack update';
             if (isset($vcsConfig['commitMessage'])) {
                 $commitMessage = $vcsConfig['commitMessage'];
@@ -115,6 +136,32 @@ class ExportController extends OtranceController
             $this->view->commitResult = array('stdout' => $this->view->lang->translate('L_NOTHING_TO_DO') . '.');
         }
         $log->delete(session_id());
+    }
+
+    /**
+     * Copies the exported files into the checkout path of the VCS repository.
+     *
+     * @param array  $files        List of files to copy.
+     * @param string $checkoutPath Location of the checked out VCS repository.
+     *
+     * @return bool
+     */
+    private function _copyFilesToCheckoutPath($files, $checkoutPath)
+    {
+        $checkoutPath = rtrim($checkoutPath, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $sourcePath   = rtrim(EXPORT_PATH, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $result       = true;
+        foreach ($files as $file) {
+            $sourceFile = $sourcePath . $file;
+            $targetFile = $checkoutPath . $file;
+            if (!is_dir(dirname($targetFile))) {
+                mkdir(dirname($targetFile));
+            }
+
+            $result = $result && copy($sourceFile, $targetFile);
+        }
+
+        return $result;
     }
 
     /**
@@ -131,10 +178,10 @@ class ExportController extends OtranceController
         if (isset($statusResult['unversioned'])) {
             // Compare unversioned file list with exported file list.
             $addFiles = array();
-            foreach ($statusResult['unversioned'] as $unverFile) {
+            foreach ($statusResult['unversioned'] as $unversionedFile) {
                 foreach ($files as $file) {
-                    if (substr($file, 0, strlen($unverFile)) == $unverFile) {
-                        $addFiles[] = $unverFile;
+                    if (substr($file, 0, strlen($unversionedFile)) == $unversionedFile) {
+                        $addFiles[] = $unversionedFile;
                         $addFiles[] = dirname($file);
                         $addFiles[] = $file;
                     }

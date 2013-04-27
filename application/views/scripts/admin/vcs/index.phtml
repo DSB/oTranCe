@@ -31,6 +31,28 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             </td>
         </tr>
 
+        <tr class="<?php echo $cycleHelper->next(); ?>">
+            <td><?php echo $this->lang->L_VCS_REVERT_BEFORE_UPDATE; ?></td>
+            <td>
+                <input type="radio" id="vcsRevertBeforeUpdateYes" name="vcsRevertBeforeUpdate" value="1"<?php if ($this->vcsConfig['revertBeforeUpdate'] == 1) { ?> checked="checked"<?php } ?>/>
+                <label for="vcsRevertBeforeUpdateYes"> <?php echo $this->lang->L_YES;?></label>
+                &nbsp;&nbsp;
+                <input type="radio" id="vcsRevertBeforeUpdateNo" name="vcsRevertBeforeUpdate" value="0"<?php if ($this->vcsConfig['revertBeforeUpdate'] == 0) { ?> checked="checked"<?php } ?>/>
+                <label for="vcsRevertBeforeUpdateNo"> <?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
+        <tr class="<?php echo $cycleHelper->next(); ?>">
+            <td><?php echo $this->lang->L_VCS_COPY_TO_CHECKOUT_PATH; ?></td>
+            <td>
+                <input type="radio" id="vcsCopyToCOPathYes" name="vcsCopyToCOPath" value="1"<?php if ($this->vcsConfig['copyToCOPath'] == 1) { ?> checked="checked"<?php } ?>/>
+                <label for="vcsCopyToCOPathYes"> <?php echo $this->lang->L_YES;?></label>
+                &nbsp;&nbsp;
+                <input type="radio" id="vcsCopyToCOPathNo" name="vcsCopyToCOPath" value="0"<?php if ($this->vcsConfig['copyToCOPath'] == 0) { ?> checked="checked"<?php } ?>/>
+                <label for="vcsCopyToCOPathNo"> <?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
         <tr class="<?php echo $cycleHelper->next();?>">
             <td><label for="vcsAdapter"><?php echo $this->lang->L_CURRENT_VCS_ADAPTER;?>:</label></td>
             <td>

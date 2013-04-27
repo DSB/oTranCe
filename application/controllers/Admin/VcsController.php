@@ -55,14 +55,16 @@ class Admin_VcsController extends AdminController
     private function _saveVcsConfig()
     {
         $vcsConfig = array(
-            'adapter'       => $this->_request->getParam('vcsAdapter'),
-            'commitMessage' => $this->_request->getParam('vcsCommitMessage'),
-            'options'       => $this->_request->getParam('vcsOptions'),
+            'adapter'            => $this->_request->getParam('vcsAdapter'),
+            'commitMessage'      => $this->_request->getParam('vcsCommitMessage'),
+            'copyToCOPath'       => $this->_request->getParam('vcsCopyToCOPath'),
+            'revertBeforeUpdate' => $this->_request->getParam('vcsRevertBeforeUpdate'),
+            'options'            => $this->_request->getParam('vcsOptions'),
         );
         $this->_config->setParam('vcs', $vcsConfig);
 
         $projectConfig                 = $this->_config->getParam('project');
-        $projectConfig['vcsActivated'] = (int) $this->_request->getParam('vcsActivated', 0);
+        $projectConfig['vcsActivated'] = (int)$this->_request->getParam('vcsActivated', 0);
         $this->_config->setParam('project', $projectConfig);
         $this->view->saved = $this->_config->save();
     }

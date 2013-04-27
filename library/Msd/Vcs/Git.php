@@ -128,7 +128,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function status()
     {
-        $rawSvnStatus = $this->_executeCommand('status');
+        $rawSvnStatus = $this->_executeCommand('status', array(), array('porcelain' => false));
         if (isset($rawSvnStatus['stderr']) && $rawSvnStatus['stderr'] > '') {
             // we got an error - return it to let the view show it
             return $rawSvnStatus;
@@ -156,11 +156,15 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function commit($filenames, $comment = null)
     {
         $filenames = (array) $filenames;
-        $params = array('a' => '');
-        if ($comment !== null) {
-            $params['m'] = $comment;
+        $this->_executeCommand('add', $filenames);
+        if ($comment === null) {
+            $comment = 'oTranCe: Language pack updated.';
         }
-        return $this->_executeCommand('commit', $filenames, $params);
+        $params['m'] = $comment;
+        $commitResult = $this->_executeCommand('commit', array(), $params);
+        $pushResult = $this->_executeCommand('push');
+
+        return array_merge($commitResult, $pushResult);
     }
 
     /**
@@ -170,11 +174,11 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function update()
     {
-        return $this->_executeCommand('update');
+        return $this->_executeCommand('pull');
     }
 
     /**
-     * Undo file changes.
+     * Drop file changes.
      *
      * @param array $filenames File- and pathnames for undo action.
      *
@@ -183,7 +187,14 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function revert($filenames)
     {
         $filenames = (array) $filenames;
-        return $this->_executeCommand('revert', $filenames);
+        $this->_executeCommand(
+            'reset',
+            array_merge(array('HEAD'), $filenames)
+        );
+        return $this->_executeCommand(
+            'checkout',
+            array_merge(array('--'), $filenames)
+        );
     }
 
     /**
@@ -207,6 +218,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
         foreach ($fileNames as $file) {
             $gitCommand .= ' ' . escapeshellarg($file);
         }
+
         $this->_process->setCommand($gitCommand);
         $this->_process->setWorkDir($this->_checkoutPath);
         $this->_process->execute();
@@ -245,7 +257,10 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             if (strlen($paramName) > 1) {
                 $cmdParams .= '-';
             }
-            $cmdParams .= $paramName . ' ' . escapeshellarg($paramValue);
+            $cmdParams .= $paramName;
+            if ($paramValue !== false) {
+                $cmdParams .= ' ' . escapeshellarg($paramValue);
+            }
         }
         return $cmdParams;
     }
@@ -278,8 +293,6 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     {
         return array(
             'checkoutPath' => 'Git Checkout path',
-            'username'     => 'Git Username',
-            'password'     => 'Git Password',
             'execParams'   => 'Git execution parameters',
         );
     }

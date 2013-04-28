@@ -204,8 +204,9 @@ class Application_Model_FileTree
         $files       = $exportModel->getFileTemplateList();
         foreach ($files as $index => $file) {
             // normalize Win, Linux Directory-Separator
-            $file[$index] =  DIRECTORY_SEPARATOR . str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $file);
+            $files[$index] =  DIRECTORY_SEPARATOR . str_replace(array('\\', '/'), DIRECTORY_SEPARATOR, $file);
         }
+
         $this->_fileList = $files;
     }
 

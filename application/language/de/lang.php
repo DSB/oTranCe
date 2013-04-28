@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (378), enkay (14), janrei (33), kyoya (19), Marco.Steinhäuser (75)
+// DSB (378), enkay (14), janrei (33), KatjaFlinzner (3), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -48,7 +48,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_COMMIT_MESSAGE' => 'Commit-Nachricht',
 'L_COMPLETE_VIEW' => 'Vollständige Ansicht',
 'L_CONFIGURATION' => 'Konfiguration',
-'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Sind Sie sicher, dass Sie diese Dateivorlage löschen wollen',
+'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Sind Sie sicher, dass Sie diese Dateivorlage löschen wollen?',
 'L_CONFIRM_DELETE_KEY_X' => 'Sind Sie sicher, dass Sie den Schlüssel \'{KEY}\' löschen wollen?',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Wollen Sie diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Beabreitungsrechte von Benutzern für diese Sprache.',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => 'Ja, Sprache löschen',
@@ -110,7 +110,7 @@ Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_ERROR_AJAX' => 'Upps - es gab ein Problem mit dem Ajax-Request!<br />
 Bitte wiederholen Sie die Aktion.',
 'L_ERROR_CONVERTING' => 'Die Daten konnten nicht als %s interpretiert werden!',
-'L_ERROR_CREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuche es bitte noch einmal. Wenn der Fehler weiterhin besteht, wende Dich bitte an den Administrator.',
+'L_ERROR_CREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuchen Sie es bitte noch einmal. Wenn der Fehler weiterhin besteht, wenden Sie sich bitte an den Administrator.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
 'L_ERROR_DELETING_FLAG' => 'Die Flagge konnte nicht gelöscht werden',
 'L_ERROR_DELETING_KEY' => 'Beim Löschen des Schlüssels ist ein Fehler aufgetreten',
@@ -120,7 +120,7 @@ Bitte wiederholen Sie die Aktion.',
 'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'Es konnte kein Sprachpaket gespeichert werden.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Während der Optimierung der Datenbanktabellen ist ein Fehler aufgetreten.',
 'L_ERROR_PERMISSION' => 'Berechtigungsfehler',
-'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden da Ihnen das erforderliche Recht dazu fehlt. Kontaktieren Sie den Administrator wenn Sie der Meinung sind, dass Ihnen das Recht eingeräumt werden soll.<br />
+'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden, da Ihnen das erforderliche Recht dazu fehlt. Kontaktieren Sie den Administrator, wenn Sie der Meinung sind, dass Ihnen das Recht eingeräumt werden soll.<br />
 Die hinterlegte Kontaktadresse für dieses Projekt lautet: %s',
 'L_ERROR_SAVING_CHANGE' => 'Leider ist beim Speichern der Änderung ein Fehler aufgetreten',
 'L_ERROR_SAVING_KEY' => 'Leider ist beim Speichern des Schlüssels ein Fehler aufgetreten.',
@@ -253,7 +253,7 @@ Sie erhalten eine E-Mail sobald ein Administrator den Zugang aktiviert.',
 'L_PREVIEW' => 'Vorschau',
 'L_PREVIOUS_PAGE' => 'Vorherige Seite',
 'L_PROGRESS' => 'Fortschritt',
-'L_PROGRESS_OF_LANGUAGES' => 'Fortschritt der Sprachen',
+'L_PROGRESS_OF_LANGUAGES' => 'Fortschritt der Übersetzungen',
 'L_PROJECT' => 'Projekt',
 'L_PROJECT_LOGO' => 'Projektlogo',
 'L_PROJECT_LOGO_EXPLAIN' => 'relativ zum Projektverzeichnis',
@@ -370,7 +370,9 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_VALUE_IN_APPLICATION' => 'Wert in der Applikation',
 'L_VCS' => 'Versionierungssystem (VCS)',
 'L_VCS_ADAPTER_OPTIONS' => 'Einstellungen VCS-Adapter',
+'L_VCS_COPY_TO_CHECKOUT_PATH' => 'Exportierte Dateien in den Checkout-Ordner kopieren?',
 'L_VCS_CREDENTIALS' => 'VCS-Zugangsdaten',
+'L_VCS_REVERT_BEFORE_UPDATE' => 'Vor dem Update alle Änderungen verwerfen.',
 'L_VCS_SETTINGS' => 'Einstellungen Versionierungssystem',
 'L_VERSION' => 'Version:',
 'L_VIEW_EXPORTED_FILES' => 'Exportierte Dateien anzeigen',

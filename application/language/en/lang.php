@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (416), enkay (14), janrei (19), kyoya (19), Marco.Steinhäuser (15), nukeviet (5)
+// DSB (416), enkay (14), janrei (19), KatjaFlinzner (4), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -37,7 +37,7 @@ $lang = array(
 'L_CHANGE_PASSWORD' => 'Change password',
 'L_CHANGE_RIGHT' => 'Change right',
 'L_CHANGE_STATUS' => 'Change status',
-'L_CHANGE_YOUR_PASSWORD' => 'Change the password of your user-account:',
+'L_CHANGE_YOUR_PASSWORD' => 'Change the password of your user account:',
 'L_CHECK_CHARS' => 'Check character set!',
 'L_CHECK_CHARS_EXPLAIN' => 'If you discover "weird" looking characters you can try to convert them.<br />
 Select a character set in the select box and hit the button "Convert data from". You can try different character sets until the text is ok. Each conversion is taken from the originally uploaded file.<br />
@@ -48,12 +48,12 @@ If everything looks good, start to analyze the data.',
 'L_COMMIT_MESSAGE' => 'Commit message',
 'L_COMPLETE_VIEW' => 'Complete view',
 'L_CONFIGURATION' => 'Configuration',
-'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Are you sure, that you want to delete the file template',
+'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Are you sure that you want to delete the file template?',
 'L_CONFIRM_DELETE_KEY_X' => 'Are you sure you want to delete the key \'{KEY}\'?',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Are you really sure you want to delete this language?<br />This will also remove all translations, all log entries and all edit rights of users for this language.',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => 'Yes, delete language',
 'L_CONFIRM_DELETE_LOG_ENTRY' => 'Are you really sure you want to delete this log entry?',
-'L_CONFIRM_DELETE_TITLE' => 'Really delete?',
+'L_CONFIRM_DELETE_TITLE' => 'Are you sure?',
 'L_CONFIRM_DELETE_USER' => 'Yes, delete user',
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => 'Confirm deletion of VCS credentials',
 'L_CONFIRM_PASSWORD' => 'Confirm password',
@@ -110,7 +110,7 @@ No list of keys has been transmitted yet.',
 'L_ERROR_AJAX' => 'Oops - there was a fatal error with the ajax request!<br />
 Please retry.',
 'L_ERROR_CONVERTING' => 'Data couldn\'t be interpreted as %s!',
-'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occured while creating the user account. Please try again. Contact the administrator if the error persists.',
+'L_ERROR_CREATING_ACCOUNT' => 'Unfortunately a technical error occurred while creating the user account. Please try again. Contact the administrator if the error persists.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Error deleting file template',
 'L_ERROR_DELETING_FLAG' => 'The flag couldn\'t be deleted',
 'L_ERROR_DELETING_KEY' => 'Error deleting the key',
@@ -254,7 +254,7 @@ You will recieve an e-mail as soon as an administrator approves your account.',
 'L_PREVIEW' => 'Preview',
 'L_PREVIOUS_PAGE' => 'Previous page',
 'L_PROGRESS' => 'Progress',
-'L_PROGRESS_OF_LANGUAGES' => 'Progress of languages',
+'L_PROGRESS_OF_LANGUAGES' => 'Progress of translations',
 'L_PROJECT' => 'Project',
 'L_PROJECT_LOGO' => 'Logo of project',
 'L_PROJECT_LOGO_EXPLAIN' => 'relative to project folder',
@@ -372,7 +372,9 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_VALUE_IN_APPLICATION' => 'Value in application',
 'L_VCS' => 'Version control system (VCS)',
 'L_VCS_ADAPTER_OPTIONS' => 'VCS adapter options',
+'L_VCS_COPY_TO_CHECKOUT_PATH' => 'Copy exported files into the checkout path?',
 'L_VCS_CREDENTIALS' => 'VCS Credentials',
+'L_VCS_REVERT_BEFORE_UPDATE' => 'Drop all changes before running update.',
 'L_VCS_SETTINGS' => 'Version control system settings',
 'L_VERSION' => 'Version:',
 'L_VIEW_EXPORTED_FILES' => 'Browse exported files',

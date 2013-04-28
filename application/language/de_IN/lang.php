@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (29), enkay (14), janrei (1), Marco.Steinhäuser (431)
+// DSB (29), enkay (14), janrei (1), KatjaFlinzner (4), Marco.Steinhäuser (432)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -27,7 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => 'Administratorrechte',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => 'Wähle einen Bereich zum Editieren, indem Du auf einen Tab in der Kopfnavigation klickst.',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => 'Alle Log-Einträge, Einstellungen und Rechte wurden ebenfalls entfernt.',
-'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => 'Bist Du sicher, dass Du Deinen persönlichen VCS-Zugangsdaten löschen möchtest?',
+'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => 'Bist Du sicher, dass Du Deine persönlichen VCS-Zugangsdaten löschen möchtest?',
 'L_AUTHENTICATE' => 'Anmelde-Informationen',
 'L_BACK' => 'Zurück',
 'L_BACK_TO_OVERVIEW' => 'Zurück zur Übersicht',
@@ -48,7 +48,7 @@ Wenn die Anzeige stimmig ist, kannst Du den Import mit dem Button "Starte Analys
 'L_COMMIT_MESSAGE' => 'Commit-Nachricht',
 'L_COMPLETE_VIEW' => 'Vollständige Ansicht',
 'L_CONFIGURATION' => 'Konfiguration',
-'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Bist Du sicher, dass Du diese Dateivorlage löschen willst',
+'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Bist Du sicher, dass Du diese Dateivorlage löschen willst?',
 'L_CONFIRM_DELETE_KEY_X' => 'Bist sicher, dass Du den Schlüssel \'{KEY}\' löschen willst?',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Willst Du diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Beabreitungsrechte von Benutzern für diese Sprache.',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => 'Ja, Sprache löschen',
@@ -110,7 +110,7 @@ Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_ERROR_AJAX' => 'Upps - es gab ein Problem mit dem Ajax-Request!<br /> 
 Bitte wiederhole die Aktion.',
 'L_ERROR_CONVERTING' => 'Die Daten konnten nicht als %s interpretiert werden!',
-'L_ERROR_CREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuchen Sie bitte noch einmal. Wenn der Fehler weiterhin besteht, wenden Sie sich bitte an den Administrator.',
+'L_ERROR_CREATING_ACCOUNT' => 'Leider ist beim Anlegen des Benutzeraccounts ein technischer Fehler aufgetreten. Versuche es bitte noch einmal. Wenn der Fehler weiterhin besteht, wende Dich bitte an den Administrator.',
 'L_ERROR_DELETING_FILE_TEMPLATE' => 'Fehler beim Löschen der Dateivorlage',
 'L_ERROR_DELETING_FLAG' => 'Die Flagge konnte nicht gelöscht werden',
 'L_ERROR_DELETING_KEY' => 'Beim Löschen des Schlüssels ist ein Fehler aufgetreten',
@@ -120,7 +120,7 @@ Bitte wiederhole die Aktion.',
 'L_ERROR_NO_LANGUAGE_PACK_CREATED' => 'Es konnte kein Sprachpaket gespeichert werden.',
 'L_ERROR_OPTIMIZING_TABLES' => 'Während der Optimierung der Datenbanktabellen ist ein Fehler aufgetreten.',
 'L_ERROR_PERMISSION' => 'Berechtigungsfehler',
-'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden da Dir das erforderliche Recht dazu fehlt. Kontaktiere den Administrator wenn Du der Meinung bist, dass Dir das Recht eingeräumt werden soll.<br />
+'L_ERROR_PERMISSION_EXPLAIN' => 'Die Aktion konnte nicht ausgeführt werden, da Dir das erforderliche Recht dazu fehlt. Kontaktiere den Administrator, wenn Du der Meinung bist, dass Dir das Recht eingeräumt werden soll.<br />
 Die hinterlegte Kontaktadresse für dieses Projekt lautet: %s',
 'L_ERROR_SAVING_CHANGE' => 'Leider ist beim Speichern der Änderung ein Fehler aufgetreten',
 'L_ERROR_SAVING_KEY' => 'Leider ist beim Speichern des Schlüssels ein Fehler aufgetreten.',
@@ -253,7 +253,7 @@ Du erhältst eine E-Mail sobald ein Administrator den Zugang aktiviert.',
 'L_PREVIEW' => 'Vorschau',
 'L_PREVIOUS_PAGE' => 'Vorherige Seite',
 'L_PROGRESS' => 'Fortschritt',
-'L_PROGRESS_OF_LANGUAGES' => 'Fortschritt der Sprachen',
+'L_PROGRESS_OF_LANGUAGES' => 'Fortschritt der Übersetzungen',
 'L_PROJECT' => 'Projekt',
 'L_PROJECT_LOGO' => 'Projektlogo',
 'L_PROJECT_LOGO_EXPLAIN' => 'relativ zum Projektverzeichnis',
@@ -370,7 +370,9 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_VALUE_IN_APPLICATION' => 'Wert in der Applikation',
 'L_VCS' => 'Versionierungssystem (VCS)',
 'L_VCS_ADAPTER_OPTIONS' => 'Einstellungen VCS-Adapter',
+'L_VCS_COPY_TO_CHECKOUT_PATH' => 'Copy exported files into the checkout path?',
 'L_VCS_CREDENTIALS' => 'VCS-Zugangsdaten',
+'L_VCS_REVERT_BEFORE_UPDATE' => 'Drop all changes before running update.',
 'L_VCS_SETTINGS' => 'Einstellungen Versionierungssystem',
 'L_VERSION' => 'Version:',
 'L_VIEW_EXPORTED_FILES' => 'Exportierte Dateien anzeigen',

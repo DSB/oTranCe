@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (378), enkay (14), janrei (33), KatjaFlinzner (3), kyoya (21), Marco.Steinhäuser (76)
+// DSB (378), enkay (14), janrei (33), KatjaFlinzner (7), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -170,11 +170,11 @@ Die hinterlegte Kontaktadresse für dieses Projekt lautet: %s',
 'L_FOOTER_TEAM' => 'Das Entwickler-Team',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE' => 'Hauptsprache immer als Referenzsprache anzeigen',
 'L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN' => 'Wenn diese Option aktiviert ist, wird jedem Übersetzer - unabhängig von seiner persönlichen Konfiguration - die Hauptsprache als Referenzsprache angezeigt.',
-'L_FORGOT_PASSWORD_EXPIRED_LINK' => 'Dein Link ist abgelaufen.',
+'L_FORGOT_PASSWORD_EXPIRED_LINK' => 'Ihr Link ist abgelaufen.',
 'L_FORGOT_PASSWORD_RESET_PASSWORD' => 'Passwort zurücksetzen',
-'L_FORGOT_PASSWORD_RESET_PASSWORD_MAIL_TEXT' => 'wir haben gehört, dass Du Dein oTrance Passwort vergessen hast.',
+'L_FORGOT_PASSWORD_RESET_PASSWORD_MAIL_TEXT' => 'wir haben gehört, dass Sie Ihr oTrance Passwort vergessen haben.',
 'L_FORGOT_PASSWORD_RESET_PASSWORD_MAIL_TEXT_2' => 'Verwende in den nächsten 24 Stunden folgenden Link, um Dein Passwort zurückzusetzen:',
-'L_FORGOT_PASSWORD_SEND_MAIL' => 'Du bekommst eine Email mit der Du dein Passwort verändern kannst.',
+'L_FORGOT_PASSWORD_SEND_MAIL' => 'Sie bekommen eine E-Mail, mit der Sie Ihr Passwort verändern können.',
 'L_FORGOT_PASSWORD_TITLE' => 'Passwort vergessen?',
 'L_FORGOT_PASSWORD_UNKNOWN_USER' => 'Benutzer existiert nicht.',
 'L_FORGOT_PASSWORD_USERNAME_NOT_EXISTS' => 'Der Benutzer mit dem Namen "%s" existiert nicht.',
@@ -216,8 +216,8 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_LOCALE_EXISTS' => 'Es existiert bereits eine Sprache mit dieser Locale.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Anmelden',
-'L_LOGIN_ACCOUNT_NOT_ACTIVE' => 'Ihre Anmeldung ist korrekt aber ihr Zugang ist (noch) nicht freigeschaltet. <br />
-Sie erhalten eine E-Mail sobald ein Administrator den Zugang aktiviert.',
+'L_LOGIN_ACCOUNT_NOT_ACTIVE' => 'Ihre Anmeldung ist korrekt, aber Ihr Zugang ist (noch) nicht freigeschaltet. <br />
+Sie erhalten eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',
 'L_LOGIN_INVALID_USER' => 'Unbekannte Kombination von Benutzername und Kennwort',
 'L_LOG_OUT' => 'Ausloggen',

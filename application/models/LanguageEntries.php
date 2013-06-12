@@ -294,10 +294,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if ($languageId > 0) {
             // we are looking for a specific language
             // Add the language condition to the JOIN, not to the WHERE clause.
-            $sql .= ' AND t.`lang_id`=' . $languageId.' WHERE (t.`text`=\'\' OR t.`text` IS NULL)';
+            $sql .= ' AND t.`lang_id`=' . $languageId.' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
         } else {
             // find all untranslated keys
-            $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)';
+            $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
         }
 
         if (!empty($where)) {
@@ -399,6 +399,29 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
+     * Get the needs update status for all languages for the given key
+     *
+     * Return array(lang_id => boolean)
+     *
+     * @param int       $id          Id of key
+     *
+     * @return array
+     */
+    public function getNeedsUpdateStatusByKeyId($id) {
+        $sql = "SELECT `lang_id`, `needs_update` "
+               . "FROM `{$this->_database}`.`{$this->_tableTranslations}` "
+               . "WHERE `key_id`='$id'";
+        $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
+        $return = array();
+        foreach ($result as $row) {
+            $return[$row['lang_id']] = $row['needs_update'] == '1';
+        }
+
+        return $return;
+    }
+
+    /**
      * Get translations of given keys for given languages
      *
      * Return array(lang_id => array (locale => text)
@@ -480,7 +503,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $result[$keyId] = $entry;
         }
 
-        $sql = 'SELECT `key_id`, `lang_id`, `text` FROM `' . $this->_tableTranslations . '` WHERE '
+        $sql = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` FROM `' . $this->_tableTranslations . '` WHERE '
             . '`key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN (' . implode(',', $languageIds) . ')';
         $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
@@ -491,6 +514,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
                 $result[$keyId]['languages'] = array();
             }
             $result[$keyId]['languages'][$langId] = $translation['text'];
+            $result[$keyId]['needsUpdate'][$langId] = $translation['needs_update'] == 1;
         }
 
         return $result;
@@ -589,7 +613,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * @return bool|string
      */
-    public function saveEntries($keyId, $newValues)
+    public function saveEntries($keyId, $newValues, $fallbackLanguageId = null, $ignoreSmallChange = false)
     {
         $keyId = (int) $keyId;
         $oldValues = $this->getTranslationsByKeyId($keyId, array_keys($newValues), true);
@@ -610,19 +634,30 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         }
 
         // save changes to database
+        $changedLanguageIds = array();
         foreach ($newValues as $langId => $text) {
             $langId = (int) $langId;
+            $changedLanguageIds[] = $langId;
             $text = $this->_dbo->escape($text);
             $date = date('Y-m-d H:i:s', time());
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
                     . ' (`lang_id`, `key_id`, `text`, `dt`) VALUES ('
                     . $langId . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
-                   . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\'';
+                   . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\''
+                   . ', `needs_update`=\'0\'';
+
             try {
                 $this->_dbo->query($sql, Msd_Db::SIMPLE);
             } catch (Msd_Exception $e) {
                 return $e->getMessage();
             }
+        }
+
+        if (!$ignoreSmallChange && $fallbackLanguageId != null && array_key_exists($fallbackLanguageId, $newValues)) {
+            $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
+                    . "SET needs_update=1 "
+                    . "WHERE `key_id`='{$keyId}' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ")";
+            $this->_dbo->query($sql);
         }
 
         $historyModel = new Application_Model_History();
@@ -743,4 +778,20 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         return $this->_validateMessages;
     }
+
+    /**
+     * Removes the needs update flag for the given key and language
+     *
+     * @param int   $languageId     ID of the language.
+     * @param int   $keyId          ID of the key.
+     *
+     * @return bool
+     */
+    public function removeNeedsUpdateFlag($languageId, $keyId) {
+        $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
+                . "SET `needs_update`='0' "
+                . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
+        return (bool) $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
 }

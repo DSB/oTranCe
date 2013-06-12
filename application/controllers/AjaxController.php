@@ -338,7 +338,7 @@ class AjaxController extends OtranceController
         $keyId       = !empty($params[1]) ? $params[1] : 0;
         $languageId  = !empty($params[2]) ? $params[2] : 0;
         $translation = (string)$this->_request->getParam('new_value');
-        $ret         = array('is_error' => false);
+        $ret         = array('is_error' => false, 'add_needs_update_flags' => false);
         $errors      = array();
 
         //check rights
@@ -348,10 +348,13 @@ class AjaxController extends OtranceController
         ) {
             $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
         } else {
-            $data  = array($languageId => $translation);
-            $saved = $this->_entriesModel->saveEntries($keyId, $data);
+            $data     = array($languageId => $translation);
+            $fallback = $this->_languagesModel->getFallbackLanguageId();
+            $saved    = $this->_entriesModel->saveEntries($keyId, $data, $fallback);
             if ($saved !== true) {
                 $errors[] = $this->view->lang->L_ERROR_SAVING_CHANGE;
+            } elseif ($fallback == $languageId) {
+                $ret['add_needs_update_flags'] = true;
             }
         }
 

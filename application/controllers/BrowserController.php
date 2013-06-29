@@ -51,6 +51,7 @@ class BrowserController extends OtranceController
         if ($filename !== null) {
             $filename = ltrim(str_replace(EXPORT_PATH, '', $filename), '/');
             $this->view->filename = $filename;
+            //TODO Create language var for default outputq
             $this->view->fileContent = "File doesn't exists, please run export first.";
             if (file_exists(EXPORT_PATH . '/' . $filename)) {
                 $content = file(EXPORT_PATH . '/' . $filename);

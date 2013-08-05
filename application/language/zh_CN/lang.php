@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (948), DSB (3)
+// binota (954), DSB (3), oluul (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -58,11 +58,11 @@ $lang = array(
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => '确实删除VCS凭证',
 'L_CONFIRM_PASSWORD' => '确认密码',
 'L_CONFIRM_PASSWORD_EXPLAIN' => '请输入新密码以进行修改，留空则使用原密码。',
-'L_CONNECTOR' => '连接人',
-'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
-'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
-The external application needs a configured plug in to connect with this oTranCe installation.<br />
-No list of keys has been transmitted yet.',
+'L_CONNECTOR' => '连接器',
+'L_CONNECTOR_NO_HITS' => '没有已传输的键值。',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => '连接器自外部应用程序获取了一个键值列表供他们在这里翻译。<br />
+外部应用程序需要与oTranCe 安装程序配置一个插件以进行连接。<br />
+没有已传输的键值列表。',
 'L_CONTACT_EMAIL' => '常用电邮',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => '该内容与主要语言相同故未将其导入！',
 'L_CONVERT' => '转换',
@@ -209,7 +209,7 @@ No list of keys has been transmitted yet.',
 'L_LANGUAGE' => '语言',
 'L_LANGUAGES' => '语言',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => '已成功删除该语言。<br />所有日志条目、设置以及拥有编辑权限的用户之编辑权限也一并移除了。',
-'L_LANGUAGE_NAME' => '简体中文',
+'L_LANGUAGE_NAME' => '简体中文（中国）',
 'L_LANGUAGE_OTHER' => '没有您的语言？请告诉我们您的语言。',
 'L_LANGUAGE_SETTINGS' => '语言设置',
 'L_LATEST_ACTIVITY' => '最近活动',

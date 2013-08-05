@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (878), DSB (1)
+// binota (887), DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理員已啟動您用於專案 %2$s 的使用者帳戶 %1$s',
@@ -47,7 +47,7 @@ $lang = array(
 'L_CLICK_TO_LOG_IN' => '點擊此處使用您的註冊資料登入',
 'L_COMMIT_MESSAGE' => '送出訊息',
 'L_COMPLETE_VIEW' => '完整檢視',
-'L_CONFIGURATION' => '組態',
+'L_CONFIGURATION' => '組態設定',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => '確定要刪除檔案範本嗎？',
 'L_CONFIRM_DELETE_KEY_X' => '您確定要刪除鍵值「{KEY}」嗎？',
 'L_CONFIRM_DELETE_LANGUAGE' => '您確定要刪除該語系嗎？<br />這將一併移除所有翻譯、條目與所有擁有編輯此語系權限的使用者之編輯權限。',
@@ -58,11 +58,11 @@ $lang = array(
 'L_CONFIRM_DELETE_VCS_CREDENTIALS' => '確定刪除VCS憑證',
 'L_CONFIRM_PASSWORD' => '確認密碼',
 'L_CONFIRM_PASSWORD_EXPLAIN' => '請輸入新密碼以進行修改，留空則使用原密碼。',
-'L_CONNECTOR' => '連線者',
-'L_CONNECTOR_NO_HITS' => 'No keys to translate have been transmitted.',
-'L_CONNECTOR_NO_HITS_EXPLAIN' => 'The connector grabs a list of keys from an external application and offers them here for translation.<br />
-The external application needs a configured plug in to connect with this oTranCe installation.<br />
-No list of keys has been transmitted yet.',
+'L_CONNECTOR' => '連線工具',
+'L_CONNECTOR_NO_HITS' => '無已傳輸的鍵值。',
+'L_CONNECTOR_NO_HITS_EXPLAIN' => '連線工具自外部應用程式取得了一個鍵值清單供其在此翻譯<br />
+外部應用程式需要與oTranCe 安裝程式組態設定一個擴充套件以進行連線。<br />
+無已傳輸的鍵值清單。',
 'L_CONTACT_EMAIL' => '常用電子信箱',
 'L_CONTENT_IS_THE_SAME_AS_IN_FALLBACK_LANGUAGE' => '該內容與主要語系相同故未將其匯入！',
 'L_CONVERT' => '轉換',
@@ -209,7 +209,7 @@ No list of keys has been transmitted yet.',
 'L_LANGUAGE' => '語系',
 'L_LANGUAGES' => '語系',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => '已成功刪除該語系。<br />所有日誌條目、設定以及擁有編輯權限的使用者之編輯權限也一併移除了。',
-'L_LANGUAGE_NAME' => '正體中文',
+'L_LANGUAGE_NAME' => '正體中文（臺灣）',
 'L_LANGUAGE_OTHER' => '沒有您的語系？請告訴我們您的語系。',
 'L_LANGUAGE_SETTINGS' => '語系設定',
 'L_LATEST_ACTIVITY' => '最近活動',
@@ -239,8 +239,8 @@ No list of keys has been transmitted yet.',
 'L_NO_IMPORTER_AVAILABLE' => '沒有可用的匯出器',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => '沒有啟動任何能供使用者匯入的方式。這是造成目前沒辦法進行匯入的原因。請聯絡專案管理員以提供匯入方式。',
 'L_NO_TEMPLATE' => '無檔案範本',
-'L_NO_TEMPLATE_CONFIGURED' => '尚未組態檔案範本。',
-'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => '每個鍵值都必須被分配到一個檔案範本。但檔案模板尚未組態。請聯絡管理員組態至少一個檔案模板。',
+'L_NO_TEMPLATE_CONFIGURED' => '尚未對檔案範本進行組態設定。',
+'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => '每個鍵值都必須被分配到一個檔案範本。但檔案模板尚未進行組態設定。請聯絡管理員對至少一個檔案模板進行組態設定。',
 'L_OK' => '好',
 'L_OLD_PASSWORD' => '舊密碼',
 'L_OLD_VALUE' => '舊的值',
@@ -296,7 +296,7 @@ No list of keys has been transmitted yet.',
 'L_RIGHT_EXPLAIN_ADMTABPROJECT' => '使用者可見到並使用管理標籤中的「專案」標籤',
 'L_RIGHT_EXPLAIN_DELETELANGUAGE' => '已允許使用者刪除語系',
 'L_RIGHT_EXPLAIN_DELETEUSERS' => '已允許使用者刪除使用者',
-'L_RIGHT_EXPLAIN_EDITCONFIG' => '使用者可見到並使用選單中的「組態」項目',
+'L_RIGHT_EXPLAIN_EDITCONFIG' => '使用者可見到並使用選單中的「組態設定」項目',
 'L_RIGHT_EXPLAIN_EDITIMPORTER' => '已允許使用者定義匯入方式',
 'L_RIGHT_EXPLAIN_EDITKEY' => '已允許使用者編輯語系鍵值',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '使用者可見到並使用管理標籤中的「語系」標籤',

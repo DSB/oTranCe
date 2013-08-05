@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (413), DSB (2), KatjaFlinzner (24), PatrickSanchez (2)
+// caos30 (413), DSB (2), KatjaFlinzner (26), PatrickSanchez (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
@@ -233,8 +233,8 @@ You will receive an e-mail as soon as an administrator approves your account.',
 'L_NO_HITS' => 'No hay datos disponibles',
 'L_NO_IMPORTER_AVAILABLE' => 'Importador no disponible',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'No import method has been activated to be used by the users yet. That\'s why the import can\'t currently be used. An administrator can provide several importers. Please contact one of the project administrators.',
-'L_NO_TEMPLATE' => 'No file template',
-'L_NO_TEMPLATE_CONFIGURED' => 'There is no configured file template.',
+'L_NO_TEMPLATE' => 'No hay ninguna plantilla de archivo',
+'L_NO_TEMPLATE_CONFIGURED' => 'No hay ninguna plantilla de archivo configurada.',
 'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Each key must be assigned to a file template. Currently there is no file template configured. Please ask an administrator to configure at least one file template.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Contraseña antigua',

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (378), enkay (14), janrei (33), KatjaFlinzner (7), kyoya (21), Marco.Steinhäuser (76)
+// DSB (378), enkay (14), janrei (33), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -185,7 +185,7 @@ Die hinterlegte Kontaktadresse für dieses Projekt lautet: %s',
 'L_GET_PREVIOUS_UNTRANSLATED_KEY' => 'Finde vorherigen unübersetzten Schlüssel',
 'L_GOTO_FORGOT_PASSWORD_PAGE' => 'Sie haben Ihr Passwort <a href="%s">vergessen</a>?',
 'L_GOTO_REGISTER_PAGE' => 'Sie haben noch kein Benutzerkonto? <a href="%s">Registrieren</a> Sie sich hier.',
-'L_HEADER' => 'Kopf',
+'L_HEADER' => 'Header',
 'L_HEADER_EXPORT' => 'Export',
 'L_HITS' => 'Treffer',
 'L_HOME' => 'Start',
@@ -216,7 +216,7 @@ Der Importer hat alle Einträge verarbeitet.',
 'L_LOCALE_EXISTS' => 'Es existiert bereits eine Sprache mit dieser Locale.',
 'L_LOG' => 'Log',
 'L_LOGIN' => 'Anmelden',
-'L_LOGIN_ACCOUNT_NOT_ACTIVE' => 'Ihre Anmeldung ist korrekt, aber Ihr Zugang ist (noch) nicht freigeschaltet. <br />
+'L_LOGIN_ACCOUNT_NOT_ACTIVE' => 'Ihre Zugangsdaten sind korrekt, aber Ihr Zugang ist (noch) nicht freigeschaltet. <br />
 Sie erhalten eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_LOGIN_AUTOLOGIN' => 'Automatisch anmelden',
 'L_LOGIN_INVALID_USER' => 'Unbekannte Kombination von Benutzername und Kennwort',
@@ -238,7 +238,7 @@ Sie erhalten eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_NO_IMPORTER_AVAILABLE' => 'Kein Importer verfügbar',
 'L_NO_IMPORTER_AVAILABLE_EXPLAIN' => 'Es wurde bisher keine Importmethode für die Nutzung zur Verfügung gestellt, weshalb nichts importiert werden kann. Ein berechtigter Administrator kann verschiedene Importer für die Nutzung durch berechtigte Anwender freischalten. Bitte wenden Sie sich an einen der Projekt-Administratoren.',
 'L_NO_TEMPLATE' => 'Keine Dateivorlage',
-'L_NO_TEMPLATE_CONFIGURED' => 'Es ist keine Dateivorage definiert.',
+'L_NO_TEMPLATE_CONFIGURED' => 'Es ist keine Dateivorlage definiert.',
 'L_NO_TEMPLATE_CONFIGURED_EXPLAIN' => 'Jeder Schlüssel muss einer Dateivorlage zugeordnet werden. Momentan existiert jedoch keine Dateivorlage, so dass keine Zuordnung möglich ist. Wenden Sei sich an den Administrator damit dieser mindestens eine Dateivorlage anlegt.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Altes Kennwort',

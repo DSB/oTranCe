@@ -152,7 +152,9 @@ $('#myForm').on('submit', function() {
         $('#' + this).attr('disabled', false);
     });
 });
+
 <?php
+echo $this->partial('helper/js-remove-needs-update.phtml');
 $this->jQuery()->onLoadCaptureEnd();
 $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
 ?>

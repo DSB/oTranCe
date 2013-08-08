@@ -423,5 +423,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist ungültig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
+'L_NEEDS_UPDATE_INFO' => 'Die Übersetzung der Hauptsprache wurde geändert. Bitte überprüfen Sie diese Übersetzung.',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Nur eine kleine Änderung. Es wird kein Hinweis auf diese Änderung für die anderen Sprachen angezeigt.'
 );
 return $lang;

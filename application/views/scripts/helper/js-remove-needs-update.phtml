@@ -1,0 +1,31 @@
+$('.removeNeedsUpdateTrigger').on('click', function() {
+    var loaderIconSrc = '<?php echo $this->getIconSrc("ajax-loader"); ?>';
+    var clickedImage = $(this);
+    var currentImage = clickedImage.attr('src');
+
+    if (currentImage == loaderIconSrc) {
+        return;
+    }
+
+    clickedImage.attr('src', loaderIconSrc);
+    var params = clickedImage.attr('for').split("-");
+
+    $.ajax({
+        type: 'POST',
+        url: '<?php echo $this->serverUrl() . $this->baseUrl();?>/entries/remove-needs-update-flag' ,
+        dataType: 'json',
+        async : true,
+        cache: false,
+        data:{
+            'keyId' : params[0],
+            'languageId' : params[1]
+        },
+        success:function(data) {
+            clickedImage.remove();
+        },
+        error:function(error) {
+            clickedImage.attr('src', '<?php echo $this->getIconSrc("Attention", "16"); ?>');
+            showErrorMsg(JSON.parse(error.responseText));
+        }
+    });
+});

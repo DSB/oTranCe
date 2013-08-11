@@ -425,5 +425,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
+'L_NEEDS_UPDATE_INFO' => 'The translation was changed in the main language. Please check the translation in this language.',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Just a small change. There will be no notice about this change for the other languages.'
 );
 return $lang;

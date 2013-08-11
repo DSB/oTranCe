@@ -182,7 +182,8 @@ class EntriesController extends OtranceController
             }
 
             if ($saveEntry === true) {
-                $saved                  = $this->_saveEntries();
+                $ignoreSmallChange      = $this->_request->getParam('only-small-change') != null;
+                $saved                  = $this->_saveEntries($ignoreSmallChange);
                 $this->view->entrySaved = $saved;
 
                 if ($saved && $this->_request->getParam('saveGetUntranslated', null) !== null) {
@@ -195,10 +196,12 @@ class EntriesController extends OtranceController
             }
         }
         $this->setLanguages();
-        $this->view->langStatus = $this->_getLanguagesStatus();
-        $this->view->key        = $this->_entriesModel->getKeyById($keyId);
-        $this->view->entry      = $this->_entriesModel->getTranslationsByKeyId($keyId, $this->_showLanguages);
-        $this->view->user       = $this->_userModel;
+        $this->view->langStatus         = $this->_getLanguagesStatus();
+        $this->view->key                = $this->_entriesModel->getKeyById($keyId);
+        $this->view->entry              = $this->_entriesModel->getTranslationsByKeyId($keyId, $this->_showLanguages);
+        $this->view->needsUpdate        = $this->_entriesModel->getNeedsUpdateStatusByKeyId($keyId);
+        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
+        $this->view->user               = $this->_userModel;
 
         $templatesModel                   = new Application_Model_FileTemplates();
         $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
@@ -473,7 +476,7 @@ class EntriesController extends OtranceController
      *
      * @return bool|string
      */
-    private function _saveEntries()
+    private function _saveEntries($ignoreSmallChange = false)
     {
         $params = $this->getRequest()->getParams();
         $values = array();
@@ -487,7 +490,7 @@ class EntriesController extends OtranceController
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
 
-        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values);
+        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values, $this->_languagesModel->getFallbackLanguageId(), $ignoreSmallChange);
 
         return $res;
     }
@@ -574,6 +577,36 @@ class EntriesController extends OtranceController
         $langEnriesModel = new Application_Model_LanguageEntries();
 
         return $langEnriesModel->getUntranslatedKey($languageId, $offset);
+    }
+
+    /**
+     * Handle remove-needs-update-flag action
+     *
+     * @return void
+     */
+    public function removeNeedsUpdateFlagAction() {
+        $this->_helper->layout()->disableLayout();
+        $this->view->data = null;
+
+        $languageId = (int)$this->_request->getParam('languageId');
+        $keyId = (int)$this->_request->getParam('keyId');
+
+        $languageRights = $this->_userModel->getUserLanguageRights();
+        if (!in_array($languageId, $languageRights)) {
+            $this->getResponse()->setHttpResponseCode(403);
+            $this->view->data = Msd_Language::getInstance()->translate('L_YOU_ARE_NOT_ALLOWED_TO_EDIT_THIS_LANGUAGE');
+            $this->render('json');
+            return;
+        }
+
+        $status = $this->_entriesModel->removeNeedsUpdateFlag($languageId, $keyId);
+
+        if (!$status) {
+            $this->getResponse()->setHttpResponseCode(500);
+            $this->view->data = Msd_Language::getInstance()->translate('L_ERROR_SAVING_CHANGE');
+        }
+
+        $this->render('json');
     }
 
 }

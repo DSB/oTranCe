@@ -23,6 +23,10 @@ if (!empty($this->referenceLanguages)) {
                         <i><?php echo $this->lang->L_UNTRANSLATED;?></i></td></tr><?php
                         continue;
                     }
+
+                    if (array_key_exists($lang, $this->needsUpdate) && $this->needsUpdate[$lang]) {
+                        echo $this->getIcon("Attention", $this->lang->L_NEEDS_UPDATE_INFO, "16");
+                    }
                 ?>
                 <br />
             </td>

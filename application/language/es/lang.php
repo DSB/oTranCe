@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// caos30 (413), DSB (2), KatjaFlinzner (26), PatrickSanchez (2)
+// caos30 (413), DSB (2), KatjaFlinzner (28), PatrickSanchez (2)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Su cuenta de usuario %1$s para el proyecto %2$s ha sido activada por un administrador.',
@@ -43,7 +43,7 @@ $lang = array(
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => 'Pulse aquí para editar la cuenta de usuario',
 'L_CLICK_TO_INLINE_EDIT' => 'Pulse para editar aquí mismo',
 'L_CLICK_TO_LOG_IN' => 'Pulse aquí para acceder con sus credenciales de usuario.',
-'L_COMMIT_MESSAGE' => 'Agregar el mensaje',
+'L_COMMIT_MESSAGE' => 'Mensaje de commit',
 'L_COMPLETE_VIEW' => 'Vista completa',
 'L_CONFIGURATION' => 'Configuración',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => '¿Está seguro de que quiere eliminar la plantilla de archivo?',
@@ -220,6 +220,7 @@ You will receive an e-mail as soon as an administrator approves your account.',
 'L_MENUE_RIGHTS' => 'Permisos de menú',
 'L_NAME' => 'Nombre',
 'L_NAME_OF_LANGUAGE' => 'Nombre del idioma',
+'L_NEEDS_UPDATE_INFO' => 'The translation was changed in the main language. Please check the translation in this language.',
 'L_NEEDS_WORK' => 'Necesita que se trabaje',
 'L_NEW_PASSWORD' => 'Nueva contraseña',
 'L_NEW_VALUE' => 'Nuevo valor',
@@ -239,6 +240,7 @@ You will receive an e-mail as soon as an administrator approves your account.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Contraseña antigua',
 'L_OLD_VALUE' => 'Valor antiguo',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Just a small change. There will be no notice about this change for the other languages.',
 'L_ORDER_LIST_BY' => 'Ordena la lista por',
 'L_OTHER_USERRIGHTS' => 'Otros permisos de usuario',
 'L_PAGE_X_OF_Y' => 'Página %d de %d',
@@ -277,7 +279,7 @@ You will receive an e-mail as soon as an administrator approves your account.',
 'L_REQUEST_EDIT_RIGHT_CONFIRM_MESSAGE' => 'Su solicitud ha sido enviada a un administrador. Recibirá un email tan pronto como se le otorgue el permiso de edición que ha solicitado.',
 'L_REQUEST_PASSWORD' => 'Request password',
 'L_RESET' => 'Reinicializar',
-'L_RESET_PASSWORD_TITLE' => 'Reset your password',
+'L_RESET_PASSWORD_TITLE' => 'Reponer la contraseña',
 'L_RETRY' => 'Reintentar',
 'L_RIGHT_EXPLAIN_ADDLANGUAGE' => 'El usuario tiene permiso para editar y añadir idiomas',
 'L_RIGHT_EXPLAIN_ADDTEMPLATE' => 'El usuario tiene permiso para añadir o eliminar plantillas de archivo',

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (29), enkay (14), janrei (1), KatjaFlinzner (16), Marco.Steinhäuser (432)
+// DSB (31), enkay (14), janrei (1), KatjaFlinzner (18), Marco.Steinhäuser (432)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -224,6 +224,7 @@ Du erhältst eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_MENUE_RIGHTS' => 'Menürechte',
 'L_NAME' => 'Name',
 'L_NAME_OF_LANGUAGE' => 'Name der Sprache',
+'L_NEEDS_UPDATE_INFO' => 'Die Übersetzung der Hauptsprache wurde geändert. Bitte überprüfe diese Übersetzung.',
 'L_NEEDS_WORK' => 'Benötigt Arbeit',
 'L_NEW_PASSWORD' => 'Neues Kennwort',
 'L_NEW_VALUE' => 'Neuer Wert',
@@ -243,6 +244,7 @@ Du erhältst eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Altes Kennwort',
 'L_OLD_VALUE' => 'Alter Wert',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Nur eine kleine Änderung. Es wird kein Hinweis auf diese Änderung für die anderen Sprachen angezeigt.',
 'L_ORDER_LIST_BY' => 'Sortiere Liste nach',
 'L_OTHER_USERRIGHTS' => 'Andere Benutzerrechte',
 'L_PAGE_X_OF_Y' => 'Seite %d von %d',

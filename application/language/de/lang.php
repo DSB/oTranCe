@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (378), enkay (14), janrei (33), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (76)
+// DSB (380), enkay (14), janrei (33), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -224,6 +224,7 @@ Sie erhalten eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_MENUE_RIGHTS' => 'Menürechte',
 'L_NAME' => 'Name',
 'L_NAME_OF_LANGUAGE' => 'Name der Sprache',
+'L_NEEDS_UPDATE_INFO' => 'Die Übersetzung der Hauptsprache wurde geändert. Bitte überprüfen Sie diese Übersetzung.',
 'L_NEEDS_WORK' => 'Benötigt Arbeit',
 'L_NEW_PASSWORD' => 'Neues Kennwort',
 'L_NEW_VALUE' => 'Neuer Wert',
@@ -243,6 +244,7 @@ Sie erhalten eine E-Mail, sobald ein Administrator den Zugang aktiviert.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Altes Kennwort',
 'L_OLD_VALUE' => 'Alter Wert',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Nur eine kleine Änderung. Es wird kein Hinweis auf diese Änderung für die anderen Sprachen angezeigt.',
 'L_ORDER_LIST_BY' => 'Sortiere Liste nach',
 'L_OTHER_USERRIGHTS' => 'Andere Benutzerrechte',
 'L_PAGE_X_OF_Y' => 'Seite %d von %d',
@@ -423,7 +425,5 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist ungültig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
-'L_NEEDS_UPDATE_INFO' => 'Die Übersetzung der Hauptsprache wurde geändert. Bitte überprüfen Sie diese Übersetzung.',
-'L_ONLY_SMALL_CHANGE_INFO' => 'Nur eine kleine Änderung. Es wird kein Hinweis auf diese Änderung für die anderen Sprachen angezeigt.'
 );
 return $lang;

@@ -64,7 +64,7 @@ class AjaxController extends OtranceController
     }
 
     /**
-     * Translate an entry using MyMemory API ( http://mymemory.translated.net/ )
+     * Translate an entry
      *
      * @return void
      */
@@ -623,7 +623,9 @@ class AjaxController extends OtranceController
     }
 
     /**
-     * Translation powered by MyMemory API ( http://mymemory.translated.net/ )
+     * Click-2-Translate
+	 *
+	 * MyMemory API ( http://mymemory.translated.net/ ) & Google Translate API ( http://translate.google.com/ )
      *
      * @param string $text       The text to translate
      * @param string $sourceLang Source locale
@@ -638,9 +640,21 @@ class AjaxController extends OtranceController
         }
         $sourceLang   = $this->_mapLangCode($sourceLang);
         $targetLang   = $this->_mapLangCode($targetLang);
-        $pattern      = 'http://api.mymemory.translated.net/get?q=%s&langpair=%s|%s';
-        $url          = sprintf($pattern, urlencode($text), $sourceLang, $targetLang);
-        $handle       = @fopen($url, "r");
+        $config       = Msd_Registry::getConfig();
+        $googleConfig = $config->getParam('google');
+		
+		if (!empty($googleConfig['apikey']))
+		{
+			$pattern      = 'https://www.googleapis.com/language/translate/v2?key=%s'
+				. '&q=%s&source=%s&target=%s';
+			$url          = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
+        }
+		  else
+		{
+			$pattern      = 'http://api.mymemory.translated.net/get?q=%s&langpair=%s|%s';
+			$url          = sprintf($pattern, urlencode($text), $sourceLang, $targetLang);
+		}
+		$handle       = @fopen($url, "r");
         if ($handle) {
             $contents = fread($handle, 4 * 4096);
             fclose($handle);
@@ -648,7 +662,10 @@ class AjaxController extends OtranceController
             return 'Error: not possible!';
         }
         $response = json_decode($contents);
-        $data     = $response->responseData->translatedText;
+		if (!empty($googleConfig['apikey']))
+			$data     = $response->data->translations[0]->translatedText;
+		else
+			$data     = $response->responseData->translatedText;
         return $data;
     }
 

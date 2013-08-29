@@ -1,7 +1,9 @@
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$translateConfig = $this->config->getParam('google');
-$apiKey = $translateConfig['apikey'];
+/*
+    $translateConfig = $this->config->getParam('google');
+    $apiKey = $translateConfig['apikey'];
+*/
 $entry = $this->entry;
 if (!empty($this->referenceLanguages)) {
 ?>
@@ -47,8 +49,7 @@ if (!empty($this->referenceLanguages)) {
                     </a><?php
                 } ?>
             </td>
-            <?php
-            if ($apiKey > '') { ?>
+            <?php /* if ($apiKey > '') { */ ?>
                 <td colspan="2"><?php echo $this->lang->L_TRANSLATE_TO;?>: &nbsp;<?php
                     foreach ($this->languagesEdit as $langEdit) {
                         if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
@@ -60,9 +61,9 @@ if (!empty($this->referenceLanguages)) {
                             </a><?php
                         }
                     }
-            } else { ?>
+            /* } else { ?>
                 <td colspan="3">&nbsp;<?php
-            } ?>
+            } */ ?>
             </td>
         </tr>
         <tr class="<?php echo $cycleHelper->current();?>" style="line-height:4px;"><td colspan="5"></td></tr><?php

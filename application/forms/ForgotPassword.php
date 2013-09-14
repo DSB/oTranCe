@@ -25,9 +25,7 @@ class Application_Form_ForgotPassword extends Zend_Form
     {
         $translator = Msd_Language::getInstance()->getTranslator();
 
-        $userEmail = $this->createElement('text', 'user_email',
-            array('Label' => 'Bladf')
-        );
+        $userEmail = $this->createElement('text', 'user_email', array('Label' => 'Bladf'));
 
         $this->addElement(
             $userEmail

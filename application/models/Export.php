@@ -90,7 +90,7 @@ class Application_Model_Export
     /**
      * Convert a unix timestamp to date format
      *
-     * @param  int $timestamp
+     * @param int $timestamp The timestamp to convert
      *
      * @return string
      */
@@ -102,7 +102,7 @@ class Application_Model_Export
     /**
      * Export a language from db to file
      *
-     * @param int $languageId
+     * @param int $languageId Id of language
      *
      * @return array
      */
@@ -172,8 +172,8 @@ class Application_Model_Export
     /**
      * Get translations and add them to file content array
      *
-     * @param int                               $languageId
-     * @param Application_Model_LanguageEntries $languageEntriesModel
+     * @param int                               $languageId           Id of language
+     * @param Application_Model_LanguageEntries $languageEntriesModel Instance of languageEntriesModel
      *
      * @return array
      */
@@ -232,9 +232,9 @@ class Application_Model_Export
     public function _getFileMetaData($languageId, $templateId)
     {
         $langFilename = EXPORT_PATH . '/' . $this->_replacePlaceholderInFileName(
-            $this->_fileTemplates[$templateId]['filename'],
-            $this->_langInfo[$languageId]['locale']
-        );
+                $this->_fileTemplates[$templateId]['filename'],
+                $this->_langInfo[$languageId]['locale']
+            );
         $langDir      = dirname($langFilename);
         if (!file_exists($langDir)) {
             mkdir($langDir, 0775, true);
@@ -248,9 +248,9 @@ class Application_Model_Export
         );
         //Add file header
         $data['fileContent'] = $this->_replaceLanguageMetaPlaceholder(
-                                   $this->_fileTemplates[$templateId]['header'],
-                                   $languageId
-                               ) . "\n";
+            $this->_fileTemplates[$templateId]['header'],
+            $languageId
+        ) . "\n";
 
         //extract delimiter
         $pos               = strpos($this->_fileTemplates[$templateId]['content'], '{VALUE}') + 7;
@@ -260,6 +260,8 @@ class Application_Model_Export
     }
 
     /**
+     * Replace meta placeholders in file name
+     *
      * @param string $fileName Name of file containing placeholder
      * @param string $locale   Locale of language
      *

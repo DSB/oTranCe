@@ -10,7 +10,7 @@
  */
 
 /**
- * Converter model
+ * Version model
  *
  * @package         oTranCe
  * @subpackage      Models
@@ -19,6 +19,11 @@ class Application_Model_Version
 {
     const VERSION = '1.1.0';
 
+    /**
+     * Get version number
+     *
+     * @return string
+     */
     public static function getVersion()
     {
         return self::VERSION;

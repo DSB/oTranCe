@@ -191,8 +191,7 @@ class Application_Model_User extends Msd_Application_Model
                           . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
                           . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
             $statistics = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
-        }
-        else {
+        } else {
             $statisticsModel = new Application_Model_Statistics();
             $statistics      = $statisticsModel->getUserstatistics();
         }
@@ -358,8 +357,7 @@ class Application_Model_User extends Msd_Application_Model
             }
 
             return $ret;
-        }
-        else {
+        } else {
             return $default;
         }
     }
@@ -404,8 +402,7 @@ class Application_Model_User extends Msd_Application_Model
         $status     = $this->getReferenceLanguageStatus($userId, $languageId);
         if ($status == true) {
             $this->deleteReferenceLanguageSettings($languageId, $userId = 0);
-        }
-        else {
+        } else {
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
                    . ' (`user_id`, `setting`, `value`) VALUES ('
                    . $userId . ', \'referenceLanguage\', ' . $languageId . ')';
@@ -982,8 +979,7 @@ class Application_Model_User extends Msd_Application_Model
                 $sql .= ', `password`=MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\')';
             }
             $sql .= ' WHERE `id`=' . intval($userData['id']);
-        }
-        else {
+        } else {
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUsers . '`'
                    . ' (`username`, `realName`, `email`, `password`, `active`, `newLanguage`) VALUES ('
                    . '\'' . $this->_dbo->escape($userData['username']) . '\', '
@@ -993,8 +989,7 @@ class Application_Model_User extends Msd_Application_Model
                    . intval($userData['active']) . ',';
             if (isset($userData['newLanguage'])) {
                 $sql .= '\'' . $this->_dbo->escape($userData['newLanguage']) . '\'';
-            }
-            else {
+            } else {
                 $sql .= '\'\'';
             }
             $sql .= ')';
@@ -1120,17 +1115,17 @@ class Application_Model_User extends Msd_Application_Model
     /**
      * Sets new md5 password for user
      *
-     * @param $userid
-     * @param $password
+     * @param int    $userId   Id of user
+     * @param string $password The password to set
      *
      * @return bool
      */
-    public function setPassword($userid, $password)
+    public function setPassword($userId, $password)
     {
         $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '`'
                . ' SET `password` =MD5(\'' . $this->_dbo->escape($password) . '\')';
 
-        $sql .= ' WHERE `id`=' . intval($userid);
+        $sql .= ' WHERE `id`=' . intval($userId);
 
         $res = (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
 
@@ -1142,12 +1137,13 @@ class Application_Model_User extends Msd_Application_Model
      * Checks if username does exist
      *
      * @param string $userName Is the username
+     *
      * @return bool
      */
     public function userNameExists($userName)
     {
         $res = $this->getUserByName($userName);
-        if(!empty($res)){
+        if (!empty($res)) {
             return true;
         }
 

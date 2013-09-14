@@ -22,21 +22,21 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      *
      * @var
      */
-    private $tableForgotPassword;
+    private $_tableForgotPassword;
 
     /**
      * Holds the generatedLinkHash value
      *
      * @var string
      */
-    private $generatedLinkHash;
+    private $_generatedLinkHash;
 
     /**
      * Holds the lifeTime of a link - set in config
      *
      * @var int
      */
-    private $linkLifeTime;
+    private $_linkLifeTime;
 
 
     /**
@@ -46,23 +46,25 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig = $this->_config->getParam('table');
-        $this->tableForgotPassword = $tableConfig['forgotpasswords'];
+        $tableConfig               = $this->_config->getParam('table');
+        $this->_tableForgotPassword = $tableConfig['forgotpasswords'];
 
-        $projectConfig = $this->_config->getParam('project');
-        $this->linkLifeTime = $projectConfig['forgotPasswordLinkLifeTime'];
+        $projectConfig      = $this->_config->getParam('project');
+        $this->_linkLifeTime = $projectConfig['forgotPasswordLinkLifeTime'];
     }
 
     /**
      * Generates hashed id for mail link
      *
-     * @param $user
+     * @param int $user Id of user
+     *
+     * @return void
      */
     public function setLinkHashId($user)
     {
         $tempString = 'userid=' . $user['id'] . '&usermail=' . $user['email'] . '&id=' . $this->getLastInsertedId();
 
-        $this->generatedLinkHash = base64_encode($tempString);
+        $this->_generatedLinkHash = base64_encode($tempString);
 
     }
 
@@ -70,14 +72,14 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      * saves forgot password requests into db
      *
      * @param string $userId
+     *
      * @return bool
      */
     public function saveRequest($userId)
     {
         $timeStamp = date('Y-m-d H:i:s', time());
-
-        $sql = 'INSERT INTO `' . $this->tableForgotPassword . '` (`userid`, `timestamp`)'
-            . ' VALUES(' . $userId . ', \'' . $timeStamp . '\')';
+        $sql       = 'INSERT INTO `' . $this->_tableForgotPassword . '` (`userid`, `timestamp`)'
+                     . ' VALUES(' . $userId . ', \'' . $timeStamp . '\')';
 
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -95,11 +97,11 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     /**
      * Gets generated hash
      *
-     * @return mixed
+     * @return string
      */
     public function getGeneratedHashId()
     {
-        return $this->generatedLinkHash;
+        return $this->_generatedLinkHash;
     }
 
     /**
@@ -108,25 +110,25 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      * 2nd check: does the userid match the requested one?
      *
      * @param int $forgotPasswordId id of forgot password request
-     * @param int $requestedUserId id of forgot password user
+     * @param int $requestedUserId  id of forgot password user
      *
      * @return bool
      */
     public function isValidRequest($forgotPasswordId, $requestedUserId)
     {
-        $sql = 'SELECT `timestamp`, `userid` FROM `'.$this->tableForgotPassword.'` where id = ' . $forgotPasswordId;
+        $sql = 'SELECT `timestamp`, `userid` FROM `' . $this->_tableForgotPassword . '` where id = ' . $forgotPasswordId;
 
         $requestTime = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
-        if(!$requestTime){
+        if (!$requestTime) {
             return false;
         }
 
         $requestTimeInSeconds = strtotime($requestTime[0]['timestamp']);
-        $userId = $requestTime[0]['userid'];
-        $now = time();
+        $userId               = $requestTime[0]['userid'];
+        $now                  = time();
 
-        if( ( ($now - $requestTimeInSeconds ) < $this->linkLifeTime ) && ($userId == $requestedUserId) ){
+        if ((($now - $requestTimeInSeconds) < $this->_linkLifeTime) && ($userId == $requestedUserId)) {
             return true;
         }
 
@@ -134,10 +136,16 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     }
 
 
+    /**
+     * Delete forgot password request from database
+     *
+     * @param int $userId Id of user
+     *
+     * @return void
+     */
     public function deleteRequestByUserId($userId)
     {
-        $sql = 'DELETE FROM `'.$this->tableForgotPassword.'` where userid = ' . $userId;
-
+        $sql = 'DELETE FROM `' . $this->_tableForgotPassword . '` where userid = ' . $userId;
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 }

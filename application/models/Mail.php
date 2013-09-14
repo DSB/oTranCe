@@ -126,14 +126,15 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $this->_view->assign(
             array(
-                'user'      => $userData,
-                'project'   => $this->projectConfig,
-                'languages' => $languagesMetaData,
+                 'user'      => $userData,
+                 'project'   => $this->projectConfig,
+                 'languages' => $languagesMetaData,
             )
         );
 
         $subjectArgs = array($this->projectConfig['name'], $userData['username']);
         $mail        = $this->_getAdminMail($userData, 'admin/register', 'L_REGISTER_MAIL_SUBJECT', $subjectArgs);
+
         return $this->_sendMail($mail);
     }
 
@@ -154,17 +155,31 @@ class Application_Model_Mail extends Msd_Application_Model
 
         $this->_view->assign(
             array(
-                'userData' => $userData,
-                'language' => $languageData,
+                 'userData' => $userData,
+                 'language' => $languageData,
             )
         );
 
         $subjectArgs = array($userData['username'], $languageData['name'], $languageData['locale']);
-        $mail        = $this->_getAdminMail($userData, 'admin/edit-right-requested', 'L_EDIT_RIGHT_REQUESTED', $subjectArgs);
+        $mail        = $this->_getAdminMail(
+            $userData,
+            'admin/edit-right-requested',
+            'L_EDIT_RIGHT_REQUESTED', $subjectArgs
+        );
+
         return $this->_sendMail($mail);
     }
 
-    public function sendForgotPasswordMail($userData, $languageData, $verficationLink)
+    /**
+     * Sends forgot password e-mail
+     *
+     * @param array  $userData        Array with user data
+     * @param array  $languageData    Languages meta data
+     * @param string $verificationLink Generated verification link
+     *
+     * @return bool
+     */
+    public function sendForgotPasswordMail($userData, $languageData, $verificationLink)
     {
         if (!isset($userData['email']) || trim($userData['email']) == '') {
             // no user email set -> can't set email
@@ -172,8 +187,13 @@ class Application_Model_Mail extends Msd_Application_Model
         }
 
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
-        $this->_view->assign(array('userData' => $userData, 'project' => $this->projectConfig, 'verificationlink' => $verficationLink));
+        $this->_view->assign(
+            array('userData'         => $userData,
+                  'project'          => $this->projectConfig,
+                  'verificationlink' => $verificationLink)
+        );
         $mail = $this->_getUserMail($userData, 'user/forgot-password', 'L_USER_FORGOT_PASSWORD_SUBJECT', $subjectArgs);
+
         return $this->_sendMail($mail);
     }
 
@@ -195,6 +215,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subjectArgs = array($userData['username'], $this->projectConfig['name']);
         $this->_view->assign(array('userData' => $userData, 'project' => $this->projectConfig));
         $mail = $this->_getUserMail($userData, 'user/account-activated', 'L_ACCOUNT_ACTIVATED_SUBJECT', $subjectArgs);
+
         return $this->_sendMail($mail);
     }
 
@@ -216,6 +237,7 @@ class Application_Model_Mail extends Msd_Application_Model
         $subjectArgs = array($languageData['name']);
         $this->_view->assign(array('userData' => $userData, 'languageData' => $languageData));
         $mail = $this->_getUserMail($userData, 'user/edit-right-granted', 'L_EDIT_RIGHT_ADDED_TO', $subjectArgs);
+
         return $this->_sendMail($mail);
     }
 
@@ -240,16 +262,16 @@ class Application_Model_Mail extends Msd_Application_Model
         $greetLine     = sprintf($translator->translate('L_EMAIL_HEADER'), $userData['username']);
         $footer        = sprintf($translator->translate('L_EMAIL_FOOTER'), $this->projectConfig['name']);
         $htmlBody      = $greetLine . '<br /><br />' . $this->_view->render('mail/' . $mailTemplate . '.phtml')
-            . '<br /><br />' . $footer;
+                         . '<br /><br />' . $footer;
         $plainTextBody = $greetLine . "\n\n" . $this->_view->render('mail/' . $mailTemplate . '-plain.phtml')
-            . "\n\n" . $footer;
+                         . "\n\n" . $footer;
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
-            ->setBodyText($plainTextBody)
-            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
-            ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
-            ->addTo($userData['email'], $userData['realName']);
+        ->setBodyText($plainTextBody)
+        ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
+        ->setReplyTo($this->projectConfig['email'], $this->projectConfig['name'])
+        ->addTo($userData['email'], $userData['realName']);
         $subject = $translator->translate($subject);
         // replace placeholder with values if given
         if (!empty($subjectArgs)) {
@@ -283,16 +305,16 @@ class Application_Model_Mail extends Msd_Application_Model
         $greetLine     = sprintf($translator->translate('L_EMAIL_HEADER'), $translator->translate('L_ADMIN'));
         $footer        = sprintf($translator->translate('L_EMAIL_FOOTER'), $this->projectConfig['name']);
         $htmlBody      = $greetLine . '<br /><br />' . $this->_view->render('mail/' . $mailTemplate . '.phtml')
-            . '<br /><br />' . $footer;
+                         . '<br /><br />' . $footer;
         $plainTextBody = $greetLine . "\n\n" . $this->_view->render('mail/' . $mailTemplate . '-plain.phtml')
-            . "\n\n" . $footer;
+                         . "\n\n" . $footer;
 
         $mail = new Zend_Mail('UTF-8');
         $mail->setBodyHtml($htmlBody)
-            ->setBodyText($plainTextBody)
-            ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
-            ->setReplyTo($userData['email'], $userData['username'])
-            ->addTo($this->projectConfig['email'], $this->projectConfig['name']);
+        ->setBodyText($plainTextBody)
+        ->setFrom($this->projectConfig['email'], $this->projectConfig['name'])
+        ->setReplyTo($userData['email'], $userData['username'])
+        ->addTo($this->projectConfig['email'], $this->projectConfig['name']);
         $subject = $translator->translate($subject);
         // replace placeholder with values if given
         if (!empty($subjectArgs)) {
@@ -323,7 +345,7 @@ class Application_Model_Mail extends Msd_Application_Model
     /**
      * Send mail
      *
-     * @param Zend_Mail $mail
+     * @param Zend_Mail $mail Zend_Mail instance
      *
      * @return bool
      */

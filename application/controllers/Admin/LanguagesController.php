@@ -37,7 +37,8 @@ class Admin_LanguagesController extends AdminController
         if ($deleteLanguageId > 0) {
             $this->_forward('delete-language');
         }
-        $recordsPerPage                 = (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
+        $recorsPerPageParamName         = $this->_requestedController . '.recordsPerPage';
+        $recordsPerPage                 = (int)$this->_dynamicConfig->getParam($recorsPerPageParamName);
         $this->view->selRecordsPerPage  = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
         $this->view->languages          = $this->_languagesModel->getAllLanguages(
             $this->_dynamicConfig->getParam($this->_requestedController . '.filterLanguage'),

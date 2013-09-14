@@ -67,10 +67,11 @@
  <target name="phpcpd">
   <exec dir="${repodir}" executable="phpcpd">
    <arg line="--log-pmd ${logdir}/pmd-cpd.xml
-        --exclude ${repodir}/library/Zend/
-        --exclude ${repodir}/application/language/
-        --exclude ${repodir}/library/ZendX/
-        --exclude ${repodir}/tests/
+		--names
+        --exclude ${repodir}/library/Zend
+        --exclude ${repodir}/application/language
+        --exclude ${repodir}/library/ZendX
+        --exclude ${repodir}/tests
         ./" />
   </exec>
  </target>

@@ -89,6 +89,8 @@ class ConnectorController extends OtranceController
 
     /**
      * Get keys from POST or session
+     *
+     * @return void
      */
     protected function _getKeys()
     {

@@ -47,8 +47,8 @@ class EntriesController extends OtranceController
      */
     public function init()
     {
-        $this->_entriesModel = new Application_Model_LanguageEntries();
-        $this->view->user    = $this->_userModel;
+        $this->_entriesModel   = new Application_Model_LanguageEntries();
+        $this->view->user      = $this->_userModel;
         $this->_languagesModel = new Application_Model_Languages();
     }
 
@@ -447,8 +447,7 @@ class EntriesController extends OtranceController
             if ($value === null) {
                 $value = $this->_userModel->loadSetting($name, $default);
             }
-        }
-        ;
+        };
 
         if ($numeric !== false) {
             $value = (int)$value;
@@ -474,6 +473,8 @@ class EntriesController extends OtranceController
     /**
      * Save and log changes
      *
+     * @param bool $ignoreSmallChange If set to false other languages are not flagged as "please re-check translation"
+     *
      * @return bool|string
      */
     private function _saveEntries($ignoreSmallChange = false)
@@ -490,7 +491,11 @@ class EntriesController extends OtranceController
             $res &= $this->_entriesModel->assignFileTemplate($params['id'], $params['fileTemplate']);
         }
 
-        $res &= $this->_entriesModel->saveEntries((int)$params['id'], $values, $this->_languagesModel->getFallbackLanguageId(), $ignoreSmallChange);
+        $res &= $this->_entriesModel->saveEntries(
+            (int)$params['id'],
+            $values,
+            $this->_languagesModel->getFallbackLanguageId(), $ignoreSmallChange
+        );
 
         return $res;
     }
@@ -584,18 +589,20 @@ class EntriesController extends OtranceController
      *
      * @return void
      */
-    public function removeNeedsUpdateFlagAction() {
+    public function removeNeedsUpdateFlagAction()
+    {
         $this->_helper->layout()->disableLayout();
         $this->view->data = null;
 
         $languageId = (int)$this->_request->getParam('languageId');
-        $keyId = (int)$this->_request->getParam('keyId');
+        $keyId      = (int)$this->_request->getParam('keyId');
 
         $languageRights = $this->_userModel->getUserLanguageRights();
         if (!in_array($languageId, $languageRights)) {
             $this->getResponse()->setHttpResponseCode(403);
             $this->view->data = Msd_Language::getInstance()->translate('L_YOU_ARE_NOT_ALLOWED_TO_EDIT_THIS_LANGUAGE');
             $this->render('json');
+
             return;
         }
 

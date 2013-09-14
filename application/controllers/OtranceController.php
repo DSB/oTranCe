@@ -34,13 +34,11 @@ class OtranceController extends Zend_Controller_Action
     /**
      * Class constructor
      *
-     * @see Zend_Controller_Action
-     *
-     * @param Zend_Controller_Request_Abstract  $request
-     * @param Zend_Controller_Response_Abstract $response
+     * @param Zend_Controller_Request_Abstract  $request    Request instance
+     * @param Zend_Controller_Response_Abstract $response   Response instance
      * @param array                             $invokeArgs Any additional invocation arguments
      *
-     * @return OtranceController
+     * @see Zend_Controller_Action
      */
     public function __construct(
         Zend_Controller_Request_Abstract $request,
@@ -50,7 +48,7 @@ class OtranceController extends Zend_Controller_Action
     {
         $this->_config        = Msd_Registry::getConfig();
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
-        $this->_userModel = new Application_Model_User();
+        $this->_userModel     = new Application_Model_User();
         parent::__construct($request, $response, $invokeArgs);
     }
 

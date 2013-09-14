@@ -71,6 +71,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     /**
      * Init plug ins
+     *
+     * @return void
      */
     public function _initPlugIns()
     {

@@ -18,14 +18,16 @@ class RegisterController extends OtranceController
     /**
      * @var Application_Model_Languages
      */
-    protected $languagesModel;
+    protected $_languagesModel;
 
     /**
      * Init
+     *
+     * @return void
      */
     public function init()
     {
-        $this->languagesModel = new Application_Model_Languages();
+        $this->_languagesModel = new Application_Model_Languages();
     }
 
     /**
@@ -47,7 +49,7 @@ class RegisterController extends OtranceController
         );
         $validationErrors  = array();
         $userData          = $this->_request->getParam('user', $default);
-        $languagesMetaData = $this->languagesModel->getAllLanguages();
+        $languagesMetaData = $this->_languagesModel->getAllLanguages();
         $translator        = Msd_Language::getInstance();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
             $userModel          = new Application_Model_User();

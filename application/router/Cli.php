@@ -19,11 +19,11 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
      * Processes a request and sets its controller and action.  If
      * no route was possible, an exception is thrown.
      *
-     * @see Zend_Controller_Router_Interface
-     *
      * @param Zend_Controller_Request_Abstract $dispatcher Request instance
      *
      * @throws Zend_Controller_Router_Exception
+     * @see Zend_Controller_Router_Interface
+     *
      * @return Zend_Controller_Request_Abstract|boolean
      */
     public function route(Zend_Controller_Request_Abstract $dispatcher)

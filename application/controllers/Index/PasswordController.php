@@ -93,6 +93,8 @@ class Index_PasswordController extends IndexController
      *
      * @param string|null $errorMessage   Error message to assign
      * @param string|null $successMessage Success message to assign
+     *
+     * @return void
      */
     protected function setViewNotifications($errorMessage = null, $successMessage = null)
     {

@@ -1,8 +1,8 @@
-<project name="oTranCe" default="build" basedir="./../../">
+<project name="oTranCe" default="build" basedir="./">
 
-<property name="repodir" value="${basedir}/src" />
-<property name="builddir" value="${basedir}/build" />
-<property name="logdir" value="${basedir}/build/logs" />
+<property name="repodir" value="${basedir}" />
+<property name="builddir" value="${basedir}/_ci" />
+<property name="logdir" value="${builddir}/logs" />
 
 <target name="clean">
     <delete dir="${builddir}" />

@@ -68,6 +68,7 @@
   <exec dir="${repodir}" executable="phpcpd">
    <arg value="--log-pmd"/><arg value="${logdir}/pmd-cpd.xml"/>
    <arg value="--names"/><arg value="*.php"/>
+   <arg value="--exclude"/><arg value="application/language/"/>
    <arg value="--exclude"/><arg value="library/Zend"/>
    <arg value="--exclude"/><arg value="library/ZendX"/>
    <arg value="--exclude"/><arg value="tests/"/>         

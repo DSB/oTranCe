@@ -21,7 +21,7 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
      *
      * @see Zend_Controller_Router_Interface
      *
-     * @param  Zend_Controller_Request_Abstract
+     * @param  Zend_Controller_Request_Abstract $dispatcher Request instance
      *
      * @throws Zend_Controller_Router_Exception
      * @return Zend_Controller_Request_Abstract|boolean
@@ -34,7 +34,8 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
                  'pass|p=s'       => 'The password of the user in oTranCe.',
                  'controller|c=s' => 'The controller to call.',
                  'action|a-s'     => 'The action of the controller to call. If not given defauls to "index".',
-                 'help|h'         => 'Show this help. Example call: php index.php -u User -p Password -c Export -a update-all'
+                 'help|h'         =>
+                    'Show this help. Example call: php index.php -u User -p Password -c Export -a update-all'
             )
         );
 
@@ -75,10 +76,10 @@ class Application_Router_Cli extends Zend_Controller_Router_Abstract
      *
      * @see Zend_Controller_Router_Interface
      *
-     * @param  array $userParams Options passed by a user used to override parameters
-     * @param  mixed $name       The name of a Route to use
-     * @param  bool  $reset      Whether to reset to the route defaults ignoring URL params
-     * @param  bool  $encode     Tells to encode URL parts on output
+     * @param array $userParams Options passed by a user used to override parameters
+     * @param mixed $name       The name of a Route to use
+     * @param bool  $reset      Whether to reset to the route defaults ignoring URL params
+     * @param bool  $encode     Tells to encode URL parts on output
      *
      * @throws Zend_Controller_Router_Exception
      * @return string Resulting URL path

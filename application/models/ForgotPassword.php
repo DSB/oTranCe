@@ -71,7 +71,7 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     /**
      * saves forgot password requests into db
      *
-     * @param string $userId
+     * @param string $userId Id of user
      *
      * @return bool
      */
@@ -116,7 +116,8 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function isValidRequest($forgotPasswordId, $requestedUserId)
     {
-        $sql = 'SELECT `timestamp`, `userid` FROM `' . $this->_tableForgotPassword . '` where id = ' . $forgotPasswordId;
+        $sql = 'SELECT `timestamp`, `userid` FROM `' . $this->_tableForgotPassword
+               . '` where id = ' . $forgotPasswordId;
 
         $requestTime = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 

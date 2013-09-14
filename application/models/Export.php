@@ -70,7 +70,6 @@ class Application_Model_Export
     /**
      * Get timestamp of the latest download package
      *
-     *
      * @return int
      */
     public function getLatestDownloadPackageTimestamp()
@@ -232,9 +231,9 @@ class Application_Model_Export
     public function _getFileMetaData($languageId, $templateId)
     {
         $langFilename = EXPORT_PATH . '/' . $this->_replacePlaceholderInFileName(
-                $this->_fileTemplates[$templateId]['filename'],
-                $this->_langInfo[$languageId]['locale']
-            );
+            $this->_fileTemplates[$templateId]['filename'],
+            $this->_langInfo[$languageId]['locale']
+        );
         $langDir      = dirname($langFilename);
         if (!file_exists($langDir)) {
             mkdir($langDir, 0775, true);
@@ -323,6 +322,5 @@ class Application_Model_Export
 
         return $files;
     }
-
 
 }

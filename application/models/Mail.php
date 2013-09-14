@@ -173,8 +173,8 @@ class Application_Model_Mail extends Msd_Application_Model
     /**
      * Sends forgot password e-mail
      *
-     * @param array  $userData        Array with user data
-     * @param array  $languageData    Languages meta data
+     * @param array  $userData         Array with user data
+     * @param array  $languageData     Languages meta data
      * @param string $verificationLink Generated verification link
      *
      * @return bool

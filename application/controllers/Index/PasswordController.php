@@ -91,8 +91,8 @@ class Index_PasswordController extends IndexController
     /**
      * Sets different message for displaying
      *
-     * @param string|null $errorMessage
-     * @param string|null $successMessage
+     * @param string|null $errorMessage   Error message to assign
+     * @param string|null $successMessage Success message to assign
      */
     protected function setViewNotifications($errorMessage = null, $successMessage = null)
     {
@@ -146,7 +146,7 @@ class Index_PasswordController extends IndexController
     /**
      * Splits hash into his params and returns them
      *
-     * @param string $hash
+     * @param string $hash Given hash
      *
      * @return array
      */
@@ -165,6 +165,8 @@ class Index_PasswordController extends IndexController
 
     /**
      * Sets new password for a single user
+     *
+     * @return void
      */
     public function setpasswordAction()
     {

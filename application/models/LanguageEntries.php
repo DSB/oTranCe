@@ -305,7 +305,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if ($languageId > 0) {
             // we are looking for a specific language
             // Add the language condition to the JOIN, not to the WHERE clause.
-            $sql .= ' AND t.`lang_id`=' . $languageId . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
+            $sql .= ' AND t.`lang_id`=' . $languageId
+                    . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
         } else {
             // find all untranslated keys
             $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
@@ -519,8 +520,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $result[$keyId] = $entry;
         }
 
-        $sql          = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` FROM `' . $this->_tableTranslations . '` WHERE '
-                        . '`key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN (' . implode(',', $languageIds) . ')';
+        $sql          = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` FROM `' . $this->_tableTranslations
+                        . '` WHERE `key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN ('
+                        . implode(',', $languageIds) . ')';
         $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         foreach ($translations as $translation) {

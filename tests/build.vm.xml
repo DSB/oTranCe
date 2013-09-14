@@ -66,14 +66,12 @@
  <!-- Generate pmd-cpd.xml -->
  <target name="phpcpd">
   <exec dir="${repodir}" executable="phpcpd">
-   <arg line="--log-pmd ${logdir}/pmd-cpd.xml
-		--names *.php
-        --exclude ${repodir}/library/Zend
-        --exclude ${repodir}/application/language
-        --exclude ${repodir}/library/ZendX
-        --exclude ${repodir}/tests
-        ./" />
-  </exec>
+   <arg value="--log-pmd"/><arg value="${logdir}/pmd-cpd.xml"/>
+   <arg value="--names"/><arg value="*.php"/>
+   <arg value="--exclude"/><arg value="${repodir}/library/Zend"/>
+   <arg value="--exclude"/><arg value="${repodir}/tests/"/>         
+	<arg path="${repodir}"/>
+   </exec>
  </target>
 
 <target name="phploc" description="Generate phploc.csv">

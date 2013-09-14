@@ -50,7 +50,7 @@
 
  <!-- Generate pmd.xml - exclude */Zend/*,*/language/*    -->
  <target name="phpmd">
-    <touch file="${logdir}/pmd.xml" mkdirs="true" />
+    <touch file="${builddir}/pdepend/pmd.xml" mkdirs="true" />
     <exec dir="${repodir}" executable="phpmd">
         <arg line="${repodir}/ xml codesize,unusedcode,design,naming
             --reportfile ${builddir}/logs/pmd.xml

@@ -45,11 +45,32 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     private $_execParams = ' ';
 
     /**
+     * Name of the branch inside the GIT repository.
+     *
+     * @var string
+     */
+    private $_branchName = null;
+
+    /**
+     * URL to the GIT repository;
+     *
+     * @var string
+     */
+    private $_remoteUrl = null;
+
+    /**
      * Instance of Msd_Process class.
      *
      * @var Msd_Process
      */
     private $_process = null;
+
+    /**
+     * Information about the author.
+     *
+     * @var stdClass
+     */
+    private $_author = null;
 
     /**
      * Mapping array of the svn status codes.
@@ -92,6 +113,10 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             $this->_execParams .= $adapterParams['execParams'];
         }
 
+        if (isset($adapterParams['branchName'])) {
+            $this->_branchName = $adapterParams['branchName'];
+        }
+
         $this->_process = new Msd_Process();
     }
 
@@ -105,6 +130,10 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function add($filenames)
     {
         $filenames = (array) $filenames;
+        if (count($filenames) == 0) {
+            $filenames[] = '.';
+        }
+
         return $this->_executeCommand('add', $filenames);
     }
 
@@ -118,6 +147,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function delete($filenames)
     {
         $filenames = (array) $filenames;
+
         return $this->_executeCommand('delete', $filenames);
     }
 
@@ -128,20 +158,21 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function status()
     {
-        $rawSvnStatus = $this->_executeCommand('status');
+        $rawSvnStatus = $this->_executeCommand('status', array(), array('porcelain' => false));
         if (isset($rawSvnStatus['stderr']) && $rawSvnStatus['stderr'] > '') {
             // we got an error - return it to let the view show it
             return $rawSvnStatus;
         }
 
         // extract information about files to add, ect.
-        $lines = explode(PHP_EOL, $rawSvnStatus['stdout']);
+        $lines  = explode(PHP_EOL, $rawSvnStatus['stdout']);
         $status = array();
         foreach ($lines as $line) {
-            if (preg_match('/^([MACUDG!\?]).+ (.+)$/', $line, $args)) {
+            if (preg_match("/^([MACUDG!?])\\S*\\s+(.+)$/", ltrim($line), $args)) {
                 $status[$this->_getStatusKey($args[1])][] = $args[2];
             }
         }
+
         return $status;
     }
 
@@ -155,12 +186,36 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function commit($filenames, $comment = null)
     {
-        $filenames = (array) $filenames;
-        $params = array('a' => '');
-        if ($comment !== null) {
-            $params['m'] = $comment;
+        $this->add($filenames);
+
+        $params = array();
+
+        if ($this->_author !== null) {
+            $this->_executeCommand('config', array('user.name', $this->_author->name));
+            $this->_executeCommand('config', array('user.email', $this->_author->email));
         }
-        return $this->_executeCommand('commit', $filenames, $params);
+
+        if ($comment === null) {
+            $comment = 'oTranCe: Language pack updated.';
+        }
+        $params['v'] = false;
+        $params['m']  = $comment;
+        $commitResult = $this->_executeCommand('commit', array(), $params);
+        $originUrl = $this->_getRemoteUrl();
+
+        $commandArguments = array($originUrl);
+
+        if ($this->_branchName !== null && strlen($this->_branchName) > 0) {
+            $commandArguments[] = $this->_branchName;
+        }
+
+        $pushResult = $this->_executeCommand('push', $commandArguments);
+        if (substr($pushResult['stderr'], 0, 3) == 'To ') {
+            $pushResult['stdout'] = 'Success.';
+            $pushResult['stderr'] = '';
+        }
+
+        return array_merge($commitResult, $pushResult);
     }
 
     /**
@@ -170,11 +225,11 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function update()
     {
-        return $this->_executeCommand('update');
+        return $this->_executeCommand('pull');
     }
 
     /**
-     * Undo file changes.
+     * Drop file changes.
      *
      * @param array $filenames File- and pathnames for undo action.
      *
@@ -183,7 +238,30 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function revert($filenames)
     {
         $filenames = (array) $filenames;
-        return $this->_executeCommand('revert', $filenames);
+        $this->_executeCommand(
+            'reset',
+            array_merge(array('HEAD'), $filenames)
+        );
+
+        return $this->_executeCommand(
+            'checkout',
+            array_merge(array('--'), $filenames)
+        );
+    }
+
+    /**
+     * Sets the information about the author.
+     *
+     * @param string $authorName  Name of the author.
+     * @param string $authorEMail E-mail address of the author.
+     *
+     * @return void
+     */
+    public function setAuthor($authorName, $authorEMail)
+    {
+        $this->_author = new stdClass();
+        $this->_author->name = $authorName;
+        $this->_author->email = $authorEMail;
     }
 
     /**
@@ -199,7 +277,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     private function _executeCommand($command, $fileNames = array(), $params = array())
     {
-        $fileNames = (array) $fileNames;
+        $fileNames  = (array) $fileNames;
         $gitCommand = 'git ' . $command;
 
         $gitCommand .= $this->buildParams($params);
@@ -207,6 +285,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
         foreach ($fileNames as $file) {
             $gitCommand .= ' ' . escapeshellarg($file);
         }
+
         $this->_process->setCommand($gitCommand);
         $this->_process->setWorkDir($this->_checkoutPath);
         $this->_process->execute();
@@ -216,6 +295,8 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             $stdout .= $this->_process->readOutput();
             $stderr .= $this->_process->readError();
         }
+
+        $this->_process->close();
 
         return array(
             'stderr' => $stderr,
@@ -233,20 +314,26 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     private function buildParams($params)
     {
         $cmdParams = $this->_execParams;
-        if ($this->_username !== null && strlen($this->_username) > 0) {
-            $cmdParams .= ' --username ' . escapeshellarg($this->_username);
-        }
-        if ($this->_password !== null && strlen($this->_password) > 0) {
-            $cmdParams .= ' --password ' . escapeshellarg($this->_password);
-        }
+//        if ($this->_username !== null && strlen($this->_username) > 0) {
+//            $cmdParams .= ' --username ' . escapeshellarg($this->_username);
+//        }
+//        if ($this->_password !== null && strlen($this->_password) > 0) {
+//            $cmdParams .= ' --password ' . escapeshellarg($this->_password);
+//        }
 
         foreach ($params as $paramName => $paramValue) {
             $cmdParams .= ' -';
+            $valueSeparator = ' ';
             if (strlen($paramName) > 1) {
                 $cmdParams .= '-';
+                $valueSeparator = '=';
             }
-            $cmdParams .= $paramName . ' ' . escapeshellarg($paramValue);
+            $cmdParams .= $paramName;
+            if ($paramValue !== false) {
+                $cmdParams .= $valueSeparator . escapeshellarg($paramValue);
+            }
         }
+
         return $cmdParams;
     }
 
@@ -278,9 +365,10 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     {
         return array(
             'checkoutPath' => 'Git Checkout path',
-            'username'     => 'Git Username',
-            'password'     => 'Git Password',
+            'username'     => 'Git username',
+            'password'     => 'Git password',
             'execParams'   => 'Git execution parameters',
+            'branchName'   => 'Name of the translation branch'
         );
     }
 
@@ -297,5 +385,62 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             'username' => 'username',
             'password' => 'password',
         );
+    }
+
+    /**
+     * Returns the remote URL to the GIT repository.
+     *
+     * @return string
+     */
+    private function _getRemoteUrl()
+    {
+        if ($this->_remoteUrl !== null) {
+            return $this->_remoteUrl;
+        }
+
+        $configResult     = $this->_executeCommand('config', array('remote.origin.url'));
+        $this->_remoteUrl = 'origin';
+        $originUrlParts   = parse_url(trim($configResult['stdout']));
+
+        if (isset($originUrlParts['scheme']) && false !== strpos($originUrlParts['scheme'], 'http')) {
+            if ($this->_username !== null && strlen($this->_username) > 0) {
+                $originUrlParts['user'] = $this->_username;
+            }
+
+            if ($this->_password !== null && strlen($this->_username) > 0) {
+                $originUrlParts['pass'] = $this->_password;
+            }
+
+            $this->_remoteUrl = $originUrlParts['scheme'] . "://";
+            if (isset($originUrlParts['user'])) {
+                $this->_remoteUrl .= urlencode($originUrlParts['user']);
+            }
+
+            if (isset($originUrlParts['pass'])) {
+                $this->_remoteUrl .= ':' . urlencode($originUrlParts['pass']);
+            }
+
+            if (isset($originUrlParts['user'])) {
+                $this->_remoteUrl .= "@";
+            }
+
+            $this->_remoteUrl .= $originUrlParts['host'];
+
+            if (isset($originUrlParts['port'])) {
+                $this->_remoteUrl .= ':' . $originUrlParts['port'];
+            }
+
+            $this->_remoteUrl .= '/' . ltrim($originUrlParts['path'], '/');
+
+            if (isset($originUrlParts['query'])) {
+                $this->_remoteUrl .= '?' . $originUrlParts['query'];
+            }
+
+            if (isset($originUrlParts['fragment'])) {
+                $this->_remoteUrl .= '#' . $originUrlParts['fragment'];
+            }
+        }
+
+        return $this->_remoteUrl;
     }
 }

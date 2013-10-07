@@ -105,6 +105,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function add($filenames)
     {
         $filenames = (array) $filenames;
+
         return $this->_executeCommand('add', $filenames);
     }
 
@@ -118,6 +119,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function delete($filenames)
     {
         $filenames = (array) $filenames;
+
         return $this->_executeCommand('delete', $filenames);
     }
 
@@ -135,13 +137,14 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
         }
 
         // extract information about files to add, ect.
-        $lines = explode(PHP_EOL, $rawSvnStatus['stdout']);
+        $lines  = explode(PHP_EOL, $rawSvnStatus['stdout']);
         $status = array();
         foreach ($lines as $line) {
             if (preg_match('/^([MACUDG!\?]).+ (.+)$/', $line, $args)) {
                 $status[$this->_getStatusKey($args[1])][] = $args[2];
             }
         }
+
         return $status;
     }
 
@@ -160,9 +163,9 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
         if ($comment === null) {
             $comment = 'oTranCe: Language pack updated.';
         }
-        $params['m'] = $comment;
+        $params['m']  = $comment;
         $commitResult = $this->_executeCommand('commit', array(), $params);
-        $pushResult = $this->_executeCommand('push');
+        $pushResult   = $this->_executeCommand('push');
 
         return array_merge($commitResult, $pushResult);
     }
@@ -191,6 +194,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             'reset',
             array_merge(array('HEAD'), $filenames)
         );
+
         return $this->_executeCommand(
             'checkout',
             array_merge(array('--'), $filenames)
@@ -210,7 +214,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     private function _executeCommand($command, $fileNames = array(), $params = array())
     {
-        $fileNames = (array) $fileNames;
+        $fileNames  = (array) $fileNames;
         $gitCommand = 'git ' . $command;
 
         $gitCommand .= $this->buildParams($params);
@@ -262,6 +266,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
                 $cmdParams .= ' ' . escapeshellarg($paramValue);
             }
         }
+
         return $cmdParams;
     }
 
@@ -293,6 +298,8 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     {
         return array(
             'checkoutPath' => 'Git Checkout path',
+            'username'     => 'Git username',
+            'password'     => 'Git password',
             'execParams'   => 'Git execution parameters',
         );
     }

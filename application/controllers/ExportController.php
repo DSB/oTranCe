@@ -86,15 +86,6 @@ class ExportController extends OtranceController
         $this->view->export       = $this->_export;
         $log                      = new Application_Model_ExportLog();
         $this->view->vcsActivated = (bool)($this->_projectConfig['vcsActivated'] && ($log->getExportsCount() > 0));
-        $proc = new Msd_Process('ssh -vvv 192.168.1.41 "echo $HOME"', null, array('HOME' => realpath(EXPORT_PATH . '/..')));
-        $proc->execute();
-        $stdout = '';
-        $stderr = '';
-        while ($proc->isRunning()) {
-            $stdout .= $proc->readOutput();
-            $stderr .= $proc->readError();
-        }
-        var_dump($stdout, $stderr);
     }
 
     /**
@@ -109,6 +100,11 @@ class ExportController extends OtranceController
         $vcsConfig = $this->_config->getParam('vcs');
         $vcs       = $this->_getVcsInstance();
         $files     = $log->getFileList(session_id());
+
+        if (method_exists($vcs, 'setAuthor')) {
+            $user = $this->_userModel->getUserById($this->_userModel->getUserId());
+            $vcs->setAuthor($user['realName'], $user['email']);
+        }
 
         if ($vcsConfig['revertBeforeUpdate'] == 1) {
             $vcs->revert(array('.'));
@@ -135,6 +131,7 @@ class ExportController extends OtranceController
         } else {
             $this->view->commitResult = array('stdout' => $this->view->lang->translate('L_NOTHING_TO_DO') . '.');
         }
+
         $log->delete(session_id());
     }
 

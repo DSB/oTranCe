@@ -45,11 +45,32 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     private $_execParams = ' ';
 
     /**
+     * Name of the branch inside the GIT repository.
+     *
+     * @var string
+     */
+    private $_branchName = null;
+
+    /**
+     * URL to the GIT repository;
+     *
+     * @var string
+     */
+    private $_remoteUrl = null;
+
+    /**
      * Instance of Msd_Process class.
      *
      * @var Msd_Process
      */
     private $_process = null;
+
+    /**
+     * Information about the author.
+     *
+     * @var stdClass
+     */
+    private $_author = null;
 
     /**
      * Mapping array of the svn status codes.
@@ -92,6 +113,10 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             $this->_execParams .= $adapterParams['execParams'];
         }
 
+        if (isset($adapterParams['branchName'])) {
+            $this->_branchName = $adapterParams['branchName'];
+        }
+
         $this->_process = new Msd_Process();
     }
 
@@ -105,6 +130,9 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     public function add($filenames)
     {
         $filenames = (array) $filenames;
+        if (count($filenames) == 0) {
+            $filenames[] = '.';
+        }
 
         return $this->_executeCommand('add', $filenames);
     }
@@ -140,7 +168,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
         $lines  = explode(PHP_EOL, $rawSvnStatus['stdout']);
         $status = array();
         foreach ($lines as $line) {
-            if (preg_match('/^([MACUDG!\?]).+ (.+)$/', $line, $args)) {
+            if (preg_match("/^([MACUDG!?])\\S*\\s+(.+)$/", ltrim($line), $args)) {
                 $status[$this->_getStatusKey($args[1])][] = $args[2];
             }
         }
@@ -158,14 +186,34 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
      */
     public function commit($filenames, $comment = null)
     {
-        $filenames = (array) $filenames;
-        $this->_executeCommand('add', $filenames);
+        $this->add($filenames);
+
+        $params = array();
+
+        if ($this->_author !== null) {
+            $this->_executeCommand('config', array('user.name', $this->_author->name));
+            $this->_executeCommand('config', array('user.email', $this->_author->email));
+        }
+
         if ($comment === null) {
             $comment = 'oTranCe: Language pack updated.';
         }
+        $params['v'] = false;
         $params['m']  = $comment;
         $commitResult = $this->_executeCommand('commit', array(), $params);
-        $pushResult   = $this->_executeCommand('push');
+        $originUrl = $this->_getRemoteUrl();
+
+        $commandArguments = array($originUrl);
+
+        if ($this->_branchName !== null && strlen($this->_branchName) > 0) {
+            $commandArguments[] = $this->_branchName;
+        }
+
+        $pushResult = $this->_executeCommand('push', $commandArguments);
+        if (substr($pushResult['stderr'], 0, 3) == 'To ') {
+            $pushResult['stdout'] = 'Success.';
+            $pushResult['stderr'] = '';
+        }
 
         return array_merge($commitResult, $pushResult);
     }
@@ -202,6 +250,21 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     }
 
     /**
+     * Sets the information about the author.
+     *
+     * @param string $authorName  Name of the author.
+     * @param string $authorEMail E-mail address of the author.
+     *
+     * @return void
+     */
+    public function setAuthor($authorName, $authorEMail)
+    {
+        $this->_author = new stdClass();
+        $this->_author->name = $authorName;
+        $this->_author->email = $authorEMail;
+    }
+
+    /**
      * Builds and executes a svn command.
      *
      * @throws Msd_Vcs_Subversion_Exception
@@ -233,6 +296,8 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             $stderr .= $this->_process->readError();
         }
 
+        $this->_process->close();
+
         return array(
             'stderr' => $stderr,
             'stdout' => $stdout,
@@ -249,21 +314,23 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
     private function buildParams($params)
     {
         $cmdParams = $this->_execParams;
-        if ($this->_username !== null && strlen($this->_username) > 0) {
-            $cmdParams .= ' --username ' . escapeshellarg($this->_username);
-        }
-        if ($this->_password !== null && strlen($this->_password) > 0) {
-            $cmdParams .= ' --password ' . escapeshellarg($this->_password);
-        }
+//        if ($this->_username !== null && strlen($this->_username) > 0) {
+//            $cmdParams .= ' --username ' . escapeshellarg($this->_username);
+//        }
+//        if ($this->_password !== null && strlen($this->_password) > 0) {
+//            $cmdParams .= ' --password ' . escapeshellarg($this->_password);
+//        }
 
         foreach ($params as $paramName => $paramValue) {
             $cmdParams .= ' -';
+            $valueSeparator = ' ';
             if (strlen($paramName) > 1) {
                 $cmdParams .= '-';
+                $valueSeparator = '=';
             }
             $cmdParams .= $paramName;
             if ($paramValue !== false) {
-                $cmdParams .= ' ' . escapeshellarg($paramValue);
+                $cmdParams .= $valueSeparator . escapeshellarg($paramValue);
             }
         }
 
@@ -301,6 +368,7 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             'username'     => 'Git username',
             'password'     => 'Git password',
             'execParams'   => 'Git execution parameters',
+            'branchName'   => 'Name of the translation branch'
         );
     }
 
@@ -317,5 +385,62 @@ class Msd_Vcs_Git implements Msd_Vcs_Interface
             'username' => 'username',
             'password' => 'password',
         );
+    }
+
+    /**
+     * Returns the remote URL to the GIT repository.
+     *
+     * @return string
+     */
+    private function _getRemoteUrl()
+    {
+        if ($this->_remoteUrl !== null) {
+            return $this->_remoteUrl;
+        }
+
+        $configResult     = $this->_executeCommand('config', array('remote.origin.url'));
+        $this->_remoteUrl = 'origin';
+        $originUrlParts   = parse_url(trim($configResult['stdout']));
+
+        if (isset($originUrlParts['scheme']) && false !== strpos($originUrlParts['scheme'], 'http')) {
+            if ($this->_username !== null && strlen($this->_username) > 0) {
+                $originUrlParts['user'] = $this->_username;
+            }
+
+            if ($this->_password !== null && strlen($this->_username) > 0) {
+                $originUrlParts['pass'] = $this->_password;
+            }
+
+            $this->_remoteUrl = $originUrlParts['scheme'] . "://";
+            if (isset($originUrlParts['user'])) {
+                $this->_remoteUrl .= urlencode($originUrlParts['user']);
+            }
+
+            if (isset($originUrlParts['pass'])) {
+                $this->_remoteUrl .= ':' . urlencode($originUrlParts['pass']);
+            }
+
+            if (isset($originUrlParts['user'])) {
+                $this->_remoteUrl .= "@";
+            }
+
+            $this->_remoteUrl .= $originUrlParts['host'];
+
+            if (isset($originUrlParts['port'])) {
+                $this->_remoteUrl .= ':' . $originUrlParts['port'];
+            }
+
+            $this->_remoteUrl .= '/' . ltrim($originUrlParts['path'], '/');
+
+            if (isset($originUrlParts['query'])) {
+                $this->_remoteUrl .= '?' . $originUrlParts['query'];
+            }
+
+            if (isset($originUrlParts['fragment'])) {
+                $this->_remoteUrl .= '#' . $originUrlParts['fragment'];
+            }
+        }
+
+        return $this->_remoteUrl;
     }
 }

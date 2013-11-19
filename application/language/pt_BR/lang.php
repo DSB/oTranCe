@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// rafaelff1 (550)
+// rafaelff1 (552)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'A sua conta de usuário %1$s para o projeto %2$s foi ativada por um administrador.',
@@ -225,7 +225,7 @@ Você vai receber um e-mail assim que o administrador aprovar sua conta.',
 'L_MENUE_RIGHTS' => 'Permissões de menu',
 'L_NAME' => 'Nome',
 'L_NAME_OF_LANGUAGE' => 'Nome do idioma',
-'L_NEEDS_UPDATE_INFO' => 'The translation was changed in the main language. Please check the translation in this language.',
+'L_NEEDS_UPDATE_INFO' => 'A tradução foi alterada no idioma principal. Por favor, verifique a tradução neste idioma.',
 'L_NEEDS_WORK' => 'Crítico',
 'L_NEW_PASSWORD' => 'Nova senha',
 'L_NEW_VALUE' => 'Novo valor',
@@ -245,7 +245,7 @@ Você vai receber um e-mail assim que o administrador aprovar sua conta.',
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Senha antiga',
 'L_OLD_VALUE' => 'Valor antigo',
-'L_ONLY_SMALL_CHANGE_INFO' => 'Just a small change. There will be no notice about this change for the other languages.',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Apenas uma pequena alteração. Não haverá notificação sobre esta alteração para outros idiomas.',
 'L_ORDER_LIST_BY' => 'Ordenar lista por',
 'L_OTHER_USERRIGHTS' => 'Permissões de outro usuário',
 'L_PAGE_X_OF_Y' => 'Página %d de %d',

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (422), enkay (14), janrei (19), KatjaFlinzner (9), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
+// DSB (424), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -332,7 +332,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_SELECT_FILE' => 'Select a file',
 'L_SELECT_HOW_MANY_ENTRIES_SHOULD_BE_SHOWN_PER_PAGE' => 'Select how many entries should be shown per page',
 'L_SELECT_LANGUAGE_OF_INTERFACE' => 'Select the language of this interface',
-'L_SELECT_LANG_TO_MAINTAIN' => 'Select the language(s) you want to maintan',
+'L_SELECT_LANG_TO_MAINTAIN' => 'Select the language(s) you want to maintain',
 'L_SELECT_OTHER_FILTER_CRITERIA' => 'Select other filter / search criteria',
 'L_SELECT_REPLACEMENT_TEMPLATE' => 'Please select a replacement template. The keys and their translations will be assigned to the selected template. If you select "Delete file template" all keys and their translations will be deleted without assigning them to another template',
 'L_SELECT_STANDARD_IMPORTER' => 'Select the default import method. It will be preselected if the user didn\'t select an importer yet.',

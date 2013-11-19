@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (954), DSB (3), oluul (1)
+// binota (956), DSB (3), oluul (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -225,7 +225,8 @@ $lang = array(
 'L_MENUE_RIGHTS' => '菜单权限',
 'L_NAME' => '名称',
 'L_NAME_OF_LANGUAGE' => '语言名称',
-'L_NEEDS_UPDATE_INFO' => 'The translation was changed in the main language. Please check the translation in this language.',
+'L_NEEDS_UPDATE_INFO' => '主要语言中的翻译已经更改。
+请检查此语系中的翻译。',
 'L_NEEDS_WORK' => '需要努力',
 'L_NEW_PASSWORD' => '新密码',
 'L_NEW_VALUE' => '新的值',
@@ -245,7 +246,7 @@ $lang = array(
 'L_OK' => '好',
 'L_OLD_PASSWORD' => '旧密码',
 'L_OLD_VALUE' => '旧的值',
-'L_ONLY_SMALL_CHANGE_INFO' => 'Just a small change. There will be no notice about this change for the other languages.',
+'L_ONLY_SMALL_CHANGE_INFO' => '这只是小改动。将不会有关于提示此改动至其它语言。',
 'L_ORDER_LIST_BY' => '排列清单依',
 'L_OTHER_USERRIGHTS' => '其他用户权限',
 'L_PAGE_X_OF_Y' => '第 %d 页，共 %d 页',

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (380), enkay (14), janrei (33), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (76)
+// DSB (380), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -50,7 +50,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_CONFIGURATION' => 'Konfiguration',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Sind Sie sicher, dass Sie diese Dateivorlage löschen wollen?',
 'L_CONFIRM_DELETE_KEY_X' => 'Sind Sie sicher, dass Sie den Schlüssel \'{KEY}\' löschen wollen?',
-'L_CONFIRM_DELETE_LANGUAGE' => 'Wollen Sie diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Beabreitungsrechte von Benutzern für diese Sprache.',
+'L_CONFIRM_DELETE_LANGUAGE' => 'Wollen Sie diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Bearbeitungsrechte von Benutzern für diese Sprache.',
 'L_CONFIRM_DELETE_LANGUAGE_BUTTON' => 'Ja, Sprache löschen',
 'L_CONFIRM_DELETE_LOG_ENTRY' => 'Möchten Sie diesen Log-Eintrag wirklich entfernen?',
 'L_CONFIRM_DELETE_TITLE' => 'Wirklich löschen?',

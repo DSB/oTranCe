@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (415)
+// DSB (2), HolgerGremminger (417)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
@@ -218,7 +218,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_MENUE_RIGHTS' => 'Menybehörighet',
 'L_NAME' => 'Namn',
 'L_NAME_OF_LANGUAGE' => 'Språkets benämning',
-'L_NEEDS_UPDATE_INFO' => 'The translation was changed in the main language. Please check the translation in this language.',
+'L_NEEDS_UPDATE_INFO' => 'Originaltexten/-översättningen har förändrats. Kontrollera/korrigera denna översättning.',
 'L_NEEDS_WORK' => 'Ofullständigt',
 'L_NEW_PASSWORD' => 'Nytt lösenord',
 'L_NEW_VALUE' => 'Nytt värde',
@@ -238,7 +238,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_OK' => 'OK',
 'L_OLD_PASSWORD' => 'Gamla lösenordet',
 'L_OLD_VALUE' => 'Gamla värdet',
-'L_ONLY_SMALL_CHANGE_INFO' => 'Just a small change. There will be no notice about this change for the other languages.',
+'L_ONLY_SMALL_CHANGE_INFO' => 'Endast en liten ändring. De andra språken kommer ej att meddelas om denna ändring.',
 'L_ORDER_LIST_BY' => 'Sortera listan efter',
 'L_OTHER_USERRIGHTS' => 'Andra behörigheter',
 'L_PAGE_X_OF_Y' => 'Sida %d av %d',

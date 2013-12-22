@@ -81,7 +81,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function getAllKeys()
     {
         $sql = "SELECT `id`, `key`,`template_id` FROM `{$this->_tableKeys}` "
-               . " ORDER BY `template_id` ASC, `key` ASC";
+            . " ORDER BY `template_id` ASC, `key` ASC";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $data) {
@@ -127,24 +127,27 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $totalLanguageVars = $this->getNrOfLanguageVars();
         $translators       = $this->getTranslators();
         $pattern           = "SELECT count(*) as anzahl FROM `" . $this->_tableTranslations . "` "
-                             . " WHERE `lang_id`= %d AND `text` > ''";
+            . " WHERE `lang_id`= %d AND `text` > ''";
+        $index             = 0;
         foreach ($languageIds as $val) {
-            $langId                        = $val['id'];
-            $sql                           = sprintf($pattern, (int)$val['id']);
-            $res                           = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-            $translated                    = $res[0]['anzahl'];
-            $ret[$langId]                  = array();
-            $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
-            $ret[$langId]['translated']    = $translated;
-            $percentTranslated             = 0;
+            $langId                       = $val['id'];
+            $sql                          = sprintf($pattern, (int)$val['id']);
+            $res                          = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+            $translated                   = $res[0]['anzahl'];
+            $ret[$index]                  = array();
+            $ret[$index]['languageId']    = $langId;
+            $ret[$index]['notTranslated'] = $totalLanguageVars - $translated;
+            $ret[$index]['translated']    = $translated;
+            $percentTranslated            = 0;
             if ($totalLanguageVars > 0) {
                 $percentTranslated = (100 * $translated) / $totalLanguageVars;
             }
-            $ret[$langId]['done']        = round($percentTranslated, 2);
-            $ret[$langId]['translators'] = '';
+            $ret[$index]['done']        = round($percentTranslated, 2);
+            $ret[$index]['translators'] = '';
             if (isset($translators[$langId])) {
-                $ret[$langId]['translators'] = $translators[$langId];
+                $ret[$index]['translators'] = $translators[$langId];
             }
+            $index++;
         }
 
         return $ret;
@@ -180,11 +183,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Saves number of hits in $this->_foundRows.
      *
-     * @param string $languageIds    Ids of languages to search in
-     * @param string $searchphrase   Text to find
-     * @param int    $offset         Number of records to skip
-     * @param int    $nrOfRecords    Number of hits to return
-     * @param int    $fileTemplateId If set, only search in this template
+     * @param string $languageIds Ids of languages to search in
+     * @param string $searchphrase Text to find
+     * @param int $offset Number of records to skip
+     * @param int $nrOfRecords Number of hits to return
+     * @param int $fileTemplateId If set, only search in this template
      *
      * @return array
      */
@@ -200,7 +203,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $join  = '';
         if ($searchphrase > '') {
             $where[] = 't.`text` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\' AND '
-                       . 't.`lang_id` IN (' . implode(",", $languageIds) . ')';
+                . 't.`lang_id` IN (' . implode(",", $languageIds) . ')';
         }
 
         // if hits are filtered by a file template, we need to join the key table here
@@ -228,7 +231,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             return array();
         }
         $sql  = 'SELECT `id`,  `key`, `template_id` FROM `' . $this->_tableKeys . '` '
-                . 'WHERE `id` IN (' . implode(',', $keyIds) . ') ORDER BY `key` ASC';
+            . 'WHERE `id` IN (' . implode(',', $keyIds) . ') ORDER BY `key` ASC';
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return is_array($hits) ? $hits : array();
@@ -237,10 +240,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Search for term in keys table.
      *
-     * @param string $searchphrase   Text to search for
-     * @param int    $offset         Number of records to skip
-     * @param int    $nrOfRecords    Number of hits to return
-     * @param int    $fileTemplateId If set, only search in this template
+     * @param string $searchphrase Text to search for
+     * @param int $offset Number of records to skip
+     * @param int $nrOfRecords Number of hits to return
+     * @param int $fileTemplateId If set, only search in this template
      *
      * @return array
      */
@@ -248,7 +251,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         //find key ids
         $sql   = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
-                 . ' FROM `' . $this->_tableKeys . '` k ';
+            . ' FROM `' . $this->_tableKeys . '` k ';
         $where = array();
         if ($searchphrase > '') {
             $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';
@@ -269,11 +272,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get key ids of untranslated variables for given language
      *
-     * @param int    $languageId   If set, only search in this language
+     * @param int $languageId If set, only search in this language
      * @param string $searchphrase Phrase to search
-     * @param int    $offset       Number of records to skip
-     * @param int    $nrOfRecords  Number of hits to return
-     * @param int    $templateId   If set, only search in this template
+     * @param int $offset Number of records to skip
+     * @param int $nrOfRecords Number of hits to return
+     * @param int $templateId If set, only search in this template
      *
      * @return array
      */
@@ -287,10 +290,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $this->_foundRows = null;
         $sql              = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
-                            . ' FROM `' . $this->_tableKeys . '` k ';
+            . ' FROM `' . $this->_tableKeys . '` k ';
 
         $sql .= ' LEFT JOIN `' . $this->_tableTranslations . '` t'
-                . ' ON t.`key_id` = k.`id`';
+            . ' ON t.`key_id` = k.`id`';
 
         $where = array();
 
@@ -306,7 +309,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             // we are looking for a specific language
             // Add the language condition to the JOIN, not to the WHERE clause.
             $sql .= ' AND t.`lang_id`=' . $languageId
-                    . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
+                . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
         } else {
             // find all untranslated keys
             $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
@@ -329,7 +332,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Get the key id of untranslated key in given languages
      *
      * @param int $languageId Id of languages to search in
-     * @param int $offset     Skipped entries
+     * @param int $offset Skipped entries
      *
      * @return null|int
      */
@@ -339,11 +342,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $offset = 0;
         }
         $sql = 'SELECT k.`id`, t.`lang_id`, t.`text` FROM `' . $this->_tableKeys . '` k '
-               . ' LEFT JOIN `' . $this->_tableTranslations . '` t'
-               . ' ON t.`key_id` = k.`id`'
-               . ' AND t.`lang_id` = ' . $languageId
-               . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)'
-               . ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', 1';
+            . ' LEFT JOIN `' . $this->_tableTranslations . '` t'
+            . ' ON t.`key_id` = k.`id`'
+            . ' AND t.`lang_id` = ' . $languageId
+            . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)'
+            . ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', 1';
 
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (isset($res[0]['id'])) {
@@ -384,7 +387,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Return array(lang_id => array (locale => text)
      *
-     * @param int       $id          Id of key
+     * @param int $id Id of key
      * @param int|array $languageIds Id(s) of languages to fetch
      *
      * @return array
@@ -401,8 +404,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         }
         $languages = implode(',', $languageIds);
         $sql       = 'SELECT `lang_id`, `text`'
-                     . ' FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-                     . ' WHERE `key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
+            . ' FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
+            . ' WHERE `key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
         $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (empty($res)) {
             return array();
@@ -426,8 +429,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function getNeedsUpdateStatusByKeyId($id)
     {
         $sql    = "SELECT `lang_id`, `needs_update` "
-                  . "FROM `{$this->_database}`.`{$this->_tableTranslations}` "
-                  . "WHERE `key_id`='$id'";
+            . "FROM `{$this->_database}`.`{$this->_tableTranslations}` "
+            . "WHERE `key_id`='$id'";
         $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         $return = array();
@@ -443,9 +446,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Return array(lang_id => array (locale => text)
      *
-     * @param array $keys       Ids of keys to fetch
-     * @param int   $templateId Id of the file template
-     * @param int   $languageId Id of the language to fetch
+     * @param array $keys Ids of keys to fetch
+     * @param int $templateId Id of the file template
+     * @param int $languageId Id of the language to fetch
      *
      * @return array
      */
@@ -456,11 +459,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $keys[$k] = $this->_dbo->escape($v);
         }
         $sql = 'SELECT k.`key`, t.`text` FROM `' . $this->_database . '`.`' . $this->_tableKeys . '` k'
-               . ' LEFT JOIN `' . $this->_database . '`.`' . $this->_tableTranslations . '` t'
-               . ' ON t.`key_id` = k.`id`'
-               . ' WHERE k.`key` IN (\'' . implode('\',\'', $keys) . '\') '
-               . ' AND k.`template_id` = ' . (int)$templateId
-               . ' AND t.`lang_id` = ' . (int)$languageId;
+            . ' LEFT JOIN `' . $this->_database . '`.`' . $this->_tableTranslations . '` t'
+            . ' ON t.`key_id` = k.`id`'
+            . ' WHERE k.`key` IN (\'' . implode('\',\'', $keys) . '\') '
+            . ' AND k.`template_id` = ' . (int)$templateId
+            . ' AND t.`lang_id` = ' . (int)$languageId;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $r) {
             $ret[$r['key']] = $r['text'];
@@ -489,7 +492,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $keys[$k] = $this->_dbo->escape($v);
         }
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableKeys . '` k'
-               . ' WHERE `key` IN (\'' . implode('\',\'', $keys) . '\') ORDER BY `key`';
+            . ' WHERE `key` IN (\'' . implode('\',\'', $keys) . '\') ORDER BY `key`';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $r) {
             $ret[$r['id']] = $r;
@@ -502,7 +505,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Add translations for the given languages to the entries.
      *
      * @param array $languageIds Ids of languages
-     * @param array $entries     Entries to add
+     * @param array $entries Entries to add
      *
      * @return array
      */
@@ -521,8 +524,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         }
 
         $sql          = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` FROM `' . $this->_tableTranslations
-                        . '` WHERE `key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN ('
-                        . implode(',', $languageIds) . ')';
+            . '` WHERE `key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN ('
+            . implode(',', $languageIds) . ')';
         $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         foreach ($translations as $translation) {
@@ -541,16 +544,16 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get translation key
      *
-     * @param string $key          The key to look for
-     * @param int    $fileTemplate Id of file template
+     * @param string $key The key to look for
+     * @param int $fileTemplate Id of file template
      *
      * @return bool
      */
     public function getEntryByKey($key, $fileTemplate = 0)
     {
         $sql = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' WHERE `key`=\'' . $this->_dbo->escape($key) . '\''
-               . ' AND `template_id` = ' . (int)$fileTemplate;
+            . ' WHERE `key`=\'' . $this->_dbo->escape($key) . '\''
+            . ' AND `template_id` = ' . (int)$fileTemplate;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return isset($res[0]) ? $res[0] : false;
@@ -567,7 +570,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $id  = (int)$id;
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' WHERE `id`=' . $id;
+            . ' WHERE `id`=' . $id;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return isset($res[0]) ? $res[0] : false;
@@ -576,8 +579,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Check if the given key exists
      *
-     * @param string $key          The key to check
-     * @param int    $fileTemplate Id of file template
+     * @param string $key The key to check
+     * @param int $fileTemplate Id of file template
      *
      * @return bool
      */
@@ -591,17 +594,17 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Create a new key
      *
-     * @param string $key        The key to create
-     * @param int    $templateId ID of file template
+     * @param string $key The key to create
+     * @param int $templateId ID of file template
      *
      * @return bool
      */
     public function saveNewKey($key, $templateId)
     {
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' SET `key`=\'' . $this->_dbo->escape($key) . '\', '
-               . '`dt`=\'' . date('Y-m-d H-i-s', time()) . '\', '
-               . '`template_id`=' . intval($templateId);
+            . ' SET `key`=\'' . $this->_dbo->escape($key) . '\', '
+            . '`dt`=\'' . date('Y-m-d H-i-s', time()) . '\', '
+            . '`template_id`=' . intval($templateId);
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         return $res;
@@ -618,11 +621,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $keyId = (int)$keyId;
         $sql   = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-                 . ' WHERE `key_id`= \'' . $this->_dbo->escape($keyId) . '\'';
+            . ' WHERE `key_id`= \'' . $this->_dbo->escape($keyId) . '\'';
         $res   = $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' WHERE `id` = ' . $keyId;
+            . ' WHERE `id` = ' . $keyId;
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         return (bool)$res;
@@ -631,10 +634,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Save values to database.
      *
-     * @param int   $keyId              Id of key
-     * @param array $newValues          Translations
-     * @param int   $fallbackLanguageId Id of fallback language
-     * @param bool  $ignoreSmallChange  Whether to flag other languages as "please re-check"
+     * @param int $keyId Id of key
+     * @param array $newValues Translations
+     * @param int $fallbackLanguageId Id of fallback language
+     * @param bool $ignoreSmallChange Whether to flag other languages as "please re-check"
      *
      * @return bool|string
      */
@@ -666,10 +669,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $text                 = $this->_dbo->escape($text);
             $date                 = date('Y-m-d H:i:s', time());
             $sql                  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
-                                    . ' (`lang_id`, `key_id`, `text`, `dt`) VALUES ('
-                                    . $langId . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
-                                    . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\''
-                                    . ', `needs_update`=\'0\'';
+                . ' (`lang_id`, `key_id`, `text`, `dt`) VALUES ('
+                . $langId . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
+                . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\''
+                . ', `needs_update`=\'0\'';
 
             try {
                 $this->_dbo->query($sql, Msd_Db::SIMPLE);
@@ -680,8 +683,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         if (!$ignoreSmallChange && $fallbackLanguageId != null && array_key_exists($fallbackLanguageId, $newValues)) {
             $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
-                   . "SET needs_update=1 "
-                   . "WHERE `key_id`='{$keyId}' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ")";
+                . "SET needs_update=1 "
+                . "WHERE `key_id`='{$keyId}' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ")";
             $this->_dbo->query($sql);
         }
 
@@ -713,7 +716,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Assigns a language variable to a file template,
      *
-     * @param string $keyId      ID of the language variable.
+     * @param string $keyId ID of the language variable.
      * @param string $templateId ID of the template to assign.
      *
      * @return bool|string Returns TRUE on success, otherwise returns the error message.
@@ -742,7 +745,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function deleteLanguageEntries($languageId)
     {
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-               . ' WHERE `lang_id` = ' . intval($languageId);
+            . ' WHERE `lang_id` = ' . intval($languageId);
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -750,7 +753,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Update the name of a key.
      *
-     * @param int    $keyId   Key-Id to update
+     * @param int $keyId Key-Id to update
      * @param string $keyName New key name
      *
      * @return bool
@@ -758,13 +761,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function updateKeyName($keyId, $keyName)
     {
         $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-               . ' SET `key` = \'' . $this->_dbo->escape($keyName) . '\''
-               . ' WHERE `id` = ' . $keyId;
+            . ' SET `key` = \'' . $this->_dbo->escape($keyName) . '\''
+            . ' WHERE `id` = ' . $keyId;
         $res = $this->_dbo->query($sql, Msd_db::SIMPLE);
         if ($res !== false) {
             // update timestamp of translations to make them being exported
             $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-                   . ' SET `dt` = NOW() WHERE `key_id` = ' . $keyId;
+                . ' SET `dt` = NOW() WHERE `key_id` = ' . $keyId;
             $res &= $this->_dbo->query($sql, Msd_db::SIMPLE);
         }
 
@@ -774,8 +777,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Validates the given language key.
      *
-     * @param string $keyName      Name of the language key to validate.
-     * @param int    $fileTemplate ID of the file template.
+     * @param string $keyName Name of the language key to validate.
+     * @param int $fileTemplate ID of the file template.
      *
      * @return bool
      */
@@ -815,15 +818,15 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Removes the needs update flag for the given key and language
      *
      * @param int $languageId Id of the language.
-     * @param int $keyId      Id of the key.
+     * @param int $keyId Id of the key.
      *
      * @return bool
      */
     public function removeNeedsUpdateFlag($languageId, $keyId)
     {
         $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
-               . "SET `needs_update`='0' "
-               . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
+            . "SET `needs_update`='0' "
+            . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
     }

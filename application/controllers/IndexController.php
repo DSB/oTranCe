@@ -50,13 +50,17 @@ class IndexController extends OtranceController
         $languagesModel = new Application_Model_Languages();
         $entriesModel   = new Application_Model_LanguageEntries();
 
-        $languages = $languagesModel->getAllLanguages();
+        $languages       = $languagesModel->getAllLanguages();
+        $languagesStatus = $entriesModel->getStatus($languages);
+        $languagesStatus = $this->_addLocaleToLanguageStatus($languagesStatus, $languages);
+        $languagesStatus = $this->_sortLanguagesStatus($languagesStatus);
+
         $this->view->assign(
             array(
-                 'user'        => $this->_userModel,
-                 'languages'   => $languages,
-                 'translators' => $this->_userModel->getTranslatorList(false, true),
-                 'status'      => $entriesModel->getStatus($languages)
+                'user'        => $this->_userModel,
+                'languages'   => $languages,
+                'translators' => $this->_userModel->getTranslatorList(false, true),
+                'status'      => $languagesStatus
             )
         );
     }
@@ -88,8 +92,8 @@ class IndexController extends OtranceController
         setcookie('oTranCe_autologin', null, null, '/');
         $this->_doRedirect(
             array(
-                 'controller' => 'index',
-                 'action'     => 'login',
+                'controller' => 'index',
+                'action'     => 'login',
             )
         );
     }
@@ -114,13 +118,13 @@ class IndexController extends OtranceController
                     $postData['pass'],
                     $autoLogin
                 );
-                $message = $user->getAuthMessages();
+                $message     = $user->getAuthMessages();
                 if ($loginResult === Msd_User::SUCCESS) {
                     $historyModel->logLoginSuccess();
 
                     // load user setting for the interface language
-                    $this->_userModel   = new Application_Model_User();
-                    $guiLanguage = $this->_userModel->loadSetting('interfaceLanguage', null);
+                    $this->_userModel = new Application_Model_User();
+                    $guiLanguage      = $this->_userModel->loadSetting('interfaceLanguage', null);
                     if ($guiLanguage !== null) {
                         $this->view->dynamicConfig->setParam('interfaceLanguage', $guiLanguage);
                     }
@@ -141,20 +145,20 @@ class IndexController extends OtranceController
                 $this->view->popUpMessage()->addMessage(
                     'login-message',
                     'L_LOGIN',
-                    $message, //'L_LOGIN_INVALID_USER',
+                    $message,
                     array(
-                         'modal'       => true,
-                         'dialogClass' => 'error'
+                        'modal'       => true,
+                        'dialogClass' => 'error'
                     )
                 );
             }
         }
         $this->view->assign(
             array(
-                 'isLogin'               => true,
-                 'form'                  => $form,
-                 'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
-                 'request'               => $this->_request
+                'isLogin'               => true,
+                'form'                  => $form,
+                'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
+                'request'               => $this->_request
             )
         );
     }
@@ -178,5 +182,45 @@ class IndexController extends OtranceController
         }
 
         $this->redirect($redirectUrl, array('exit' => true));
+    }
+
+    /**
+     * Enrich languagesStatus array with locale info.
+     *
+     * @param array $languagesStatus The languagesStatus array without assoc index locale
+     * @param array $languages Languages meta info array
+     *
+     * @return array                 New array having assoc index locale
+     */
+    private function _addLocaleToLanguageStatus($languagesStatus, $languages)
+    {
+        foreach ($languagesStatus as $index => $val) {
+            $languagesStatus[$index]['locale'] = $languages[$val['languageId']]['locale'];
+        }
+
+        return $languagesStatus;
+    }
+
+    /**
+     * Sort languages status for output
+     *
+     * @param array $languagesStatus Languages status array
+     *
+     * @return array Sorted languages array
+     */
+    private function _sortLanguagesStatus($languagesStatus)
+    {
+        $sortField     = $this->getParam('sortfield', 'locale');
+        $sortDirection = (int)$this->getParam('direction', SORT_ASC);
+        $sort          = array($sortField => $sortDirection);
+        $this->view->assign('sortDirection', $sortDirection);
+
+        // sort by second criteria locale for equal value groups if first sorting isn't already set to locale
+        if ($sortField !== 'locale') {
+            $sort['locale'] = SORT_ASC;
+        }
+        $languagesStatus = Msd_ArraySort::sortMultidimensionalArray($languagesStatus, $sort);
+
+        return $languagesStatus;
     }
 }

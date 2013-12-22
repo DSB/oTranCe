@@ -88,6 +88,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_DUPLICATE' => 'Duplicera',
 'L_EDIT' => 'Redigera',
 'L_EDITED' => 'Bearbetat',
+'L_EDITED_TOTAL' => 'Edited total',
 'L_EDIT_ENTRIES' => 'Redigera dataposter',
 'L_EDIT_ENTRY' => 'Bearbeta post',
 'L_EDIT_FILE_TEMPLATE' => 'Redigera filmall',

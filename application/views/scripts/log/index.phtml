@@ -99,49 +99,56 @@ $nrOfPages    = ceil($this->rows / $this->recordsPerPage);
 
         <?php
     }
-foreach ($this->logEntries as $entry)
-{
-?>
-    <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
-        <?php
-            if ($this->canDelete) {
-                $delete = '<a href="#" title="' . $this->lang->L_DELETE_LOG_ENTRY . '" onclick="deleteLogEntry(\''
-                            . $entry['id'] . '\');">';
-                echo '<td>' . $delete;
-                echo '<img src="' . $this->getIconSrc('delete') . '" style="padding-top:2px;" alt="" '
-                    .'title="' . $this->lang->L_DELETE_LOG_ENTRY . '" height="10" width="10"/> ';
-                echo '</a></td>';
-            }
-        ?>
-        <td class="right"><?php echo $this->numberFormat($i);?>.</td>
-        <td class="nowrap"><?php echo $entry['dt'];?></td>
-        <td><?php echo $this->escape($this->printTranslators($entry['user_id']));?></td>
-        <td class="nowrap"><?php echo $this->escape($entry['action']);?></td>
-        <td class="nowrap">
+
+    foreach ($this->logEntries as $entry)
+    { ?>
+        <tr class="<?php echo$this->cycle(array('row-even', 'row-odd'))->next();?>">
             <?php
-                if (isset($this->languages[$entry['lang_id']])) {
-                    echo $this->languages[$entry['lang_id']]['name'] . ' (' . $this->languages[$entry['lang_id']]['locale'] . ')';
-                } else {
-                    echo '-';
+                if ($this->canDelete) {
+                    $delete = '<a href="#" title="' . $this->lang->L_DELETE_LOG_ENTRY . '" onclick="deleteLogEntry(\''
+                                . $entry['id'] . '\');">';
+                    echo '<td>' . $delete;
+                    echo '<img src="' . $this->getIconSrc('delete') . '" style="padding-top:2px;" alt="" '
+                        .'title="' . $this->lang->L_DELETE_LOG_ENTRY . '" height="10" width="10"/> ';
+                    echo '</a></td>';
                 }
             ?>
-        </td>
-        <td>
-            <?php
-                if ($entry['key_id'] == 0) {
-                    echo '-';
-            } else {
-                echo $this->escape($entry['key']);
-            }
-            ;?>
-        </td>
-        <td><?php echo $this->out($entry['newValue'], false, '', true);?></td>
-        <td><?php echo $this->out($entry['oldValue'], false, '', true);?></td>
-    </tr>
-<?php
-    $i++;
-}
-?>
+            <td class="right"><?php echo $this->numberFormat($i);?>.</td>
+            <td class="nowrap"><?php echo $entry['dt'];?></td>
+            <td><?php
+                    if ($this->canEditUser) {
+                        echo '<a title="' . $this->lang->L_EDIT . '" href="' . $this->url(array('controller'=>'admin_users','action'=>'edit', 'id' => $entry['user_id'])) .'">'
+                            . $this->escape($this->printTranslators($entry['user_id'])) . '</a>';
+                    } else {
+                        echo $this->escape($this->printTranslators($entry['user_id']));
+                    }
+                ?>
+            </td>
+            <td class="nowrap"><?php echo $this->escape($entry['action']);?></td>
+            <td class="nowrap">
+                <?php
+                    if (isset($this->languages[$entry['lang_id']])) {
+                        echo $this->languages[$entry['lang_id']]['name'] . ' (' . $this->languages[$entry['lang_id']]['locale'] . ')';
+                    } else {
+                        echo '-';
+                    }
+                ?>
+            </td>
+            <td>
+                <?php
+                    if ($entry['key_id'] == 0) {
+                        echo '-';
+                } else {
+                    echo $this->escape($entry['key']);
+                }
+                ;?>
+            </td>
+            <td><?php echo $this->out($entry['newValue'], false, '', true);?></td>
+            <td><?php echo $this->out($entry['oldValue'], false, '', true);?></td>
+        </tr>
+    <?php
+        $i++;
+    } ?>
 </table>
 
 <div class="top-margin">

@@ -90,6 +90,7 @@ $lang = array(
 'L_DUPLICATE' => '拷貝',
 'L_EDIT' => '編輯',
 'L_EDITED' => '已編輯',
+'L_EDITED_TOTAL' => 'Edited total',
 'L_EDIT_ENTRIES' => '編輯條目',
 'L_EDIT_ENTRY' => '編輯條目',
 'L_EDIT_FILE_TEMPLATE' => '編輯檔案範本',

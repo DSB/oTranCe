@@ -1,3 +1,7 @@
+<?php
+$sortDirection = isset($this->sortDirection) ? $this->sortDirection : SORT_DESC;
+$sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
+?>
 <div id="headline">
     <h2><?php echo $this->lang->L_STATISTICS;?></h2>
 </div>
@@ -5,9 +9,30 @@
 <table class="bdr small" summary="Activity statistics of users">
     <tr class="thead">
         <th>#</th>
-        <th><?php echo $this->lang->L_USER;?></th>
-        <th colspan="3"><?php echo $this->lang->L_LANGUAGE;?></th>
-        <th><?php echo $this->lang->L_EDITED;?></th>
+        <th>
+            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'username','direction' => $sortDirection));?>">
+            <?php echo $this->lang->L_USER;?>
+        </th>
+        <th colspan="3">
+            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'locale','direction' => $sortDirection));?>">
+                <?php echo $this->lang->L_LANGUAGE;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'editActions','direction' => $sortDirection));?>">
+                <?php echo $this->lang->L_EDITED;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'editActionsTotal','direction' => $sortDirection));?>">
+                <?php echo $this->lang->L_EDITED_TOTAL;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'lastAction','direction' => $sortDirection));?>">
+                <?php echo $this->lang->L_LATEST_ACTIVITY;?>
+            </a>
+        </th>
     </tr>
     <?php
     $i = 0;
@@ -20,8 +45,11 @@
             </td>
         </tr><?php
     }
-    foreach ($this->userStatistics as $user) {
-        if ($lastUser != $user['user_id']) {
+    $lastUserId = 0;
+    $canEditUsers = $this->user->hasRight('editUsers');
+    foreach ($this->userStatistics as $values) {
+        $userId = $values['user_id'];
+        if ($lastUserId !== $userId) {
             $userChanged = true;
             $i++;
         } else {
@@ -29,15 +57,34 @@
         } ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
-            <td>&nbsp;<?php if ($userChanged) { echo $this->printTranslators($user['user_id']); } ?></td>
-            <td>
-                <?php echo $this->printFlag($user['lang_id'], 16);?>
+            <td>&nbsp;<?php if ($userChanged) {
+                    if ($canEditUsers) {
+                        echo '<a title="' . $this->lang->L_EDIT . '" href="'
+                            . $this->url(array('controller'=>'admin_users','action'=>'edit', 'id' => $userId)) .'">'
+                            . $this->escape($this->printTranslators($userId)) .'</a>';
+                    } else {
+                        echo $this->printTranslators($userId); }
+                    }
+                ?>
             </td>
-            <td><?php echo $this->languages[$user['lang_id']]['locale'];?></td>
-            <td><?php echo $this->languages[$user['lang_id']]['name'];?></td>
-            <td class="right"><?php echo $this->numberFormat($user['editActions']);?></td>
+            <td>
+                <?php echo $this->printFlag($values['lang_id'], 16);?>
+            </td>
+            <td><?php echo $this->languages[$values['lang_id']]['locale'];?></td>
+            <td><?php echo $this->languages[$values['lang_id']]['name'];?></td>
+            <td class="right"><?php echo $this->numberFormat($values['editActions']);?></td>
+            <td class="right">
+                <?php if ($userChanged) {
+                    echo $this->numberFormat($values['editActionsTotal']);
+                }?>
+            </td>
+            <td class="right">
+                <?php if ($userChanged) {
+                    echo $values['lastAction'];
+                }?>
+            </td>
         </tr>
         <?php
-        $lastUser = $user['user_id'];
+        $lastUserId = $userId;
     } ?>
 </table>

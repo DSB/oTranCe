@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (424), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
+// DSB (425), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -90,6 +90,7 @@ No list of keys has been transmitted yet.',
 'L_DUPLICATE' => 'Duplicate',
 'L_EDIT' => 'Edit',
 'L_EDITED' => 'Edited',
+'L_EDITED_TOTAL' => 'Edited total',
 'L_EDIT_ENTRIES' => 'Edit entries',
 'L_EDIT_ENTRY' => 'Edit entry',
 'L_EDIT_FILE_TEMPLATE' => 'Edit file template',

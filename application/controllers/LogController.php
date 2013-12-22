@@ -118,6 +118,7 @@ class LogController extends OtranceController
         $this->view->languages         = $languages;
         $this->view->rows              = $this->_historyModel->getRowCount();
         $this->view->canDelete         = $this->_userModel->hasRight('admin');
+        $this->view->canEditUser       = $this->_userModel->hasRight('editUsers');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, (int)$this->view->recordsPerPage);
     }
 

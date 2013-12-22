@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (31), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
+// DSB (32), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -90,6 +90,7 @@ Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_DUPLICATE' => 'Duplizieren',
 'L_EDIT' => 'Bearbeiten',
 'L_EDITED' => 'Bearbeitet',
+'L_EDITED_TOTAL' => 'Insgesamt bearbeitet',
 'L_EDIT_ENTRIES' => 'Einträge bearbeiten',
 'L_EDIT_ENTRY' => 'Eintrag bearbeiten',
 'L_EDIT_FILE_TEMPLATE' => 'Dateivorlage bearbeiten',

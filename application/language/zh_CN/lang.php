@@ -90,6 +90,7 @@ $lang = array(
 'L_DUPLICATE' => '克隆',
 'L_EDIT' => '编辑',
 'L_EDITED' => '已编辑',
+'L_EDITED_TOTAL' => 'Edited total',
 'L_EDIT_ENTRIES' => '编辑条目',
 'L_EDIT_ENTRY' => '编辑条目',
 'L_EDIT_FILE_TEMPLATE' => '编辑文件模版',

@@ -105,7 +105,7 @@ class ImportController extends OtranceController
     }
 
     /**
-     * Converts the text from given cahrset to utf-8.
+     * Converts the text from given charset to utf-8.
      *
      * @return void
      */

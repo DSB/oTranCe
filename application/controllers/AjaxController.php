@@ -104,7 +104,6 @@ class AjaxController extends OtranceController
         $fallbackData  = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
         $overallResult = true;
         foreach ($keys as $key) {
-            $key     = substr($key, 4);
             $saveKey = true;
             if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
                 // value is the same as in the fallback language
@@ -116,13 +115,13 @@ class AjaxController extends OtranceController
             }
 
             if ($saveKey === false) {
-                $ret[$i] = array('key' => $key, 'result' => 4);
+                $ret[$i] = array('id' => md5($key), 'result' => 4);
             } else {
                 $res = $this->_saveKey($key, $fileTemplate, $languageId);
                 if ($res !== 1) {
                     $overallResult = false;
                 }
-                $ret[$i] = array('key' => $key, 'result' => $res);
+                $ret[$i] = array('id' => 'k' . md5($key), 'result' => $res);
             }
             $i++;
         }

@@ -23,7 +23,7 @@ $i=1;
 foreach ($this->extractedData as $key => $val) { ?>
     <tr class="<?php echo $cycleHelper->next();?> small">
         <td class="importLineHeight">
-            <span id="OtC-<?php echo $key;?>" class="import"></span>
+            <span id="k<?php echo md5($key);?>" lang-key="<?php echo $key;?>" class="import"></span>
         </td>
         <td class="right"><?php echo $this->numberFormat($i);?>.</td>
         <td><?php echo $this->out($key);?></td>
@@ -72,7 +72,7 @@ $this->jQuery()->onLoadCaptureStart();
 ?>
 $('#importButton').click(function () {
     $('.import').each(function (index, domElement) {
-        key = domElement.id;
+        key = domElement.getAttribute('lang-key');
         importValues.push(key);
     });
     $('#importButton').attr('disabled','disabled');
@@ -119,12 +119,12 @@ function doImport() {
             'dataType':'json',
             'success':function(data) {
                 if (data.length > 0) {
-                    var lastKey = '';
+                    var lastId = '';
                     $.each(data, function () {
-                        setState('OtC-' + this.key,this.result);
-                        lastKey = this.key;
+                        setState(this.id,this.result);
+                        lastId = this.id;
                     });
-                    scrollToId('OtC-' + lastKey);
+                    scrollToId(lastId);
                     calcDone();
                     doImport();
                 } else {

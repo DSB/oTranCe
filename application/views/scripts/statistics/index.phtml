@@ -1,6 +1,17 @@
 <?php
 $sortDirection = isset($this->sortDirection) ? $this->sortDirection : SORT_DESC;
 $sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
+$sortParams = array(
+    'controller'=>'statistics',
+    'action'=>'index',
+    'direction' => $sortDirection
+);
+$canSeeLog = $this->user->hasRight('showLog');
+$filterByUser = array(
+    'controller'=>'log',
+    'action'=>'index',
+    'filterAction' => 'changed'
+);
 ?>
 <div id="headline">
     <h2><?php echo $this->lang->L_STATISTICS;?></h2>
@@ -10,26 +21,27 @@ $sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
     <tr class="thead">
         <th>#</th>
         <th>
-            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'username','direction' => $sortDirection));?>">
-            <?php echo $this->lang->L_USER;?>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'username')));?>">
+                <?php echo $this->lang->L_USER;?>
+            </a>
         </th>
         <th colspan="3">
-            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'locale','direction' => $sortDirection));?>">
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'locale')));?>">
                 <?php echo $this->lang->L_LANGUAGE;?>
             </a>
         </th>
         <th>
-            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'editActions','direction' => $sortDirection));?>">
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'editActions')));?>">
                 <?php echo $this->lang->L_EDITED;?>
             </a>
         </th>
         <th>
-            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'editActionsTotal','direction' => $sortDirection));?>">
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'editActionsTotal')));?>">
                 <?php echo $this->lang->L_EDITED_TOTAL;?>
             </a>
         </th>
         <th>
-            <a href="<?php echo $this->url(array('controller'=>'statistics','action'=>'index','sortfield' => 'lastAction','direction' => $sortDirection));?>">
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'lastAction')));?>">
                 <?php echo $this->lang->L_LATEST_ACTIVITY;?>
             </a>
         </th>
@@ -46,7 +58,7 @@ $sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
         </tr><?php
     }
     $lastUserId = 0;
-    $canEditUsers = $this->user->hasRight('editUsers');
+
     foreach ($this->userStatistics as $values) {
         $userId = $values['user_id'];
         if ($lastUserId !== $userId) {
@@ -57,25 +69,51 @@ $sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
         } ?>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="right">&nbsp;<?php if ($userChanged) { echo $i .'.'; };?></td>
-            <td>&nbsp;<?php if ($userChanged) {
-                    if ($canEditUsers) {
+            <td>&nbsp;<?php
+                if ($userChanged) {
+                    if ($canSeeLog) {
+                        $filterByUser['filterUser'] = $userId;
+                        $filterByLanguageParams = $filterByUser;
+                        $filterByLanguageParams['filterLanguage'] = $values['lang_id'];
                         echo '<a title="' . $this->lang->L_EDIT . '" href="'
-                            . $this->url(array('controller'=>'admin_users','action'=>'edit', 'id' => $userId)) .'">'
+                            . $this->url($filterByUser) .'">'
                             . $this->escape($this->printTranslators($userId)) .'</a>';
                     } else {
-                        echo $this->printTranslators($userId); }
+                        echo $this->printTranslators($userId);
                     }
-                ?>
+                }
+                $filterByLanguageParams['filterLanguage'] = $values['lang_id'];?>
             </td>
             <td>
-                <?php echo $this->printFlag($values['lang_id'], 16);?>
+                <a href="<?php echo $this->url($filterByLanguageParams);?>">
+                    <?php echo $this->printFlag($values['lang_id'], 16);?>
+                </a>
             </td>
-            <td><?php echo $this->languages[$values['lang_id']]['locale'];?></td>
-            <td><?php echo $this->languages[$values['lang_id']]['name'];?></td>
-            <td class="right"><?php echo $this->numberFormat($values['editActions']);?></td>
+            <td>
+                <a href="<?php echo $this->url($filterByLanguageParams);?>">
+                    <?php echo $this->languages[$values['lang_id']]['locale'];?>
+                </a>
+            </td>
+            <td>
+                <a href="<?php echo $this->url($filterByLanguageParams);?>">
+                    <?php echo $this->languages[$values['lang_id']]['name'];?>
+                </a>
+            </td>
             <td class="right">
-                <?php if ($userChanged) {
-                    echo $this->numberFormat($values['editActionsTotal']);
+                <a href="<?php echo $this->url($filterByLanguageParams);?>">
+                    <?php echo $this->numberFormat($values['editActions']);?>
+                </a>
+            </td>
+            <td class="right">
+                <?php
+                if ($userChanged) {
+                    if ($canSeeLog) { ?>
+                        <a href="<?php echo $this->url($filterByUser);?>">
+                            <?php echo $this->numberFormat($values['editActionsTotal']);?>
+                        </a><?php
+                    } else {
+                        echo $this->numberFormat($values['editActionsTotal']);
+                    }
                 }?>
             </td>
             <td class="right">

@@ -49,16 +49,6 @@ class Application_Model_Languages extends Msd_Application_Model
     }
 
     /**
-     * Get nr of rows of last query (needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        return $this->_dbo->getRowCount();
-    }
-
-    /**
      * Saves language data to the database.
      *
      * @param int    $id            Internal id of the language
@@ -161,7 +151,7 @@ class Application_Model_Languages extends Msd_Application_Model
         }
         $sql       = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
                 (`flag_extension` != '') hasFlag
-            FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC $limit";
+            FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC " . $limit;
         $res       = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $languages = array();
         while ($row = $res->fetch_array(MYSQLI_ASSOC)) {

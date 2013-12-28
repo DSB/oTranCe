@@ -357,20 +357,6 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
-     * Get nr of rows of last query (needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        if ($this->_foundRows === null) {
-            $this->_foundRows = $this->_dbo->getRowCount();
-        }
-
-        return $this->_foundRows;
-    }
-
-    /**
      * Save nr of rows to property.
      *
      * Query must be invoked using SQL_CALC_FOUND_ROWS and method needs to be called right after the query is executed.

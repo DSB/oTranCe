@@ -304,16 +304,6 @@ class Application_Model_User extends Msd_Application_Model
     }
 
     /**
-     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        return (int)$this->_dbo->getRowCount();
-    }
-
-    /**
      * Get the locale of the interface language setting of a user
      *
      * @param int $userId Id of user

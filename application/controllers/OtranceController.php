@@ -70,4 +70,23 @@ class OtranceController extends Zend_Controller_Action
 
         return true;
     }
+
+    /**
+     * Check sort field for allowed values to prevent SQL-injection.
+     * Fall back to 'username' for invalid values.
+     *
+     * @param string $sortField Selected sort field
+     *
+     * @return string Validated sort field
+     */
+    protected function getValidatedSortField($sortField)
+    {
+        $allowedValues = array('id', 'username', 'realName', 'active', 'editActions', 'lastAction', 'locale');
+        if (in_array($sortField, $allowedValues)) {
+            return $sortField;
+        }
+
+        return 'username';
+    }
+
 }

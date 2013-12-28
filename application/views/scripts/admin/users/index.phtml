@@ -1,3 +1,12 @@
+<?php
+$sortDirection = isset($this->sortDirection) ? $this->sortDirection : SORT_DESC;
+$sortDirection = $sortDirection == SORT_ASC ? SORT_DESC : SORT_ASC;
+$sortParams = array(
+    'controller'=>'admin_users',
+    'action'=>'index',
+    'direction' => $sortDirection
+);
+?>
 <div id="headline">
     <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_USERS;?></h2>
 </div>
@@ -23,34 +32,57 @@ echo $this->partial('/helper/search-users.phtml', array(
     <tr class="thead">
         <th>&nbsp;</th>
         <th>#</th>
-        <th><?php echo $this->lang->L_ID;?></th>
-        <th><?php echo $this->lang->L_USERNAME;?></th>
-        <th><?php echo $this->lang->L_NAME;?></th>
-        <th><?php echo $this->lang->L_STATUS;?></th>
-        <th><?php echo $this->lang->L_EDITED;?></th>
-        <th><?php echo $this->lang->L_LATEST_ACTIVITY;?></th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'id')));?>">
+                <?php echo $this->lang->L_ID;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'username')));?>">
+                <?php echo $this->lang->L_USERNAME;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'realName')));?>">
+                <?php echo $this->lang->L_NAME;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'active')));?>">
+                <?php echo $this->lang->L_STATUS;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'editActions')));?>">
+                <?php echo $this->lang->L_EDITED;?>
+            </a>
+        </th>
+        <th>
+            <a href="<?php echo $this->url(array_merge($sortParams, array('sortfield' => 'lastAction')));?>">
+                <?php echo $this->lang->L_LATEST_ACTIVITY;?>
+            </a>
+        </th>
         <th><?php echo $this->lang->L_CAN_EDIT;?></th>
     </tr>
 <?php
-
 $i = 1;
 if ($this->hits == 0) { ?>
     <tr class="row-odd">
-        <td colspan="6" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
+        <td colspan="9" class="error"><?php echo $this->lang->L_NO_HITS;?>.</td>
     </tr><?php
 }
 
 $i += $this->offset;
-foreach ($this->users as $userId => $user)
+foreach ($this->users as $user)
 {
+    $userId = $user['id'];
     $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
     $edit = '<a href="'.$this->baseUrl().'/admin_users/edit/id/'.$userId .'" title="' . $this->lang->L_EDIT_USER . '">';
     if ($this->user->hasRight('showLog')) {
         $userLog = '<a href="'.$this->baseUrl().'/log/index/filterUser/'.$userId .'" title="' . $this->lang->L_LOG . '">';
     } else {
         $userLog = $edit;
-    }
-    ?>
+    } ?>
     <tr class="<?php echo $cycleHelper->next();?>">
         <td class="vmiddle nowrap">
             <?php echo $edit . $this->getIcon('Edit', $this->lang->L_EDIT);?></a>
@@ -81,19 +113,20 @@ foreach ($this->users as $userId => $user)
         </td>
         <td class="vmiddle right">
             <?php
-                if (isset($this->userStatistics[$userId])) {
-                    echo $userLog . $this->numberFormat($this->userStatistics[$userId]['editActions']) . '</a>';
+                if ($user['editActions'] > 0) {
+                    echo $userLog . $this->numberFormat($user['editActions']) . '</a>';
                 } else {
                     echo '-';
                 } ?>
         </td>
-        <td class="vmiddle">
+        <td class="vmiddle right">
             <?php
-                if (isset($this->userStatistics[$userId])) {
-                    echo $userLog . $this->userStatistics[$userId]['lastAction'] . '</a>';
+                if ($user['lastAction']) {
+                    echo $userLog . $user['lastAction'] . '</a>';
                 } else {
-                    echo '-';
-                } ?>
+                    echo '-&nbsp;';
+                }
+            ?>
         </td>
         <td class="vmiddle">
             <?php $languageEditRights = $this->userModel->getUserLanguageRights($userId, false);?>

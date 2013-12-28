@@ -42,10 +42,11 @@ class Application_Model_Statistics extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig           = $this->_config->getParam('table');
-        $this->_tableHistory   = $tableConfig['history'];
-        $this->_tableLanguages = $tableConfig['languages'];
-        $this->_tableUsers     = $tableConfig['users'];
+        $tableConfig               = $this->_config->getParam('table');
+        $this->_tableHistory       = $tableConfig['history'];
+        $this->_tableHistoryChange = $tableConfig['history_change'];
+        $this->_tableLanguages     = $tableConfig['languages'];
+        $this->_tableUsers         = $tableConfig['users'];
     }
 
     /**
@@ -103,7 +104,7 @@ class Application_Model_Statistics extends Msd_Application_Model
         $sql = "SELECT SQL_CALC_FOUND_ROWS u.`id`, u.`username`, u.`realName`, u.`email`, u.`active`,
             h.`editActions`, h.`lastAction`
             FROM `{$this->_tableUsers}` u
-            LEFT JOIN `history_change` h ON h.`user_id` = u.`id`";
+            LEFT JOIN `{$this->_tableHistoryChange}` h ON h.`user_id` = u.`id`";
 
         if ($filter > '') {
             $sql .= ' WHERE u.`username` LIKE \'%' . $this->_dbo->escape($filter) . '%\' ';

@@ -95,16 +95,6 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     }
 
     /**
-     * Get nr of rows of last query (needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        return $this->_dbo->getRowCount();
-    }
-
-    /**
      * Retrieves data for the given file template.
      * If the template ID doesn't exists or ID is set to 0 (create new template), an empty (faked) record will be
      * returned.

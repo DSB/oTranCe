@@ -58,4 +58,14 @@ abstract class Msd_Application_Model
     public function init()
     {
     }
+
+    /**
+     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
+     *
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        return (int)$this->_dbo->getRowCount();
+    }
 }

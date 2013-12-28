@@ -181,16 +181,6 @@ class Application_Model_History extends Msd_Application_Model
     }
 
     /**
-     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        return (int)$this->_dbo->getRowCount();
-    }
-
-    /**
      * Log action login failed
      *
      * @param string $user Name of user that tried to log in

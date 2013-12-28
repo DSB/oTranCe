@@ -44,15 +44,24 @@ class Admin_UsersController extends AdminController
         $recordsPerPage                =
             (int)$this->_dynamicConfig->getParam($this->_requestedController . '.recordsPerPage');
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(10, 200, 10, $recordsPerPage);
-        $this->view->users             = $this->_userModel->getUsers(
+
+        $sortField     = $this->getParam('sortfield', 'username');
+        $sortField     = $this->getValidatedSortField($sortField);
+        $sortDirection = (int)$this->getParam('direction', SORT_ASC);
+        $this->view->assign('sortDirection', $sortDirection);
+
+        $statisticsModel = new Application_Model_Statistics();
+        $statistics      = $statisticsModel->getUserOverallStatistics(
             (string)$this->_dynamicConfig->getParam($this->_requestedController . '.filterUser'),
             (int)$this->_dynamicConfig->getParam($this->_requestedController . '.offset'),
-            $recordsPerPage
+            $recordsPerPage,
+            $sortField,
+            $sortDirection
         );
-        $this->view->hits              = $this->_userModel->getRowCount();
-        $this->view->userModel         = $this->_userModel;
-        $statisticsModel               = new Application_Model_Statistics();
-        $this->view->userStatistics    = $statisticsModel->getUserChangeStatistics();
+
+        $this->view->hits      = $statisticsModel->getRowCount();
+        $this->view->userModel = $this->_userModel;
+        $this->view->users     = $statistics;
     }
 
     /**

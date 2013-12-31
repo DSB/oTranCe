@@ -227,8 +227,7 @@ class AjaxController extends OtranceController
                 $res = $this->_userModel->saveRight($userId, $right, 1);
                 if ($res == true) {
                     $icon = $this->view->getIcon('Ok', $this->view->lang->L_CHANGE_RIGHT, 16);
-                }
-                ;
+                };
             }
 
             if ($res == true) {
@@ -622,7 +621,7 @@ class AjaxController extends OtranceController
     }
 
     /**
-     * Get a Google translation
+     * Translate given text into target language using the translation service provider
      *
      * @param string $text       The text to translate
      * @param string $sourceLang Source locale
@@ -635,40 +634,11 @@ class AjaxController extends OtranceController
         if ($text == '') {
             return '';
         }
-        $sourceLang   = $this->_mapLangCode($sourceLang);
-        $targetLang   = $this->_mapLangCode($targetLang);
-        $config       = Msd_Registry::getConfig();
-        $googleConfig = $config->getParam('google');
-        $pattern      = 'https://www.googleapis.com/language/translate/v2?key=%s'
-                        . '&q=%s&source=%s&target=%s';
-        $url          = sprintf($pattern, $googleConfig['apikey'], urlencode($text), $sourceLang, $targetLang);
-        $handle       = @fopen($url, "r");
-        if ($handle) {
-            $contents = fread($handle, 4 * 4096);
-            fclose($handle);
-        } else {
-            return 'Error: not possible!';
-        }
-        $response = json_decode($contents);
-        $data     = $response->data->translations[0]->translatedText;
 
-        return $data;
+        $translationService = Otc_Translate::getInstance();
+        $translatedText     = $translationService->getTranslation($text, $sourceLang, $targetLang);
+
+        return $translatedText;
     }
 
-    /**
-     * Convert lang code like vi_VN into Googles code vn
-     *
-     * @param string $code Locale
-     *
-     * @return string
-     */
-    private function _mapLangCode($code)
-    {
-        $pos = strrpos($code, '_');
-        if ($pos === false) {
-            return $code;
-        }
-
-        return substr($code, 0, $pos);
-    }
 }

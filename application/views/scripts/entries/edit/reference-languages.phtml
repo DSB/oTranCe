@@ -10,8 +10,7 @@ if (!empty($this->referenceLanguages)) {
     <?php
     $rowclass = $cycleHelper->next();
     foreach ($this->referenceLanguages as $lang) {
-        $rowclass = $cycleHelper->next();
-        ?>
+        $rowclass = $cycleHelper->next(); ?>
         <tr class="<?php echo $rowclass;?>">
             <td>
                 <?php echo $this->printFlag($lang, 20);?>

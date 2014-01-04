@@ -16,13 +16,38 @@
 class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstract
 {
     /**
+     * Option array.
+     * Will be used to receive and store adapter specific setting.
+     *
+     * @var array
+     */
+    protected $_options = array(
+        'serviceDescription' => array(
+            'type'        => 'description',
+            'description' => 'L_MYMEMORY_SERVICE_DESCRIPTION',
+        ),
+        'email'       => array(
+            'type'         => 'text',
+            'label'        => 'L_EMAIL',
+            'description'  => 'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION',
+            'defaultValue' => '',
+        ),
+        'apiKey'    => array(
+            'type'         => 'text',
+            'label'        => 'L_APIKEY',
+            'description' => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
+            'defaultValue' => '',
+        ),
+    );
+
+    /**
      * Constructor
      *
      * Set service specific properties on construct.
      */
     public function __construct()
     {
-        $this->serviceBaseUrl = 'http://api.mymemory.translated.net/{method}';
+        $this->_serviceBaseUrl = 'http://api.mymemory.translated.net/{method}';
     }
 
     /**
@@ -90,7 +115,7 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
      */
     protected function executeCall($method, $params = array())
     {
-        $url    = str_replace('{method}', $method, $this->serviceBaseUrl) . '?' . http_build_query($params);
+        $url    = str_replace('{method}', $method, $this->_serviceBaseUrl) . '?' . http_build_query($params);
         $handle = @fopen($url, "r");
         if ($handle) {
             $contents = fread($handle, 4 * 4096);

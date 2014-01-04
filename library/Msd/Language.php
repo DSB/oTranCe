@@ -276,7 +276,6 @@ class Msd_Language
     {
         $locale = $this->getActiveLanguage();
         $file   = $basePath . '/' . $locale . '/' . $fileName;
-
         if (!is_readable($file)) {
             $file = $basePath . '/' . $fallbackLocale . '/' . $fileName;
             if (!is_readable($file)) {

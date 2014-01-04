@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (386), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (402), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -27,6 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => 'Administratorrechte',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => 'Wählen Sie einen Bereich zum Editieren, indem Sie auf einen Tab in der Kopfnavigation klicken.',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => 'Alle Log-Einträge, Einstellungen und Rechte wurden ebenfalls entfernt.',
+'L_APIKEY' => 'API-Schlüssel',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => 'Sind Sie sicher, dass Sie Ihre persönlichen VCS-Zugangsdaten löschen möchten?',
 'L_AUTHENTICATE' => 'Anmelde-Informationen',
 'L_BACK' => 'Zurück',
@@ -48,6 +49,7 @@ Wenn die Anzeige stimmig ist, können Sie den Import mit dem Button "Starte Anal
 'L_COMMIT_MESSAGE' => 'Commit-Nachricht',
 'L_COMPLETE_VIEW' => 'Vollständige Ansicht',
 'L_CONFIGURATION' => 'Konfiguration',
+'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => 'Einstellungen des externen Dienstes',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Sind Sie sicher, dass Sie diese Dateivorlage löschen wollen?',
 'L_CONFIRM_DELETE_KEY_X' => 'Sind Sie sicher, dass Sie den Schlüssel \'{KEY}\' löschen wollen?',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Wollen Sie diese Sprache wirklich löschen?<br />Dies löscht ebenfalls alle Log-Einträge und Bearbeitungsrechte von Benutzern für diese Sprache.',
@@ -83,6 +85,7 @@ Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_DELETE_LANGUAGE' => 'Sprache löschen',
 'L_DELETE_LOG_ENTRY' => 'Log-Eintrag entfernen',
 'L_DELETE_USER' => 'Benutzer löschen',
+'L_DESCRIPTION' => 'Beschreibung',
 'L_DONE' => 'Erledigt',
 'L_DOWNLOAD' => 'Herunterladen',
 'L_DOWNLOADS' => 'Downloads',

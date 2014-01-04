@@ -20,14 +20,22 @@ abstract class Module_Translate_Service_Abstract
      *
      * @var string
      */
-    var $serviceBaseUrl = '';
+    protected $_serviceBaseUrl = '';
 
     /**
      * Will hold loaded config params
      *
      * @var array
      */
-    var $config;
+    protected $config;
+
+    /**
+     * Option array.
+     * Will be used to receive and store adapter specific setting.
+     *
+     * @var array
+     */
+    protected $_options;
 
     /**
      * Translate a message from source language into target language
@@ -46,4 +54,15 @@ abstract class Module_Translate_Service_Abstract
      * @return array|bool array('locale1', 'locale2', ...); or false on error
      */
     abstract public function getTranslatableLocales();
+
+    /**
+     * Get options. Used in admin form to receive and store inputs from user.
+     *
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->_options;
+    }
+
 }

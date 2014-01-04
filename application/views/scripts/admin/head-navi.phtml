@@ -47,7 +47,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
             </li><?php
         }
         if ($user->hasRight('editImporter')) { ?>
-            <li id="admin_importer" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <li id="admin_importers" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $importersUrl;?>">
                     <?php echo $this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_IMPORTER;?>
                 </a>
@@ -61,7 +61,7 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
             </li><?php
         }
         if ($user->hasRight('editTlServices')) { ?>
-            <li id="admin_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+            <li id="admin_translation-services" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $tlServicesUrl;?>">
                     <?php echo $this->getIcon('List', '', 16) . ' ' . $this->lang->L_TRANSLATION_SERVICE;?>
                 </a>

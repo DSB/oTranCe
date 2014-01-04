@@ -33,20 +33,25 @@ class Admin_TranslationServicesController extends AdminController
      */
     public function indexAction()
     {
-        //$vcsConf = $this->_config->getParam('vcs');
+        $translationServiceConf = $this->getTranslationServiceConfig();
         if ($this->_request->isPost()) {
+            $translationServiceConf['selectedService'] = $this->_request->getParam('selectedService');
+            $translationServiceConf['useService']      = $this->_request->getParam('useService');
             if ($this->_request->getParam('saveButton') !== null) {
-                //$this->_saveVcsConfig();
-                //$vcsConf = $this->_config->getParam('vcs');
-            } else {
-                //$vcsConf['adapter'] = $this->_request->getParam('vcsAdapter');
+                $this->_saveTranslationServiceConfig($translationServiceConf);
             }
         }
-        //$this->view->vcsAdapterParams = Msd_Vcs::getAdapterOptions($vcsConf['adapter']);
-        //$this->view->vcsConfig        = $vcsConf;
-        $this->_addAdapterLanguageFile('MyMemory');
-        $servicesBasePath = realpath(APPLICATION_PATH . '/../modules/library/Translate/Service/');
-        $this->view->tsAvailAdapter = Msd_Translate::getAvailableTranslationServices($servicesBasePath);
+
+        $selectedTranslationService = $translationServiceConf['selectedService'];
+
+        $this->_addAdapterLanguageFile($selectedTranslationService);
+        $this->view->selectedService = $selectedTranslationService;
+        $this->view->useService      = $translationServiceConf['useService'];
+
+        $servicesBasePath              = realpath(APPLICATION_PATH . '/../modules/library/Translate/Service/');
+        $this->view->availableServices = Msd_Translate::getAvailableTranslationServices($servicesBasePath);
+
+        $this->view->adapterOptions = Msd_Translate::getInstance($selectedTranslationService)->getOptions();
     }
 
     /**
@@ -58,9 +63,40 @@ class Admin_TranslationServicesController extends AdminController
      */
     protected function _addAdapterLanguageFile($adapterName)
     {
-        $languageFile = $adapterName . '.php';
-        $language     = Msd_Language::getInstance();
-        $language->addTranslationFile(APPLICATION_PATH . '/../modules/library/Translate/languages', $languageFile);
+        Msd_Language::getInstance()->addTranslationFile(APPLICATION_PATH . '/language', $adapterName . '.php');
     }
 
+    /**
+     * Saves the config for translation services to config.ini.
+     *
+     * @param array $translationServiceConf Configuration to save
+     *
+     * @return void
+     */
+    private function _saveTranslationServiceConfig($translationServiceConf)
+    {
+        $this->_config->setParam('translationService', $translationServiceConf);
+        $this->view->saved = $this->_config->save();
+    }
+
+    /**
+     * Get standard config params from config.ini.
+     *
+     * If they don't exist set default values in case params are not present in config.ini.
+     *
+     * @return array
+     */
+    public function getTranslationServiceConfig()
+    {
+        $config                    = $this->_config->getParam('translationService', array());
+        $config['selectedService'] = isset($config['selectedService']) ? $config['selectedService'] : 'MyMemory';
+        $config['useService']      = isset($config['useService']) ? $config['useService'] : '0';
+
+        return $config;
+    }
+
+    protected function _getAdapterOptions($selectedTranslationService)
+    {
+
+    }
 }

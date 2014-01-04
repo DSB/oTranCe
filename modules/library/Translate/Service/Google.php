@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Translate
  */
-class Otc_Translate_Service_Google extends Otc_Translate_Service_Abstract
+class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
 {
 
     /**

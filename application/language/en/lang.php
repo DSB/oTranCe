@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (425), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
+// DSB (430), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -71,6 +71,7 @@ No list of keys has been transmitted yet.',
 'L_CREATED_ON_X_AT_Y' => 'Created on %1$s at %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Create a new file template',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Create new user account',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Used translation service',
 'L_CURRENT_VCS_ADAPTER' => 'Used VCS adapter',
 'L_DATA_TO_ANALYZE' => 'Data to analyze',
 'L_DATETIME' => 'Date / Time',
@@ -305,6 +306,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'User can see and use admin tab "Languages"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'User is allowed to edit project data',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'User can see and use admin tab "File templates"',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'User can see and use admin tab "Users"',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'User can see and use admin tab "VCS"',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'User can import phrases that are equal to the main language',
@@ -353,6 +355,8 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_TRANSLATE_TO' => 'Translate to',
 'L_TRANSLATIONS' => 'Translations',
 'L_TRANSLATION_CENTER' => 'Translation Center',
+'L_TRANSLATION_SERVICE' => 'External translation service',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
 'L_TRY_AGAIN' => 'Please try again.',
 'L_UNTRANSLATED' => 'Untranslated',
 'L_UPDATE_DOWNLOAD_PACKAGE' => 'Update language package',

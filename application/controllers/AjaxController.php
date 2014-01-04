@@ -635,7 +635,7 @@ class AjaxController extends OtranceController
             return '';
         }
 
-        $translationService = Otc_Translate::getInstance();
+        $translationService = Msd_Translate::getInstance();
         $translatedText     = $translationService->getTranslation($text, $sourceLang, $targetLang);
 
         return $translatedText;

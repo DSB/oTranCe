@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (956), DSB (3), oluul (1)
+// binota (957), DSB (3), oluul (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -71,6 +71,7 @@ $lang = array(
 'L_CREATED_ON_X_AT_Y' => '创建于%1$s,%2$s',
 'L_CREATE_NEW_FILE_TEMPLATE' => '创建一个新的模版文件',
 'L_CREATE_NEW_USER_ACCOUNT' => '创建一个新的用户帐户',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Used translation service',
 'L_CURRENT_VCS_ADAPTER' => '使用VCS适配器',
 'L_DATA_TO_ANALYZE' => '分析数据',
 'L_DATETIME' => '日期与时间',
@@ -90,7 +91,7 @@ $lang = array(
 'L_DUPLICATE' => '克隆',
 'L_EDIT' => '编辑',
 'L_EDITED' => '已编辑',
-'L_EDITED_TOTAL' => 'Edited total',
+'L_EDITED_TOTAL' => '编辑总计',
 'L_EDIT_ENTRIES' => '编辑条目',
 'L_EDIT_ENTRY' => '编辑条目',
 'L_EDIT_FILE_TEMPLATE' => '编辑文件模版',
@@ -306,6 +307,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '用户可见到并使用管理标签中的“语言”标签',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => '已允许用户编辑项目数据',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => '用户可见到并使用管理标签中的“文件模版”标签',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => '用户可见到并使用管理标签中的“用户”标签',
 'L_RIGHT_EXPLAIN_EDITVCS' => '用户可见到并使用管理标签中的“VCS”标签',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => '用户可导入相等于主要语言的字串',
@@ -354,6 +356,8 @@ $lang = array(
 'L_TRANSLATE_TO' => '翻译为',
 'L_TRANSLATIONS' => '翻译',
 'L_TRANSLATION_CENTER' => '翻译中心',
+'L_TRANSLATION_SERVICE' => 'External translation service',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
 'L_TRY_AGAIN' => '请重试',
 'L_UNTRANSLATED' => '未翻译',
 'L_UPDATE_DOWNLOAD_PACKAGE' => '更新語言包',

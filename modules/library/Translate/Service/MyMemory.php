@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Translate
  */
-class Otc_Translate_Service_MyMemory extends Otc_Translate_Service_Abstract
+class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstract
 {
     /**
      * Constructor

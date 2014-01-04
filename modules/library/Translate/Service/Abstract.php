@@ -13,7 +13,7 @@
  * @package         oTranCe
  * @subpackage      Translate
  */
-abstract class Otc_Translate_Service_Abstract
+abstract class Module_Translate_Service_Abstract
 {
     /**
      * The base url of the service

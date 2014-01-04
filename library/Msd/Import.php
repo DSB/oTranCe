@@ -9,7 +9,7 @@
  * @author          $Author$
  */
 /**
- * Impoerter factory: handles different import methods.
+ * Importer factory: handles different import methods.
  *
  * @package         MySQLDumper
  * @subpackage      Importer
@@ -114,7 +114,7 @@ class Msd_Import
     }
 
     /**
-     * Initiaöoze the plug in loader.
+     * Initialize the plug in loader.
      *
      * @static
      *

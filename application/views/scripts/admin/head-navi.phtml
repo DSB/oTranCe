@@ -6,12 +6,12 @@ $languagesUrl  = $this->url(array('controller'=>'admin_languages','action'=>'ind
 $filesUrl      = $this->url(array('controller'=>'admin_files','action'=>'index'));
 $importersUrl  = $this->url(array('controller'=>'admin_importers','action'=>'index'));
 $vcsUrl        = $this->url(array('controller'=>'admin_vcs','action'=>'index'));
+$tlServicesUrl = $this->url(array('controller'=>'admin_translation-services','action'=>'index'));
 // get action name to set the active item in TabBar
 $controllerName = Zend_Controller_Front::getInstance()->getRequest()->getControllerName();
 // format action name and escape possible dot in action name
 $controllerName = str_replace('.', '\\\.', $controllerName);
 $this->jQuery()->onLoadCaptureStart(); ?>
-// highlight active tab
 $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
 <?php $this->jQuery()->onLoadCaptureEnd(); ?>
 
@@ -23,47 +23,49 @@ $('#<?php echo $controllerName; ?>').addClass("ui-state-highlight");
                 <a href="<?php echo $projectUrl;?>">
                     <?php echo $this->getIcon('Project', '', 16) . ' ' . $this->lang->L_PROJECT;?>
                 </a>
-            </li>
-        <?php
+            </li><?php
         }
         if ($user->hasRight('editUsers')) { ?>
             <li id="admin_users" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $usersUrl;?>">
                     <?php echo $this->getIcon('Users', '', 16) . ' ' . $this->lang->L_USERS;?>
                 </a>
-            </li>
-        <?php
+            </li><?php
         }
         if ($user->hasRight('editLanguage')) { ?>
             <li id="admin_languages" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $languagesUrl;?>">
                     <?php echo $this->getIcon('Document', '', 16). ' ' . $this->lang->L_LANGUAGES;?>
                 </a>
-            </li>
-            <?php
+            </li><?php
         }
         if ($user->hasRight('editTemplate')) { ?>
             <li id="admin_files" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $filesUrl;?>">
                     <?php echo $this->getIcon('Download', '', 16). ' ' . $this->lang->L_FILE_TEMPLATES;?>
                 </a>
-            </li>
-            <?php
+            </li><?php
         }
         if ($user->hasRight('editImporter')) { ?>
             <li id="admin_importer" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $importersUrl;?>">
                     <?php echo $this->getIcon('OpenFile', '', 16). ' ' . $this->lang->L_IMPORTER;?>
                 </a>
-            </li>
-            <?php
+            </li><?php
         }
         if ($user->hasRight('editVcs')) { ?>
             <li id="admin_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
                 <a href="<?php echo $vcsUrl;?>">
                     <?php echo $this->getIcon('BackupDatabase', '', 16) . ' ' . $this->lang->L_VCS;?>
                 </a>
-            </li>
-        <?php } ?>
+            </li><?php
+        }
+        if ($user->hasRight('editTlServices')) { ?>
+            <li id="admin_vcs" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
+                <a href="<?php echo $tlServicesUrl;?>">
+                    <?php echo $this->getIcon('List', '', 16) . ' ' . $this->lang->L_TRANSLATION_SERVICE;?>
+                </a>
+            </li><?php
+        } ?>
     </ul>
 </div>

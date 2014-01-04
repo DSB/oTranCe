@@ -98,14 +98,17 @@ function translate(event) {
         url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
         dataType : 'html',
         success: function(response) {
+            setPageActive();
             $('#edit-'+lang[1]).val(response.trim());
             $('#edit-'+lang[1]).focus();
-            setPageActive();
         },
-        error: function() {
-            $('#edit-'+lang[1]).val('Error: ' + response);
-            $('#edit-'+lang[1]).focus();
+        error: function(response) {
             setPageActive();
+            if (response.statusText) {
+                alert('<?php echo $this->lang->L_ERROR;?>: ' + response.status + ' ' + response.statusText);
+            } else {
+                alert(response);
+            }
         }
     });
 }

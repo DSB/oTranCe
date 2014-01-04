@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (381), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (386), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -71,6 +71,7 @@ Bisher wurde keine Liste von zu übersetzenden Schlüsseln geliefert.',
 'L_CREATED_ON_X_AT_Y' => 'Erstellt am %1$s um %2$s Uhr.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Erstellen einer neuen Dateivorlage',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Neues Benutzerkonto anlegen',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Benutzter Übersetzungsdienst',
 'L_CURRENT_VCS_ADAPTER' => 'Benutzter VCS-Adapter',
 'L_DATA_TO_ANALYZE' => 'Zu analysierende Daten',
 'L_DATETIME' => 'Datum / Zeit',
@@ -303,6 +304,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Benutzer kann Sprachen editieren',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Benutzer darf die Projektdaten bearbeiten',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Benutzer darf Dateivorlagen bearbeiten',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'Benutzer darf Übersetzungsservices bearbeiten',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Benutzer darf Daten anderer Benutzer bearbeiten',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Benutzer darf VCS-Einstellungen bearbeiten',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'Benutzer darf Phrasen importieren, die die gleiche Übersetzung haben wie die Hauptsprache',
@@ -351,6 +353,8 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_TRANSLATE_TO' => 'Übersetze nach',
 'L_TRANSLATIONS' => 'Übersetzungen',
 'L_TRANSLATION_CENTER' => 'Translation Center',
+'L_TRANSLATION_SERVICE' => 'Externer Übersetzungsdienst',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Soll den Übersetzern der externe Übersetzungsdienst angeboten werden?',
 'L_TRY_AGAIN' => 'Bitte versuchen Sie es noch einmal.',
 'L_UNTRANSLATED' => 'Nicht übersetzt',
 'L_UPDATE_DOWNLOAD_PACKAGE' => 'Sprachpaket aktualisieren',

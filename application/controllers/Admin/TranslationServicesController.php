@@ -38,7 +38,9 @@ class Admin_TranslationServicesController extends AdminController
             $translationServiceConf['selectedService'] = $this->_request->getParam('selectedService');
             $translationServiceConf['useService']      = $this->_request->getParam('useService');
             if ($this->_request->getParam('saveButton') !== null) {
-                $this->_saveTranslationServiceConfig($translationServiceConf);
+                $saved             = $this->_saveTranslationServiceConfig($translationServiceConf);
+                $saved             = $saved && $this->_saveModuleSettings($translationServiceConf['selectedService']);
+                $this->view->saved = $saved;
             }
         }
 
@@ -51,7 +53,10 @@ class Admin_TranslationServicesController extends AdminController
         $servicesBasePath              = realpath(APPLICATION_PATH . '/../modules/library/Translate/Service/');
         $this->view->availableServices = Msd_Translate::getAvailableTranslationServices($servicesBasePath);
 
-        $this->view->adapterOptions = Msd_Translate::getInstance($selectedTranslationService)->getOptions();
+        $translationService = Msd_Translate::getInstance($selectedTranslationService);
+        if ($translationService) {
+            $this->view->adapterOptions = Msd_Translate::getInstance($selectedTranslationService)->getOptions();
+        }
     }
 
     /**
@@ -71,12 +76,13 @@ class Admin_TranslationServicesController extends AdminController
      *
      * @param array $translationServiceConf Configuration to save
      *
-     * @return void
+     * @return bool
      */
     private function _saveTranslationServiceConfig($translationServiceConf)
     {
         $this->_config->setParam('translationService', $translationServiceConf);
-        $this->view->saved = $this->_config->save();
+
+        return $this->_config->save();
     }
 
     /**
@@ -95,8 +101,18 @@ class Admin_TranslationServicesController extends AdminController
         return $config;
     }
 
-    protected function _getAdapterOptions($selectedTranslationService)
+    /**
+     * Save posted settings to database
+     *
+     * @param string $selectedTranslationService Name of target translation service
+     *
+     * @return bool
+     */
+    protected function _saveModuleSettings($selectedTranslationService)
     {
+        $settings           = $this->_request->getParam($selectedTranslationService);
+        $translationService = Msd_Translate::getInstance($selectedTranslationService);
 
+        return (bool)$translationService->saveModuleSettings($settings);
     }
 }

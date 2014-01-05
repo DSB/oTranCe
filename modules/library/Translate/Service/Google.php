@@ -16,6 +16,21 @@
 class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
 {
     /**
+     * Module-Id.
+     * Is used as unique module identifier in table module_config.
+     *
+     * @var string
+     */
+    protected $_moduleId = 'translate.Google';
+
+    /**
+     * The base url of the translation service
+     *
+     * @var string
+     */
+    protected $_serviceBaseUrl = 'https://www.googleapis.com/language/translate/v2/{method}';
+
+    /**
      * Option array.
      * Will be used to receive and store adapter specific setting.
      *
@@ -27,28 +42,10 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
             'description' => 'L_GOOGLE_SERVICE_DESCRIPTION',
         ),
         'apiKey' => array(
-            'type' => 'text',
+            'type' => 'password',
             'label' => 'L_APIKEY'
         ),
     );
-
-    /**
-     * The base url of the translation service
-     *
-     * @var string
-     */
-    protected $_serviceBaseUrl = 'https://www.googleapis.com/language/translate/v2/{method}';
-
-    /**
-     * Constructor
-     *
-     * Set service specific properties on construct.
-     */
-    public function __construct()
-    {
-        $config               = Msd_Registry::getConfig();
-        $this->config         = $config->getParam('google');
-    }
 
     /**
      * Translate a message from source language into target language
@@ -124,7 +121,7 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
     protected function executeCall($method, $params = array())
     {
         // add api key
-        $params['key'] = $this->config['apikey'];
+        $params['key'] = $this->_config['apikey'];
         $url           = str_replace('{method}', $method, $this->_serviceBaseUrl) . '?' . http_build_query($params);
         $handle        = @fopen($url, "r");
         if ($handle) {

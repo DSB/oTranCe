@@ -30,20 +30,29 @@ class Msd_Translate
     /**
      * Get translation service instance
      *
+     * @static
+     *
      * @param string $translationServiceName Get translation service instance
      *
      * @return bool|Module_Translate_Service_Abstract
+     *
+     * @throws Exception
      */
     public static function getInstance($translationServiceName = 'MyMemory')
     {
         self::_initLoader();
-        // TODO read config and get correct translation service
         $translationServiceName = 'Module_Translate_Service_' . $translationServiceName;
 
         try {
             $translationService = new $translationServiceName;
         } catch (Exception $e) {
             $translationService = false;
+        }
+
+        if (!$translationService instanceof Module_Translate_Service_Abstract) {
+            $message = 'Couldn\'t instantiate class ' . $translationServiceName . '. Does it extend'
+                . ' Module_Translate_Service_Abstract?';
+            throw new Exception($message);
         }
 
         return $translationService;

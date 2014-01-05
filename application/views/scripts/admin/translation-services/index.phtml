@@ -51,7 +51,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
                 <?php
                     foreach ($this->adapterOptions as $id => $adapterOption) { ?>
                         <tr class="<?php echo $cycleHelper->next();?>">
-                            <?php echo $this->renderOption($id, $this->selectedService, $adapterOption, ''); ?>
+                            <?php echo $this->renderOption($id, $this->selectedService, $adapterOption); ?>
                         </tr><?php
                     }
              } ?>
@@ -62,4 +62,13 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
         </tr>
     </table>
 </form>
+<?php
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+}
+
 

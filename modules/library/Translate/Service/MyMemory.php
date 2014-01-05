@@ -16,6 +16,21 @@
 class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstract
 {
     /**
+     * Module-Id.
+     * Is used as unique module identifier in table module_config.
+     *
+     * @var string
+     */
+    protected $_moduleId = 'translate.MyMemory';
+
+    /**
+     * The base url of the service
+     *
+     * @var string
+     */
+    protected $_serviceBaseUrl = 'http://api.mymemory.translated.net/{method}';
+
+    /**
      * Option array.
      * Will be used to receive and store adapter specific setting.
      *
@@ -33,21 +48,16 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
             'defaultValue' => '',
         ),
         'apiKey'    => array(
-            'type'         => 'text',
+            'type'         => 'password',
             'label'        => 'L_APIKEY',
             'description' => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
             'defaultValue' => '',
         ),
     );
 
-    /**
-     * Constructor
-     *
-     * Set service specific properties on construct.
-     */
     public function __construct()
     {
-        $this->_serviceBaseUrl = 'http://api.mymemory.translated.net/{method}';
+        parent::__construct();
     }
 
     /**

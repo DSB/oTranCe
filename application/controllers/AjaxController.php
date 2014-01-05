@@ -627,22 +627,16 @@ class AjaxController extends OtranceController
      * @param string $sourceLang Source locale
      * @param string $targetLang Target locale
      *
-     * @return string
+     * @return void
      */
     private function _getTranslation($text, $sourceLang, $targetLang)
     {
-        if ($text == '') {
-            return '';
-        }
-
         $projectConfig = $this->_config->getParam('translationService');
-        if (!$projectConfig['useService']) {
-            return '';
+        if ($projectConfig['useService'] && $text > '') {
+            $translationService = Msd_Translate::getInstance($projectConfig['selectedService']);
+            $this->view->data   = $translationService->getTranslation($text, $sourceLang, $targetLang);
         }
-        $translationService = Msd_Translate::getInstance($projectConfig['selectedService']);
-        $translatedText     = $translationService->getTranslation($text, $sourceLang, $targetLang);
-
-        return $translatedText;
+        $this->render('json');
     }
 
 }

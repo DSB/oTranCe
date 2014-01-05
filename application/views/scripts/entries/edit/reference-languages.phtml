@@ -96,11 +96,19 @@ function translate(event) {
     setPageInactive();
     $.ajax({
         url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
-        dataType : 'html',
+        dataType : 'json',
         success: function(response) {
             setPageActive();
-            $('#edit-'+lang[1]).val(response.trim());
-            $('#edit-'+lang[1]).focus();
+            if (response.error == true) {
+                alert(response.errorMsg);
+                return;
+            }
+            if (response.translatedText) {
+                $('#edit-'+lang[1]).val(response.translatedText.trim());
+                $('#edit-'+lang[1]).focus();
+                return;
+            }
+
         },
         error: function(response) {
             setPageActive();

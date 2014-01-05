@@ -58,6 +58,7 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
      */
     public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale)
     {
+        $ret = array('error' => false);
         $sourceLang     = $this->_mapLangCode($sourceLanguageLocale);
         $targetLang     = $this->_mapLangCode($targetLanguageLocale);
         $params         = array(
@@ -66,12 +67,14 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
             'target' => $targetLang,
         );
         $response       = $this->executeCall('', $params);
-        $translatedText = '';
         if (isset($response->data->translations[0]->translatedText)) {
-            $translatedText = $response->data->translations[0]->translatedText;
+            $ret['translatedText'] = $response->data->translations[0]->translatedText;
+        } else {
+            $ret['error'] = true;
+            $ret['errorMsg'] = 'Did you provide the correct api key? Got no response from Google.';
         }
 
-        return $translatedText;
+        return $ret;
     }
 
     /**

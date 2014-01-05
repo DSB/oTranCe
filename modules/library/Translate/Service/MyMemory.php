@@ -67,10 +67,11 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
      * @param string $sourceLanguageLocale Locale of the language the message is given
      * @param string $targetLanguageLocale Locale of the language the message will be translated into
      *
-     * @return string
+     * @return array array('error' => true/false, 'translatedText' => 'returned text', 'errorMessage' => 'returned msg')
      */
     public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale)
     {
+        $ret        = array('error' => false);
         $sourceLang = $this->_mapLangCode($sourceLanguageLocale);
         $targetLang = $this->_mapLangCode($targetLanguageLocale);
         $params     = array(
@@ -88,12 +89,16 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
         }
 
         $response       = $this->executeCall('get', $params);
-        $translatedText = '';
-        if (isset($response->responseData->translatedText)) {
-            $translatedText = html_entity_decode($response->responseData->translatedText);
+        if ($response->responseStatus != 200) {
+            $ret['error']    = true;
+            $ret['errorMsg'] = $response->responseDetails;
+        } else {
+            if (isset($response->responseData->translatedText)) {
+                $ret['translatedText'] = html_entity_decode($response->responseData->translatedText);
+            }
         }
 
-        return $translatedText;
+        return $ret;
     }
 
     /**

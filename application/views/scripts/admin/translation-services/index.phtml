@@ -6,7 +6,7 @@ echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 ?>
 <h4><?php echo $this->lang->L_TRANSLATION_SERVICE;?>:</h4>
-<form action="" method="post" id="translationServiceForm">
+<form action="<?php echo $this->url(array('controller'=>'admin_translation-services','action'=>'index'));?>" method="post" id="translationServiceForm" autocomplete="off">
     <table class="bdr more-padding" summary="Set translation service">
         <tr class="thead">
             <th colspan="2"><?php echo $this->lang->L_GENERAL;?></th>

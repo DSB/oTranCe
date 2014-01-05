@@ -635,7 +635,11 @@ class AjaxController extends OtranceController
             return '';
         }
 
-        $translationService = Msd_Translate::getInstance();
+        $projectConfig = $this->_config->getParam('translationService');
+        if (!$projectConfig['useService']) {
+            return '';
+        }
+        $translationService = Msd_Translate::getInstance($projectConfig['selectedService']);
         $translatedText     = $translationService->getTranslation($text, $sourceLang, $targetLang);
 
         return $translatedText;

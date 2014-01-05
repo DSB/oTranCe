@@ -41,16 +41,16 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
             'type'        => 'description',
             'description' => 'L_MYMEMORY_SERVICE_DESCRIPTION',
         ),
-        'email'       => array(
+        'email'              => array(
             'type'         => 'text',
             'label'        => 'L_EMAIL',
             'description'  => 'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION',
             'defaultValue' => '',
         ),
-        'apiKey'    => array(
+        'apiKey'             => array(
             'type'         => 'password',
             'label'        => 'L_APIKEY',
-            'description' => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
+            'description'  => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
             'defaultValue' => '',
         ),
     );
@@ -71,12 +71,22 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
      */
     public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale)
     {
-        $sourceLang     = $this->_mapLangCode($sourceLanguageLocale);
-        $targetLang     = $this->_mapLangCode($targetLanguageLocale);
-        $params         = array(
+        $sourceLang = $this->_mapLangCode($sourceLanguageLocale);
+        $targetLang = $this->_mapLangCode($targetLanguageLocale);
+        $params     = array(
             'q'        => $message,
             'langpair' => $sourceLang . '|' . $targetLang,
+            'ref'      => 'oTranCe',
         );
+
+        $settings = $this->_moduleConfig->getModuleSettings($this->_moduleId);
+        if ($settings['email'] > '') {
+            $params['de'] = $settings['email'];
+        }
+        if ($settings['apiKey'] > '') {
+            $params['key'] = $settings['email'];
+        }
+
         $response       = $this->executeCall('get', $params);
         $translatedText = '';
         if (isset($response->responseData->translatedText)) {

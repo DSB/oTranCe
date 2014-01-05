@@ -41,8 +41,8 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
             'type'        => 'description',
             'description' => 'L_GOOGLE_SERVICE_DESCRIPTION',
         ),
-        'apiKey' => array(
-            'type' => 'password',
+        'apiKey'             => array(
+            'type'  => 'password',
             'label' => 'L_APIKEY'
         ),
     );
@@ -120,8 +120,8 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
      */
     protected function executeCall($method, $params = array())
     {
-        // add api key
-        $params['key'] = $this->_config['apikey'];
+        $settings      = $this->_moduleConfig->getModuleSettings($this->_moduleId);
+        $params['key'] = $settings['apiKey'];
         $url           = str_replace('{method}', $method, $this->_serviceBaseUrl) . '?' . http_build_query($params);
         $handle        = @fopen($url, "r");
         if ($handle) {

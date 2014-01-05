@@ -39,7 +39,22 @@ abstract class Module_Translate_Service_Abstract
 
     /**
      * Option array.
-     * Will be used to receive and store adapter specific setting.
+     *
+     * Is used to receive and store adapter specific setting. Form options in admin_translation-services is build
+     * from this data.
+     *
+     * e.g. array(
+     *  'id' => array(
+     *          'type'        => 'description', // this is just an info output row shown in the form
+     *          'description' => 'LANGUAGE_KEY', // Key will be translated
+     *   ),
+     *  'email' => array(               // if type is not "description", value will be saved to table module_config
+     *           'type'         => 'text',         //valid types are 'description', 'text', 'password'
+     *           'label'        => 'LANGUGAE_KEY', // output label in front of input field
+     *           'description'  => 'LANGUAGE_KEY', // ouput will be place under input field
+     *           'defaultValue' => '',             // set default value
+     *  ), ... // more fields
+     * );
      *
      * @var array
      */
@@ -55,24 +70,6 @@ abstract class Module_Translate_Service_Abstract
         $this->_moduleConfig = new Application_Model_ModuleConfig();
         $this->_addModuleValuesToOptions();
     }
-
-    /**
-     * Translate a message from source language into target language
-     *
-     * @param string $message              The message that will be translated
-     * @param string $sourceLanguageLocale Locale of the language the message is given
-     * @param string $targetLanguageLocale Locale of the language the message will be returned
-     *
-     * @return string
-     */
-    abstract public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale);
-
-    /**
-     * Ask service for translatable locales
-     *
-     * @return array|bool array('locale1', 'locale2', ...); or false on error
-     */
-    abstract public function getTranslatableLocales();
 
     /**
      * Get options. Used in admin form to receive and store inputs from user.
@@ -95,6 +92,24 @@ abstract class Module_Translate_Service_Abstract
     {
         $this->_options = $options;
     }
+
+    /**
+     * Translate a message from source language into target language
+     *
+     * @param string $message              The message that will be translated
+     * @param string $sourceLanguageLocale Locale of the language the message is given
+     * @param string $targetLanguageLocale Locale of the language the message will be returned
+     *
+     * @return string
+     */
+    abstract public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale);
+
+    /**
+     * Ask service for translatable locales
+     *
+     * @return array|bool array('locale1', 'locale2', ...); or false on error
+     */
+    abstract public function getTranslatableLocales();
 
     /**
      * Load module settings from database and add value index to option array.
@@ -131,10 +146,11 @@ abstract class Module_Translate_Service_Abstract
         $options = $this->getOptions();
         foreach ($settings as $varName => $varValue) {
             if (!isset($options[$varName])) {
-                throw new Exception('VarName ' . $varName .' not set. You must add it to the options array.');
+                throw new Exception('VarName ' . $varName . ' not set. You must add it to the options array.');
             }
-            $this->_moduleConfig->setModuleSetting($this->_moduleId, $varName, $varValue);
+            $this->_moduleConfig->setModuleSetting($this->_moduleId, $varName, trim($varValue));
         }
+
         return $this->_moduleConfig->saveModuleSettings($this->_moduleId);
     }
 }

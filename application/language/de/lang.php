@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (402), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (405), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -354,6 +354,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Dateivorlagenzuordnungen wurden aktualisiert/gelöscht',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Sämtliche Rechte, Einstellungen und Log-Einträge dieses Benutzers werden ebenfalls entfernt.',
 'L_TRANSLATE_TO' => 'Übersetze nach',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Übersetze mit %s nach',
 'L_TRANSLATIONS' => 'Übersetzungen',
 'L_TRANSLATION_CENTER' => 'Translation Center',
 'L_TRANSLATION_SERVICE' => 'Externer Übersetzungsdienst',

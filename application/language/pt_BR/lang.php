@@ -356,6 +356,7 @@ Você receberá um e-mail assim que a permissão para edição for concedida a v
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Atribuição de modelo foi atualizada/excluída',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Isso também vai remover todas as permissões, configurações e entradas de logs deste usuário.',
 'L_TRANSLATE_TO' => 'Traduzir para',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
 'L_TRANSLATIONS' => 'Traduções',
 'L_TRANSLATION_CENTER' => 'Centro de Traduções',
 'L_TRANSLATION_SERVICE' => 'External translation service',

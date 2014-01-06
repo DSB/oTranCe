@@ -357,6 +357,7 @@ $lang = array(
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => '已更新/删除模版分配',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => '这个操作将同时移除该用户的所有权限、设置与日志条目。',
 'L_TRANSLATE_TO' => '翻译为',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
 'L_TRANSLATIONS' => '翻译',
 'L_TRANSLATION_CENTER' => '翻译中心',
 'L_TRANSLATION_SERVICE' => 'External translation service',

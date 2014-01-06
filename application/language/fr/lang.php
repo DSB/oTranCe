@@ -347,6 +347,7 @@ Dès qu\'un administrateur a activé votre compte, vous recevrez un message par 
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Les assignations aux fichiers modèle ont été actualisées/supprimées',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Toutes les autorisations, les paramètres et les lignes de log de cet utilisateur seront également supprimés.',
 'L_TRANSLATE_TO' => 'Traduire en',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
 'L_TRANSLATIONS' => 'Traductions',
 'L_TRANSLATION_CENTER' => 'Centre de traductions',
 'L_TRANSLATION_SERVICE' => 'External translation service',

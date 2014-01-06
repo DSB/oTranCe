@@ -355,6 +355,7 @@ Anda akan menerima surel segera setelah hak penyuntingan diberikan kepada Anda.'
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Pola penugasan telah diperbarui/dihapus',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Tindakan ini juga akan menghapus semua hak, pengaturan, dan masukan catatan pengguna ini.',
 'L_TRANSLATE_TO' => 'Alih bahasakan ke',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
 'L_TRANSLATIONS' => 'Pengalihbahasaan',
 'L_TRANSLATION_CENTER' => 'Pusat Alih Bahasa',
 'L_TRANSLATION_SERVICE' => 'External translation service',

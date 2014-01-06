@@ -10,8 +10,7 @@ if (!empty($this->referenceLanguages)) {
     <?php
     $rowclass = $cycleHelper->next();
     foreach ($this->referenceLanguages as $lang) {
-        $rowclass = $cycleHelper->next();
-        ?>
+        $rowclass = $cycleHelper->next(); ?>
         <tr class="<?php echo $rowclass;?>">
             <td>
                 <?php echo $this->printFlag($lang, 20);?>
@@ -39,31 +38,37 @@ if (!empty($this->referenceLanguages)) {
         </tr>
         <tr class="<?php echo $rowclass;?>">
             <td>&nbsp;</td>
-            <td colspan="2">
-                <?php echo $this->lang->L_COPY_TO;?>:&nbsp;<?php
-                foreach ($this->languagesEdit as $langEdit) { ?>
-                    <a href="#" class="copy">
-                        <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                    </a><?php
-                } ?>
-            </td>
             <?php
-            if ($apiKey > '') { ?>
-                <td colspan="2"><?php echo $this->lang->L_TRANSLATE_TO;?>: &nbsp;<?php
-                    foreach ($this->languagesEdit as $langEdit) {
-                        if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
-                            if ($lang == $langEdit) {
-                                continue;
-                            } ?>
-                            <a href="#" class="translate">
-                                <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                            </a><?php
-                        }
+            if ($this->useTranslationService) { ?>
+                <td colspan="2"><?php
+                    echo sprintf($this->lang->L_TRANSLATE_WITH_SERVICE_TO, $this->translationServiceName);?>: &nbsp;<?php
+                foreach ($this->languagesEdit as $langEdit) {
+                    if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
+                        if ($lang == $langEdit) {
+                            continue;
+                        } ?>
+                        <a href="#" class="translate">
+                            <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                        </a><?php
                     }
+                }
             } else { ?>
                 <td colspan="3">&nbsp;<?php
             } ?>
             </td>
+
+            <td colspan="2">
+                <?php
+                if (count($this->languagesEdit) <5) {
+                    echo $this->lang->L_COPY_TO;?>:&nbsp;<?php
+                    foreach ($this->languagesEdit as $langEdit) { ?>
+                        <a href="#" class="copy">
+                            <?php echo $this->printFlag($langEdit, 16, 'copy-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                        </a><?php
+                    }
+                }?>
+            </td>
+
         </tr>
         <tr class="<?php echo $cycleHelper->current();?>" style="line-height:4px;"><td colspan="5"></td></tr><?php
     }
@@ -97,16 +102,27 @@ function translate(event) {
     setPageInactive();
     $.ajax({
         url: '<?php echo $this->baseUrl();?>/ajax/translate/key/<?php echo $this->key['id'];?>/source/'+sourceLang+'/target/'+targetLang,
-        dataType : 'html',
+        dataType : 'json',
         success: function(response) {
-            $('#edit-'+lang[1]).val(response.trim());
-            $('#edit-'+lang[1]).focus();
             setPageActive();
+            if (response.error == true) {
+                alert(response.errorMsg);
+                return;
+            }
+            if (response.translatedText) {
+                $('#edit-'+lang[1]).val(response.translatedText.trim());
+                $('#edit-'+lang[1]).focus();
+                return;
+            }
+
         },
-        error: function() {
-            $('#edit-'+lang[1]).val('Error: ' + response);
-            $('#edit-'+lang[1]).focus();
+        error: function(response) {
             setPageActive();
+            if (response.statusText) {
+                alert('<?php echo $this->lang->L_ERROR;?>: ' + response.status + ' ' + response.statusText);
+            } else {
+                alert(response);
+            }
         }
     });
 }

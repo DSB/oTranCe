@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (889), DSB (1)
+// binota (890), DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理員已啟動您用於專案 %2$s 的使用者帳戶 %1$s',
@@ -27,6 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => '管理權限',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => '點擊頭部導航中的分頁並選擇一個選項以進行編輯。',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => '所有日誌條目、設定與權限皆以一併移除。',
+'L_APIKEY' => 'API key',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '確定要刪除您的個人VCS憑證嗎？',
 'L_AUTHENTICATE' => '登入資訊',
 'L_BACK' => '返回',
@@ -48,6 +49,7 @@ $lang = array(
 'L_COMMIT_MESSAGE' => '送出訊息',
 'L_COMPLETE_VIEW' => '完整檢視',
 'L_CONFIGURATION' => '組態設定',
+'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => 'Options of external service',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => '確定要刪除檔案範本嗎？',
 'L_CONFIRM_DELETE_KEY_X' => '您確定要刪除鍵值「{KEY}」嗎？',
 'L_CONFIRM_DELETE_LANGUAGE' => '您確定要刪除該語系嗎？<br />這將一併移除所有翻譯、條目與所有擁有編輯此語系權限的使用者之編輯權限。',
@@ -71,6 +73,7 @@ $lang = array(
 'L_CREATED_ON_X_AT_Y' => '建立於%1$s ，%2$s',
 'L_CREATE_NEW_FILE_TEMPLATE' => '建立一個新的範本檔案',
 'L_CREATE_NEW_USER_ACCOUNT' => '建立一個新的使用者帳戶',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Used translation service',
 'L_CURRENT_VCS_ADAPTER' => '使用VCS轉換器',
 'L_DATA_TO_ANALYZE' => '分析資料',
 'L_DATETIME' => '日期與時間',
@@ -82,6 +85,7 @@ $lang = array(
 'L_DELETE_LANGUAGE' => '刪除語系',
 'L_DELETE_LOG_ENTRY' => '刪除日誌條目',
 'L_DELETE_USER' => '刪除使用者',
+'L_DESCRIPTION' => 'Description',
 'L_DONE' => '完成',
 'L_DOWNLOAD' => '下載',
 'L_DOWNLOADS' => '下載',
@@ -90,7 +94,7 @@ $lang = array(
 'L_DUPLICATE' => '拷貝',
 'L_EDIT' => '編輯',
 'L_EDITED' => '已編輯',
-'L_EDITED_TOTAL' => 'Edited total',
+'L_EDITED_TOTAL' => '編輯總計',
 'L_EDIT_ENTRIES' => '編輯條目',
 'L_EDIT_ENTRY' => '編輯條目',
 'L_EDIT_FILE_TEMPLATE' => '編輯檔案範本',
@@ -306,6 +310,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '使用者可見到並使用管理標籤中的「語系」標籤',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => '已允許使用者編輯專案資料',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => '使用者可見到並使用管理標籤中的「檔案範本」標籤',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => '使用者可見到並使用管理標籤中的「使用者」標籤',
 'L_RIGHT_EXPLAIN_EDITVCS' => '使用者可見到並使用管理標籤中的「VCS」標籤',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => '使用者可匯入相等於主要語系的字串',
@@ -352,8 +357,11 @@ $lang = array(
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => '已更新/刪除範本分配',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => '這個動作將同時移除該使用者的所有權限、設定與日誌條目。',
 'L_TRANSLATE_TO' => '翻譯為',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
 'L_TRANSLATIONS' => '翻譯',
 'L_TRANSLATION_CENTER' => '翻譯中心',
+'L_TRANSLATION_SERVICE' => 'External translation service',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
 'L_TRY_AGAIN' => '請重試',
 'L_UNTRANSLATED' => '未翻譯',
 'L_UPDATE_DOWNLOAD_PACKAGE' => '更新語系檔',

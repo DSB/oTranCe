@@ -209,6 +209,11 @@ class EntriesController extends OtranceController
         $this->view->translatable         = Msd_Google::getTranslatableLanguages();
         $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
         $this->_setReferrer();
+
+        $tsConfig                           = $this->_config->getParam('translationService');
+        $this->view->useTranslationService  = (bool)$tsConfig['useService'];
+        $this->view->translationServiceName = $tsConfig['selectedService'];
+
     }
 
     /**

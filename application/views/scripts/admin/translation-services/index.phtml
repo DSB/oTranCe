@@ -1,0 +1,74 @@
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_TRANSLATION_SERVICE;?></h2>
+</div>
+<?php
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+?>
+<h4><?php echo $this->lang->L_TRANSLATION_SERVICE;?>:</h4>
+<form action="<?php echo $this->url(array('controller'=>'admin_translation-services','action'=>'index'));?>" method="post" id="translationServiceForm" autocomplete="off">
+    <table class="bdr more-padding" summary="Set translation service">
+        <tr class="thead">
+            <th colspan="2"><?php echo $this->lang->L_GENERAL;?></th>
+        </tr>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td><?php echo $this->lang->L_TRANSLATION_SERVICE_ALLOWED;?></td>
+            <td>
+                <input type="radio" name="useService" id="ts_active_yes" value="1"
+                    <?php if ($this->useService == 1) { ?>
+                        checked="checked"
+                    <?php } ?>
+                    />
+                <label for="ts_active_yes"> <?php echo $this->lang->L_YES;?></label>
+                &nbsp;&nbsp;
+                <input type="radio" name="useService" id="ts_active_no" value="0"
+                    <?php if ($this->useService == 0) { ?>
+                        checked="checked"
+                    <?php } ?>
+                    />
+                <label for="ts_active_no"> <?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td><label for="selectedService"><?php echo $this->lang->L_CURRENT_TRANSLATIONSERVICE_ADAPTER;?>:</label></td>
+            <td>
+                <select name="selectedService" id="selectedService" onchange="$('#translationServiceForm').submit();">
+                    <?php foreach ($this->availableServices as $service) {
+                        $isSelected = (bool) ($service == $this->selectedService);
+                        ?>
+                        <option value="<?php echo $service;?>"<?php echo $isSelected ? ' selected="selected"' : ''; ?>><?php echo $service;?></option>
+                    <?php } ?>
+                </select>
+            </td>
+        </tr>
+        <?php
+            // adapter specific settings
+            if (!empty($this->adapterOptions)) { ?>
+                <tr class="thead">
+                    <th colspan="2"><?php echo $this->lang->L_CONFIGURATION_OF_EXTERNAL_SERVICE;?></th>
+                </tr>
+                <?php
+                    foreach ($this->adapterOptions as $id => $adapterOption) { ?>
+                        <tr class="<?php echo $cycleHelper->next();?>">
+                            <?php echo $this->renderOption($id, $this->selectedService, $adapterOption); ?>
+                        </tr><?php
+                    }
+             } ?>
+
+        <tr class="<?php echo $cycleHelper->next(); ?>">
+            <td>&nbsp;</td>
+            <td><button type="submit" class="Formbutton ui-corner-all" name="saveButton"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?></button></td>
+        </tr>
+    </table>
+</form>
+<?php
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+}
+
+

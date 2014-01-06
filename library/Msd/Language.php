@@ -52,10 +52,10 @@ class Msd_Language
      *
      * @return Msd_Language
      */
-    private function __construct ($language = '')
+    private function __construct($language = '')
     {
         if ($language == '') {
-            $user = new Application_Model_User();
+            $user            = new Application_Model_User();
             $this->_language = $user->loadSetting('interfaceLanguage', 'en');
         } else {
             $this->_language = $language;
@@ -76,8 +76,8 @@ class Msd_Language
             $language = 'en';
         }
         $this->_baseLanguageDir = APPLICATION_PATH . '/language/';
-        $file = $this->_baseLanguageDir . $language . '/lang.php';
-        $translator = $this->getTranslator();
+        $file                   = $this->_baseLanguageDir . $language . '/lang.php';
+        $translator             = $this->getTranslator();
         if ($translator === null) {
             $translator = new Zend_Translate('array', $file, $language);
         } else {
@@ -85,13 +85,14 @@ class Msd_Language
                 array(
                     'adapter' => 'array',
                     'content' => $file,
-                    'locale' => $language
+                    'locale'  => $language
                 )
             );
         }
         $this->setTranslator($translator);
         Zend_Registry::set('Zend_Translate', $translator);
     }
+
     /**
      * No cloning for singleton
      *
@@ -111,7 +112,7 @@ class Msd_Language
      *
      * @return mixed
      */
-    public function __get ($property)
+    public function __get($property)
     {
         return $this->translate($property);
     }
@@ -123,11 +124,12 @@ class Msd_Language
      *
      * @return Msd_Language
      */
-    public static function getInstance ($language = '')
+    public static function getInstance($language = '')
     {
         if (NULL == self::$_instance) {
             self::$_instance = new self($language);
         }
+
         return self::$_instance;
     }
 
@@ -147,6 +149,7 @@ class Msd_Language
             // no translation found -> remove prefix L_
             return substr($key, 2);
         }
+
         return $translated;
     }
 
@@ -160,10 +163,11 @@ class Msd_Language
      */
     public function translateZendId($zendMessageId, $messageText = '')
     {
-        if (substr($zendMessageId, 0, 6) =='access' && $messageText > '') {
+        if (substr($zendMessageId, 0, 6) == 'access' && $messageText > '') {
             // message is already translated by validator access
             return $messageText;
         }
+
         return $this->_translate->_(
             $this->_transformMessageId($zendMessageId)
         );
@@ -182,6 +186,7 @@ class Msd_Language
         foreach (array_keys($messages) as $messageId) {
             $ret[] = $this->translateZendId($messageId);
         }
+
         return $ret;
     }
 
@@ -196,6 +201,7 @@ class Msd_Language
     {
         $result = preg_replace('/([A-Z])/', '_${1}', $zendMessageId);
         $result = strtoupper($result);
+
         return 'L_ZEND_ID_' . $result;
     }
 
@@ -229,17 +235,18 @@ class Msd_Language
     public function getAvailableLanguages()
     {
         $currentTranslator = $this->getTranslator();
-        $languageDirs = glob(APPLICATION_PATH .'/language/*', GLOB_ONLYDIR);
-        $ret = array();
+        $languageDirs      = glob(APPLICATION_PATH . '/language/*', GLOB_ONLYDIR);
+        $ret               = array();
         foreach ($languageDirs as $dir) {
             $parts = explode('/', $dir);
-            $lang = array_pop($parts);
+            $lang  = array_pop($parts);
             $this->loadLanguageByLocale($lang);
             $translator = $this->getTranslator();
             $ret[$lang] = array('locale' => $lang, 'name' => $translator->translate('L_LANGUAGE_NAME'));
         }
         $this->setTranslator($currentTranslator);
         $this->loadLanguageByLocale($this->_language);
+
         return $ret;
     }
 
@@ -251,5 +258,38 @@ class Msd_Language
     public function getActiveLanguage()
     {
         return $this->_language;
+    }
+
+    /**
+     * Add an additional translation file to our translation adapter.
+     *
+     * Try to load it from $basePath/{locale}/$fileName.
+     * If we can't find the file try to fallback to given fallback locale.
+     *
+     * @param string $basePath       Base path of language files
+     * @param string $fileName       Name of language file to add
+     * @param string $fallbackLocale If we can't find the file in the current locale fallback to this one.
+     *
+     * @return void
+     */
+    public function addTranslationFile($basePath, $fileName, $fallbackLocale = 'en')
+    {
+        $locale = $this->getActiveLanguage();
+        $file   = $basePath . '/' . $locale . '/' . $fileName;
+        if (!is_readable($file)) {
+            $file = $basePath . '/' . $fallbackLocale . '/' . $fileName;
+            if (!is_readable($file)) {
+                // Ok. We can't help it. No translation file found.
+                return;
+            }
+        }
+
+        $translate = new Zend_Translate(
+            array(
+                'adapter' => 'array',
+                'content' => $file,
+                'locale'  => $locale)
+        );
+        $this->getTranslator()->addTranslation($translate);
     }
 }

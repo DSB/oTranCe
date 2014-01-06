@@ -187,9 +187,9 @@ class Application_Model_User extends Msd_Application_Model
     {
         if ($getAll === true) {
             $sql        = 'SELECT l.`language_id` as `lang_id`, u.`id` as `user_id`, u.`username`'
-                          . ' FROM `' . $this->_tableUserLanguages . '` l'
-                          . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
-                          . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
+                . ' FROM `' . $this->_tableUserLanguages . '` l'
+                . ' LEFT JOIN `' . $this->_tableUsers . '` u ON u.`id` = l.`user_id`'
+                . ' WHERE u.`active` = 1 ORDER BY l.`language_id` ASC, u.`username` ASC';
             $statistics = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         } else {
             $statisticsModel = new Application_Model_Statistics();
@@ -249,7 +249,7 @@ class Application_Model_User extends Msd_Application_Model
     {
         $ret = array();
         $sql = 'SELECT `id`, `username` FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-               . ' ORDER BY `username` ASC';
+            . ' ORDER BY `username` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $val) {
             $ret[$val['id']] = $val['username'];
@@ -269,7 +269,7 @@ class Application_Model_User extends Msd_Application_Model
     {
         $userId = (int)$userId;
         $sql    = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-                  . ' WHERE `id`= ' . $userId;
+            . ' WHERE `id`= ' . $userId;
         $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0]['id'])) {
             return $res[0];
@@ -297,7 +297,7 @@ class Application_Model_User extends Msd_Application_Model
     public function getUserByEmail($userEmail)
     {
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-               . ' WHERE `email`= \'' . $this->_dbo->escape($userEmail) . '\'';
+            . ' WHERE `email`= \'' . $this->_dbo->escape($userEmail) . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
 
         return isset($res[0]) ? $res[0] : array();
@@ -334,8 +334,8 @@ class Application_Model_User extends Msd_Application_Model
             $userId = $this->_userId;
         }
         $sql = 'SELECT `value` FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
-               . 'WHERE `user_id`=\'' . $userId . '\' '
-               . 'AND `setting`=\'' . $name . '\' ORDER BY `value` ASC';
+            . 'WHERE `user_id`=\'' . $userId . '\' '
+            . 'AND `setting`=\'' . $name . '\' ORDER BY `value` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0])) {
             if ($forceArray === false && count($res) == 1) {
@@ -394,8 +394,8 @@ class Application_Model_User extends Msd_Application_Model
             $this->deleteReferenceLanguageSettings($languageId, $userId = 0);
         } else {
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
-                   . ' (`user_id`, `setting`, `value`) VALUES ('
-                   . $userId . ', \'referenceLanguage\', ' . $languageId . ')';
+                . ' (`user_id`, `setting`, `value`) VALUES ('
+                . $userId . ', \'referenceLanguage\', ' . $languageId . ')';
             $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         }
         $status = $this->getReferenceLanguageStatus($userId, $languageId);
@@ -417,8 +417,8 @@ class Application_Model_User extends Msd_Application_Model
         $userId     = (int)$userId;
         $languageId = (string)$languageId;
         $sql        = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '` '
-                      . ' WHERE `user_id` = ' . $userId . ' AND `setting` = \'referenceLanguage\''
-                      . ' AND `value` = \'' . $languageId . '\'';
+            . ' WHERE `user_id` = ' . $userId . ' AND `setting` = \'referenceLanguage\''
+            . ' AND `value` = \'' . $languageId . '\'';
         $res        = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         if (isset($res[0]['id'])) {
             $status = true;
@@ -438,8 +438,8 @@ class Application_Model_User extends Msd_Application_Model
     public function deleteReferenceLanguageSettings($languageId, $userId = 0)
     {
         $sql    = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '`'
-                  . ' WHERE `setting`= \'referenceLanguage\''
-                  . ' AND `value`=' . intval($languageId);
+            . ' WHERE `setting`= \'referenceLanguage\''
+            . ' AND `value`=' . intval($languageId);
         $userId = (int)$userId;
         if ($userId > 0) {
             $sql .= ' AND `user_id` = ' . $userId;
@@ -462,7 +462,7 @@ class Application_Model_User extends Msd_Application_Model
         $userId     = (int)$userId;
         $languageId = (int)$languageId;
         $sql        = 'DELETE FROM `' . $this->_tableUserLanguages . '`'
-                      . ' WHERE `user_id` = ' . $userId . ' AND `language_id` = ' . $languageId;
+            . ' WHERE `user_id` = ' . $userId . ' AND `language_id` = ' . $languageId;
 
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -480,7 +480,7 @@ class Application_Model_User extends Msd_Application_Model
         $userId     = (int)$userId;
         $languageId = (int)$languageId;
         $sql        = 'INSERT INTO `' . $this->_tableUserLanguages . '` (`user_id`, `language_id`)'
-                      . ' VALUES(' . $userId . ', ' . $languageId . ')';
+            . ' VALUES(' . $userId . ', ' . $languageId . ')';
 
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -518,9 +518,9 @@ class Application_Model_User extends Msd_Application_Model
             $userId = $this->_userId;
         }
         $sql = 'SELECT r.`language_id` FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '` r'
-               . ' JOIN `' . $this->_database . '`.`' . $this->_tableLanguages . '` l ON '
-               . ' l.`id` = r.`language_id`'
-               . ' WHERE `user_id`=\'' . $userId . '\'';
+            . ' JOIN `' . $this->_database . '`.`' . $this->_tableLanguages . '` l ON '
+            . ' l.`id` = r.`language_id`'
+            . ' WHERE `user_id`=\'' . $userId . '\'';
         if ($skipInactiveLanguages === true) {
             $sql .= ' AND `l`.`active` = 1';
         }
@@ -547,7 +547,7 @@ class Application_Model_User extends Msd_Application_Model
             $userId = $this->_userId;
         }
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
-               . ' WHERE `user_id`=\'' . $userId . '\'';
+            . ' WHERE `user_id`=\'' . $userId . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $r) {
@@ -568,32 +568,33 @@ class Application_Model_User extends Msd_Application_Model
     public function getDefaultRights()
     {
         $defaultRights = array(
-            'editConfig'      => 1,
-            'showEntries'     => 1,
-            'showConnector'   => 1,
-            'showDownloads'   => 1,
-            'showBrowseFiles' => 1,
-            'showImport'      => 1,
-            'showExport'      => 1,
-            'showLog'         => 1,
-            'showStatistics'  => 1,
-            'admin'           => 0,
+            'editConfig'              => 1,
+            'showEntries'             => 1,
+            'showConnector'           => 1,
+            'showDownloads'           => 1,
+            'showBrowseFiles'         => 1,
+            'showImport'              => 1,
+            'showExport'              => 1,
+            'showLog'                 => 1,
+            'showStatistics'          => 1,
+            'admin'                   => 0,
             /* other rights */
-            'addVar'          => 0,
-            'editKey'         => 0,
-            'importEqualVar'  => 0,
+            'addVar'                  => 0,
+            'editKey'                 => 0,
+            'importEqualVar'          => 0,
             /* admin rights */
-            'editProject'     => 0,
-            'addUser'         => 0,
-            'editUsers'       => 0,
-            'deleteUsers'     => 0,
-            'editLanguage'    => 0,
-            'addLanguage'     => 0,
-            'deleteLanguage'  => 0,
-            'editTemplate'    => 0,
-            'editImporter'    => 0,
-            'addTemplate'     => 0,
-            'editVcs'         => 0,
+            'editProject'             => 0,
+            'addUser'                 => 0,
+            'editUsers'               => 0,
+            'deleteUsers'             => 0,
+            'editLanguage'            => 0,
+            'addLanguage'             => 0,
+            'deleteLanguage'          => 0,
+            'editTemplate'            => 0,
+            'editImporter'            => 0,
+            'addTemplate'             => 0,
+            'editVcs'                 => 0,
+            'editTranslationServices' => 0,
         );
 
         return $defaultRights;
@@ -635,7 +636,7 @@ class Application_Model_User extends Msd_Application_Model
             $userId = $this->_userId;
         }
         $sql    = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
-                  . ' WHERE `user_id`=\'' . $userId . '\'';
+            . ' WHERE `user_id`=\'' . $userId . '\'';
         $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $rights = $this->getDefaultRights();
         foreach ($res as $val) {
@@ -659,8 +660,8 @@ class Application_Model_User extends Msd_Application_Model
         $userId     = (int)$userId;
         $languageId = (int)$languageId;
         $sql        = 'SELECT `user_id` FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '`'
-                      . ' WHERE `user_id`=\'' . $userId . '\' AND `language_id` = ' . $languageId
-                      . ' LIMIT 1';
+            . ' WHERE `user_id`=\'' . $userId . '\' AND `language_id` = ' . $languageId
+            . ' LIMIT 1';
         $res        = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
 
         return isset($res[0]['user_id']) ? true : false;
@@ -680,10 +681,10 @@ class Application_Model_User extends Msd_Application_Model
         $this->deleteRight($userId, $right, $value);
         $value = (int)$value;
         $sql   = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
-                 . ' (`user_id`, `right`, `value`) VALUES ('
-                 . intval($userId) . ', '
-                 . '\'' . $this->_dbo->escape($right) . '\', '
-                 . $value . ') ON DUPLICATE KEY UPDATE `value` = ' . (int)$value;
+            . ' (`user_id`, `right`, `value`) VALUES ('
+            . intval($userId) . ', '
+            . '\'' . $this->_dbo->escape($right) . '\', '
+            . $value . ') ON DUPLICATE KEY UPDATE `value` = ' . (int)$value;
         $res   = $this->_dbo->query($sql, Msd_Db::SIMPLE, false);
 
         return (bool)$res;
@@ -705,8 +706,8 @@ class Application_Model_User extends Msd_Application_Model
     {
         // check if user has an entry for this right
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
-               . ' WHERE `user_id`=' . intval($userId)
-               . ' AND `right`=\'' . $this->_dbo->escape($right) . '\'';
+            . ' WHERE `user_id`=' . intval($userId)
+            . ' AND `right`=\'' . $this->_dbo->escape($right) . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         return (bool)$res;
@@ -725,17 +726,17 @@ class Application_Model_User extends Msd_Application_Model
         $userId = (int)$userId;
         //remove user rights
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUserrights . '`'
-               . ' WHERE `user_id`=' . $userId;
+            . ' WHERE `user_id`=' . $userId;
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         //remove user settings
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUsersettings . '`'
-               . ' WHERE `user_id`=' . $userId;
+            . ' WHERE `user_id`=' . $userId;
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         //remove user language edit rights
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '`'
-               . ' WHERE `user_id`=' . $userId;
+            . ' WHERE `user_id`=' . $userId;
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         //only remove user if other actions have been successfull
@@ -743,7 +744,7 @@ class Application_Model_User extends Msd_Application_Model
         //because the name won't show up in the list and you you won't have the delete icon
         if ($res == true) {
             $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-                   . ' WHERE `id`=' . $userId;
+                . ' WHERE `id`=' . $userId;
             $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
 
@@ -760,7 +761,7 @@ class Application_Model_User extends Msd_Application_Model
     public function deleteLanguageRights($languageId)
     {
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableUserLanguages . '`'
-               . ' WHERE `language_id`= ' . intval($languageId);
+            . ' WHERE `language_id`= ' . intval($languageId);
         $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         return (bool)$res;
@@ -955,7 +956,7 @@ class Application_Model_User extends Msd_Application_Model
     {
         if ($userData['id'] != 0) {
             $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-                   . ' SET `username` = \'' . $this->_dbo->escape($userData['username']) . '\'';
+                . ' SET `username` = \'' . $this->_dbo->escape($userData['username']) . '\'';
             if (isset($userData['realName'])) {
                 $sql .= ', `realName` = \'' . $this->_dbo->escape($userData['realName']) . '\'';
             }
@@ -971,12 +972,12 @@ class Application_Model_User extends Msd_Application_Model
             $sql .= ' WHERE `id`=' . intval($userData['id']);
         } else {
             $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-                   . ' (`username`, `realName`, `email`, `password`, `active`, `newLanguage`) VALUES ('
-                   . '\'' . $this->_dbo->escape($userData['username']) . '\', '
-                   . '\'' . $this->_dbo->escape($userData['realName']) . '\', '
-                   . '\'' . $this->_dbo->escape($userData['email']) . '\', '
-                   . 'MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\'), '
-                   . intval($userData['active']) . ',';
+                . ' (`username`, `realName`, `email`, `password`, `active`, `newLanguage`) VALUES ('
+                . '\'' . $this->_dbo->escape($userData['username']) . '\', '
+                . '\'' . $this->_dbo->escape($userData['realName']) . '\', '
+                . '\'' . $this->_dbo->escape($userData['email']) . '\', '
+                . 'MD5(\'' . $this->_dbo->escape($userData['pass1']) . '\'), '
+                . intval($userData['active']) . ',';
             if (isset($userData['newLanguage'])) {
                 $sql .= '\'' . $this->_dbo->escape($userData['newLanguage']) . '\'';
             } else {
@@ -1004,7 +1005,7 @@ class Application_Model_User extends Msd_Application_Model
     public function getUserByName($userName)
     {
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-               . ' WHERE `username`= \'' . $this->_dbo->escape($userName) . '\'';
+            . ' WHERE `username`= \'' . $this->_dbo->escape($userName) . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
 
         return isset($res[0]) ? $res[0] : array();
@@ -1027,7 +1028,7 @@ class Application_Model_User extends Msd_Application_Model
 
         // first remove rights from all other languages
         $sql = 'DELETE FROM `' . $this->_tableUserLanguages . '`'
-               . ' WHERE `user_id` = ' . $userId;
+            . ' WHERE `user_id` = ' . $userId;
         if (!empty($languageIds)) {
             $sql .= ' AND NOT `language_id` IN (' . implode(',', $languageIds) . ')';
         }
@@ -1062,7 +1063,7 @@ class Application_Model_User extends Msd_Application_Model
         }
         // delete old entries
         $sql = 'DELETE FROM `' . $this->_tableUsersettings . '` WHERE '
-               . '`user_id`=' . $userId . ' AND `setting`=\'' . $name . '\'';
+            . '`user_id`=' . $userId . ' AND `setting`=\'' . $name . '\'';
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         if (!is_array($values)) {
@@ -1080,7 +1081,7 @@ class Application_Model_User extends Msd_Application_Model
         $params = implode(', ', $insertValues);
 
         $sql = 'INSERT INTO `' . $this->_tableUsersettings . '`'
-               . ' (`user_id`,`setting`,`value`) VALUES ' . $params;
+            . ' (`user_id`,`setting`,`value`) VALUES ' . $params;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return (bool)$res;
@@ -1113,7 +1114,7 @@ class Application_Model_User extends Msd_Application_Model
     public function setPassword($userId, $password)
     {
         $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_tableUsers . '`'
-               . ' SET `password` =MD5(\'' . $this->_dbo->escape($password) . '\')';
+            . ' SET `password` =MD5(\'' . $this->_dbo->escape($password) . '\')';
 
         $sql .= ' WHERE `id`=' . intval($userId);
 

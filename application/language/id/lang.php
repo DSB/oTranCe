@@ -308,6 +308,7 @@ Anda akan menerima surel segera setelah hak penyuntingan diberikan kepada Anda.'
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Pengguna dapat menggunakan tab "Bahasa"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Pengguna diizinkan menyunting data proyek',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Pengguna dapat menlihat dan menggunakan tab "Berkas Pola"',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Pengguna dapat melihat dan menggunakan tab "Pengguna"',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Pengguna dapat melihat dan menggunakana tab "VCS"',

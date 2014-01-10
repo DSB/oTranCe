@@ -300,6 +300,7 @@ Dès qu\'un administrateur a activé votre compte, vous recevrez un message par 
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'L\'utilisateur est autorisé à voir et accéder à l\'onglet d\'administration "Langues"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'L\'utilisateur est autorisé à éditer les données du projet',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'L\'utilisateur est autorisé à voir et accéder à l\'onglet "Fichiers modèle"',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'L\'utilisateur est autorisé à voir et accéder à l\'onglet d\'administration "Utilisateurs"',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'L\'utilisateur est autorisé à voir et accéder à l\'onglet d\'administration "VCS"',

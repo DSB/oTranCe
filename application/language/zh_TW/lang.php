@@ -310,6 +310,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '使用者可見到並使用管理標籤中的「語系」標籤',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => '已允許使用者編輯專案資料',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => '使用者可見到並使用管理標籤中的「檔案範本」標籤',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => '使用者可見到並使用管理標籤中的「使用者」標籤',
 'L_RIGHT_EXPLAIN_EDITVCS' => '使用者可見到並使用管理標籤中的「VCS」標籤',

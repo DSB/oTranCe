@@ -309,6 +309,7 @@ Você receberá um e-mail assim que a permissão para edição for concedida a v
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Usuário pode ver e usar a aba de administrador "Idiomas"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Usuário tem permissão para editar dados do projeto',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Usuário pode ver e usar a aba de administrador "Modelos de arquivos"',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Usuário pode ver e usar a aba de administrador "Usuários"',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Usuário pode ver e usar a aba de administrador "SCV"',

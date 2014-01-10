@@ -310,6 +310,7 @@ $lang = array(
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '用户可见到并使用管理标签中的“语言”标签',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => '已允许用户编辑项目数据',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => '用户可见到并使用管理标签中的“文件模版”标签',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => '用户可见到并使用管理标签中的“用户”标签',
 'L_RIGHT_EXPLAIN_EDITVCS' => '用户可见到并使用管理标签中的“VCS”标签',

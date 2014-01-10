@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (57), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
+// DSB (58), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -307,6 +307,7 @@ Du erhälst eine E-Mail sobald Dir die Rechte eingeräumt wurden.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Benutzer kann Sprachen editieren',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Benutzer darf die Projektdaten bearbeiten',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Benutzer darf Dateivorlagen bearbeiten',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Benutzer darf Übersetzungsdienst-Einstellungen bearbeiten',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'Benutzer darf Übersetzungsservices bearbeiten',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Benutzer darf Daten anderer Benutzer bearbeiten',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Benutzer darf VCS-Einstellungen bearbeiten',

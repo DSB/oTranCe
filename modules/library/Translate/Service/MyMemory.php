@@ -40,6 +40,8 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
         'serviceDescription' => array(
             'type'        => 'description',
             'description' => 'L_MYMEMORY_SERVICE_DESCRIPTION',
+            'logo'        => 'mymemory.jpg',
+            'serviceUrl'  => 'http://mymemory.translated.net',
         ),
         'email'              => array(
             'type'         => 'text',
@@ -88,7 +90,7 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
             $params['key'] = $settings['email'];
         }
 
-        $response       = $this->executeCall('get', $params);
+        $response = $this->executeCall('get', $params);
         if ($response->responseStatus != 200) {
             $ret['error']    = true;
             $ret['errorMsg'] = $response->responseDetails;

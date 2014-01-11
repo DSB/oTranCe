@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (58), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
+// DSB (60), enkay (14), janrei (1), KatjaFlinzner (19), Marco.Steinhäuser (432)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Dein Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',

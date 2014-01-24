@@ -152,7 +152,7 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql       = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
                 (`flag_extension` != '') hasFlag
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC " . $limit;
-        $res       = $this->_dbo->query($sql, Msd_Db::SIMPLE);
+        $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         $languages = array();
         foreach ($res as $row) {
             $languages[$row['id']] = $row;

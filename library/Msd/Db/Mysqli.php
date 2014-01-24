@@ -254,18 +254,4 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
         return $this->_getHandle()->real_escape_string($val);
     }
 
-    /**
-     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
-     *
-     * @return integer
-     */
-    public function getRowCount()
-    {
-        $res = $this->query('SELECT FOUND_ROWS() AS `results`', Msd_Db::ARRAY_ASSOC);
-        if (!isset($res[0]['results'])) {
-            return 0;
-        }
-        return (int)$res[0]['results'];
-    }
-
 }

@@ -240,4 +240,19 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         $res = $this->query($sql, Msd_Db::ARRAY_ASSOC);
         return isset($res[0]['id']) ? $res[0]['id'] : false;
     }
+
+    /**
+     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
+     *
+     * @return integer
+     */
+    public function getRowCount()
+    {
+        $res = $this->query('SELECT FOUND_ROWS() AS `results`', Msd_Db::ARRAY_ASSOC);
+        if (!isset($res[0]['results'])) {
+            return 0;
+        }
+        return (int)$res[0]['results'];
+    }
+
 }

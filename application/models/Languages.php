@@ -154,7 +154,7 @@ class Application_Model_Languages extends Msd_Application_Model
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC " . $limit;
         $res       = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $languages = array();
-        while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+        foreach ($res as $row) {
             $languages[$row['id']] = $row;
         }
         return $languages;

@@ -1,0 +1,62 @@
+<tr class="thead">
+    <th colspan="3"><?php echo $this->lang->L_TS_LANGUAGE_MAPPING;?></th>
+</tr>
+<tr class="<?php echo $this->cycleHelper->next(); ?>">
+    <td colspan="2">
+        <?php echo nl2br($this->lang->L_TS_LANGUAGE_MAPPING_DESC);?>
+    </td>
+    <td>
+        <button type="submit" class="Formbutton ui-corner-all" name="updateLocales">
+            <?php echo $this->getIcon('Sync', '', 16); ?> <?php echo sprintf($this->lang->L_TS_GET_LOCALES, $this->selectedService) ;?>
+        </button>
+        <button type="submit" class="Formbutton ui-corner-all" name="mapLocales">
+            <?php echo $this->getIcon('List', '', 16); ?> <?php echo $this->lang->L_AUTO_MAP_LOCALES;?>
+        </button>
+    </td>
+</tr>
+
+<tr class="thead">
+    <th><?php echo $this->lang->L_LANGUAGE;?></th>
+    <th>oTranCe</th>
+    <th><?php echo $this->lang->L_TRANSLATION_SERVICE;?></th>
+</tr>
+
+<?php
+foreach ($this->languages as $language) { ?>
+    <tr class="<?php echo $this->cycleHelper->next(); ?>">
+        <td class="vmiddle">
+            <?php echo $language['hasFlag'] ? $this->printFlag($language['id']) : $this->getIcon('NotOk', $this->L_NO_FLAG, 16); ?>
+            <?php echo $language['name']; ?>
+        </td>
+        <td>
+            <?php echo $language['locale']; ?>
+        </td>
+        <td>
+            <select name="localeMap[<?php echo $language['locale'];?>]">
+                <option value="">---</option>
+                <?php foreach ($this->serviceLocales as $serviceLocale) {
+                    $isSelected = false;
+                    if (isset($this->localeMap[$language['locale']])) {
+                        $isSelected = (bool) ($this->localeMap[$language['locale']] == $serviceLocale);
+                    }
+                    ?>
+                    <option value="<?php echo $serviceLocale;?>"<?php echo $isSelected ? ' selected="selected"' : ''; ?>>
+                        <?php echo $serviceLocale;?>
+                    </option>
+                <?php } ?>
+            </select>
+
+
+
+        </td>
+    </tr><?php
+}
+
+if (isset($this->updateLocales)) {
+    $this->showNotification(
+        $this->updateLocales,
+        $this->lang->L_TS_GET_LOCALES_SUCCESS,
+        $this->lang->L_TS_GET_LOCALES_ERROR . '<br>' . $this->lang->L_TRY_AGAIN
+    );
+}
+

@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Entries Controller
  *
@@ -103,15 +104,15 @@ class EntriesController extends OtranceController
                 );
             }
         } else {
-            $languageId       = $this->_dynamicConfig->getParam('entries.getUntranslated');
-            $this->view->hits =
-                $this->_entriesModel->getUntranslated(
-                    $languageId,
-                    $this->view->filter,
-                    $this->view->offset,
-                    $this->view->recordsPerPage,
-                    $this->view->fileTemplateFilter
-                );
+            $languageId = $this->_dynamicConfig->getParam('entries.getUntranslated');
+            $this->view->hits
+                        = $this->_entriesModel->getUntranslated(
+                $languageId,
+                $this->view->filter,
+                $this->view->offset,
+                $this->view->recordsPerPage,
+                $this->view->fileTemplateFilter
+            );
             // if filtered language is not in edit or reference languages add it to the output
             if (!in_array($languageId, $this->view->showLanguages)) {
                 $this->view->showLanguages[] = $languageId;
@@ -206,13 +207,20 @@ class EntriesController extends OtranceController
         $templatesModel                   = new Application_Model_FileTemplates();
         $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
         $this->view->assignedFileTemplate = $this->_entriesModel->getAssignedFileTemplate($keyId);
-        $this->view->translatable         = Msd_Google::getTranslatableLanguages();
-        $this->view->skipKeysOffsets      = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
+
+        // set languages that are translatable via external service if using service is activated
+        $translationConfig        = $this->_config->getParam('translationService', array());
+        $translationServiceActive = isset($translationConfig['useService']) ? $translationConfig['useService'] : false;
+        if ($translationServiceActive) {
+            $translationService       = Msd_Translate::getInstance($translationConfig['selectedService']);
+            $this->view->translatable = array_keys($translationService->getLocaleMap());
+        }
+        $this->view->useTranslationService  = $translationServiceActive;
+        $this->view->translationServiceName = $translationConfig['selectedService'];
+
+        $this->view->skipKeysOffsets = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
         $this->_setReferrer();
 
-        $tsConfig                           = $this->_config->getParam('translationService');
-        $this->view->useTranslationService  = (bool)$tsConfig['useService'];
-        $this->view->translationServiceName = $tsConfig['selectedService'];
 
     }
 

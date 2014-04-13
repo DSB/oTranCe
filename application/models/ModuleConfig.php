@@ -15,7 +15,6 @@
  * @package         oTranCe
  * @subpackage      Models
  */
-
 class Application_Model_ModuleConfig extends Msd_Application_Model
 {
     /**
@@ -44,9 +43,9 @@ class Application_Model_ModuleConfig extends Msd_Application_Model
     }
 
     /**
-     * Get settings from table
+     * Get settings of the given module
      *
-     * @param string $moduleId   Get all saved settings of given module
+     * @param string $moduleId     Get all saved settings of given module
      * @param bool   $forceLoading Force loading data from database
      *
      * @return array
@@ -57,19 +56,23 @@ class Application_Model_ModuleConfig extends Msd_Application_Model
             return $this->_moduleData[$moduleId];
         }
 
-        $sql = 'SELECT * FROM `' . $this->_tableModuleConfig . '`'
-            . ' WHERE `module_id` = "' . $this->_dbo->escape($moduleId) . '" ORDER BY `varname` ASC';
+        $sql = 'SELECT `varname` as varName, `varvalue` as varValue FROM `' . $this->_tableModuleConfig . '`'
+            . ' WHERE `module_id` = "' . $this->_dbo->escape($moduleId) . '"';
 
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
 
-        $data = array();
+        $settings = array();
         if (!empty($res)) {
             foreach ($res as $r) {
-                $data[$r['varname']] = $r['varvalue'];
+                // settings prefixed with @@@ are serialized arrays or objects
+                if (substr($r['varValue'], 0, 3) === '@@@') {
+                    $r['varValue'] = unserialize(substr($r['varValue'], 3));
+                }
+                $settings[$r['varName']] = $r['varValue'];
             }
         }
 
-        $this->_moduleData[$moduleId] = $data;
+        $this->_moduleData[$moduleId] = $settings;
 
         return $this->_moduleData[$moduleId];
     }
@@ -94,27 +97,32 @@ class Application_Model_ModuleConfig extends Msd_Application_Model
      * @param string $moduleId Module id
      *
      * @return bool
-     * @throws Exception
      */
     public function saveModuleSettings($moduleId)
     {
-        if (!isset($this->_moduleData[$moduleId])) {
-            throw new Exception('No settings for ' . $moduleId . ' are set!');
-        }
-        $settings = $this->_moduleData[$moduleId];
-        if (empty($settings)) {
+        if (empty($this->_moduleData[$moduleId])) {
             return true; // nothing to do
         }
-
-        $res  = true;
-        $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableModuleConfig . '` '
+        $settings = $this->_moduleData[$moduleId];
+        $res      = true;
+        $sql      = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableModuleConfig . '` '
             . '(`module_id`, `varname`, `varvalue`) VALUES (?,?,?) '
             . 'ON DUPLICATE KEY UPDATE `varvalue` = VALUES(`varvalue`)';
-        $stmt = $this->_dbo->prepare($sql);
+        $stmt     = $this->_dbo->prepare($sql);
+
         foreach ($settings as $varName => $varValue) {
+            // we prefix arrays and objects with @@@ and save them serialized
+            if (is_array($varValue) || is_object($varValue)) {
+                $varValue = '@@@' . serialize($varValue);
+            }
+
+            if (empty($varValue)) {
+                $varValue = '';
+            }
             $stmt->bind_param('sss', $moduleId, $varName, $varValue);
             $stmt->execute();
             if ((int)$stmt->errno !== 0) {
+                die($stmt->error);
                 $res = false;
             }
         }

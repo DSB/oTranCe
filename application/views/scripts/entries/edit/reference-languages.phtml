@@ -1,7 +1,5 @@
 <?php
 $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
-$translateConfig = $this->config->getParam('google');
-$apiKey = $translateConfig['apikey'];
 $entry = $this->entry;
 if (!empty($this->referenceLanguages)) {
 ?>
@@ -42,16 +40,16 @@ if (!empty($this->referenceLanguages)) {
             if ($this->useTranslationService) { ?>
                 <td colspan="2"><?php
                     echo sprintf($this->lang->L_TRANSLATE_WITH_SERVICE_TO, $this->translationServiceName);?>: &nbsp;<?php
-                foreach ($this->languagesEdit as $langEdit) {
-                    if (in_array($this->languages[$lang]['locale'], $this->translatable)) {
-                        if ($lang == $langEdit) {
-                            continue;
-                        } ?>
-                        <a href="#" class="translate">
-                            <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
-                        </a><?php
+                    foreach ($this->languagesEdit as $langEdit) {
+                        if (in_array($this->languages[$lang]['locale'], $this->translatable) && in_array($this->languages[$langEdit]['locale'], $this->translatable)) {
+                            if ($lang == $langEdit) {
+                                continue;
+                            } ?>
+                            <a href="#" class="translate">
+                                <?php echo $this->printFlag($langEdit, 16, 'translate-' . $this->languages[$lang]['id'] . '-' . $this->languages[$langEdit]['id']);?>
+                            </a><?php
+                        }
                     }
-                }
             } else { ?>
                 <td colspan="3">&nbsp;<?php
             } ?>

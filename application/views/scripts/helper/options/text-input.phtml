@@ -1,12 +1,12 @@
 <td class="nowrap">
     <?php
     if (!empty($this->options['label'])); {?>
-        <label for="<?php echo $this->options['id'];?>">
+        <label for="<?php echo $this->id;?>">
             <?php echo $this->lang->{$this->options['label']};?>
         </label><?php
     } ?>
 </td>
-<td>
+<td colspan="2">
     <input type="<?php echo $this->options['type'];?>"
         class="text width300"
         id="<?php echo $this->id;?>"

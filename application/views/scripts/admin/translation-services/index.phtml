@@ -9,11 +9,11 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 <form action="<?php echo $this->url(array('controller'=>'admin_translation-services','action'=>'index'));?>" method="post" id="translationServiceForm" autocomplete="off">
     <table class="bdr more-padding" summary="Set translation service">
         <tr class="thead">
-            <th colspan="2"><?php echo $this->lang->L_GENERAL;?></th>
+            <th colspan="3"><?php echo $this->lang->L_GENERAL;?></th>
         </tr>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td><?php echo $this->lang->L_TRANSLATION_SERVICE_ALLOWED;?></td>
-            <td>
+            <td colspan="2">
                 <input type="radio" name="useService" id="ts_active_yes" value="1"
                     <?php if ($this->useService == 1) { ?>
                         checked="checked"
@@ -32,7 +32,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 
         <tr class="<?php echo $cycleHelper->next();?>">
             <td><label for="selectedService"><?php echo $this->lang->L_CURRENT_TRANSLATIONSERVICE_ADAPTER;?>:</label></td>
-            <td>
+            <td colspan="2">
                 <select name="selectedService" id="selectedService" onchange="$('#translationServiceForm').submit();">
                     <?php foreach ($this->availableServices as $service) {
                         $isSelected = (bool) ($service == $this->selectedService);
@@ -46,7 +46,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
             // adapter specific settings
             if (!empty($this->adapterOptions)) { ?>
                 <tr class="thead">
-                    <th colspan="2"><?php echo $this->lang->L_CONFIGURATION_OF_EXTERNAL_SERVICE;?></th>
+                    <th colspan="3"><?php echo $this->lang->L_CONFIGURATION_OF_EXTERNAL_SERVICE;?></th>
                 </tr>
                 <?php
                     foreach ($this->adapterOptions as $id => $adapterOption) { ?>
@@ -54,11 +54,24 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
                             <?php echo $this->renderOption($id, $this->selectedService, $adapterOption); ?>
                         </tr><?php
                     }
-             } ?>
-
+             }
+            echo $this->partial('/admin/translation-services/language-mapping.phtml', array(
+                'lang'            => $this->lang,
+                'cycleHelper'     => $cycleHelper,
+                'languages'       => $this->languages,
+                'serviceLocales'  => $this->serviceLocales,
+                'selectedService' => $this->selectedService,
+                'updateLocales'   => $this->updateLocales,
+                'localeMap'       => $this->localeMap,
+            ));
+        ?>
         <tr class="<?php echo $cycleHelper->next(); ?>">
             <td>&nbsp;</td>
-            <td><button type="submit" class="Formbutton ui-corner-all" name="saveButton"><?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?></button></td>
+            <td colspan="2">
+                <button type="submit" class="Formbutton ui-corner-all" name="saveButton">
+                    <?php echo $this->getIcon('save'); ?> <?php echo $this->lang->L_SAVE;?>
+                </button>
+            </td>
         </tr>
     </table>
 </form>
@@ -70,5 +83,3 @@ if (isset($this->saved)) {
         $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
     );
 }
-
-

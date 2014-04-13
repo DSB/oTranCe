@@ -8,6 +8,7 @@ require_once 'AdminController.php';
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Admin/Vcs Controller
  *
@@ -16,6 +17,13 @@ require_once 'AdminController.php';
  */
 class Admin_TranslationServicesController extends AdminController
 {
+    /**
+     * The translation service instance
+     *
+     * @var Module_Translate_Service_Abstract
+     */
+    protected $_translationService;
+
     /**
      * Check general access right
      *
@@ -33,30 +41,62 @@ class Admin_TranslationServicesController extends AdminController
      */
     public function indexAction()
     {
-        $translationServiceConf = $this->getTranslationServiceConfig();
+        $translationServiceConf = $this->getGeneralConfig();
+
         if ($this->_request->isPost()) {
-            $translationServiceConf['selectedService'] = $this->_request->getParam('selectedService');
-            $translationServiceConf['useService']      = $this->_request->getParam('useService');
-            if ($this->_request->getParam('saveButton') !== null) {
-                $saved             = $this->_saveTranslationServiceConfig($translationServiceConf);
-                $saved             = $saved && $this->_saveModuleSettings($translationServiceConf['selectedService']);
-                $this->view->saved = $saved;
+            $translationServiceName = $this->_request->getParam('selectedService');
+            $useService             = $this->_request->getParam('useService');
+
+            $translationService = $this->_getTranslationService($translationServiceName, true);
+            $localeMap          = $this->_request->getParam('localeMap');
+            foreach ($localeMap as $source => $target) {
+                if ($target == '') {
+                    unset($localeMap[$source]);
+                }
+            }
+            $translationService->setLocaleMap($localeMap);
+
+            $settings              = $this->_request->getParam($translationServiceName);
+            $settings['localeMap'] = $localeMap;
+            if ($this->_request->getParam('saveButton') !== null
+                || $translationServiceConf['selectedService'] != $translationServiceName
+            ) {
+                $saved                  = $this->_saveGeneralConfig($translationServiceName, $useService);
+                $saved                  = $saved && $translationService->saveSettings($settings);
+                $translationServiceConf = $this->getGeneralConfig();
+                $this->view->saved      = $saved;
+            } else {
+                // Did the user click the button "update locales"?
+                if ($this->_request->getParam('updateLocales') !== null) {
+                    $settings['serviceLocales'] = $translationService->getTranslatableLocales();
+                    $this->view->updateLocales  = $translationService->saveSettings($settings);
+                }
+                // Did the user click the button "auto map locales"?
+                if ($this->_request->getParam('mapLocales') !== null) {
+                    $this->_autoMapLocales($translationServiceName);
+                }
             }
         }
 
-        $selectedTranslationService = $translationServiceConf['selectedService'];
+        // get current translation service and load config values
+        $translationServiceName = $translationServiceConf['selectedService'];
 
-        $this->_addAdapterLanguageFile($selectedTranslationService);
-        $this->view->selectedService = $selectedTranslationService;
+        // if auto map was executed we re-use the service instance because the map is not saved yet.
+        if (!isset($translationService)) {
+            $translationService = $this->_getTranslationService($translationServiceName, true);
+        }
+
+        // load additional language file for selected service if it exists
+        $this->_addAdapterLanguageFile($translationServiceName);
+        $this->view->selectedService = $translationServiceName;
         $this->view->useService      = $translationServiceConf['useService'];
 
+        // get list of available translation services and tell view
         $servicesBasePath              = realpath(APPLICATION_PATH . '/../modules/library/Translate/Service/');
         $this->view->availableServices = Msd_Translate::getAvailableTranslationServices($servicesBasePath);
-
-        $translationService = Msd_Translate::getInstance($selectedTranslationService);
-        if ($translationService) {
-            $this->view->adapterOptions = Msd_Translate::getInstance($selectedTranslationService)->getOptions();
-        }
+        $this->view->adapterOptions    = $translationService->getOptions();
+        $this->view->serviceLocales    = $translationService->getLocales();
+        $this->view->localeMap         = $translationService->getLocaleMap();
     }
 
     /**
@@ -72,27 +112,32 @@ class Admin_TranslationServicesController extends AdminController
     }
 
     /**
-     * Saves the config for translation services to config.ini.
+     * Saves input of options for selected translation service
      *
-     * @param array $translationServiceConf Configuration to save
+     * @param array $translationServiceName Configuration to save
+     * @param bool  $useService             Whether the service is activated or not.
      *
      * @return bool
      */
-    private function _saveTranslationServiceConfig($translationServiceConf)
+    private function _saveGeneralConfig($translationServiceName, $useService)
     {
-        $this->_config->setParam('translationService', $translationServiceConf);
+        $params = array(
+            'selectedService' => $translationServiceName,
+            'useService'      => $useService,
+        );
+        $this->_config->setParam('translationService', $params);
 
         return $this->_config->save();
     }
 
     /**
-     * Get standard config params from config.ini.
+     * Get general config about selected translation service
      *
      * If they don't exist set default values in case params are not present in config.ini.
      *
      * @return array
      */
-    public function getTranslationServiceConfig()
+    public function getGeneralConfig()
     {
         $config                    = $this->_config->getParam('translationService', array());
         $config['selectedService'] = isset($config['selectedService']) ? $config['selectedService'] : 'MyMemory';
@@ -102,17 +147,52 @@ class Admin_TranslationServicesController extends AdminController
     }
 
     /**
-     * Save posted settings to database
+     * Get and save list of available locales of the external translation service.
+     * Boolean result is saved to view var updateLocales.
      *
-     * @param string $selectedTranslationService Name of target translation service
+     * @param string $translationServiceName Name of selcted translation service adapter
      *
-     * @return bool
+     * @return array
      */
-    protected function _saveModuleSettings($selectedTranslationService)
+    protected function _loadLocalesFromExternalService($translationServiceName)
     {
-        $settings           = $this->_request->getParam($selectedTranslationService);
-        $translationService = Msd_Translate::getInstance($selectedTranslationService);
+        $translationService = $this->_getTranslationService($translationServiceName);
 
-        return (bool)$translationService->saveModuleSettings($settings);
+        return $translationService->getTranslatableLocales();
+    }
+
+    /**
+     * Try to auto map locales of OTC rto locales of service provider
+     *
+     * @param string $translationServiceName
+     *
+     * @return void
+     */
+    protected function _autoMapLocales($translationServiceName)
+    {
+        $translationService = $this->_getTranslationService($translationServiceName);
+        // get locale map of otc
+        $otcLocales = array();
+        foreach ($this->view->languages as $language) {
+            $otcLocales[] = $language['locale'];
+        }
+        $translationService->autoMapLocales($otcLocales);
+    }
+
+    /**
+     * Get instance of the given translation service
+     *
+     * @param string $translationServiceName Name of translation service
+     * @param bool   $forceLoading           Whether to force new creation of instance
+     *
+     * @return Module_Translate_Service_Abstract
+     */
+    protected function _getTranslationService($translationServiceName, $forceLoading = false)
+    {
+        if ($this->_translationService === null || $forceLoading) {
+            $this->_translationService = Msd_Translate::getInstance($translationServiceName);
+        }
+
+        return $this->_translationService;
     }
 }

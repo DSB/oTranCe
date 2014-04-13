@@ -92,7 +92,7 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
         }
 
         $response = $this->executeCall('get', $params);
-        var_dump($response);
+
         if ($response->responseStatus != 200) {
             $ret['error']    = true;
             $ret['errorMsg'] = $response->responseDetails;

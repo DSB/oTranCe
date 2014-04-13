@@ -80,7 +80,6 @@ class DownloadController extends Setup_Controller_Abstract
         $curlHandle = curl_init($setupInfo['package']);
         curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, false);
         curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($curlHandle, CURLOPT_FILE, $tempFile);
         $log['download'] = curl_exec($curlHandle);
         if (!$log['download']) {

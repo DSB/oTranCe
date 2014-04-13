@@ -21,7 +21,7 @@ class Msd_Language
     /**
      * Instance
      *
-     * @var Msd_Configuration
+     * @var Msd_Language
      */
     private static $_instance = NULL;
 
@@ -49,8 +49,6 @@ class Msd_Language
      * Constructor loads the selected language of the user
      *
      * @param string $language Iso-Code of language to load
-     *
-     * @return Msd_Language
      */
     private function __construct($language = '')
     {

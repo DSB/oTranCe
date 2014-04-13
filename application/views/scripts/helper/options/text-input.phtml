@@ -1,0 +1,19 @@
+<td class="nowrap">
+    <?php
+    if (!empty($this->options['label'])); {?>
+        <label for="<?php echo $this->id;?>">
+            <?php echo $this->lang->{$this->options['label']};?>
+        </label><?php
+    } ?>
+</td>
+<td colspan="2">
+    <input type="<?php echo $this->options['type'];?>"
+        class="text width300"
+        id="<?php echo $this->id;?>"
+        name="<?php echo $this->optionGroup . '[' . $this->id . ']'?>"
+        value="<?php echo $this->escape($this->options['value'])?>" />
+    <br /><?php
+    if (!empty($this->options['description'])) {
+        echo nl2br($this->lang->{$this->options['description']});
+    } ?>
+</td>

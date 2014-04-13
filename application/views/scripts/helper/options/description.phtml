@@ -1,0 +1,19 @@
+<td><?php echo $this->escape($this->lang->L_DESCRIPTION)?></td>
+<td colspan="2">
+    <div class="floatLeft">
+        <?php echo nl2br($this->escape($this->lang->{$this->options['description']})); ?>
+    </div>
+    <div class="floatRight"><?php
+        if (!empty($this->options['logo'])) {
+            $imgSrc = $this->baseUrl() . '/images/logos/' . $this->options['logo'];
+            if (!empty($this->options['serviceUrl'])) {
+                $serviceUrl = $this->options['serviceUrl'];?>
+                <a href="<?php echo $serviceUrl;?>" title="<?php echo $serviceUrl;?>">
+                    <img src="<?php echo $imgSrc;?>" alt="Logo"/>
+                </a><?php
+            } else { ?>
+                <img src="<?php echo $imgSrc;?>"/><?php
+            }
+        } ?>
+    </div>
+</td>

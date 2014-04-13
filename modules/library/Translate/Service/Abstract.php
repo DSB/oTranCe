@@ -7,6 +7,7 @@
  * @subpackage      Translate
  * @author          Daniel Schlichtholz <admin@mysqldumper.de>
  */
+
 /**
  * Abstract class for translation service
  *
@@ -61,6 +62,20 @@ abstract class Module_Translate_Service_Abstract
     protected $_options;
 
     /**
+     * Will hold the locales known by the service
+     *
+     * @var array array('en', 'de', ...)
+     */
+    protected $_locales = array();
+
+    /**
+     * Will hold the mapping of the oTranCe locale to service's locale
+     *
+     * @var array array('OTC-Locale' => 'serviceLocale', 'vi_VN' => 'vi', ...)
+     */
+    protected $_localeMap = array();
+
+    /**
      * Constructor
      *
      * Loads module settings from database and attaches values to option array.
@@ -68,7 +83,7 @@ abstract class Module_Translate_Service_Abstract
     public function __construct()
     {
         $this->_moduleConfig = new Application_Model_ModuleConfig();
-        $this->_addModuleValuesToOptions();
+        $this->_getModuleSettings();
     }
 
     /**
@@ -94,6 +109,28 @@ abstract class Module_Translate_Service_Abstract
     }
 
     /**
+     * Set locales.
+     *
+     * @param array $locales Locale array
+     *
+     * @return void
+     */
+    public function setLocales($locales)
+    {
+        $this->_locales = $locales;
+    }
+
+    /**
+     * Get locales.
+     *
+     * @return array
+     */
+    public function getLocales()
+    {
+        return $this->_locales;
+    }
+
+    /**
      * Translate a message from source language into target language
      *
      * @param string $message              The message that will be translated
@@ -112,14 +149,17 @@ abstract class Module_Translate_Service_Abstract
     abstract public function getTranslatableLocales();
 
     /**
-     * Load module settings from database and add value index to option array.
+     * Load module settings from database and set properties.
      *
      * @return void
      */
-    protected function _addModuleValuesToOptions()
+    protected function _getModuleSettings()
     {
+        // read all setting params of the module
         $settings = $this->_moduleConfig->getModuleSettings($this->_moduleId);
-        $options  = $this->getOptions();
+
+        // add saved option values to options
+        $options = $this->getOptions();
         foreach ($options as $index => $optionValues) {
             if ($optionValues['type'] !== 'description') {
                 if (isset($settings[$index])) {
@@ -129,7 +169,40 @@ abstract class Module_Translate_Service_Abstract
                 }
             }
         }
+
+        // do we have a list of locales of this service?
+        if (isset($settings['serviceLocales'])) {
+            $this->_locales = $settings['serviceLocales'];
+        }
+
+        // what mappings do we know?
+        if (isset($settings['localeMap'])) {
+            $this->_localeMap = $settings['localeMap'];
+        }
+
         $this->setOptions($options);
+    }
+
+    /**
+     * Get mapping of oTranCe's locales to service's locales
+     *
+     * @return array
+     */
+    public function getLocaleMap()
+    {
+        return $this->_localeMap;
+    }
+
+    /**
+     * Set locale mapping of oTranCe's locales to service's locales
+     *
+     * @param array $localeMap Locale mapping array('otc_locale' => 'service_locale');
+     *
+     * @return void
+     */
+    public function setLocaleMap($localeMap)
+    {
+        $this->_localeMap = $localeMap;
     }
 
     /**
@@ -141,16 +214,144 @@ abstract class Module_Translate_Service_Abstract
      *
      * @throws Exception
      */
-    public function saveModuleSettings($settings)
+    public function saveSettings($settings)
     {
         $options = $this->getOptions();
         foreach ($settings as $varName => $varValue) {
-            if (!isset($options[$varName])) {
+            if (!in_array($varName, array('serviceLocales')) && !isset($options[$varName])
+                && !in_array(
+                    $varName, array('localeMap')
+                )
+            ) {
                 throw new Exception('VarName ' . $varName . ' not set. You must add it to the options array.');
             }
-            $this->_moduleConfig->setModuleSetting($this->_moduleId, $varName, trim($varValue));
+            $this->_moduleConfig->setModuleSetting($this->_moduleId, $varName, $varValue);
         }
 
         return $this->_moduleConfig->saveModuleSettings($this->_moduleId);
+    }
+
+    /**
+     * Fetch data from external url using curl
+     *
+     * @param string $url Url to fetch
+     *
+     * @return bool|array
+     */
+    protected function _getExternalData($url)
+    {
+        $curlHandle = curl_init($url);
+        if (!is_resource($curlHandle)) {
+            return false;
+        }
+
+        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 10);
+        $result   = curl_exec($curlHandle);
+        $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+        curl_close($curlHandle);
+        if ($httpCode != 200) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Try to auto-map oTranCe's locales to the service's one.
+     *
+     * @param array $localesOtrance oTranCe locales as array
+     *
+     * @return void
+     */
+    public function autoMapLocales($localesOtrance)
+    {
+        $localesService = $this->getLocales();
+        $localeMap      = $this->getLocaleMap();
+        foreach ($localesOtrance as $locale) {
+            if (!empty($localeMap[$locale])) {
+                // there is a mapping for this locale. Don't touch it.
+                continue;
+            }
+
+            // check for 1:1 relation 'de' => 'de'
+            if (in_array($locale, $localesService)) {
+                $localeMap[$locale] = $locale;
+                continue;
+            }
+
+            // Ok, no luck. Try strtolower to find "DE" => "de".
+            if (in_array(strtolower($locale), $localesService)) {
+                $localeMap[$locale] = strtolower($locale);
+                continue;
+            }
+
+            // Try strtoupper on service "de" => "DE".
+            if (in_array(strtoupper($locale), $localesService)) {
+                $localeMap[$locale] = strtoupper($locale);
+                continue;
+            }
+
+            // map 'zh_TW' => 'zh-TW'
+            $convertedLocale = str_replace('_', '-', $locale);
+            if (in_array($convertedLocale, $localesService)) {
+                $localeMap[$locale] = $convertedLocale;
+                continue;
+            }
+
+            if (strpos($locale, '_') !== false) {
+                $localeParts = explode('_', strtolower($locale));
+                // try to map second part of 'bg_BG' to 'bg'.
+                if (in_array($localeParts[1], $localesService)) {
+                    $localeMap[$locale] = $localeParts[1];
+                    continue;
+                }
+
+                // try to map first part 'bg_BG' to 'bg'.
+                if (in_array($localeParts[0], $localesService)) {
+                    $localeMap[$locale] = $localeParts[0];
+                    continue;
+                }
+            }
+        }
+
+        $this->setLocaleMap($localeMap);
+    }
+
+    /**
+     * Convert locale used in oTranCe to locale known by service provider
+     *
+     * @param string $code Locale
+     *
+     * @throws Exception
+     *
+     * @return string
+     */
+    protected function _getMappedServiceLocale($code)
+    {
+        if (!isset($this->_localeMap[$code])) {
+            throw new Exception("No mapping for '" . $code . "' found.");
+        }
+
+        return $this->_localeMap[$code];
+    }
+
+    /**
+     * Get error array used in the ajax response for indicating, that source and target language are mapped
+     * to the same locale.
+     *
+     * @return array
+     */
+    protected function getErrorMessageLanguagesAreEqual()
+    {
+        $ret = array(
+            'error'    => true,
+            'errorMsg' => 'The source and the target language are mapped to the same locale. '
+                . ' Check the locale mapping for the translation service.'
+        );
+
+        return $ret;
     }
 }

@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (406), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (416), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -30,6 +30,7 @@ $lang = array(
 'L_APIKEY' => 'API-Schlüssel',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => 'Sind Sie sicher, dass Sie Ihre persönlichen VCS-Zugangsdaten löschen möchten?',
 'L_AUTHENTICATE' => 'Anmelde-Informationen',
+'L_AUTO_MAP_LOCALES' => 'Sprachkürzel automatisch zuordnen',
 'L_BACK' => 'Zurück',
 'L_BACK_TO_OVERVIEW' => 'Zurück zur Übersicht',
 'L_CANCEL' => 'Abbrechen',
@@ -361,6 +362,12 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_TRANSLATION_SERVICE' => 'Externer Übersetzungsdienst',
 'L_TRANSLATION_SERVICE_ALLOWED' => 'Soll den Übersetzern der externe Übersetzungsdienst angeboten werden?',
 'L_TRY_AGAIN' => 'Bitte versuchen Sie es noch einmal.',
+'L_TS_GET_LOCALES' => 'Aktualisiere %s Sprachkürzel',
+'L_TS_GET_LOCALES_ERROR' => 'Leider ist beim Aktualisieren der Sprachkürzel ein Fehler aufgetreten.',
+'L_TS_GET_LOCALES_SUCCESS' => 'Die Sprachkürzel wurden erfolgreich aktualisiert.',
+'L_TS_LANGUAGE_MAPPING' => 'Sprachzuordnung',
+'L_TS_LANGUAGE_MAPPING_DESC' => 'Um Übersetzungen vom externen Dienst abholen zu können, muss oTranCe das hier verwendete Sprachkürzel dem des Dienstes zuordnen.
+Nur zugeordnete Sprachen können vom Dienst übersetzt werden. Bearbeiten Sie die Sprachzuordnungen hier.',
 'L_UNTRANSLATED' => 'Nicht übersetzt',
 'L_UPDATE_DOWNLOAD_PACKAGE' => 'Sprachpaket aktualisieren',
 'L_UPLOAD_FAILED' => 'Hochladen fehlgeschlagen.',

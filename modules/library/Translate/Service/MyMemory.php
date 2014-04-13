@@ -7,6 +7,7 @@
  * @subpackage      Translate
  * @author          Daniel Schlichtholz <admin@mysqldumper.de>
  */
+
 /**
  * Class for handling translation service MyMemory
  *
@@ -36,29 +37,27 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
      *
      * @var array
      */
-    protected $_options = array(
-        'serviceDescription' => array(
-            'type'        => 'description',
-            'description' => 'L_MYMEMORY_SERVICE_DESCRIPTION',
-        ),
-        'email'              => array(
-            'type'         => 'text',
-            'label'        => 'L_EMAIL',
-            'description'  => 'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION',
-            'defaultValue' => '',
-        ),
-        'apiKey'             => array(
-            'type'         => 'password',
-            'label'        => 'L_APIKEY',
-            'description'  => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
-            'defaultValue' => '',
-        ),
-    );
-
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $_options
+        = array(
+            'serviceDescription' => array(
+                'type'        => 'description',
+                'description' => 'L_MYMEMORY_SERVICE_DESCRIPTION',
+                'logo'        => 'mymemory.jpg',
+                'serviceUrl'  => 'http://mymemory.translated.net',
+            ),
+            'email'              => array(
+                'type'         => 'text',
+                'label'        => 'L_EMAIL',
+                'description'  => 'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION',
+                'defaultValue' => '',
+            ),
+            'apiKey'             => array(
+                'type'         => 'password',
+                'label'        => 'L_APIKEY',
+                'description'  => 'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION',
+                'defaultValue' => '',
+            ),
+        );
 
     /**
      * Translate a message from source language into target language
@@ -72,9 +71,13 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
     public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale)
     {
         $ret        = array('error' => false);
-        $sourceLang = $this->_mapLangCode($sourceLanguageLocale);
-        $targetLang = $this->_mapLangCode($targetLanguageLocale);
-        $params     = array(
+        $sourceLang = $this->_getMappedServiceLocale($sourceLanguageLocale);
+        $targetLang = $this->_getMappedServiceLocale($targetLanguageLocale);
+        if ($sourceLang == $targetLang) {
+            return $this->getErrorMessageLanguagesAreEqual();
+        }
+
+        $params = array(
             'q'        => $message,
             'langpair' => $sourceLang . '|' . $targetLang,
             'ref'      => 'oTranCe',
@@ -88,7 +91,8 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
             $params['key'] = $settings['email'];
         }
 
-        $response       = $this->executeCall('get', $params);
+        $response = $this->executeCall('get', $params);
+
         if ($response->responseStatus != 200) {
             $ret['error']    = true;
             $ret['errorMsg'] = $response->responseDetails;
@@ -109,25 +113,22 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
     public function getTranslatableLocales()
     {
         $ret = array();
-
-        return $ret;
-    }
-
-    /**
-     * Convert lang code like vi_VN to vi
-     *
-     * @param string $code Locale
-     *
-     * @return string
-     */
-    private function _mapLangCode($code)
-    {
-        $pos = strrpos($code, '_');
-        if ($pos === false) {
-            return $code;
+        // since MyMemory doesn't provide an api call to fetch the known locales we grab them from options array on page
+        $html = $this->_getExternalData('http://mymemory.translated.net/');
+        if (!$html) {
+            return $ret;
         }
 
-        return substr($code, 0, $pos);
+        $dom = new DOMDocument();
+        $dom->loadHTML($html);
+
+        $xPath = new DOMXpath($dom);
+        foreach ($xPath->query("//select[@id='select_target_mm']/option/@value") as $node) {
+            $ret[] = $node->nodeValue;
+        }
+        sort($ret, SORT_LOCALE_STRING);
+
+        return $ret;
     }
 
     /**

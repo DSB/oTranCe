@@ -7,6 +7,7 @@
  * @subpackage      Translate
  * @author          Daniel Schlichtholz <admin@mysqldumper.de>
  */
+
 /**
  * Class for handling translation service Google
  *
@@ -36,16 +37,17 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
      *
      * @var array
      */
-    protected $_options = array(
-        'serviceDescription' => array(
-            'type'        => 'description',
-            'description' => 'L_GOOGLE_SERVICE_DESCRIPTION',
-        ),
-        'apiKey'             => array(
-            'type'  => 'password',
-            'label' => 'L_APIKEY'
-        ),
-    );
+    protected $_options
+        = array(
+            'serviceDescription' => array(
+                'type'        => 'description',
+                'description' => 'L_GOOGLE_SERVICE_DESCRIPTION',
+            ),
+            'apiKey'             => array(
+                'type'  => 'password',
+                'label' => 'L_APIKEY'
+            )
+        );
 
     /**
      * Translate a message from source language into target language
@@ -58,20 +60,26 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
      */
     public function getTranslation($message, $sourceLanguageLocale, $targetLanguageLocale)
     {
-        $ret = array('error' => false);
-        $sourceLang     = $this->_mapLangCode($sourceLanguageLocale);
-        $targetLang     = $this->_mapLangCode($targetLanguageLocale);
-        $params         = array(
+        $ret        = array('error' => false);
+        $sourceLang = $this->_getMappedServiceLocale($sourceLanguageLocale);
+        $targetLang = $this->_getMappedServiceLocale($targetLanguageLocale);
+
+        if ($sourceLang == $targetLang) {
+            return $this->getErrorMessageLanguagesAreEqual();
+        }
+
+        $params   = array(
             'q'      => $message,
             'source' => $sourceLang,
             'target' => $targetLang,
         );
-        $response       = $this->executeCall('', $params);
+        $response = $this->executeCall('', $params);
+
         if (isset($response->data->translations[0]->translatedText)) {
             $ret['translatedText'] = $response->data->translations[0]->translatedText;
         } else {
-            $ret['error'] = true;
-            $ret['errorMsg'] = 'Did you provide the correct api key? Got no response from Google.';
+            $ret['error']    = true;
+            $ret['errorMsg'] = 'Did you provide the correct api key? Got error from Google.';
         }
 
         return $ret;
@@ -80,7 +88,7 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
     /**
      * Ask service for translatable locales
      *
-     * @return array
+     * @return array Array of locales
      */
     public function getTranslatableLocales()
     {
@@ -97,24 +105,7 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
     }
 
     /**
-     * Convert lang code like vi_VN into Google's code vn
-     *
-     * @param string $code Locale
-     *
-     * @return string
-     */
-    private function _mapLangCode($code)
-    {
-        $pos = strrpos($code, '_');
-        if ($pos === false) {
-            return $code;
-        }
-
-        return substr($code, 0, $pos);
-    }
-
-    /**
-     * Execute remote method of service adn return result
+     * Execute remote method of service and return result
      *
      * @param string $method Remote method to execute
      * @param array  $params Array of params
@@ -126,11 +117,15 @@ class Module_Translate_Service_Google extends Module_Translate_Service_Abstract
         $settings      = $this->_moduleConfig->getModuleSettings($this->_moduleId);
         $params['key'] = $settings['apiKey'];
         $url           = str_replace('{method}', $method, $this->_serviceBaseUrl) . '?' . http_build_query($params);
-        $handle        = @fopen($url, "r");
+        $handle        = @fopen($url, "rb");
         if ($handle) {
-            $contents = fread($handle, 4 * 4096);
+            $contents = '';
+            while (!feof($handle)) {
+                $contents .= fread($handle, 8192);
+            }
+
             fclose($handle);
-            $response = json_decode($contents);
+            $response = json_decode($contents, false);
         } else {
             $response = false;
         }

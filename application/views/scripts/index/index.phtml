@@ -19,6 +19,7 @@ $sortByProgressLink = $this->url(array('controller'=>'index','action'=>'index','
         <th><a href="<?php echo $sortByProgressLink;?>"><?php echo $this->lang->L_PROGRESS;?></a></th>
         <th><a href="<?php echo $sortByProgressLink;?>"><?php echo $this->getIcon('Ok', $this->lang->L_DONE, 16);?></a></th>
         <th><a href="<?php echo $sortByProgressLink;?>"><?php echo $this->getIcon('Edit', $this->lang->L_NEEDS_WORK, 16);?></a></th>
+        <th><img src="<?php echo $this->getIconSrc('Attention', '16'); ?>" title="<?php echo $this->lang->L_NEEDS_UPDATE_INFO;?>" /></th>
         <th><a href="<?php echo $sortByProgressLink;?>"><?php echo $this->lang->L_DONE;?></a></th>
         <th><a href="<?php echo $sortByProgressLink;?>"><?php echo $this->lang->L_STATUS;?></a></th>
         <th><?php echo $this->lang->L_USERS_WITH_EDIT_RIGHTS;?></th>
@@ -66,6 +67,7 @@ foreach ($this->status as $val)
         }
             ?>
         </td>
+        <td class="right vmiddle"><?php echo $val['review'] > 0 ? $this->numberFormat($val['review'], 0) : '-';?></td>
         <td class="right vmiddle"><?php echo $this->numberFormat($val['done'], 2);?>%</td>
         <td class="nowrap vmiddle">
         <?php

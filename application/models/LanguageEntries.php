@@ -126,7 +126,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $ret               = array();
         $totalLanguageVars = $this->getNrOfLanguageVars();
         $translators       = $this->getTranslators();
-        $pattern           = "SELECT count(*) as anzahl FROM `" . $this->_tableTranslations . "` "
+        $pattern
+                           =
+            "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
             . " WHERE `lang_id`= %d AND `text` > ''";
         $index             = 0;
         foreach ($languageIds as $val) {
@@ -138,6 +140,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $ret[$index]['languageId']    = $langId;
             $ret[$index]['notTranslated'] = $totalLanguageVars - $translated;
             $ret[$index]['translated']    = $translated;
+            $ret[$index]['review']        = $res[0]['review'];
             $percentTranslated            = 0;
             if ($totalLanguageVars > 0) {
                 $percentTranslated = (100 * $translated) / $totalLanguageVars;
@@ -183,11 +186,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Saves number of hits in $this->_foundRows.
      *
-     * @param string $languageIds Ids of languages to search in
-     * @param string $searchphrase Text to find
-     * @param int $offset Number of records to skip
-     * @param int $nrOfRecords Number of hits to return
-     * @param int $fileTemplateId If set, only search in this template
+     * @param string $languageIds    Ids of languages to search in
+     * @param string $searchphrase   Text to find
+     * @param int    $offset         Number of records to skip
+     * @param int    $nrOfRecords    Number of hits to return
+     * @param int    $fileTemplateId If set, only search in this template
      *
      * @return array
      */
@@ -240,10 +243,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Search for term in keys table.
      *
-     * @param string $searchphrase Text to search for
-     * @param int $offset Number of records to skip
-     * @param int $nrOfRecords Number of hits to return
-     * @param int $fileTemplateId If set, only search in this template
+     * @param string $searchphrase   Text to search for
+     * @param int    $offset         Number of records to skip
+     * @param int    $nrOfRecords    Number of hits to return
+     * @param int    $fileTemplateId If set, only search in this template
      *
      * @return array
      */
@@ -272,11 +275,11 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get key ids of untranslated variables for given language
      *
-     * @param int $languageId If set, only search in this language
+     * @param int    $languageId   If set, only search in this language
      * @param string $searchphrase Phrase to search
-     * @param int $offset Number of records to skip
-     * @param int $nrOfRecords Number of hits to return
-     * @param int $templateId If set, only search in this template
+     * @param int    $offset       Number of records to skip
+     * @param int    $nrOfRecords  Number of hits to return
+     * @param int    $templateId   If set, only search in this template
      *
      * @return array
      */
@@ -286,8 +289,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $offset = 0,
         $nrOfRecords = 30,
         $templateId = 0
-    )
-    {
+    ) {
         $this->_foundRows = null;
         $sql              = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
             . ' FROM `' . $this->_tableKeys . '` k ';
@@ -332,7 +334,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Get the key id of untranslated key in given languages
      *
      * @param int $languageId Id of languages to search in
-     * @param int $offset Skipped entries
+     * @param int $offset     Skipped entries
      *
      * @return null|int
      */
@@ -373,7 +375,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Return array(lang_id => array (locale => text)
      *
-     * @param int $id Id of key
+     * @param int       $id          Id of key
      * @param int|array $languageIds Id(s) of languages to fetch
      *
      * @return array
@@ -432,9 +434,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * Return array(lang_id => array (locale => text)
      *
-     * @param array $keys Ids of keys to fetch
-     * @param int $templateId Id of the file template
-     * @param int $languageId Id of the language to fetch
+     * @param array $keys       Ids of keys to fetch
+     * @param int   $templateId Id of the file template
+     * @param int   $languageId Id of the language to fetch
      *
      * @return array
      */
@@ -491,7 +493,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Add translations for the given languages to the entries.
      *
      * @param array $languageIds Ids of languages
-     * @param array $entries Entries to add
+     * @param array $entries     Entries to add
      *
      * @return array
      */
@@ -530,8 +532,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Get translation key
      *
-     * @param string $key The key to look for
-     * @param int $fileTemplate Id of file template
+     * @param string $key          The key to look for
+     * @param int    $fileTemplate Id of file template
      *
      * @return bool
      */
@@ -565,8 +567,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Check if the given key exists
      *
-     * @param string $key The key to check
-     * @param int $fileTemplate Id of file template
+     * @param string $key          The key to check
+     * @param int    $fileTemplate Id of file template
      *
      * @return bool
      */
@@ -580,8 +582,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Create a new key
      *
-     * @param string $key The key to create
-     * @param int $templateId ID of file template
+     * @param string $key        The key to create
+     * @param int    $templateId ID of file template
      *
      * @return bool
      */
@@ -620,10 +622,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Save values to database.
      *
-     * @param int $keyId Id of key
-     * @param array $newValues Translations
-     * @param int $fallbackLanguageId Id of fallback language
-     * @param bool $ignoreSmallChange Whether to flag other languages as "please re-check"
+     * @param int   $keyId              Id of key
+     * @param array $newValues          Translations
+     * @param int   $fallbackLanguageId Id of fallback language
+     * @param bool  $ignoreSmallChange  Whether to flag other languages as "please re-check"
      *
      * @return bool|string
      */
@@ -702,7 +704,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Assigns a language variable to a file template,
      *
-     * @param string $keyId ID of the language variable.
+     * @param string $keyId      ID of the language variable.
      * @param string $templateId ID of the template to assign.
      *
      * @return bool|string Returns TRUE on success, otherwise returns the error message.
@@ -739,7 +741,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Update the name of a key.
      *
-     * @param int $keyId Key-Id to update
+     * @param int    $keyId   Key-Id to update
      * @param string $keyName New key name
      *
      * @return bool
@@ -763,8 +765,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     /**
      * Validates the given language key.
      *
-     * @param string $keyName Name of the language key to validate.
-     * @param int $fileTemplate ID of the file template.
+     * @param string $keyName      Name of the language key to validate.
+     * @param int    $fileTemplate ID of the file template.
      *
      * @return bool
      */
@@ -804,7 +806,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      * Removes the needs update flag for the given key and language
      *
      * @param int $languageId Id of the language.
-     * @param int $keyId Id of the key.
+     * @param int $keyId      Id of the key.
      *
      * @return bool
      */

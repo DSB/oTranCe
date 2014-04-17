@@ -130,27 +130,25 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
                            =
             "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
             . " WHERE `lang_id`= %d AND `text` > ''";
-        $index             = 0;
         foreach ($languageIds as $val) {
             $langId                       = $val['id'];
             $sql                          = sprintf($pattern, (int)$val['id']);
             $res                          = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
             $translated                   = $res[0]['anzahl'];
-            $ret[$index]                  = array();
-            $ret[$index]['languageId']    = $langId;
-            $ret[$index]['notTranslated'] = $totalLanguageVars - $translated;
-            $ret[$index]['translated']    = $translated;
-            $ret[$index]['review']        = $res[0]['review'];
+            $ret[$langId]                  = array();
+            $ret[$langId]['languageId']    = $langId;
+            $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
+            $ret[$langId]['translated']    = $translated;
+            $ret[$langId]['review']        = $res[0]['review'];
             $percentTranslated            = 0;
             if ($totalLanguageVars > 0) {
                 $percentTranslated = (100 * $translated) / $totalLanguageVars;
             }
-            $ret[$index]['done']        = round($percentTranslated, 2);
-            $ret[$index]['translators'] = '';
+            $ret[$langId]['done']        = round($percentTranslated, 2);
+            $ret[$langId]['translators'] = '';
             if (isset($translators[$langId])) {
-                $ret[$index]['translators'] = $translators[$langId];
+                $ret[$langId]['translators'] = $translators[$langId];
             }
-            $index++;
         }
 
         return $ret;

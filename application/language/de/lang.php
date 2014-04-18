@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (416), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (419), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -345,6 +345,10 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Wählen Sie Ihre Referenzsprache(n)',
 'L_SET_PASSWORD_SUCCESS' => 'Dein Passwort wurde übernommen.',
 'L_SHORTCUT' => 'Schnellzugriff',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Zeige Startseite ohne Login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'Wenn diese Option aktiviert ist, kann die Startseite mit dem Fortschritt der Sprachen ohne Login angezeigt werden. 
+Dies können Sie z.B. nutzen, um den Status in einer eigenen Seite einzubinden.
+Das oTranCe-Menü wird dabei nicht angezeigt.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Zeige nicht übersetzte Schlüssel',
 'L_SKIPPED' => 'Übersprungen',
 'L_START_ANALYZE' => 'Starte Analyse',

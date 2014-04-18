@@ -347,6 +347,10 @@ Você receberá um e-mail assim que a permissão para edição for concedida a v
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Selecione seu(s) idioma(s) de referência',
 'L_SET_PASSWORD_SUCCESS' => 'Sua senha foi definida com sucesso.',
 'L_SHORTCUT' => 'Atalho',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Mostrar chaves não traduzidas',
 'L_SKIPPED' => 'Ignorado',
 'L_START_ANALYZE' => 'Começar análise',

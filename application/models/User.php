@@ -93,8 +93,8 @@ class Application_Model_User extends Msd_Application_Model
         $this->_tableUserLanguages = $this->_tablePrefix . 'user_languages';
         $this->_tableUsers         = $this->_tablePrefix . 'users';
         $auth                      = Zend_Auth::getInstance()->getIdentity();
-        $this->_username           = $auth['name'];
-        $this->_userId             = (int)$auth['id'];
+        $this->_username           = isset($auth['name']) ? $auth['name'] : '';
+        $this->_userId             = isset($auth['id']) ? (int)$auth['id'] : 0;
     }
 
     /**
@@ -105,6 +105,16 @@ class Application_Model_User extends Msd_Application_Model
     public function getUserId()
     {
         return $this->_userId;
+    }
+
+    /**
+     * Check if we have a logged in user
+     *
+     * @return bool
+     */
+    public function isLoggedIn()
+    {
+        return $this->_userId > 0 ? true : false;
     }
 
     /**

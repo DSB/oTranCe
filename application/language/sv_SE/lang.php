@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (417)
+// DSB (2), HolgerGremminger (422)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
@@ -27,10 +27,10 @@ $lang = array(
 'L_ADMIN_RIGHTS' => 'Adminbehörighet',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => 'Välj område som skall ändras genom att klicka på en navigeringenstab i sidhuvudet.',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => 'Även alla logg-poster, inställningar och behörigheter har raderats.',
-'L_APIKEY' => 'API key',
+'L_APIKEY' => 'API nyckel',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => 'Är du säker på att du vill radera din personliga VCS-data?',
 'L_AUTHENTICATE' => 'Inloggningsinformation',
-'L_AUTO_MAP_LOCALES' => 'Auto map locales',
+'L_AUTO_MAP_LOCALES' => 'Tillordna språknyckel automatiskt',
 'L_BACK' => 'Tillbaka',
 'L_BACK_TO_OVERVIEW' => 'Tillbaka till översikten',
 'L_CANCEL' => 'Avbryt',
@@ -50,7 +50,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_COMMIT_MESSAGE' => 'Commit-meddelande',
 'L_COMPLETE_VIEW' => 'Fullständig visning',
 'L_CONFIGURATION' => 'Konfigurering',
-'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => 'Options of external service',
+'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => 'Inställningar för den externa tjänsten',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => 'Är du säker på att du vill radera denna filmall',
 'L_CONFIRM_DELETE_KEY_X' => 'Är du säker att du vill radera nyckeln \'{KEY}\'?',
 'L_CONFIRM_DELETE_LANGUAGE' => 'Vill du verkligen radera detta språk??<br />Även alla logg-poster och behörigheter för användare som har detta språk kommer att raderas.',
@@ -72,7 +72,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_CREATED_ON_X_AT_Y' => 'Skapat den %1$s klockan %2$s.',
 'L_CREATE_NEW_FILE_TEMPLATE' => 'Skapar en ny filmall',
 'L_CREATE_NEW_USER_ACCOUNT' => 'Skapa nytt användarkonto',
-'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Used translation service',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Översättningstjänst som används',
 'L_CURRENT_VCS_ADAPTER' => 'VCS-adapter som används',
 'L_DATA_TO_ANALYZE' => 'Data som skall analyseras',
 'L_DATETIME' => 'Datum/tid',
@@ -84,7 +84,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_DELETE_LANGUAGE' => 'Radera språket',
 'L_DELETE_LOG_ENTRY' => 'Radera logg-post',
 'L_DELETE_USER' => 'Radera användare',
-'L_DESCRIPTION' => 'Description',
+'L_DESCRIPTION' => 'Beskrivning',
 'L_DONE' => 'Utfört',
 'L_DOWNLOAD' => 'Ladda ner',
 'L_DOWNLOADS' => 'Nerladdningar',
@@ -339,6 +339,10 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Välj referensspråk',
 'L_SET_PASSWORD_SUCCESS' => 'Ditt lösenord har sparats.',
 'L_SHORTCUT' => 'Snabbåtkomst',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Visa oöversatta nycklar',
 'L_SKIPPED' => 'Utelämnat',
 'L_START_ANALYZE' => 'Starta analys',

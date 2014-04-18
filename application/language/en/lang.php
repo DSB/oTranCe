@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (456), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
+// DSB (459), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -347,6 +347,10 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Select your reference language(s)',
 'L_SET_PASSWORD_SUCCESS' => 'Your password was set successfully.',
 'L_SHORTCUT' => 'Shortcut',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Show untranslated keys',
 'L_SKIPPED' => 'Skipped',
 'L_START_ANALYZE' => 'Start analyzing',

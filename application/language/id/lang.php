@@ -346,6 +346,10 @@ Anda akan menerima surel segera setelah hak penyuntingan diberikan kepada Anda.'
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Pilih bahasa acuan Anda',
 'L_SET_PASSWORD_SUCCESS' => 'Sandi Anda telah berhasil diatur.',
 'L_SHORTCUT' => 'Jalan pintas',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Tampilkan kuci tak teralihbahasakan',
 'L_SKIPPED' => 'Liwati',
 'L_START_ANALYZE' => 'Memulai analisis',

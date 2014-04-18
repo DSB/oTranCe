@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (957), DSB (3), oluul (1)
+// binota (960), DSB (3), oluul (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -27,7 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => '管理权限',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => '单击头部导航中的分页并选择一个选项以进行编辑。',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => '所有日志条目、设置与权限皆以一併移除。',
-'L_APIKEY' => 'API key',
+'L_APIKEY' => 'API Key',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '确实要删除您的个人VCS凭证么？',
 'L_AUTHENTICATE' => '登陆资讯',
 'L_AUTO_MAP_LOCALES' => 'Auto map locales',
@@ -348,6 +348,10 @@ $lang = array(
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => '选择您的參考语言',
 'L_SET_PASSWORD_SUCCESS' => '已成功设置密码。',
 'L_SHORTCUT' => '快捷方式',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => '表示出未翻译的键值',
 'L_SKIPPED' => '已跳过',
 'L_START_ANALYZE' => '开始分析',
@@ -365,10 +369,10 @@ $lang = array(
 'L_TRANSLATION_SERVICE' => 'External translation service',
 'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
 'L_TRY_AGAIN' => '请重试',
-'L_TS_GET_LOCALES' => 'Update %s locales',
+'L_TS_GET_LOCALES' => '正在更新 %s 个位置',
 'L_TS_GET_LOCALES_ERROR' => 'An error occured while updating the locales.',
 'L_TS_GET_LOCALES_SUCCESS' => 'The locales have been updated successfully.',
-'L_TS_LANGUAGE_MAPPING' => 'Language mapping',
+'L_TS_LANGUAGE_MAPPING' => '语言地图',
 'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
 Only mapped languages can be translated by the external service. Edit the language mapping here.',
 'L_UNTRANSLATED' => '未翻译',

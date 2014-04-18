@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Index Controller
  *
@@ -188,7 +189,7 @@ class IndexController extends OtranceController
      * Enrich languagesStatus array with locale info.
      *
      * @param array $languagesStatus The languagesStatus array without assoc index locale
-     * @param array $languages Languages meta info array
+     * @param array $languages       Languages meta info array
      *
      * @return array                 New array having assoc index locale
      */

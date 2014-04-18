@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (890), DSB (1)
+// binota (893), DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理員已啟動您用於專案 %2$s 的使用者帳戶 %1$s',
@@ -27,7 +27,7 @@ $lang = array(
 'L_ADMIN_RIGHTS' => '管理權限',
 'L_ADMIN_SELECT_TAB_EXPLAIN' => '點擊頭部導航中的分頁並選擇一個選項以進行編輯。',
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => '所有日誌條目、設定與權限皆以一併移除。',
-'L_APIKEY' => 'API key',
+'L_APIKEY' => 'API Key',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '確定要刪除您的個人VCS憑證嗎？',
 'L_AUTHENTICATE' => '登入資訊',
 'L_AUTO_MAP_LOCALES' => 'Auto map locales',
@@ -348,6 +348,10 @@ $lang = array(
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => '選擇您的參考語系',
 'L_SET_PASSWORD_SUCCESS' => '已成功設定密碼。',
 'L_SHORTCUT' => '捷徑',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => '顯示未翻譯的鍵值',
 'L_SKIPPED' => '已跳過',
 'L_START_ANALYZE' => '開始分析',
@@ -365,10 +369,10 @@ $lang = array(
 'L_TRANSLATION_SERVICE' => 'External translation service',
 'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
 'L_TRY_AGAIN' => '請重試',
-'L_TS_GET_LOCALES' => 'Update %s locales',
+'L_TS_GET_LOCALES' => '正在更新 %s 個位置',
 'L_TS_GET_LOCALES_ERROR' => 'An error occured while updating the locales.',
 'L_TS_GET_LOCALES_SUCCESS' => 'The locales have been updated successfully.',
-'L_TS_LANGUAGE_MAPPING' => 'Language mapping',
+'L_TS_LANGUAGE_MAPPING' => '語言地圖',
 'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
 Only mapped languages can be translated by the external service. Edit the language mapping here.',
 'L_UNTRANSLATED' => '未翻譯',

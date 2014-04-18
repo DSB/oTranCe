@@ -337,6 +337,10 @@ La dirección de contacto para ese proyecto es: %s',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Escoja el idioma/s de referencia, a partir del cuál traducir',
 'L_SET_PASSWORD_SUCCESS' => 'Se ha configurado su contraseña.',
 'L_SHORTCUT' => 'Acceso directo',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Mostrar claves sin traducir',
 'L_SKIPPED' => 'Saltado',
 'L_START_ANALYZE' => 'Iniciar el análisis',

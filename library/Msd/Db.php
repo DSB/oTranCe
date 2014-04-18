@@ -8,6 +8,7 @@
  * @version         SVN: $rev: 1212 $
  * @author          $Author$
  */
+
 /**
  * DB-Factory
  *
@@ -59,6 +60,7 @@ abstract class Msd_Db
 
     /**
      * List of databases adn default settings
+     *
      * @var array
      */
     protected $_databases = null;
@@ -99,6 +101,7 @@ abstract class Msd_Db
     protected $_charsets = array();
 
     public static $dbObject;
+
     /**
      * Init database object
      *
@@ -108,42 +111,38 @@ abstract class Msd_Db
      */
     protected function __construct($options)
     {
-        $this->_server = $options['host'];
-        $this->_user = $options['user'];
+        $this->_server   = $options['host'];
+        $this->_user     = $options['user'];
         $this->_password = $options['pass'];
-        $this->_port = (int) $options['port'];
-        $this->_socket = $options['socket'];
+        $this->_port     = (int)$options['port'];
+        $this->_socket   = $options['socket'];
     }
 
     /**
      * Create database adapter
      *
-     * @param array   $options    Connection options
-     * @param bool $forceMysql Whether to force the use of MySQL
+     * @param array $options Connection options
      *
      * @return Msd_Db_MysqlCommon
      */
-    public static function getAdapter($options = null, $forceMysql = false)
+    public static function getAdapter($options = null)
     {
         if (self::$dbObject !== null) {
             return self::$dbObject;
         }
         if ($options === null) {
-            $config = Msd_Registry::getConfig();
+            $config       = Msd_Registry::getConfig();
             $dbUserConfig = $config->getParam('dbuser');
-            $options = array(
-                'host' => $dbUserConfig['host'],
-                'user' => $dbUserConfig['user'],
-                'pass' => $dbUserConfig['pass'],
-                'port' => (int) $dbUserConfig['port'],
+            $options      = array(
+                'host'   => $dbUserConfig['host'],
+                'user'   => $dbUserConfig['user'],
+                'pass'   => $dbUserConfig['pass'],
+                'port'   => (int)$dbUserConfig['port'],
                 'socket' => $dbUserConfig['socket'],
             );
         }
-        if (function_exists('mysqli_connect') && !$forceMysql) {
-            self::$dbObject = new Msd_Db_Mysqli($options);
-        } else {
-            self::$dbObject = new Msd_Db_Mysql($options);
-        }
+        self::$dbObject = new Msd_Db_Mysqli($options);
+
         return self::$dbObject;
     }
 
@@ -153,31 +152,36 @@ abstract class Msd_Db
      *
      * @return bool if connection is successfull
      * */
-    abstract protected function _dbConnect ();
+    abstract protected function _dbConnect();
+
     /**
      * Get selected database
      *
      * @return string
      */
-    abstract public function getSelectedDb ();
+    abstract public function getSelectedDb();
+
     /**
      * Get version nr of sql server
      *
      * @return string
      */
-    abstract public function getServerInfo ();
+    abstract public function getServerInfo();
+
     /**
      * Get version nr of sql client
      *
      * @return string
      */
-    abstract public function getClientInfo ();
+    abstract public function getClientInfo();
+
     /**
      * Get all known character sets of this SQL-Server.
      *
      * @return array
      */
-    abstract public function getCharsets ();
+    abstract public function getCharsets();
+
     /**
      * Set character set of the MySQL-connection.
      *
@@ -185,12 +189,15 @@ abstract class Msd_Db
      * Throw Exception on failure.
      *
      * @param string $charset
+     *
      * @throws Exception
      *
      * @return string
      */
-    abstract public function setConnectionCharset (
-    $charset = 'utf8');
+    abstract public function setConnectionCharset(
+        $charset = 'utf8'
+    );
+
     /**
      * Get list of databases
      *
@@ -200,30 +207,33 @@ abstract class Msd_Db
      *
      * @return array
      */
-    abstract public function getDatabases ();
+    abstract public function getDatabases();
+
     /**
      * Select the given database to use it as the target for following queries.
      *
      * Returns true if selection was succesfull otherwise false.
      *
      * @throws Exception
-     * @param string  $database
+     *
+     * @param string $database
      *
      * @return bool
      */
-    abstract public function selectDb ($database);
+    abstract public function selectDb($database);
+
     /**
      * Execute a query and set _resultHandle
      *
      * If $getRows is true alls rows are fetched and returned
      *
-     * @param string  $query   The query to execute
-     * @param int     $kind    Type of result set
-     * @param bool $getRows Whether to fetch all rows and return them
+     * @param string $query   The query to execute
+     * @param int    $kind    Type of result set
+     * @param bool   $getRows Whether to fetch all rows and return them
      *
      * @return boolean|array|mysqli_result
      */
-    abstract public function query ($query, $kind = self::ARRAY_OBJECT, $getRows = true);
+    abstract public function query($query, $kind = self::ARRAY_OBJECT, $getRows = true);
 
     /**
      * Get next row from result set
@@ -241,7 +251,8 @@ abstract class Msd_Db
      *
      * @return array
      */
-    abstract public function getTables ($dbName);
+    abstract public function getTables($dbName);
+
     /**
      * Gets extended table information for one or all tables
      *
@@ -249,38 +260,44 @@ abstract class Msd_Db
      *
      * @return array
      */
-    abstract public function getTableStatus ($table = false);
+    abstract public function getTableStatus($table = false);
+
     /**
      * Returns the CREATE Statement of a table.
      *
      * @throws Exception
-     * @param string $table    Get CREATE-Statement for this table
+     *
+     * @param string $table Get CREATE-Statement for this table
      *
      * @return string Create statement
      */
-    abstract public function getTableCreate ($table);
+    abstract public function getTableCreate($table);
+
     /**
      * Gets the full description of all columns of a table
      *
      * Saves list to $this->metaTables[$database][$table].
      *
-     * @param string $table    Table to read meta info from
+     * @param string $table Table to read meta info from
      *
      * @return array
      */
-    abstract public function getTableColumns ($table);
+    abstract public function getTableColumns($table);
+
     /**
      * Gets the number of affected rows of the last query
      *
      * @return int
      */
-    abstract function getAffectedRows ();
+    abstract function getAffectedRows();
+
     /**
      * Gets the servers variables
      *
      * @return array
      */
-    abstract function getVariables ();
+    abstract function getVariables();
+
     /**
      * Escape a value for inserting it in query
      *
@@ -288,7 +305,8 @@ abstract class Msd_Db
      *
      * @return string
      */
-    abstract function escape ($val);
+    abstract function escape($val);
+
     /**
      * Optimize a table. Returns true on success or MySQL-Error.
      *
@@ -296,7 +314,8 @@ abstract class Msd_Db
      *
      * @return string|bool Returned optimize message or false on error
      */
-    abstract function optimizeTable ($table);
+    abstract function optimizeTable($table);
+
     /**
      * Handles a SQL-Error
      *
@@ -307,7 +326,7 @@ abstract class Msd_Db
      *
      * @return void
      */
-    public function sqlError ($errmsg, $errno)
+    public function sqlError($errmsg, $errno)
     {
         throw new Msd_Exception($errmsg, $errno);
     }

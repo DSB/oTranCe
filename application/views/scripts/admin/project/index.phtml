@@ -12,6 +12,7 @@ echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
 $cycle = $this->cycle(array('row-odd', 'row-even'));
 $translateToFallback = $this->settings['translateToFallback'];
 $forceFallbackAsReference = $this->settings['forceFallbackAsReference'];
+$showStartPageWithoutLogin = $this->settings['showStartPageWithoutLogin'];
 ?>
 <form action="<?php echo $this->baseUrl(); ?>/admin_project" method="post">
     <table class="bdr more-padding" summary="List of project settings">
@@ -80,6 +81,23 @@ $forceFallbackAsReference = $this->settings['forceFallbackAsReference'];
                 <label for="translateToFallback_no"><?php echo $this->lang->L_NO;?></label>
             </td>
         </tr>
+
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>
+                <?php echo $this->lang->L_SHOW_START_PAGE_WITHOUT_LOGIN;?>:<br />
+                <?php echo nl2br($this->lang->L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN);?>
+            </td>
+            <td>
+                <input type="radio" name="showStartPageWithoutLogin" id="showStartPageWithoutLogin_yes" value="1"
+                    <?php echo $showStartPageWithoutLogin == 1 ? ' checked="checked"' : '';?>/>
+                <label for="showStartPageWithoutLogin_yes"><?php echo $this->lang->L_YES;?></label>
+                &nbsp;
+                <input type="radio" name="showStartPageWithoutLogin" id="showStartPageWithoutLogin_no" value="0"
+                    <?php echo $showStartPageWithoutLogin == 0 ? ' checked="checked"' : '';?>/>
+                <label for="showStartPageWithoutLogin_no"><?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
         <tr class="<?php echo $cycle->next(); ?>">
             <td>&nbsp;</td>
             <td><button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', ''); ?> <?php echo $this->lang->L_SAVE;?></button></td>

@@ -1,3 +1,5 @@
+<?php
+if ($this->user->isLoggedIn()) { ?>
 <div id="sidebar">
     <h2><?php echo $this->projectConfig['name'];?></h2>
     <div id="version">
@@ -120,10 +122,11 @@
             ?>
         </ul>
     </div>
-</div>
+</div><?php
+} ?>
 
 <div id="logout">
-    <?php
+<?php
 if ($this->controller != 'settings') {
     echo $this->partial(
         'helper/switch-language-box.phtml',
@@ -135,10 +138,17 @@ if ($this->controller != 'settings') {
         )
     );
 }
-?>
+
+if ($this->user->isLoggedIn()) { ?>
     <p class="icon"><?php echo $this->getIcon('LockUser', $this->lang->L_USER, 16);?></p>
     <p id="loggedin-user">
         <strong><?php echo $this->getUsername();?></strong> |
         <a href="<?php echo $this->baseUrl();?>/index/logout/"><?php echo $this->lang->L_LOG_OUT;?></a>
-    </p>
+    </p><?
+} else { ?>
+    <style type="text/css">#content {margin-left:0;}</style>
+    <p id="loggedin-user">
+        <a href="<?php echo $this->baseUrl();?>/index/login/"><?php echo $this->lang->L_LOGIN;?></a>
+    </p><?php
+} ?>
 </div>

@@ -338,6 +338,10 @@ Dès qu\'un administrateur a activé votre compte, vous recevrez un message par 
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Choisissez votre langue/vos langues de référence',
 'L_SET_PASSWORD_SUCCESS' => 'Votre mot de passe a été configuré',
 'L_SHORTCUT' => 'Raccourci',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Afficher les clés non traduites',
 'L_SKIPPED' => 'Sauté',
 'L_START_ANALYZE' => 'Commencer l\'analyse',

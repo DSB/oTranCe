@@ -341,6 +341,10 @@ Obdržíte email ihned jak administrátor ověří Váš účet.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Vyberte Váš(e) referenční jazyk(y)',
 'L_SET_PASSWORD_SUCCESS' => 'Heslo bylo úspěšně nastaveno.',
 'L_SHORTCUT' => 'Zkratka',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
+This can be used to include the status in another page. 
+The menu of oTranCe will not be shown.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Ukázat nepřeložené klíče',
 'L_SKIPPED' => 'Přeskočit',
 'L_START_ANALYZE' => 'Spustit analýzu',

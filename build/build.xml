@@ -85,5 +85,26 @@
     </target>
 -->
 
+    <!--
+        This target creates a set of files in a folder ../otc_export that can be used to overwrite an existing oTranCe
+        installation using ftp or similar.
+        It leaves out config.ini and .htaccess so that no individual settings are overwritten.
+    -->
+    <target name="file-export" description="Export files to folder ../otc_export for ftp'ing them over an existing installation.">
+        <delete dir="${project.fileexportdir}"/>
+        <mkdir dir="${project.fileexportdir}"/>
+        <copy todir="${project.fileexportdir}">
+            <fileset dir="${project.basedir}" defaultexcludes="true">
+                <include name="application/**"/>
+                <include name="library/**"/>
+                <include name="modules/**"/>
+                <include name="public/**"/>
+                <exclude name="application/configs/config.ini"/>
+                <exclude name="public/.htaccess"/>
+            </fileset>
+        </copy>
+
+    </target>
+
     <target name="build-all" depends="prepare,build-zip,build-setup,cleanup"/>
 </project>

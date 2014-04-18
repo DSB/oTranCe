@@ -87,8 +87,7 @@ class AdminController extends OtranceController
 
         foreach ($controllers as $controller => $right) {
             if ($this->_userModel->hasRight($right)) {
-                $forwardToController = $controller;
-                $this->forward('index', $forwardToController);
+                $this->forward('index', $controller);
 
                 return;
             }

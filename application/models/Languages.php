@@ -19,18 +19,21 @@ class Application_Model_Languages extends Msd_Application_Model
 {
     /**
      * Database table containing language var keys
+     *
      * @var string
      */
     private $_tableKeys;
 
     /**
      * Database table containing translations
+     *
      * @var string
      */
     private $_tableTranslations;
 
     /**
      * Database table containing languages
+     *
      * @var string
      */
     private $_tableLanguages;
@@ -42,10 +45,9 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig              = $this->_config->getParam('table');
-        $this->_tableLanguages    = $tableConfig['languages'];
-        $this->_tableTranslations = $tableConfig['translations'];
-        $this->_tableKeys         = $tableConfig['keys'];
+        $this->_tableLanguages    = $this->_tablePrefix . 'languages';
+        $this->_tableTranslations = $this->_tablePrefix . 'translations';
+        $this->_tableKeys         = $this->_tablePrefix . 'keys';
     }
 
     /**
@@ -70,6 +72,7 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql           = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`)
             VALUES ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
             `name` = '$name', `flag_extension` = '$flagExtension', `active` = $active";
+
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -86,6 +89,7 @@ class Application_Model_Languages extends Msd_Application_Model
         $languageId = (int)$languageId;
         $status     = (int)$status;
         $sql        = "UPDATE `{$this->_tableLanguages}` SET `active` = " . $status . ' WHERE `id` = ' . $languageId;
+
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
@@ -101,6 +105,7 @@ class Application_Model_Languages extends Msd_Application_Model
         $sql = "SELECT `id`, `active`, `locale`, `name`, `flag_extension` FROM `{$this->_tableLanguages}`
             WHERE `id` = $id";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return isset($res[0]) ? $res[0] : array();
     }
 
@@ -115,6 +120,7 @@ class Application_Model_Languages extends Msd_Application_Model
     {
         $sql = "SELECT `locale` FROM `{$this->_tableLanguages}` WHERE `id` = $id";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return isset($res[0]['locale']) ? $res[0]['locale'] : false;
     }
 
@@ -157,6 +163,7 @@ class Application_Model_Languages extends Msd_Application_Model
         foreach ($res as $row) {
             $languages[$row['id']] = $row;
         }
+
         return $languages;
     }
 
@@ -175,6 +182,7 @@ class Application_Model_Languages extends Msd_Application_Model
         if (isset($res[0]['locale'])) {
             return true;
         }
+
         return false;
     }
 
@@ -237,6 +245,7 @@ class Application_Model_Languages extends Msd_Application_Model
     {
         $sql = "SELECT `id` FROM `{$this->_tableLanguages}` WHERE `locale` = '" . $this->_dbo->escape($locale) . "'";
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return (isset($res[0]['id'])) ? $res[0]['id'] : 0;
     }
 
@@ -250,6 +259,7 @@ class Application_Model_Languages extends Msd_Application_Model
     public function deleteLanguage($languageId)
     {
         $sql = "DELETE FROM `{$this->_tableLanguages}` WHERE `id` = " . intval($languageId);
+
         return (bool)$this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
 
@@ -260,8 +270,24 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function optimizeAllTables()
     {
-        $tables = $this->_config->getParam('table');
-        $sql    = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
+        $tablePrefix = $this->_config->getParam('dbUser.tablePrefix');
+        $tables      = array(
+            $tablePrefix . 'conversions',
+            $tablePrefix . 'exportlog',
+            $tablePrefix . 'filetemplates',
+            $tablePrefix . 'forgotpasswords',
+            $tablePrefix . 'history',
+            $tablePrefix . 'keys',
+            $tablePrefix . 'languages',
+            $tablePrefix . 'module_config',
+            $tablePrefix . 'translations',
+            $tablePrefix . 'user_languages',
+            $tablePrefix . 'userrights',
+            $tablePrefix . 'users',
+            $tablePrefix . 'usersettings',
+        );
+        $sql         = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
+
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }
 

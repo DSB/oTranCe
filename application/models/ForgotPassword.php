@@ -46,11 +46,8 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig               = $this->_config->getParam('table');
-        $this->_tableForgotPassword = $tableConfig['forgotpasswords'];
-
-        $projectConfig      = $this->_config->getParam('project');
-        $this->_linkLifeTime = $projectConfig['forgotPasswordLinkLifeTime'];
+        $this->_tableForgotPassword = $this->_tablePrefix . 'forgotpasswords';
+        $this->_linkLifeTime        = $this->_config->getParam('project.forgotPasswordLinkLifeTime');
     }
 
     /**
@@ -79,7 +76,7 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     {
         $timeStamp = date('Y-m-d H:i:s', time());
         $sql       = 'INSERT INTO `' . $this->_tableForgotPassword . '` (`userid`, `timestamp`)'
-                     . ' VALUES(' . $userId . ', \'' . $timeStamp . '\')';
+            . ' VALUES(' . $userId . ', \'' . $timeStamp . '\')';
 
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -117,7 +114,7 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     public function isValidRequest($forgotPasswordId, $requestedUserId)
     {
         $sql = 'SELECT `timestamp`, `userid` FROM `' . $this->_tableForgotPassword
-               . '` where id = ' . $forgotPasswordId;
+            . '` where id = ' . $forgotPasswordId;
 
         $requestTime = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 

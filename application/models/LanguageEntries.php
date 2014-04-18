@@ -66,11 +66,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig               = $this->_config->getParam('table');
-        $this->_tableLanguages     = $tableConfig['languages'];
-        $this->_tableTranslations  = $tableConfig['translations'];
-        $this->_tableKeys          = $tableConfig['keys'];
-        $this->_tableFileTemplates = $tableConfig['filetemplates'];
+        $this->_tableLanguages     = $this->_tablePrefix . 'languages';
+        $this->_tableTranslations  = $this->_tablePrefix . 'translations';
+        $this->_tableKeys          = $this->_tablePrefix . 'keys';
+        $this->_tableFileTemplates = $this->_tablePrefix . 'filetemplates';
     }
 
     /**
@@ -131,16 +130,16 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
             . " WHERE `lang_id`= %d AND `text` > ''";
         foreach ($languageIds as $val) {
-            $langId                       = $val['id'];
-            $sql                          = sprintf($pattern, (int)$val['id']);
-            $res                          = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-            $translated                   = $res[0]['anzahl'];
+            $langId                        = $val['id'];
+            $sql                           = sprintf($pattern, (int)$val['id']);
+            $res                           = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+            $translated                    = $res[0]['anzahl'];
             $ret[$langId]                  = array();
             $ret[$langId]['languageId']    = $langId;
             $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
             $ret[$langId]['translated']    = $translated;
             $ret[$langId]['review']        = $res[0]['review'];
-            $percentTranslated            = 0;
+            $percentTranslated             = 0;
             if ($totalLanguageVars > 0) {
                 $percentTranslated = (100 * $translated) / $totalLanguageVars;
             }

@@ -31,8 +31,7 @@ class Application_Model_ExportLog extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig           = $this->_config->getParam('table');
-        $this->_tableExportLog = $tableConfig['exportlog'];
+        $this->_tableExportLog = $this->_tablePrefix . 'exportlog';
     }
 
     /**

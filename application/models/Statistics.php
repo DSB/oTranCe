@@ -19,18 +19,21 @@ class Application_Model_Statistics extends Msd_Application_Model
 {
     /**
      * Tablename of history table
+     *
      * @var string
      */
     private $_tableHistory;
 
     /**
      * Name of languages table
+     *
      * @var string
      */
     private $_tableLanguages;
 
     /**
      * Name of users table
+     *
      * @var string
      */
     private $_tableUsers;
@@ -42,11 +45,10 @@ class Application_Model_Statistics extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig               = $this->_config->getParam('table');
-        $this->_tableHistory       = $tableConfig['history'];
-        $this->_tableHistoryChange = $tableConfig['history_change'];
-        $this->_tableLanguages     = $tableConfig['languages'];
-        $this->_tableUsers         = $tableConfig['users'];
+        $this->_tableHistory       = $this->_tablePrefix . 'history';
+        $this->_tableHistoryChange = $this->_tablePrefix . 'history_change';
+        $this->_tableLanguages     = $this->_tablePrefix . 'languages';
+        $this->_tableUsers         = $this->_tablePrefix . 'users';
     }
 
     /**
@@ -99,8 +101,9 @@ class Application_Model_Statistics extends Msd_Application_Model
      *
      * @return array
      */
-    public function getUserOverallStatistics($filter = '', $offset = 0, $recordsPerPage = 0, $sortField = 'username', $sortDirection = SORT_ASC)
-    {
+    public function getUserOverallStatistics(
+        $filter = '', $offset = 0, $recordsPerPage = 0, $sortField = 'username', $sortDirection = SORT_ASC
+    ) {
         $sql = "SELECT SQL_CALC_FOUND_ROWS u.`id`, u.`username`, u.`realName`, u.`email`, u.`active`,
             h.`editActions`, h.`lastAction`
             FROM `{$this->_tableUsers}` u

@@ -87,12 +87,11 @@ class Application_Model_User extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig               = $this->_config->getParam('table');
-        $this->_tableUsersettings  = $tableConfig['usersettings'];
-        $this->_tableUserrights    = $tableConfig['userrights'];
-        $this->_tableLanguages     = $tableConfig['languages'];
-        $this->_tableUserLanguages = $tableConfig['user_languages'];
-        $this->_tableUsers         = $tableConfig['users'];
+        $this->_tableUsersettings  = $this->_tablePrefix . 'usersettings';
+        $this->_tableUserrights    = $this->_tablePrefix . 'userrights';
+        $this->_tableLanguages     = $this->_tablePrefix . 'languages';
+        $this->_tableUserLanguages = $this->_tablePrefix . 'user_languages';
+        $this->_tableUsers         = $this->_tablePrefix . 'users';
         $auth                      = Zend_Auth::getInstance()->getIdentity();
         $this->_username           = $auth['name'];
         $this->_userId             = (int)$auth['id'];
@@ -784,8 +783,9 @@ class Application_Model_User extends Msd_Application_Model
             if ($userData['id'] == 0) {
                 // new user
                 if (!$notEmptyValidate->isValid($userData['pass1'])) {
-                    $messages                         =
-                        $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                    $messages                         = $translator->translateZendMessageIds(
+                        $notEmptyValidate->getMessages()
+                    );
                     $this->_validateMessages['pass1'] = $messages;
                 }
 
@@ -812,23 +812,26 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check real name is not empty
             if (!$notEmptyValidate->isValid($userData['realName'])) {
-                $messages                            =
-                    $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages                            = $translator->translateZendMessageIds(
+                    $notEmptyValidate->getMessages()
+                );
                 $this->_validateMessages['realName'] = $messages;
             }
 
             // Check e-mail is not empty
             if (!$notEmptyValidate->isValid($userData['email'])) {
-                $messages                         =
-                    $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+                $messages                         = $translator->translateZendMessageIds(
+                    $notEmptyValidate->getMessages()
+                );
                 $this->_validateMessages['email'] = $messages;
             }
 
             // Check user name has 2-50 chars
             $strLenValidate = new Zend_Validate_StringLength(array('min' => 2, 'max' => 50));
             if (!$strLenValidate->isValid($userData['username'])) {
-                $messages                            =
-                    $translator->translateZendMessageIds($strLenValidate->getMessages());
+                $messages                            = $translator->translateZendMessageIds(
+                    $strLenValidate->getMessages()
+                );
                 $this->_validateMessages['username'] = array_merge(
                     $this->_validateMessages['username'],
                     $messages
@@ -837,8 +840,9 @@ class Application_Model_User extends Msd_Application_Model
 
             // Check user name has 2-50 chars
             if (!$strLenValidate->isValid($userData['realName'])) {
-                $messages                            =
-                    $translator->translateZendMessageIds($strLenValidate->getMessages());
+                $messages                            = $translator->translateZendMessageIds(
+                    $strLenValidate->getMessages()
+                );
                 $this->_validateMessages['realName'] = array_merge(
                     $this->_validateMessages['realName'],
                     $messages
@@ -848,8 +852,7 @@ class Application_Model_User extends Msd_Application_Model
             // Check provided e-mail is valid
             $emailValidate = new Zend_Validate_EmailAddress();
             if (!$emailValidate->isValid($userData['email'])) {
-                $messages                         =
-                    $translator->translateZendMessageIds($emailValidate->getMessages());
+                $messages                         = $translator->translateZendMessageIds($emailValidate->getMessages());
                 $this->_validateMessages['email'] = array_merge(
                     $this->_validateMessages['email'],
                     $messages
@@ -871,8 +874,9 @@ class Application_Model_User extends Msd_Application_Model
         if (isset($userData['pass1']) && ($userData['pass1'] > '' || $userData['pass2'] > '')) {
             $identicalValidate = new Zend_Validate_Identical($userData['pass1']);
             if (!$identicalValidate->isValid($userData['pass2'])) {
-                $messages                         =
-                    $translator->translateZendMessageIds($identicalValidate->getMessages());
+                $messages                         = $translator->translateZendMessageIds(
+                    $identicalValidate->getMessages()
+                );
                 $this->_validateMessages['pass1'] = array_merge(
                     $this->_validateMessages['pass1'],
                     $messages
@@ -883,7 +887,8 @@ class Application_Model_User extends Msd_Application_Model
         $isValid = true;
         // if any error message is set the validation failed
         if (!empty($this->_validateMessages['username']) || !empty($this->_validateMessages['pass1'])
-            || !empty($this->_validateMessages['realName']) || !empty($this->_validateMessages['email'])
+            || !empty($this->_validateMessages['realName'])
+            || !empty($this->_validateMessages['email'])
         ) {
             $isValid = false;
         }

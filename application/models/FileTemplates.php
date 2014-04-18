@@ -52,10 +52,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig               = $this->_config->getParam('table');
-        $this->_tableFiletemplates = $tableConfig['filetemplates'];
-        $this->_tableKeys          = $tableConfig['keys'];
-        $this->_tableTranslations  = $tableConfig['translations'];
+        $this->_tableFiletemplates = $this->_tablePrefix . 'filetemplates';
+        $this->_tableKeys          = $this->_tablePrefix . 'keys';
+        $this->_tableTranslations  = $this->_tablePrefix . 'translations';
     }
 
     /**
@@ -205,13 +204,14 @@ class Application_Model_FileTemplates extends Msd_Application_Model
             $res = $this->_deleteFileTemplate($templateId);
         } else {
             $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` SET `template_id` = "
-                   . $replacement . " WHERE `template_id` = " . $templateId;
+                . $replacement . " WHERE `template_id` = " . $templateId;
             $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
         $result['update'] = $res;
 
         // now delete file template
-        $sql              =
+        $sql
+                          =
             "DELETE FROM `{$this->_database}`.`{$this->_tableFiletemplates}` WHERE `id` = " . $templateId;
         $res              = $this->_dbo->query($sql, Msd_Db::SIMPLE);
         $result['delete'] = $res;
@@ -230,7 +230,7 @@ class Application_Model_FileTemplates extends Msd_Application_Model
     {
         // first get all key-Ids
         $sql = "SELECT `id` FROM `{$this->_database}`.`{$this->_tableKeys}` "
-               . " WHERE `template_id` = " . $templateId;
+            . " WHERE `template_id` = " . $templateId;
         $res = $this->_dbo->query($sql, MSD_DB::ARRAY_ASSOC);
         if (empty($res[0])) {
             // nothing to delete
@@ -243,12 +243,12 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         }
         // delete all translations of these keys
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableTranslations}` "
-               . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
+            . " WHERE `key_id` IN (" . implode(',', $keyIds) . ')';
         $res = $this->_dbo->query($sql, MSD_DB::SIMPLE);
 
         // delete all keys assigned to that file template
         $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableKeys}` "
-               . " WHERE `template_id` = " . $templateId;
+            . " WHERE `template_id` = " . $templateId;
         $res &= $this->_dbo->query($sql, MSD_DB::SIMPLE);
 
         return $res;
@@ -267,8 +267,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         $this->clearValidateMessages();
         $notEmptyValidate = new Zend_Validate_NotEmpty();
         if (!$notEmptyValidate->isValid($params['filename'])) {
-            $messages                            =
-                $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $messages                            = $translator->translateZendMessageIds(
+                $notEmptyValidate->getMessages()
+            );
             $this->_validateMessages['filename'] = $messages;
         }
 
@@ -278,8 +279,9 @@ class Application_Model_FileTemplates extends Msd_Application_Model
         }
 
         if (!$notEmptyValidate->isValid($params['content'])) {
-            $messages                           =
-                $translator->translateZendMessageIds($notEmptyValidate->getMessages());
+            $messages                           = $translator->translateZendMessageIds(
+                $notEmptyValidate->getMessages()
+            );
             $this->_validateMessages['content'] = $messages;
         }
 

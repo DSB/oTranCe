@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Admin Controller
  *
@@ -73,6 +74,24 @@ class AdminController extends OtranceController
      */
     public function indexAction()
     {
+        // OTC-211 Look for the first tab the user has access to and forward to it
+        $controllers = array(
+            'admin_project'              => 'admTabProject',
+            'admin_users'                => 'editUsers',
+            'admin_languages'            => 'editLanguage',
+            'admin_files'                => 'editTemplate',
+            'admin_importers'            => 'editImporter',
+            'admin_vcs'                  => 'editVcs',
+            'admin_translation-services' => 'editTlServices'
+        );
+
+        foreach ($controllers as $controller => $right) {
+            if ($this->_userModel->hasRight($right)) {
+                $this->forward('index', $controller);
+
+                return;
+            }
+        }
     }
 
     /**

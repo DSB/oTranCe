@@ -15,7 +15,6 @@
  * @package         oTranCe
  * @subpackage      Models
  */
-
 class Application_Model_History extends Msd_Application_Model
 {
     /**
@@ -46,10 +45,9 @@ class Application_Model_History extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig              = $this->_config->getParam('table');
-        $this->_tableHistory      = $tableConfig['history'];
-        $this->_tableKeys         = $tableConfig['keys'];
-        $this->_tableTranslations = $tableConfig['translations'];
+        $this->_tableHistory      = $this->_tablePrefix . 'history';
+        $this->_tableKeys         = $this->_tablePrefix . 'keys';
+        $this->_tableTranslations = $this->_tablePrefix . 'translations';
     }
 
     /**
@@ -174,7 +172,7 @@ class Application_Model_History extends Msd_Application_Model
     {
         $langId = (int)$langId;
         $sql    = 'SELECT MAX(`dt`)  as `latestChange` FROM `' . $this->_tableTranslations . '`'
-                  . ' WHERE `lang_id`=' . $langId;
+            . ' WHERE `lang_id`=' . $langId;
         $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return isset($res[0]['latestChange']) ? $res[0]['latestChange'] : '';
@@ -323,15 +321,15 @@ class Application_Model_History extends Msd_Application_Model
             $time = date('Y-m-d H-i-s', time());
         }
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
-               . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
-               . ' VALUES ('
-               . intval($auth['id']) . ', '
-               . '\'' . $time . '\', '
-               . intval($keyId) . ', '
-               . '\'' . $this->_dbo->escape($action) . '\', '
-               . intval($langId) . ', '
-               . '\'' . $this->_dbo->escape($oldVal) . '\', '
-               . '\'' . $this->_dbo->escape($newVal) . '\')';
+            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+            . ' VALUES ('
+            . intval($auth['id']) . ', '
+            . '\'' . $time . '\', '
+            . intval($keyId) . ', '
+            . '\'' . $this->_dbo->escape($action) . '\', '
+            . intval($langId) . ', '
+            . '\'' . $this->_dbo->escape($oldVal) . '\', '
+            . '\'' . $this->_dbo->escape($newVal) . '\')';
         $this->_dbo->query($sql);
     }
 
@@ -348,10 +346,10 @@ class Application_Model_History extends Msd_Application_Model
         //TODO normalize action row and get rid of text entries
         $time = date('Y-m-d H-i-s', time());
         $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableHistory
-                . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
-                . ' VALUES (' . intval($userId) . ', \'' . $time . '\', 0, '
-                . '\'' . $this->_dbo->escape($action) . '\', '
-                . '0, \'\', \'\')';
+            . '` (`user_id`, `dt`, `key_id`, `action`, `lang_id`,`oldValue`,`newValue`)'
+            . ' VALUES (' . intval($userId) . ', \'' . $time . '\', 0, '
+            . '\'' . $this->_dbo->escape($action) . '\', '
+            . '0, \'\', \'\')';
         $this->_dbo->query($sql);
     }
 

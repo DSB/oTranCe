@@ -8,6 +8,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Adapter to use Zend_Auth with INI files.
  *
@@ -37,10 +38,8 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
     {
         $this->_db       = Msd_Db::getAdapter();
         $config          = Msd_Registry::getConfig();
-        $tableConfig     = $config->getParam('table');
-        $dbUserConfig    = $config->getParam('dbuser');
-        $this->_database = $dbUserConfig['db'];
-        $this->_users    = $tableConfig['users'];
+        $this->_database = $config->getParam('dbuser.db');
+        $this->_users    = $config->getParam('dbuser.tablePrefix') . 'users';
     }
 
     /**
@@ -77,9 +76,12 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
         $loginResult = true;
         $db          = Msd_db::getAdapter();
         // look for user in own db-table
-        $sql = 'SELECT `username` as `name`, `id`, `password`, `active` FROM `' . $this->_database . '`.`' . $this->_users . '` '
-               . 'WHERE `username`='
-               . '\'' . $db->escape($this->_username) . '\'';
+        $sql
+            =
+            'SELECT `username` as `name`, `id`, `password`, `active` FROM `' . $this->_database . '`.`' . $this->_users
+            . '` '
+            . 'WHERE `username`='
+            . '\'' . $db->escape($this->_username) . '\'';
 
         $res = $db->query($sql, Msd_Db::ARRAY_ASSOC);
         if (!isset($res[0]['name'])) {
@@ -121,7 +123,7 @@ class Msd_Auth_Adapter_Db implements Zend_Auth_Adapter_Interface
     private function _updatePassword()
     {
         $sql = 'UPDATE `' . $this->_database . '`.`' . $this->_users
-               . '` SET `password` = \'' . md5($this->_password) . '\'';
+            . '` SET `password` = \'' . md5($this->_password) . '\'';
         $this->_db->query($sql);
     }
 }

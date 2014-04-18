@@ -19,6 +19,7 @@ class Application_Model_Converter extends Msd_Application_Model
 {
     /**
      * Database table used for converting
+     *
      * @var string
      */
     private $_tableConversions;
@@ -30,8 +31,7 @@ class Application_Model_Converter extends Msd_Application_Model
      */
     public function init()
     {
-        $dbTables = $this->_config->getParam('table');
-        $this->_tableConversions = $dbTables['conversions'];
+        $this->_tableConversions = $this->_tablePrefix . 'conversions';
     }
 
     /**
@@ -53,30 +53,32 @@ class Application_Model_Converter extends Msd_Application_Model
         $this->_dbo->setConnectionCharset($inputCharset);
         $id   = $this->_dbo->escape(Zend_Session::getId());
         $text = $this->_dbo->escape($text);
-        $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions. '` '
-                . ' (`id`, `text`) VALUES (? , ?)';
+        $sql  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableConversions . '` '
+            . ' (`id`, `text`) VALUES (? , ?)';
         $stmt = $this->_dbo->prepare($sql);
         $stmt->bind_param('ss', $id, $text);
         $stmt->execute();
-        if ((int) $stmt->errno !== 0) {
+        if ((int)$stmt->errno !== 0) {
             $stmt->close();
+
             return false;
         }
         $stmt->close();
 
         // re-read the value in utf-8
         $this->_dbo->setConnectionCharset('utf8');
-        $sql = 'SELECT `text` FROM `' . $this->_database . '`.`' . $this->_tableConversions. '` '
-                .' WHERE `id`=\'' . $id . '\'';
+        $sql = 'SELECT `text` FROM `' . $this->_database . '`.`' . $this->_tableConversions . '` '
+            . ' WHERE `id`=\'' . $id . '\'';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (isset($res[0]['text'])) {
             $data = $res[0]['text'];
             $data = stripcslashes($data);
             // now delete entry from db, we don't need it anymore
-            $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableConversions. '` '
-                    .' WHERE `id`=\'' . $id . '\'';
+            $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableConversions . '` '
+                . ' WHERE `id`=\'' . $id . '\'';
             $this->_dbo->query($sql, Msd_Db::SIMPLE);
         }
+
         return $data;
     }
 

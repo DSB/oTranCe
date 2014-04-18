@@ -8,6 +8,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Class to handle the configuration
  *
@@ -52,7 +53,7 @@ class Msd_Config
         if (is_string($ioHandler)) {
             $pluginLoader = new Zend_Loader_PluginLoader(
                 array(
-                    'Msd_Config_IoHandler_' => APPLICATION_PATH . '/../library/Msd/Config/IoHandler/',
+                    'Msd_Config_IoHandler_'    => APPLICATION_PATH . '/../library/Msd/Config/IoHandler/',
                     'Module_Config_IoHandler_' => APPLICATION_PATH . '/../modules/library/Config/IoHandler/',
                 )
             );
@@ -102,6 +103,14 @@ class Msd_Config
      */
     public function getParam($paramName, $defaultValue = null)
     {
+        // find nested array like dbUser.tablePrefix
+        if (strpos($paramName, '.') !== false) {
+            $keys = explode('.', $paramName);
+            if (isset($this->_config[$keys[0]]) && isset($this->_config[$keys[0]][$keys[1]])) {
+                return $this->_config[$keys[0]][$keys[1]];
+            }
+        }
+
         if (isset($this->_config[$paramName])) {
             return $this->_config[$paramName];
         }
@@ -145,7 +154,7 @@ class Msd_Config
      */
     public function setConfig($config)
     {
-        $this->_config = (array) $config;
+        $this->_config = (array)$config;
         if ($this->_autosave) {
             $this->save();
         }

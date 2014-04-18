@@ -70,24 +70,16 @@ class ProjectController extends Setup_Controller_Abstract
     {
         $projectInfo = $this->_request->getParam('project');
         $mysql       = $_SESSION['mysql'];
-        $tablePrefix = $mysql['prefix'];
 
         $configIni                             = parse_ini_file(
             $this->_config['extractDir'] . '/application/configs/config.dist.ini',
             true
         );
         $configIni['dbuser']                   = $mysql;
+        $configIni['dbuser']['tablePrefix']    = $mysql['prefix'];
         $configIni['project']['name']          = $projectInfo['name'];
         $configIni['project']['url']           = $projectInfo['url'];
         $configIni['project']['encryptionKey'] = $this->_generateEncryptionKey();
-
-        foreach ($_SESSION['setupInfo']['sql-queries'] as $queryInfo) {
-            if (!isset($queryInfo['tableName'])) {
-                continue;
-            }
-
-            $configIni['table'][$queryInfo['tableName']] = $tablePrefix . $queryInfo['tableName'];
-        }
 
         include_once $this->_config['extractDir'] . '/library/Msd/Exception.php';
         include_once $this->_config['extractDir'] . '/library/Msd/Ini.php';

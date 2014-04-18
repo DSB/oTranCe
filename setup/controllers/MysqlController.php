@@ -8,6 +8,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Controller for setting up the MySQL connection.
  *
@@ -26,7 +27,7 @@ class MysqlController extends Setup_Controller_Abstract
         error_reporting(0);
         $mysql = $this->_request->getParam('mysql');
 
-        $mysqli = new mysqli(
+        $mysqli         = new mysqli(
             $mysql['host'],
             $mysql['user'],
             $mysql['pass'],
@@ -45,6 +46,7 @@ class MysqlController extends Setup_Controller_Abstract
                     'number'  => $mysqli->$connectErrorNr,
                 )
             );
+
             return;
         }
 
@@ -54,6 +56,7 @@ class MysqlController extends Setup_Controller_Abstract
         $stmt->prepare('SELECT COUNT(*) FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = ?');
         $stmt->bind_param("s", $mysql['db']);
         $stmt->execute();
+        $row = '';
         $stmt->bind_result($row);
         $stmt->fetch();
         $stmt->free_result();
@@ -70,12 +73,12 @@ class MysqlController extends Setup_Controller_Abstract
         if ($row > 0) {
             $this->_response->setBodyJson(
                 array(
-                    'connect' => true,
+                    'connect'  => true,
                     'dbExists' => true,
-                    'message' => 'The database ' . $mysql['db']
+                    'message'  => 'The database ' . $mysql['db']
                         . ' already exists.<br/>To overwrite all tables with the given prefix click on "Continue", '
                         . 'or use different MySQL settings.',
-                    'queries' => $queries,
+                    'queries'  => $queries,
                 )
             );
 
@@ -88,11 +91,11 @@ class MysqlController extends Setup_Controller_Abstract
 
         $this->_response->setBodyJson(
             array(
-                'connect' => true,
+                'connect'  => true,
                 'dbExists' => false,
                 'dbCreate' => $success,
-                'message' => $mysqli->error,
-                'queries' => $queries,
+                'message'  => $mysqli->error,
+                'queries'  => $queries,
             )
         );
     }
@@ -104,7 +107,7 @@ class MysqlController extends Setup_Controller_Abstract
      */
     public function createTablesAction()
     {
-        $mysql = $_SESSION['mysql'];
+        $mysql  = $_SESSION['mysql'];
         $mysqli = new mysqli(
             $mysql['host'],
             $mysql['user'],
@@ -121,6 +124,7 @@ class MysqlController extends Setup_Controller_Abstract
         $stmt->prepare('SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME LIKE ?');
         $stmt->bind_param("ss", $mysql['db'], $tableSearch);
         $stmt->execute();
+        $row = '';
         $stmt->bind_result($row);
 
         $tables = array();
@@ -132,17 +136,17 @@ class MysqlController extends Setup_Controller_Abstract
         $mysqli->query('DROP TABLE `' . implode('`, `', $tables) . '`');
 
         $sqlQueries = $_SESSION['setupInfo']['sql-queries'];
-        $result = array(
+        $result     = array(
             'success' => true,
         );
 
         $queryResults = array();
 
         foreach ($sqlQueries as $queryId => $queryInfo) {
-            $realQuery = str_replace('{PREFIX}', $mysql['prefix'], $queryInfo['query']);
-            $result['queries'][] = $realQuery;
-            $queryResult = $mysqli->query($realQuery);
-            $result['success'] = $result['success'] && $queryResult;
+            $realQuery              = str_replace('{PREFIX}', $mysql['prefix'], $queryInfo['query']);
+            $result['queries'][]    = $realQuery;
+            $queryResult            = $mysqli->query($realQuery);
+            $result['success']      = $result['success'] && $queryResult;
             $queryResults[$queryId] = array(
                 'success' => $queryResult,
                 'message' => $mysqli->error,

@@ -38,8 +38,7 @@ class Application_Model_ModuleConfig extends Msd_Application_Model
      */
     public function init()
     {
-        $tableConfig              = $this->_config->getParam('table');
-        $this->_tableModuleConfig = $tableConfig['module_config'];
+        $this->_tableModuleConfig = $this->_tablePrefix . 'module_config';
     }
 
     /**

@@ -142,7 +142,7 @@ class EntriesController extends OtranceController
         // set reference languages
         $this->_referenceLanguages = $this->_userModel->getRefLanguages();
         $projectSettings           = $this->_config->getParam('project');
-        if ($projectSettings['forceFallbackAsReference']) {
+        if (isset($projectSettings['forceFallbackAsReference']) && $projectSettings['forceFallbackAsReference']) {
             // add main language as reference
             $this->_referenceLanguages = array_merge(
                 array($this->_languagesModel->getFallbackLanguageId()),

@@ -219,14 +219,16 @@ abstract class Module_Translate_Service_Abstract
         $options = $this->getOptions();
         foreach ($settings as $varName => $varValue) {
             if (!in_array($varName, array('serviceLocales')) && !isset($options[$varName])
-                && !in_array(
-                    $varName, array('localeMap')
-                )
+                && !in_array($varName, array('localeMap'))
             ) {
                 throw new Exception('VarName ' . $varName . ' not set. You must add it to the options array.');
             }
             $this->_moduleConfig->setModuleSetting($this->_moduleId, $varName, $varValue);
+            if (isset($options[$varName])) {
+                $options[$varName]['value'] = $varValue;
+            }
         }
+        $this->setOptions($options);
 
         return $this->_moduleConfig->saveModuleSettings($this->_moduleId);
     }

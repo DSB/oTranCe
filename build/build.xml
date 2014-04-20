@@ -25,19 +25,15 @@
 
     <target name="prepare-dist-packaging">
         <copy todir="${project.builddir.temp}">
-            <fileset dir="${project.basedir}" defaultexcludes="true">
+            <fileset dir="${project.basedir}" defaultexcludes="true" excludesfile="${project.builddir}/excludeFiles.txt">
                 <include name="application/**"/>
+                <include name="data/**"/>
+                <include name="docs/**"/>
                 <include name="library/**"/>
                 <include name="modules/**"/>
                 <include name="public/**"/>
-                <include name="data/**"/>
-                <include name="cli/**"/>
-                <include name="docs/**"/>
-                <exclude name="application/configs/config.ini"/>
             </fileset>
         </copy>
-        <move file="${project.builddir.temp}/application/configs/config.dist.ini"
-              tofile="${project.builddir.temp}/application/configs/config.ini"/>
     </target>
 
     <target name="build-zip" depends="prepare-dist-packaging" if="dist.archives.zip">
@@ -87,12 +83,12 @@
     -->
 
     <!--
-        This target creates a set of files in a folder ../otc_export that can be used to overwrite an existing oTranCe
+        This target creates a set of files in a folder ../../otc_export that can be used to overwrite an existing oTranCe
         installation using ftp or similar.
         It leaves out config.ini and .htaccess so that no individual settings are overwritten.
     -->
     <target name="file-export"
-            description="Export files to folder ../otc_export for ftp'ing them over an existing installation.">
+            description="Export files to folder ../../otc_export for ftp'ing them over an existing installation.">
         <delete dir="${project.fileexportdir}"/>
         <mkdir dir="${project.fileexportdir}"/>
         <copy todir="${project.fileexportdir}">
@@ -108,7 +104,7 @@
     </target>
 
     <!--
-        This target exports the setup files to folder ../otc_setup for easy local testing of teh setup routine.
+        This target exports the setup files to folder ../../otc_setup for easy local testing of the setup routine.
     -->
     <target name="setup-export"
             description="Export files to folder ../otc_export for ftp'ing them over an existing installation.">

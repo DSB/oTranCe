@@ -59,11 +59,18 @@ abstract class Msd_Db
     protected $_socket;
 
     /**
-     * List of databases adn default settings
+     * List of databases and default settings
      *
      * @var array
      */
     protected $_databases = null;
+
+    /**
+     * List of views
+     *
+     * @var array
+     */
+    protected $_views = null;
 
     /**
      * charset to use (default utf8)
@@ -254,6 +261,15 @@ abstract class Msd_Db
     abstract public function getTables($dbName);
 
     /**
+     * Get the list of views of given database
+     *
+     * @param string $dbName Name of database
+     *
+     * @return array
+     */
+    abstract public function getViews($dbName);
+
+    /**
      * Gets extended table information for one or all tables
      *
      * @param string|bool $table
@@ -272,6 +288,17 @@ abstract class Msd_Db
      * @return string Create statement
      */
     abstract public function getTableCreate($table);
+
+    /**
+     * Returns the CREATE Statement of a view.
+     *
+     * @throws Exception
+     *
+     * @param string $view Get CREATE-Statement for this view
+     *
+     * @return string Create statement
+     */
+    abstract public function getViewCreate($view);
 
     /**
      * Gets the full description of all columns of a table

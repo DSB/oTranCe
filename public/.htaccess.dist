@@ -4,6 +4,6 @@ RewriteCond %{REQUEST_FILENAME} -s [OR]
 RewriteCond %{REQUEST_FILENAME} -l [OR]
 RewriteCond %{REQUEST_FILENAME} -d [OR]
 # if non existant file is requested, don't redirect to index.php but send 404 instead
-RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+(\.png|\.gif|\.jpg|\.zip)
+RewriteCond %{THE_REQUEST} ^GET\ /[^?\s]+(\.png|\.gif|\.jpg)
 RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]

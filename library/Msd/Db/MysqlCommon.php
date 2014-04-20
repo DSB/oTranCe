@@ -27,12 +27,33 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
     public function getTables($dbName)
     {
         $tables = array();
-        $sql = 'SHOW TABLES FROM `' . $dbName . '`';
-        $res = $this->query($sql, self::ARRAY_NUMERIC);
+        $sql    = 'SELECT `TABLE_NAME` FROM `information_schema`.`TABLES` WHERE `TABLE_SCHEMA` = \'' . $dbName . '\''
+            . ' AND `TABLE_TYPE`=\'BASE TABLE\'';
+        $res    = $this->query($sql, self::ARRAY_NUMERIC);
         foreach ($res as $val) {
-           $tables[] = $val[0];
+            $tables[] = $val[0];
         }
+
         return $tables;
+    }
+
+    /**
+     * Get the list of views of given database
+     *
+     * @param string $dbName Name of database
+     *
+     * @return array
+     */
+    public function getViews($dbName)
+    {
+        $this->_views = array();
+        $query        = 'SELECT * FROM `information_schema`.`VIEWS` WHERE `TABLE_SCHEMA` = \'' . $dbName . '\'';
+        $res          = $this->query($query, self::ARRAY_ASSOC, true);
+        foreach ($res as $row) {
+            $this->_views[$row['TABLE_NAME']] = $row;
+        }
+
+        return $this->_views;
     }
 
     /**
@@ -46,13 +67,14 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
     public function getDatabases()
     {
         $query = 'SELECT * FROM `information_schema`.`SCHEMATA` '
-                . 'ORDER BY `SCHEMA_NAME` ASC';
-        $res = $this->query($query, self::ARRAY_ASSOC, true);
+            . 'ORDER BY `SCHEMA_NAME` ASC';
+        $res   = $this->query($query, self::ARRAY_ASSOC, true);
         foreach ($res as $row) {
             $database = $row['SCHEMA_NAME'];
             unset($row['SCHEMA_NAME']);
             $this->_databases[$database] = $row;
         }
+
         return $this->_databases;
     }
 
@@ -66,8 +88,10 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         if ($this->_databases == null) {
             $this->getDatabases();
         }
+
         return array_keys($this->_databases);
     }
+
     /**
      * Returns the actual selected database.
      *
@@ -89,7 +113,28 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
     {
         $sql = 'SHOW CREATE TABLE `' . $table . '`';
         $res = $this->query($sql, self::ARRAY_ASSOC);
+
         return $res[0]['Create Table'];
+    }
+
+    /**
+     * Returns the CREATE Statement of a view.
+     *
+     * @param string $view The view
+     *
+     * @return string
+     */
+    public function getViewCreate($view)
+    {
+        $views = $this->getViews($this->_dbSelected);
+        if (!isset($views[$view])) {
+            return '';
+        }
+
+        $view = $views[$view];
+        $sql  = 'CREATE OR REPLACE VIEW `' . $this->escape($view['TABLE_NAME']) . '` AS ' . $view['VIEW_DEFINITION'];
+
+        return $sql;
     }
 
     /**
@@ -103,9 +148,9 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
      */
     public function getTableColumns($table)
     {
-        $dbName  = $this->getSelectedDb();
-        $sql = 'SHOW FULL FIELDS FROM `' . $table . '`';
-        $res = $this->query($sql, self::ARRAY_ASSOC);
+        $dbName = $this->getSelectedDb();
+        $sql    = 'SHOW FULL FIELDS FROM `' . $table . '`';
+        $res    = $this->query($sql, self::ARRAY_ASSOC);
         if (!isset($this->_metaTables[$dbName])) {
             $this->_metaTables[$dbName] = array();
         }
@@ -115,6 +160,7 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
                 $this->_metaTables[$dbName][$table][$r['Field']] = $r;
             }
         }
+
         return $this->_metaTables[$dbName][$table];
     }
 
@@ -148,12 +194,13 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         if (!empty($this->_charsets)) {
             return $this->_charsets;
         }
-        $result = $this->query('SHOW CHARACTER SET', self::ARRAY_ASSOC);
+        $result          = $this->query('SHOW CHARACTER SET', self::ARRAY_ASSOC);
         $this->_charsets = array();
         foreach ($result as $r) {
             $this->_charsets[$r['Charset']] = $r;
         }
         @ksort($this->_charsets);
+
         return $this->_charsets;
     }
 
@@ -171,11 +218,12 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
             $databaseName = $this->getSelectedDb();
         }
         $sql = 'SELECT * FROM `information_schema`.`TABLES` WHERE '
-                . '`TABLE_SCHEMA`=\''.$databaseName.'\'';
+            . '`TABLE_SCHEMA`=\'' . $databaseName . '\'';
         if ($tableName !== null) {
             $sql .= ' AND `TABLE_NAME` LIKE \'' . $tableName . '\'';
         }
         $res = $this->query($sql, self::ARRAY_ASSOC);
+
         return $res;
     }
 
@@ -186,11 +234,12 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
      */
     public function getVariables()
     {
-        $ret = array();
+        $ret       = array();
         $variables = $this->query('SHOW VARIABLES', Msd_Db::ARRAY_ASSOC);
         foreach ($variables as $val) {
             $ret[$val['Variable_name']] = $val['Value'];
         }
+
         return $ret;
     }
 
@@ -201,11 +250,12 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
      */
     public function getGlobalStatus()
     {
-        $ret = array();
+        $ret       = array();
         $variables = $this->query('SHOW GLOBAL STATUS', Msd_Db::ARRAY_ASSOC);
         foreach ($variables as $val) {
             $ret[$val['Variable_name']] = $val['Value'];
         }
+
         return $ret;
     }
 
@@ -223,10 +273,11 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         if ($dbName === null) {
             $dbName = $this->getSelectedDb();
         };
-        $sql = 'SELECT COUNT(*) as `Rows` FROM `%s`.`%s`';
-        $sql = sprintf($sql, $dbName, $tableName);
+        $sql  = 'SELECT COUNT(*) AS `Rows` FROM `%s`.`%s`';
+        $sql  = sprintf($sql, $dbName, $tableName);
         $rows = $this->query($sql, Msd_Db::ARRAY_ASSOC);
-        return (int) $rows[0]['Rows'];
+
+        return (int)$rows[0]['Rows'];
     }
 
     /**
@@ -238,11 +289,12 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
     {
         $sql = 'SELECT LAST_INSERT_ID() as `id`';
         $res = $this->query($sql, Msd_Db::ARRAY_ASSOC);
+
         return isset($res[0]['id']) ? $res[0]['id'] : false;
     }
 
     /**
-     * Get nr of rows of last query (query needs to invoked using SQL_CALC_FOUND_ROWS)
+     * Get nr of rows of last query (former query needs to be invoked using SQL_CALC_FOUND_ROWS)
      *
      * @return integer
      */
@@ -252,6 +304,7 @@ abstract class Msd_Db_MysqlCommon extends Msd_Db
         if (!isset($res[0]['results'])) {
             return 0;
         }
+
         return (int)$res[0]['results'];
     }
 

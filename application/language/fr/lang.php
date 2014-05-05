@@ -439,6 +439,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Saisie non valide.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Saisie trop longue.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Saisie trop courte.',
-'TEST' => '',
 );
 return $lang;

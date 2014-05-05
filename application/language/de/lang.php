@@ -446,6 +446,5 @@ Nur zugeordnete Sprachen können vom Dienst übersetzt werden. Bearbeiten Sie di
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Die Eingabe ist ungültig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Die Eingabe ist zu lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Die Eingabe ist zu kurz.',
-'TEST' => 'Test',
 );
 return $lang;

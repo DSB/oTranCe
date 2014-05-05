@@ -439,6 +439,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'El valor proporcionat no és vàlid.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'El valor proporcionat és massa llarg.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'El valor proporcionat és massa curt.',
-'TEST' => '',
 );
 return $lang;

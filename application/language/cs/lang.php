@@ -442,6 +442,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Neplatné zadání.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Zadání je příliš dlouhé.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Zadání je příliš krátké.',
-'TEST' => '',
 );
 return $lang;

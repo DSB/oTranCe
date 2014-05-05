@@ -441,6 +441,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ugyldig indtastning.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Indtastning er for lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Indtastning er for kort.',
-'TEST' => '',
 );
 return $lang;

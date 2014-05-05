@@ -448,6 +448,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Entrada inválida.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'A entrada fornecida é muito longa.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'A entrada fornecida é muito curta.',
-'TEST' => '',
 );
 return $lang;

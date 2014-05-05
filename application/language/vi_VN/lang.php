@@ -444,6 +444,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Không hợp lệ.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Dữ liệu nhập vào quá dài.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Dữ liệu nhập vào quá ngắn.',
-'TEST' => '',
 );
 return $lang;

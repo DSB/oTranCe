@@ -449,6 +449,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => '输入的内容无效。',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => '您输入了太多东西了。',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => '输入的内容过短。',
-'TEST' => '',
 );
 return $lang;

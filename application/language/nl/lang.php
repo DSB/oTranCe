@@ -440,6 +440,5 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Ongeldige invoer.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'De invoer is te lang.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'De invoer is te kort.',
-'TEST' => '',
 );
 return $lang;

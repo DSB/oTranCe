@@ -440,6 +440,5 @@ Endast dessa språk kan översättas av tjänsten. Bearbeta språktillordningen 
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Inmatningen är ogiltig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Inmatningen är för lång.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Inmatningen är för kort.',
-'TEST' => '',
 );
 return $lang;

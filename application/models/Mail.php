@@ -121,7 +121,7 @@ class Application_Model_Mail extends Msd_Application_Model
     {
         if (!isset($this->projectConfig['email']) || trim($this->projectConfig['email']) == '') {
             // no project contact e-mail set -> can't send mail
-            return;
+            return false;
         }
 
         $this->_view->assign(

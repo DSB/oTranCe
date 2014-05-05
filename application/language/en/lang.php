@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (459), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (16), nukeviet (5)
+// DSB (459), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (22), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -310,7 +310,7 @@ You will get an e-mail as soon as the edit right is granted to you.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'User can see and use admin tab "Languages"',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'User is allowed to edit project data',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'User can see and use admin tab "File templates"',
-'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to edit the settings of external translation services',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'User can see and use admin tab "Users"',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'User can see and use admin tab "VCS"',
@@ -362,11 +362,11 @@ The menu of oTranCe will not be shown.',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Template assignments have been updated/deleted',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'This will also remove all rights, settings and log entries of this user.',
 'L_TRANSLATE_TO' => 'Translate to',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate into',
 'L_TRANSLATIONS' => 'Translations',
 'L_TRANSLATION_CENTER' => 'Translation Center',
 'L_TRANSLATION_SERVICE' => 'External translation service',
-'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Shall the translators use external the external translation services?',
 'L_TRY_AGAIN' => 'Please try again.',
 'L_TS_GET_LOCALES' => 'Update %s locales',
 'L_TS_GET_LOCALES_ERROR' => 'An error occured while updating the locales.',
@@ -448,5 +448,6 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
+'TEST' => '',
 );
 return $lang;

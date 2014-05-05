@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (422)
+// DSB (2), HolgerGremminger (439)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
@@ -93,7 +93,7 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_DUPLICATE' => 'Duplicera',
 'L_EDIT' => 'Redigera',
 'L_EDITED' => 'Bearbetat',
-'L_EDITED_TOTAL' => 'Edited total',
+'L_EDITED_TOTAL' => 'Ändrade totalt',
 'L_EDIT_ENTRIES' => 'Redigera dataposter',
 'L_EDIT_ENTRY' => 'Bearbeta post',
 'L_EDIT_FILE_TEMPLATE' => 'Redigera filmall',
@@ -302,8 +302,8 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Användaren kan editera språk',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Användaren får ändra projektdatan',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Användaren får ändra filmallar',
-'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to see / edit settings of external translation services',
-'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Användaren får ändra inställningarna för översättningstjänster',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'Användaren får ändra översättningstjänster',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Användaren får ändra andra användares data',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Användaren får ändra VCS-inställningarna',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => 'Användren får importera fraser som har samma översättning som huvudspråket (fallback)',
@@ -339,10 +339,10 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => 'Välj referensspråk',
 'L_SET_PASSWORD_SUCCESS' => 'Ditt lösenord har sparats.',
 'L_SHORTCUT' => 'Snabbåtkomst',
-'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
-'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
-This can be used to include the status in another page. 
-The menu of oTranCe will not be shown.',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Visa startsidan utan inloggning',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'Aktiveras denna option så kan startsidan med aktuella översättningsframsteg visas utan inloggning. 
+Detta kan du använda till att integrera statusen i din egna sida.
+oTranCe-menyn visas ej.',
 'L_SHOW_UNTRANSLATED_KEYS' => 'Visa oöversatta nycklar',
 'L_SKIPPED' => 'Utelämnat',
 'L_START_ANALYZE' => 'Starta analys',
@@ -354,18 +354,18 @@ The menu of oTranCe will not be shown.',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Tillordningar av filmallar har aktualiserats/raderats',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Även samtliga behörigheter, inställningar och loggar raderas för denna användare.',
 'L_TRANSLATE_TO' => 'Översätt till',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate to',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Översätt med %s till',
 'L_TRANSLATIONS' => 'Översättningar',
 'L_TRANSLATION_CENTER' => 'Översättningscentrum',
-'L_TRANSLATION_SERVICE' => 'External translation service',
-'L_TRANSLATION_SERVICE_ALLOWED' => 'Are the translators allowed to use the external translation service?',
+'L_TRANSLATION_SERVICE' => 'Extern översättningstjänst',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Skall den externa översättningstjänsten ställas översättarna till förfogande?',
 'L_TRY_AGAIN' => 'Försök igen.',
-'L_TS_GET_LOCALES' => 'Update %s locales',
-'L_TS_GET_LOCALES_ERROR' => 'An error occured while updating the locales.',
-'L_TS_GET_LOCALES_SUCCESS' => 'The locales have been updated successfully.',
-'L_TS_LANGUAGE_MAPPING' => 'Language mapping',
-'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
-Only mapped languages can be translated by the external service. Edit the language mapping here.',
+'L_TS_GET_LOCALES' => 'Aktualisera %s språknyckel',
+'L_TS_GET_LOCALES_ERROR' => 'Tyvärr upstod ett fel vid aktualiseringen av språknycklarna.',
+'L_TS_GET_LOCALES_SUCCESS' => 'Språknycklarna har aktualiserats.',
+'L_TS_LANGUAGE_MAPPING' => 'Tillordning av språk',
+'L_TS_LANGUAGE_MAPPING_DESC' => 'För att kunna hämta översättningar från externa tjänster måste oTranCe samordna den använda språknyckeln med tjänstens nyckel.
+Endast dessa språk kan översättas av tjänsten. Bearbeta språktillordningen här.',
 'L_UNTRANSLATED' => 'Ej översatt',
 'L_UPDATE_DOWNLOAD_PACKAGE' => 'Aktualisera språkpaket',
 'L_UPLOAD_FAILED' => 'Uppladdningen misslyckades.',
@@ -440,5 +440,6 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Inmatningen är ogiltig.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'Inmatningen är för lång.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'Inmatningen är för kort.',
+'TEST' => '',
 );
 return $lang;

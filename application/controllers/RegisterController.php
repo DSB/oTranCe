@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Register Controller
  *
@@ -50,8 +51,8 @@ class RegisterController extends OtranceController
         $validationErrors  = array();
         $userData          = $this->_request->getParam('user', $default);
         $languagesMetaData = $this->_languagesModel->getAllLanguages();
-        $translator        = Msd_Language::getInstance();
         if ($this->_request->isPost() && $this->_request->getParam('switchLanguage', null) === null) {
+            $translator         = Msd_Language::getInstance();
             $userModel          = new Application_Model_User();
             $userData['id']     = 0;
             $userData['active'] = 0;
@@ -67,6 +68,7 @@ class RegisterController extends OtranceController
                     $this->view->registerSuccess = false;
                     $userId                      = $userModel->registerUser($userData, $languagesMetaData);
                     if ($userId !== false) {
+                        $userData['id']              = $userId;
                         $this->view->registerSuccess = true;
                         // send e-mail to administrator
                         $mailer = new Application_Model_Mail($this->view);

@@ -243,19 +243,35 @@ abstract class Module_Translate_Service_Abstract
     protected function _getExternalData($url)
     {
         $curlHandle = curl_init($url);
-        if (!is_resource($curlHandle)) {
-            return false;
-        }
-
-        curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 5);
-        curl_setopt($curlHandle, CURLOPT_TIMEOUT, 10);
-        $result   = curl_exec($curlHandle);
-        $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
-        curl_close($curlHandle);
-        if ($httpCode != 200) {
-            return false;
+        if (is_resource($curlHandle)) {
+            curl_setopt($curlHandle, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curlHandle, CURLOPT_BINARYTRANSFER, true);
+            curl_setopt($curlHandle, CURLOPT_CONNECTTIMEOUT, 5);
+            curl_setopt($curlHandle, CURLOPT_TIMEOUT, 10);
+            $result   = curl_exec($curlHandle);
+            $httpCode = curl_getinfo($curlHandle, CURLINFO_HTTP_CODE);
+            curl_close($curlHandle);
+            if ($httpCode != 200) {
+                return false;
+            }
+        } elseif ($result = file_get_contents($url)) {
+        } else {
+            $urlParts = parse_url($url);
+            $host     = $urlParts['host'];
+            $fp       = fsockopen($host, 80, $errno, $errstr, 30);
+            if ($fp) {
+                $result = '';
+                $out    = "GET / HTTP/1.1\r\n";
+                $out .= "Host: " . $host . " \r\n";
+                $out .= "Connection: Close\r\n\r\n";
+                fwrite($fp, $out);
+                while (!feof($fp)) {
+                    $result .= fgets($fp, 8096);
+                }
+                fclose($fp);
+            } else {
+                return false;
+            }
         }
 
         return $result;

@@ -108,7 +108,7 @@ class Module_Translate_Service_MyMemory extends Module_Translate_Service_Abstrac
     /**
      * Ask service for translatable locales
      *
-     * @return array
+     * @return array|boolean
      */
     public function getTranslatableLocales()
     {

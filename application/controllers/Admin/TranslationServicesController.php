@@ -69,7 +69,11 @@ class Admin_TranslationServicesController extends AdminController
                 // Did the user click the button "update locales"?
                 if ($this->_request->getParam('updateLocales') !== null) {
                     $settings['serviceLocales'] = $translationService->getTranslatableLocales();
-                    $this->view->updateLocales  = $translationService->saveSettings($settings);
+                    if (false === $settings['serviceLocales']) {
+                        $this->view->updateLocales = false;
+                    } else {
+                        $this->view->updateLocales = $translationService->saveSettings($settings);
+                    }
                 }
                 // Did the user click the button "auto map locales"?
                 if ($this->_request->getParam('mapLocales') !== null) {

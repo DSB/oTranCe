@@ -161,9 +161,9 @@ class Msd_View_Helper_PopUpMessage extends Zend_View_Helper_Abstract
     }
 
     /**
-     * Get position of notification window from config and mapt to jQueryUi
+     * Get position of notification window from config and map to jQueryUi
      *
-     * @return array Array containing jQuerUi-params
+     * @return array Array containing jQueryUi-params
      */
     private function _getDefaultPosition()
     {

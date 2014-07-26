@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (2), HolgerGremminger (439)
+// DSB (2), HolgerGremminger (441)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ditt användarkonto %1$s för projektet %2$s har aktiverats av en administrator.',
@@ -302,7 +302,7 @@ Du får ett epostmeddelande när den begärda behörigheten har tilldelats.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Användaren kan editera språk',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Användaren får ändra projektdatan',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Användaren får ändra filmallar',
-'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Användaren får ändra inställningarna för översättningstjänster',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Användaren får ändra inställningarna för externa översättningstjänster',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'Användaren får ändra översättningstjänster',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Användaren får ändra andra användares data',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Användaren får ändra VCS-inställningarna',
@@ -354,7 +354,7 @@ oTranCe-menyn visas ej.',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Tillordningar av filmallar har aktualiserats/raderats',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Även samtliga behörigheter, inställningar och loggar raderas för denna användare.',
 'L_TRANSLATE_TO' => 'Översätt till',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Översätt med %s till',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Översätt %s till',
 'L_TRANSLATIONS' => 'Översättningar',
 'L_TRANSLATION_CENTER' => 'Översättningscentrum',
 'L_TRANSLATION_SERVICE' => 'Extern översättningstjänst',

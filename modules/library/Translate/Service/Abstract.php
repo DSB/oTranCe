@@ -290,52 +290,65 @@ abstract class Module_Translate_Service_Abstract
         $localeMap      = $this->getLocaleMap();
         foreach ($localesOtrance as $locale) {
             if (!empty($localeMap[$locale])) {
-                // there is a mapping for this locale. Don't touch it.
+                // there already is a mapping for this locale. Don't touch it.
                 continue;
             }
 
-            // check for 1:1 relation 'de' => 'de'
-            if (in_array($locale, $localesService)) {
-                $localeMap[$locale] = $locale;
-                continue;
-            }
-
-            // Ok, no luck. Try strtolower to find "DE" => "de".
-            if (in_array(strtolower($locale), $localesService)) {
-                $localeMap[$locale] = strtolower($locale);
-                continue;
-            }
-
-            // Try strtoupper on service "de" => "DE".
-            if (in_array(strtoupper($locale), $localesService)) {
-                $localeMap[$locale] = strtoupper($locale);
-                continue;
-            }
-
-            // map 'zh_TW' => 'zh-TW'
-            $convertedLocale = str_replace('_', '-', $locale);
-            if (in_array($convertedLocale, $localesService)) {
-                $localeMap[$locale] = $convertedLocale;
-                continue;
-            }
-
-            if (strpos($locale, '_') !== false) {
-                $localeParts = explode('_', strtolower($locale));
-                // try to map second part of 'bg_BG' to 'bg'.
-                if (in_array($localeParts[1], $localesService)) {
-                    $localeMap[$locale] = $localeParts[1];
-                    continue;
-                }
-
-                // try to map first part 'bg_BG' to 'bg'.
-                if (in_array($localeParts[0], $localesService)) {
-                    $localeMap[$locale] = $localeParts[0];
-                    continue;
+            foreach ($localesService as $localeService) {
+                if ($this->_localeMatches($locale, $localeService)) {
+                    $localeMap[$locale] = $localeService;
+                    continue 2;
                 }
             }
         }
 
         $this->setLocaleMap($localeMap);
+    }
+
+    /**
+     * Try to find out if locales match
+     *
+     * @param string $sourceLocale Source locale
+     * @param string $targetLocale Target locale
+     *
+     * @return bool
+     */
+    protected function _localeMatches($sourceLocale, $targetLocale)
+    {
+        $sourceLocale = $this->_convertLocale($sourceLocale);
+        $targetLocale = $this->_convertLocale($targetLocale);
+
+        // check 1 to 1 mapping "de" => "de"
+        if ($sourceLocale == $targetLocale) {
+            return true;
+        };
+
+        $source = explode('-', $sourceLocale);
+        $target = explode('-', $targetLocale);
+        if ($source[0] == $target[0]) {
+            if (isset($source[1]) && isset($target[1]) && $source[1] != $target[1]) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Convert locale to unified form for easier comparison
+     *
+     * @param string $locale
+     *
+     * @return string
+     */
+    protected function _convertLocale($locale)
+    {
+        $locale = strtolower($locale);
+        $locale = str_replace('_', '-', $locale);
+
+        return $locale;
     }
 
     /**

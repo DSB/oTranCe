@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (419), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (76)
+// DSB (422), enkay (14), janrei (33), KatjaFlinzner (11), kyoya (21), Marco.Steinhäuser (79)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Ihr Benutzeraccount %1$s für das Projekt %2$s wurde soeben durch einen Administrator aktiviert.',
@@ -308,7 +308,7 @@ Sie erhalten eine E-Mail sobald Ihnen die Rechte eingeräumt wurden.',
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => 'Benutzer kann Sprachen editieren',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => 'Benutzer darf die Projektdaten bearbeiten',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => 'Benutzer darf Dateivorlagen bearbeiten',
-'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Benutzer darf Übersetzungsdienst-Einstellungen bearbeiten',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'Benutzer darf Einstellungen für externen Übersetzungsdienst bearbeiten',
 'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'Benutzer darf Übersetzungsservices bearbeiten',
 'L_RIGHT_EXPLAIN_EDITUSERS' => 'Benutzer darf Daten anderer Benutzer bearbeiten',
 'L_RIGHT_EXPLAIN_EDITVCS' => 'Benutzer darf VCS-Einstellungen bearbeiten',
@@ -360,11 +360,11 @@ Das oTranCe-Menü wird dabei nicht angezeigt.',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => 'Dateivorlagenzuordnungen wurden aktualisiert/gelöscht',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => 'Sämtliche Rechte, Einstellungen und Log-Einträge dieses Benutzers werden ebenfalls entfernt.',
 'L_TRANSLATE_TO' => 'Übersetze nach',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Übersetze mit %s nach',
+'L_TRANSLATE_WITH_SERVICE_TO' => 'Übersetze %s nach',
 'L_TRANSLATIONS' => 'Übersetzungen',
 'L_TRANSLATION_CENTER' => 'Translation Center',
 'L_TRANSLATION_SERVICE' => 'Externer Übersetzungsdienst',
-'L_TRANSLATION_SERVICE_ALLOWED' => 'Soll den Übersetzern der externe Übersetzungsdienst angeboten werden?',
+'L_TRANSLATION_SERVICE_ALLOWED' => 'Darf der Übersetzer der externe Übersetzungsdienst benutzen?',
 'L_TRY_AGAIN' => 'Bitte versuchen Sie es noch einmal.',
 'L_TS_GET_LOCALES' => 'Aktualisiere %s Sprachkürzel',
 'L_TS_GET_LOCALES_ERROR' => 'Leider ist beim Aktualisieren der Sprachkürzel ein Fehler aufgetreten.',

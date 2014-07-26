@@ -32,8 +32,12 @@ foreach ($this->languages as $language) { ?>
             <?php echo $language['locale']; ?>
         </td>
         <td>
-            <select name="localeMap[<?php echo $language['locale'];?>]">
-                <option value="">---</option>
+            <?php
+                $selectName = 'localeMap[' . $language['locale'] .']';
+                $selectId = 'localeMap_' . $language['locale'];
+            ?>
+            <select name="<?php echo $selectName;?>" id="<?php echo $selectId;?>">
+                <option value="---">---</option>
                 <?php foreach ($this->serviceLocales as $serviceLocale) {
                     $isSelected = false;
                     if (isset($this->localeMap[$language['locale']])) {
@@ -45,9 +49,9 @@ foreach ($this->languages as $language) { ?>
                     </option>
                 <?php } ?>
             </select>
-
-
-
+            <button type="button" class="Formbutton ui-corner-all" onclick="$('#<?php echo $selectId;?>').selectmenu('value', '---');">
+                <?php echo $this->getIcon('delete'); ?> <?php echo $this->lang->L_RESET;?>
+            </button>
         </td>
     </tr><?php
 }

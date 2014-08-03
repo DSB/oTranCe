@@ -1,0 +1,16 @@
+<div id="headline">
+    <h2><?php echo $this->lang->L_IMPORT_RESULT;?>:</h2>
+</div>
+<p>
+    <?php
+    if (!empty($this->success)) {
+        echo "Ergebnis:<br/>";
+        foreach ($this->success as $message) {
+            //echo '<p>' . $message .'</p>';
+            var_dump($message);
+        }
+    }
+    ?>
+    <?php var_dump($this->warnings); ?>
+    <?php var_dump($this->errors); ?>
+</p>

@@ -15,6 +15,11 @@
  */
 class Msd_SessionLog
 {
+    const
+        TYPE_SUCCESS = 'success',
+        TYPE_WARNING = 'warning',
+        TYPE_ERROR   = 'error';
+
     /**
      * @var Zend_Session_Namespace
      */
@@ -35,25 +40,40 @@ class Msd_SessionLog
      */
     public function clear()
     {
-        $this->log = array();
+        $this->log->unsetAll();
     }
 
     /**
      * Add a message to type array
      *
-     * @param string $message The message
      * @param string $type    The log type
+     * @param string $message The message
      */
-    public function addMessage($message, $type)
+    public function addMessage($type, $message)
     {
         if (!isset($this->log->$type)) {
             $this->log->$type = array();
         }
 
-        $messages         = $this->log->$type;
-        $messages[]       = $message;
-        $this->log->$type = $messages;
-        var_dump($this->log);
+        array_push($this->log->$type, $message);
+    }
+
+    /**
+     * Saves array of messages to session log.
+     * Expected is: array(
+     *   self::type => 'Message',
+     *   ...
+     * );
+     *
+     * @param array $logMessages
+     */
+    public function addMessages($logMessages)
+    {
+        foreach ($logMessages as $type => $messages) {
+            foreach ($messages as $message) {
+                $this->addMessage($message, $type);
+            }
+        }
     }
 
     /**
@@ -71,5 +91,4 @@ class Msd_SessionLog
 
         return $this->log->$type;
     }
-
 }

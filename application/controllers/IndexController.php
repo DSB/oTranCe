@@ -48,10 +48,6 @@ class IndexController extends OtranceController
      */
     public function indexAction()
     {
-        $sessionLog = new Msd_SessionLog('importLog');
-        $sessionLog->addMessage('Key: 1', "1");
-        var_dump($sessionLog->getMessagesOfType(1));
-
         $languagesModel = new Application_Model_Languages();
         $entriesModel   = new Application_Model_LanguageEntries();
 

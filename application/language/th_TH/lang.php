@@ -202,6 +202,8 @@ The given contact e-mail is: %s',
 'L_IMPORT_ANOTHER_FILE' => 'นำเข้าไฟล์อื่นๆ',
 'L_IMPORT_DONE' => 'ขอแสดงความยินดี<br />
 การนำเข้าได้รับการประมวลผลเรียบร้อยแล้ว',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'ตั้งค่าการนำเข้า',
 'L_IMPORT_STATUS' => 'สถานะการนำเข้า',
 'L_IMPORT_TO_DATABASE' => 'นำเข้าฐานข้อมูล',

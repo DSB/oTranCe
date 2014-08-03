@@ -201,6 +201,8 @@ Kuntak surel yang diberikan adalah: %s',
 'L_IMPORT_ANOTHER_FILE' => 'Impor berkas lain',
 'L_IMPORT_DONE' => 'Selamat.<br />
 Pengimpor telah memproses semua masukan.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Pengaturan impor',
 'L_IMPORT_STATUS' => 'Status impor',
 'L_IMPORT_TO_DATABASE' => 'Import ke basisdata',

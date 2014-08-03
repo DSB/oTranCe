@@ -200,6 +200,8 @@ Kontaktní adresa pro tento projekt: %s',
 'L_IMPORT_ANOTHER_FILE' => 'Importovat další soubor',
 'L_IMPORT_DONE' => 'Blahopřeji.<br />
 Importér zpracoval všechny  záznamy.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Nastavení importu',
 'L_IMPORT_STATUS' => 'Stav importu',
 'L_IMPORT_TO_DATABASE' => 'Import do databáze',

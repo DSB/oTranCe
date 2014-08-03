@@ -202,6 +202,8 @@ O endereço de e-mail fornecido para contato é: %s',
 'L_IMPORT_ANOTHER_FILE' => 'Importar outro arquivo',
 'L_IMPORT_DONE' => 'Parabéns.<br/>
 O importador processou todas as entradas.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Configurações de importação',
 'L_IMPORT_STATUS' => 'Estado da importação',
 'L_IMPORT_TO_DATABASE' => 'Importar para o banco de dados',

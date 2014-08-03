@@ -201,6 +201,8 @@ The given contact e-mail is: %s',
 'L_IMPORT_ANOTHER_FILE' => 'Nhập tệp khác',
 'L_IMPORT_DONE' => 'Chúc mừng.<br />
 Trình nhập liệu đã xử lý xong toàn bộ các mục.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Thiết lập trình nhập liệu',
 'L_IMPORT_STATUS' => 'Trạng thái nhập liệu',
 'L_IMPORT_TO_DATABASE' => 'Nhập vào cơ sở dữ liệu',

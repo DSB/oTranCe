@@ -196,6 +196,8 @@ När resultatet är korrekt kan du starta importen med knappen "Starta analysen"
 'L_IMPORTER' => 'Importör',
 'L_IMPORT_ANOTHER_FILE' => 'Importera ytterligare en fil',
 'L_IMPORT_DONE' => 'Grattis!<br />Importen har bearbetat alla poster.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Inställningar för import',
 'L_IMPORT_STATUS' => 'Importens status',
 'L_IMPORT_TO_DATABASE' => 'Importera till databas',

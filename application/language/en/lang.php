@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// DSB (459), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (22), nukeviet (5)
+// DSB (461), enkay (14), janrei (19), KatjaFlinzner (10), kyoya (21), Marco.Steinhäuser (22), nukeviet (5)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -202,6 +202,8 @@ The given contact e-mail is: %s',
 'L_IMPORT_ANOTHER_FILE' => 'Import another file',
 'L_IMPORT_DONE' => 'Congratulations.<br />
 The importer has processed all entries.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Import settings',
 'L_IMPORT_STATUS' => 'Import status',
 'L_IMPORT_TO_DATABASE' => 'Import to database',

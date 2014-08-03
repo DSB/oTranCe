@@ -202,6 +202,8 @@ $lang = array(
 'L_IMPORT_ANOTHER_FILE' => '导入另一个文件',
 'L_IMPORT_DONE' => '恭喜！<br />
 已导入所有条目。',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => '导入设置',
 'L_IMPORT_STATUS' => '导入状态',
 'L_IMPORT_TO_DATABASE' => '导入到数据库',

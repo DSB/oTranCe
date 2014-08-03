@@ -202,6 +202,8 @@ The given contact e-mail is: %s',
 'L_IMPORT_ANOTHER_FILE' => '別のファイルをインポート',
 'L_IMPORT_DONE' => 'Congratulations.<br />
 The importer has processed all entries.',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
+'L_IMPORT_RESULT' => 'Result of import',
 'L_IMPORT_SETTINGS' => 'Import settings',
 'L_IMPORT_STATUS' => 'Import status',
 'L_IMPORT_TO_DATABASE' => 'Import to database',

@@ -128,7 +128,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $pattern
                            =
             "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
-            . " WHERE `lang_id`= %d AND `text` > ''";
+            . " WHERE `lang_id`= %d";
         foreach ($languageIds as $val) {
             $langId                        = $val['id'];
             $sql                           = sprintf($pattern, (int)$val['id']);

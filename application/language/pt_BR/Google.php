@@ -1,7 +1,6 @@
 <?php
 $lang = array(
-'L_GOOGLE_SERVICE_DESCRIPTION' => 'The Google Translate API is available as a paid service.
-In order to use it you need to get yourself an account. 
-Afterwards you need to provide the Google Translate API key here so that oTranCe can fetch translations from Google.',
+'L_GOOGLE_SERVICE_DESCRIPTION' => 'A API do Tradutor do Google está disponível como um serviço pago.
+Para usá-lo, você precisa obter uma conta. Em seguida, você precisa fornecer aqui a chave de API do Tradutor do Google para que o oTranCe possa obter as traduções do Google.',
 );
 return $lang;

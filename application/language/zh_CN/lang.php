@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (960), DSB (3), oluul (1)
+// binota (974), DSB (3), oluul (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -50,7 +50,7 @@ $lang = array(
 'L_COMMIT_MESSAGE' => '发送消息',
 'L_COMPLETE_VIEW' => '完整视图',
 'L_CONFIGURATION' => '配置',
-'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => 'Options of external service',
+'L_CONFIGURATION_OF_EXTERNAL_SERVICE' => '外部服务选项',
 'L_CONFIRM_DELETE_FILE_TEMPLATE' => '确实删除文件模版？',
 'L_CONFIRM_DELETE_KEY_X' => '确实要删除键值\'{KEY}\'么？',
 'L_CONFIRM_DELETE_LANGUAGE' => '确实要删除该语言？<br />此操作将一并移除所有翻译、条目与所有拥有编辑此语言权限的用户之编辑权限。',
@@ -74,7 +74,7 @@ $lang = array(
 'L_CREATED_ON_X_AT_Y' => '创建于%1$s,%2$s',
 'L_CREATE_NEW_FILE_TEMPLATE' => '创建一个新的模版文件',
 'L_CREATE_NEW_USER_ACCOUNT' => '创建一个新的用户帐户',
-'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => 'Used translation service',
+'L_CURRENT_TRANSLATIONSERVICE_ADAPTER' => '使用翻译服务',
 'L_CURRENT_VCS_ADAPTER' => '使用VCS适配器',
 'L_DATA_TO_ANALYZE' => '分析数据',
 'L_DATETIME' => '日期与时间',
@@ -86,7 +86,7 @@ $lang = array(
 'L_DELETE_LANGUAGE' => '删除语言',
 'L_DELETE_LOG_ENTRY' => '删除日志条目',
 'L_DELETE_USER' => '删除用户',
-'L_DESCRIPTION' => 'Description',
+'L_DESCRIPTION' => '简介',
 'L_DONE' => '完成',
 'L_DOWNLOAD' => '下载',
 'L_DOWNLOADS' => '下载',
@@ -202,8 +202,8 @@ $lang = array(
 'L_IMPORT_ANOTHER_FILE' => '导入另一个文件',
 'L_IMPORT_DONE' => '恭喜！<br />
 已导入所有条目。',
-'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => 'You don\'t have permissions to create a new key. This key was skipped.',
-'L_IMPORT_RESULT' => 'Result of import',
+'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY' => '无权创建新键。已跳过该键值。',
+'L_IMPORT_RESULT' => '导入结果',
 'L_IMPORT_SETTINGS' => '导入设置',
 'L_IMPORT_STATUS' => '导入状态',
 'L_IMPORT_TO_DATABASE' => '导入到数据库',
@@ -313,8 +313,8 @@ $lang = array(
 'L_RIGHT_EXPLAIN_EDITLANGUAGE' => '用户可见到并使用管理标签中的“语言”标签',
 'L_RIGHT_EXPLAIN_EDITPROJECT' => '已允许用户编辑项目数据',
 'L_RIGHT_EXPLAIN_EDITTEMPLATE' => '用户可见到并使用管理标签中的“文件模版”标签',
-'L_RIGHT_EXPLAIN_EDITTLSERVICES' => 'User is allowed to edit the settings of external translation services',
-'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => 'User can edit translation services',
+'L_RIGHT_EXPLAIN_EDITTLSERVICES' => '已允许用户编辑外部翻译服务设置。',
+'L_RIGHT_EXPLAIN_EDITTRANSLATIONSERVICES' => '用户可以编辑翻译服务',
 'L_RIGHT_EXPLAIN_EDITUSERS' => '用户可见到并使用管理标签中的“用户”标签',
 'L_RIGHT_EXPLAIN_EDITVCS' => '用户可见到并使用管理标签中的“VCS”标签',
 'L_RIGHT_EXPLAIN_IMPORTEQUALVAR' => '用户可导入相等于主要语言的字串',
@@ -350,10 +350,10 @@ $lang = array(
 'L_SELECT_YOUR_REFERENCE_LANGUAGES' => '选择您的參考语言',
 'L_SET_PASSWORD_SUCCESS' => '已成功设置密码。',
 'L_SHORTCUT' => '快捷方式',
-'L_SHOW_START_PAGE_WITHOUT_LOGIN' => 'Show start page without login',
-'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => 'The start page with the progress of each language can be seen without the need to login first. 
-This can be used to include the status in another page. 
-The menu of oTranCe will not be shown.',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN' => '当未登录时显示起始页',
+'L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN' => '不需登录即可在起始页上查看每个语言的翻译进度。
+这项功能可以被其他页面包含。
+oTranCe 菜单将不会显示出来。',
 'L_SHOW_UNTRANSLATED_KEYS' => '表示出未翻译的键值',
 'L_SKIPPED' => '已跳过',
 'L_START_ANALYZE' => '开始分析',
@@ -368,12 +368,12 @@ The menu of oTranCe will not be shown.',
 'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate into',
 'L_TRANSLATIONS' => '翻译',
 'L_TRANSLATION_CENTER' => '翻译中心',
-'L_TRANSLATION_SERVICE' => 'External translation service',
+'L_TRANSLATION_SERVICE' => '外部翻译服务',
 'L_TRANSLATION_SERVICE_ALLOWED' => 'Shall the translators use external the external translation services?',
 'L_TRY_AGAIN' => '请重试',
 'L_TS_GET_LOCALES' => '正在更新 %s 个位置',
-'L_TS_GET_LOCALES_ERROR' => 'An error occured while updating the locales.',
-'L_TS_GET_LOCALES_SUCCESS' => 'The locales have been updated successfully.',
+'L_TS_GET_LOCALES_ERROR' => '更新地区时发生错误',
+'L_TS_GET_LOCALES_SUCCESS' => '已成功更新地区。',
 'L_TS_LANGUAGE_MAPPING' => '语言地图',
 'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
 Only mapped languages can be translated by the external service. Edit the language mapping here.',

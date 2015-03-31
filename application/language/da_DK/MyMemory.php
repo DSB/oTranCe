@@ -1,9 +1,9 @@
 <?php
 $lang = array(
-'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION' => 'If you do have a personal MyMemory account, provide your API key here. This way requests from oTranCe can be assigned to it.',
-'L_MYMEMORY_SERVICE_DESCRIPTION' => 'http://mymemory.translated.net is a free translation service. 
-Through its free web API, up to 100 requests per day can be sent.',
-'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION' => 'If you enter your contact e-mail address, it will be transmitted with each translation request to MyMemory. 
-This raises the limit to 1000 requests per day and secondly allows MyMemory, to contact you, if technical problems are discovered.',
+'L_MYMEMORY_SERVICE_ACCOUNT_DESCRIPTION' => 'Hvis du har en personlig MyMemory konto, oplys din API-nøgle her. På denne måde kan anmodninger fra oTranCe henføres til dig.',
+'L_MYMEMORY_SERVICE_DESCRIPTION' => 'http://mymemory.TRANSLATED.net er en gratis oversættelsestjeneste. 
+Gennem det gratis web-API, kan op til 100 anmodninger sendes pr. dag.',
+'L_MYMEMORY_SERVICE_EMAIL_DESCRIPTION' => 'Hvis du indtaster din kontakt e-mail, vil den blive sendt med hver oversættelsesforanmodning til MyMemory.
+Dette hæver grænsen til 1000 anmodninger pr dag og gør det muligt for MyMemory at kontakte dig, hvis der opdages tekniske problemer.',
 );
 return $lang;

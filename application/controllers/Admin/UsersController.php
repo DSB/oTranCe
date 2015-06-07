@@ -154,7 +154,7 @@ class Admin_UsersController extends AdminController
         }
         // prevent endless forward-loop
         $this->_request->setParam('deleteUser', 0);
-        $this->_forward('index');
+        $this->forward('index');
     }
 
     /**

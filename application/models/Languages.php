@@ -69,7 +69,8 @@ class Application_Model_Languages extends Msd_Application_Model
         $locale        = $this->_dbo->escape($locale);
         $name          = $this->_dbo->escape($name);
         $flagExtension = $this->_dbo->escape($flagExtension);
-        $sql           = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`)
+
+        $sql = "INSERT INTO `{$this->_tableLanguages}` (`id`, `active`, `locale`, `name`, `flag_extension`)
             VALUES ($id, $active, '$locale', '$name', '$flagExtension') ON DUPLICATE KEY UPDATE `locale` = '$locale',
             `name` = '$name', `flag_extension` = '$flagExtension', `active` = $active";
 
@@ -155,7 +156,7 @@ class Application_Model_Languages extends Msd_Application_Model
             }
             $where .= " `active` = 1";
         }
-        $sql       = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
+        $sql = "SELECT SQL_CALC_FOUND_ROWS `id`, `active`, `locale`, `name`, `flag_extension`,
                 (`flag_extension` != '') hasFlag
             FROM `{$this->_tableLanguages}` $where ORDER BY `locale` ASC " . $limit;
         $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
@@ -270,23 +271,15 @@ class Application_Model_Languages extends Msd_Application_Model
      */
     public function optimizeAllTables()
     {
-        $tablePrefix = $this->_config->getParam('dbUser.tablePrefix');
-        $tables      = array(
-            $tablePrefix . 'conversions',
-            $tablePrefix . 'exportlog',
-            $tablePrefix . 'filetemplates',
-            $tablePrefix . 'forgotpasswords',
-            $tablePrefix . 'history',
-            $tablePrefix . 'keys',
-            $tablePrefix . 'languages',
-            $tablePrefix . 'module_config',
-            $tablePrefix . 'translations',
-            $tablePrefix . 'user_languages',
-            $tablePrefix . 'userrights',
-            $tablePrefix . 'users',
-            $tablePrefix . 'usersettings',
-        );
-        $sql         = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
+        $sql    = 'SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = "'
+            . $this->_dbo->escape($this->_config->getParam('dbuser.db'))
+            . '" AND TABLE_TYPE = "BASE TABLE" ';
+        $res    = $this->_dbo->query($sql, Msd_Db::ARRAY_OBJECT);
+        $tables = array();
+        foreach ($res as $table) {
+            $tables[] = $table->TABLE_NAME;
+        }
+        $sql = 'OPTIMIZE TABLE `' . implode('`, `', $tables) . '`';
 
         return $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
     }

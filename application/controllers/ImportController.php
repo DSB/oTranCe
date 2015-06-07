@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+
 /**
  * Import Controller
  *
@@ -246,6 +247,10 @@ class ImportController extends OtranceController
      */
     public function analyzeAction()
     {
+        // clear session log
+        $sessionLog = new Msd_SessionLog('importLog');
+        $sessionLog->clear();
+
         $selectedAnalyzer         = $this->_dynamicConfig->getParam('selectedAnalyzer');
         $data                     = $this->_dynamicConfig->getParam('importConvertedData');
         $importer                 = Msd_Import::factory($selectedAnalyzer);
@@ -257,5 +262,23 @@ class ImportController extends OtranceController
         $this->_dynamicConfig->setParam('importConvertedData', null);
         $this->_dynamicConfig->setParam('extractedData', $extractedData);
         $this->view->extractedData = $extractedData;
+    }
+
+    /**
+     * Show results after finishing import
+     *
+     * @return void
+     */
+    public function resultAction()
+    {
+        $sessionLog = new Msd_SessionLog('importLog');
+        $this->view->assign(
+            array(
+                'success'        => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_SUCCESS),
+                'warning'        => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_WARNING),
+                'error'          => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_ERROR),
+                'importedValues' => $this->_dynamicConfig->getParam('extractedData'),
+            )
+        );
     }
 }

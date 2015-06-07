@@ -1,0 +1,22 @@
+<?php
+$cycleHelper = $this->cycle(array('row-even', 'row-odd'));
+$i = 1;
+?>
+<table class="bdr morepadding" summary="Import results">
+    <tr class="thead">
+        <th>#</th>
+        <th><?php echo $this->lang->L_KEY;?></th>
+        <th><?php echo $this->lang->L_VALUE;?></th>
+        <th><?php echo $this->lang->L_IMPORT_RESULT;?></th>
+    </tr>
+    <?php
+    foreach ($this->results as $message) { ?>
+        <tr class="<?php echo $cycleHelper->next();?>">
+            <td class="right vmiddle"><?php echo $i;?>.</td>
+            <td><?php echo $message['key'];?></td>
+            <td><?php echo $this->importedValues[$message['key']];?></td>
+            <td><?php echo $this->lang->$message['message'];?></td>
+            </tr><?php
+            $i++;
+    } ?>
+</table>

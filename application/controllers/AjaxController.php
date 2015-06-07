@@ -7,6 +7,8 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+use Application_Model_ImportLog as Log;
+
 /**
  * Ajax Controller
  *
@@ -99,6 +101,7 @@ class AjaxController extends OtranceController
         $languageId    = $params['languageId'];
         $fileTemplate  = $params['fileTemplate'];
         $keys          = $params['keys'];
+        $log           = new Log($languageId, $fileTemplate);
         $this->_data   = $this->_dynamicConfig->getParam('extractedData');
         $i             = 0;
         $fallbackData  = $this->_getFallbackLanguageData($keys, $fileTemplate, $languageId);
@@ -115,13 +118,17 @@ class AjaxController extends OtranceController
             }
 
             if ($saveKey === false) {
-                $ret[$i] = array('id' => md5($key), 'result' => 4);
+                $ret['data'][$i]                  = array('id' => md5($key), 'result' => 4);
+                $log->addMessage(Log::TYPE_WARNING, $key, 'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY');
             } else {
                 $res = $this->_saveKey($key, $fileTemplate, $languageId);
-                if ($res !== 1) {
+                if ($res == 1) {
+                    $log->addMessage(Log::TYPE_SUCCESS, $key, 'L_CHANGES_SAVED_SUCCESSFULLY');
+                } else {
+                    $log->addMessage(Log::TYPE_ERROR, $key, 'L_ERROR_SAVING_CHANGE');
                     $overallResult = false;
                 }
-                $ret[$i] = array('id' => 'k' . md5($key), 'result' => $res);
+                $ret['data'][$i] = array('id' => 'k' . md5($key), 'result' => $res);
             }
             $i++;
         }
@@ -341,9 +348,7 @@ class AjaxController extends OtranceController
 
         //check rights
         $editLanguages = $this->_userModel->getUserLanguageRights();
-        if (!in_array($languageId, $editLanguages)
-            || $keyId == 0 || $languageId == 0
-        ) {
+        if (!in_array($languageId, $editLanguages) || $keyId == 0 || $languageId == 0) {
             $errors[] = $this->view->lang->L_YOU_ARE_NOT_ALLOWED_TO_DO_THIS;
         } else {
             $data     = array($languageId => $translation);

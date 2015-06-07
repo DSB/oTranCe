@@ -118,9 +118,9 @@ function doImport() {
             },
             'dataType':'json',
             'success':function(data) {
-                if (data.length > 0) {
+                if (data.data.length > 0) {
                     var lastId = '';
-                    $.each(data, function () {
+                    $.each(data.data, function () {
                         setState(this.id,this.result);
                         lastId = this.id;
                     });
@@ -136,8 +136,7 @@ function doImport() {
             }
         });
     } else {
-        // show finish popup
-        $('#importDone').dialog("open");
+        location.href = "<?php echo $this->serverUrl() . $this->baseUrl();?>/import/result";
     }
 }
 
@@ -189,30 +188,6 @@ setPageActive();
 </script>
 <?php
 $this->jQuery()->onLoadCaptureStart();
-$this->popUpMessage()->addMessage(
-    'importDone',
-    $this->lang->L_DONE,
-    $this->lang->L_IMPORT_DONE,
-    array(
-        'modal' => true,
-        'height' => 140,
-        'width' => 440,
-        'dialogClass' => 'info',
-        'autoOpen' => false,
-        'position' => 'center',
-        'buttons' => array(
-                        'L_EDIT_ENTRIES' => 'function() {
-                                    $(this).dialog("close");
-                                    window.location.href="'. $this->serverUrl() . $this->baseUrl().'/entries/index";
-                                }',
-                        'L_IMPORT_ANOTHER_FILE' => 'function() {
-                            $(this).dialog("close");
-                            window.location.href="'. $this->serverUrl() . $this->baseUrl().'/import/index";
-                        }'
-                    )
-    )
-);
-
 $this->popUpMessage()->addMessage(
     'requestError',
     $this->lang->L_ERROR,

@@ -3,8 +3,12 @@
 </div>
 <?php
 $disabledTabs = array();
-//$this->success = array();
+$partialViewData = array(
+    'lang'           => $this->lang,
+    'importedValues' => $this->importedValues,
+);
 ?>
+
 <div id="headnavi" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
     <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
         <li id="success" class="ui-state-default ui-corner-top" onmouseover="tabOver(this)" onmouseout="tabOut(this)">
@@ -23,60 +27,37 @@ $disabledTabs = array();
                 <?php echo $this->lang->L_ERROR;?> (<?php echo count($this->error);?>)</a>
         </li>
     </ul>
+    <?php echo $this->partial('import/import-finished-button-bar.phtml', array('lang' => $this->lang));?>
 
     <div id="log-success">
-        <?php if (!empty($this->success)) { ?>
-            <table class="bdr morepadding" summary="Log messages success"><?php
-                foreach ($this->success as $message) { ?>
-                    <tr>
-                        <td><?php echo $message['templateId'];?></td>
-                        <td><?php echo $message['languageId'];?></td>
-                        <td><?php echo $message['key'];?></td>
-                        <td><?php echo $this->lang->$message['message'];?></td>
-                    </tr><?php
-                } ?>
-            </table><?php
-            } else {
+        <?php
+        if (!empty($this->success)) {
+            $partialViewData['results'] = $this->success;
+            echo $this->partial('import/result-table.phtml', $partialViewData);
+        } else {
                 $disabledTabs[] = 0;
-            echo "Nö, nix";
-            }?>
+        } ?>
     </div>
 
     <div id="log-warning">
-        <?php if (!empty($this->warning)) { ?>
-            <table class="bdr morepadding" summary="Log messages success"><?php
-                foreach ($this->warning as $message) { ?>
-                    <tr>
-                        <td><?php echo $message['templateId'];?></td>
-                        <td><?php echo $message['languageId'];?></td>
-                        <td><?php echo $message['key'];?></td>
-                        <td><?php echo $this->lang->$message['message'];?></td>
-                    </tr><?php
-                } ?>
-            </table><?php
+        <?php if (!empty($this->warning)) {
+            $partialViewData['results'] = $this->warning;
+            echo $this->partial('import/result-table.phtml', $partialViewData);
         } else {
             $disabledTabs[] = 1;
-        }?>
+        } ?>
     </div>
 
     <div id="log-error">
-        <?php if (!empty($this->error)) { ?>
-            <table class="bdr morepadding" summary="Log messages success"><?php
-                foreach ($this->error as $message) { ?>
-                    <tr>
-                        <td><?php echo $message['templateId'];?></td>
-                        <td><?php echo $message['languageId'];?></td>
-                        <td><?php echo $message['key'];?></td>
-                        <td><?php echo $this->lang->$message['message'];?></td>
-                    </tr><?php
-                } ?>
-            </table><?php
+        <?php if (!empty($this->error)) {
+            $partialViewData['results'] = $this->error;
+            echo $this->partial('import/result-table.phtml', $partialViewData);
         } else {
             $disabledTabs[] = 2;
-        }?>
+        } ?>
     </div>
-
 </div>
+<?php echo $this->partial('import/import-finished-button-bar.phtml', array('lang' => $this->lang));?>
 
 <?php $this->jQuery()->onLoadCaptureStart(); ?>
 $('#headnavi').tabs();

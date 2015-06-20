@@ -1,0 +1,43 @@
+<?php
+$code = <<<CODE
+/**
+ * Comments get's ignored
+ */
+
+polyglot.extend({
+	"HeaderView.startpage": "Startpage",
+	"LoginPlaceholderView.init": "Initializing Application"
+});
+CODE
+?>
+<h4>json importer information:</h4>
+<table class="bdr more-padding small" summary="">
+    <tr class="row-even">
+        <td>Author:</td>
+        <td>
+            <a href="http://www.amicaldo.de">Tobias Rös - amicaldo GmbH</a>
+        </td>
+    </tr>
+
+    <tr class="row-odd">
+        <td>Description:</td>
+        <td>
+            This importer is intended to import javascript files.<br />
+            It extracts keys and values from json object.
+        </td>
+    </tr>
+    <tr class="row-even">
+        <td>Structure that can be detected:</td>
+        <td>
+            <pre><?php echo $this->out($code);?></pre>
+        </td>
+    </tr>
+    <tr class="row-odd">
+        <td>Note:</td>
+        <td>
+            This importer parse the full .js file for JSON Objekt and use the first it found.<br />
+            Variable declaration, comments and other stuff will be ignored and makes no problem.
+        </td>
+    </tr>
+
+</table>

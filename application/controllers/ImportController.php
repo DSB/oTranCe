@@ -7,6 +7,7 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
+use Application_Model_Message;
 
 /**
  * Import Controller
@@ -274,6 +275,7 @@ class ImportController extends OtranceController
         $sessionLog = new Msd_SessionLog('importLog');
         $this->view->assign(
             array(
+                'errorMessages'  => new Application_Model_Message(),
                 'success'        => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_SUCCESS),
                 'warning'        => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_WARNING),
                 'error'          => $sessionLog->getMessagesOfType(Msd_SessionLog::TYPE_ERROR),

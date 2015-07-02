@@ -91,4 +91,18 @@ class Msd_SessionLog
 
         return $this->log->$type;
     }
+
+    /**
+     * Get number of log messages
+     *
+     * @return int
+     */
+    public function getMessageCount()
+    {
+        $messagesCount = count($this->getMessagesOfType(self::TYPE_SUCCESS));
+        $messagesCount += count($this->getMessagesOfType(self::TYPE_WARNING));
+        $messagesCount += count($this->getMessagesOfType(self::TYPE_ERROR));
+
+        return $messagesCount;
+    }
 }

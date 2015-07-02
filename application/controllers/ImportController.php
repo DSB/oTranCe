@@ -7,7 +7,6 @@
  * @version         SVN: $Rev$
  * @author          $Author$
  */
-use Application_Model_Message;
 
 /**
  * Import Controller
@@ -80,7 +79,18 @@ class ImportController extends OtranceController
      */
     public function indexAction()
     {
+        $sessionLog = new Msd_SessionLog('importLog');
         $params = $this->_request->getParams();
+        if (isset($params['clearLog'])) {
+            $sessionLog->clear();
+        }
+
+        // if we have an import result log, redirect to result action
+        $messageCount = $sessionLog->getMessageCount();
+        if ($messageCount > 0) {
+            $this->redirect('import/result');
+        }
+
         $this->_getSelectedLanguage();
         $this->_setSelectedFileTemplate();
         $this->_setAnalyzer();
@@ -248,10 +258,6 @@ class ImportController extends OtranceController
      */
     public function analyzeAction()
     {
-        // clear session log
-        $sessionLog = new Msd_SessionLog('importLog');
-        $sessionLog->clear();
-
         $selectedAnalyzer         = $this->_dynamicConfig->getParam('selectedAnalyzer');
         $data                     = $this->_dynamicConfig->getParam('importConvertedData');
         $importer                 = Msd_Import::factory($selectedAnalyzer);

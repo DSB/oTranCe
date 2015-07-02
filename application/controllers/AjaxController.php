@@ -8,6 +8,7 @@
  * @author          $Author$
  */
 use Application_Model_ImportLog as Log;
+use Application_Model_Message as Message;
 
 /**
  * Ajax Controller
@@ -111,21 +112,24 @@ class AjaxController extends OtranceController
             if (!empty($fallbackData[$key]) && $fallbackData[$key] == $this->_data[$key]) {
                 // value is the same as in the fallback language
                 // check if user is allowed to import such phrases
-                $saveKey = false;
-                if ($this->_userModel->hasRight('importEqualVar')) {
-                    $saveKey = true;
+                $saveKey = true;
+                if (!$this->_userModel->hasRight('importEqualVar')) {
+                    $saveKey = false;
+                    $ret['data'][$i]                  = array(
+                        'id' => md5($key),
+                        'result' => Message::NO_PERMISSION_TO_ADD_NEW_KEY
+                    );
+                    $log->addMessage(Log::TYPE_ERROR, $key, Message::NO_PERMISSION_TO_ADD_NEW_KEY);
+                    $overallResult = false;
                 }
             }
 
-            if ($saveKey === false) {
-                $ret['data'][$i]                  = array('id' => md5($key), 'result' => 4);
-                $log->addMessage(Log::TYPE_WARNING, $key, 'L_IMPORT_MISSING_PERMISSION_TO_CREATE_KEY');
-            } else {
+            if ($saveKey === true) {
                 $res = $this->_saveKey($key, $fileTemplate, $languageId);
-                if ($res == 1) {
-                    $log->addMessage(Log::TYPE_SUCCESS, $key, 'L_CHANGES_SAVED_SUCCESSFULLY');
+                if ($res == Message::SAVED_SUCCESSFULLY) {
+                    $log->addMessage(Log::TYPE_SUCCESS, $key, $res);
                 } else {
-                    $log->addMessage(Log::TYPE_ERROR, $key, 'L_ERROR_SAVING_CHANGE');
+                    $log->addMessage(Log::TYPE_ERROR, $key, $res);
                     $overallResult = false;
                 }
                 $ret['data'][$i] = array('id' => 'k' . md5($key), 'result' => $res);
@@ -575,18 +579,16 @@ class AjaxController extends OtranceController
         // check edit right for language
         $userEditRights = $this->_userModel->getUserLanguageRights();
         if (!in_array($languageId, $userEditRights)) {
-            //user is not allowed to edit this language
-            return 2;
+            return Message::NO_PERMISSION_TO_EDIT_LANGUAGE;
         }
 
         if (!$this->_entriesModel->hasEntryWithKey($key, $fileTemplate)) {
-            //it is a new entry - check rights
             if (!$this->_userModel->hasRight('addVar')) {
-                return 3;
+                return Message::NO_PERMISSION_TO_ADD_NEW_KEY;
             } else {
                 // Validate the new key.
                 if (!$this->_entriesModel->validateLanguageKey($key, $fileTemplate)) {
-                    return 4;
+                    return Message::VALIDATE_ERROR_NAME_TOO_SHORT;
                 }
                 // user is allowed to add new keys -> create it
                 $this->_entriesModel->saveNewKey($key, $fileTemplate);
@@ -599,9 +601,9 @@ class AjaxController extends OtranceController
         $value = $this->_data[$key];
         $res   = $this->_entriesModel->saveEntries($keyId, array($languageId => $value));
         if ($res === true) {
-            return 1;
+            return Message::SAVED_SUCCESSFULLY;
         } else {
-            return 0;
+            return Message::ERROR_SAVING;
         }
     }
 

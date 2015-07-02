@@ -15,7 +15,10 @@ $i = 1;
             <td class="right vmiddle"><?php echo $i;?>.</td>
             <td><?php echo $message['key'];?></td>
             <td><?php echo $this->importedValues[$message['key']];?></td>
-            <td><?php echo $this->lang->$message['message'];?></td>
+            <td><?php
+                $errorLangKey = $this->errorMessages->getTranslationKey($message['message']);
+                echo $this->lang->$errorLangKey;
+                ?></td>
             </tr><?php
             $i++;
     } ?>

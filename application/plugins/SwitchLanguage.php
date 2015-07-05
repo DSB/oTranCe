@@ -37,5 +37,4 @@ class Application_Plugin_SwitchLanguage extends Zend_Controller_Plugin_Abstract
             $dynamicConfig->setParam('interfaceLanguage', $switchToLanguage);
         }
     }
-
 }

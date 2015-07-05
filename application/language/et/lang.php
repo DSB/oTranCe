@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// phpbbeesti (39)
+// DSB (1), phpbbeesti (39)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'Your user account %1$s for the project %2$s has been activated by an administrator.',
@@ -217,7 +217,7 @@ The importer has processed all entries.',
 'L_LANGUAGE' => 'Keel',
 'L_LANGUAGES' => 'Keeled',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'The language has been deleted successfully.<br />All log entries, settings and edit rights of users have been removed too.',
-'L_LANGUAGE_NAME' => 'English',
+'L_LANGUAGE_NAME' => 'Eesti',
 'L_LANGUAGE_OTHER' => 'The language is not listed? Provide the name of the language you want to maintain',
 'L_LANGUAGE_SETTINGS' => 'Language settings',
 'L_LATEST_ACTIVITY' => 'Latest activity',

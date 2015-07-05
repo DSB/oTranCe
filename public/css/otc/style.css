@@ -866,3 +866,7 @@ fieldset {
     margin: 0 0 12px;
     padding: 5px;
 }
+
+.ui-selectmenu-status,
+.ui-selectmenu-menu ul { background:#F1F1F1 !important;}
+

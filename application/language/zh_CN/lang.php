@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (974), DSB (3), oluul (1)
+// binota (974), DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',

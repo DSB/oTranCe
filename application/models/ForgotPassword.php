@@ -38,6 +38,12 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     private $_linkLifeTime;
 
+    /**
+     * Timestamp when password reset was called
+     *
+     * @var string
+     */
+    private $_timestamp;
 
     /**
      * Model initialization method.
@@ -48,6 +54,7 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
     {
         $this->_tableForgotPassword = $this->_tablePrefix . 'forgotpasswords';
         $this->_linkLifeTime        = $this->_config->getParam('project.forgotPasswordLinkLifeTime');
+        $this->setTimeStamp(date('Y-m-d H:i:s', time()));
     }
 
     /**
@@ -59,10 +66,14 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function setLinkHashId($user)
     {
-        $tempString = 'userid=' . $user['id'] . '&usermail=' . $user['email'] . '&id=' . $this->getLastInsertedId();
+        $params = array(
+            'userid'    => $user['id'],
+            'usermail'  => $user['email'],
+            'id'        => $this->getLastInsertedId(),
+            'timestamp' => $this->getTimestamp()
+        );
 
-        $this->_generatedLinkHash = base64_encode($tempString);
-
+        $this->_generatedLinkHash = base64_encode(http_build_query($params));
     }
 
     /**
@@ -74,9 +85,9 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function saveRequest($userId)
     {
-        $timeStamp = date('Y-m-d H:i:s', time());
+
         $sql       = 'INSERT INTO `' . $this->_tableForgotPassword . '` (`userid`, `timestamp`)'
-            . ' VALUES(' . $userId . ', \'' . $timeStamp . '\')';
+            . ' VALUES(' . $userId . ', \'' . $this->getTimestamp() . '\')';
 
         return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -105,16 +116,17 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      * Checks if request link is valid
      * 1st check: linkLifeTime expired
      * 2nd check: does the userid match the requested one?
+     * 3rd check: does the timestamp match?
      *
      * @param int $forgotPasswordId id of forgot password request
      * @param int $requestedUserId  id of forgot password user
      *
      * @return bool
      */
-    public function isValidRequest($forgotPasswordId, $requestedUserId)
+    public function isValidRequest($forgotPasswordId, $requestedUserId, $timestamp)
     {
         $sql = 'SELECT `timestamp`, `userid` FROM `' . $this->_tableForgotPassword
-            . '` where id = ' . $forgotPasswordId;
+            . '` where id = ' . (int) $forgotPasswordId . ' AND `timestamp` = \'' . $timestamp .'\'';
 
         $requestTime = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
@@ -143,7 +155,23 @@ class Application_Model_ForgotPassword extends Msd_Application_Model
      */
     public function deleteRequestByUserId($userId)
     {
-        $sql = 'DELETE FROM `' . $this->_tableForgotPassword . '` where userid = ' . $userId;
+        $sql = 'DELETE FROM `' . $this->_tableForgotPassword . '` where userid = ' . (int) $userId;
         $this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTimestamp()
+    {
+        return $this->_timestamp;
+    }
+
+    /**
+     * @param string $timestamp
+     */
+    public function setTimestamp($timestamp)
+    {
+        $this->_timestamp = $timestamp;
     }
 }

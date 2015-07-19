@@ -85,7 +85,7 @@ class Index_PasswordController extends IndexController
             }
         }
 
-        $this->_forward('index', 'index_password');
+        $this->forward('index', 'index_password');
     }
 
     /**
@@ -123,46 +123,31 @@ class Index_PasswordController extends IndexController
      */
     public function resetpasswordAction()
     {
-        $userHash            = base64_decode($this->getRequest()->getParam('id'));
-        $paramArray          = $this->getParamsFromHash($userHash);
+        $queryData = base64_decode($this->getRequest()->getParam('id'));
+        parse_str($queryData, $params);
+
         $forgotPasswordModel = new Application_Model_ForgotPassword();
         $translator          = Msd_Language::getInstance();
+        if (!isset($params['id'], $params['userid'], $params['usermail'], $params['timestamp'])) {
+            // link not correct, silently forward to index page
+            $this->forward('index', 'index_password');
+        }
 
-        if (!$forgotPasswordModel->isValidRequest($paramArray['id'], $paramArray['userid'])) {
+        if (!$forgotPasswordModel->isValidRequest($params['id'], $params['userid'], $params['timestamp'])) {
             $this->view->isError = true;
             $this->setViewNotifications($translator->translate('L_FORGOT_PASSWORD_EXPIRED_LINK'));
-            $this->_forward('index', 'index_password');
+            $this->forward('index', 'index_password');
         }
 
         $this->view->assign(
             array(
                  'availableGuiLanguages' => $this->view->dynamicConfig->getParam('availableGuiLanguages'),
                  'request'               => $this->_request,
-                 'userid'                => $paramArray['userid'],
+                 'userid'                => $params['userid'],
                  'userhash'              => $this->getRequest()->getParam('id'),
                  'isLogin'               => true,
             )
         );
-    }
-
-    /**
-     * Splits hash into his params and returns them
-     *
-     * @param string $hash Given hash
-     *
-     * @return array
-     */
-    protected function getParamsFromHash($hash)
-    {
-        $mainParams = explode('&', $hash);
-        $realParams = '';
-
-        foreach ($mainParams as $params) {
-            $tmpParams                 = explode('=', $params);
-            $realParams[$tmpParams[0]] = $tmpParams[1];
-        }
-
-        return $realParams;
     }
 
     /**
@@ -172,6 +157,7 @@ class Index_PasswordController extends IndexController
      */
     public function setpasswordAction()
     {
+        $this->clearRedirectAfterLogin();
         $translator = Msd_Language::getInstance();
         $password   = $this->_request->getParam('user_password');
         $confirmPwd = $this->_request->getParam('user_password2');
@@ -196,7 +182,7 @@ class Index_PasswordController extends IndexController
             $this->view->isError = true;
             $this->setViewNotifications($msg);
 
-            $this->_forward('resetpassword', 'index_password', '', $params);
+            $this->forward('resetpassword', 'index_password', '', $params);
         } else {
 
             if ($user->setPassword($userId, $password)) {
@@ -206,9 +192,17 @@ class Index_PasswordController extends IndexController
                 $this->view->isError = false;
                 $this->setViewNotifications(null, $translator->translate('L_SET_PASSWORD_SUCCESS'));
 
-                $this->_forward('index', 'index');
+                $this->forward('index', 'index');
             }
         }
     }
 
+    /**
+     * Don't redirect to password actiosn after login
+     */
+    protected function clearRedirectAfterLogin()
+    {
+        $ns = new Zend_Session_Namespace('requestData');
+        $ns->unsetAll();
+    }
 }

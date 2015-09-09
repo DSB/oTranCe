@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (974), DSB (3)
+// binota (984), DSB (3)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理员已激活您用于项目 %2$s 的用户帐户 %1$s',
@@ -29,8 +29,8 @@ $lang = array(
 'L_ALSO_REMOVED_LOG_ENTRIES_SETTINGS_AND_RIGHTS' => '所有日志条目、设置与权限皆以一併移除。',
 'L_APIKEY' => 'API Key',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '确实要删除您的个人VCS凭证么？',
-'L_AUTHENTICATE' => '登陆资讯',
-'L_AUTO_MAP_LOCALES' => 'Auto map locales',
+'L_AUTHENTICATE' => '登录资讯',
+'L_AUTO_MAP_LOCALES' => '自动对应地区',
 'L_BACK' => '返回',
 'L_BACK_TO_OVERVIEW' => '返回总览',
 'L_CANCEL' => '取消',
@@ -46,7 +46,7 @@ $lang = array(
 如果看起来正常了，请开始分析数据。',
 'L_CLICK_TO_EDIT_USER_ACCOUNT' => '单击此处以编辑用户帐户',
 'L_CLICK_TO_INLINE_EDIT' => '单击以进行内嵌编辑',
-'L_CLICK_TO_LOG_IN' => '单击此处使用您的注册数据登陆',
+'L_CLICK_TO_LOG_IN' => '单击此处使用您的注册的信息登录',
 'L_COMMIT_MESSAGE' => '发送消息',
 'L_COMPLETE_VIEW' => '完整视图',
 'L_CONFIGURATION' => '配置',
@@ -224,10 +224,10 @@ $lang = array(
 'L_LOCALE' => '地域',
 'L_LOCALE_EXISTS' => '此区域设置语言已存在。',
 'L_LOG' => '日志',
-'L_LOGIN' => '登陆',
+'L_LOGIN' => '登录',
 'L_LOGIN_ACCOUNT_NOT_ACTIVE' => '您的登录是有效的，但您的账户尚未激活。<br />
 如果管理员通过了您的账户，您将收到一封电子邮件。',
-'L_LOGIN_AUTOLOGIN' => '自动登陆',
+'L_LOGIN_AUTOLOGIN' => '自动登录',
 'L_LOGIN_INVALID_USER' => '未知的用户名称与密码组合。',
 'L_LOG_OUT' => '注销',
 'L_MENUE_RIGHTS' => '菜单权限',
@@ -365,18 +365,18 @@ oTranCe 菜单将不会显示出来。',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => '已更新/删除模版分配',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => '这个操作将同时移除该用户的所有权限、设置与日志条目。',
 'L_TRANSLATE_TO' => '翻译为',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate into',
+'L_TRANSLATE_WITH_SERVICE_TO' => '使用 %s 来进行翻译至',
 'L_TRANSLATIONS' => '翻译',
 'L_TRANSLATION_CENTER' => '翻译中心',
 'L_TRANSLATION_SERVICE' => '外部翻译服务',
-'L_TRANSLATION_SERVICE_ALLOWED' => 'Shall the translators use external the external translation services?',
+'L_TRANSLATION_SERVICE_ALLOWED' => '翻译者应使用外部翻译服务？',
 'L_TRY_AGAIN' => '请重试',
 'L_TS_GET_LOCALES' => '正在更新 %s 个位置',
 'L_TS_GET_LOCALES_ERROR' => '更新地区时发生错误',
 'L_TS_GET_LOCALES_SUCCESS' => '已成功更新地区。',
 'L_TS_LANGUAGE_MAPPING' => '语言地图',
-'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
-Only mapped languages can be translated by the external service. Edit the language mapping here.',
+'L_TS_LANGUAGE_MAPPING_DESC' => '要从外部服务进行翻译，oTracCe 必须 Map 语系至其中一个服务。
+只有 Map 过的语系能自外部服务进行翻译。在这里编辑语系 Map。',
 'L_UNTRANSLATED' => '未翻译',
 'L_UPDATE_DOWNLOAD_PACKAGE' => '更新語言包',
 'L_UPLOAD_FAILED' => '上传失败',

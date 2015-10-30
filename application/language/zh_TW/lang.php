@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// binota (907), DSB (1)
+// binota (913), DSB (1)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => '管理員已啟動您用於專案 %2$s 的使用者帳戶 %1$s',
@@ -30,7 +30,7 @@ $lang = array(
 'L_APIKEY' => 'API Key',
 'L_ARE_YOU_SURE_TO_DELETE_PERSONAL_VCS_CREDENTIALS' => '確定要刪除您的個人VCS憑證嗎？',
 'L_AUTHENTICATE' => '登入資訊',
-'L_AUTO_MAP_LOCALES' => 'Auto map locales',
+'L_AUTO_MAP_LOCALES' => '自動對應地區',
 'L_BACK' => '返回',
 'L_BACK_TO_OVERVIEW' => '回到總覽',
 'L_CANCEL' => '取消',
@@ -365,18 +365,18 @@ oTranCe 目錄將不會顯示出來。',
 'L_TEMPLATE_ASSIGNMENTS_UPDATED' => '已更新/刪除範本分配',
 'L_THIS_WILL_ALSO_REMOVE_RIGHTS_SETTINGS_AND_LOG_ENTRIES' => '這個動作將同時移除該使用者的所有權限、設定與日誌條目。',
 'L_TRANSLATE_TO' => '翻譯為',
-'L_TRANSLATE_WITH_SERVICE_TO' => 'Use %s to translate into',
+'L_TRANSLATE_WITH_SERVICE_TO' => '使用 %s 來進行翻譯至',
 'L_TRANSLATIONS' => '翻譯',
 'L_TRANSLATION_CENTER' => '翻譯中心',
 'L_TRANSLATION_SERVICE' => '外部翻譯服務',
-'L_TRANSLATION_SERVICE_ALLOWED' => 'Shall the translators use external the external translation services?',
+'L_TRANSLATION_SERVICE_ALLOWED' => '翻譯者應使用外部翻譯服務？',
 'L_TRY_AGAIN' => '請重試',
 'L_TS_GET_LOCALES' => '正在更新 %s 個位置',
 'L_TS_GET_LOCALES_ERROR' => '更新地區時發生錯誤',
 'L_TS_GET_LOCALES_SUCCESS' => '已成功更新地區。',
 'L_TS_LANGUAGE_MAPPING' => '語言地圖',
-'L_TS_LANGUAGE_MAPPING_DESC' => 'In order to fetch translations from the external service oTranCe needs to map the locale to the one of the service.
-Only mapped languages can be translated by the external service. Edit the language mapping here.',
+'L_TS_LANGUAGE_MAPPING_DESC' => '欲自外部服務進行翻譯，oTraCe 必須 Map 語系至其中一個服務。
+只有 Map 過的語系能自外部服務進行翻譯。於此處編輯語系 Map。',
 'L_UNTRANSLATED' => '未翻譯',
 'L_UPDATE_DOWNLOAD_PACKAGE' => '更新語系檔',
 'L_UPLOAD_FAILED' => '上傳失敗',

@@ -64,11 +64,11 @@ class Module_Import_Csv implements Msd_Import_Interface
         unset($data);
         $this->_extractedData = array();
 
-        $csvArray = str_getcsv($this->_data, "\n"); //parse the rows
+        $fp = fopen('php://temp', 'r+');
 
-
-        foreach ($csvArray AS $row){
-            $currentLine = str_getcsv($row, $this->_separator);
+        fwrite($fp, $this->_data);
+        rewind($fp);
+        while (($currentLine = fgetcsv($fp, 0, $this->_separator)) !== FALSE) {
             $currentKey = trim($currentLine[0]);
 
             if ($currentKey == '' || !isset($currentLine[1])) {

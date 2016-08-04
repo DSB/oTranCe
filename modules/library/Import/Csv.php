@@ -111,7 +111,6 @@ class Module_Import_Csv implements Msd_Import_Interface
             if (($inputValue{0} == "'" && $inputValue{$inputLength - 1} == "'")
                 || ($inputValue{0} == "\"" && $inputValue{$inputLength - 1} == "\"")
             ) {
-                echo "clean";
                 $inputValue = substr($inputValue, 1, $inputLength - 2);
                 return $inputValue;
             }

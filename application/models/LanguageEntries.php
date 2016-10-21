@@ -128,6 +128,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $pattern
                            =
             "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
+            . " INNER JOIN `" . $this->_tableKeys . "` "
+            . "ON (`" . $this->_tableTranslations . "`.`key_id` = `" . $this->_tableKeys . "`.`id` AND `" . $this->_tableKeys . "`.clf = 0) "
             . " WHERE `lang_id`= %d";
         foreach ($languageIds as $val) {
             $langId                        = $val['id'];
@@ -160,7 +162,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getNrOfLanguageVars()
     {
-        $sql = 'SELECT count(*) as `nrOfLanguageVars` FROM `' . $this->_tableKeys . '`';
+        $sql = 'SELECT count(*) as `nrOfLanguageVars` FROM `' . $this->_tableKeys . '` WHERE `clf` = 0';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_OBJECT, true);
 
         return isset($res[0]->nrOfLanguageVars) ? $res[0]->nrOfLanguageVars : 0;
@@ -814,6 +816,22 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * Update the flag for certain language only
+     *
+     * @param int $keyId        Id of the key.
+     * @param bool $value       Value of ind field.
+     *
+     * @return bool
+     */
+    public function setOnlyCertainLanguageFlag($keyId, $value) {
+            $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}` "
+                    . "SET `clf`='" . (int) $value . "' "
+                    . "WHERE `id`='$keyId';";
+
+            return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
 }

@@ -3,7 +3,7 @@ $cycleHelper = $this->cycle(array('row-even', 'row-odd'));
 $entry = $this->entry;
 ?>
 <form action="<?php echo $this->baseUrl();?>/entries/edit/ref/<?php echo $this->referrer;?>" method="post" id="editForm">
-    <table class="bdr more-padding" summary="List of edit boxes">
+    <table class="bdr more-padding<?php echo (($this->key['clf']) ? ' untranslated-table' : null) ?>" summary="List of edit boxes">
         <tr class="thead"><th colspan="2"><?php echo $this->lang->L_EDIT;?>:</th></tr>
         <tr class="<?php echo $cycleHelper->next();?>">
             <td class="top"><?php echo $this->escape($this->lang->L_KEY);?>:</td>
@@ -22,6 +22,12 @@ $entry = $this->entry;
                         echo $this->assignedFileTemplate['name'] . ' (' . $this->assignedFileTemplate['filename'] . ')';
                     }
                 } ?>
+            </td>
+        </tr>
+        <tr class="<?php echo $cycleHelper->next()?>">
+            <td><?php echo $this->escape($this->lang->L_CLF); ?>:</td>
+            <td>
+                <input type="checkbox" name="clf"<?php echo (($this->key['clf']) ? ' checked' : null) ?>>
             </td>
         </tr>
         <?php
@@ -113,6 +119,9 @@ $entry = $this->entry;
                     <button type="submit" class="Formbutton ui-corner-all" id="saveGetUntranslated" name="saveGetUntranslated">
                         <?php echo $this->getIcon('save', $this->lang->L_SAVE) . ' ' . $this->lang->L_GET_NEXT_UNTRANSLATED_KEY;?>
                     </button><?php
+                }
+                if($this->key['ind']) {
+                    echo '<h3 class="clf-note">' . $this->lang->L_CLF_LONG . '</h3>';
                 }
                 ?>
             </td>

@@ -228,7 +228,11 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
             foreach ($this->showLanguages as $lang) {
                 $text = isset($hit['languages'][$lang]) ? $hit['languages'][$lang] : '';
                 $text = htmlspecialchars($text, ENT_COMPAT,'utf-8');
-                if (!isset($text) || $text == '') {
+                    $isUntranslated = false;
+                    if ((!isset($text) || $text == '')) {
+                        if($hit['clf']) {
+                            $isUntranslated = true;
+                        }
                     $text = '<i>' . $this->lang->L_UNTRANSLATED . '</i>';
                 }
                 if (in_array($lang, $this->languagesEdit)) { ?>
@@ -237,7 +241,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                             <?php echo $this->getIcon('Edit', $this->lang->L_CLICK_TO_INLINE_EDIT);?>
                         </label>
                     </td>
-                    <td class="top">
+                    <td class="top<?php echo (($isUntranslated) ? ' untranslated' : null) ?>">
                         <?php if (array_key_exists('needsUpdate', $hit) && array_key_exists($lang, $hit['needsUpdate']) 
                             && $hit['needsUpdate'][$lang]) { ?>
                             <img src="<?php echo $this->getIconSrc('Attention', '16'); ?>"
@@ -257,7 +261,7 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
                         $needsUpdateImage = $this->getIcon("Attention",  $this->lang->L_NEEDS_UPDATE_INFO, "16");
                     }
 
-                    echo '<td colspan="2" class="top">'. $needsUpdateImage . ' ' . $text .'</td>';
+                    echo '<td colspan="2" class="top' . (($isUntranslated) ? ' untranslated' : null) . '">'. $needsUpdateImage . ' ' . $text .'</td>';
                 }
             }
             ?>

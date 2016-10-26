@@ -870,20 +870,15 @@ fieldset {
 .ui-selectmenu-status,
 .ui-selectmenu-menu ul { background:#F1F1F1 !important;}
 
-.untranslated {
+.no-translation-needed {
     background-color: #DDDDDD;
 }
 
-.untranslated span a {
+.no-translation-needed span a {
     color: #777777;
 }
 
-.untranslated-table thead, .untranslated-table .row-even, .untranslated-table .row-odd {
-    background-color: #DDDDDD;
-}
-
-.clf-note {
-    max-width: 580px;
-    padding: 5px;
-    text-align: center;
+.dont-translate-notice {
+    display: inline-block;
+    margin: 5px;
 }

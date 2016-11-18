@@ -9,7 +9,7 @@
  * @author        $Author: $
  */
 // The following translators have been busy on translating this language for you:
-// taca (99)
+// binota (3), taca (99)
 
 $lang = array(
 'L_ACCOUNT_ACTIVATED' => 'あなたのアカウント%1$sは管理者によってプロジェクト%2$sで有効になりました。',
@@ -90,7 +90,7 @@ No list of keys has been transmitted yet.',
 'L_DONE' => 'Done',
 'L_DOWNLOAD' => 'ダウンロード',
 'L_DOWNLOADS' => 'ダウンロード',
-'L_DOWNLOAD_OF_LANGUAGE_PACKS' => 'Download of language packs',
+'L_DOWNLOAD_OF_LANGUAGE_PACKS' => '言語ファイルをダウンロードする',
 'L_DROP_FILE_HINT' => 'Drop project logo here to upload.',
 'L_DUPLICATE' => '重複',
 'L_EDIT' => 'Edit',
@@ -213,11 +213,11 @@ The importer has processed all entries.',
 'L_KEYS_PROCESSED' => 'Keys processed',
 'L_KEYS_TOTAL' => 'Keys total',
 'L_KEYS_TO_IMPORT' => 'Keys to import',
-'L_KEY_DELETED_SUCCESSFULLY' => 'The key has been deleted successfully',
+'L_KEY_DELETED_SUCCESSFULLY' => 'キーを削除しました',
 'L_LANGUAGE' => '言語',
 'L_LANGUAGES' => '言語',
 'L_LANGUAGE_DELETED_SUCCESSFULLY' => 'The language has been deleted successfully.<br />All log entries, settings and edit rights of users have been removed too.',
-'L_LANGUAGE_NAME' => '英語',
+'L_LANGUAGE_NAME' => '日本語',
 'L_LANGUAGE_OTHER' => 'The language is not listed? Provide the name of the language you want to maintain',
 'L_LANGUAGE_SETTINGS' => 'Language settings',
 'L_LATEST_ACTIVITY' => 'Latest activity',

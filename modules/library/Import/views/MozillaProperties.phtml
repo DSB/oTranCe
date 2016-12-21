@@ -1,0 +1,39 @@
+<?php
+$code = <<<CODE
+#comment
+TEST_KEY1 = TEST_VALUE1
+TEST_KEY2 = TEST_VALUE2
+CODE
+?>
+<h4>Mozilla Properties importer information:</h4>
+<table class="bdr more-padding small" summary="">
+<tr class="row-even">
+    <td>Author:</td>
+    <td>
+        Patrick Delcroix
+    </td>
+</tr>
+
+<tr class="row-odd">
+    <td>Description:</td>
+    <td>
+        This importer is intended to import generic Mozilla Properties files.<br />
+        It extracts keys and values from Key=value files.
+    </td>
+</tr>
+<tr class="row-even">
+    <td>Structure that can be detected:</td>
+    <td>
+        <pre><?php echo $this->out($code);?></pre>
+    </td>
+</tr>
+<tr class="row-odd">
+    <td>Note:</td>
+    <td>
+        If your data is seperated by a semicolon, use the SSV analyzer.<br />
+        If you discover character encoding problems, copy &amp; paste the text into the text box
+        instead of uploading it. Or try to use the convert button until all characters are shown correctly.
+    </td>
+</tr>
+
+</table>

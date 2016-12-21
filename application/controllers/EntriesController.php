@@ -125,6 +125,9 @@ class EntriesController extends OtranceController
             $this->view->showLanguages,
             $this->view->hits
         );
+
+        $this->view->optionalTranslations = $this->_entriesModel->getOptionalTranslations();
+
     }
 
     /**
@@ -158,6 +161,8 @@ class EntriesController extends OtranceController
         $this->_showLanguages      = array_merge($this->_showLanguages, $this->_referenceLanguages);
         $this->_showLanguages      = array_unique($this->_showLanguages);
         $this->view->showLanguages = $this->_showLanguages;
+
+        $this->view->optionalTranslations = $this->_entriesModel->getOptionalTranslations($keyId);
     }
 
     /**
@@ -197,12 +202,13 @@ class EntriesController extends OtranceController
             }
         }
         $this->setLanguages();
-        $this->view->langStatus         = $this->_getLanguagesStatus();
-        $this->view->key                = $this->_entriesModel->getKeyById($keyId);
-        $this->view->entry              = $this->_entriesModel->getTranslationsByKeyId($keyId, $this->_showLanguages);
-        $this->view->needsUpdate        = $this->_entriesModel->getNeedsUpdateStatusByKeyId($keyId);
-        $this->view->fallbackLanguageId = $this->_languagesModel->getFallbackLanguageId();
-        $this->view->user               = $this->_userModel;
+        $this->view->langStatus           = $this->_getLanguagesStatus();
+        $this->view->key                  = $this->_entriesModel->getKeyById($keyId);
+        $this->view->entry                = $this->_entriesModel->getTranslationsByKeyId($keyId, $this->_showLanguages);
+        $this->view->optionalTranslations = $this->_entriesModel->getOptionalTranslations($keyId, $this->_showLanguages);
+        $this->view->needsUpdate          = $this->_entriesModel->getNeedsUpdateStatusByKeyId($keyId);
+        $this->view->fallbackLanguageId   = $this->_languagesModel->getFallbackLanguageId();
+        $this->view->user                 = $this->_userModel;
 
         $templatesModel                   = new Application_Model_FileTemplates();
         $this->view->fileTemplates        = $templatesModel->getFileTemplates('name');
@@ -216,7 +222,7 @@ class EntriesController extends OtranceController
             $this->view->translatable = array_keys($translationService->getLocaleMap());
         }
         $this->view->useTranslationService  = $translationServiceActive;
-        $this->view->translationServiceName = $translationConfig['selectedService'];
+        $this->view->translationServiceName = (isset($translationConfig['selectedService']) ? $translationConfig['selectedService'] : null);
 
         $this->view->skipKeysOffsets = $this->_dynamicConfig->getParam('entries.skippedKeys', array());
         $this->_setReferrer();
@@ -493,6 +499,13 @@ class EntriesController extends OtranceController
     private function _saveEntries($ignoreSmallChange = false)
     {
         $params = $this->getRequest()->getParams();
+
+        $optional_translations = array();
+
+        if(isset($params['id'])) {
+            $optional_translations = $this->_entriesModel->updateOptionalTranslations($params['id'], $params);
+        }
+
         $values = array();
         foreach ($params as $name => $val) {
             if (substr($name, 0, 5) == 'edit-') {
@@ -507,7 +520,7 @@ class EntriesController extends OtranceController
         $res &= $this->_entriesModel->saveEntries(
             (int)$params['id'],
             $values,
-            $this->_languagesModel->getFallbackLanguageId(), $ignoreSmallChange
+            $this->_languagesModel->getFallbackLanguageId(), $ignoreSmallChange, $optional_translations
         );
 
         return $res;

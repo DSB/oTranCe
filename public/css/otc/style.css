@@ -870,3 +870,15 @@ fieldset {
 .ui-selectmenu-status,
 .ui-selectmenu-menu ul { background:#F1F1F1 !important;}
 
+.no-translation-needed {
+    background-color: #DDDDDD;
+}
+
+.no-translation-needed span a {
+    color: #777777;
+}
+
+.dont-translate-notice {
+    display: inline-block;
+    margin: 5px;
+}

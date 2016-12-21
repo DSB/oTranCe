@@ -450,5 +450,7 @@ Only mapped languages can be translated by the external service. Edit the langua
 'L_ZEND_ID_STRING_LENGTH_INVALID' => 'Invalid input.',
 'L_ZEND_ID_STRING_LENGTH_TOO_LONG' => 'The provided input is too long.',
 'L_ZEND_ID_STRING_LENGTH_TOO_SHORT' => 'The provided input is too short.',
+'L_OPTIONAL_TRANSLATION' => 'The key doesn\'t need to be translated to this language.',
+'L_OPTIONAL_TRANSLATION_LONG_DESC' => 'For grey fields no translation is needed.',
 );
 return $lang;

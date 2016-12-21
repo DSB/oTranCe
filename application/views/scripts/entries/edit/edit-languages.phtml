@@ -92,6 +92,12 @@ $entry = $this->entry;
                                     echo trim(htmlentities($entry[$languageId], ENT_COMPAT, 'utf-8'));
                                 };?></textarea>
                     <br /><br />
+                    <input type="checkbox" id="optional-<?php echo $this->languages[$languageId]['id'];?>"
+                           name="optional-<?php echo $this->languages[$languageId]['id'];?>"
+                           value="<?php echo $this->languages[$languageId]['id'];?>"
+                        <?php echo ((isset($this->optionalTranslations[$this->key['id']][$languageId])) ? ' checked' : null) ?>>
+                    <label for="optional-<?php echo $this->key['id'];?>-<?php echo $this->languages[$languageId]['id'];?>"><?php echo $this->lang->L_OPTIONAL_TRANSLATION; ?></label>
+                    <br />
                     <?php if ($languageId == $this->fallbackLanguageId) { ?>
                         <input type="checkbox" name="only-small-change" id="only-small-change" />
                         <label for="only-small-change"><?php echo $this->lang->L_ONLY_SMALL_CHANGE_INFO; ?></label>

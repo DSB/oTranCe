@@ -32,6 +32,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     private $_tableTranslations;
 
     /**
+     * Database table containing optional translation keys
+     *
+     * @var string
+     */
+    private $_tableOptionalTranslations;
+
+    /**
      * Database table containing languages
      *
      * @var string
@@ -68,6 +75,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $this->_tableLanguages     = $this->_tablePrefix . 'languages';
         $this->_tableTranslations  = $this->_tablePrefix . 'translations';
+        $this->_tableOptionalTranslations  = $this->_tablePrefix . 'optional_translations';
         $this->_tableKeys          = $this->_tablePrefix . 'keys';
         $this->_tableFileTemplates = $this->_tablePrefix . 'filetemplates';
     }
@@ -125,15 +133,32 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $ret               = array();
         $totalLanguageVars = $this->getNrOfLanguageVars();
         $translators       = $this->getTranslators();
-        $pattern
-                           =
-            "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
-            . " WHERE `lang_id`= %d";
+
+        $optionalLanguageCount = array();
+        $optionalTranslations = $this->getOptionalTranslations(null, array_keys($languageIds));
+
+        foreach($optionalTranslations as $optionalTranslationKeys) {
+            foreach($optionalTranslationKeys as $optionalTranslationLanguage => $check) {
+                $optionalLanguageCount[$optionalTranslationLanguage]++;
+            }
+        }
+
+        $pattern =
+            "SELECT count(*) as anzahl, "
+            . " SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
+            . " INNER JOIN `" . $this->_tableKeys . "` "
+            . "ON (`" . $this->_tableTranslations . "`.`key_id` = `" . $this->_tableKeys . "`.`id`)"
+            . " LEFT JOIN `" . $this->_tableOptionalTranslations . "` "
+            . "ON (`" . $this->_tableTranslations . "`.`lang_id` = `" . $this->_tableOptionalTranslations . "`.`lang_id` AND `" . $this->_tableKeys . "`.`id` = `" . $this->_tableOptionalTranslations . "`.`key_id`)"
+            . " WHERE `" . $this->_tableTranslations . "`.`lang_id` = %d "
+            . " AND `" . $this->_tableTranslations . "`.`text` IS NOT NULL AND `" . $this->_tableTranslations . "`.`text` != ''"
+            . " AND `" . $this->_tableOptionalTranslations . "`.`lang_id` IS NULL";
         foreach ($languageIds as $val) {
             $langId                        = $val['id'];
             $sql                           = sprintf($pattern, (int)$val['id']);
             $res                           = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
-            $translated                    = $res[0]['anzahl'];
+            $optionalTranslation           = (isset($optionalLanguageCount[$langId])) ? $optionalLanguageCount[$langId] : 0;
+            $translated                    = $res[0]['anzahl'] + $optionalTranslation;
             $ret[$langId]                  = array();
             $ret[$langId]['languageId']    = $langId;
             $ret[$langId]['notTranslated'] = $totalLanguageVars - $translated;
@@ -308,7 +333,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             // we are looking for a specific language
             // Add the language condition to the JOIN, not to the WHERE clause.
             $sql .= ' AND t.`lang_id`=' . $languageId
-                . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
+                . ' LEFT JOIN `' . $this->_tableOptionalTranslations . '` o'
+                . ' ON o.`key_id` = k.`id` AND o.`lang_id` = ' . $languageId
+                . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)'
+                . ' AND o.`lang_id` IS NULL';
         } else {
             // find all untranslated keys
             $sql .= ' WHERE (t.`text`=\'\' OR t.`text` IS NULL OR t.`needs_update`=1)';
@@ -322,6 +350,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if ($nrOfRecords > 0) {
             $sql .= ' LIMIT ' . $offset . ', ' . $nrOfRecords;
         }
+        #var_dump($sql);die;
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return $res;
@@ -626,8 +655,18 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      *
      * @return bool|string
      */
-    public function saveEntries($keyId, $newValues, $fallbackLanguageId = null, $ignoreSmallChange = false)
+    public function saveEntries($keyId, $newValues, $fallbackLanguageId = null, $ignoreSmallChange = false, $optionalTranslations = null)
     {
+
+        if($optionalTranslations == null) {
+            $optionalTranslations = array();
+            foreach($this->getOptionalTranslations($keyId) as $optionalTranslation) {
+                foreach($optionalTranslation as $optionalLanguage) {
+                    $optionalTranslations[] = $optionalLanguage;
+                }
+            }
+        }
+
         $keyId     = (int)$keyId;
         $oldValues = $this->getTranslationsByKeyId($keyId, array_keys($newValues), true);
         // remove unchanged languages
@@ -667,10 +706,18 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         }
 
         if (!$ignoreSmallChange && $fallbackLanguageId != null && array_key_exists($fallbackLanguageId, $newValues)) {
+
             $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
                 . "SET needs_update=1 "
                 . "WHERE `key_id`='{$keyId}' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ")";
             $this->_dbo->query($sql);
+
+            if($optionalTranslations != null) {
+                $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
+                    . "SET needs_update=0 "
+                    . "WHERE `key_id`='{$keyId}' AND `lang_id` IN (" . implode(',', $optionalTranslations) . ")";
+                $this->_dbo->query($sql);
+            }
         }
 
         $historyModel = new Application_Model_History();
@@ -814,6 +861,83 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
+    }
+
+    /**
+     * updates the data for the optional translations
+     *
+     * @param int $keyId      Id of the key.
+     * @param array $params   Parameters of the form submit
+     * @return array
+     */
+    public function updateOptionalTranslations($keyId, $params) {
+
+        $optional_translations = array();
+
+        $keys = array_keys($params);
+        $found_keys = preg_grep('/optional-\d/', $keys);
+
+        $sql = "DELETE FROM `{$this->_database}`.`{$this->_tableOptionalTranslations}` "
+            . "WHERE `key_id`='" . (int) $keyId . "';";
+        $this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+        if(count($found_keys) > 0) {
+
+            foreach($found_keys as $found_key) {
+
+                $sql = "INSERT INTO `{$this->_database}`.`{$this->_tableOptionalTranslations}` "
+                    . "SET `lang_id`='" . (int) $params[$found_key] . "', "
+                    . "`key_id`='" . (int) $keyId . "'";
+                $this->_dbo->query($sql, Msd_Db::SIMPLE);
+
+                $optional_translations[] = $params[$found_key];
+            }
+            
+        }
+
+        return $optional_translations;
+    }
+
+    /**
+     * Gets the optional translations (all or either by id, languageIds or both)
+     *
+     * @param int $keyId           Id of the key.
+     * @param array $languageIds   Array of language ids
+     * @return array
+     */
+    public function getOptionalTranslations($keyId = null, $languageIds = null) {
+        $keyId  = (int)$keyId;
+        $ret = array();
+        if ($languageIds != null && !is_array($languageIds)) {
+            $languageIds = (array)$languageIds;
+        }
+
+        $sql       = 'SELECT `key_id`, `lang_id`'
+            . ' FROM `' . $this->_database . '`.`' . $this->_tableOptionalTranslations . '`';
+
+        if($keyId != null || $languageIds != null) {
+            $sql .= ' WHERE';
+        }
+        if($keyId != null) {
+            $sql .= ' `key_id`=' . $keyId;
+        }
+        if($languageIds != null) {
+            $languages = implode(',', $languageIds);
+            if($keyId != null) {
+                $sql .= ' AND';
+            }
+            $sql .= ' `lang_id` IN (' . $languages . ')';
+        }
+
+        $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
+        if (empty($res)) {
+            return array();
+        }
+        foreach ($res as $r) {
+            $ret[$r['key_id']][$r['lang_id']] = 1;
+        }
+
+        return $ret;
     }
 
 }

@@ -91,11 +91,11 @@ INSERT INTO `filetemplates` (`id`,`name`,`header`,`footer`,`content`,`filename`)
 DROP TABLE IF EXISTS `history`;
 CREATE TABLE `history` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` smallint(5) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
   `dt` datetime NOT NULL,
-  `key_id` smallint(5) unsigned NOT NULL,
+  `key_id` int(11) unsigned NOT NULL,
   `action` varchar(255) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `lang_id` smallint(5) unsigned NOT NULL,
+  `lang_id` int(11) unsigned NOT NULL,
   `oldValue` text NOT NULL,
   `newValue` text NOT NULL,
   PRIMARY KEY (`id`)
@@ -147,7 +147,7 @@ INSERT INTO `keys` (`id`,`key`,`template_id`,`dt`) VALUES ('1','L_TEST','1','201
 
 DROP TABLE IF EXISTS `languages`;
 CREATE TABLE `languages` (
-  `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `locale` varchar(5) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -174,8 +174,8 @@ INSERT INTO `languages` (`id`,`active`,`locale`,`name`,`flag_extension`,`is_fall
 
 DROP TABLE IF EXISTS `translations`;
 CREATE TABLE `translations` (
-  `lang_id` smallint(5) unsigned NOT NULL,
-  `key_id` smallint(5) unsigned NOT NULL,
+  `lang_id` int(11) unsigned NOT NULL,
+  `key_id` int(11) unsigned NOT NULL,
   `text` longtext NOT NULL,
   `dt` datetime NOT NULL,
   PRIMARY KEY (`lang_id`,`key_id`)
@@ -306,7 +306,7 @@ INSERT INTO `users` (`id`,`username`,`password`,`active`) VALUES ('2','tester','
 DROP TABLE IF EXISTS `usersettings`;
 CREATE TABLE `usersettings` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` smallint(5) unsigned NOT NULL,
+  `user_id` int(11) unsigned NOT NULL,
   `setting` varchar(20) NOT NULL,
   `value` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)

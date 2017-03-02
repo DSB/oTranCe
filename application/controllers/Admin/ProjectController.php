@@ -19,11 +19,6 @@ class Admin_ProjectController extends AdminController
 {
 
     /**
-     * Hard coding projects ids since tooling is done from .ini files
-     */
-    const DEFAULT_PROJECT_ID = 'default';
-
-    /**
      * Check general access right
      *
      * @return bool|void

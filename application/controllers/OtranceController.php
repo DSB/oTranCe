@@ -16,6 +16,12 @@
  */
 class OtranceController extends Zend_Controller_Action
 {
+
+    /**
+     * Hard coding projects ids since tooling is done from .ini files
+     */
+    const DEFAULT_PROJECT_ID = 'default';
+
     /**
      * @var Application_Model_User
      */

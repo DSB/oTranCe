@@ -54,6 +54,11 @@ class OtranceController extends Zend_Controller_Action
     {
         $this->_config        = Msd_Registry::getConfig();
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
+
+        if ($this->_dynamicConfig->getParam('activeProject') === null) {
+            $this->_dynamicConfig->setParam('activeProject', self::DEFAULT_PROJECT_ID);
+        }
+
         $this->_userModel     = new Application_Model_User();
         parent::__construct($request, $response, $invokeArgs);
     }

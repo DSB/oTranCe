@@ -127,6 +127,16 @@ if ($this->user->isLoggedIn()) { ?>
 
 <div id="logout">
 <?php
+echo $this->partial(
+    'helper/switch-project-box.phtml',
+    array(
+        'lang'                  => $this->lang,
+        'controller'            => $this->controller,
+        'request'               => $this->request,
+        'availableProjects'     => $this->availableProjects,
+        'activeProject'        => $this->activeProject,
+    )
+);
 if ($this->controller != 'settings') {
     echo $this->partial(
         'helper/switch-language-box.phtml',

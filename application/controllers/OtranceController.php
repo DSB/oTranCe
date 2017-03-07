@@ -20,7 +20,8 @@ class OtranceController extends Zend_Controller_Action
     /**
      * Hard coding projects ids since tooling is done from .ini files
      */
-    const DEFAULT_PROJECT_ID = 'default';
+    const DEFAULT_PROJECT = 'default';
+    const DEFAULT_PROJECT_ID = 1;
 
     /**
      * @var Application_Model_User
@@ -56,7 +57,8 @@ class OtranceController extends Zend_Controller_Action
         $this->_dynamicConfig = Msd_Registry::getDynamicConfig();
 
         if ($this->_dynamicConfig->getParam('activeProject') === null) {
-            $this->_dynamicConfig->setParam('activeProject', self::DEFAULT_PROJECT_ID);
+            $this->_dynamicConfig->setParam('activeProject', self::DEFAULT_PROJECT);
+            $this->_dynamicConfig->setParam('activeProjectId', self::DEFAULT_PROJECT_ID);
         }
 
         $this->_userModel     = new Application_Model_User();

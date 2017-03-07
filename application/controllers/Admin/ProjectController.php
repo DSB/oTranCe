@@ -108,7 +108,7 @@ class Admin_ProjectController extends AdminController
     {
         $projectId = $this->_request->get('project');
         if ($projectId === null) {
-            return self::DEFAULT_PROJECT_ID;
+            return self::DEFAULT_PROJECT;
         }
 
         return $projectId;

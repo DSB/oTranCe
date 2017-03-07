@@ -28,12 +28,18 @@ class Application_Plugin_SwitchProject extends Zend_Controller_Plugin_Abstract
         $dynamicConfig         = Msd_Registry::getDynamicConfig();
         $activeProject = $dynamicConfig->getParam('activeProject');
         if (empty($activeProject)) {
-            $dynamicConfig->setParam('activeProject', OtranceController::DEFAULT_PROJECT_ID);
+            $dynamicConfig->setParam('activeProject', OtranceController::DEFAULT_PROJECT);
+            $dynamicConfig->setParam('activeProjectId', OtranceController::DEFAULT_PROJECT_ID);
         }
 
         $switchToProject = $request->getParam('switchProject', false);
         if ($switchToProject !== false) {
             $dynamicConfig->setParam('activeProject', $switchToProject);
+
+            // TODO this needs refactoring when defining projects in database
+            $config = Msd_Registry::getConfig();
+            $dynamicConfig->setParam('activeProjectId',
+                $config->getParam('project')[$switchToProject]['id']);
         }
     }
 }

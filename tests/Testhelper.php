@@ -81,7 +81,7 @@ class Testhelper
      *
      * @return void
      */
-    public function removeFile($file)
+    public static function removeFile($file)
     {
         if (!file_exists($file)) {
             return;

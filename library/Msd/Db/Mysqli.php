@@ -161,11 +161,12 @@ class Msd_Db_Mysqli extends Msd_Db_MysqlCommon
      * If $getRows is false, query will be executed, but the result handle
      * is returned.
      *
-     * @param string  $query   The query to execute
-     * @param int     $kind    Type of result set
-     * @param bool    $getRows Whether to fetch all rows and return them
+     * @param string $query The query to execute
+     * @param int $kind Type of result set
+     * @param bool $getRows Whether to fetch all rows and return them
      *
      * @return mysqli_result|array|bool
+     * @throws \Msd_Exception
      */
     public function query($query, $kind = self::ARRAY_OBJECT, $getRows = true)
     {

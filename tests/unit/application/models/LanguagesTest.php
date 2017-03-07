@@ -45,9 +45,19 @@ class LanguagesTest extends PHPUnit\Framework\TestCase
     public function testOptimizeAllTables()
     {
         $optimize = $this->model->optimizeAllTables();
-        $this->assertTrue($optimize[0]['Table'] == 'phpunit_otc.languages');
-        $this->assertTrue($optimize[0]['Op'] == 'optimize');
-        $this->assertTrue(strtolower($optimize[0]['Msg_text']) == 'ok');
+        $languageTable = $this->getLanaguageOptimization($optimize);
+        $this->assertNotEmpty($languageTable);
+        $this->assertSame($languageTable['Op'], 'optimize');
+        $this->assertSame(strtolower($languageTable['Msg_text']), 'ok');
+    }
+
+    protected function getLanaguageOptimization($optimizedResult)
+    {
+        $lang = array_filter($optimizedResult, function ($item) {
+            return $item['Table'] === 'phpunit_otc.languages';
+        });
+
+        return array_shift($lang);
     }
 
     public function testGetLanguageIdFromLocale()

@@ -1,11 +1,11 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'NumberFormat.php';
 
 /**
  * @group MsdViewHelper
  */
-class NumberFormatTest extends PHPUnit_Framework_TestCase
+class NumberFormatTest extends PHPUnit\Framework\TestCase
 {
     public function testFormatNumberWithoutPrecision()
     {

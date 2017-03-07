@@ -1,11 +1,11 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'GetIcon.php';
 
 /**
  * @group MsdViewHelper
  */
-class GetIconTest extends PHPUnit_Framework_TestCase
+class GetIconTest extends PHPUnit\Framework\TestCase
 {
     public function testGetIconEdit()
     {

@@ -3,7 +3,7 @@
  * @group Statistics
  * @group Models
  */
-class StatisticsTest extends PHPUnit_Framework_TestCase
+class StatisticsTest extends PHPUnit\Framework\TestCase
 {
     /**
      * @var \Application_Model_Statistics

@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'PrintFileTemplate.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class PrintFileTemplateTest extends PHPUnit_Framework_TestCase
+class PrintFileTemplateTest extends PHPUnit\Framework\TestCase
 {
     public function testCanPrintFileTemplates()
     {

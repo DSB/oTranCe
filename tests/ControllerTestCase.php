@@ -1,5 +1,4 @@
 <?php
-require_once 'Zend/Test/PHPUnit/ControllerTestCase.php';
 
 class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 {

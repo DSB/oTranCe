@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'PrintStatusIcon.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class PrintStatusIconTest extends PHPUnit_Framework_TestCase
+class PrintStatusIconTest extends PHPUnit\Framework\TestCase
 {
     public function testCanPrintStatusIcon()
     {

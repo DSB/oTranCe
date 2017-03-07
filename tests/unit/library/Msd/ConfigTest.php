@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
  
-class ConfigTest extends PHPUnit_Framework_TestCase
+class ConfigTest extends PHPUnit\Framework\TestCase
 {
     private $_savedConfig = null;
     /**

@@ -3,7 +3,7 @@
  * @group Importers
  * @group Models
  */
-class ImportersTest extends PHPUnit_Framework_TestCase
+class ImportersTest extends PHPUnit\Framework\TestCase
 {
     /**
      * @var \Application_Model_Importers

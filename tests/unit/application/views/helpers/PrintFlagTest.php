@@ -1,5 +1,5 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 include_once('ByteOutput.php');
 include_once('PrintFlag.php');
 

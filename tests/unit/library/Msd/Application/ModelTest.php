@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
  
-class ModelTest extends PHPUnit_Framework_TestCase
+class ModelTest extends PHPUnit\Framework\TestCase
 {
     public function testCanCreateAnInstanceOfApplicationModel()
     {

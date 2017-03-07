@@ -1,11 +1,11 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'Filesize.php';
 
 /**
  * @group MsdViewHelper
  */
-class FilesizeTest extends PHPUnit_Framework_TestCase
+class FilesizeTest extends PHPUnit\Framework\TestCase
 {
     public function testFilesize()
     {

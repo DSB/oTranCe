@@ -15,7 +15,7 @@ class ConfigTest extends PHPUnit\Framework\TestCase
      */
     private function _getMockedConfigObject()
     {
-        $ioHandler = $this->getMock('Msd_Config_IoHandler_Default', array('load', 'save'));
+        $ioHandler = $this->createMock('Msd_Config_IoHandler_Default', array('load', 'save'));
         $ioHandler->expects($this->any())->method('load')->with($this->equalTo('phpunit.ini'))->will(
             $this->returnValue(array('foo' => 'bar'))
         );

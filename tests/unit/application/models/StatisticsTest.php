@@ -23,13 +23,15 @@ class StatisticsTest extends PHPUnit\Framework\TestCase
                 'user_id'     => '1',
                 'lang_id'     => '1',
                 'editActions' => '758',
-                'username'    => 'Admin'
+                'username'    => 'Admin',
+                'locale'      => 'de'
             ),
             1 => array(
                 'user_id'     => '1',
                 'lang_id'     => '2',
                 'editActions' => '755',
-                'username'    => 'Admin'
+                'username'    => 'Admin',
+                'locale'      => 'en'
             )
         );
         $this->assertEquals($expected, $statistics);

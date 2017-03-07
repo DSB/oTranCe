@@ -16,3 +16,6 @@
 /public/images/flags/th_TH.gif
 dist
 /public/images/otrance-flags/*.db
+
+vendor/
+/tests/phpunit

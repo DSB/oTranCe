@@ -26,9 +26,9 @@ set_include_path(
         )
     )
 );
-
+opcache_reset();
 /** Zend_Application */
-require_once 'Zend/Application.php';
+require_once APPLICATION_PATH . '/../vendor/autoload.php';
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(

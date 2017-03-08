@@ -108,7 +108,7 @@ class Admin_ProjectController extends AdminController
     {
         $projectId = $this->_request->get('project');
         if ($projectId === null) {
-            return self::DEFAULT_PROJECT;
+            return Application_Model_Project::DEFAULT_PROJECT;
         }
 
         return $projectId;
@@ -119,11 +119,20 @@ class Admin_ProjectController extends AdminController
      * Get config values for specified project
      *
      * @param string $projectId
-     * @return mixed
+     * @return array
      */
     protected function getProjectConfig($projectId)
     {
-        return $this->_config->getParam('project')[$projectId];
+        try {
+            return $this->_activeProject->getProject($projectId);
+        } catch (Msd_Exception $e) {
+            $translator = $this->view->lang;
+            $this->view->errors = array(
+                'noProject' => array(0 => $translator->translate('L_PROJECT_NOT_FOUND'))
+            );
+            $this->forward('admin');
+            return array();
+        }
     }
 
 
@@ -134,6 +143,6 @@ class Admin_ProjectController extends AdminController
      */
     protected function getAllProjectsConfig()
     {
-        return $this->_config->getParam('project');
+        return $this>$this->_activeProject->getAllProjects();
     }
 }

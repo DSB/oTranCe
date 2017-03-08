@@ -9,12 +9,13 @@ class Testhelper
      * Prepare tests
      *
      * @return void
+     * @throws \Exception
      */
     public static function setUp()
     {
         // create phpunit_test.ini in application/configs folder for tests
         $destinationFile = APPLICATION_PATH . '/configs/config.ini';
-        if (!in_array($destinationFile, self::$_copiedFiles)) {
+        if (!in_array($destinationFile, self::$_copiedFiles, true)) {
             self::copyFile('config.ini', $destinationFile);
         }
     }
@@ -23,6 +24,7 @@ class Testhelper
      * Rollback actions, made by setUp() method
      *
      * @return void
+     * @throws \Exception
      */
     public static function onShutdown()
     {

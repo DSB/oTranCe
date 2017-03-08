@@ -798,7 +798,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $translator              = Msd_Language::getInstance()->getTranslator();
 
         // check for min-length of 1 character
-        if (strlen($keyName) < 1) {
+        if ($keyName === '') {
             $this->_validateMessages[] = $translator->translate('L_VALIDATE_ERROR_NAME_TOO_SHORT');
 
             return false;

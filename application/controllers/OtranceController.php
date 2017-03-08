@@ -97,7 +97,7 @@ class OtranceController extends Zend_Controller_Action
     protected function getValidatedSortField($sortField)
     {
         $allowedValues = array('id', 'username', 'realName', 'active', 'editActions', 'lastAction', 'locale');
-        if (in_array($sortField, $allowedValues)) {
+        if (in_array($sortField, $allowedValues, true)) {
             return $sortField;
         }
 

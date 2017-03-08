@@ -36,4 +36,5 @@ $application = new Zend_Application(
 );
 $application->bootstrap();
 Testhelper::setUpDb();
+Testhelper::setUpDb('db_schema_update8.sql');
 clearstatcache();

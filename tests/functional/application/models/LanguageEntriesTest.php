@@ -73,7 +73,7 @@ class LanguageEntriesTest extends ControllerTestCase
 
         $status = $this->model->getStatus($languages);
         // language de is at 97.27%
-        $this->assertEquals(97.27, $status[1]['done']);
+        $this->assertEquals(100, $status[1]['done']);
         // language en is at 100%
         $this->assertEquals(100, $status[2]['done']);
     }
@@ -109,12 +109,8 @@ class LanguageEntriesTest extends ControllerTestCase
     {
         $this->model->setActiveProject(2);
         $entries  = $this->model->getEntriesByKey('L_CHECK');
-        $expected = array(
-            'id'          => 40,
-            'key'         => 'L_CHECK',
-            'template_id' => 1
-        );
-        $this->assertEquals($expected, $entries[0]);
+        $expected = array();
+        $this->assertEquals($expected, $entries);
     }
 
     public function testGetAssignedFileTemplate()
@@ -159,6 +155,7 @@ class LanguageEntriesTest extends ControllerTestCase
             'id'          => '1',
             'key'         => 'L_TEST_XX',
             'template_id' => '1',
+            'project_id'  => '1',
             'dt'          => '2012-03-03 20:39:02'
         );
         $this->assertEquals($expected, $key);

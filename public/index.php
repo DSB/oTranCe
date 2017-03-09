@@ -26,7 +26,7 @@ set_include_path(
         )
     )
 );
-opcache_reset();
+
 /** Zend_Application */
 require_once APPLICATION_PATH . '/../vendor/autoload.php';
 

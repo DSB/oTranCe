@@ -19,3 +19,4 @@ dist
 
 vendor/
 /tests/phpunit
+build/coverage

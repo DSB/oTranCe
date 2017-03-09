@@ -109,6 +109,7 @@ class LanguageEntriesTest extends ControllerTestCase
     {
         $this->model->setActiveProject(2);
         $entries  = $this->model->getEntriesByKey('L_CHECK');
+        $this->model->setActiveProject(1);
         $expected = array();
         $this->assertEquals($expected, $entries);
     }

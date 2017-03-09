@@ -677,8 +677,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $date                 = date('Y-m-d H:i:s', time());
             $sql                  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
                 . ' (`lang_id`, `key_id`, `project_id`, `text`, `dt`) VALUES ('
-                . $langId . ', ' . $keyId . ', \'' . ', '
-                . $this->getActiveProject() . ', ' . $text . '\', \'' . $date . '\')'
+                . $langId . ', ' . $keyId . ', '
+                . $this->getActiveProject() . ', \'' . $text . '\', \'' . $date . '\')'
                 . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\''
                 . ', `needs_update`=\'0\'';
 

@@ -137,6 +137,7 @@ class LanguageEntriesTest extends ControllerTestCase
             'id'          => '1',
             'key'         => 'L_TEST',
             'template_id' => '99',
+            'project_id'  => '1',
             'dt'          => '2012-03-03 20:39:02'
         );
         $this->assertEquals($expected, $key);

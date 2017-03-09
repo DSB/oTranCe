@@ -85,4 +85,27 @@ class Application_Model_Project extends Msd_Application_Model
         return (int) $projectConf['id'];
     }
 
+
+    /**
+     * Return project setting by its Id
+     *
+     * @param int $projectId
+     * @return array
+     */
+    public function getProjectById($projectId)
+    {
+        $result = array_filter(
+            $this->getAllProjects(),
+            function ($project) use ($projectId) {
+                return (int) $project['id'] === $projectId;
+            }
+        );
+
+        if (empty($result)) {
+            return array();
+        }
+
+        return array_shift($result);
+    }
+
 }

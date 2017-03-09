@@ -104,4 +104,20 @@ class OtranceController extends Zend_Controller_Action
         return 'username';
     }
 
+
+    /**
+     * Active project to filter result from
+     *
+     * @return array
+     */
+    public function getActiveProject()
+    {
+        /** @var Application_Model_Project $activeProject */
+        $activeProject = new Application_Model_Project();
+
+        return $activeProject->getProjectById(
+            $activeProject->getActiveProject()
+        );
+    }
+
 }

@@ -13,6 +13,7 @@ class LanguageEntriesTest extends ControllerTestCase
     public static function setUpBeforeClass()
     {
         Testhelper::setUpDb('LanguageEntries.sql');
+        Testhelper::setUpDb('db_schema_update4.sql');
         Testhelper::setUpDb('db_schema_update8.sql');
     }
 

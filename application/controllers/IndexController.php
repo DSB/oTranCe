@@ -182,7 +182,7 @@ class IndexController extends OtranceController
             $redirectUrl .= $this->view->baseUrl() . '/index/index';
         }
 
-        $this->redirect($redirectUrl, array('exit' => true));
+        $this->redirect($redirectUrl);
     }
 
     /**

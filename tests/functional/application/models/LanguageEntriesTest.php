@@ -26,14 +26,22 @@ class LanguageEntriesTest extends ControllerTestCase
     public function testGetAllKeys()
     {
         $keys = $this->model->getAllKeys();
-        $this->assertEquals(110, sizeof($keys));
+        $this->assertCount(110, $keys);
+    }
+
+    public function testGetAllKeysForOtherProjectWithNoTranslations()
+    {
+        $this->model->setActiveProject(2);
+        $keys = $this->model->getAllKeys();
+        $this->model->setActiveProject(1);
+        $this->assertCount(0, $keys);
     }
 
 
     public function testGetTranslations()
     {
         $translations = $this->model->getTranslations(1);
-        $this->assertEquals(110, sizeof($translations));
+        $this->assertCount(110, $translations);
         $this->assertEquals('Ersetze NULL durch', $translations[110]);
 
         $translations = $this->model->getTranslations(2);
@@ -41,6 +49,16 @@ class LanguageEntriesTest extends ControllerTestCase
 
         // positive false check with non existent language id
         $translations = $this->model->getTranslations(9999);
+        $this->assertEquals(array(), $translations);
+
+    }
+
+    public function testGetTranslationsForOtherProjectWithNoTranslations()
+    {
+        // positive false check with non existent language id
+        $this->model->setActiveProject(2);
+        $translations = $this->model->getTranslations(1);
+        $this->model->setActiveProject(1);
         $this->assertEquals(array(), $translations);
 
     }
@@ -59,8 +77,36 @@ class LanguageEntriesTest extends ControllerTestCase
         $this->assertEquals(100, $status[2]['done']);
     }
 
+    public function testGetStatusForOtherProjectWithNoTranslations()
+    {
+        $languages = array(
+            array('id' => 1),
+            array('id' => 2)
+        );
+
+        $this->model->setActiveProject(2);
+        $status = $this->model->getStatus($languages);
+        $this->model->setActiveProject(1);
+        // language de is at 97.27%
+        $this->assertEquals(0, $status[1]['done']);
+        // language en is at 100%
+        $this->assertEquals(0, $status[2]['done']);
+    }
+
     public function testsGetEntriesByKey()
     {
+        $entries  = $this->model->getEntriesByKey('L_CHECK');
+        $expected = array(
+            'id'          => 40,
+            'key'         => 'L_CHECK',
+            'template_id' => 1
+        );
+        $this->assertEquals($expected, $entries[0]);
+    }
+
+    public function testsGetEntriesByKeyForOtherProjectWithNoTranslations()
+    {
+        $this->model->setActiveProject(2);
         $entries  = $this->model->getEntriesByKey('L_CHECK');
         $expected = array(
             'id'          => 40,

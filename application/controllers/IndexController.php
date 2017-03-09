@@ -182,7 +182,10 @@ class IndexController extends OtranceController
             $redirectUrl .= $this->view->baseUrl() . '/index/index';
         }
 
-        $this->redirect($redirectUrl);
+        // redirect with exit only when not in testing
+        $this->redirect($redirectUrl,
+            array('exit' => APPLICATION_ENV !== 'testing')
+        );
     }
 
     /**

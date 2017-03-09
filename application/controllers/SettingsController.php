@@ -37,7 +37,7 @@ class SettingsController extends OtranceController
      */
     public function init()
     {
-        $this->_projectConfig     = $this->_config->getParam('project');
+        $this->_projectConfig     = $this->getActiveProject();
         $this->view->vcsActivated = false;
         if ($this->_projectConfig['vcsActivated'] == 1) {
             $this->view->vcsActivated = true;

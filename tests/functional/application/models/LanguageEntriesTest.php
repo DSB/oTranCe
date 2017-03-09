@@ -318,33 +318,33 @@ class LanguageEntriesTest extends ControllerTestCase
     {
         // check that we get 10 translations for template 1
         $entries = $this->model->getEntriesByKey('', 0, 10, 1);
-        $this->assertEquals(10, sizeof($entries));
+        $this->assertCount(10, $entries);
 
         // positive false check - check that we get 0 translations for template 2
         $entries = $this->model->getEntriesByKey('L_ADD', 0, 10, 2);
-        $this->assertEquals(0, sizeof($entries));
+        $this->assertCount(0, $entries);
     }
 
     public function testGetUntranslated()
     {
         // check we get 3 untranslated phrases in total
         $entries = $this->model->getUntranslated();
-        $this->assertEquals(3, sizeof($entries));
+        $this->assertCount(3, $entries);
 
         // check we find 1 untranslated key with "ACTION" in key name
         $entries = $this->model->getUntranslated(1, 'ACTION');
-        $this->assertEquals(1, sizeof($entries));
+        $this->assertCount(1, $entries);
 
         // check we find no untranslated key with "ACTION" in key name for template 2
         $entries = $this->model->getUntranslated(1, 'ACTION', 0, 5, 2);
-        $this->assertEquals(0, sizeof($entries));
+        $this->assertCount(0, $entries);
     }
 
     public function testGetUntranslatedResetsInvalidOffset()
     {
         $entries = $this->model->getUntranslated(1, -14);
         // if illegal offset -14 is corrected to 0 we should get 3 hits
-        $this->assertEquals(3, sizeof($entries));
+        $this->assertCount(3, $entries);
 
         // while we are here and triggered a search, we check the method getRowCount()
         $foundRows = $this->model->getRowCount();

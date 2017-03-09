@@ -20,7 +20,7 @@ class StatisticsControllerTest extends ControllerTestCase
         $this->assertTrue($deletedRight);
         $this->loginUser();
         $this->dispatch('/statistics');
-        $this->assertRedirect('/');
+        $this->assertQueryContentContains('#headline > h2', $this->_translator->_('L_ERROR_PERMISSION'));
     }
 
 }

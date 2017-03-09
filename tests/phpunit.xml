@@ -12,8 +12,10 @@
          strict="false"
          beStrictAboutTestsThatDoNotTestAnything="false">
     <testsuites>
-        <testsuite name="oTranCeTestSuite">
+        <testsuite name="oTranCeTestSuiteUnit">
             <directory>unit/</directory>
+        </testsuite>
+        <testsuite name="oTranCeTestSuiteFunctional">
             <directory>functional/</directory>
         </testsuite>
     </testsuites>

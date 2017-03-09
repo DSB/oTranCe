@@ -105,8 +105,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $ret = array();
         $sql = "SELECT `key_id`, `text` FROM `{$this->_tableTranslations}`"
-            . ' WHERE `lang_id`= ' . intval($languageId)
-            . ' AND `project_id = `' . $this->getActiveProject();
+            . ' WHERE `lang_id`= ' . (int) $languageId
+            . ' AND `project_id` = ' . $this->getActiveProject();
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
             $ret[$data['key_id']] = $data['text'];
@@ -399,14 +399,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if (!is_array($languageIds)) {
             $languageIds = (array)$languageIds;
         }
-        if ($id == 0 || empty($languageIds)) {
+        if ($id === 0 || empty($languageIds)) {
             return $ret;
         }
         $languages = implode(',', $languageIds);
         $sql       = 'SELECT `lang_id`, `text`'
             . ' FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
             . ' WHERE `project_id` = ' . $this->getActiveProject()
-            . ' AND key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
+            . ' AND `key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
         $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (empty($res)) {
             return array();

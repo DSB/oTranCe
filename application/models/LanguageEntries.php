@@ -308,7 +308,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         $where = array();
 
-        $where[] = 't.`project_id` = ' . $this->getActiveProject();
+        $where[] = 'k.`project_id` = ' . $this->getActiveProject();
 
         if ($searchphrase > '') {
             $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';

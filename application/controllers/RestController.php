@@ -46,7 +46,7 @@ class RestController extends OtranceController
     public function preDispatch()
     {
         try {
-            $this->checkRight('showImport');
+            $this->checkRight($this->getRequest()->isPost() ? 'showImport' : 'showExport');
         } catch (Msd_Exception $e) {
             $this->handleException($e);
         }
@@ -65,7 +65,7 @@ class RestController extends OtranceController
             'success' => false,
             'trace' => $e->getTrace()
         ));
-        $code =  $e->getCode();
+        $code = $e->getCode();
         $this->getResponse()
             ->setHttpResponseCode($code)
             ->setBody($jsonData)
@@ -121,6 +121,7 @@ class RestController extends OtranceController
             if ($loginResult === Msd_User::SUCCESS) {
                 $historyModel->logLoginSuccess();
                 $this->_userModel = new Application_Model_User();
+
                 return true;
             }
 
@@ -163,11 +164,11 @@ class RestController extends OtranceController
             $this->handleException($e);
         }
 
-        $this->_entriesModel       = new Application_Model_LanguageEntries();
-        $this->_languagesModel     = new Application_Model_Languages();
+        $this->_entriesModel = new Application_Model_LanguageEntries();
+        $this->_languagesModel = new Application_Model_Languages();
         $this->_fileTemplatesModel = new Application_Model_FileTemplates();
         // build array containing those languages the user is allowed to edit
-        $allLanguages  = $this->_languagesModel->getAllLanguages();
+        $allLanguages = $this->_languagesModel->getAllLanguages();
         $userLanguages = $this->_userModel->getUserLanguageRights();
         if (!empty($userLanguages)) {
             $userLanguages = array_flip($userLanguages);
@@ -233,7 +234,7 @@ class RestController extends OtranceController
         if ($locale === null) {
             // lang local: de, en, es, etc...
             $this->handleException(new Msd_Exception(
-                'No language locale (de, en, es, etc...) provided.', 400)
+                    'No language locale (de, en, es, etc...) provided.', 400)
             );
         }
 
@@ -270,7 +271,7 @@ class RestController extends OtranceController
         }
 
         $translations = $this->getRequest()->getParam('translations');
-        if ($translations=== null) {
+        if ($translations === null) {
             $this->handleException(new Msd_Exception(
                     'No translations provided. Doing nothing.', 400)
             );

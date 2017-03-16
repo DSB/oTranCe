@@ -63,7 +63,7 @@ class Application_Model_Project extends Msd_Application_Model
         $projectConf = $this->_config->getParam('project');
 
         if (! array_key_exists($project, $projectConf)) {
-            throw new Msd_Exception('Project: ' . $project , ' not found.');
+            throw new Msd_Exception('Project: ' . $project . ' not found.');
         }
 
         return $projectConf[$project];

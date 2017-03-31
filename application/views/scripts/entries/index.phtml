@@ -110,14 +110,26 @@ $fileTemplateHelper = $this->printFileTemplateHtml(
         </tr>
     </table>
     <div class="top-margin">
-        <?php
-        if ($this->user->hasRight('addVar')) { ?>
+        <?php if ($this->user->hasRight('addVar')): ?>
              <button type="submit" class="Formbutton ui-corner-all" name="addVar" value="addVar">
                  <?php echo $this->getIcon('plus', '');?> <?php echo $this->lang->L_ADD_NEW_KEY;?>
              </button>
-        <br/><br/>
-            <?php
-        }
+        <?php endif; ?>
+        <?php if ($this->translationServiceConfigured && $this->user->hasRight('editKey')) : ?>
+            <?php foreach ($this->showLanguages as $lang): ?>
+                <button type="submit" class="Formbutton ui-corner-all"
+                        name="bulkTranslation"
+                        value="<?php echo $lang; ?>">
+                    <?php echo $this->getIcon('Edit', '');?>
+                    <?php echo $this->lang->L_BULK_TRANSLATE ;?>
+                    <?php echo $this->printFlag($lang, 16); ?>
+                </button>
+            <?php endforeach; ?>
+            <br/><br/>
+        <?php else: ?>
+            <br/><br/>
+        <?php endif; ?>
+        <?php
         echo $this->partial('entries/index/browse-bar.phtml', array(
                 'user'              => $this->user,
                 'lang'              => $this->lang,

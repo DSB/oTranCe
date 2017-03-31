@@ -62,9 +62,16 @@ class EntriesController extends OtranceController
     {
         if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
             if ($this->_request->getParam('addVar') !== null) {
-                $this->_forward('add-variable');
+                $this->forward('add-variable');
             }
         }
+
+        if ($this->_request->isPost() && $this->_request->getParam('forwarded') == null) {
+            if ($this->_request->getParam('bulkTranslation') !== null) {
+                $this->forward('bulk');
+            }
+        }
+
         $this->_initParams();
         $this->_assignVars();
         $this->view->selRecordsPerPage = Msd_Html::getHtmlRangeOptions(
@@ -120,11 +127,114 @@ class EntriesController extends OtranceController
             }
         }
 
+        $projectConfig = $this->_config->getParam('translationService');
+        $this->view->translationServiceConfigured =
+            !empty($projectConfig['useService']);
+
         $this->view->rows = $this->_entriesModel->getRowCount();
         $this->view->hits = $this->_entriesModel->assignTranslations(
             $this->view->showLanguages,
             $this->view->hits
         );
+    }
+
+    /**
+     * Handle bulk translations action
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function bulkAction()
+    {
+        $this->_initParams();
+        $this->_assignVars();
+        $this->setLanguages();
+        $projectConfig = $this->_config->getParam('translationService');
+        if (!$projectConfig['useService']) {
+            $this->view->popUpMessage()->addMessage(
+                'no-service-configure',
+                'L_ERROR',
+                'L_CONFIGURATION_OF_EXTERNAL_SERVICE_NOT_FOUND',
+                array(
+                    'modal'       => true,
+                    'dialogClass' => 'error'
+                )
+            );
+            $this->forward('index');
+        }
+
+        $translationService = Msd_Translate::getInstance($projectConfig['selectedService']);
+        $languageFrom = $this->_request->getParam('bulkTranslation');
+        $languageId = $this->_dynamicConfig->getParam('entries.getUntranslated');
+
+        if ((int)$languageFrom === $languageId) {
+            $this->view->popUpMessage()->addMessage(
+                'same-language-used',
+                'L_ERROR',
+                'L_ERROR_NO_LANGUAGE_TRANSLATABLE',
+                array(
+                    'modal'       => true,
+                    'dialogClass' => 'error'
+                )
+            );
+            $this->forward('index');
+        }
+
+        $translateTo = $this->_entriesModel->getUntranslated($languageId, '', 0, 0);
+        $translateFrom = $this->_entriesModel->getAllKeysWithTranslations($languageFrom);
+
+        $missingTranslations = 0;
+        $errorCount = 0;
+        $this->view->error = array();
+        foreach ($translateTo as $entry) {
+            if (!array_key_exists($entry['id'], $translateFrom)) {
+                $missingTranslations++;
+                continue;
+            }
+
+            $translation = $translationService->getTranslation(
+                $translateFrom[$entry['id']]['text'],
+                $this->view->languages[$languageFrom]['locale'],
+                $this->view->languages[$languageId]['locale']
+            );
+
+            if ($errorCount < 10 && $translation['error']) {
+                $this->view->error[] = $translation['errorMsg'];
+                $errorCount++;
+            }
+
+            // do something with $translation['translatedText']
+            $this->_entriesModel->saveEntries(
+                $entry['id'],
+                array($languageId => $translation['translatedText'])
+            );
+        }
+
+        if ($missingTranslations > 0) {
+            $this->view->error[] = sprintf('There are %d missing translations', $missingTranslations);
+        }
+
+        if ($missingTranslations >= 10) {
+            $this->view->error[] = sprintf('More then %d were found.', $errorCount);
+        }
+
+        if(count($this->view->error) > 0) {
+            $this->view->error = implode('<br /><br />', $this->view->error);
+            $this->view->popUpMessage()->addMessage(
+                'translation-errors',
+                'L_ERROR',
+                $this->view->error,
+                array(
+                    'modal'       => true,
+                    'dialogClass' => 'error'
+                )
+            );
+        }
+
+        $this->_request->setParam('bulkTranslation', null);
+        //  for some reason setParam did not worked as expected
+        $_POST['bulkTranslation'] = null;
+        $this->forward('index');
     }
 
     /**

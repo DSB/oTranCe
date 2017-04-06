@@ -28,7 +28,8 @@ class Application_Plugin_LoginCheck extends Zend_Controller_Plugin_Abstract
     {
         $this->_request = $request;
         if ($this->_isLoginPage() || $this->_isRegisterPage() || $this->_isErrorPage()
-            || $request->getControllerName() == 'index_password' || $this->_isAllowedStartPage()
+            || $request->getControllerName() === 'index_password' || $this->_isAllowedStartPage()
+            || $request->getControllerName() === 'rest'
         ) {
             return;
         }

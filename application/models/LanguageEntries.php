@@ -95,6 +95,31 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     }
 
     /**
+     * Get all keys with translations
+     *
+     * @return array
+     */
+    public function getAllKeysWithTranslations($languageId)
+    {
+        $sql = "SELECT k.`id`, k.`key`,k.`template_id`, t.`text`  FROM `{$this->_tableKeys}` k "
+            . ' LEFT JOIN `'. $this->_tableTranslations .'` t ON t.`key_id` = k.`id`'
+            . ' WHERE k.`project_id` = ' . $this->getActiveProject()
+            . ' AND t.`lang_id` = ' . $languageId
+            . ' ORDER BY k.`template_id` ASC, k.`key` ASC';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $ret = array();
+        foreach ($res as $data) {
+            $ret[$data['id']] = array(
+                'templateId' => $data['template_id'],
+                'key'        => $data['key'],
+                'text'       => $data['text']
+            );
+        }
+
+        return $ret;
+    }
+
+    /**
      * Get all language vars of a language and return as ass. array
      *
      * @param int $languageId Id of language to fetch

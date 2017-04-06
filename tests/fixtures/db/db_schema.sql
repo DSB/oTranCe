@@ -15,6 +15,7 @@
 -- EOF TABLE-INFO
 --
 -- Dump by MySQLDumper 1.24.4 (http://mysqldumper.net)
+USE `phpunit_otc`;
 /*!40101 SET NAMES 'utf8' */;
 SET FOREIGN_KEY_CHECKS=0;
 -- Dump created: 2012-03-04 22:30

@@ -97,7 +97,8 @@ class Application_Model_Project extends Msd_Application_Model
         $result = array_filter(
             $this->getAllProjects(),
             function ($project) use ($projectId) {
-                return (int) $project['id'] === $projectId;
+                return (int) array_key_exists('id', $project)
+                    && $project['id'] === $projectId;
             }
         );
 

@@ -1,3 +1,4 @@
+USE `phpunit_otc`;
 ALTER TABLE `translations` ADD COLUMN `project_id` INT( 11 ) UNSIGNED NOT NULL AFTER `key_id`;
 ALTER TABLE `translations` DROP PRIMARY KEY, ADD PRIMARY KEY (`lang_id`,`key_id`, `project_id`);
 ALTER TABLE `keys` ADD COLUMN `project_id` INT( 11 ) UNSIGNED NOT NULL AFTER `template_id`;

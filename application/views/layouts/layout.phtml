@@ -1,7 +1,8 @@
 <?php
-$projectConfig   = $this->config->getParam('project');
-$interfaceConfig = $this->config->getParam('interface');
 $dynamicConfig   = Msd_Registry::getDynamicConfig();
+$currentProject = $dynamicConfig->getParam('activeProject');
+$projectConfig   = $this->config->getParam('project')[$currentProject];
+$interfaceConfig = $this->config->getParam('interface');
 $guiLanguages    = $dynamicConfig->getParam('availableGuiLanguages');
 $theme           = $interfaceConfig['theme'];
 $language        = $this->lang->getActiveLanguage();
@@ -60,6 +61,20 @@ $('#switchLanguage').selectmenu({
         $('#formSwitchLanguage').submit();
     }
 });
+
+$('#switchProject').selectmenu({
+    style:'dropdown',
+    width: 'auto',
+    change: function() {
+        $('#formSwitchProject').hide();
+        // preserve inputs from other forms
+        $('form:not(#formSwitchProject) :input').each(function() {
+            $('#formSwitchProject').append(this);
+        });
+        $('#formSwitchProject').submit();
+    }
+});
+
 var imgAjax  = '<?php echo $this->getIcon('ajax-loader');?>';
 var imgError = '<?php echo $this->getIcon('Attention', $this->lang->L_ERROR, 16);?>';
 <?php

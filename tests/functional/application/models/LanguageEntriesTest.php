@@ -13,6 +13,8 @@ class LanguageEntriesTest extends ControllerTestCase
     public static function setUpBeforeClass()
     {
         Testhelper::setUpDb('LanguageEntries.sql');
+        Testhelper::setUpDb('db_schema_update4.sql');
+        Testhelper::setUpDb('db_schema_update8.sql');
     }
 
     public function setUp()
@@ -25,14 +27,22 @@ class LanguageEntriesTest extends ControllerTestCase
     public function testGetAllKeys()
     {
         $keys = $this->model->getAllKeys();
-        $this->assertEquals(110, sizeof($keys));
+        $this->assertCount(110, $keys);
+    }
+
+    public function testGetAllKeysForOtherProjectWithNoTranslations()
+    {
+        $this->model->setActiveProject(2);
+        $keys = $this->model->getAllKeys();
+        $this->model->setActiveProject(1);
+        $this->assertCount(0, $keys);
     }
 
 
     public function testGetTranslations()
     {
         $translations = $this->model->getTranslations(1);
-        $this->assertEquals(110, sizeof($translations));
+        $this->assertCount(110, $translations);
         $this->assertEquals('Ersetze NULL durch', $translations[110]);
 
         $translations = $this->model->getTranslations(2);
@@ -40,6 +50,16 @@ class LanguageEntriesTest extends ControllerTestCase
 
         // positive false check with non existent language id
         $translations = $this->model->getTranslations(9999);
+        $this->assertEquals(array(), $translations);
+
+    }
+
+    public function testGetTranslationsForOtherProjectWithNoTranslations()
+    {
+        // positive false check with non existent language id
+        $this->model->setActiveProject(2);
+        $translations = $this->model->getTranslations(1);
+        $this->model->setActiveProject(1);
         $this->assertEquals(array(), $translations);
 
     }
@@ -53,9 +73,25 @@ class LanguageEntriesTest extends ControllerTestCase
 
         $status = $this->model->getStatus($languages);
         // language de is at 97.27%
-        $this->assertEquals(97.27, $status[1]['done']);
+        $this->assertEquals(100, $status[1]['done']);
         // language en is at 100%
         $this->assertEquals(100, $status[2]['done']);
+    }
+
+    public function testGetStatusForOtherProjectWithNoTranslations()
+    {
+        $languages = array(
+            array('id' => 1),
+            array('id' => 2)
+        );
+
+        $this->model->setActiveProject(2);
+        $status = $this->model->getStatus($languages);
+        $this->model->setActiveProject(1);
+        // language de is at 97.27%
+        $this->assertEquals(0, $status[1]['done']);
+        // language en is at 100%
+        $this->assertEquals(0, $status[2]['done']);
     }
 
     public function testsGetEntriesByKey()
@@ -67,6 +103,15 @@ class LanguageEntriesTest extends ControllerTestCase
             'template_id' => 1
         );
         $this->assertEquals($expected, $entries[0]);
+    }
+
+    public function testsGetEntriesByKeyForOtherProjectWithNoTranslations()
+    {
+        $this->model->setActiveProject(2);
+        $entries  = $this->model->getEntriesByKey('L_CHECK');
+        $this->model->setActiveProject(1);
+        $expected = array();
+        $this->assertEquals($expected, $entries);
     }
 
     public function testGetAssignedFileTemplate()
@@ -92,6 +137,7 @@ class LanguageEntriesTest extends ControllerTestCase
             'id'          => '1',
             'key'         => 'L_TEST',
             'template_id' => '99',
+            'project_id'  => '1',
             'dt'          => '2012-03-03 20:39:02'
         );
         $this->assertEquals($expected, $key);
@@ -111,6 +157,7 @@ class LanguageEntriesTest extends ControllerTestCase
             'id'          => '1',
             'key'         => 'L_TEST_XX',
             'template_id' => '1',
+            'project_id'  => '1',
             'dt'          => '2012-03-03 20:39:02'
         );
         $this->assertEquals($expected, $key);
@@ -273,33 +320,33 @@ class LanguageEntriesTest extends ControllerTestCase
     {
         // check that we get 10 translations for template 1
         $entries = $this->model->getEntriesByKey('', 0, 10, 1);
-        $this->assertEquals(10, sizeof($entries));
+        $this->assertCount(10, $entries);
 
         // positive false check - check that we get 0 translations for template 2
         $entries = $this->model->getEntriesByKey('L_ADD', 0, 10, 2);
-        $this->assertEquals(0, sizeof($entries));
+        $this->assertCount(0, $entries);
     }
 
     public function testGetUntranslated()
     {
         // check we get 3 untranslated phrases in total
         $entries = $this->model->getUntranslated();
-        $this->assertEquals(3, sizeof($entries));
+        $this->assertCount(3, $entries);
 
         // check we find 1 untranslated key with "ACTION" in key name
         $entries = $this->model->getUntranslated(1, 'ACTION');
-        $this->assertEquals(1, sizeof($entries));
+        $this->assertCount(1, $entries);
 
         // check we find no untranslated key with "ACTION" in key name for template 2
         $entries = $this->model->getUntranslated(1, 'ACTION', 0, 5, 2);
-        $this->assertEquals(0, sizeof($entries));
+        $this->assertCount(0, $entries);
     }
 
     public function testGetUntranslatedResetsInvalidOffset()
     {
         $entries = $this->model->getUntranslated(1, -14);
         // if illegal offset -14 is corrected to 0 we should get 3 hits
-        $this->assertEquals(3, sizeof($entries));
+        $this->assertCount(3, $entries);
 
         // while we are here and triggered a search, we check the method getRowCount()
         $foundRows = $this->model->getRowCount();

@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'ByteOutput.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class ByteOutputTest extends PHPUnit_Framework_TestCase
+class ByteOutputTest extends PHPUnit\Framework\TestCase
 {
     public function testByteOutputWithoutHtml()
     {

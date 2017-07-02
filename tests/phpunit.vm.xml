@@ -8,9 +8,9 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         testSuiteLoaderClass="PHPUnit_Runner_StandardTestSuiteLoader"
          verbose="true"
-         strict="true">
+         strict="true"
+         beStrictAboutTestsThatDoNotTestAnything="true">
     <testsuites>
         <testsuite name="oTranCeTestSuite">
             <directory>unit/</directory>

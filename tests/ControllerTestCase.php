@@ -1,5 +1,4 @@
 <?php
-require_once 'Zend/Test/PHPUnit/ControllerTestCase.php';
 
 class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
 {
@@ -17,7 +16,9 @@ class ControllerTestCase extends Zend_Test_PHPUnit_ControllerTestCase
     {
         $this->bootstrap = array($this, 'appBootstrap');
         parent::setUp();
-        $_SERVER['SERVER_NAME'] = 'localhost';
+        $config = Msd_Registry::getConfig();
+        $_SERVER['SERVER_NAME'] = $config->getParam('testing')['host_name'];
+        $_SERVER['HTTP_HOST'] = $config->getParam('testing')['host_name'];
         $this->_translator      = Msd_Language::getInstance()->getTranslator();
     }
 

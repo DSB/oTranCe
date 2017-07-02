@@ -1,0 +1,14 @@
+{
+    "name": "dsd/otrance",
+    "description": "oTranCe Translation platform",
+    "type": "project",
+    "license": "MIT",
+    "author": "Daniel Schlichtholz",
+    "require": {
+        "roave/security-advisories":"dev-master",
+        "zendframework/zendframework1": "^1.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    }
+}

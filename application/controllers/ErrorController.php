@@ -83,6 +83,8 @@ class ErrorController extends Zend_Controller_Action
     public function notAllowedAction()
     {
         $projectConfig            = $this->view->config->getParam('project');
+        $activeProject            = $this->view->dynamicConfig->getParam('activeProject');
+        $projectConfig            = $projectConfig[$activeProject];
         $this->view->projectEmail = $projectConfig['email'];
     }
 }

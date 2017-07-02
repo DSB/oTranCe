@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'Out.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class OutTest extends PHPUnit_Framework_TestCase
+class OutTest extends PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

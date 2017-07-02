@@ -3,7 +3,7 @@
  * @group Importers
  * @group Models
  */
-class ImportersTest extends PHPUnit_Framework_TestCase
+class ImportersTest extends PHPUnit\Framework\TestCase
 {
     /**
      * @var \Application_Model_Importers
@@ -18,14 +18,17 @@ class ImportersTest extends PHPUnit_Framework_TestCase
     public function testCanGetImporters()
     {
         $importers = array_keys($this->model->getImporter());
-        $expected  = array(
+        $expected  = array (
             0 => 'Csv',
-            1 => 'Oxid',
-            2 => 'PhpArray',
-            3 => 'Redaxo',
-            4 => 'Ssv',
-            5 => 'Titanium',
+            1 => 'Json',
+            2 => 'MozillaProperties',
+            3 => 'Oxid',
+            4 => 'PhpArray',
+            5 => 'Redaxo',
+            6 => 'Ssv',
+            7 => 'Titanium',
         );
+
         $this->assertEquals($expected, $importers);
     }
 

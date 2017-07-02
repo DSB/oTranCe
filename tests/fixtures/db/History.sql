@@ -1,3 +1,4 @@
+USE `phpunit_otc`;
 DROP TABLE IF EXISTS `keys`;
 CREATE TABLE `keys` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

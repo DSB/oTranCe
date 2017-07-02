@@ -18,6 +18,8 @@ class HistoryTest extends ControllerTestCase
     public static function setUpBeforeClass()
     {
         Testhelper::setUpDb('History.sql');
+        Testhelper::setUpDb('db_schema_update4.sql');
+        Testhelper::setUpDb('db_schema_update8.sql');
     }
 
     public function setUp()

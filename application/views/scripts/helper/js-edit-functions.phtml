@@ -1,162 +1,177 @@
 <div id="confirmDeleteVar" style="display:none"></div>
 <script type="text/javascript">
-/* <![CDATA[ */
-function deleteVar(id, name)
-{
-    var message = '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_KEY_X)?>';
-    name = stripTags(name);
-    var text = message.replace(/{KEY}/g, name);
-    $('#confirmDeleteVar').html(text);
-    $('#confirmDeleteVar').dialog({
-        autoOpen: true,
-        modal: true,
-        title: '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_TITLE);?>',
-        buttons : {
-            '<?php echo $this->lang->L_OK;?>': function() {
-                setPageInactive();
-                self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/'+id;
-            },
-            '<?php echo $this->lang->L_CANCEL;?>': function() {
-                $(this).dialog("close");
+    /* <![CDATA[ */
+    function deleteVar(id, name) {
+        var message = '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_KEY_X)?>';
+        name = stripTags(name);
+        var text = message.replace(/{KEY}/g, name);
+        $('#confirmDeleteVar').html(text);
+        $('#confirmDeleteVar').dialog({
+            autoOpen: true,
+            modal: true,
+            title: '<?php echo $this->jsEscape($this->lang->L_CONFIRM_DELETE_TITLE);?>',
+            buttons: {
+                '<?php echo $this->lang->L_OK;?>': function () {
+                    setPageInactive();
+                    self.location.href = '<?php echo $this->baseUrl();?>/entries/delete/id/' + id;
+                },
+                '<?php echo $this->lang->L_CANCEL;?>': function () {
+                    $(this).dialog("close");
+                }
             }
-        }
-    })
-}
+        })
+    }
 
-function showErrorMsg(msg) {
-    $('#notify').remove();
-    var notify = '<div id="notify" class="notification-bar error"><?php echo $this->getIcon('Attention', '', 16);?> ' + msg + '</div>';
-    $('body').append(notify);
-    $('#notify').delay(200).fadeIn(600).delay(2500).fadeOut(600);
-}
+    function showErrorMsg(msg) {
+        $('#notify').remove();
+        var notify = '<div id="notify" class="notification-bar error"><?php echo $this->getIcon('Attention', '', 16);?> ' + msg + '</div>';
+        $('body').append(notify);
+        $('#notify').delay(200).fadeIn(600).delay(2500).fadeOut(600);
+    }
 
-function showOkMsg() {
-    $('#notify').remove();
-    var notify = '<div id="notify" class="notification-bar ok"><?php echo $this->getIcon('Ok', '', 16) . ' ' . $this->lang->L_CHANGES_SAVED_SUCCESSFULLY;?>' + '</div>';
-    $('body').append(notify);
-    $('#notify').delay(200).fadeIn(600).delay(1500).fadeOut(600);
-}
+    function showOkMsg() {
+        $('#notify').remove();
+        var notify = '<div id="notify" class="notification-bar ok"><?php echo $this->getIcon('Ok', '', 16) . ' ' . $this->lang->L_CHANGES_SAVED_SUCCESSFULLY;?>' + '</div>';
+        $('body').append(notify);
+        $('#notify').delay(200).fadeIn(600).delay(1500).fadeOut(600);
+    }
 
-<?php $this->jQuery()->onLoadCaptureStart();?>
-/* register click event for key edit icons */
-$('.inlineEditKeyTrigger').click(function(e) {
-    $('#' + $(this).attr('for')).trigger('click');
-    return false;
-});
-
-/* register click event for value edit icons */
-$('.inlineEditValueTrigger').click(function(e) {
-    var id = $(this).attr('for');
-    if ($('#' +id).css('display') !== 'inline') {
-        // inline edit is already initialized - don't do it twice
+    <?php $this->jQuery()->onLoadCaptureStart();?>
+    /* register click event for key edit icons */
+    $('.inlineEditKeyTrigger').click(function (e) {
+        $('#' + $(this).attr('for')).trigger('click');
         return false;
+    });
+
+    /* register click event for value edit icons */
+    $('.inlineEditValueTrigger').click(function (e) {
+        var id = $(this).attr('for');
+        if ($('#' + id).css('display') !== 'inline') {
+            // inline edit is already initialized - don't do it twice
+            return false;
+        }
+
+        // remove link
+        var oldHtml = $('#' + id).html();
+        var editText = $('#' + id + ' a').html();
+        if (editText == '<i><?php echo $this->jsEscape($this->lang->L_UNTRANSLATED);?></i>') {
+            editText = '';
+        }
+        $('#' + id).html(editText);
+
+        /* register inline edit */
+        $('#' + id).eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-translation/', {
+            saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
+            savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
+            savebutton_class: 'Formbutton',
+            cancelbutton_text: '<?php echo $this->lang->L_CANCEL;?>',
+            cancelbutton_class: 'Formbutton',
+            mouseover_class: '',
+            editfield_class: 'textarea-inlineedit',
+            data: {oldHtml: oldHtml, id: id},
+            size: 'auto',
+            form_type: 'textarea',
+            form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
+            on_error: function (msg) {
+                removeTrigger(this);
+                showErrorMsg(msg);
+            },
+            after_save: function (data) {
+                showOkMsg();
+                removeTrigger(this);
+            },
+            on_cancel: function () {
+                removeTrigger(this);
+            }
+        });
+
+        $('#' + id).trigger('click');
+        $(window).scrollTop($('#l' + id).position().top);
+
+        setTimeout(function () {
+            $('#edit-' + id).keydown(function (e) {
+                var code = e.keyCode || e.which;
+                if (code == '9') {
+                    $('#save-' + id).trigger('click');
+                    var t = id.split('-').pop();
+                    $('.inlineEditValueTrigger', $('#' + id).parent().parent().next()).each(function () {
+                        if ($(this).attr('id') != id && $(this).attr('id').split('-').pop() == t) {
+                            $(this).trigger('click');
+                        }
+                    })
+                }
+            });
+        }, 500);
+
+    });
+
+    /* Unbind click event, restore old edit link and replace link text with the new one */
+    function removeTrigger(obj) {
+        $('#' + obj.data.id).unbind('click');
+        var newText = $('#' + obj.data.id).html();
+        if (newText == '') {
+            newText = '<i><?php echo $this->jsEscape($this->lang->L_UNTRANSLATED);?></i>';
+        }
+        // replace text in old link
+        $('#' + obj.data.id).html(obj.data.oldHtml);
+        $('#' + obj.data.id + ' a').html(newText);
+
     }
 
-    // remove link
-    var oldHtml = $('#' + id).html();
-    var editText = $('#' + id + ' a').html();
-    if (editText == '<i><?php echo $this->jsEscape($this->lang->L_UNTRANSLATED);?></i>') {
-        editText = '';
-    }
-    $('#' + id).html(editText);
+    /* Add/remove optical inline edit class when hovering edit icons */
+    $('.inlineEditValueTrigger, .inlineEditKeyTrigger').hover(function (e) {
+            $('#' + $(this).attr('for')).addClass('inlineEditMouseOver');
+        },
+        function () {
+            $('#' + $(this).attr('for')).removeClass('inlineEditMouseOver');
+        }
+    );
 
-    /* register inline edit */
-    $('#' + id).eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-translation/', {
+    $('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
         saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
         savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
         savebutton_class: 'Formbutton',
         cancelbutton_text: '<?php echo $this->lang->L_CANCEL;?>',
         cancelbutton_class: 'Formbutton',
-        mouseover_class: '',
-        editfield_class: 'textarea-inlineedit',
-        data: { oldHtml: oldHtml, id: id},
+        mouseover_class: 'inlineEditMouseOver',
+        editfield_class: 'inlineEditField',
         size: 'auto',
-        form_type: 'textarea',
         form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
-        on_error: function(msg) {
-            removeTrigger(this);
+        on_error: function (msg) {
             showErrorMsg(msg);
         },
-        after_save: function(data) {
+        after_save: function () {
             showOkMsg();
-            removeTrigger(this);
         },
-        on_cancel: function() {
-            removeTrigger(this);
+        on_cancel: function () {
         }
     });
 
-    $('#' + id).trigger('click');
-    $(window).scrollTop($('#l' + id).position().top);
-});
-
-/* Unbind click event, restore old edit link and replace link text with the new one */
-function removeTrigger(obj) {
-    $('#' + obj.data.id).unbind('click');
-    var newText = $('#' + obj.data.id).html();
-    if (newText == '') {
-        newText = '<i><?php echo $this->jsEscape($this->lang->L_UNTRANSLATED);?></i>';
+    var disabledElements = [
+        'searchInTranslations', 'searchInKeys',
+        'filterValues', 'buttonFilterValuesSearch', 'buttonFilterValuesReset',
+        'filterKeys', 'buttonFilterKeysSearch', 'buttonFilterKeysReset'
+    ];
+    /* if "get untranslated filter" is used -> disable other inputs */
+    if ($('#getUntranslated option:selected').val() > 0) {
+        $.each(disabledElements, function () {
+            var domElement = $('#' + this);
+            domElement.css('opacity', 0.4);
+            domElement.attr('disabled', true);
+        });
     }
-    // replace text in old link
-    $('#' + obj.data.id).html(obj.data.oldHtml);
-    $('#' + obj.data.id + ' a').html(newText);
 
-}
-
-/* Add/remove optical inline edit class when hovering edit icons */
-$('.inlineEditValueTrigger, .inlineEditKeyTrigger').hover(function(e) {
-        $('#' + $(this).attr('for')).addClass('inlineEditMouseOver');
-    },
-    function() {
-        $('#' + $(this).attr('for')).removeClass('inlineEditMouseOver');
-    }
-);
-
-$('.inlineEditKey').eip('<?php echo $this->serverUrl() . $this->baseUrl();?>/ajax/save-key-name/', {
-    saving_text: '<?php echo $this->lang->L_SAVING . '... ' . $this->getIcon('ajax-loader');?>',
-    savebutton_text: '<?php echo $this->lang->L_SAVE;?>',
-    savebutton_class: 'Formbutton',
-    cancelbutton_text: '<?php echo $this->lang->L_CANCEL;?>',
-    cancelbutton_class: 'Formbutton',
-    mouseover_class: 'inlineEditMouseOver',
-    editfield_class: 'inlineEditField',
-    size: 'auto',
-    form_buttons: '<span><button type="button" id="save-#{id}" class="#{savebutton_class}"><?php echo $this->getIcon('save');?> #{savebutton_text}</button> <button id="cancel-#{id}" class="#{cancelbutton_class}"><?php echo $this->getIcon('cancel');?>  #{cancelbutton_text}</button></span><br /><br />',
-    on_error: function(msg) {
-        showErrorMsg(msg);
-    },
-    after_save: function() {
-        showOkMsg();
-    },
-    on_cancel: function() {
-    }
-});
-
-var disabledElements = [
-    'searchInTranslations', 'searchInKeys',
-    'filterValues', 'buttonFilterValuesSearch', 'buttonFilterValuesReset',
-    'filterKeys', 'buttonFilterKeysSearch', 'buttonFilterKeysReset'
-];
-/* if "get untranslated filter" is used -> disable other inputs */
-if ($('#getUntranslated option:selected').val() > 0) {
-    $.each(disabledElements, function(){
-        var domElement = $('#' + this);
-        domElement.css('opacity', 0.4);
-        domElement.attr('disabled', true);
+    // re-enable form inputs on submit for not losing provided inputs */
+    $('#myForm').on('submit', function () {
+        $.each(disabledElements, function () {
+            $('#' + this).attr('disabled', false);
+        });
     });
-}
 
-// re-enable form inputs on submit for not losing provided inputs */
-$('#myForm').on('submit', function() {
-    $.each(disabledElements, function(){
-        $('#' + this).attr('disabled', false);
-    });
-});
-
-<?php
-echo $this->partial('helper/js-remove-needs-update.phtml');
-$this->jQuery()->onLoadCaptureEnd();
-$this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
-?>
+    <?php
+    echo $this->partial('helper/js-remove-needs-update.phtml');
+    $this->jQuery()->onLoadCaptureEnd();
+    $this->jQuery()->addJavascriptFile($this->baseUrl('/js/jquery/jeip.js'));
+    ?>
     /* ]]> */
 </script>

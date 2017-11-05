@@ -53,6 +53,12 @@ abstract class Msd_Application_Model
         $this->_database      = $this->_config->getParam('dbuser.db');
         $this->_tablePrefix   = $this->_config->getParam('dbuser.tablePrefix');
         $this->_dbo->selectDb($this->_database);
+
+        if (!$this->_dynamicConfig->getParam('activeProjectId')) {
+            $this->_dynamicConfig->setParam('activeProjectId',
+                Application_Model_Project::DEFAULT_PROJECT_ID);
+        }
+
         $this->init();
     }
 
@@ -73,5 +79,24 @@ abstract class Msd_Application_Model
     public function getRowCount()
     {
         return (int)$this->_dbo->getRowCount();
+    }
+
+    /**
+     * Active project to filter result from
+     *
+     * @return int
+     */
+    public function getActiveProject()
+    {
+        return $this->_dynamicConfig->getParam('activeProjectId');
+    }
+
+    /**
+     * @param int $projectId
+     * @return void
+     */
+    public function setActiveProject($projectId)
+    {
+        $this->_dynamicConfig->setParam('activeProjectId', $projectId);
     }
 }

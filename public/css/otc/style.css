@@ -656,6 +656,7 @@ textarea {
     right: 4px;
     height: 20px;
     min-width:156px;
+    width: 30%;
     vertical-align: middle;
     z-index:40;
 }
@@ -850,8 +851,16 @@ pre.xdebug-var-dump {
 }
 
 #switchLanguage {
-    width:200px;
+    width:40%;
 }
+#switchProjectBox {
+    position:relative;
+    right:25px;
+    float:left;
+    z-index: 445;
+    width: 25%;
+}
+
 .inlineEditKey, .inlineEditValue {
     padding:1px;
 }

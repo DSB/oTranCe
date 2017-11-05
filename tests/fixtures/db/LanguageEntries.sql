@@ -1,6 +1,7 @@
 --
 -- Create Table `keys`
 --
+USE `phpunit_otc`;
 
 DROP TABLE IF EXISTS `keys`;
 CREATE TABLE `keys` (

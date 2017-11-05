@@ -95,6 +95,10 @@ class Application_Model_ExportLog extends Msd_Application_Model
     {
         $result = $this->_dbo->query('SELECT COUNT(*) FROM `' . $this->_tableExportLog . '`', Msd_Db::ARRAY_NUMERIC);
 
+        if (is_array($result[0])) {
+            return (int) $result[0][0];
+        }
+
         return (int)$result[0];
     }
 }

@@ -2,7 +2,7 @@
 /**
  * @group Models
  */
-class ExportLogTest extends PHPUnit_Framework_TestCase
+class ExportLogTest extends PHPUnit\Framework\TestCase
 {
     /**
      * @var \Application_Model_ExportLog

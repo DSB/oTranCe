@@ -1,0 +1,33 @@
+language: php
+
+dist: trusty
+sudo: required
+
+php:
+  - '5.6'
+  - '7.1'
+  - hhvm
+
+services:
+  - mysql
+
+before_install:
+  - echo 'function composer() { COMPOSER="$(which composer)" || { echo "Could not find composer in path" >&2 ; return 1 ; } && sudo php5dismod -s cli xdebug ; $COMPOSER "$@" ; STATUS=$? ; sudo php5enmod -s cli xdebug ; return $STATUS ; }' >> ~/.bash_aliases
+  - . ~/.bash_aliases
+  - composer self-update
+
+install:
+  - composer install --no-interaction --prefer-source
+
+before_script:
+  - mysql -e 'CREATE DATABASE phpunit_otc;'
+  - mysql -e "CREATE USER 'phpunit'@'127.0.0.1' IDENTIFIED BY 'phpunit';"
+  - mysql -e "CREATE USER 'phpunit'@'localhost' IDENTIFIED BY 'phpunit';"
+  - mysql -e "GRANT ALL PRIVILEGES ON phpunit_otc . * TO 'phpunit'@'127.0.0.1';"
+  - mysql -e "GRANT ALL PRIVILEGES ON phpunit_otc . * TO 'phpunit'@'localhost';"
+  - mysql -uroot phpunit_otc < tests/fixtures/db/db_schema.sql
+  - mysql -uroot phpunit_otc < tests/fixtures/db/db_schema_update4.sql
+  - mysql -uroot phpunit_otc < tests/fixtures/db/db_schema_update8.sql
+
+script:
+  - cd tests && ../vendor/bin/phpunit -c phpunit.xml

@@ -1,0 +1,24 @@
+<?php if ($this->controller != 'settings') { ?>
+<div id="switchProjectBox">
+    <form method="post" id="formSwitchProject" action="<?php echo $this->url(
+        array(
+             'controller' => $this->controller,
+             'action'     => $this->request->getActionName()
+        ),
+        null,
+        true
+    );?>">
+    <p>
+    <select id="switchProject" name="switchProject">
+        <?php foreach ($this->availableProjects as $projectId => $project) { ?>
+        <option value="<?php echo $projectId;?>" class="<?php echo $projectId;?>"
+            <?php if ($projectId === $this->activeProject) {
+            echo ' selected="selected"';
+        } ?>
+            ><?php echo $this->jsEscape($project['name']);?></option>
+        <?php } ?>
+    </select>
+    </p>
+    </form>
+</div>
+<?php } ?>

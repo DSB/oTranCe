@@ -24,8 +24,8 @@ set_include_path(
     )
 );
 
+require_once '../vendor/autoload.php';
 require_once 'Zend/Application.php';
-require_once 'PHPUnit/Autoload.php';
 require_once 'ControllerTestCase.php';
 require_once 'Testhelper.php';
 
@@ -36,4 +36,6 @@ $application = new Zend_Application(
 );
 $application->bootstrap();
 Testhelper::setUpDb();
+Testhelper::setUpDb('db_schema_update4.sql');
+Testhelper::setUpDb('db_schema_update8.sql');
 clearstatcache();

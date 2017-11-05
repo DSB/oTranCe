@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'PrintTranslators.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class PrintTranslatorsTest extends PHPUnit_Framework_TestCase
+class PrintTranslatorsTest extends PHPUnit\Framework\TestCase
 {
     public function testCanPrintTranslator()
     {

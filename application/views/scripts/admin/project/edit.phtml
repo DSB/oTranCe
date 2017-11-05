@@ -1,0 +1,148 @@
+<?php
+$this->jQuery()->addJavascriptFile($this->baseUrl() . '/js/fileuploader.js');
+?>
+<div id="headline">
+    <h2><?php echo $this->lang->L_ADMIN;?> - <?php echo $this->lang->L_PROJECT;?></h2>
+</div>
+<?php
+echo $this->partial('admin/head-navi.phtml', array('lang' => $this->lang));
+/**
+ * @var Zend_View_Helper_Cycle $cycle
+ */
+$cycle = $this->cycle(array('row-odd', 'row-even'));
+$translateToFallback = $this->settings['translateToFallback'];
+$forceFallbackAsReference = $this->settings['forceFallbackAsReference'];
+$showStartPageWithoutLogin = $this->settings['showStartPageWithoutLogin'];
+$projectId = $this->projectId;
+?>
+<form action="<?php echo $this->baseUrl(); ?>/admin_project/edit/project/<?php echo $projectId; ?>" method="post">
+    <table class="bdr more-padding" summary="List of project settings">
+        <tr class="thead">
+            <th colspan="2"><?php echo $this->lang->L_PROJECT_SETTINGS;?></th>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="name"><?php echo $this->lang->L_PROJECT_NAME;?>:</label></td>
+            <td><input type="text" class="text" name="name" id="name" value="<?php echo $this->settings['name']; ?>" size="40"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="url"><?php echo $this->lang->L_PROJECT_URL;?>:</label></td>
+            <td><input type="text" class="text" name="url" id="url" value="<?php echo $this->settings['url']; ?>" size="40"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td><label for="email"><?php echo $this->lang->L_CONTACT_EMAIL;?>:</label></td>
+            <td><input type="text" class="text" name="email" id="email" value="<?php echo $this->settings['email']; ?>" size="40"/></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td class="top"><label for="logo"><?php echo $this->lang->L_PROJECT_LOGO;?>:</label>
+            <br />(<?php echo $this->lang->L_PROJECT_LOGO_EXPLAIN;?>)</td>
+            <td>
+                <input type="text" class="text" name="logo_large" id="logo" value="<?php echo $this->settings['logo_large']; ?>" onkeyup="updatePreviewImage('large', this.value);" size="40"/><br/>
+                <img style="padding:12px;" id="preview" src="<?php echo $this->baseUrl() . $this->settings['logo_large']; ?>" alt="<?php echo $this->lang->L_PREVIEW;?>"/><br/>
+                <input type="checkbox" id="save_to_config" /> <label for="save_to_config"><?php echo $this->lang->L_SAVE_TO_CONFIG; ?></label><br/><br/>
+                <div id="logoUpload"></div>
+            </td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?> top">
+            <td>
+                <?php echo $this->lang->L_FALLBACK_LANGUAGE;?>:
+            </td>
+            <td><select name="fallbackLang" id="fallbackLang">
+                <?php foreach ($this->languages as $language) { ?>
+                <option value="<?php echo $language['id']; ?>"<?php echo ($language['id'] == $this->fallbackLanguageId) ? ' selected="selected"' : ''; ?>><?php echo $language['name']; ?> (<?php echo $language['locale']; ?>)</option>
+                <?php } ?>
+            </select></td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>
+                <?php echo $this->lang->L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE;?>:<br />
+                <?php echo $this->lang->L_FORCE_FALLBACK_AS_REFERENCE_LANGUAGE_EXPLAIN;?>
+            </td>
+            <td>
+                <input type="radio" name="forceFallbackAsReference" id="forceFallbackAsReference_yes" value="1"
+                    <?php echo $forceFallbackAsReference == 1 ? ' checked="checked"' : '';?>/>
+                    <label for="forceFallbackAsReference_yes"><?php echo $this->lang->L_YES;?></label>
+                &nbsp;
+                <input type="radio" name="forceFallbackAsReference" id="forceFallbackAsReference_no" value="0"
+                        <?php echo $forceFallbackAsReference == 0 ? ' checked="checked"' : '';?>/>
+                    <label for="forceFallbackAsReference_no"><?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>
+                <?php echo $this->lang->L_EXPORT_LANGUAGES;?>:<br />
+                <?php echo $this->lang->L_EXPORT_LANGUAGES_EXPLAIN;?>
+            </td>
+            <td>
+                <input type="radio" name="translateToFallback" id="translateToFallback_yes" value="1"
+                    <?php echo $translateToFallback == 1 ? ' checked="checked"' : '';?>/>
+                <label for="translateToFallback_yes"><?php echo $this->lang->L_YES;?></label>
+                &nbsp;
+                <input type="radio" name="translateToFallback" id="translateToFallback_no" value="0"
+                    <?php echo $translateToFallback == 0 ? ' checked="checked"' : '';?>/>
+                <label for="translateToFallback_no"><?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>
+                <?php echo $this->lang->L_SHOW_START_PAGE_WITHOUT_LOGIN;?>:<br />
+                <?php echo nl2br($this->lang->L_SHOW_START_PAGE_WITHOUT_LOGIN_EXPLAIN);?>
+            </td>
+            <td>
+                <input type="radio" name="showStartPageWithoutLogin" id="showStartPageWithoutLogin_yes" value="1"
+                    <?php echo $showStartPageWithoutLogin == 1 ? ' checked="checked"' : '';?>/>
+                <label for="showStartPageWithoutLogin_yes"><?php echo $this->lang->L_YES;?></label>
+                &nbsp;
+                <input type="radio" name="showStartPageWithoutLogin" id="showStartPageWithoutLogin_no" value="0"
+                    <?php echo $showStartPageWithoutLogin == 0 ? ' checked="checked"' : '';?>/>
+                <label for="showStartPageWithoutLogin_no"><?php echo $this->lang->L_NO;?></label>
+            </td>
+        </tr>
+
+        <tr class="<?php echo $cycle->next(); ?>">
+            <td>&nbsp;</td>
+            <td><button type="submit" class="Formbutton ui-corner-all"><?php echo $this->getIcon('save', ''); ?> <?php echo $this->lang->L_SAVE;?></button></td>
+        </tr>
+    </table>
+</form>
+<script type="text/javascript">
+function updatePreviewImage(size, url)
+{
+    $('#preview').attr('src', '<?php echo $this->baseUrl();?>' + url);
+}
+<?php $this->jQuery()->onLoadCaptureStart(); ?>
+var defaults = <?php echo $this->partial('ajax/fileuploader.defaults.json.phtml', array('lang' => $this->lang)); ?>;
+var options = {
+    action: '<?php echo $this->baseUrl(); ?>/ajax/upload-project-logo',
+    element: $('#logoUpload')[0],
+    allowedExtensions: ['png', 'jpg', 'jpeg', 'jpe', 'gif'],
+
+    onSubmit: function (id, filename) {
+        uploader.setParams({
+            saveToConfig: $('#save_to_config').is(':checked') ? 1 : 0
+        });
+    },
+    onProgress: function (id, filename, loaded, total) {
+        $(id + 'Progress').progressbar('value', (loaded * 100 / total));
+    },
+
+    onComplete:function(id, fileName, responseJSON) {
+        if (responseJSON.success) {
+            $('#logo').val(responseJSON.newLogo);
+            $('#preview').attr('src', '<?php echo $this->baseUrl();?>' + responseJSON.newLogo);
+        }
+    }
+};
+
+$.extend(true, defaults, options);
+var uploader = new qq.FileUploader(defaults);
+<?php $this->jQuery()->onLoadCaptureEnd();
+if (isset($this->saved)) {
+    $this->showNotification(
+        $this->saved,
+        $this->lang->L_YOUR_SETTINGS_HAVE_BEEN_SAVED_SUCCESSFULLY,
+        $this->lang->L_ERROR_SAVING_CHANGE . '.<br>' . $this->lang->L_TRY_AGAIN
+    );
+}
+?>
+</script>

@@ -80,13 +80,39 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function getAllKeys()
     {
         $sql = "SELECT `id`, `key`,`template_id` FROM `{$this->_tableKeys}` "
-            . " ORDER BY `template_id` ASC, `key` ASC";
+            . ' WHERE `project_id` = ' . $this->getActiveProject()
+            . ' ORDER BY `template_id` ASC, `key` ASC';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         $ret = array();
         foreach ($res as $data) {
             $ret[$data['id']] = array(
                 'templateId' => $data['template_id'],
                 'key'        => $data['key']
+            );
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Get all keys with translations
+     *
+     * @return array
+     */
+    public function getAllKeysWithTranslations($languageId)
+    {
+        $sql = "SELECT k.`id`, k.`key`,k.`template_id`, t.`text`  FROM `{$this->_tableKeys}` k "
+            . ' LEFT JOIN `'. $this->_tableTranslations .'` t ON t.`key_id` = k.`id`'
+            . ' WHERE k.`project_id` = ' . $this->getActiveProject()
+            . ' AND t.`lang_id` = ' . $languageId
+            . ' ORDER BY k.`template_id` ASC, k.`key` ASC';
+        $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
+        $ret = array();
+        foreach ($res as $data) {
+            $ret[$data['id']] = array(
+                'templateId' => $data['template_id'],
+                'key'        => $data['key'],
+                'text'       => $data['text']
             );
         }
 
@@ -103,8 +129,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function getTranslations($languageId)
     {
         $ret = array();
-        $sql = "SELECT `key_id`, `text` FROM `{$this->_tableTranslations}`
-              WHERE `lang_id`= " . intval($languageId);
+        $sql = "SELECT `key_id`, `text` FROM `{$this->_tableTranslations}`"
+            . ' WHERE `lang_id`= ' . (int) $languageId
+            . ' AND `project_id` = ' . $this->getActiveProject();
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
         foreach ($res as $data) {
             $ret[$data['key_id']] = $data['text'];
@@ -125,13 +152,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $ret               = array();
         $totalLanguageVars = $this->getNrOfLanguageVars();
         $translators       = $this->getTranslators();
-        $pattern
-                           =
-            "SELECT count(*) as anzahl, SUM(`needs_update`) as review FROM `" . $this->_tableTranslations . "` "
-            . " WHERE `lang_id`= %d";
+        $pattern           =
+            'SELECT count(*) as anzahl, SUM(`needs_update`) as review '
+            . ' FROM `%s` '
+            . ' WHERE `lang_id` = %d AND `project_id` = ' . $this->getActiveProject();
         foreach ($languageIds as $val) {
             $langId                        = $val['id'];
-            $sql                           = sprintf($pattern, (int)$val['id']);
+            $sql                           = sprintf($pattern, $this->_tableTranslations, (int)$val['id']);
             $res                           = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC, true);
             $translated                    = $res[0]['anzahl'];
             $ret[$langId]                  = array();
@@ -160,7 +187,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getNrOfLanguageVars()
     {
-        $sql = 'SELECT count(*) as `nrOfLanguageVars` FROM `' . $this->_tableKeys . '`';
+        $sql = 'SELECT count(*) as `nrOfLanguageVars` '
+            . ' FROM `' . $this->_tableKeys . '`'
+            . ' WHERE `project_id` = ' . $this->getActiveProject();
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_OBJECT, true);
 
         return isset($res[0]->nrOfLanguageVars) ? $res[0]->nrOfLanguageVars : 0;
@@ -200,6 +229,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         //find key ids
         $sql   = 'SELECT SQL_CALC_FOUND_ROWS DISTINCT t.`key_id` FROM `' . $this->_tableTranslations . '` t ';
         $where = array();
+
+        // always filtering project
+        $where[] = 't.`project_id` = ' . $this->getActiveProject();
+
         $join  = '';
         if ($searchphrase > '') {
             $where[] = 't.`text` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\' AND '
@@ -253,6 +286,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql   = 'SELECT SQL_CALC_FOUND_ROWS k.`id`,  k.`key`, k.`template_id`'
             . ' FROM `' . $this->_tableKeys . '` k ';
         $where = array();
+
+        // always filtering by project
+        $where[] = 'k.`project_id` = ' . $this->getActiveProject();
+
         if ($searchphrase > '') {
             $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';
         }
@@ -295,6 +332,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . ' ON t.`key_id` = k.`id`';
 
         $where = array();
+
+        $where[] = 'k.`project_id` = ' . $this->getActiveProject();
 
         if ($searchphrase > '') {
             $where[] = 'k.`key` LIKE \'%' . $this->_dbo->escape($searchphrase) . '%\'';
@@ -344,7 +383,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . ' LEFT JOIN `' . $this->_tableTranslations . '` t'
             . ' ON t.`key_id` = k.`id`'
             . ' AND t.`lang_id` = ' . $languageId
-            . ' WHERE (t.`text`=\'\' OR t.`text` IS NULL)'
+            . ' WHERE  k.`project_id` = ' . $this->getActiveProject()
+            . ' AND (t.`text`=\'\' OR t.`text` IS NULL)'
             . ' ORDER BY k.`key` ASC LIMIT ' . $offset . ', 1';
 
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
@@ -384,13 +424,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if (!is_array($languageIds)) {
             $languageIds = (array)$languageIds;
         }
-        if ($id == 0 || empty($languageIds)) {
+        if ($id === 0 || empty($languageIds)) {
             return $ret;
         }
         $languages = implode(',', $languageIds);
         $sql       = 'SELECT `lang_id`, `text`'
             . ' FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-            . ' WHERE `key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
+            . ' WHERE `project_id` = ' . $this->getActiveProject()
+            . ' AND `key_id`=' . $id . ' AND `lang_id` IN (' . $languages . ')';
         $res       = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         if (empty($res)) {
             return array();
@@ -413,14 +454,14 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
      */
     public function getNeedsUpdateStatusByKeyId($id)
     {
-        $sql    = "SELECT `lang_id`, `needs_update` "
+        $sql    = 'SELECT `lang_id`, `needs_update` '
             . "FROM `{$this->_database}`.`{$this->_tableTranslations}` "
-            . "WHERE `key_id`='$id'";
+            . "WHERE `key_id`='$id' AND `project_id` = " . $this->getActiveProject();
         $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         $return = array();
         foreach ($result as $row) {
-            $return[$row['lang_id']] = $row['needs_update'] == '1';
+            $return[$row['lang_id']] = $row['needs_update'] === '1';
         }
 
         return $return;
@@ -448,7 +489,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             . ' ON t.`key_id` = k.`id`'
             . ' WHERE k.`key` IN (\'' . implode('\',\'', $keys) . '\') '
             . ' AND k.`template_id` = ' . (int)$templateId
-            . ' AND t.`lang_id` = ' . (int)$languageId;
+            . ' AND t.`lang_id` = ' . (int)$languageId
+            . ' AND k.`project_id` = ' . $this->getActiveProject();
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $r) {
             $ret[$r['key']] = $r['text'];
@@ -477,7 +519,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $keys[$k] = $this->_dbo->escape($v);
         }
         $sql = 'SELECT * FROM `' . $this->_database . '`.`' . $this->_tableKeys . '` k'
-            . ' WHERE `key` IN (\'' . implode('\',\'', $keys) . '\') ORDER BY `key`';
+            . ' WHERE `key` IN (\'' . implode('\',\'', $keys) . '\') '
+            . ' AND k.`project_id` = ' . $this->getActiveProject()
+            . ' ORDER BY `key`';
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
         foreach ($res as $r) {
             $ret[$r['id']] = $r;
@@ -508,9 +552,10 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $result[$keyId] = $entry;
         }
 
-        $sql          = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` FROM `' . $this->_tableTranslations
+        $sql          = 'SELECT `key_id`, `lang_id`, `text`, `needs_update` '
+            . ' FROM `' . $this->_tableTranslations
             . '` WHERE `key_id` IN (' . implode(',', $keyIds) . ') AND `lang_id` IN ('
-            . implode(',', $languageIds) . ')';
+            . implode(',', $languageIds) . ') AND `project_id` = ' . $this->getActiveProject();
         $translations = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         foreach ($translations as $translation) {
@@ -520,7 +565,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
                 $result[$keyId]['languages'] = array();
             }
             $result[$keyId]['languages'][$langId]   = $translation['text'];
-            $result[$keyId]['needsUpdate'][$langId] = $translation['needs_update'] == 1;
+            $result[$keyId]['needsUpdate'][$langId] = $translation['needs_update'] === 1;
         }
 
         return $result;
@@ -538,7 +583,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $sql = 'SELECT `id` FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
             . ' WHERE `key`=\'' . $this->_dbo->escape($key) . '\''
-            . ' AND `template_id` = ' . (int)$fileTemplate;
+            . ' AND `template_id` = ' . (int)$fileTemplate
+            . ' AND `project_id` = ' . $this->getActiveProject();
         $res = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return isset($res[0]) ? $res[0] : false;
@@ -589,10 +635,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableKeys . '`'
             . ' SET `key`=\'' . $this->_dbo->escape($key) . '\', '
             . '`dt`=\'' . date('Y-m-d H-i-s', time()) . '\', '
-            . '`template_id`=' . intval($templateId);
-        $res = $this->_dbo->query($sql, Msd_Db::SIMPLE);
-
-        return $res;
+            . '`template_id`=' . (int) $templateId . ', '
+            . '`project_id` =' . (int) $this->getActiveProject();
+        return $this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
 
     /**
@@ -606,11 +651,13 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $keyId = (int)$keyId;
         $sql   = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-            . ' WHERE `key_id`= \'' . $this->_dbo->escape($keyId) . '\'';
+            . ' WHERE `key_id`= \'' . $this->_dbo->escape($keyId) . '\''
+            . ' AND `project_id` = ' . $this->getActiveProject();
         $res   = $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableKeys . '`'
-            . ' WHERE `id` = ' . $keyId;
+            . ' WHERE `id` = ' . $keyId
+            . ' AND `project_id` = ' . $this->getActiveProject();
         $res &= $this->_dbo->query($sql, Msd_Db::SIMPLE);
 
         return (bool)$res;
@@ -654,8 +701,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
             $text                 = $this->_dbo->escape($text);
             $date                 = date('Y-m-d H:i:s', time());
             $sql                  = 'INSERT INTO `' . $this->_database . '`.`' . $this->_tableTranslations . '` '
-                . ' (`lang_id`, `key_id`, `text`, `dt`) VALUES ('
-                . $langId . ', ' . $keyId . ', \'' . $text . '\', \'' . $date . '\')'
+                . ' (`lang_id`, `key_id`, `project_id`, `text`, `dt`) VALUES ('
+                . $langId . ', ' . $keyId . ', '
+                . $this->getActiveProject() . ', \'' . $text . '\', \'' . $date . '\')'
                 . ' ON DUPLICATE KEY UPDATE `text`= \'' . $text . '\', `dt` = \'' . $date . '\''
                 . ', `needs_update`=\'0\'';
 
@@ -668,8 +716,9 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
 
         if (!$ignoreSmallChange && $fallbackLanguageId != null && array_key_exists($fallbackLanguageId, $newValues)) {
             $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
-                . "SET needs_update=1 "
-                . "WHERE `key_id`='{$keyId}' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ")";
+                . 'SET needs_update=1 '
+                . "WHERE `key_id`='{$keyId}' AND `project_id` = ' .$this->getActiveProject()
+                . ' AND `lang_id` NOT IN (" . implode(',', $changedLanguageIds) . ')';
             $this->_dbo->query($sql);
         }
 
@@ -692,7 +741,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $sql    = "SELECT ft.`id`, ft.`name`, ft.`filename`
             FROM `{$this->_database}`.`{$this->_tableKeys}` k
             LEFT JOIN `{$this->_database}`.`{$this->_tableFileTemplates}` ft ON ft.`id` = k.`template_id`
-            WHERE k.`id` = '$keyId'";
+            WHERE k.`id` = '$keyId' AND k.`project_id` = " . $this->getActiveProject();
         $result = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
         return isset($result[0]) ? $result[0] : array('id' => 0);
@@ -710,7 +759,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $sql = "UPDATE `{$this->_database}`.`{$this->_tableKeys}`
             SET `template_id` = '$templateId'
-            WHERE `id` = '$keyId'";
+            WHERE `id` = '$keyId' AND `project_id` = {$this->getActiveProject()}";
         try {
             $this->_dbo->query($sql, Msd_Db::SIMPLE);
         } catch (Msd_Exception $e) {
@@ -730,7 +779,8 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     public function deleteLanguageEntries($languageId)
     {
         $sql = 'DELETE FROM `' . $this->_database . '`.`' . $this->_tableTranslations . '`'
-            . ' WHERE `lang_id` = ' . intval($languageId);
+            . ' WHERE `lang_id` = ' . (int)$languageId
+            . ' AND `project_id` = ' . $this->getActiveProject();
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
     }
@@ -773,7 +823,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         $translator              = Msd_Language::getInstance()->getTranslator();
 
         // check for min-length of 1 character
-        if (strlen($keyName) < 1) {
+        if ($keyName === '') {
             $this->_validateMessages[] = $translator->translate('L_VALIDATE_ERROR_NAME_TOO_SHORT');
 
             return false;
@@ -811,7 +861,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
     {
         $sql = "UPDATE `{$this->_database}`.`{$this->_tableTranslations}` "
             . "SET `needs_update`='0' "
-            . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId';";
+            . "WHERE `lang_id`='$languageId' AND `key_id`='$keyId' AND `project_id` = {$this->getActiveProject()};";
 
         return (bool)$this->_dbo->query($sql, Msd_Db::SIMPLE);
     }

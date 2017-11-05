@@ -17,6 +17,7 @@ require_once 'AdminController.php';
  */
 class Admin_ProjectController extends AdminController
 {
+
     /**
      * Check general access right
      *
@@ -34,36 +35,114 @@ class Admin_ProjectController extends AdminController
      */
     public function indexAction()
     {
+        $projects = $this->getAllProjectsConfig();
+        $this->view->projects = $projects;
+    }
+
+    /**
+     * Index action - show project settings
+     *
+     * @return void
+     */
+    public function editAction()
+    {
         /**
          * @var Zend_Controller_Request_Http $request
          */
         $request       = $this->_request;
         $languageModel = new Application_Model_Languages();
+        $projectId = $this->getProjectId();
         if ($request->isPost() && $this->_userModel->hasRight('editProject')) {
-            $projectSettings                              = $this->_config->getParam('project');
-            $projectSettings['name']                      = $this->_request->getParam('name');
-            $projectSettings['url']                       = $this->_request->getParam('url');
-            $projectSettings['email']                     = $this->_request->getParam('email');
-            $projectSettings['logo']                      = $this->_request->getParam('logo');
-            $projectSettings['forceFallbackAsReference']  = $this->_request->getParam('forceFallbackAsReference', 0);
-            $projectSettings['translateToFallback']       = $this->_request->getParam('translateToFallback', 0);
-            $projectSettings['showStartPageWithoutLogin'] = $this->_request->getParam('showStartPageWithoutLogin', 0);
-            $this->_config->setParam('project', $projectSettings);
+
+            $projectSettings = $this->getProjectSettingsArray();
+            $allProjects = $this->getAllProjectsConfig();
+            $allProjects[$projectId] = $projectSettings;
+            $this->_config->setParam('project', $allProjects);
             $languageModel->setFallbackLanguage($this->_request->getParam('fallbackLang'));
 
             $this->view->saved = $this->_config->save();
         }
-        $projectSettings = $this->_config->getParam('project');
+
+        $projectSettings = $this->getProjectConfig($projectId);
+
         // fallback for older installations
-        if (!isset($this->projectSettings['email'])) {
-            $this->projectSettings['email'] = '';
+        if (!isset($projectSettings['email'])) {
+            $projectSettings['email'] = '';
         }
         $this->view->settings           = $projectSettings;
+        $this->view->projectId          = $projectId;
         $this->view->fallbackLanguageId = $languageModel->getFallbackLanguageId();
 
         // if user does not have edit rights just show the information
         if (!$this->_userModel->hasRight('editProject')) {
             $this->_helper->viewRenderer('view');
         }
+    }
+
+    /**
+     * Process request and extract proper settings for current/default project
+     *
+     * @return array
+     */
+    protected function getProjectSettingsArray()
+    {
+        $projectId = $this->getProjectId();
+        $projectSettings                              = $this->getProjectConfig($projectId);
+        $projectSettings['name']                      = $this->_request->getParam('name');
+        $projectSettings['url']                       = $this->_request->getParam('url');
+        $projectSettings['email']                     = $this->_request->getParam('email');
+        $projectSettings['logo_large']                = $this->_request->getParam('logo_large');
+        $projectSettings['forceFallbackAsReference']  = $this->_request->getParam('forceFallbackAsReference', 0);
+        $projectSettings['translateToFallback']       = $this->_request->getParam('translateToFallback', 0);
+        $projectSettings['showStartPageWithoutLogin'] = $this->_request->getParam('showStartPageWithoutLogin', 0);
+        return $projectSettings;
+    }
+
+
+    /**
+     * Get project id from request parameters
+     *
+     * @return string
+     */
+    protected function getProjectId()
+    {
+        $projectId = $this->_request->get('project');
+        if ($projectId === null) {
+            return Application_Model_Project::DEFAULT_PROJECT;
+        }
+
+        return $projectId;
+    }
+
+
+    /**
+     * Get config values for specified project
+     *
+     * @param string $projectId
+     * @return array
+     */
+    protected function getProjectConfig($projectId)
+    {
+        try {
+            return $this->_activeProject->getProject($projectId);
+        } catch (Msd_Exception $e) {
+            $translator = $this->view->lang;
+            $this->view->errors = array(
+                'noProject' => array(0 => $translator->translate('L_PROJECT_NOT_FOUND'))
+            );
+            $this->forward('admin');
+            return array();
+        }
+    }
+
+
+    /**
+     * Get config values for all projects
+     *
+     * @return mixed
+     */
+    protected function getAllProjectsConfig()
+    {
+        return $this>$this->_activeProject->getAllProjects();
     }
 }

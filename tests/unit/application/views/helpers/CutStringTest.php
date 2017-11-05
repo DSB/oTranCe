@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'CutString.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class CutStringTest extends PHPUnit_Framework_TestCase
+class CutStringTest extends PHPUnit\Framework\TestCase
 {
     public function testCutStringSavesWords()
     {

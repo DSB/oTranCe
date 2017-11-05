@@ -1,12 +1,12 @@
 <?php
-require_once 'PHPUnit/Framework/TestCase.php';
+
 require_once 'JsEscape.php';
 
 /**
  * @group MsdViewHelper
  */
 
-class JsEscapeTest extends PHPUnit_Framework_TestCase
+class JsEscapeTest extends PHPUnit\Framework\TestCase
 {
     public function testCanEscape()
     {

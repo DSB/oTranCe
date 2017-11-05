@@ -474,7 +474,7 @@ class AjaxController extends OtranceController
             // Save the uploaded image as project logo in config. Uncomment these lines to activate automatic saving.
             if ((bool)$this->_request->getParam('saveToConfig', false)) {
                 $projectConfig                  = $this->_config->getParam('project');
-                $projectConfig['logo']['large'] = $result['newLogo'];
+                $projectConfig['logo_large'] = $result['newLogo'];
                 $this->_config->setParam('project', $projectConfig);
                 $this->_config->save();
             }

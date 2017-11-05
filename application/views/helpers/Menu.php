@@ -32,6 +32,8 @@ class Msd_View_Helper_Menu extends Zend_View_Helper_Abstract
 
         $view                        = $this->view;
         $view->availableGuiLanguages = $view->dynamicConfig->getParam('availableGuiLanguages', array());
+        $view->availableProjects     = $view->config->getParam('project');
+        $view->activeProject         = $view->dynamicConfig->getParam('activeProject');
         $view->request               = $request;
         $view->controller            = $request->getControllerName();
         $view->projectConfig         = $view->config->getParam('project');

@@ -8,7 +8,11 @@ class LoginCheckTest extends ControllerTestCase
     {
         $this->dispatch('/');
         $this->assertResponseCode('302');
-        $this->assertRedirectTo('http:///index/login/');
+
+        $config = Msd_Registry::getConfig();
+        $host = $config->getParam('testing')['host_name'];
+
+        $this->assertRedirectTo('http://'. $host .'/index/login/');
     }
 
     public function testDoesNotRedirectIfUserIsLoggedIn()

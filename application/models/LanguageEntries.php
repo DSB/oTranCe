@@ -299,7 +299,7 @@ class Application_Model_LanguageEntries extends Msd_Application_Model
         if (count($where) > 0) {
             $sql .= ' WHERE ' . implode(' AND ', $where);
         }
-        $sql .= ' GROUP BY k.`id` ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
+        $sql .= '  ORDER BY k.`key` ASC LIMIT ' . $offset . ', ' . $nrOfRecords;
 
         $hits = $this->_dbo->query($sql, Msd_Db::ARRAY_ASSOC);
 
